@@ -160,7 +160,7 @@ class Frontend_Toolbar {
 						'href'   => admin_url( 'admin.php?page=' . Dashboard::TYPE ),
 					)
 				);
-				$site_url = get_site_url();
+				$site_url     = get_site_url();
 				$active_theme = get_option( 'stylesheet' );
 				if ( ! defined( 'GUTENVERSE_PRO' ) ) {
 					$admin_bar->add_menu(
@@ -184,22 +184,35 @@ class Frontend_Toolbar {
 	 * Setting Toolbar.
 	 *
 	 * @param \WP_Admin_Bar $admin_bar Admin Bar Instance.
-	 * @param string        $parent Parent.
+	 * @param string        $root Parent.
 	 */
-	public function setting_toolbar( $admin_bar, $parent = 'gutenverse' ) {
+	public function setting_toolbar( $admin_bar, $root = 'gutenverse' ) {
+		$show_theme_list = apply_filters( 'gutenverse_show_theme_list', true );
+
 		$admin_bar->add_menu(
 			array(
 				'id'     => 'dashboard',
-				'parent' => $parent,
+				'parent' => $root,
 				'title'  => esc_html__( 'Dashboard', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=' . Dashboard::TYPE ),
 			)
 		);
 
+		if ( $show_theme_list ) {
+			$admin_bar->add_menu(
+				array(
+					'id'     => 'theme-list',
+					'parent' => $root,
+					'title'  => esc_html__( 'Theme List', '--gctd--' ),
+					'href'   => admin_url( 'admin.php?page=gutenverse&path=theme-list' ),
+				)
+			);
+		}
+
 		$admin_bar->add_menu(
 			array(
 				'id'     => 'block-list',
-				'parent' => $parent,
+				'parent' => $root,
 				'title'  => esc_html__( 'Block List', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=gutenverse&path=block-list' ),
 			)
@@ -208,7 +221,7 @@ class Frontend_Toolbar {
 		$admin_bar->add_menu(
 			array(
 				'id'     => 'settings',
-				'parent' => $parent,
+				'parent' => $root,
 				'title'  => esc_html__( 'Settings', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=gutenverse&path=settings' ),
 			)
@@ -217,7 +230,7 @@ class Frontend_Toolbar {
 		$admin_bar->add_menu(
 			array(
 				'id'     => 'system',
-				'parent' => $parent,
+				'parent' => $root,
 				'title'  => esc_html__( 'System Status', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=gutenverse&path=system' ),
 			)
@@ -226,7 +239,7 @@ class Frontend_Toolbar {
 		$admin_bar->add_menu(
 			array(
 				'id'     => 'update-notice',
-				'parent' => $parent,
+				'parent' => $root,
 				'title'  => esc_html__( 'Update Notice', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=gutenverse&path=update-notice' ),
 			)
@@ -296,7 +309,7 @@ class Frontend_Toolbar {
 			)
 		);
 
-		do_action( 'gutenverse_setting_toolbar', $admin_bar, $parent );
+		do_action( 'gutenverse_setting_toolbar', $admin_bar, $root );
 	}
 
 	/**

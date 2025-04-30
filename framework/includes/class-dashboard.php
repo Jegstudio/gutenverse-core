@@ -184,6 +184,7 @@ class Dashboard {
 		$config['requireProUpdate'] = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
 		$config['eventBanner']      = gutenverse_get_event_banner();
 		$config['activeTheme']      = get_option( 'stylesheet' );
+		$config['showThemeList']    = apply_filters( 'gutenverse_show_theme_list', true );
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
@@ -339,7 +340,7 @@ class Dashboard {
 	 * Child Menu
 	 */
 	public function child_menu() {
-		$path = admin_url( 'admin.php?page=gutenverse&path=' );
+		$path            = admin_url( 'admin.php?page=gutenverse&path=' );
 		$show_theme_list = apply_filters( 'gutenverse_show_theme_list', true );
 
 		add_submenu_page(
@@ -361,6 +362,18 @@ class Dashboard {
 			null,
 			1
 		);
+
+		if ( $show_theme_list ) {
+			add_submenu_page(
+				self::TYPE,
+				esc_html__( 'Theme List', '--gctd--' ),
+				esc_html__( 'Theme List', '--gctd--' ),
+				'manage_options',
+				$path . 'theme-list',
+				null,
+				2
+			);
+		}
 
 		add_submenu_page(
 			self::TYPE,
@@ -401,7 +414,7 @@ class Dashboard {
 			null,
 			100
 		);
-		
+
 		if ( ! defined( 'GUTENVERSE_PRO' ) ) {
 			add_submenu_page(
 				self::TYPE,

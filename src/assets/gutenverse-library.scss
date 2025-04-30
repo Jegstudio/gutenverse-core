@@ -1317,7 +1317,113 @@ $border: #eaeaea;
 
         .plugin-install-mode {
             z-index: 999;
-        }        
+        }
+
+        .single-install-themes {
+            padding: 20px 25px;
+            margin: 20px 0 30px 0;
+            border-radius: 5px;
+            background: linear-gradient(180deg, #383fff 0%, #3b57f7 100%);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+
+            h3 {
+                font-family: Roboto, serif;
+                font-size: 14px;
+                font-weight: 500;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.46;
+                letter-spacing: normal;
+                text-align: left;
+                color: #fff;
+                margin-top: 0 !important;
+                margin-bottom: 10px !important;
+            }
+
+            p {
+                position: relative;
+                z-index: 2;
+                max-width: 70%;
+                font-family: Roboto, serif;
+                font-size: 12px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.4;
+                letter-spacing: normal;
+                text-align: left;
+                color: #fff;
+            }
+
+            a {
+                padding-top: 10px;
+                display: block;
+                font-family: Roboto, serif;
+                font-size: 10px;
+                font-weight: 500;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                text-align: left;
+                color: #ffc700;
+            }
+
+            svg {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                z-index: 0;
+            }
+
+            &.active {
+                background-image: linear-gradient(to bottom, #383fff, #5e81f4);
+
+                >* {
+                    font-family: 'Roboto', serif;
+                    max-width: 70%;
+                }
+
+                h3 {
+                    font-size: 14px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.46;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #fff;
+                }
+
+                p {
+                    font-size: 12px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.4;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #fff;
+                }
+
+                a {
+                    font-size: 10px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #ffc700;
+                }
+
+                svg {
+                    opacity: 0.9;
+                }
+            }
+        }
 
         .single-layout-list {
             margin-top: 17px;
@@ -1531,6 +1637,10 @@ $border: #eaeaea;
             &::-webkit-scrollbar-thumb {
                 background-color: rgba(0, 0, 0, 0.3);
                 border-radius: 4px;
+            }
+
+            .guten-hide-desktop {
+                display: none;
             }
         }
     }

@@ -16,23 +16,24 @@ const loadGutenverseDashboard = () => {
     const EventBanner = () => {
         return <>
             {
-                ( eventData && today <= expired ) && <div className="event-banner-wrapper">
+                (eventData && today <= expired) && <div className="event-banner-wrapper">
                     <a href={eventData?.url} target="_blank" rel="noreferrer" >
-                        <img src={eventData?.banner} alt="event-banner"/>
+                        <img src={eventData?.banner} alt="event-banner" />
                     </a>
                 </div>
             }
-        </>
-    }
+        </>;
+    };
+
     if (dashboardDiv) {
         render(
             <Routing>
                 {(props) => {
                     return <>
-                        <Navigation {...props}/>
-                        <EventBanner/>
-                        <ProUpdateNotice/>
-                        <Content {...props}/>
+                        <Navigation {...props} />
+                        <EventBanner />
+                        <ProUpdateNotice />
+                        <Content {...props} />
                     </>;
                 }}
             </Routing>,
