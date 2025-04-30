@@ -18,12 +18,6 @@ const EditorModePlugin = () => {
     const { setRenderingMode } = useDispatch(editorStore);
 
     useEffect(() => {
-        getEditSiteHeader().then(result => {
-            setInjectLocation(result);
-        });
-    });
-
-    useEffect(() => {
         if (renderingMode === '_return' || currentPostType === '_return') {
             setCompatible(false);
         }
@@ -47,9 +41,9 @@ const EditorModePlugin = () => {
             </div>
         </ToolbarButton>
     );
-
+    
     return <>
-        {compatible && injectLocation && ['post', 'page'].includes(currentPostType) && createPortal(editorModeButton, injectLocation)}
+        {compatible  && ['post', 'page'].includes(currentPostType) && editorModeButton}
     </>;
 }
 
