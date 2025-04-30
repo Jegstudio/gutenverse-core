@@ -38,6 +38,12 @@ const RangeControl = ({
     }, [deviceType]);
 
     useEffect(() => {
+        if (localValue !== value) {
+            setLocalValue(value);
+        }
+    }, [value]);
+
+    useEffect(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false;
             return;

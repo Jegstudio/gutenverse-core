@@ -180,7 +180,7 @@ const ColorControl = (props) => {
 
     useEffect(() => {
         setLocalColor(value);
-    }, [deviceType]);
+    }, [value, deviceType]);
 
     const id = useInstanceId(ColorControl, 'inspector-color-control');
 

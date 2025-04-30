@@ -32,7 +32,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'unitPoint',
         'id': 'displayWidth',
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .block-editor-inner-blocks .block-editor-block-list__layout  .${elementId}.guten-element.guten-wrap-helper`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element.guten-wrap-helper`,
         'properties': [
             {
                 'name': 'width',
@@ -46,7 +46,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'unitPoint',
         'id': 'displayHeight',
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .block-editor-inner-blocks .block-editor-block-list__layout  .${elementId}.guten-element.guten-wrap-helper`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element.guten-wrap-helper`,
         'properties': [
             {
                 'name': 'height',

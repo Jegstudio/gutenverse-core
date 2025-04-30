@@ -284,7 +284,7 @@ const LayoutSingleItem = ({ item, showSingleLayout }) => {
     const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100 ;
     const minHeight = paddingBottom === 0 ? '44px' : 'unset';
     const [isLoaded, setIsLoaded] = useState(false);
-    return <div className="library-item" key={item.id}>
+    return <div className="library-item layout" key={item.id}>
         <div className="library-item-content">
             <div className="library-item-holder" style={{
                 paddingBottom: `${paddingBottom}%`, minHeight: {minHeight}, background: isLoaded ? 'white' : '' , zIndex: isLoaded ? '5' : ''
@@ -293,8 +293,6 @@ const LayoutSingleItem = ({ item, showSingleLayout }) => {
                 <img src={item.cover[0]} onLoad={() => setIsLoaded(true)}/>
             </div>
         </div>
-        
-        <div className="library-item-divider" />
         <div className="library-item-detail">
             <div className="library-item-wrapper">
                 <h2 onClick={() => showSingleLayout(item.id)}>
