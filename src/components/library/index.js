@@ -8,6 +8,7 @@ import { fetchLibraryData } from 'gutenverse-core/requests';
 import { getEditSiteHeader, signal } from 'gutenverse-core/editor-helper';
 import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
+import EditorModePlugin from '../editor-mode/editor-mode';
 
 const initLibraryState = {
     active: 'layout',
@@ -132,10 +133,13 @@ const Library = (props) => {
         setLibraryError={setLibraryError}
     />;
 
+    const editorModeButton = <EditorModePlugin />;
+
     return <>
         <EscListener execute={() => setVisibility(false)} />
         {createPortal(libraryModal, document.getElementById('gutenverse-root'))}
         {injectLocation && createPortal(libraryButton, injectLocation)}
+        {editorModeButton}
         {libraryError !== false && createPortal(libraryError, document.getElementById('gutenverse-error'))}
     </>;
 };
