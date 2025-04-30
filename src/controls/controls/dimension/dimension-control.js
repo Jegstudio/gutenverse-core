@@ -122,12 +122,10 @@ const DimensionControl = (props) => {
         if (isEmpty(unit)) {
             const firstUnit = Object.keys(units)[0];
             setActiveUnit(firstUnit);
-
-            onChange({...value, unit: firstUnit});
         } else {
             setActiveUnit(unit);
         }
-    }, [unit]);
+    }, []);
 
     const changeDimension = (pos, point) => {
         onChange({
