@@ -70,7 +70,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
         ]
     });
 
-    isNotEmpty(attributes['typeDivider']) && data.push({
+    isNotEmpty(attributes['typeDivider']) && isNotEmpty(attributes['isDivider']) && data.push({
         'type': 'plain',
         'id': 'typeDivider',
         'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
