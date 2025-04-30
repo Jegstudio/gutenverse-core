@@ -6,6 +6,7 @@ import { useInstanceId } from '@wordpress/compose';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
+import RangeControl from '../range/range-control';
 
 const ColorPicker = ({ onSelect, ...rest }) => {
     return <ChromePicker
@@ -20,42 +21,6 @@ const ColorPicker = ({ onSelect, ...rest }) => {
             onSelect(`rgba(${r}, ${g}, ${b}, ${a})`, a);
         }}
     />;
-};
-
-const RangeControl = ({
-    label,
-    min = 0,
-    max = 100,
-    step = 1,
-    value = 0,
-    onChange = () => { },
-}) => {
-    const [internalValue, setInternalValue] = useState(value);
-
-    useEffect(() => {
-        setInternalValue(value);
-    }, [value]);
-
-    const handleChange = (e) => {
-        const newValue = parseFloat(e.target.value);
-        setInternalValue(newValue);
-        onChange(newValue);
-    };
-
-    return (
-        <div className={'control-body'}>
-            {label && <label>{label}</label>}
-            <input
-                type={'range'}
-                min={min}
-                max={max}
-                step={step}
-                value={internalValue}
-                onChange={handleChange}
-            />
-            <span>{internalValue}%</span>
-        </div>
-    );
 };
 
 const GradientControl = (props) => {
@@ -163,8 +128,9 @@ const GradientControl = (props) => {
                 max={100}
                 step={1}
                 value={location}
-                onChange={(val) => setLocation(val)}
                 unit={'%'}
+                onValueChange={(value) => setLocation(parseFloat(value))}
+                onLocalChange={() => {}}
             />}
         </div>
     </div>;
