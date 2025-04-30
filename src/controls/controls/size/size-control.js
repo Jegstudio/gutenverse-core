@@ -6,6 +6,7 @@ import { withDeviceControl } from 'gutenverse-core/hoc';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { debounce, isEmpty } from 'lodash';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { isNotEmpty } from 'gutenverse-core/helper';
 
 const UnitControl = ({ units, activeUnit, changeUnit }) => {
     const wrapperRef = useRef(null);
@@ -104,7 +105,19 @@ const SizeControl = (props) => {
         defaultUnit = '',
     } = props;
 
-    const [localValue, setLocalValue] = useState(value);
+    const generateValue = (value) => {
+        if (isNotEmpty(value.unit)) {
+            return value;
+        }
+        if (defaultUnit == '') {
+            value.unit = Object.keys(units)[0];
+            return value;
+        }
+        value.unit = defaultUnit;
+        return value;
+    };
+
+    const [localValue, setLocalValue] = useState(generateValue(value));
     const id = useInstanceId(SizeControl, 'inspector-size-control');
     const isFirstRender = useRef(true);
 
@@ -113,13 +126,6 @@ const SizeControl = (props) => {
             ...localValue,
             [id]: value
         });
-    };
-
-    const getDefaultUnit = () => {
-        if (defaultUnit == '') {
-            return Object.keys(units)[0];
-        }
-        return defaultUnit;
     };
 
     const deviceType = getDeviceType();
@@ -180,7 +186,7 @@ const SizeControl = (props) => {
                     onChange={(e) => handleOnChange('point', e.target.value)}
                 />
                 <UnitControl
-                    activeUnit={localValue.unit?? getDefaultUnit()}
+                    activeUnit={localValue.unit}
                     units={units}
                     changeUnit={(value) => handleOnChange('unit', value)}
                 />
