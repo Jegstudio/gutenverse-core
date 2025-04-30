@@ -25,18 +25,21 @@ const panelLogosStyle = (elementId, attributes, data) => {
 
     isNotEmpty(attributes['imageFixHeight']) && isNotEmpty(attributes['imageHeight']) && data.push({
         'type': 'plain',
-        'id': 'imageFixHeight',
+        'id': 'imageHeight',
+        'responsive': true,
         'properties': [
             {
-                'name': 'object-fit',
-                'valueType': 'direct',
+                'name': 'height',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
             }
         ],
-        'responsive' : true,
         'selector': `.${elementId}.guten-client-logo .swiper-container .content-image img`,
-        'multiAttr' : {
-            'imageFit' : attributes['imageFit']
-        }
     });
 
     isNotEmpty(attributes['imageMargin']) && data.push({

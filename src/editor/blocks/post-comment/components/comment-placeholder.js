@@ -107,7 +107,7 @@ const CommentPlaceholder = (props) => {
                         <label htmlFor="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label>
                     </p>
                     <p className="form-submit wp-block-button">
-                        <input name="submit" type="submit" id="submit" defaultValue="Post Comment" />
+                        <input name="submit" type="submit" id="submit" value="Post Comment" />
                         <input type="hidden" name="comment_post_ID" defaultValue="1" id="comment_post_ID" />
                         <input type="hidden" name="comment_parent" id="comment_parent" defaultValue="0" />
                     </p>

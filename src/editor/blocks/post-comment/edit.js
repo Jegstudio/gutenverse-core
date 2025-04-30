@@ -72,7 +72,7 @@ const PostCommentBlock = compose(
         </InspectorControls>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
-            <CommentPlaceholder 
+            <CommentPlaceholder
                 showForm={showForm}
                 suffixMain={suffixMain}
                 enableSuffix={enableSuffix}
