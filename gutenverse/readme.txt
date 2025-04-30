@@ -311,6 +311,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix icon box gradient background issue
 * fix flexible wrapper width and height issue
 * fix restores the previous range control for gradient
+* fix transform switch normal/hover
 
 = 3.0.0 =
 ##### New & Improvements
