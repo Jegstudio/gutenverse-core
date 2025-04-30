@@ -323,21 +323,16 @@ class Gutenverse {
 				if ( isset( $plugins[ $plugin ] ) ) {
 					$form = $plugins[ $plugin ];
 
-					$plugin_name      = '';
-					$required_version = '1.0.0';
+					$plugin_name = '';
 					switch ( $plugin ) {
 						case 'gutenverse-form/gutenverse-form.php':
-							$required_version = '2.0.0';
-							$plugin_name      = 'Gutenverse Form';
-
+							$plugin_name = 'Gutenverse Form';
 							break;
 						case 'gutenverse-news/gutenverse-news.php':
-							$required_version = '1.0.0';
-							$plugin_name      = 'Gutenverse News';
+							$plugin_name = 'Gutenverse News';
 							break;
 						case 'gutenverse-pro/gutenverse-pro.php':
-							$required_version = '2.0.0';
-							$plugin_name      = 'Gutenverse Pro';
+							$plugin_name = 'Gutenverse Pro';
 							break;
 					}
 
@@ -355,21 +350,6 @@ class Gutenverse {
 							}
 						);
 						return false;
-					}
-
-					if ( version_compare( $form['Version'], $required_version, '<' ) && is_plugin_active( $plugin ) ) {
-						add_action(
-							'admin_notices',
-							function () use ( $instance, $plugin_name, $required_version ) {
-								// translators: %s is plugin name.
-								$notice_header = 'Update %s Plugin!';
-								// translators: %s is plugin name.
-								$notice_description = "We notice that you haven't update %s plugin to version {$required_version} or above but, currently using Gutenverse version 3.0.0 or above.";
-								$notice_action      = 'You might see issue on the Editor. ';
-								$notice_action_2    = 'to ensure smooth editing experience!';
-								$instance->plugin_update_notice( $plugin_name, $notice_header, $notice_description, $notice_action, $notice_action_2 );
-							}
-						);
 					}
 				}
 			}
@@ -406,6 +386,59 @@ class Gutenverse {
 	 * Framework Loaded
 	 */
 	public function framework_loaded() {
+
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		$plugins = \get_plugins();
+		$checks  = array(
+			'gutenverse-form/gutenverse-form.php',
+			'gutenverse-news/gutenverse-news.php',
+			'gutenverse-pro/gutenverse-pro.php',
+		);
+
+		$instance = $this;
+
+		foreach ( $checks as $plugin ) {
+			if ( isset( $plugins[ $plugin ] ) ) {
+				$form = $plugins[ $plugin ];
+
+				$plugin_name      = '';
+				$required_version = '1.0.0';
+				switch ( $plugin ) {
+					case 'gutenverse-form/gutenverse-form.php':
+						$required_version = '2.0.0';
+						$plugin_name      = 'Gutenverse Form';
+
+						break;
+					case 'gutenverse-news/gutenverse-news.php':
+						$required_version = '1.0.0';
+						$plugin_name      = 'Gutenverse News';
+						break;
+					case 'gutenverse-pro/gutenverse-pro.php':
+						$required_version = '2.0.0';
+						$plugin_name      = 'Gutenverse Pro';
+						break;
+				}
+
+				if ( version_compare( $form['Version'], $required_version, '<' ) && is_plugin_active( $plugin ) ) {
+					add_action(
+						'admin_notices',
+						function () use ( $instance, $plugin_name, $required_version ) {
+							// translators: %s is plugin name.
+							$notice_header = 'Update %s Plugin!';
+							// translators: %s is plugin name.
+							$notice_description = "We notice that you haven't update %s plugin to version {$required_version} or above but, currently using Gutenverse version 3.0.0 or above.";
+							$notice_action      = 'You might see issue on the Editor. ';
+							$notice_action_2    = 'to ensure smooth editing experience!';
+							$instance->plugin_update_notice( $plugin_name, $notice_header, $notice_description, $notice_action, $notice_action_2 );
+						}
+					);
+				}
+			}
+		}
+
 		$this->load_textdomain();
 		$this->init_instance();
 		$this->init_post_type();
