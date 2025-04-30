@@ -1,15 +1,14 @@
 import { registerPlugin } from '@wordpress/plugins';
-import { useSelect } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
 import GutenverseLibrary from '.';
+import { useState } from '@wordpress/element';
+import { v4 } from 'uuid';
+import { useUrlChange } from 'gutenverse-core/editor-helper';
 
 const gutenverseLibraryPlugin = registerPlugin('gutenverse-library', {
     render: () => {
-        const screen = useSelect((select) => {
-            return select(editorStore).getCurrentPostType();
-        }, []);
-
-        return <GutenverseLibrary screen={screen} />;
+        const [uuid, setUuid] = useState(v4());
+        useUrlChange(() => setUuid(v4()));
+        return <GutenverseLibrary uuid={uuid} />;
     },
 });
 

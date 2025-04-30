@@ -8,6 +8,7 @@ import { fetchLibraryData } from 'gutenverse-core/requests';
 import { getEditSiteHeader, signal } from 'gutenverse-core/editor-helper';
 import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
+import EditorModePlugin from '../editor-mode/editor-mode';
 
 const initLibraryState = {
     active: 'layout',
@@ -39,7 +40,8 @@ const initLayoutState = {
     library: 'layout',
 };
 
-const Library = () => {
+const Library = (props) => {
+    const { uuid } = props;
     const [open, setOpen] = useState(false);
     const [visible, setVisibility] = useState(true);
     const [injectLocation, setInjectLocation] = useState(null);
@@ -61,29 +63,36 @@ const Library = () => {
 
     const libraryButton = (
         <div className="gutenverse-top-button">
-            <div className="gutenverse-library-button" id={'gutenverse-library-button'} onClick={() => {
-                setOpen(true);
-                setVisibility(true);
-            }}>
-                {loading && open ? <div style={{ marginRight: '10px' }}>
-                    <div className="rotating" style={{ display: 'flex' }}>
-                        <Loader size={20} />
-                    </div>
-                </div> : <div style={{ marginRight: '7px', display: 'flex' }}>
-                    <LogoFullWhiteNoTextSVG />
-                </div>}
-                <span>
-                    {loading && open ? __('Updating ...', '--gctd--') : __('Gutenverse Library', '--gctd--')}
-                </span>
-            </div>
+                <div className="gutenverse-library-button" id={'gutenverse-library-button'} onClick={() => {
+                    setOpen(true);
+                    setVisibility(true);
+                }}>
+                    {loading && open ? <div style={{ marginRight: '10px' }}>
+                        <div className="rotating" style={{ display: 'flex' }}>
+                            <Loader size={20} />
+                        </div>
+                    </div> : <div style={{ marginRight: '7px', display: 'flex' }}>
+                        <LogoFullWhiteNoTextSVG />
+                    </div>}
+                    <span>
+                        {loading && open ? __('Updating ...', '--gctd--') : __('Gutenverse Library', '--gctd--')}
+                    </span>
+                </div>
         </div>
     );
+
+    const lockModeButton = <EditorModePlugin />
+
+    const navButtonWrapper = <>
+        {libraryButton}
+        {lockModeButton}
+    </>;
 
     useEffect(() => {
         getEditSiteHeader().then(result => {
             setInjectLocation(result);
         });
-    });
+    }, uuid);
 
     // Init store.
     useEffect(() => {
@@ -134,7 +143,7 @@ const Library = () => {
     return <>
         <EscListener execute={() => setVisibility(false)} />
         {createPortal(libraryModal, document.getElementById('gutenverse-root'))}
-        {injectLocation && createPortal(libraryButton, injectLocation)}
+        {injectLocation && createPortal(navButtonWrapper, injectLocation)}
         {libraryError !== false && createPortal(libraryError, document.getElementById('gutenverse-error'))}
     </>;
 };
