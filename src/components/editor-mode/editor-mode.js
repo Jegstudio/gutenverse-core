@@ -1,13 +1,11 @@
 import { useEffect, useState, createPortal } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
-import { getEditSiteHeader } from 'gutenverse-core/editor-helper';
 import { ToolbarButton } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 const EditorModePlugin = () => {
     const [compatible, setCompatible] = useState(true);
-    const [injectLocation, setInjectLocation] = useState(null);
     const { renderingMode, currentPostType } = useSelect((select) => {
         return {
             renderingMode: select(editorStore).getRenderingMode ? select(editorStore).getRenderingMode() : '_return',
@@ -41,7 +39,7 @@ const EditorModePlugin = () => {
             </div>
         </ToolbarButton>
     );
-    
+
     return <>
         {compatible  && ['post', 'page'].includes(currentPostType) && editorModeButton}
     </>;

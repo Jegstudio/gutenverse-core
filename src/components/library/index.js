@@ -61,8 +61,8 @@ const Library = (props) => {
         };
     });
 
-    const navButtonWrapper = <>
-            <div className="gutenverse-top-button">
+    const libraryButton = (
+        <div className="gutenverse-top-button">
                 <div className="gutenverse-library-button" id={'gutenverse-library-button'} onClick={() => {
                     setOpen(true);
                     setVisibility(true);
@@ -79,7 +79,13 @@ const Library = (props) => {
                     </span>
                 </div>
         </div>
-        <EditorModePlugin />
+    );
+
+    const lockModeButton = <EditorModePlugin />
+
+    const navButtonWrapper = <>
+        {libraryButton}
+        {lockModeButton}
     </>;
 
     useEffect(() => {
