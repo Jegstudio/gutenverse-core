@@ -306,12 +306,21 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix social icons vertical align in editor
 * fix responsive style in editor - some block back to default style
 * fix search block error when input width only set on one device type
-* fix icon-box that have class guten-data make the style broken
+* fix icon box that have class guten-data make the style broken
 * fix library section preview when theres block hides on desktop
+* fix border control UI
+* fix save state issue
 * fix icon box gradient background issue
 * fix flexible wrapper width and height issue
 * fix restores the previous range control for gradient
 * fix transform switch normal/hover
+* fix transform reset button
+* fix border color issue
+* fix issue library button disappear in editor
+* fix post term width in backend
+* fix library layout thumbnail height
+* fix post comment button
+* fix logo slider when setting height
 
 = 3.0.0 =
 ##### New & Improvements
