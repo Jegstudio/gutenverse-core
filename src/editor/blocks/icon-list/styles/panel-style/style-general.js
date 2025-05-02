@@ -230,35 +230,51 @@ const panelGeneralStyle = (elementId, attributes, data) => {
         'selector': `.${elementId} > .list-wrapper.inline-icon-list > li.guten-icon-list-item:not(li:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId} > .list-wrapper.inline-icon-list > li.guten-icon-list-item:not(li:first-of-type) > a`,
     });
 
-    isNotEmpty(attributes['alignList']) && data.push({
-        'type': 'plain',
-        'id': 'alignList',
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'align-items',
-                'valueType': 'direct',
-            },
-        ],
-        'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list)`,
-    });
+    if (isNotEmpty(attributes['alignList'])) {
 
-    isNotEmpty(attributes['alignList']) && data.push({
-        'type': 'plain',
-        'id': 'alignList',
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'justify-content',
-                'valueType': 'direct',
-            },
-            {
-                'name': 'text-align',
-                'valueType': 'direct',
-            }
-        ],
-        'selector': `.${elementId} > .list-wrapper.inline-icon-list, .${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item > a`,
-    });
+        data.push({
+            'type': 'plain',
+            'id': 'alignList',
+            'responsive': true,
+            'properties': [
+                {
+                    'name': 'align-items',
+                    'valueType': 'direct',
+                },
+            ],
+            'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list)`,
+        });
+
+        data.push({
+            'type': 'plain',
+            'id': 'alignList',
+            'responsive': true,
+            'properties': [
+                {
+                    'name': 'justify-content',
+                    'valueType': 'direct',
+                },
+                {
+                    'name': 'text-align',
+                    'valueType': 'direct',
+                }
+            ],
+            'selector': `.${elementId} > .list-wrapper.inline-icon-list, .${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item > a`,
+        });
+
+        data.push({
+            'type': 'plain',
+            'id': 'alignList',
+            'responsive': true,
+            'properties': [
+                {
+                    'name': 'justify-self',
+                    'valueType': 'direct',
+                },
+            ],
+            'selector': `.${elementId} > .list-wrapper.inline-icon-list, .${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item > .list-divider`,
+        });
+    }
 
     if (attributes['displayInline']) {
         isNotEmpty(attributes['verticalAlign']) && data.push({
