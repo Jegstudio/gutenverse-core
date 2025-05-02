@@ -42,6 +42,19 @@ const panelLogosStyle = (elementId, attributes, data) => {
         'selector': `.${elementId}.guten-client-logo .swiper-container .content-image img`,
     });
 
+    isNotEmpty(attributes['imageFixHeight']) && isNotEmpty(attributes['imageFit']) && data.push({
+        'type': 'plain',
+        'id': 'imageFit',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'object-fit',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId}.guten-client-logo .swiper-container .content-image img`,
+    });
+
     isNotEmpty(attributes['imageMargin']) && data.push({
         'type': 'dimension',
         'id': 'imageMargin',

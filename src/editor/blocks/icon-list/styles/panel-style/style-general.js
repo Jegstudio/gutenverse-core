@@ -27,6 +27,24 @@ const panelGeneralStyle = (elementId, attributes, data) => {
         'selector': `.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
     });
 
+    isNotEmpty(attributes['isDivider']) && attributes['displayInline'] && data.push({
+        'type': 'plain',
+        'id': 'isDivider',
+        'selector': `.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item`,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': 'fit-content'
+            },
+            {
+                'name': 'display',
+                'valueType': 'pattern',
+                'pattern': 'inline-block',
+            }
+        ],
+    });
+
     isNotEmpty(attributes['colorDivider']) && data.push({
         'type': 'color',
         'id': 'colorDivider',

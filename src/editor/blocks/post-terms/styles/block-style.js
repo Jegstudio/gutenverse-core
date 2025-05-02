@@ -91,14 +91,9 @@ const getBlockStyle = (elementId, attributes) => {
             },
             {
                 'name': 'display',
-                'valueType': 'pattern',
-                'pattern': 'flex',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct',
-                    },
-                }
-            }
+                'valueType': 'static',
+                'staticValue': 'flex',
+            },
         ],
         'responsive': true,
     });
