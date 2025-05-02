@@ -27,9 +27,9 @@ const panelGeneralStyle = (elementId, attributes, data) => {
         'selector': `.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
     });
 
-    isNotEmpty(attributes['isDivider']) && attributes['displayInline'] && data.push({
+    isNotEmpty(attributes['displayInline']) && data.push({
         'type': 'plain',
-        'id': 'isDivider',
+        'id': 'displayInline',
         'selector': `.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item`,
         'properties': [
             {
