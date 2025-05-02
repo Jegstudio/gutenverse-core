@@ -37,11 +37,6 @@ const panelGeneralStyle = (elementId, attributes, data) => {
                 'valueType': 'pattern',
                 'pattern': 'fit-content'
             },
-            {
-                'name': 'display',
-                'valueType': 'pattern',
-                'pattern': 'inline-block',
-            }
         ],
     });
 
