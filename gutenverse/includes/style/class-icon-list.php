@@ -133,6 +133,17 @@ class Icon_List extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:not(.inline-icon-list) > .guten-icon-list-item > a, .{$this->element_id} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item > .list-divider",
+					'property'       => function ( $value ) {
+						return "justify-self: {$value};";
+					},
+					'value'          => $this->attrs['alignList'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconColor'] ) ) {
