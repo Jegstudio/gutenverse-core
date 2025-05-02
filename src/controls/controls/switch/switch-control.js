@@ -22,7 +22,7 @@ const SwitchControl = ({
     return <div id={idElement} className={'gutenverse-control-wrapper gutenverse-control-hover'}>
         <div className={'control-body'}>
             {options.map((item, index) => {
-                const checked = active ? active === item.value : (values.switcher[id] ? values.switcher[id] === item.value : index === 0);
+                const checked = active ? active === item.value : (values?.switcher?.[id] ? values.switcher[id] === item.value : index === 0);
 
                 return <label key={index} htmlFor={`${idElement}-${item.value}`}>
                     <input
