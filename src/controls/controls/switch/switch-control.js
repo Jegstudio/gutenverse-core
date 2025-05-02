@@ -7,6 +7,7 @@ const SwitchControl = ({
     options,
     onChange,
     description = '',
+    values,
 }) => {
     const idElement = useInstanceId(SwitchControl, 'inspector-hover-control');
     const [active, setActive] = useState(null);
@@ -15,12 +16,13 @@ const SwitchControl = ({
         setActive(value);
 
         onChange ? onChange({ [id]: value }) : null;
+        values?.setSwitcher ? values.setSwitcher(prevValue => ({ ...prevValue, [id]: value })) : null;
     };
 
     return <div id={idElement} className={'gutenverse-control-wrapper gutenverse-control-hover'}>
         <div className={'control-body'}>
             {options.map((item, index) => {
-                const checked = active ? active === item.value : index === 0;
+                const checked = active ? active === item.value : (values.switcher[id] ? values.switcher[id] === item.value : index === 0);
 
                 return <label key={index} htmlFor={`${idElement}-${item.value}`}>
                     <input
