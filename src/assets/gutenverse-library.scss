@@ -223,14 +223,25 @@ $border: #eaeaea;
             }
 
             .library-item {
-                padding: 8px;
                 margin: 10px;
                 background: #fff;
                 border-radius: 5px;
                 border: 1px solid #f0f0f3;
                 position: relative;
 
+
+                &.layout {
+                    .library-item-content {
+                        max-height: 270px;
+                    }
+
+                    .library-item-detail {
+                        border-top: 1px solid #e3e4e6;
+                    }
+                }
+
                 .library-item-content {
+                    margin: 8px;
                     background-color: #e3e4e6;
                     border-radius: 5px 5px 0 0;
                     overflow: hidden;
@@ -254,14 +265,8 @@ $border: #eaeaea;
                     }
                 }
 
-                .library-item-divider {
-                    height: 1px;
-                    background-color: #e3e4e6;
-                    width: calc(100% + 16px);
-                    margin-left: -8px;
-                }
-
                 .library-item-loader {
+                    padding: 8px;
                     display: flex;
                     position: absolute;
                     top: 50%;
@@ -310,12 +315,17 @@ $border: #eaeaea;
                     }
                 }
 
+                .library-item-bottom {
+                    padding: 10px;
+                    border-top: 1px solid #e3e4e6;
+                }
+
                 .library-item-detail {
                     display: flex;
                     font-family: "Heebo", serif;
                     font-size: 12px;
                     align-items: center;
-                    padding: 10px 10px 2px;
+                    padding: 10px;
                     justify-content: space-between;
 
                     h2 {
@@ -346,7 +356,6 @@ $border: #eaeaea;
                 .library-item-wrapper {
                     display: flex;
                     justify-content: space-between;
-                    padding: 10px 10px 2px;
 
                     span.by {
                         color: #797979;
