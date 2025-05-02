@@ -63,25 +63,25 @@ const Library = (props) => {
 
     const libraryButton = (
         <div className="gutenverse-top-button">
-                <div className="gutenverse-library-button" id={'gutenverse-library-button'} onClick={() => {
-                    setOpen(true);
-                    setVisibility(true);
-                }}>
-                    {loading && open ? <div style={{ marginRight: '10px' }}>
-                        <div className="rotating" style={{ display: 'flex' }}>
-                            <Loader size={20} />
-                        </div>
-                    </div> : <div style={{ marginRight: '7px', display: 'flex' }}>
-                        <LogoFullWhiteNoTextSVG />
-                    </div>}
-                    <span>
-                        {loading && open ? __('Updating ...', '--gctd--') : __('Gutenverse Library', '--gctd--')}
-                    </span>
-                </div>
+            <div className="gutenverse-library-button" id={'gutenverse-library-button'} onClick={() => {
+                setOpen(true);
+                setVisibility(true);
+            }}>
+                {loading && open ? <div style={{ marginRight: '10px' }}>
+                    <div className="rotating" style={{ display: 'flex' }}>
+                        <Loader size={20} />
+                    </div>
+                </div> : <div style={{ marginRight: '7px', display: 'flex' }}>
+                    <LogoFullWhiteNoTextSVG />
+                </div>}
+                <span>
+                    {loading && open ? __('Updating ...', '--gctd--') : __('Gutenverse Library', '--gctd--')}
+                </span>
+            </div>
         </div>
     );
 
-    const lockModeButton = <EditorModePlugin />
+    const lockModeButton = <EditorModePlugin />;
 
     const navButtonWrapper = <>
         {libraryButton}
