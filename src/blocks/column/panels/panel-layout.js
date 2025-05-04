@@ -17,6 +17,9 @@ export const layoutPanel = ({ elementId, forceColumnHundred }) => {
             label: __('Force Column 100%', '--gctd--'),
             description: __('This will force the column width to be 100%.', '--gctd--'),
             allowDeviceControl: true,
+            deviceValues: forceColumnHundred,
+            usePreviousDeviceValue: true,
+            usePreviousDevice: true,
             component: CheckboxControl,
         },
         {
