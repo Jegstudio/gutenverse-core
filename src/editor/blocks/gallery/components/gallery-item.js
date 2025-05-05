@@ -39,13 +39,7 @@ const GalleryItem = (attributes) => {
 
         return arr.map((item, key) => item === 2 ? <li key={key}><i className="fas fa-star"></i></li> : <li key={key}><i className="fas fa-star-half"></i></li>);
     };
-    const imageCondition = () => {
-        if (galleryItem.lazyLoad) {
-            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title} loading="lazy" />;
-        } else {
-            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title} />;
-        }
-    };
+    const imageCondition = () => <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title} {...(galleryItem.lazyLoad ? { loading: 'lazy' } : {})} />;
 
     return layout === 'overlay' ? <div className="grid-item">
         <div className="thumbnail-wrap">

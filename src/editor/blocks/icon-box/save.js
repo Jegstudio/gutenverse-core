@@ -76,13 +76,8 @@ const save = compose(
         `icon-position-${iconPosition}`
     );
 
-    const imageLazyLoad = () => {
-        if (lazyLoad) {
-            return <img src={getImageSrc(image)} alt={imageAltText} loading="lazy" />;
-        } else {
-            return <img src={getImageSrc(image)} alt={imageAltText} />;
-        }
-    };
+    const imageLazyLoad = () => <img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />;
+
     const iconContent = () => {
         switch (iconType) {
             case 'icon':

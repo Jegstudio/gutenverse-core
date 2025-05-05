@@ -63,7 +63,11 @@ const FeatureListBlock = compose(
             case 'image':
                 return <div className="icon-wrapper">
                     <div className="icon">
-                        <img src={getImageSrc(item.image)} alt={item.title} loading={item.lazyLoad} />
+                        <img
+                            src={getImageSrc(item.image)}
+                            alt={item.title}
+                            {...(item.lazyLoad && { loading: 'lazy' })}
+                        />
                     </div>
                 </div>;
             default:
@@ -78,7 +82,7 @@ const FeatureListBlock = compose(
     }, [elementRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} elementRef={elementRef} />
         <div  {...blockProps}>
             <div className="feature-list-wrapper">

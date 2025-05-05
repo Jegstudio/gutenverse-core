@@ -45,11 +45,7 @@ const save = compose(
             case 'image':
                 return <div className="icon-wrapper">
                     <div className="icon">
-                        <img
-                            src={getImageSrc(item.image)}
-                            alt={item.title}
-                            {...(item.lazyLoad && { loading: 'lazy' })}
-                        />
+                        <img src={getImageSrc(item.image)} alt={item.title} loading={item.lazyLoad}/>
                     </div>
                 </div>;
             default:
