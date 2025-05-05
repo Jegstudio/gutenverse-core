@@ -13,6 +13,7 @@ import isEmpty from 'lodash/isEmpty';
 import isObject from 'lodash/isObject';
 import mapValues from 'lodash/mapValues';
 import pickBy from 'lodash/pickBy';
+import { useEffect } from '@wordpress/element';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
@@ -392,16 +393,50 @@ export const getRgbaValue = (colorId) => {
     return rgbaObject;
 };
 
-export const getEditSiteHeader = () => {
-    return new Promise(resolve => {
-        setTimeout(() => {
+export const getEditSiteHeader = (retries = 500, interval = 500) => {
+    return new Promise((resolve, reject) => {
+        const check = (attempt = 0) => {
             let header = document.getElementsByClassName('edit-post-header-toolbar')[0];
             header = header ? header : document.getElementsByClassName('edit-site-header_start')[0];
             header = header ? header : document.getElementsByClassName('edit-site-header-edit-mode__start')[0];
             header = header ? header : document.getElementsByClassName('edit-site-header-edit-mode__center')[0];
             header = header ? header : document.getElementsByClassName('edit-site-header-edit-mode__end')[0];
 
-            resolve(header);
-        }, 1000);
+            if (header) {
+                resolve(header);
+            } else if (attempt < retries) {
+                setTimeout(() => check(attempt + 1), interval);
+            } else {
+                reject(new Error('Header element not found'));
+            }
+        };
+
+        check();
     });
 };
+
+const patchHistoryMethod = (method) => {
+    const original = history[method];
+    return function (...args) {
+        const result = original.apply(this, args);
+        window.dispatchEvent(new Event('urlchange'));
+        return result;
+    };
+};
+
+export const useUrlChange = (callback) => {
+    useEffect(() => {
+        history.pushState = patchHistoryMethod('pushState');
+        history.replaceState = patchHistoryMethod('replaceState');
+
+        const handleChange = () => callback(window.location.href);
+
+        window.addEventListener('popstate', handleChange);
+        window.addEventListener('urlchange', handleChange);
+
+        return () => {
+            window.removeEventListener('popstate', handleChange);
+            window.removeEventListener('urlchange', handleChange);
+        };
+    }, [callback]);
+}

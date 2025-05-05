@@ -190,15 +190,20 @@ export const getWindowId = (elementRef) => {
 };
 
 export const injectStyleTag = (css, theWindow, cssId = 'gutenverse-block-css') => {
-    let cssElement = theWindow.document.getElementById(cssId);
+    let cssElement = theWindow?.document?.getElementById(cssId);
 
     if (!cssElement) {
-        cssElement = theWindow.document.createElement('style');
-        cssElement.id = cssId;
-        theWindow.document.head.appendChild(cssElement);
+        cssElement = theWindow?.document?.createElement('style');
+
+        if (cssElement) {
+            cssElement.id = cssId;
+            theWindow.document.head.appendChild(cssElement);
+        }
     }
 
-    cssElement.innerHTML = css;
+    if (cssElement) {
+        cssElement.innerHTML = css;
+    }
 };
 
 const injectStyleToIFrame = (elementId, theWindow, css, remove = false) => {
@@ -276,50 +281,53 @@ const injectFontToIFrame = (elementId, theWindow, font, remove = false) => {
 
 const injectFontStyle = (theWindow, props) => {
     let { googleArr, customArr, customFontClass, googleFontId, storeName } = props;
-    const iframeDoc = theWindow.document;
-    const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
+    const iframeDoc = theWindow?.document;
+    if (iframeDoc) {
+        const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
 
-    const googleFont = `https://fonts.googleapis.com/css?family=${Object.entries(googleArr)
-        .map(([font, weights]) => `${font.replace(' ', '+')}:wght@${weights.join(',')}`)
-        .join('|')}`;
+        const googleFont = `https://fonts.googleapis.com/css?family=${Object.entries(googleArr)
+            .map(([font, weights]) => `${font.replace(' ', '+')}:wght@${weights.join(',')}`)
+            .join('|')}`;
 
-    let googleTag = iframeDoc.getElementById(googleFontId);
+        let googleTag = iframeDoc.getElementById(googleFontId);
 
-    if (!theWindow[storeName]) {
-        theWindow[storeName] = '';
-    }
-
-    if (!googleTag) {
-        googleTag = document.createElement('link');
-        googleTag.rel = 'stylesheet';
-        googleTag.type = 'text/css';
-        googleTag.id = googleFontId;
-        googleTag.href = googleFont;
-        head.appendChild(googleTag);
-        theWindow[storeName] = googleFont;
-    } else {
-        if (googleFont !== theWindow[storeName]) {
-            googleTag.href = googleFont;
-            theWindow[storeName] = googleFont;
+        if (!theWindow[storeName]) {
+            theWindow[storeName] = '';
         }
-    }
 
-    if (customArr.length > 0) {
-        let customTag = iframeDoc.getElementsByClassName(customFontClass);
-        if (customTag.length > 0) {
-            while (customTag.length > 0) {
-                customTag[0].remove(); // Always remove the first element since the collection updates dynamically
+        if (!googleTag) {
+            googleTag = document.createElement('link');
+            googleTag.rel = 'stylesheet';
+            googleTag.type = 'text/css';
+            googleTag.id = googleFontId;
+            googleTag.href = googleFont;
+            head.appendChild(googleTag);
+            theWindow[storeName] = googleFont;
+        } else {
+            if (googleFont !== theWindow[storeName]) {
+                googleTag.href = googleFont;
+                theWindow[storeName] = googleFont;
             }
         }
-        customArr.forEach(el => {
-            customTag = document.createElement('link');
-            customTag.rel = 'stylesheet';
-            customTag.type = 'text/css';
-            customTag.href = el;
-            customTag.classList.add(customFontClass);
-            head.appendChild(customTag);
-        });
+
+        if (customArr.length > 0) {
+            let customTag = iframeDoc.getElementsByClassName(customFontClass);
+            if (customTag.length > 0) {
+                while (customTag.length > 0) {
+                    customTag[0].remove(); // Always remove the first element since the collection updates dynamically
+                }
+            }
+            customArr.forEach(el => {
+                customTag = document.createElement('link');
+                customTag.rel = 'stylesheet';
+                customTag.type = 'text/css';
+                customTag.href = el;
+                customTag.classList.add(customFontClass);
+                head.appendChild(customTag);
+            });
+        }
     }
+
 };
 
 const extractStyleFont = (elementId, attributes, arrStyle) => {
@@ -500,7 +508,7 @@ const populateStyle = (cssElement, currentStyleId, generatedCSS) => {
 
 export const updateLiveStyle = (props) => {
     //add styleId to keep the style
-    const {elementId, attributes, styles : liveStyles, elementRef, timeout = true, styleId = null} = props;
+    const { elementId, attributes, styles: liveStyles, elementRef, timeout = true, styleId = null } = props;
     if (!elementRef) {
         console.warn('ElementRef is Missing!');
         return;
@@ -558,7 +566,7 @@ export const updateLiveStyle = (props) => {
 
         populateStyle(cssElement, currentStyleId, generatedCSS);
 
-        const timeoutId = timeout  && liveStyles.length > 0 && setTimeout(() => {
+        const timeoutId = timeout && liveStyles.length > 0 && setTimeout(() => {
             if (cssElement.parentNode) {
                 populateStyle(cssElement, currentStyleId, '');
                 !cssElement.innerHTML.trim() && cssElement.parentNode.removeChild(cssElement);
@@ -588,7 +596,7 @@ export const useGenerateElementId = (clientId, elementId, elementRef) => {
             createElementId(clientId);
         } else {
             const { getBlocks } = select('core/block-editor');
-            const windowEl = elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
+            const windowEl = elementRef?.current?.ownerDocument?.defaultView || elementRef?.current?.ownerDocument?.parentWindow;
 
             if (windowEl?.document) {
                 const htmlEl = windowEl.document.documentElement;

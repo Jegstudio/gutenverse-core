@@ -8,6 +8,7 @@ import { fetchLibraryData } from 'gutenverse-core/requests';
 import { getEditSiteHeader, signal } from 'gutenverse-core/editor-helper';
 import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
+import EditorModePlugin from '../editor-mode/editor-mode';
 
 const initLibraryState = {
     active: 'layout',
@@ -39,7 +40,8 @@ const initLayoutState = {
     library: 'layout',
 };
 
-const Library = () => {
+const Library = (props) => {
+    const { uuid } = props;
     const [open, setOpen] = useState(false);
     const [visible, setVisibility] = useState(true);
     const [injectLocation, setInjectLocation] = useState(null);
@@ -79,11 +81,18 @@ const Library = () => {
         </div>
     );
 
+    const lockModeButton = <EditorModePlugin />;
+
+    const navButtonWrapper = <>
+        {libraryButton}
+        {lockModeButton}
+    </>;
+
     useEffect(() => {
         getEditSiteHeader().then(result => {
             setInjectLocation(result);
         });
-    });
+    }, uuid);
 
     // Init store.
     useEffect(() => {
@@ -134,7 +143,7 @@ const Library = () => {
     return <>
         <EscListener execute={() => setVisibility(false)} />
         {createPortal(libraryModal, document.getElementById('gutenverse-root'))}
-        {injectLocation && createPortal(libraryButton, injectLocation)}
+        {injectLocation && createPortal(navButtonWrapper, injectLocation)}
         {libraryError !== false && createPortal(libraryError, document.getElementById('gutenverse-error'))}
     </>;
 };

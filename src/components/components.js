@@ -18,5 +18,3 @@ export { default as gutenverseAutoRecovery } from './auto-recovery/auto-recovery
 // Missing Block Warn
 export { default as gutenverseWarnMissing } from './missing-block-warn/missing-block-wran-plugin';
 
-// Editor Mode Plugin
-export { default as gutenverseEditorModePlugin } from './editor-mode/editor-mode';

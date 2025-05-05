@@ -476,7 +476,7 @@ const ColumnWrapper = (props) => {
 
     const blocks = getBlocks(clientId);
     const size = getBlocks(clientId).length;
-    const clientColumnId = size > 1 ? blocks[0].clientId : clientId;
+    const clientColumnId = size >= 1 ? blocks[size-1].clientId : clientId;
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const wrapperClass = useMemo(() =>
@@ -553,11 +553,11 @@ const ColumnWrapper = (props) => {
                 onResizeStop={resizeStop}
             >
                 <FluidCanvas attributes={attributes} />
-                {(isHovered && eSelect) && <div className={'guten-inserter insert-top'}>
+                {(isHovered || eSelect) && <div className={'guten-inserter insert-top'}>
                     <Inserter
                         __experimentalIsQuick={true}
                         rootClientId={clientId}
-                        clientId={clientColumnId}
+                        clientId={clientId}
                     />
                 </div>}
                 <div className={'sticky-wrapper'} ref={stickyFlagRef}>
@@ -620,11 +620,12 @@ const ColumnWrapper = (props) => {
                         <div className={'column-next'}>{'%'}</div>
                     </div>
                 </div>}
-                {(isHovered && eSelect) && <div className={'guten-inserter insert-bottom'}>
+                {(isHovered || eSelect) && <div className={'guten-inserter insert-bottom'}>
                     <Inserter
                         __experimentalIsQuick={true}
                         rootClientId={clientId}
-                        clientId={clientColumnId}
+                        clientId={null} // this is null, so the block will be inserted last
+                        isAppender={true}
                     />
                 </div>}
             </ResizableBox>

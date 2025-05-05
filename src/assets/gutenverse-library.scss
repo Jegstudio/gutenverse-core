@@ -1869,6 +1869,14 @@ $border: #eaeaea;
     }
 }
 
+.gutenverse-lock-button-wrapper  {
+    padding: 0 !important;
+    ::before {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+}
+
 .gutenverse-lock-button {
     cursor: pointer;
     display: flex;
