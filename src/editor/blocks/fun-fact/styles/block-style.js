@@ -298,7 +298,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
         'multiAttr': {
-            'imageSize': attributes['imageSizeResponsive'] ? attributes['imageSizeResponsive'] : attributes['imageSize']
+            'imageSize': attributes['imageSizeResponsive'] ? {'Desktop': attributes['imageSize'], ...attributes['imageSizeResponsive']} : attributes['imageSize']
         }
     });
 
