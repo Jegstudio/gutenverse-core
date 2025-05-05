@@ -106,6 +106,30 @@ class Section extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['wrapColumn'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} > .guten-container",
+					'property'       => function () {
+						return 'flex-wrap: wrap;';
+					},
+					'value'          => $this->attrs['wrapColumn'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} > .guten-container > .guten-column",
+					'property'       => function () {
+						return 'width: 100%;';
+					},
+					'value'          => $this->attrs['wrapColumn'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		$selector = 'stretch' === $this->attrs['align'] ?
 			"section.guten-element.{$this->element_id} > .guten-container > .guten-column > .sticky-wrapper > .guten-column-wrapper, section.guten-element.{$this->element_id} > .guten-container > .guten-column > .guten-column-wrapper" :
 			"section.guten-element.{$this->element_id} > .guten-container";
