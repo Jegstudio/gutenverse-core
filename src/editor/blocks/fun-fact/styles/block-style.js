@@ -279,10 +279,6 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId} .fun-fact-inner:hover .icon`,
     });
 
-    if(attributes['imageSizeResponsive']) {
-        attributes['imageSizeResponsive']['Desktop'] = attributes['imageSize'];
-    }
-
     /**Panel Icon */
     isNotEmpty(attributes['iconType']) && attributes['iconType'] === 'image' && (isNotEmpty(attributes['imageSize']) || isNotEmpty(attributes['imageSizeResponsive'])) && data.push({
         'type': 'plain',
@@ -302,7 +298,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
         'multiAttr': {
-            'imageSize': attributes['imageSizeResponsive'] ? attributes['imageSizeResponsive'] : attributes['imageSize']
+            'imageSize': attributes['imageSizeResponsive'] ? {'Desktop': attributes['imageSize'], ...attributes['imageSizeResponsive']} : attributes['imageSize']
         }
     });
 
