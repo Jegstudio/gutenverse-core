@@ -192,7 +192,7 @@ const onResize = (props, off) => {
             'type': 'plain',
             'id': 'currentWidth',
             'responsive': true,
-            'selector': `.guten-column.${elementId}`,
+            'selector': `.${elementId}`,
             'properties': [
                 {
                     'name': 'width',
@@ -215,7 +215,7 @@ const onResize = (props, off) => {
             'type': 'plain',
             'id': 'targetWidth',
             'responsive': true,
-            'selector': `.guten-column.${targetColumnElementId}`,
+            'selector': `.${targetColumnElementId}`,
             'properties': [
                 {
                     'name': 'width',
