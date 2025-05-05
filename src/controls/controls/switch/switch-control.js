@@ -1,6 +1,6 @@
 
 import { useInstanceId } from '@wordpress/compose';
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 
 const SwitchControl = ({
     id,
@@ -11,6 +11,10 @@ const SwitchControl = ({
 }) => {
     const idElement = useInstanceId(SwitchControl, 'inspector-hover-control');
     const [active, setActive] = useState(null);
+
+    useEffect(() => {
+        onChange ? onChange({ [id]: active }) : null;
+    }, []);
 
     const onClick = value => {
         setActive(value);
