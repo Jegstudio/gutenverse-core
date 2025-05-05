@@ -693,13 +693,13 @@ abstract class Post_Abstract extends Block_Abstract {
 	 */
 	protected function render_pagination( $prev = false, $next = false, $total = 1, $page = 1 ) {
 		$output          = '';
-		$icon            = esc_attr( $this->attributes['paginationIcon'] );
-		$icon_position   = esc_attr( $this->attributes['paginationIconPosition'] );
-		$pre_next_text   = esc_attr( $this->attributes['paginationPrevNextText'] );
-		$prev_inner_text = esc_attr( $this->attributes['paginationPrevText'] );
-		$next_innet_text = esc_attr( $this->attributes['paginationNextText'] );
-		$prev_icon       = esc_attr( $this->attributes['paginationPrevIcon'] );
-		$next_icon       = esc_attr( $this->attributes['paginationNextIcon'] );
+		$icon            = esc_attr( $this->attributes['paginationIcon'] ?? '' );
+		$icon_position   = esc_attr( $this->attributes['paginationIconPosition'] ?? null );
+		$pre_next_text   = esc_attr( $this->attributes['paginationPrevNextText'] ?? '' );
+		$prev_inner_text = esc_attr( $this->attributes['paginationPrevText'] ?? '' );
+		$next_innet_text = esc_attr( $this->attributes['paginationNextText'] ?? '' );
+		$prev_icon       = esc_attr( $this->attributes['paginationPrevIcon'] ?? '' );
+		$next_icon       = esc_attr( $this->attributes['paginationNextIcon'] ?? '' );
 
 		if ( in_array( $this->attributes['paginationMode'], array( 'loadmore', 'scrollload' ), true ) && $next ) {
 			$output = '<span data-load="' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '" data-loading="' . esc_attr( $this->attributes['paginationLoadingText'] ) . '"> ' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '</span>';
