@@ -92,7 +92,7 @@ const Library = (props) => {
         getEditSiteHeader().then(result => {
             setInjectLocation(result);
         });
-    }, uuid);
+    }, [uuid]);
 
     // Init store.
     useEffect(() => {
