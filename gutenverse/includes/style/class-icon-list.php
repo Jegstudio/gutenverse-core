@@ -199,29 +199,16 @@ class Icon_List extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['verticalAlign'] ) ) {
-			if ( ! isset( $this->attrs['displayInline'] ) || ! $this->attrs['displayInline'] ) {
-				$this->inject_style(
-					array(
-						'selector'       => ".{$this->element_id} .guten-icon-list-item a",
-						'property'       => function ( $value ) {
-							return "align-items: {$value}";
-						},
-						'value'          => $this->attrs['verticalAlign'],
-						'device_control' => false,
-					)
-				);
-			} else {
-				$this->inject_style(
-					array(
-						'selector'       => ".{$this->element_id} .guten-icon-list-item",
-						'property'       => function ( $value ) {
-							return "align-items: {$value}";
-						},
-						'value'          => $this->attrs['verticalAlign'],
-						'device_control' => false,
-					)
-				);
-			}
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .list-wrapper .guten-icon-list-item a",
+					'property'       => function ( $value ) {
+						return "align-items: {$value}";
+					},
+					'value'          => $this->attrs['verticalAlign'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['textColorHover'] ) ) {
