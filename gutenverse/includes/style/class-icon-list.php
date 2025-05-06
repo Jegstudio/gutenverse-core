@@ -227,9 +227,9 @@ class Icon_List extends Style_Abstract {
 		if ( isset( $this->attrs['textIndent'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.guten-element .guten-icon-list-item .list-text",
+					'selector'       => ".{$this->element_id} .guten-icon-list-item a",
 					'property'       => function ( $value ) {
-						return "padding-left: {$value}px;";
+						return "gap: {$value}px;";
 					},
 					'value'          => $this->attrs['textIndent'],
 					'device_control' => true,
