@@ -15,19 +15,14 @@ import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 
 export const logoNormalLazyLoad = (logo) => {
-    if (logo.lazyLoad) {
-        return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} loading="lazy" />;
-    } else {
-        return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} />;
-    }
+    return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} {...(logo.lazyLoad && { loading: 'lazy' })} />;
 };
+
 export const logoHoverLazyLoad = (logo) => {
-    if (logo.lazyLoad) {
-        return <img className="hover-image" src={!isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src)} alt={logo.title} loading="lazy" />;
-    } else {
-        return <img className="hover-image" src={!isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src)} alt={logo.title} />;
-    }
+    const hoverSrc = !isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src);
+    return <img className="hover-image" src={hoverSrc} alt={logo.title} {...(logo.lazyLoad && { loading: 'lazy' })} />;
 };
+
 const LogoSlider = compose(
     withPartialRender,
     withMouseMoveEffect
@@ -109,7 +104,7 @@ const LogoSlider = compose(
     ]);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} setLiveAttr={setLiveAttr} liveAttr={liveAttr} />
         <div  {...blockProps}>
             <div className="client-list" onClick={focusBlock}>

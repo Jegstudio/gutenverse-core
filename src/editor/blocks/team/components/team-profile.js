@@ -29,11 +29,9 @@ const TeamProfile = (props) => {
         hoverBottom,
         hoverBottomDirection,
     } = attributes;
-    const lazyLoad = () => {
-        if(lazy){
-            return <img loading="lazy" src={getImageSrc(src)} alt={name}/>;
-        } else return <img src={getImageSrc(src)} alt={name}/>;
-    };
+
+    const lazyLoad = () => <img src={getImageSrc(src)} alt={name} {...(lazy && { loading: 'lazy' })} />;
+
     const contentDesc = (classnames, ariaLabel, identifier, data, tag ) => {
         if(showDesc){
             if(frontEnd){

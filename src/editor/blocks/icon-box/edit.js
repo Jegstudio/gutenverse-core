@@ -121,13 +121,9 @@ const IconBoxBlock = compose(
         ),
         ref: elementRef
     });
-    const imageLazyLoad = () => {
-        if (lazyLoad) {
-            return <img src={getImageSrc(image)} alt={imageAltText} loading="lazy" />;
-        } else {
-            return <img src={getImageSrc(image)} alt={imageAltText} />;
-        }
-    };
+
+    const imageLazyLoad = () => <img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />;
+
     const iconContent = () => {
         switch (iconType) {
             case 'icon':
@@ -205,12 +201,12 @@ const IconBoxBlock = compose(
             dynamicUrl
         );
 
-        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => {});
+            }).catch(() => { });
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
@@ -223,7 +219,7 @@ const IconBoxBlock = compose(
     }, [elementRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         <BlockControls>
             <ToolbarGroup>

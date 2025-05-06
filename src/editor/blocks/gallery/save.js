@@ -53,13 +53,7 @@ const save = compose(
         [`grid-tablet-${column && column['Tablet'] ? column['Tablet'] : 2}`],
         [`grid-mobile-${column && column['Mobile'] ? column['Mobile'] : 2}`],
     );
-    const imageCondition = (image) => {
-        if(image.lazyLoad){
-            return <img className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title} loading="lazy"/>;
-        }else{
-            return <img className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title}/>;
-        }
-    };
+    const imageCondition = (image) => <img className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title} {...(image.lazyLoad ? { loading: 'lazy' } : {})} />;
 
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })} data-grid={grid}>

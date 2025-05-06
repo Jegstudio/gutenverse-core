@@ -32,13 +32,8 @@ export const ImageBoxFigure = attributes => {
     const imageAltText = imageAlt || null;
 
     // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
-    const imageLazyLoad = () => {
-        if (lazyLoad) {
-            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
-        } else {
-            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
-        }
-    };
+    const imageLazyLoad = () => <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />;
+
     if (isEmpty(sizes)) {
         return imageLazyLoad();
     }
@@ -54,12 +49,9 @@ export const ImageBoxFigure = attributes => {
     }
 
     if (imageId && imageSrc) {
-        if (lazyLoad) {
-            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} loading="lazy" />;
-        } else {
-            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
-        }
+        return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />;
     }
+
     return imageLazyLoad();
 };
 
@@ -326,7 +318,7 @@ const ImageBoxBlock = compose(
     }, [elementRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar',
