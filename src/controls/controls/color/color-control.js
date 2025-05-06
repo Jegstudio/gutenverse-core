@@ -44,7 +44,7 @@ const ColorControl = (props) => {
     const variableWrapperRef = useRef();
 
     const [open, setControlOpen] = useState(false);
-    const [localColor, setLocalColor] = useState(value);
+    const [localColor, setLocalColor] = useState({});
     const [variableOpen, setVariableOpen] = useState(false);
 
     const defaultPalette = useSettingFallback('color.palette.default');
@@ -180,7 +180,13 @@ const ColorControl = (props) => {
 
     useEffect(() => {
         setLocalColor(value);
-    }, [value, deviceType]);
+    }, [deviceType]);
+
+    useEffect(()=> {
+        if(localColor.r !== value.r || localColor.g !== value.g || localColor.b !== value.b || localColor.a !== value.a) {
+            setLocalColor(value);
+        }
+    },[value]);
 
     const id = useInstanceId(ColorControl, 'inspector-color-control');
 

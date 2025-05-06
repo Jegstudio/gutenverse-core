@@ -561,7 +561,7 @@ export const updateLiveStyle = (props) => {
         if (!cssElement) {
             cssElement = theWindow.document.createElement('style');
             cssElement.id = tagId;
-            theWindow.document.head.appendChild(cssElement);
+            theWindow.document.body.appendChild(cssElement);
         }
 
         populateStyle(cssElement, currentStyleId, generatedCSS);
