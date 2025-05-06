@@ -13,7 +13,7 @@ export const contentPanel = props => {
 
     const device = getDeviceType();
 
-    const inputWidthDevice = inputWidth[device] ? inputWidth[device] : { point : "100", unit : "%" };
+    const inputWidthDevice = inputWidth[device] ? inputWidth[device] : { point : '100', unit : '%' };
 
     return [
         {
