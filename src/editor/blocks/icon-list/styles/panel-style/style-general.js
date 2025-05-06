@@ -276,31 +276,18 @@ const panelGeneralStyle = (elementId, attributes, data) => {
         });
     }
 
-    if (attributes['displayInline']) {
-        isNotEmpty(attributes['verticalAlign']) && data.push({
-            'type': 'plain',
-            'id': 'verticalAlign',
-            'properties': [
-                {
-                    'name': 'align-items',
-                    'valueType': 'direct'
-                }
-            ],
-            'selector': `.${elementId} ul.list-wrapper .guten-icon-list-item a`,
-        });
-    } else {
-        isNotEmpty(attributes['verticalAlign']) && data.push({
-            'type': 'plain',
-            'id': 'verticalAlign',
-            'properties': [
-                {
-                    'name': 'align-items',
-                    'valueType': 'direct'
-                }
-            ],
-            'selector': `.${elementId} li a`,
-        });
-    }
+    isNotEmpty(attributes['verticalAlign']) && data.push({
+        'type': 'plain',
+        'id': 'verticalAlign',
+        'properties': [
+            {
+                'name': 'align-items',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId} .list-wrapper .guten-icon-list-item a`,
+    });
+
     return data;
 };
 
