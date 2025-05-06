@@ -49,7 +49,7 @@ export const panelOverlay = (props) => {
                 {
                     'type': 'background',
                     'id': 'iconBoxHoverOverlay',
-                    'selector': `.${elementId} .guten-icon-box-wrapper:hover:before`,
+                    'selector': `.${elementId} .guten-icon-box-wrapper::before`,
                 }
             ],
         },
