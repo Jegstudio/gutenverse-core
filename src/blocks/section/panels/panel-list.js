@@ -131,6 +131,7 @@ export const panelList = () => {
                 ...props,
                 normalOptions: ['default', 'gradient', 'video', 'fluid', 'slide'],
                 hoverOptions: ['default', 'gradient'],
+                blockType: 'section'
             }),
             tabRole: TabStyle
         },
