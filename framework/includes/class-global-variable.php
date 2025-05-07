@@ -53,6 +53,8 @@ class Global_Variable {
 		$this->font_option     = 'gutenverse-global-variable-font-' . $current_theme;
 		$this->color_option    = 'gutenverse-global-variable-color-' . $current_theme;
 		$this->google_option   = 'gutenverse-global-variable-google-' . $current_theme;
+
+		add_filter( 'gutenverse_get_global_variable', array( $this, 'get_global_variable' ) );
 	}
 
 	/**
@@ -103,17 +105,17 @@ class Global_Variable {
 				foreach ( $fonts as $font ) {
 					$the_font = $font['font'];
 					if ( ! empty( $the_font ) ) {
-                        $weight         = isset( $the_font['weight'] ) ? $the_font['weight'] : 'default';
-                        $font_data      = isset( $the_font['font'] ) ? $the_font['font'] : array();
-                        $google_fonts[] = array(
-                            'label'   => $font_data['label'],
-                            'type'    => $font_data['type'],
-                            'value'   => $font_data['value'],
-                            'weight'  => $weight,
-                            'id'      => $font['id'],
-                            'weights' => array( $weight ),
-                        );
-                    }
+						$weight         = isset( $the_font['weight'] ) ? $the_font['weight'] : 'default';
+						$font_data      = isset( $the_font['font'] ) ? $the_font['font'] : array();
+						$google_fonts[] = array(
+							'label'   => $font_data['label'],
+							'type'    => $font_data['type'],
+							'value'   => $font_data['value'],
+							'weight'  => $weight,
+							'id'      => $font['id'],
+							'weights' => array( $weight ),
+						);
+					}
 				}
 			} else {
 				$google_fonts = array();
