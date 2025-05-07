@@ -407,7 +407,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     isNotEmpty(attributes['submenuItemBorder']) && data.push({
-        'type': 'borderResponsive',
+        'type': 'border',
         'id': 'submenuItemBorder',
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
     });
@@ -419,7 +419,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     isNotEmpty(attributes['submenuFirstItemBorder']) && data.push({
-        'type': 'borderResponsive',
+        'type': 'border',
         'id': 'submenuFirstItemBorder',
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a`,
     });
@@ -431,7 +431,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     isNotEmpty(attributes['submenuLastItemBorder']) && data.push({
-        'type': 'borderResponsive',
+        'type': 'border',
         'id': 'submenuLastItemBorder',
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a`,
     });
