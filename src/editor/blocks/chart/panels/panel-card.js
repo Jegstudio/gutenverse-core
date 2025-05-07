@@ -28,16 +28,16 @@ export const cardPanel = (props) => {
             allowDeviceControl: true,
             options: ['default', 'gradient'],
             show: enableContent[deviceType],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .chart-content.content-card,
+                    'type': 'background',
+                    'id': 'cardBackground',
+                    'selector': `.${elementId} .chart-content.content-card,
                         .${elementId}.Desktop-noFlip .chart-content.content-card,
                         .${elementId}.Tablet-noFlip .chart-content.content-card,
                         .${elementId}.Mobile-noFlip .chart-content.content-card`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
                 }
-            ]
+            ],
         },
         {
             id: 'paddingCard',
@@ -60,15 +60,6 @@ export const cardPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .chart-content.content-card,
-                        .${elementId}.Desktop-noFlip .chart-content.content-card,
-                        .${elementId}.Tablet-noFlip .chart-content.content-card,
-                        .${elementId}.Mobile-noFlip .chart-content.content-card`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ],
         },
         {
             id: 'cardBorder',
@@ -76,29 +67,37 @@ export const cardPanel = (props) => {
             component: BorderResponsiveControl,
             show: enableContent[deviceType],
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .chart-content.content-card,
+                    'type': 'borderResponsive',
+                    'id': 'cardBorder',
+                    'responsive': true,
+                    'selector': `.${elementId} .chart-content.content-card,
                         .${elementId}.Desktop-noFlip .chart-content.content-card,
                         .${elementId}.Tablet-noFlip .chart-content.content-card,
                         .${elementId}.Mobile-noFlip .chart-content.content-card`,
-                    render: value => handleBorderResponsive(value)
                 }
-            ]
+            ],
         },
         {
             id: 'cardBoxShadow',
             label: __('Card Box Shadow', 'gutenverse'),
             show: enableContent[deviceType],
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .chart-content.content-card,
+                    'type': 'boxShadow',
+                    'id': 'boxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .chart-content.content-card,
                         .${elementId}.Desktop-noFlip .chart-content.content-card,
                         .${elementId}.Tablet-noFlip .chart-content.content-card,
                         .${elementId}.Mobile-noFlip .chart-content.content-card`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
                 }
             ]
         },
@@ -136,30 +135,28 @@ export const cardPanel = (props) => {
                     icon: <AlignJustify/>,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .chart-content.content-card .chart-title,
-                        .${elementId}.Desktop-noFlip .chart-content.content-card .chart-title,
-                        .${elementId}.Tablet-noFlip .chart-content.content-card .chart-title,
-                        .${elementId}.Mobile-noFlip .chart-content.content-card .chart-title`,
-                    render: value => `text-align: ${value};`
-                }
-            ]
         },
         {
             id: 'cardTitleColor',
             label: __('title Color', 'gutenverse'),
             component: ColorControl,
             show: enableContent[deviceType],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .chart-content.content-card .chart-title,
+                    'type': 'color',
+                    'id': 'cardTitleColor',
+                    'selector': `.${elementId} .chart-content.content-card .chart-title,
                         .${elementId}.Desktop-noFlip .chart-content.content-card .chart-title,
                         .${elementId}.Tablet-noFlip .chart-content.content-card .chart-title,
                         .${elementId}.Mobile-noFlip .chart-content.content-card .chart-title`,
-                    render: value => handleColor(value, 'color')
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ],
+            ]
         },
         {
             id: 'cardTitleTypography',
@@ -257,30 +254,26 @@ export const cardPanel = (props) => {
             label: __('Description Typography', 'gutenverse'),
             show: enableContent[deviceType],
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .chart-content.content-card .chart-description,
-                        .${elementId}.Desktop-noFlip .chart-content.content-card .chart-description,
-                        .${elementId}.Tablet-noFlip .chart-content.content-card .chart-description,
-                        .${elementId}.Mobile-noFlip .chart-content.content-card .chart-description`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'cardDescriptionTextShadow',
             label: __('Description Text Shadow', 'gutenverse'),
             show: enableContent[deviceType],
             component: TextShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .chart-content.content-card .chart-description,
+                    'type': 'textShadow',
+                    'id': 'cardDescriptionTextShadow',
+                    'properties': [
+                        {
+                            'name': 'text-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .chart-content.content-card .chart-description,
                         .${elementId}.Desktop-noFlip .chart-content.content-card .chart-description,
                         .${elementId}.Tablet-noFlip .chart-content.content-card .chart-description,
                         .${elementId}.Mobile-noFlip .chart-content.content-card .chart-description`,
-                    allowRender: (value) => allowRenderTextShadow(value),
-                    render: value => handleTextShadow(value)
                 }
             ]
         },

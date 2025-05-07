@@ -33,12 +33,6 @@ export const chartPanel = (props) => {
                     icon: <AlignRight/>,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .chart-content.content-chart`,
-                    render: value => `align-items: ${value};`
-                }
-            ]
         },
         {
             id: 'chartContainerSize',
@@ -50,11 +44,27 @@ export const chartPanel = (props) => {
             min: 0,
             max: 100,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .chart-content.content-chart`,
-                    render: value => `width: ${value}% !important;`
-                },
+                    'type': 'plain',
+                    'id': 'chartContainerSize',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}% !important',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                    'key': 'chartContainerSize',
+                                },
+            
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} .chart-content.content-chart`,
+                }
             ],
         },
         {
@@ -67,16 +77,27 @@ export const chartPanel = (props) => {
             min: 0,
             max: 250,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} canvas`,
-                    render: value => `width: ${value}px !important; height: ${value}px !important;`
-                },
-                {
-                    selector: `.${elementId} .chart-inside.type-doughnut`,
-                    render: value => `width: ${value}px !important;`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'chartSize',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': 'width: {value}px !important',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                    'key': 'chartSize',
+                                },
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} .chart-inside.type-doughnut`,
+                }
+            ]
         },
         {
             id: 'cutout',
@@ -109,25 +130,25 @@ export const chartPanel = (props) => {
             label: __('Indicator Color', 'gutenverse'),
             show: chartContent !== 'none',
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .chart-content .chart-inside > *`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'indicatorColor',
+                    'selector': `.${elementId} .chart-content .chart-inside > *`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ],
+            ]
         },
         {
             id: 'indicatorTypography',
             label: __('Indicator Typography', 'gutenverse'),
             show: chartContent !== 'none',
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .chart-content .chart-inside > *`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
     ];
 };

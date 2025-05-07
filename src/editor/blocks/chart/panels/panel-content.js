@@ -137,13 +137,6 @@ export const contentPanel = (props) => {
                     value: 'row-reverse'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}, .${elementId}.Mobile-noFlip, .${elementId}.Desktop-noFlip, .${elementId}.Tablet-noFlip`,
-                    allowRender: value => value !== 'flipCard',
-                    render: value => `flex-direction: ${value};`
-                },
-            ],
         },
     ];
 };

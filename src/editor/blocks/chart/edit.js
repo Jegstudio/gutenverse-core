@@ -6,6 +6,7 @@ import { compose } from '@wordpress/compose';
 import { panelList } from './panels/panel-list';
 import { applyFilters } from '@wordpress/hooks';
 import { getChartData } from './data/chartData';
+import getBlockStyle from './styles/block-style';
 import { getColor } from 'gutenverse-core/styling';
 import { displayShortcut } from '@wordpress/keycodes';
 import { gutenverseRoot } from 'gutenverse-core/helper';
@@ -13,12 +14,13 @@ import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
-import { IconLibrary, PanelController } from 'gutenverse-core/controls';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { IconLibrary, BlockPanelController } from 'gutenverse-core/controls';
 import { useEffect, useState, useRef, useCallback } from '@wordpress/element';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender, withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withPassRef, withMouseMoveEffect, withPartialRender, withCopyElementToolbar } from 'gutenverse-core/hoc';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -42,7 +44,7 @@ export const flipClasses = (contentType) => {
 
 const ChartBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
+    withPassRef,
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
@@ -50,8 +52,8 @@ const ChartBlock = compose(
         clientId,
         attributes,
         isSelected,
+        setBlockRef,
         setPanelState,
-        setElementRef,
         setAttributes,
         panelIsClicked,
         setPanelIsClicked
@@ -128,7 +130,7 @@ const ChartBlock = compose(
 
     useEffect(() => {
         if (elementRef.current) {
-            setElementRef(elementRef.current);
+            setBlockRef(elementRef.current);
         }
     }, [elementRef]);
 
@@ -217,8 +219,11 @@ const ChartBlock = compose(
         }
     </div>;
 
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <BlockControls>
             <ToolbarGroup>
                 {'icon' === chartContent && <ToolbarButton
