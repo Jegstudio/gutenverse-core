@@ -25,8 +25,8 @@ export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr
         isSelected={isSelected}
         deviceType={deviceType}
         elementRef={elementRef}
-        panelState = {panelState}
-        setPanelIsClicked = {setPanelIsClicked}
+        panelState={panelState}
+        setPanelIsClicked={setPanelIsClicked}
         {...props}
     />;
 };

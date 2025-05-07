@@ -105,16 +105,16 @@ const SizeControl = (props) => {
         defaultUnit = '',
     } = props;
 
-    const generateValue = (value) => {
-        if (isNotEmpty(value.unit)) {
-            return value;
+    const generateValue = (val) => {
+        if (isNotEmpty(val.unit)) {
+            return val;
         }
         if (defaultUnit == '') {
-            value.unit = Object.keys(units)[0];
-            return value;
+            val.unit = Object.keys(units)[0];
+            return val;
         }
-        value.unit = defaultUnit;
-        return value;
+        val.unit = defaultUnit;
+        return val;
     };
 
     const [localValue, setLocalValue] = useState(generateValue(value));
@@ -131,9 +131,17 @@ const SizeControl = (props) => {
     const deviceType = getDeviceType();
 
     useEffect(()=> {
-        if(localValue.point !== value.point || localValue.unit !== value.unit) {
-            setLocalValue(generateValue(value));
-        }
+        const debouncedHandler = debounce(() => {
+            if(localValue.point !== value.point || localValue.unit !== value.unit) {
+                setLocalValue(generateValue(value));
+            }
+        }, 200);
+
+        debouncedHandler();
+
+        return () => {
+            debouncedHandler.cancel();
+        };
     },[value]);
 
     useEffect(() => {
