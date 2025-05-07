@@ -122,20 +122,3 @@
     @include navMenu();
   }
 }
-
-.editor-styles-wrapper {
-  .guten-nav-menu {
-    .gutenverse-menu-wrapper {
-      .gutenverse-menu, .gutenverse-menu > ul {
-        > li {
-          > a {
-            transition: none !important;
-          }
-        }
-        .sub-menu {
-          transition: none !important;
-        }
-      }
-    }
-  }
-}
