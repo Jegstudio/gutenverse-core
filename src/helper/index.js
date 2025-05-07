@@ -778,3 +778,33 @@ export const slugify = (text) => {
         .replace(/[^\w-]+/g, '')
         .replace(/--+/g, '-');
 };
+
+export const versionCompare = (v1, v2, operator) => {
+    const a = v1.split('.').map(Number);
+    const b = v2.split('.').map(Number);
+    const len = Math.max(a.length, b.length);
+
+    for (let i = 0; i < len; i++) {
+        const num1 = a[i] || 0;
+        const num2 = b[i] || 0;
+        if (num1 > num2) {
+            switch (operator) {
+                case '>': case '>=': case '!=': return true;
+                case '<': case '<=': case '==': return false;
+            }
+        }
+        if (num1 < num2) {
+            switch (operator) {
+                case '<': case '<=': case '!=': return true;
+                case '>': case '>=': case '==': return false;
+            }
+        }
+    }
+
+    // If equal so far
+    switch (operator) {
+        case '==': case '>=': case '<=': return true;
+        case '!=': return false;
+        case '>': case '<': return false;
+    }
+};
