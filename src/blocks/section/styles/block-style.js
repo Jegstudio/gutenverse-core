@@ -182,6 +182,25 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}:not(.background-animated):hover, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer`,
     });
 
+    isNotEmpty(attributes['backgroundTransition']) && data.push({
+        'type': 'unitPoint',
+        'id': 'backgroundTransition',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'transition',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            },
+        ],
+        'selector': `.${elementId}:not(.background-animated), .${elementId}.background-animated > .guten-background-animated .animated-layer`,
+    });
+
     isNotEmpty(attributes['backgroundOverlay']) && data.push({
         'type': 'background',
         'id': 'backgroundOverlay',
