@@ -186,6 +186,25 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}:not(.background-animated) > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover, .${elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-animated .animated-layer`,
     });
 
+    isNotEmpty(attributes['backgroundTransition']) && data.push({
+        'type': 'unitPoint',
+        'id': 'backgroundTransition',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'transition',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            },
+        ],
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}:not(.background-animated) > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper, .${elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .guten-background-animated .animated-layer`,
+    });
+
     isNotEmpty(attributes['backgroundOverlay']) && data.push({
         'type': 'background',
         'id': 'backgroundOverlay',
