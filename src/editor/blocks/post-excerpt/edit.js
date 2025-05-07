@@ -68,45 +68,43 @@ const PostExcerptBlock = compose(
         return document.body.textContent || document.body.innerText || '';
     }, [renderedExcerpt]);
 
-    if (!postType || !postId) {
-        return (
-            <div {...blockProps}>
+    const excerptClassName = classnames('wp-block-post-excerpt__excerpt', {
+        'is-inline': !false,
+    });
+
+    const excerptContent = () => {
+        if (!postType || !postId) {
+            return <>
                 <p>
                     {__('This is the Post Excerpt block, it will display the excerpt from single posts.')}
                 </p>
                 <p>
                     {__('If there are any Custom Post Types with support for excerpts, the Post Excerpt block can display the excerpts of those entries as well.')}
                 </p>
-            </div>
-        );
-    }
+            </>;
+        }
 
-    if (isProtected) {
-        return (
-            <div {...blockProps}>
+        if (isProtected) {
+            return <>
                 <div>
                     {__(
                         'There is no excerpt because this is a protected post.'
                     )}
                 </div>
-            </div>
-        );
-    }
+            </>;
+        }
 
-    const excerptClassName = classnames('wp-block-post-excerpt__excerpt', {
-        'is-inline': !false,
-    });
-
-    const excerptContent = <HtmlTag className={excerptClassName}>
-        {strippedRenderedExcerpt || __('No post excerpt found')}
-        {showReadmore && <a href="#link-disabled-in-editor" onClick={e => e.preventDefault()}>{readmoreText}</a>}
-    </HtmlTag>;
+        return <HtmlTag className={excerptClassName}>
+            {strippedRenderedExcerpt || __('No post excerpt found')}
+            {showReadmore && <a href="#link-disabled-in-editor" onClick={e => e.preventDefault()}>{readmoreText}</a>}
+        </HtmlTag>;
+    };
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Excerpt works?', 'gutenverse')}
@@ -123,8 +121,8 @@ const PostExcerptBlock = compose(
             />
         </InspectorControls>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
-        <div  {...blockProps}>
-            {excerptContent}
+        <div {...blockProps}>
+            {excerptContent()}
         </div>
     </>;
 });
