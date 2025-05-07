@@ -1,10 +1,18 @@
 
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { DimensionControl, IconRadioControl } from 'gutenverse-core/controls';
-import { handleDimension } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, IconRadioControl, SwitchControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
-export const contentPanel = ({elementId}) => {
+export const contentPanel = (props) => {
+    const {
+        switcher,
+        setSwitcher,
+        elementId
+    } = props;
+
+    const device = getDeviceType();
+
     return [
         {
             id: 'alignment',
@@ -15,25 +23,19 @@ export const contentPanel = ({elementId}) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'left',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'right',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .profile-box .profile-card`,
-                    render: value => `text-align: ${value}`
-                },
-            ]
         },
         {
             id: 'profilePadding',
@@ -59,18 +61,10 @@ export const contentPanel = ({elementId}) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .profile-box .profile-card.card-default,
-                            .${elementId} .profile-box .profile-card.card-overlay,
-                            .${elementId} .profile-box .profile-card.card-hover`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'detailsPadding',
-            label: __('Details Padding', 'gutenverse'),
+            label: __('Content Padding', 'gutenverse'),
             component: DimensionControl,
             allowDeviceControl: true,
             position: ['top', 'right', 'bottom', 'left'],
@@ -92,14 +86,6 @@ export const contentPanel = ({elementId}) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .profile-box .profile-card.card-default .profile-body,
-                            .${elementId} .profile-box .profile-card.card-overlay .profile-body,
-                            .${elementId} .profile-box .profile-card.card-hover .profile-body`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'profileBorderRadius',
@@ -125,15 +111,121 @@ export const contentPanel = ({elementId}) => {
                     unit: 'rem'
                 },
             },
-            style: [
+        },
+        {
+            id: 'hoverBgColor',
+            label: __('Overlay Background', 'gutenverse'),
+            component: BackgroundControl,
+            options: ['default', 'gradient'],
+            allowDeviceControl: true,
+            liveStyle: [
                 {
-                    selector: `.${elementId} .profile-box .profile-card.card-default,
-                            .${elementId} .profile-box .profile-card.card-overlay,
-                            .${elementId} .profile-box .profile-card.card-hover,
-                            .${elementId} .profile-box .profile-card.card-overlay.scale:hover:before`,
-                    render: value => handleDimension(value, 'border-radius', false)
+                    'type': 'background',
+                    'id': 'hoverBgColor',
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-overlay:before, .${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:before`,
                 }
             ]
         },
+        {
+            id: '__profileHover',
+            component: SwitchControl,
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                }
+            ],
+            onChange: ({ __profileHover }) => setSwitcher({ ...switcher, profileHover: __profileHover })
+        },
+        {
+            id: 'profileBackground',
+            show: !switcher.profileHover || switcher.profileHover === 'normal',
+            component: BackgroundControl,
+            allowDeviceControl: true,
+            options: ['default', 'gradient'],
+            liveStyle: [
+                {
+                    'type': 'background',
+                    'id': 'profileBackground',
+                    'selector': `.${elementId} .profile-box .profile-card`,
+                }
+            ]
+        },
+        {
+            id: 'profileBackgroundHover',
+            show: switcher.profileHover === 'hover',
+            component: BackgroundControl,
+            allowDeviceControl: true,
+            options: ['default', 'gradient'],
+        },
+        {
+            id: 'profileBorder',
+            show: (!switcher.profileHover || switcher.profileHover === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderControl,
+            liveStyle: [
+                {
+                    'type': 'border',
+                    'id': 'profileBorder',
+                    'selector': `.${elementId} .profile-box .profile-card`,
+                }
+            ]
+        },
+        {
+            id: 'profileBorderResponsive',
+            show: (!switcher.profileHover || switcher.profileHover === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'borderResponsive',
+                    'id': 'profileBorderResponsive',
+                    'selector': `.${elementId} .profile-box .profile-card`,
+                }
+            ]
+        },
+        {
+            id: 'profileBoxShadow',
+            show: !switcher.profileHover || switcher.profileHover === 'normal',
+            label: __('Box Shadow', 'gutenverse'),
+            component: BoxShadowControl,
+            liveStyle: [
+                {
+                    'type': 'boxShadow',
+                    'id': 'profileBoxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .profile-box .profile-card`,
+                }
+            ]
+        },
+        {
+            id: 'profileBorderHover',
+            show: switcher.profileHover === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderControl,
+        },
+        {
+            id: 'profileBorderHoverResponsive',
+            show: switcher.profileHover === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+        },
+        {
+            id: 'profileBoxShadowHover',
+            show: switcher.profileHover === 'hover',
+            label: __('Box Shadow', 'gutenverse'),
+            component: BoxShadowControl,
+        }
     ];
 };

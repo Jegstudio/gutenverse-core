@@ -154,7 +154,13 @@
 			}
 		},
 		"inputWidth": {
-			"type": "object"
+			"type": "object",
+			"default": {
+				"Desktop": {
+					"point":"350",
+					"unit":"px"
+				}
+			}
 		},
 		"inputTypography": {
 			"type": "object"
@@ -231,6 +237,38 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"closeIcon": {
+			"type": "string",
+			"default": "gtn gtn-x-line"
+		},
+		"closeIconColor": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"closeIconColorHover": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"closeIconSize": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"closeIconRotate": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"closeIconPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"closeIconMargin": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {

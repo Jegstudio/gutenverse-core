@@ -5,7 +5,6 @@ import { CheckboxControl, IconControl, IconRadioControl, RangeControl, SelectCon
 
 export const loadMorePanel = (props) => {
     const {
-        elementId,
         enableLoadMore
     } = props;
 
@@ -20,6 +19,7 @@ export const loadMorePanel = (props) => {
             show: enableLoadMore,
             label: __('Items Per Load', 'gutenverse'),
             component: RangeControl,
+            isParseFloat : true,
             min: 1,
             max: 50,
             step: 1,
@@ -75,13 +75,6 @@ export const loadMorePanel = (props) => {
                     icon: <AlignRight/>,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .load-more-items`,
-                    allowRender: () => enableLoadMore,
-                    render: value => `text-align: ${value};`
-                }
-            ]
         },
     ];
 };

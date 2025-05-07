@@ -1,37 +1,30 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useRef } from '@wordpress/element';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { isEmpty } from 'lodash';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
 import { Swiper, swiperSettings } from '../../components/swiper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 export const logoNormalLazyLoad = (logo) => {
-    if(logo.lazyLoad){
-        return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} loading="lazy" />;
-    }else{
-        return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} />;
-    }
+    return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} {...(logo.lazyLoad && { loading: 'lazy' })} />;
 };
+
 export const logoHoverLazyLoad = (logo) => {
-    if(logo.lazyLoad){
-        return <img className="hover-image" src={!isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src)} alt={logo.title} loading="lazy" />;
-    }else{
-        return <img className="hover-image" src={!isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src)} alt={logo.title} />;
-    }
+    const hoverSrc = !isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src);
+    return <img className="hover-image" src={hoverSrc} alt={logo.title} {...(logo.lazyLoad && { loading: 'lazy' })} />;
 };
+
 const LogoSlider = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
@@ -41,17 +34,38 @@ const LogoSlider = compose(
     const {
         clientId,
         attributes,
-        setElementRef
     } = props;
 
     const {
         elementId,
-        logos
+        logos,
+        initialSlide,
+        spacing,
+        itemShowed,
+        loop,
+        showNav,
+        showArrow,
+        autoplay,
+        autoplayTimeout
     } = attributes;
 
-    const sliderRef = useRef();
+    const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+
+    const [liveAttr, setLiveAttr] = useState({
+        initialSlide,
+        spacing,
+        itemShowed,
+        loop,
+        showNav,
+        showArrow,
+        autoplay,
+        autoplayTimeout
+    });
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -63,7 +77,7 @@ const LogoSlider = compose(
             animationClass,
             displayClass,
         ),
-        ref: sliderRef
+        ref: elementRef
     });
 
     const focusBlock = () => {
@@ -71,17 +85,31 @@ const LogoSlider = compose(
     };
 
     useEffect(() => {
-        if (sliderRef.current) {
-            setElementRef(sliderRef.current);
-        }
-    }, [sliderRef]);
+        setLiveAttr({
+            ...liveAttr,
+            loop,
+            showNav,
+            showArrow,
+            initialSlide,
+            autoplay,
+            autoplayTimeout
+        });
+    }, [
+        loop,
+        showNav,
+        showArrow,
+        initialSlide,
+        autoplay,
+        autoplayTimeout
+    ]);
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} setLiveAttr={setLiveAttr} liveAttr={liveAttr} />
         <div  {...blockProps}>
             <div className="client-list" onClick={focusBlock}>
                 <Swiper
-                    {...swiperSettings(attributes)}
+                    {...swiperSettings(liveAttr)}
                     shouldSwiperUpdate={true}
                     rebuildOnUpdate={true}>
                     {logos.map((logo, index) => {

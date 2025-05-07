@@ -76,24 +76,19 @@ const save = compose(
         `icon-position-${iconPosition}`
     );
 
-    const imageLazyLoad = () => {
-        if (lazyLoad) {
-            return <img src={getImageSrc(image)} alt={imageAltText} loading="lazy" />;
-        } else {
-            return <img src={getImageSrc(image)} alt={imageAltText} />;
-        }
-    };
+    const imageLazyLoad = () => <img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />;
+
     const iconContent = () => {
         switch (iconType) {
             case 'icon':
                 return <div className="icon-box icon-box-header">
-                    <div className={`icon style-${iconStyleMode}`}>
-                        <i className={icon}></i>
+                    <div className={`icon bg-style-${iconStyleMode}`}>
+                        <i className={`${icon} icon-style-${iconStyleMode}`}></i>
                     </div>
                 </div>;
             case 'image':
                 return <div className="icon-box icon-box-header">
-                    <div className={`icon style-${iconStyleMode} type-image`}>
+                    <div className={`icon bg-style-${iconStyleMode} type-image`}>
                         {imageLazyLoad()}
                     </div>
                 </div>;

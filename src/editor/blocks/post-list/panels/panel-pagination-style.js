@@ -3,8 +3,6 @@ import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 import { paginationSwitcher } from '../data/data';
 
 export const paginationStylePanel = (props) => {
@@ -22,13 +20,6 @@ export const paginationStylePanel = (props) => {
             id: 'paginationTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore span, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ]
         },
         {
             id: 'paginationMargin',
@@ -50,12 +41,6 @@ export const paginationStylePanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'paginationPadding',
@@ -77,12 +62,6 @@ export const paginationStylePanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'paginationWidth',
@@ -93,12 +72,26 @@ export const paginationStylePanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: '%',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
-                    render: value => `width: ${value}%;`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'paginationWidth',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}%',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                }
+            ]
         },
         {
             id: 'paginationIconSpacing',
@@ -109,16 +102,44 @@ export const paginationStylePanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-before i, .${elementId} .guten-postlist .guten_block_nav .btn-pagination.prev i`,
-                    render: value => `margin-right: ${value}px;`
+                    'type': 'plain',
+                    'id': 'paginationIconSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-before i, .${elementId} .guten-postlist .guten_block_nav .btn-pagination.prev i`,
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
                 },
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-after i, .${elementId} .guten-postlist .guten_block_nav .btn-pagination.next i`,
-                    render: value => `margin-left: ${value}px;`
+                    'type': 'plain',
+                    'id': 'paginationIconSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-after i, .${elementId} .guten-postlist .guten_block_nav .btn-pagination.next i`,
+                    'properties': [
+                        {
+                            'name': 'margin-left',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
                 }
-            ],
+            ]
         },
         {
             id: 'paginationIconSize',
@@ -139,15 +160,31 @@ export const paginationStylePanel = (props) => {
                     step: 0.1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-before i, .${elementId} .guten-postlist .guten_block_nav .btn-pagination.prev i`,
-                    render: value => handleUnitPoint(value, 'font-size')
+                    'type': 'unitPoint',
+                    'id': 'paginationIconSize',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-before i, .${elementId} .guten-postlist .guten_block_nav .btn-pagination.prev i`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'direct',
+                        }
+                    ],
                 },
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-after i, .${elementId} .guten-postlist .guten_block_nav .btn-pagination.next i`,
-                    render: value => handleUnitPoint(value, 'font-size')
-                },
+                    'type': 'unitPoint',
+                    'id': 'paginationIconSize',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-after i, .${elementId} .guten-postlist .guten_block_nav .btn-pagination.next i`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'direct',
+                        }
+                    ],
+                }
             ]
         },
         {
@@ -172,12 +209,6 @@ export const paginationStylePanel = (props) => {
                     icon: <AlignRight />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination,  .${elementId} .guten-postlist .guten_block_nav`,
-                    render: value => `text-align: ${value};`
-                }
-            ]
         },
         {
             id: '__paginationHover',
@@ -190,34 +221,55 @@ export const paginationStylePanel = (props) => {
             show: !switcher.paginationHover || switcher.paginationHover === 'normal',
             label: __('Normal color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'paginationColor',
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ],
                 }
             ]
         },
         {
             id: 'paginationCurrentColor',
-            show: !switcher.paginationHover || switcher.paginationHover === 'current',
+            show: switcher.paginationHover === 'current',
             label: __('Active color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten_block_nav .btn-pagination.current`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'paginationCurrentColor',
+                    'selector': `.${elementId} .guten-postlist .guten_block_nav .btn-pagination.current`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ],
                 }
             ]
         },
         {
             id: 'paginationDisabledColor',
-            show: !switcher.paginationHover || switcher.paginationHover === 'disabled',
+            show: switcher.paginationHover === 'disabled',
             label: __('Disabled color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten_block_nav .btn-pagination.disabled`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'paginationDisabledColor',
+                    'selector': `.${elementId} .guten-postlist .guten_block_nav .btn-pagination.disabled`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ],
                 }
             ]
         },
@@ -226,10 +278,17 @@ export const paginationStylePanel = (props) => {
             show: switcher.paginationHover === 'hover',
             label: __('Hover color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postlist .guten_block_nav .btn-pagination:not(.disabled):not(.current):hover`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'paginationHoverColor',
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postlist .guten_block_nav .btn-pagination:not(.disabled):not(.current):hover`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ],
                 }
             ]
         },
@@ -240,41 +299,41 @@ export const paginationStylePanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'paginationBackground',
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
                 }
             ]
         },
         {
             id: 'paginationCurrentBackground',
-            show: !switcher.paginationHover || switcher.paginationHover === 'current',
+            show: switcher.paginationHover === 'current',
             label: __('Active Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten_block_nav .btn-pagination.current`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'paginationCurrentBackground',
+                    'selector': `.${elementId} .guten-postlist .guten_block_nav .btn-pagination.current`,
                 }
             ]
         },
         {
             id: 'paginationDisabledBackground',
-            show: !switcher.paginationHover || switcher.paginationHover === 'disabled',
+            show: switcher.paginationHover === 'disabled',
             label: __('Disabled Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten_block_nav .btn-pagination.disabled`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'paginationDisabledBackground',
+                    'selector': `.${elementId} .guten-postlist .guten_block_nav .btn-pagination.disabled`,
                 }
             ]
         },
@@ -285,11 +344,11 @@ export const paginationStylePanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postlist .guten_block_nav .btn-pagination:not(.disabled):not(.current):hover`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'paginationHoverBackground',
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postlist .guten_block_nav .btn-pagination:not(.disabled):not(.current):hover`,
                 }
             ]
         },
@@ -298,11 +357,11 @@ export const paginationStylePanel = (props) => {
             show: (!switcher.paginationHover || switcher.paginationHover === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'paginationBorder',
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
                 }
             ]
         },
@@ -312,11 +371,11 @@ export const paginationStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'paginationBorderResponsive',
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
                 }
             ]
         },
@@ -325,11 +384,11 @@ export const paginationStylePanel = (props) => {
             show: switcher.paginationHover === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postlist .guten_block_nav .btn-pagination:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'paginationHoverBorder',
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postlist .guten_block_nav .btn-pagination:hover`,
                 }
             ]
         },
@@ -339,11 +398,11 @@ export const paginationStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postlist .guten_block_nav .btn-pagination:hover`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'paginationHoverBorderResponsive',
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postlist .guten_block_nav .btn-pagination:hover`,
                 }
             ]
         },
@@ -352,11 +411,17 @@ export const paginationStylePanel = (props) => {
             show: !switcher.paginationHover || switcher.paginationHover === 'normal',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'paginationShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postlist .guten_block_nav .btn-pagination`,
                 }
             ]
         },
@@ -365,11 +430,17 @@ export const paginationStylePanel = (props) => {
             show: switcher.paginationHover === 'hover',
             label: __('Hover Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postlist .guten_block_nav .btn-pagination:hover`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'paginationHoverShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postlist .guten_block_nav .btn-pagination:hover`,
                 }
             ]
         },

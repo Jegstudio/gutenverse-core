@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 2.2.0
+Stable tag: 3.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,6 +298,86 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.0.1 =
+##### New & Improvemenets
+* update border control ui when clicked and filled
+
+##### Bug Fixes
+* fix social icons vertical align in editor
+* fix responsive style in editor - some block back to default style
+* fix search block error when input width only set on one device type
+* fix icon box that have class guten-data make the style broken
+* fix library section preview when theres block hides on desktop
+* fix border control UI
+* fix save state issue
+* fix icon box gradient background issue
+* fix flexible wrapper width and height issue
+* fix restores the previous range control for gradient
+* fix transform switch normal/hover
+* fix transform reset button
+* fix border color issue
+* fix issue library button disappear in editor
+* fix post term width in backend
+* fix library layout thumbnail height
+* fix post comment button
+* fix logo slider when setting height
+* fix the option use featured image is missing in background section and column
+* fix icon list vertical align & text indent
+* fix input global style
+* fix control with slider and unit
+* fix cursor when typing inside text control
+* fix featured background image not showing in frontend
+* fix nav menu submenu color
+* fix nav menu hover transition
+* fix post excerpt styling panel is missing on site editor
+* fix flexible wrapper animation effect
+
+= 3.0.0 =
+##### New & Improvements
+* significantly improve editing experience inside the editor
+* improve page and post editing preview
+* add option in template library to import with global styles (for supported themes only)
+* add new one for all setting in countdown block
+* add button to easily show/hide template on posts/pages
+* add background gradient to social icon
+
+##### Bug Fixes
+* fix library, allow redirect import from template mode.
+* fix post content, allow redirect edit from template mode.
+* fix security issue. credit: Webbernaut.
+* fix button alignment when width is custom
+* fix progress bar gradient angle
+* fix icon box style background gradient
+* fix nav menu mobile logo when imported from library
+* fix flexible wrapper with video backrgound
+* fix icon list divider label setting
+* fix background ripple effect color
+* fix background effect delay
+* fix team style for title and social
+* fix copy paste style
+* fix icon list icon size
+* fix icon list when inline
+* fix post block read more button
+* fix post block pagination number
+* fix icon list divider
+* fix icon box data missing when deleted
+* fix feature list content position
+* fix portfolio gallery column
+* fix custom font
+* fix progress bar error when in gradient mode
+* fix post author avatar
+
+
+##### Bug Fixes
+* fix library, allow redirect import from template mode.
+* fix post content, allow redirect edit from template mode.
+* fix security issue. credit: Webbernaut.
+
+= 2.2.1 =
+##### New & Improvements
+* add line height css to post block
+* allow post content inside text editor block
+
 = 2.2.0 =
 ##### New & Improvements
 * add option to customize link styling within text based blocks

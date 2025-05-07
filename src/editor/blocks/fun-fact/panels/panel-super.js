@@ -1,17 +1,23 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, RangeControl, SelectControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleColor, handleTypography } from 'gutenverse-core/styling';
 
-export const superPanel = ({elementId, ...props}) => {
+export const superPanel = ({ elementId }) => {
     return [
         {
             id: 'superColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper .super`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'superColor',
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper .super`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -19,13 +25,6 @@ export const superPanel = ({elementId, ...props}) => {
             id: 'superTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper .super`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'superTop',
@@ -36,10 +35,24 @@ export const superPanel = ({elementId, ...props}) => {
             min: -100,
             max: 100,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper .super`,
-                    render: value => `top: ${value}px;`
+                    'type': 'plain',
+                    'id': 'superTop',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper .super`,
+                    'properties': [
+                        {
+                            'name': 'top',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -52,10 +65,24 @@ export const superPanel = ({elementId, ...props}) => {
             min: -5,
             max: 20,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper .super`,
-                    render: value => `left: ${value}px;`
+                    'type': 'plain',
+                    'id': 'superSpace',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper .super`,
+                    'properties': [
+                        {
+                            'name': 'left',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -78,12 +105,6 @@ export const superPanel = ({elementId, ...props}) => {
                     label: 'Bottom'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper .super`,
-                    render: value => `vertical-align: ${value};`
-                }
-            ]
         },
     ];
 };

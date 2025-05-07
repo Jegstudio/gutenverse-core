@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, RangeControl, TypographyControl, CheckboxControl } from 'gutenverse-core/controls';
-import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const postmetaPanel = (props) => {
     const {
@@ -12,22 +11,22 @@ export const postmetaPanel = (props) => {
             id: 'metaTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ]
         },
         {
             id: 'metaColor',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'metaColor',
+                    'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
             ]
         },
@@ -35,22 +34,22 @@ export const postmetaPanel = (props) => {
             id: 'metaAuthorTypography',
             label: __('Author Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-author a`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ]
         },
         {
             id: 'metaAuthorColor',
             label: __('Author color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-author a`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'metaAuthorColor',
+                    'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-author a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
             ]
         },
@@ -74,12 +73,6 @@ export const postmetaPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'metaAuthorIconSpacing',
@@ -90,16 +83,44 @@ export const postmetaPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-author.icon-position-before i`,
-                    render: value => `margin-right: ${value}px;`
+                    'type': 'plain',
+                    'id': 'metaAuthorIconSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-author.icon-position-before i`,
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
-                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-author.icon-position-after i`,
-                    render: value => `margin-left: ${value}px;`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'metaAuthorIconSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-author.icon-position-after i`,
+                    'properties': [
+                        {
+                            'name': 'margin-left',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'metaDateIconSpacing',
@@ -110,28 +131,50 @@ export const postmetaPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-date.icon-position-before i`,
-                    render: value => `margin-right: ${value}px;`
+                    'type': 'plain',
+                    'id': 'metaDateIconSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-date.icon-position-before i`,
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
-                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-date.icon-position-after i`,
-                    render: value => `margin-left: ${value}px;`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'metaDateIconSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-date.icon-position-after i`,
+                    'properties': [
+                        {
+                            'name': 'margin-left',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'postMetaInline',
             label: __('Set Inline Post Meta', 'gutenverse'),
             component: CheckboxControl,
             allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta`,
-                    render: value => `display: ${value ? 'inline-flex' : 'flex'};`
-                },
-            ],
         },
     ];
 };

@@ -267,11 +267,19 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconBackground": {
+		"iconGradient": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconBackgroundHover": {
+		"iconGradientHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconBgGradient": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconBgGradientHover": {
 			"type": "object",
 			"copyStyle": true
 		},

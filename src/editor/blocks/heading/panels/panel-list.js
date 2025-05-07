@@ -1,26 +1,16 @@
-/* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
-
-/* Gutenverse dependencies */
 import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel, childStylePanel, textClipPanel, mouseMoveEffectPanel, conditionPanel, dynamicContentPanel, textStrokePanel } from 'gutenverse-core/controls';
-
-/* Local dependencies */
 import { contentPanel } from './panel-content';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
 export const panelList = () => {
     return [
+        // Settings Tab
         {
             title: __('Content', 'gutenverse'),
             panelArray: contentPanel,
             tabRole: TabSetting
-        },
-        {
-            title: __('Style', 'gutenverse'),
-            panelArray: stylePanel,
-            initialOpen: false,
-            tabRole: TabStyle
         },
         {
             title: __('Dynamic Data', 'gutenverse'),
@@ -34,6 +24,56 @@ export const panelList = () => {
             initialOpen: false,
             tabRole: TabSetting,
             pro: true,
+        },
+        {
+            title: __('Display', 'gutenverse'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Positioning', 'gutenverse'),
+            initialOpen: false,
+            panelArray: positioningPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Animation Effects', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
+                ...props,
+                styleId: 'heading-animation'
+            }),
+            tabRole: TabSetting
+        },
+        // Stylings Tab
+        {
+            title: __('Style', 'gutenverse'),
+            panelArray: stylePanel,
+            initialOpen: false,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: borderPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
         },
         {
             title: __('Text Clip', 'gutenverse'),
@@ -61,50 +101,9 @@ export const panelList = () => {
             pro: true
         },
         {
-            title: __('Background', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => backgroundPanel({
-                ...props,
-                styleId: 'heading-background',
-                normalOptions: ['default', 'gradient'],
-                hoverOptions: ['default', 'gradient']
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Border', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => borderPanel({
-                ...props,
-                styleId: 'heading-border'
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Masking', 'gutenverse'),
-            initialOpen: false,
-            panelArray: maskPanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Display', 'gutenverse'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabSetting
-        },
-        {
             title: __('Positioning', 'gutenverse'),
             initialOpen: false,
             panelArray: positioningPanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Animation Effects', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => animationPanel({
-                ...props,
-                styleId: 'heading-animation'
-            }),
             tabRole: TabSetting
         },
         {
@@ -133,10 +132,7 @@ export const panelList = () => {
         {
             title: __('Spacing', 'gutenverse'),
             initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'heading-advance',
-            }),
+            panelArray: advancePanel,
             tabRole: TabSetting
         },
         {

@@ -2,24 +2,25 @@ import { useCallback, useState } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { Image } from 'gutenverse-core/components';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, useBlockProps, MediaUploadCheck, MediaUpload, } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { classnames } from 'gutenverse-core/components';
 import { useSelect } from '@wordpress/data';
 import { panelList } from './panels/panel-list';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { URLToolbar } from 'gutenverse-core/toolbars';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { useEffect } from '@wordpress/element';
 import { useRef } from '@wordpress/element';
 import { isEmpty } from 'lodash';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -38,13 +39,8 @@ export const ImageBoxFigure = attributes => {
             imageAltText = altCustom;
             break;
     }
-    const imageLazyLoad = () => {
-        if (lazyLoad) {
-            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
-        } else {
-            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
-        }
-    };
+    const imageLazyLoad = () => <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />;
+
     // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
 
     if (isEmpty(sizes)) {
@@ -62,11 +58,7 @@ export const ImageBoxFigure = attributes => {
     }
 
     if (imageId && imageSrc) {
-        if (lazyLoad) {
-            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} loading="lazy" />;
-        } else {
-            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
-        }
+        return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />;
     }
 
     return imageLazyLoad();
@@ -110,9 +102,8 @@ const ImagePicker = (props) => {
 
 const ImageBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('image'),
-    withCopyElementToolbar(),
+    withPassRef,
+    withAnimationAdvanceV2('image'),
     withMouseMoveEffect
 )((props) => {
     const {
@@ -128,10 +119,7 @@ const ImageBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
-        setPanelState,
-        panelIsClicked,
-        setPanelIsClicked
+        setBlockRef,
     } = props;
 
     const {
@@ -147,14 +135,24 @@ const ImageBlock = compose(
         dynamicUrl,
     } = attributes;
 
+    const {
+        panelState,
+        setPanelState,
+        setPanelIsClicked,
+        panelIsClicked
+    } = useRichTextParameter();
+
     const defaultSrc = imagePlaceholder;
     const rootBlockId = getBlockRootClientId(clientId);
     const rootBlock = rootBlockId ? getBlock(rootBlockId) : null;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const imageRef = useRef();
+    const elementRef = useRef(null);
     const [dynamicHref, setDynamicHref] = useState();
 
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -168,7 +166,7 @@ const ImageBlock = compose(
                 'select-image': !imgSrc,
             },
         ),
-        ref: imageRef
+        ref: elementRef
     });
 
     const onToggleOpenInNewTab = useCallback(
@@ -208,18 +206,13 @@ const ImageBlock = compose(
             return <a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel}><ImageBoxFigure {...attributes} /></a>;
         }
     };
+
     const blockElement = <div {...blockProps}>
         {!isEmpty(imgSrc) ? urlAriaLabel() : <ImagePicker {...props}>{({ open }) => <img src={defaultSrc} onClick={open} />}</ImagePicker>}
         {caption()}
     </div>;
 
-    useEffect(() => {
-        if (imageRef.current) {
-            setElementRef(imageRef.current);
-        }
-    }, [imageRef]);
-
-    const panelState = {
+    const imagePanelState = {
         panel: 'setting',
         section: 2,
     };
@@ -230,16 +223,22 @@ const ImageBlock = compose(
             dynamicUrl
         );
 
-        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => {});
+            }).catch(() => { });
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     const ImageToolbar = () => {
         return applyFilters('gutenverse.button.url-toolbar',
@@ -252,18 +251,19 @@ const ImageBlock = compose(
                 anchorRef={blockProps.ref}
                 usingDynamic={true}
                 setPanelState={setPanelState}
-                panelState={panelState}
+                panelState={imagePanelState}
                 title="Item Link"
                 panelIsClicked={panelIsClicked}
                 setPanelIsClicked={setPanelIsClicked}
             />,
             props,
-            panelState
+            imagePanelState
         );
     };
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         {imgSrc && <BlockControls>
             <ToolbarGroup>
                 <ImagePicker {...props}>

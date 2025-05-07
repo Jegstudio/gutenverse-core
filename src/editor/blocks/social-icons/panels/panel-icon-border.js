@@ -1,7 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderBoxShadow, handleBorder, handleBorderResponsive } from 'gutenverse-core/styling';
 import { BorderControl, BorderResponsiveControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const iconBorderPanel = (props) => {
@@ -34,11 +32,11 @@ export const iconBorderPanel = (props) => {
             show: (!switcher.iconBorder || switcher.iconBorder === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-social-icon a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'iconBorder',
+                    'selector': `.${elementId} .guten-social-icon a`,
                 }
             ]
         },
@@ -48,11 +46,11 @@ export const iconBorderPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-social-icon a`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'iconBorderResponsive',
+                    'selector': `.${elementId} .guten-social-icon a`,
                 }
             ]
         },
@@ -61,11 +59,11 @@ export const iconBorderPanel = (props) => {
             show: switcher.iconBorder === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-social-icon:hover a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'iconBorderHover',
+                    'selector': `.${elementId} .guten-social-icon:hover a`,
                 }
             ]
         },
@@ -75,11 +73,11 @@ export const iconBorderPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-social-icon:hover a`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'iconBorderHoverResponsive',
+                    'selector': `.${elementId} .guten-social-icon:hover a`,
                 }
             ]
         },
@@ -88,11 +86,17 @@ export const iconBorderPanel = (props) => {
             show: !switcher.iconBorder || switcher.iconBorder === 'normal',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-social-icon a`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'iconBoxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-social-icon a`,
                 }
             ]
         },
@@ -101,11 +105,17 @@ export const iconBorderPanel = (props) => {
             show: switcher.iconBorder === 'hover',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-social-icon:hover a`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'iconBoxShadowHover',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-social-icon:hover a`,
                 }
             ]
         }

@@ -1,8 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, IconControl, ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { isNotEmpty } from 'gutenverse-core/helper';
 
-export const iconPanel = ({ elementId, iconType, imageSize, removeStyle }) => {
+export const iconPanel = ({ elementId, iconType, imageSize, imageSizeResponsive }) => {
     const device = getDeviceType();
     return [
         {
@@ -23,18 +24,6 @@ export const iconPanel = ({ elementId, iconType, imageSize, removeStyle }) => {
                     label: 'Image'
                 },
             ],
-            onChange: values => {
-                if (!values.imageFixHeight) {
-                    removeStyle('imageSize-style-0');
-                }
-            },
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .icon img`,
-                    allowRender: value => value === 'image',
-                    render: () => `width: ${imageSize}px; height: ${imageSize}px; object-fit: cover;`
-                }
-            ]
         },
         {
             id: 'icon',
@@ -71,11 +60,23 @@ export const iconPanel = ({ elementId, iconType, imageSize, removeStyle }) => {
             isParseFloat: true,
             showDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .icon img`,
-                    allowRender: () => iconType === 'image',
-                    render: value => `width: ${value}px; height: ${value}px; object-fit: cover;`
+                    'type': 'plain',
+                    'id': 'imageSize',
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon img`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px; height: {value}px; object-fit: cover;',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -90,11 +91,24 @@ export const iconPanel = ({ elementId, iconType, imageSize, removeStyle }) => {
             isParseFloat: true,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .icon img`,
-                    allowRender: () => iconType === 'image' && device !== 'Desktop',
-                    render: value => `width: ${value}px; height: ${value}px; object-fit: cover;`
+                    'type': 'plain',
+                    'id': 'imageSizeResponsive',
+                    'responsive' : true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon img`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px; height: {value}px; object-fit: cover;',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },

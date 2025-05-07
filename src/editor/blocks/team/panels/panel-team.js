@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ColorControl, HeadingControl, ImageControl, SelectControl, SizeControl, SwitchControl, TextareaControl, TextControl, RangeControl } from 'gutenverse-core/controls';
-import { handleColor, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const teamPanel = (props) => {
     const {
@@ -110,7 +109,7 @@ export const teamPanel = (props) => {
             show: profileType === 'overlay',
             label: __('Overlay Content Position', 'gutenverse'),
             component: SelectControl,
-            options:[
+            options: [
                 {
                     value: 'center',
                     label: 'Center'
@@ -153,10 +152,18 @@ export const teamPanel = (props) => {
                     step: 1
                 }
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-overlay:hover .profile-body `,
-                    render: value => handleUnitPoint(value, 'margin-bottom')
+                    'type': 'unitPoint',
+                    'id': 'overlayProfilePosition',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-overlay:hover .profile-body `,
+                    'properties': [
+                        {
+                            'name': 'margin-bottom',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -201,7 +208,7 @@ export const teamPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__titleSocial}) => setSwitcher({...switcher, titleSocial: __titleSocial})
+            onChange: ({ __titleSocial }) => setSwitcher({ ...switcher, titleSocial: __titleSocial })
         },
         {
             id: 'titleSeparatorPosition',
@@ -238,15 +245,21 @@ export const teamPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title`,
-                    render: value => handleUnitPoint(value, 'left')
-                },
+                    'type': 'unitPoint',
+                    'id': 'titleHorizontal',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title`,
+                    'properties': [
+                        {
+                            'name': 'left',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
-
-
         {
             id: 'titleVertical',
             label: __('Title Vertical Orientation', '--gctd--'),
@@ -276,11 +289,19 @@ export const teamPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title`,
-                    render: value => handleUnitPoint(value, 'bottom'),
-                },
+                    'type': 'unitPoint',
+                    'id': 'titleVertical',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title`,
+                    'properties': [
+                        {
+                            'name': 'bottom',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -292,12 +313,20 @@ export const teamPanel = (props) => {
             max: 1,
             step: 0.1,
             isParseFloat: false,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title`,
-                    render: value => `opacity: ${value};`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'titleOpacity',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'titleHorizontalHover',
@@ -328,11 +357,19 @@ export const teamPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title`,
-                    render: value => handleUnitPoint(value, 'left')
-                },
+                    'type': 'unitPoint',
+                    'id': 'titleHorizontalHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title`,
+                    'properties': [
+                        {
+                            'name': 'left',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
 
@@ -365,11 +402,19 @@ export const teamPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title`,
-                    render: value => handleUnitPoint(value, 'bottom'),
-                },
+                    'type': 'unitPoint',
+                    'id': 'titleVerticalHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title`,
+                    'properties': [
+                        {
+                            'name': 'bottom',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -381,12 +426,20 @@ export const teamPanel = (props) => {
             max: 1,
             step: 0.1,
             isParseFloat: false,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title`,
-                    render: value => `opacity: ${value};`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'titleOpacityHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'jobSeparatorPosition',
@@ -423,11 +476,19 @@ export const teamPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub`,
-                    render: value => handleUnitPoint(value, 'right')
-                },
+                    'type': 'unitPoint',
+                    'id': 'jobHorizontal',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub`,
+                    'properties': [
+                        {
+                            'name': 'right',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
 
@@ -460,11 +521,19 @@ export const teamPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub`,
-                    render: value => handleUnitPoint(value, 'top'),
-                },
+                    'type': 'unitPoint',
+                    'id': 'jobVertical',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub`,
+                    'properties': [
+                        {
+                            'name': 'top',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
 
@@ -477,12 +546,20 @@ export const teamPanel = (props) => {
             max: 1,
             step: 0.1,
             isParseFloat: false,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub`,
-                    render: value => `opacity: ${value};`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'jobOpacity',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'jobHorizontalHover',
@@ -513,11 +590,19 @@ export const teamPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub`,
-                    render: value => handleUnitPoint(value, 'right')
-                },
+                    'type': 'unitPoint',
+                    'id': 'jobHorizontalHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub`,
+                    'properties': [
+                        {
+                            'name': 'right',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
 
@@ -550,11 +635,19 @@ export const teamPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub`,
-                    render: value => handleUnitPoint(value, 'top'),
-                },
+                    'type': 'unitPoint',
+                    'id': 'jobVerticalHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub`,
+                    'properties': [
+                        {
+                            'name': 'top',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
 
@@ -567,12 +660,20 @@ export const teamPanel = (props) => {
             max: 1,
             step: 0.1,
             isParseFloat: false,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub`,
-                    render: value => `opacity: ${value};`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'jobOpacityHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'descSeparatorPosition',
@@ -609,11 +710,19 @@ export const teamPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc`,
-                    render: value => handleUnitPoint(value, 'left')
-                },
+                    'type': 'unitPoint',
+                    'id': 'descHorizontal',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc`,
+                    'properties': [
+                        {
+                            'name': 'left',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -645,11 +754,19 @@ export const teamPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc`,
-                    render: value => handleUnitPoint(value, 'top'),
-                },
+                    'type': 'unitPoint',
+                    'id': 'descVertical',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc`,
+                    'properties': [
+                        {
+                            'name': 'top',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -661,12 +778,20 @@ export const teamPanel = (props) => {
             max: 1,
             step: 0.1,
             isParseFloat: false,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc`,
-                    render: value => `opacity: ${value};`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'descOpacity',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'descHorizontalHover',
@@ -697,11 +822,19 @@ export const teamPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc`,
-                    render: value => handleUnitPoint(value, 'left')
-                },
+                    'type': 'unitPoint',
+                    'id': 'descHorizontalHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc`,
+                    'properties': [
+                        {
+                            'name': 'left',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
 
@@ -734,11 +867,19 @@ export const teamPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc`,
-                    render: value => handleUnitPoint(value, 'top'),
-                },
+                    'type': 'unitPoint',
+                    'id': 'descVerticalHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc`,
+                    'properties': [
+                        {
+                            'name': 'top',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
 
@@ -751,12 +892,20 @@ export const teamPanel = (props) => {
             max: 1,
             step: 0.1,
             isParseFloat: false,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc`,
-                    render: value => `opacity: ${value};`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'descOpacityHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'socialSeparatorPosition',
@@ -794,11 +943,19 @@ export const teamPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper`,
-                    render: value => handleUnitPoint(value, 'right')
-                },
+                    'type': 'unitPoint',
+                    'id': 'socialHorizontal',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'right',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
 
@@ -831,11 +988,19 @@ export const teamPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper`,
-                    render: value => handleUnitPoint(value, 'bottom'),
-                },
+                    'type': 'unitPoint',
+                    'id': 'socialVertical',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'bottom',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -847,12 +1012,20 @@ export const teamPanel = (props) => {
             max: 1,
             step: 0.1,
             isParseFloat: false,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper`,
-                    render: value => `opacity: ${value};`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'socialOpacity',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'socialHorizontalHover',
@@ -883,11 +1056,19 @@ export const teamPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper`,
-                    render: value => handleUnitPoint(value, 'right')
-                },
+                    'type': 'unitPoint',
+                    'id': 'socialHorizontalHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'right',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
 
@@ -920,11 +1101,19 @@ export const teamPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper`,
-                    render: value => handleUnitPoint(value, 'bottom'),
-                },
+                    'type': 'unitPoint',
+                    'id': 'socialVerticalHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'bottom',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -936,12 +1125,20 @@ export const teamPanel = (props) => {
             max: 1,
             step: 0.1,
             isParseFloat: false,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper`,
-                    render: value => `opacity: ${value};`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'socialOpacityHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'hoverBottom',
@@ -954,10 +1151,17 @@ export const teamPanel = (props) => {
             show: hoverBottom && ['default', 'hover'].includes(profileType),
             label: __('Border Bottom Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .border-bottom .animated`,
-                    render: value => handleColor(value, 'background-color')
+                    'type': 'color',
+                    'id': 'hoverBottomColor',
+                    'selector': `.${elementId} .border-bottom .animated`,
+                    'properties': [
+                        {
+                            'name': 'background-color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -981,10 +1185,18 @@ export const teamPanel = (props) => {
                     step: 0.1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .border-bottom, .${elementId} .border-bottom .animated `,
-                    render: value => handleUnitPoint(value, 'height')
+                    'type': 'unitPoint',
+                    'id': 'hoverBottomHeight',
+                    'responsive': true,
+                    'selector': `.${elementId} .border-bottom, .${elementId} .border-bottom .animated `,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },

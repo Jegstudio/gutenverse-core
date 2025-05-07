@@ -1,13 +1,20 @@
 .guten-icon-list-item {
     margin-left: 0;
     margin-right: 0;
-    
-    i {
-        line-height: 25px;
-    }
+    width: fit-content;
 
     .list-text {
         padding-left: 6px;
         white-space: pre-wrap;
+    }
+    .list-divider{
+        display: flex;
+    }
+    a {
+        display: flex;
+        i{
+            display: flex;
+            align-items: center;
+        }
     }
 }

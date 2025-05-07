@@ -3,12 +3,16 @@
     // Because there is a style tag inside guten-social-icons
     // the first div become 2nd child
     // The margin need to be set to 0 so the first div didn't contain margin
-    &.horizontal > div:nth-child(2) {
-      margin-left: 0!important;
-    }
+    // &.horizontal > div:nth-child() {
+    //   margin-left: 0!important;
+    // }
   
-    &.vertical > div:nth-child(2) {
-      margin-top: 0!important;
+    // &.vertical > div:nth-child() {
+    //   margin-top: 0!important;
+    // }
+
+    &.horizontal.wp-block-gutenverse-social-icons {
+        display: inline-flex !important;
     }
 
 }

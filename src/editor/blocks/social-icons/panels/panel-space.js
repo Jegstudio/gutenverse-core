@@ -1,8 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { handleDimension } from 'gutenverse-core/styling';
 
-export const contentSpace = ({elementId}) => {
+export const contentSpace = ({ elementId }) => {
     return [
         {
             id: 'gap',
@@ -13,14 +12,42 @@ export const contentSpace = ({elementId}) => {
             max: 100,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.horizontal > div:not(:first-child)`,
-                    render: value => `margin-left: ${value}px;`
+                    'type': 'plain',
+                    'id': 'gap',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-left',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId}.horizontal > div:not(:first-child)`,
                 },
                 {
-                    selector: `.${elementId}.vertical > div:not(:first-child)`,
-                    render: value => `margin-top: ${value}px;`
+                    'type': 'plain',
+                    'id': 'gap',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-top',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId}.vertical > div:not(:first-child)`,
                 }
             ]
         },
@@ -39,13 +66,7 @@ export const contentSpace = ({elementId}) => {
                     text: '%',
                     unit: '%'
                 },
-            },
-            style: [
-                {
-                    selector: `.guten-social-icons.${elementId} .guten-social-icon a`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
+            }
         },
     ];
 };

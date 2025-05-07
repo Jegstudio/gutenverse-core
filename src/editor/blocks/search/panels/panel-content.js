@@ -2,14 +2,18 @@ import { __ } from '@wordpress/i18n';
 import { CheckboxControl, IconRadioControl, RangeControl, SizeControl, TextControl, SelectControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { isNotEmpty } from 'gutenverse-core/helper';
 
 export const contentPanel = props => {
     const {
         elementId,
-        formStyle
+        formStyle,
+        inputWidth
     } = props;
 
     const device = getDeviceType();
+
+    const inputWidthDevice = inputWidth[device] ? inputWidth[device] : { point : '100', unit : '%' };
 
     return [
         {
@@ -37,28 +41,6 @@ export const contentPanel = props => {
                     value: '100%'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
-                    allowRender: value => '100%' === value[device],
-                    render: (value) => `width: ${value} !important;`
-                },
-                {
-                    selector: `.${elementId} .search-input-container`,
-                    allowRender: value => '100%' === value[device],
-                    render: (value) => `max-width: none !important; width: ${value} !important;`
-                },
-                {
-                    selector: `.${elementId} .gutenverse-search-form`,
-                    allowRender: value => '100%' === value[device],
-                    render: () => 'align-items: center;'
-                },
-                {
-                    selector: `.${elementId} .gutenverse-search-form .guten-search-button-wrapper`,
-                    allowRender: value => '100%' === value[device],
-                    render: value => `width: ${value} !important`
-                }
-            ]
         },
         {
             id: 'inputHeight',
@@ -69,12 +51,26 @@ export const contentPanel = props => {
             min: 1,
             max: 1000,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .guten-button-wrapper .guten-button `,
-                    render: value => `height: ${value}px!important;`
+                    'type': 'plain',
+                    'id': 'inputHeight',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px !important',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .guten-button-wrapper .guten-button `,
                 }
-            ]
+            ],
         },
         {
             id: 'inputWidth',
@@ -107,19 +103,35 @@ export const contentPanel = props => {
                     unit: 'vw',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .gutenverse-search-form .gutenverse-search-input, .${elementId} .search-input-container .gutenverse-search.gutenverse-search-input`,
-                    render: value => {
-                        if ('%' !== value.unit) {
-                            return `width: ${value.point}${value.unit} !important;`
-                        }
-                        return 'width: 100% !important;'
-                    }
+                    'type': isNotEmpty(inputWidth) && '%' !== inputWidthDevice['unit'] ? 'unitPoint' : 'plain',
+                    'id': 'inputWidth',
+                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .gutenverse-search-form .gutenverse-search-input, .${elementId} .search-input-container .gutenverse-search.gutenverse-search-input`,
+                    'properties': isNotEmpty(inputWidth) && '%' !== inputWidthDevice['unit'] ? 
+                        [{
+                            'name': 'width',
+                            'valueType': 'direct',
+                            'important': true
+                        }] :
+                        [{
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '100% !important',
+                        }],
+                    'responsive': true,
                 },
                 {
-                    selector: `.${elementId} .search-input-container`,
-                    render: value => `width: ${value.point}${value.unit};`
+                    'type': 'unitPoint',
+                    'id': 'inputWidth',
+                    'responsive': true,
+                    'selector': `.${elementId} .search-input-container`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
             ]
         },
@@ -154,19 +166,31 @@ export const contentPanel = props => {
                     unit: 'vw',
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .gutenverse-search-form .guten-search-button-wrapper`,
-                    allowRender: () => '100%' !== formStyle[device],
-                    render: value => `width: ${value.point}${value.unit}!important;`
+            liveStyle: [
+                isNotEmpty(formStyle) && '100%' !== formStyle[device] && {
+                    'type': 'unitPoint',
+                    'id': 'buttonWidth',
+                    'selector': `.${elementId} .gutenverse-search-form .guten-search-button-wrapper`,
+                    'properties': [{
+                        'name': 'width',
+                        'valueType': 'direct',
+                        'important': true
+                    }],
+                    'responsive': true,
                 },
                 {
-                    selector: `.${elementId} .search-input-container`,
-                    render: value => {
-                        const diff = (value.unit === 'px') ? 2 : (value.unit === '%') ? 0.2 : 0.12;
-                        return `max-width: calc(100% - ${parseInt(value.point) + diff }${value.unit});`;
-                    }
-                }
+                    'type': 'plain',
+                    'id': 'buttonWidth',
+                    'selector': `.${elementId} .search-input-container`,
+                    'properties': [
+                        {
+                            'name': 'max-width',
+                            'valueType': 'function',
+                            'functionName': 'searchButtonContainerWidth',
+                        }
+                    ],
+                    'responsive': true,
+                },
             ]
         },
         {
@@ -191,17 +215,6 @@ export const contentPanel = props => {
                     icon: <AlignRight/>,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .gutenverse-search-form`,
-                    render: value => `justify-content: ${value};`
-                },
-                {
-                    selector: `.${elementId} .search-input-container`,
-                    allowRender: () => '100%' === formStyle[device],
-                    render: value => `justify-content: ${value};`
-                }
-            ]
         },
     ];
 };

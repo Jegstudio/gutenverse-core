@@ -5,12 +5,10 @@ import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import SingleSocialShare from './single-social-share';
 import { IconShareEmailSVG } from '../../../assets/icon/index';
 import jsondata from './block.json';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 
 const SocialShareEmail = compose(
     withPartialRender,
     withCustomStyle(panelList),
-    withCopyElementToolbar()
 )(props => {
     const socialProps = {
         ...props,

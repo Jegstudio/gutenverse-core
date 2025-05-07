@@ -1,10 +1,9 @@
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -16,31 +15,30 @@ import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
+import getBlockStyle from './styles/block-style';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('icon'),
-    withCopyElementToolbar(),
+    withPassRef,
+    withAnimationAdvanceV2('icon'),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
-        setPanelState,
-        panelIsClicked,
-        setPanelIsClicked
+        clientId,
+        setBlockRef,
     } = props;
 
     const {
@@ -54,8 +52,15 @@ const IconBlock = compose(
         dynamicUrl,
     } = attributes;
 
+    const {
+        panelState,
+        setPanelState,
+        setPanelIsClicked,
+        panelIsClicked
+    } = useRichTextParameter();
+
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
-    const iconRef = useRef();
+    const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dynamicHref, setDynamicHref] = useState();
@@ -69,7 +74,7 @@ const IconBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: iconRef
+        ref: elementRef
     });
 
     const wrapperProps = {
@@ -99,16 +104,14 @@ const IconBlock = compose(
         [rel, setAttributes]
     );
 
-    const panelState = {
+    const iconPanelState = {
         panel: 'setting',
         section: 2,
     };
 
-    useEffect(() => {
-        if (iconRef.current) {
-            setElementRef(iconRef.current);
-        }
-    }, [iconRef]);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     useEffect(() => {
         const dynamicUrlcontent = isEmpty(dynamicUrl) || !isOnEditor() ? dynamicUrl : applyFilters(
@@ -116,19 +119,26 @@ const IconBlock = compose(
             dynamicUrl
         );
 
-        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => {});
+            }).catch(() => { });
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
 
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
+
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar',
@@ -141,12 +151,12 @@ const IconBlock = compose(
                         anchorRef={blockProps.ref}
                         usingDynamic={true}
                         setPanelState={setPanelState}
-                        panelState={panelState}
+                        panelState={iconPanelState}
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
-                    panelState
+                    iconPanelState
                 )}
                 <ToolbarButton
                     name="icon"

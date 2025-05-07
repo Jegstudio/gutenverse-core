@@ -4,7 +4,6 @@ import {
     DimensionControl,
     RangeControl,
 } from 'gutenverse-core/controls';
-import { handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const commentPanel = (props) => {
     const { elementId } = props;
@@ -14,12 +13,19 @@ export const commentPanel = (props) => {
             id: 'commentColor',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment a`,
-                    render: (value) => handleColor(value, 'color'),
-                },
-            ],
+                    'type': 'color',
+                    'id': 'commentColor',
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                }
+            ]
         },
         {
             id: 'commentSize',
@@ -30,12 +36,26 @@ export const commentPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment a`,
-                    render: (value) => `font-size: ${value}px;`,
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'commentSize',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment a`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'commentSpacing',
@@ -46,16 +66,44 @@ export const commentPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment.icon-position-before span`,
-                    render: (value) => `margin-left: ${value}px;`,
+                    'type': 'plain',
+                    'id': 'commentSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment.icon-position-before span`,
+                    'properties': [
+                        {
+                            'name': 'margin-left',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment.icon-position-after span`,
-                    render: (value) => `margin-right: ${value}px;`,
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'commentSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment.icon-position-after span`,
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'commentMargin',
@@ -77,12 +125,6 @@ export const commentPanel = (props) => {
                     unit: '%',
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment`,
-                    render: (value) => handleDimension(value, 'margin'),
-                },
-            ],
         },
         {
             id: 'commentPadding',
@@ -104,12 +146,6 @@ export const commentPanel = (props) => {
                     unit: '%',
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment`,
-                    render: (value) => handleDimension(value, 'margin'),
-                },
-            ],
         },
     ];
 };

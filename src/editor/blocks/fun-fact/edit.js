@@ -1,29 +1,28 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import anime from 'animejs';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const FunFactBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('fun-fact'),
-    withCopyElementToolbar(),
+    withPassRef,
+    withAnimationAdvanceV2('fun-fact'),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        deviceType,
-        setElementRef
+        clientId,
+        setBlockRef
     } = props;
 
     const {
@@ -46,36 +45,39 @@ const FunFactBlock = compose(
     } = attributes;
 
     const imageAltText = imageAlt || null;
-    const funFactRef = useRef();
+    const elementRef = useRef(null);
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
-    useEffect(() => {
-        if (funFactRef.current) {
-            setElementRef(funFactRef.current);
-        }
-    }, [funFactRef]);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     useEffect(() => {
-        anime({
-            targets: funFactRef.current.getElementsByClassName('number')[0],
-            innerHTML: `${number}`,
-            easing: 'easeInOutQuart',
-            round: 1,
-            duration,
-        });
-    }, [attributes, deviceType]);
+        if (elementRef.current) {
+            anime({
+                targets: elementRef.current.querySelector('.number'),
+                innerHTML: number,
+                easing: 'easeInOutQuart',
+                round: 1,
+                duration,
+            });
+        }
+        return () => anime.remove(elementRef.current?.querySelector('.number'));
+    }, [number, duration]);
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     const headerContent = () => {
         switch (iconType) {
             case 'icon':
                 return <div className="icon"><i className={icon}></i></div>;
             case 'image':
-                if(lazyLoad){
-                    return <div className="icon"><img loading={lazyLoad ? 'lazy' : 'eager'} src={getImageSrc(image)} alt={imageAltText} /></div>;
-                }else{
-                    return <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} /></div>;
-                }
+                return <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} /></div>;
             default:
                 return null;
         }
@@ -92,11 +94,12 @@ const FunFactBlock = compose(
             'align-center',
             'hover-from-left',
         ),
-        ref: funFactRef
+        ref: elementRef
     });
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <div className="fun-fact-inner">
                 {headerContent()}

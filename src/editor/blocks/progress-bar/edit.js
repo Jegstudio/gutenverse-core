@@ -1,28 +1,28 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import anime from 'animejs';
 import ProgressContent from './components/progress-content';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const ProgressBarBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('progress-bar'),
-    withCopyElementToolbar(),
+    withPassRef,
+    withAnimationAdvanceV2('progress-bar'),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef
+        clientId,
+        setBlockRef,
     } = props;
 
     const {
@@ -34,7 +34,7 @@ const ProgressBarBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const progressBarRef = useRef();
+    const elementRef = useRef();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -45,7 +45,7 @@ const ProgressBarBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: progressBarRef
+        ref: elementRef
     });
 
     const wrapperClass = classnames(
@@ -55,31 +55,41 @@ const ProgressBarBlock = compose(
         }
     );
 
-    useEffect(() => {
-        if (progressBarRef.current) {
-            setElementRef(progressBarRef.current);
-        }
-    }, [progressBarRef]);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     useEffect(() => {
-        anime({
-            targets: [...progressBarRef.current.getElementsByClassName('skill-track')],
+        const skillTrack = anime({
+            targets: [...elementRef.current.getElementsByClassName('skill-track')],
             width: `${percentage}%`,
             easing: 'easeInOutQuart',
             duration,
         });
 
-        anime({
-            targets: [...progressBarRef.current.getElementsByClassName('number-percentage')],
+        const numPercentage = anime({
+            targets: [...elementRef.current.getElementsByClassName('number-percentage')],
             innerHTML: `${percentage}%`,
             easing: 'easeInOutQuart',
             round: 1,
             duration,
         });
-    }, [attributes]);
+
+        return () => {
+            skillTrack.remove();
+            numPercentage.remove();
+        };
+    }, [percentage, duration]);
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <div className={wrapperClass}>
                 <div className="progress-skill-bar">

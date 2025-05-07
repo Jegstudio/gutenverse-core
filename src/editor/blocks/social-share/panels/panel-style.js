@@ -2,7 +2,6 @@ import { __ } from '@wordpress/i18n';
 import { IconRadioControl, RangeControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 
-
 export const contentStyle = (props) => {
     const {
         elementId,
@@ -31,28 +30,6 @@ export const contentStyle = (props) => {
                     icon: <AlignRight />,
                 },
             ],
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}, .editor-styles-wrapper .${elementId}.vertical > div`,
-                    render: value => `justify-content: ${value};`
-                },
-                {
-                    selector: `.editor-styles-wrapper .${elementId}, .editor-styles-wrapper .${elementId}.vertical > div`,
-                    render: value => `align-items: ${value};`
-                },
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.horizontal`,
-                    render: (value) => {
-                        if ('flex-start' === value) {
-                            return 'text-align: left;';
-                        } else if ('center' === value) {
-                            return 'text-align: center;';
-                        } else if ('center' === value) {
-                            return 'text-align: right;';
-                        }
-                    }
-                },
-            ]
         },
         {
             id: 'gap',
@@ -63,14 +40,42 @@ export const contentStyle = (props) => {
             max: 100,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId}.horizontal > div:not(:first-of-type)`,
-                    render: value => `margin-left: ${value}px;`
+                    'type': 'plain',
+                    'id': 'gap',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-left',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.editor-styles-wrapper .${elementId}.horizontal > div:not(:first-of-type)`,
                 },
                 {
-                    selector: `.editor-styles-wrapper .${elementId}.vertical > div:not(:first-of-type)`,
-                    render: value => `margin-top: ${value}px;`
+                    'type': 'plain',
+                    'id': 'gap',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-top',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.editor-styles-wrapper .${elementId}.vertical > div:not(:first-of-type)`,
                 }
             ]
         },

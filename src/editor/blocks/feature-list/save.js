@@ -45,7 +45,11 @@ const save = compose(
             case 'image':
                 return <div className="icon-wrapper">
                     <div className="icon">
-                        <img src={getImageSrc(item.image)} alt={item.title} loading={item.lazyLoad}/>
+                        <img
+                            src={getImageSrc(item.image)}
+                            alt={item.title}
+                            {...(item.lazyLoad && { loading: 'lazy' })}
+                        />
                     </div>
                 </div>;
             default:
@@ -64,7 +68,7 @@ const save = compose(
                                 { el.link ? <a href={el.link} target="_blank" rel="noreferrer" aria-label={el.title}><h2 className="feature-list-title">{el.title}</h2></a> : <h2 className="feature-list-title">{el.title}</h2>}
                                 <p className="feature-list-desc">{el.content}</p>
                             </div>
-                        </div>
+                        </div>;
                     })
                 }
             </div>

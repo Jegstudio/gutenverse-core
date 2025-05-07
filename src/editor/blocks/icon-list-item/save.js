@@ -38,6 +38,7 @@ const save = ({ attributes }) => {
 
     return (
         <div {...useBlockProps.save({ className })}>
+            <div className="list-divider"></div>
             <a id={elementId} href={href} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
                 {!hideIcon && <i className={icon} />}
                 <RichText.Content

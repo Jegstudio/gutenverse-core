@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { HeadingControl, BackgroundControl, ColorControl, DimensionControl, IconControl, SwitchControl, TypographyControl, BorderControl, BorderResponsiveControl, RangeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const SubmenuItemStyle = (props) => {
     const {
@@ -27,11 +26,24 @@ export const SubmenuItemStyle = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a > i,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a > i`,
-                    render: value => `font-size: ${value}px;`
+                    'type': 'plain',
+                    'id': 'SubmenuIndicatorSize',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a > i, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a > i`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ],
         },
@@ -55,12 +67,6 @@ export const SubmenuItemStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'submenuIndicatorPadding',
@@ -82,25 +88,19 @@ export const SubmenuItemStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > i`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'submenuIndicatorBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'submenuIndicatorBorder',
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
                 }
-            ]
+            ],
         },
         {
             id: 'submenuIndicatorBorderResponsive',
@@ -108,25 +108,19 @@ export const SubmenuItemStyle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'submenuIndicatorBorderResponsive',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
                 }
-            ]
+            ],
         },
         {
             id: 'submenuTypography',
             label: __('Submenu Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li  a`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'submenuSpacing',
@@ -144,12 +138,6 @@ export const SubmenuItemStyle = (props) => {
                     unit: 'em'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li  a`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'submenuMargin',
@@ -167,12 +155,6 @@ export const SubmenuItemStyle = (props) => {
                     unit: 'em'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li  a`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: '__submenuState',
@@ -199,11 +181,19 @@ export const SubmenuItemStyle = (props) => {
             label: __('Submenu Text Normal Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
-                    render: value => handleColor(value, 'color')
-                },
+                    'type': 'color',
+                    'id': 'submenuTextNormalColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ],
         },
         {
@@ -212,11 +202,19 @@ export const SubmenuItemStyle = (props) => {
             label: __('Indicator Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > i`,
-                    render: value => handleColor(value, 'color')
-                },
+                    'type': 'color',
+                    'id': 'submenuIndicatorColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > i`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ],
         },
         {
@@ -225,13 +223,13 @@ export const SubmenuItemStyle = (props) => {
             component: BackgroundControl,
             label: __('Submenu Text Normal Background', 'gutenverse'),
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
-                }
-            ]
+                    'id': 'submenuTextNormalBg',
+                    'type': 'background',
+                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
+                },
+            ],
         },
         {
             id: 'submenuTextHoverColor',
@@ -239,11 +237,19 @@ export const SubmenuItemStyle = (props) => {
             label: __('Submenu Text Hover Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a`,
-                    render: value => handleColor(value, 'color')
-                },
+                    'type': 'color',
+                    'id': 'submenuTextHoverColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ],
         },
         {
@@ -252,11 +258,19 @@ export const SubmenuItemStyle = (props) => {
             label: __('Indicator Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a > i`,
-                    render: value => handleColor(value, 'color')
-                },
+                    'type': 'color',
+                    'id': 'submenuIndicatorHoverColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a > i`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ],
         },
         {
@@ -264,13 +278,13 @@ export const SubmenuItemStyle = (props) => {
             show: switcher.itemState === 'hover',
             component: BackgroundControl,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
-                }
-            ]
+                    'id': 'submenuTextHoverBg',
+                    'type': 'background',
+                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a`,
+                },
+            ],
         },
         {
             id: 'submenuTextActiveColor',
@@ -278,11 +292,19 @@ export const SubmenuItemStyle = (props) => {
             label: __('Submenu Text Active Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu > li.current-menu-item > a`,
-                    render: value => handleColor(value, 'color')
-                },
+                    'type': 'color',
+                    'id': 'submenuTextActiveColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu > li.current-menu-item > a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ],
         },
         {
@@ -291,11 +313,19 @@ export const SubmenuItemStyle = (props) => {
             label: __('Indicator Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a > i`,
-                    render: value => handleColor(value, 'color')
-                },
+                    'type': 'color',
+                    'id': 'submenuIndicatorActiveColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a > i`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ],
         },
         {
@@ -303,13 +333,13 @@ export const SubmenuItemStyle = (props) => {
             show: switcher.itemState === 'active',
             component: BackgroundControl,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu > li.current-menu-item > a`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
-                }
-            ]
+                    'id': 'submenuTextActiveBg',
+                    'type': 'background',
+                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu > li.current-menu-item > a`,
+                },
+            ],
         },
         {
             id: 'submenuItemBorderHeadingResponsive',
@@ -321,13 +351,13 @@ export const SubmenuItemStyle = (props) => {
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'submenuItemBorder',
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
                 }
-            ]
+            ],
         },
         {
             id: 'submenuItemBorderResponsive',
@@ -335,13 +365,14 @@ export const SubmenuItemStyle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'submenuItemBorderResponsive',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
                 }
-            ]
+            ],
         },
         {
             id: 'submenuFirstItemBorderHeading',
@@ -353,13 +384,13 @@ export const SubmenuItemStyle = (props) => {
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'submenuFirstItemBorder',
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a`,
                 }
-            ]
+            ],
         },
         {
             id: 'submenuFirstItemBorderResponsive',
@@ -367,13 +398,14 @@ export const SubmenuItemStyle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'submenuFirstItemBorderResponsive',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a`,
                 }
-            ]
+            ],
         },
         {
             id: 'submenuLastItemBorderHeading',
@@ -385,13 +417,13 @@ export const SubmenuItemStyle = (props) => {
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'submenuLastItemBorder',
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a`,
                 }
-            ]
+            ],
         },
         {
             id: 'submenuLastItemBorderResponsive',
@@ -399,13 +431,14 @@ export const SubmenuItemStyle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'submenuLastItemBorderResponsive',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a`,
                 }
-            ]
+            ],
         },
     ];
 };

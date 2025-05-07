@@ -1,10 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { SelectControl, AlertControl, CheckboxControl } from 'gutenverse-core/controls';
 
-export const panelWrapper = props => {
-    const {
-        elementId,
-    } = props;
+export const panelWrapper = () => {
 
     return [
         {
@@ -43,12 +40,6 @@ export const panelWrapper = props => {
                     value: 'row-reverse'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .inner-container`,
-                    render: value => `flex-direction: ${value}`
-                }
-            ]
         },
     ];
 };
