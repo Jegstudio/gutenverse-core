@@ -313,6 +313,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuTextNormalColor']) && data.push({
         'type': 'color',
         'id': 'submenuTextNormalColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
         'properties': [
             {
@@ -325,6 +326,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuIndicatorColor']) && data.push({
         'type': 'color',
         'id': 'submenuIndicatorColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > i`,
         'properties': [
             {
@@ -355,6 +357,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuIndicatorHoverColor']) && data.push({
         'type': 'color',
         'id': 'submenuIndicatorHoverColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a > i`,
         'properties': [
             {
@@ -367,6 +370,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuTextActiveColor']) && data.push({
         'type': 'color',
         'id': 'submenuTextActiveColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu > li.current-menu-item > a`,
         'properties': [
             {
@@ -379,6 +383,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuIndicatorActiveColor']) && data.push({
         'type': 'color',
         'id': 'submenuIndicatorActiveColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a > i`,
         'properties': [
             {
