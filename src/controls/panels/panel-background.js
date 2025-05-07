@@ -1,5 +1,7 @@
 import { BackgroundControl, SwitchControl } from 'gutenverse-core/controls';
 import { handleBackground } from 'gutenverse-core/styling';
+import SizeControl from '../controls/size/size-control';
+import { __ } from '@wordpress/i18n';
 
 export const backgroundPanel = (props) => {
     const {
@@ -70,5 +72,48 @@ export const backgroundPanel = (props) => {
                 render: value => handleBackground(value)
             }
         ]
+    },
+    {
+        id: 'backgroundTransition',
+        label: __('Background Transition', '--gctd--'),
+        show: switcher.layout === 'hover',
+        component: SizeControl,
+        allowDeviceControl: true,
+        units: {
+            s: {
+                text: 's',
+                min: 1,
+                max: 3,
+                step: 0.1,
+                unit: 's',
+            },
+            ms: {
+                text: 'ms',
+                min: 100,
+                max: 3000,
+                step: 100,
+                unit: 'ms',
+            },
+        },
+        liveStyle: [
+            {
+                'type': 'unitPoint',
+                'id': 'backgroundTransition',
+                'responsive': true,
+                'selector': normalSelector ? normalSelector : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+                'properties': [
+                    {
+                        'name': 'transition',
+                        'valueType': 'pattern',
+                        'pattern': '{value}',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    },
+                ],
+            }
+        ],
     }];
 };
