@@ -321,6 +321,10 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix library layout thumbnail height
 * fix post comment button
 * fix logo slider when setting height
+* fix the option use featured image is missing in background section and column
+* fix icon list vertical align & text indent
+* fix input global style
+* fix control with slider and unit
 
 = 3.0.0 =
 ##### New & Improvements
