@@ -31,6 +31,7 @@ export function getChartData(attributes, multiValue, canvas) {
     const borderColor = [];
     
     const responsiveSize = true;
+    let maxBorderWidth = 1;
 
     chartItems.forEach((item, index) => {
         //color control
@@ -49,6 +50,7 @@ export function getChartData(attributes, multiValue, canvas) {
         labels.push(item.label);
         backgroundColor.push(color);
         borderColor.push(theColor(item.borderColor));
+        if (item.borderWidth > maxBorderWidth) maxBorderWidth = item.borderWidth;
         borderWidth.push(item.borderWidth);
     });
 
@@ -68,7 +70,17 @@ export function getChartData(attributes, multiValue, canvas) {
                     const centerX = chartArea.left + (chartArea.right - chartArea.left) / 2;
                     const centerY = chartArea.top + (chartArea.bottom - chartArea.top) / 2;
                     const outerRadius = Math.min(width, height) / 2;
-                    const cutoutPercent = parseFloat(chart.options.cutout);
+                    let cutout = chart.options.cutout;
+
+                    let numericCutout;
+
+                    if (typeof cutout === 'string' && cutout.endsWith('%')) {
+                    const percentage = parseFloat(cutout);
+                    numericCutout = percentage > maxBorderWidth ? percentage - maxBorderWidth / 2 : percentage;
+                    } else {
+                    numericCutout = parseFloat(cutout);
+                    }
+                    const cutoutPercent = numericCutout;
                     const innerRadius = (outerRadius * cutoutPercent) / 100;
             
                     ctx.save();
