@@ -1694,7 +1694,7 @@ abstract class Style_Interface {
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
 							if ( '#gutenFeaturedImage' === $value['id'] ) {
-								$value['image'] = $value['id'];
+								$value['image'] = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/img-placeholder.jpg';
 							}
 							return "background-image: url({$value['image']});";
 						},

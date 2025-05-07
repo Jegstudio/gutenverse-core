@@ -42,7 +42,7 @@ const TextControl = ({
                     type="text"
                     className="control-input-text"
                     placeholder={placeholder}
-                    value={value === undefined ? '' : value}
+                    value={localValue}
                     onChange={(e) => setLocalValue(e.target.value)}
                 />
             </div>
