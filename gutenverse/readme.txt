@@ -325,6 +325,12 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix icon list vertical align & text indent
 * fix input global style
 * fix control with slider and unit
+* fix cursor when typing inside text control
+* fix featured background image not showing in frontend
+* fix nav menu submenu color
+* fix nav menu hover transition
+* fix post excerpt styling panel is missing on site editor
+* fix flexible wrapper animation effect
 
 = 3.0.0 =
 ##### New & Improvements
