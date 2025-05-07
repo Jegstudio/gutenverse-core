@@ -345,6 +345,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuTextHoverColor']) && data.push({
         'type': 'color',
         'id': 'submenuTextHoverColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a`,
         'properties': [
             {
