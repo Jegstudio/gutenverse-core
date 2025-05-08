@@ -419,6 +419,7 @@ const panelReplyData = (elementId, attributes, data) => {
     isNotEmpty(attributes['replyBgColor']) && data.push({
         'type': 'color',
         'id': 'replyBgColor',
+        'responsive': true,
         'selector': `.${elementId} .commentlist .comment .children`,
         'properties': [
             {
@@ -457,6 +458,7 @@ const panelReplyData = (elementId, attributes, data) => {
     isNotEmpty(attributes['replyBorder']) && data.push({
         'type': 'borderResponsive',
         'id': 'replyBorder',
+        'responsive': true,
         'selector': `.${elementId} .commentlist .comment .children`,
     });
 
