@@ -13,6 +13,7 @@ export const backgroundPanel = (props) => {
         switcher,
         setSwitcher,
         blockType = '',
+        withTransition = false
     } = props;
 
     return [{
@@ -76,7 +77,7 @@ export const backgroundPanel = (props) => {
     {
         id: 'backgroundTransition',
         label: __('Background Transition', '--gctd--'),
-        show: switcher.layout === 'hover',
+        show: switcher.layout === 'hover' && withTransition === true,
         component: SizeControl,
         allowDeviceControl: true,
         units: {

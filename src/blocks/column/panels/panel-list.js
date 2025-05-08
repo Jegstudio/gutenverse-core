@@ -21,6 +21,7 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 blockType: 'column',
+                withTransition: true,
                 normalOptions: ['default', 'gradient', 'fluid', 'slide'],
                 hoverOptions: ['default', 'gradient'],
                 normalSelector: `.editor-styles-wrapper .is-root-container .${props.elementId}:not(.background-animated) > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper, .${props.elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .guten-background-animated .animated-layer`,
