@@ -73,7 +73,7 @@ const save = compose(
                     <div className="images">
                         <div id={elementId} className="swiper-container">
                             <div className="swiper-wrapper">
-                                {images.map((image, index) => <div className="swiper-slide image-list" key={index}>
+                                {images.map((image, index) => <div className="swiper-slide image-list" data-filter={image.id} data-title={image.title} data-category={image.category} data-content={image.content} key={index}>
                                     <div className="content-image swiper-zoom-container">
                                         {image && imageCondition(image)}
                                     </div>
@@ -88,20 +88,20 @@ const save = compose(
             {filter && (
                 filterType === 'tab' ? <div className="filter-controls">
                     <ul>
-                        <li className={'guten-gallery-control active'}>{filterAll}</li>
+                        <li className={'guten-gallery-control active'} data-flag-all={true} data-filter={filterAll}>{filterAll}</li>
                         {filterList && filterList.map((filterItem, index) => {
                             return filterItem.name && <li key={index} className={'guten-gallery-control'} data-filter={filterItem.name}>{filterItem.name}</li>;
                         })}
                     </ul>
                 </div> : <div className="search-filters-wrap">
                     <div className="filter-wrap">
-                        <button id="search-filter-trigger" className={`search-filter-trigger icon-position-${filterSearchIconPosition}`}>
+                        <button id="search-filter-trigger" data-flag-all={true} className={`search-filter-trigger icon-position-${filterSearchIconPosition}`}>
                             {filterSearchIconPosition === 'before' && <i aria-hidden="true" className={filterSearchIcon}></i>}
                             <span>{filterAll}</span>
                             {filterSearchIconPosition === 'after' && <i aria-hidden="true" className={filterSearchIcon}></i>}
                         </button>
                         <ul className={'search-filter-controls'}>
-                            <li className={'guten-gallery-control active'}>{filterAll}</li>
+                            <li className={'guten-gallery-control active'} data-flag-all={true} data-filter={filterAll}>{filterAll}</li>
                             {filterList && filterList.map((filterItem, index) => {
                                 return filterItem.name && <li key={index} className={'guten-gallery-control'} data-filter={filterItem.name}>{filterItem.name}</li>;
                             })}
