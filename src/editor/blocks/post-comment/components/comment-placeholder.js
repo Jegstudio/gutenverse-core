@@ -80,6 +80,10 @@ const CommentPlaceholder = (props) => {
                             <span className="required" aria-hidden="true">*</span>
                         </span>
                     </p>
+                    <p className="logged-in-as">
+                        Logged in as admin. <a href="#">Edit your profile</a>. <a href="#">Log out?</a> 
+                        <span className="required-field-message">Required fields are marked <span className="required">*</span></span>
+                    </p>
                     <p className="comment-form-comment">
                         <label htmlFor="comment">Comment
                             <span className="required" aria-hidden="true">*</span>
