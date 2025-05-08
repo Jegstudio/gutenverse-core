@@ -9,7 +9,9 @@ class GutenversePostComment extends Default {
     }
 
     _postComment(element) {
-        const settings = JSON.parse(u(element).find('.commentlist').data('settings'));
+        const dataElement = u(element).find('.commentlist').data('settings');
+
+        const settings = dataElement ? JSON.parse(u(element).find('.commentlist').data('settings')) : {};
         const {enableSuffix, suffixMain, suffixReply} = settings;
 
         if(!enableSuffix) this._removeSuffix(element);

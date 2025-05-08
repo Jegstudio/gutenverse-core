@@ -149,6 +149,10 @@ const ChartBlock = compose(
     }, [enableContent]);
 
     useEffect(() => {
+        //return jika ada double elementId
+        const checkElement = document.querySelectorAll(`.${elementId}`);
+        if (checkElement.length > 1) return;
+
         const iframe = document.querySelector('iframe[name="editor-canvas"]');
         let iframecanvas;
         if (iframe) {
@@ -184,6 +188,7 @@ const ChartBlock = compose(
         cutout,
         minValue,
         chartType,
+        elementId,
         chartItems,
         totalValue,
         chartContent,
