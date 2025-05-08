@@ -1,8 +1,10 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { applyFilters } from '@wordpress/hooks';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
+    const device = getDeviceType();
 
     isNotEmpty(attributes['width']) && data.push({
         'type': 'plain',
@@ -79,6 +81,33 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
     });
+
+    isNotEmpty(attributes['wrapColumn']) && attributes['wrapColumn'][device] && data.push(
+        {
+            'type': 'plain',
+            'id': 'wrapColumn',
+            'selector': `.${elementId} > .guten-container`,
+            'properties': [
+                {
+                    'name': 'flex-wrap',
+                    'valueType': 'pattern',
+                    'pattern': 'wrap',
+                }
+            ],
+        },
+        {
+            'type': 'plain',
+            'id': 'wrapColumn',
+            'selector': `.${elementId} > .guten-container > .guten-column`,
+            'properties': [
+                {
+                    'name': 'width',
+                    'valueType': 'pattern',
+                    'pattern': '100%',
+                }
+            ],
+        },
+    );
 
     isNotEmpty(attributes['clipMargin']) && isNotEmpty(attributes['overflow']) && 'clip' === attributes['overflow'] && data.push({
         'type': 'unitPoint',

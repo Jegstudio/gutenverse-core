@@ -276,7 +276,7 @@
       "default": {
         "Desktop": false,
         "Tablet": false,
-        "Mobile": true
+        "Mobile": false
       },
       "copyStyle": true
     },
