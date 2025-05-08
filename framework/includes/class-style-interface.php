@@ -1631,6 +1631,8 @@ abstract class Style_Interface {
 	/**
 	 * Handle Background Feature
 	 *
+	 * @since 3.0.3 add attribute backgroundTransition.
+	 *
 	 * @param string $selector Selector.
 	 */
 	protected function feature_background( $selector ) {
