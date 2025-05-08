@@ -35,7 +35,12 @@ export const layoutPanel = ({ elementId, forceColumnHundred }) => {
                     'type': 'plain',
                     'id': 'width',
                     'responsive': true,
-                    'selector': `.${elementId}`,
+                    'responsiveSelector': true,
+                    'selector': {
+                        'Desktop': `.${elementId}`,
+                        'Tablet': `.${elementId}`,
+                        'Mobile': `.guten-element.${elementId}`,
+                    },
                     'properties': [
                         {
                             'name': 'width',
@@ -48,7 +53,7 @@ export const layoutPanel = ({ elementId, forceColumnHundred }) => {
                             }
                         }
                     ],
-                },
+                }
             ]
         },
         {

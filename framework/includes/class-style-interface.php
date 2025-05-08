@@ -312,7 +312,7 @@ abstract class Style_Interface {
 			}
 
 			if ( 'Mobile' === $device ) {
-				$selector = "{$selector}.guten-element";
+				$selector = "{$selector}.guten-element.guten-column";
 				if ( isset( $this->attrs['forceColumnHundred']['Mobile'] ) ) {
 					$this->generated[ $device ][ $selector ][] = 'width: 100%;';
 				} elseif ( isset( $value[ $device ] ) ) {
