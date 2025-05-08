@@ -57,8 +57,8 @@ export const panelIcon = (props) => {
                 {
                     'type': 'plain',
                     'id': 'iconSize',
-                    'selector': `.${elementId} .guten-icon-box-wrapper .icon-box .icon i`,
                     'responsive': true,
+                    'selector': `.${elementId} .guten-icon-box-wrapper .icon-box-header.icon-box .icon i`,
                     'properties': [
                         {
                             'name': 'font-size',
@@ -66,11 +66,12 @@ export const panelIcon = (props) => {
                             'pattern': '{value}px',
                             'patternValues': {
                                 'value': {
-                                    'type': 'direct'
-                                }
+                                    'type': 'direct',
+                                },
+
                             }
                         }
-                    ]
+                    ],
                 }
             ],
         },
