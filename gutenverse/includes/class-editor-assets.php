@@ -16,11 +16,20 @@ namespace Gutenverse;
  */
 class Editor_Assets {
 	/**
+	 * Global Variable.
+	 *
+	 * @var string
+	 */
+	private $global_variable;
+
+	/**
 	 * Init constructor.
 	 */
 	public function __construct() {
 		add_filter( 'gutenverse_block_config', array( $this, 'block_config' ) );
 		add_action( 'gutenverse_include_block', array( $this, 'enqueue_scripts' ) );
+
+		$this->global_variable = apply_filters( 'gutenverse_get_global_variable', null );
 	}
 
 	/**
@@ -75,6 +84,10 @@ class Editor_Assets {
 			'currentNotice'  => GUTENVERSE_NOTICE_VERSION,
 			'noticeVersions' => array( '3.0.0', '2.0.0', '1.8.0', '1.7.0', '1.6.0' ),
 		);
+
+		if ( ! isset( $config['globalVariable'] ) ) {
+			$config['globalVariable'] = $this->global_variable;
+		}
 
 		return $config;
 	}
