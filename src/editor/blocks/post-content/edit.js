@@ -11,7 +11,7 @@ import { InspectorControls, RecursionProvider, useBlockProps, useHasRecursion, W
 import { select, useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
-import { useSettingFallback } from 'gutenverse-core/helper';
+import { useSettingFallback, versionCompare } from 'gutenverse-core/helper';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { store as editorStore } from '@wordpress/editor';
 import { parse } from '@wordpress/blocks';
@@ -142,17 +142,18 @@ const PostContentBlock = compose(
     const {
         clientId,
         attributes,
-        setElementRef,
         context,
         __unstableLayoutClassNames: layoutClassNames,
         __unstableParentLayout: parentLayout,
     } = props;
     const [editorWarn, setEditorWarn] = useState(false);
-
+    const { wordpressVersion } = window['GutenverseConfig'];
     const { setBlockEditingMode, unsetBlockEditingMode } = useDispatch(blockEditorStore);
 
     useEffect(() => {
-        setBlockEditingMode(clientId, 'contentOnly');
+        if (versionCompare(wordpressVersion, '6.7.0', '>')) {
+            setBlockEditingMode(clientId, 'contentOnly');
+        }
 
         return () => {
             unsetBlockEditingMode(clientId);
@@ -198,7 +199,7 @@ const PostContentBlock = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Content works?', 'gutenverse')}

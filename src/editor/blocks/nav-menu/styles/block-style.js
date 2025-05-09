@@ -313,6 +313,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuTextNormalColor']) && data.push({
         'type': 'color',
         'id': 'submenuTextNormalColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
         'properties': [
             {
@@ -325,6 +326,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuIndicatorColor']) && data.push({
         'type': 'color',
         'id': 'submenuIndicatorColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > i`,
         'properties': [
             {
@@ -343,6 +345,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuTextHoverColor']) && data.push({
         'type': 'color',
         'id': 'submenuTextHoverColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a`,
         'properties': [
             {
@@ -355,6 +358,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuIndicatorHoverColor']) && data.push({
         'type': 'color',
         'id': 'submenuIndicatorHoverColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a > i`,
         'properties': [
             {
@@ -364,9 +368,16 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['submenuTextNormalBg']) && data.push({
+        'id': 'submenuTextHoverBg',
+        'type': 'background',
+        'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a`,
+    });
+
     isNotEmpty(attributes['submenuTextActiveColor']) && data.push({
         'type': 'color',
         'id': 'submenuTextActiveColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu > li.current-menu-item > a`,
         'properties': [
             {
@@ -379,6 +390,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuIndicatorActiveColor']) && data.push({
         'type': 'color',
         'id': 'submenuIndicatorActiveColor',
+        'responsive': true,
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a > i`,
         'properties': [
             {
@@ -395,7 +407,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     isNotEmpty(attributes['submenuItemBorder']) && data.push({
-        'type': 'borderResponsive',
+        'type': 'border',
         'id': 'submenuItemBorder',
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
     });
@@ -407,7 +419,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     isNotEmpty(attributes['submenuFirstItemBorder']) && data.push({
-        'type': 'borderResponsive',
+        'type': 'border',
         'id': 'submenuFirstItemBorder',
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a`,
     });
@@ -419,7 +431,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     isNotEmpty(attributes['submenuLastItemBorder']) && data.push({
-        'type': 'borderResponsive',
+        'type': 'border',
         'id': 'submenuLastItemBorder',
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a`,
     });
