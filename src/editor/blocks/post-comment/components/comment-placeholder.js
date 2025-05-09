@@ -25,11 +25,11 @@ const CommentPlaceholder = (props) => {
                     <footer className="comment-meta">
                         <div className="comment-author vcard">
                             <img src="https://secure.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=32&amp;d=mm&amp;r=g" srcSet="https://secure.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=64&amp;d=mm&amp;r=g 2x" className="avatar avatar-32 photo" height="32" width="32" loading="lazy" decoding="async" />
-                            <b className="fn"><a href="#" rel="external nofollow ugc" className="url">User</a></b>
+                            <b className="fn"><a  rel="external nofollow ugc" className="url">User</a></b>
                             {enableSuffix && <span className="says"> {suffixMain}</span>}
                         </div>
                         <div className="comment-metadata">
-                            <a href="#">
+                            <a >
                                 <time dateTime="2022-07-11T05:42:20+00:00">01 January 2022 at 9:00 am</time>
                             </a>
                         </div>
@@ -38,7 +38,7 @@ const CommentPlaceholder = (props) => {
                         <p>This is my first comment</p>
                     </div>
                     <div className="reply">
-                        <a rel="nofollow" className="comment-reply-link" href="#" data-commentid="2" data-postid="1" data-belowelement="div-comment-2" data-respondelement="respond" data-replyto="Reply to admin" aria-label="Reply to admin">Reply</a>
+                        <a rel="nofollow" className="comment-reply-link"  data-commentid="2" data-postid="1" data-belowelement="div-comment-2" data-respondelement="respond" data-replyto="Reply to admin" aria-label="Reply to admin">Reply</a>
                     </div>
                 </article>
                 <ul className="children">
@@ -47,12 +47,12 @@ const CommentPlaceholder = (props) => {
                             <footer className="comment-meta">
                                 <div className="comment-author vcard">
                                     <img src="https://secure.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=32&amp;d=mm&amp;r=g" srcSet="https://secure.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=64&amp;d=mm&amp;r=g 2x" className="avatar avatar-32 photo" height="32" width="32" loading="lazy" decoding="async" />
-                                    <b className="fn"><a href="#" className="url" rel="ugc">User</a></b>
+                                    <b className="fn"><a  className="url" rel="ugc">User</a></b>
                                     {enableSuffix && <span className="says"> {suffixReply}</span>}
                                 </div>
 
                                 <div className="comment-metadata">
-                                    <a href="#">
+                                    <a >
                                         <time dateTime="2024-09-20T02:20:38+00:00">01 January 2022 at 10:00 am</time>
                                     </a>
                                 </div>
@@ -72,7 +72,7 @@ const CommentPlaceholder = (props) => {
         </ol>
         {showForm && <div className="comment-form">
             <div id="respond" className="comment-respond">
-                <h3 id="reply-title" className="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="#" style={{display: 'none'}}>Cancel reply</a></small></h3>
+                <h3 id="reply-title" className="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link"  style={{display: 'none'}}>Cancel reply</a></small></h3>
                 <div>
                     <p className="comment-notes">
                         <span id="email-notes">Your email address will not be published.</span>
@@ -81,7 +81,7 @@ const CommentPlaceholder = (props) => {
                         </span>
                     </p>
                     <p className="logged-in-as">
-                        Logged in as admin. <a href="#">Edit your profile</a>. <a href="#">Log out?</a> 
+                        Logged in as admin. <a >Edit your profile</a>. <a >Log out?</a> 
                         <span className="required-field-message">Required fields are marked <span className="required">*</span></span>
                     </p>
                     <p className="comment-form-comment">
