@@ -6,6 +6,7 @@ const mainCommentStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['mainContainerBgColor']) && data.push({
         'type': 'color',
         'id': 'mainContainerBgColor',
+        'responsive': true,
         'selector': `.${elementId} .commentlist .comment.depth-1`,
         'properties': [
             {
@@ -50,6 +51,7 @@ const mainCommentStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['mainBgColor']) && data.push({
         'type': 'color',
         'id': 'mainBgColor',
+        'responsive': true,
         'selector': `.${elementId} .commentlist .comment.depth-1 > .comment-body`,
         'properties': [
             {

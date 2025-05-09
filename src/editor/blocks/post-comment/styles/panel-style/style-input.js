@@ -49,6 +49,7 @@ const inputStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['inputColorNormal']) && data.push({
         'type': 'color',
         'id': 'inputColorNormal',
+        'responsive': true,
         'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
         'properties': [
             {
@@ -61,6 +62,7 @@ const inputStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['inputBgColorNormal']) && data.push({
         'type': 'color',
         'id': 'inputBgColorNormal',
+        'responsive': true,
         'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
         'properties': [
             {
@@ -73,6 +75,7 @@ const inputStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['inputColorHover']) && data.push({
         'type': 'color',
         'id': 'inputColorHover',
+        'responsive': true,
         'selector': `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
         'properties': [
             {
@@ -85,6 +88,7 @@ const inputStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['inputBgColorHover']) && data.push({
         'type': 'color',
         'id': 'inputBgColorHover',
+        'responsive': true,
         'selector': `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
         'properties': [
             {
@@ -97,6 +101,7 @@ const inputStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['inputColorFocus']) && data.push({
         'type': 'color',
         'id': 'inputColorFocus',
+        'responsive': true,
         'selector': `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus, .${elementId} .comment-form input:not([type=submit]):focus-visible, .${elementId} .comment-form textarea:focus-visible`,
         'properties': [
             {
@@ -109,6 +114,7 @@ const inputStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['inputBgColorFocus']) && data.push({
         'type': 'color',
         'id': 'inputBgColorFocus',
+        'responsive': true,
         'selector': `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus, .${elementId} .comment-form input:not([type=submit]):focus-visible, .${elementId} .comment-form textarea:focus-visible`,
         'properties': [
             {

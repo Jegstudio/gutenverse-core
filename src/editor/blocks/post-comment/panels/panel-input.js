@@ -119,6 +119,7 @@ export const inputPanel = (props) => {
             liveStyle: {
                 'type': 'color',
                 'id': 'inputColorNormal',
+                'responsive': true,
                 'selector':`.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
                 'properties': [
                     {
@@ -137,6 +138,7 @@ export const inputPanel = (props) => {
             liveStyle: {
                 'type': 'color',
                 'id': 'inputBgColorNormal',
+                'responsive': true,
                 'selector':`.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
                 'properties': [
                     {
@@ -155,6 +157,7 @@ export const inputPanel = (props) => {
             liveStyle: {
                 'type': 'color',
                 'id': 'inputColorHover',
+                'responsive': true,
                 'selector': `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
                 'properties': [
                     {
@@ -173,6 +176,7 @@ export const inputPanel = (props) => {
             liveStyle: {
                 'type': 'color',
                 'id': 'inputBgColorHover',
+                'responsive': true,
                 'selector': `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
                 'properties': [
                     {
@@ -191,6 +195,7 @@ export const inputPanel = (props) => {
             liveStyle: {
                 'type': 'color',
                 'id': 'inputColorFocus',
+                'responsive': true,
                 'selector': `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus, .${elementId} .comment-form input:not([type=submit]):focus-visible, .${elementId} .comment-form textarea:focus-visible`,
                 'properties': [
                     {
@@ -209,6 +214,7 @@ export const inputPanel = (props) => {
             liveStyle: {
                 'type': 'color',
                 'id': 'inputBgColorFocus',
+                'responsive': true,
                 'selector': `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus, .${elementId} .comment-form input:not([type=submit]):focus-visible, .${elementId} .comment-form textarea:focus-visible`,
                 'properties': [
                     {
