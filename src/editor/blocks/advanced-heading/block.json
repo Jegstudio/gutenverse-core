@@ -88,7 +88,13 @@
         },
         "lineWidth": {
             "type": "object",
-            "copyStyle": true
+            "copyStyle": true,
+            "default": {
+                "Desktop":{
+                    "unit":"%",
+                    "point":"30"
+                }
+            }
         },
         "lineHeight": {
             "type": "object",

@@ -76,20 +76,14 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     isNotEmpty(attributes['lineWidth']) && isNotEmpty(attributes['showLine']) && attributes['showLine'] !== 'none' && data.push({
-        'type': 'plain',
+        'type': 'unitPoint',
         'id': 'lineWidth',
         'responsive': true,
         'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
         'properties': [
             {
                 'name': 'width',
-                'valueType': 'pattern',
-                'pattern': '{value}%',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct',
-                    }
-                }
+                'valueType': 'direct',
             }
         ]
     });
