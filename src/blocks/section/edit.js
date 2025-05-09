@@ -31,7 +31,7 @@ const SectionPlaceholder = ({ clientId, name, wrapper }) => {
     const blockType = getBlockType(name);
 
     const handleVariation = useCallback((nextVariation) => {
-        const variation = createBlocksFromInnerBlocksTemplate(nextVariation);
+        const variation = createBlocksFromInnerBlocksTemplate(JSON.parse(JSON.stringify(nextVariation)));
         replaceInnerBlocks(clientId, variation, true);
     }, [clientId]);
 
