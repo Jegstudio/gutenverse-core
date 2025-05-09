@@ -13,7 +13,7 @@ const save = compose(
 )(({ attributes }) => {
     const {
         elementId,
-        content = ' ',
+        content,
         url = '#',
         linkTarget,
         rel,
