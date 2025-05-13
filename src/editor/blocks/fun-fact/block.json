@@ -17,6 +17,17 @@
 			"type": "string",
 			"default": "icon"
 		},
+		"iconPosition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {
+				"Desktop":"top"
+			}
+		},
+		"contentDisplay": {
+			"type": "string",
+			"default": "block"
+		},
 		"icon": {
 			"type": "string",
 			"default": "fas fa-grip-horizontal"

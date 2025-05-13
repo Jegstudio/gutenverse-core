@@ -5,7 +5,7 @@ import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import anime from 'animejs';
-import { getImageSrc } from 'gutenverse-core/editor-helper';
+import { getDeviceType, getImageSrc } from 'gutenverse-core/editor-helper';
 import { useRef } from '@wordpress/element';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -22,7 +22,8 @@ const FunFactBlock = compose(
     const {
         attributes,
         clientId,
-        setBlockRef
+        setBlockRef,
+        setAttributes,
     } = props;
 
     const {
@@ -42,12 +43,15 @@ const FunFactBlock = compose(
         image,
         imageAlt,
         lazyLoad,
+        iconPosition,
+        contentDisplay,
     } = attributes;
 
     const imageAltText = imageAlt || null;
     const elementRef = useRef(null);
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const deviceType = getDeviceType();
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
@@ -75,13 +79,25 @@ const FunFactBlock = compose(
     const headerContent = () => {
         switch (iconType) {
             case 'icon':
-                return <div className="icon"><i className={icon}></i></div>;
+                return <div className="icon-box">
+                    <div className="icon"><i className={icon}></i></div>
+                </div>;
             case 'image':
-                return <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} /></div>;
+                return <div className="icon-box">
+                    <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} /></div>
+                </div>;
             default:
                 return null;
         }
     };
+
+    useEffect(() => {
+        if (iconPosition[deviceType] == 'left' || iconPosition[deviceType] == 'right') {
+            setAttributes( { contentDisplay: 'inline-block' } );
+        } else {
+            setAttributes( { contentDisplay: 'block' } );
+        }
+    }, [iconPosition]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -102,8 +118,8 @@ const FunFactBlock = compose(
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <div className="fun-fact-inner">
-                {headerContent()}
-                <div className="content">
+                {(iconPosition[deviceType] === 'top' || iconPosition[deviceType] === 'left' || iconPosition[deviceType] == undefined) && headerContent()}
+                <div className={`content ${contentDisplay}`}>
                     <div className="number-wrapper">
                         <span className="prefix">{`${prefix} `}</span>
                         <span className="number loaded" data-number={number} data-duration={duration}></span>
@@ -112,6 +128,7 @@ const FunFactBlock = compose(
                     </div>
                     <TitleTag className="title">{title}</TitleTag>
                 </div>
+                {(iconPosition[deviceType] === 'bottom' || iconPosition[deviceType] === 'right') && headerContent()}
             </div>
             {hoverBottom && <div className={'border-bottom'}>
                 <div className={`animated ${hoverBottomDirection}`}></div>
