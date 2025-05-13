@@ -26,12 +26,13 @@ const useOnClickOutside = (ref, handler) => {
 };
 
 const ChoiceOptionSingle = (props) => {
-    const { option, hovered, setHovered, setSelected } = props;
+    const { option, hovered, setHovered, setSelected, selected } = props;
     const choiceClass = classnames(
         'choices__item choices__item--choice',
         'choices__item--selectable',
         {
-            'is-highlighted': option.value === hovered
+            'is-highlighted': option.value === hovered,
+            'is-selected' : selected && option === selected
         }
     );
 
@@ -102,7 +103,7 @@ const ChoicePlaceholderOption = (props) => {
 };
 
 const ChoiceSingleOptions = (props) => {
-    const { open, placeholder, setSelected, setOpen, options, searchKeyword, setSearch } = props;
+    const { open, placeholder, setSelected, selected, setOpen, options, searchKeyword, setSearch, excludePlaceholder = false } = props;
     const [hovered, setHovered] = useState('placeholder');
     const [choices, setChoices] = useState(options);
 
@@ -131,15 +132,16 @@ const ChoiceSingleOptions = (props) => {
     return <div className={`choices__list choices__list--dropdown ${open? 'is-active' : ''}`}>
         <input type="text" className="choices__input" value={searchKeyword} onChange={updateSearch} />
         <div className="choices__list">
-            <ChoicePlaceholderOption
+            {!excludePlaceholder && <ChoicePlaceholderOption
                 placeholder={placeholder}
                 hovered={hovered}
                 setHovered={setHovered}
-                setSelected={setSelected} />
+                setSelected={setSelected} />}
             {choices.map(option => <ChoiceOptionSingle
                 key={option.value}
                 option={option}
                 hovered={hovered}
+                selected={selected}
                 setHovered={setHovered}
                 setSelected={updateSelected} />)}
         </div>
@@ -214,18 +216,18 @@ const ChoiceGroupMultiOptions = props => {
     const handleGroupClick = (group) => {
         let notInSelect = group.options;
         for(let i = 0; i < selected.length; i++ ){
-            notInSelect = notInSelect.filter(item => item.value !== selected[i].value)
+            notInSelect = notInSelect.filter(item => item.value !== selected[i].value);
         }
         setSelected([
             ...selected,
             ...notInSelect
-        ])
+        ]);
     };
 
     return <div className={`choices__list choices__list--dropdown ${open? 'is-active' : ''}`}>
         <div className="choices__list">
             {
-                choices.map(group => 
+                choices.map(group =>
                     <div className="choices__group" key={group.value}>
                         <div
                             className="choices__heading"
