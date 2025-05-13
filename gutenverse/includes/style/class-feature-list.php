@@ -125,6 +125,10 @@ class Feature_List extends Style_Abstract {
 
 	/**
 	 * Generate style in connector panel
+	 *
+	 * Fix Title Bottom Space not render on frontend.
+	 *
+	 * @since 3.0.3
 	 */
 	public function connector_style() {
 		if ( isset( $this->attrs['connectorStyle'] ) ) {
@@ -188,6 +192,18 @@ class Feature_List extends Style_Abstract {
 					},
 					'value'          => $this->attrs['contentPosition'],
 					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['contentSpace'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .feature-list-content .feature-list-title",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'margin-bottom' );
+					},
+					'value'          => $this->attrs['contentSpace'],
+					'device_control' => true,
 				)
 			);
 		}

@@ -299,6 +299,16 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 == Changelog ==
 = 3.0.3 =
+##### Bug Fixes
+* fix google map panel
+* fix column responsive width
+* fix icon box overlay
+* fix post content toolbar
+* fix image box floating option
+* fix caching column width
+* fix post comment
+* fix feature list
+* fix button hover icon color
 
 = 3.0.2 =
 ##### Bug Fixes
