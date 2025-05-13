@@ -7,7 +7,7 @@ import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { InspectorControls, RecursionProvider, useBlockProps, useHasRecursion, Warning, __experimentalUseBlockPreview as useBlockPreview } from '@wordpress/block-editor';
+import { InspectorControls, RecursionProvider, useBlockProps, useHasRecursion, Warning, __experimentalUseBlockPreview as useBlockPreview, store as blockEditorStore } from '@wordpress/block-editor';
 import { select, useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
@@ -147,6 +147,22 @@ const PostContentBlock = compose(
         __unstableParentLayout: parentLayout,
     } = props;
     const [editorWarn, setEditorWarn] = useState(false);
+    const { wordpressVersion } = window['GutenverseConfig'];
+    const { setBlockEditingMode, unsetBlockEditingMode } = useDispatch(blockEditorStore);
+
+    useEffect(() => {
+        if (versionCompare(wordpressVersion, '6.7.0', '>')) {
+            const renderingMode = select(editorStore).getRenderingMode();
+            if (renderingMode === 'template-locked') {
+                setBlockEditingMode(clientId, 'contentOnly');
+            }
+        }
+
+        return () => {
+            unsetBlockEditingMode(clientId);
+        };
+
+    }, [clientId, setBlockEditingMode, unsetBlockEditingMode]);
 
     const {
         elementId,
