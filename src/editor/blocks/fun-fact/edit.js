@@ -76,7 +76,7 @@ const FunFactBlock = compose(
         }
     }, [elementRef]);
 
-    const headerContent = () => {
+    const iconContent = () => {
         switch (iconType) {
             case 'icon':
                 return <div className="icon-box">
@@ -90,13 +90,26 @@ const FunFactBlock = compose(
                 return null;
         }
     };
-
-    useEffect(() => {
+    const setIconPosition = () => {
         if (iconPosition[deviceType] == 'left' || iconPosition[deviceType] == 'right') {
             setAttributes( { contentDisplay: 'inline-block' } );
         } else {
             setAttributes( { contentDisplay: 'block' } );
         }
+    };
+    const setShowIconContent = () => {
+        if (iconPosition[deviceType] == 'left' || iconPosition[deviceType] == 'top') {
+            setAttributes( { topIconContent: true } );
+            setAttributes( { bottomIconContent: false } );
+        } else {
+            setAttributes( { topIconContent: false } );
+            setAttributes( { bottomIconContent: true } );
+        }
+    };
+
+    useEffect(() => {
+        setIconPosition();
+        setShowIconContent();
     }, [iconPosition]);
 
     const blockProps = useBlockProps({
@@ -118,7 +131,7 @@ const FunFactBlock = compose(
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <div className="fun-fact-inner">
-                {(iconPosition[deviceType] === 'top' || iconPosition[deviceType] === 'left' || iconPosition[deviceType] == undefined) && headerContent()}
+                {(iconPosition[deviceType] === 'top' || iconPosition[deviceType] === 'left' || iconPosition[deviceType] == undefined) && iconContent()}
                 <div className={`content ${contentDisplay}`}>
                     <div className="number-wrapper">
                         <span className="prefix">{`${prefix} `}</span>
@@ -128,7 +141,7 @@ const FunFactBlock = compose(
                     </div>
                     <TitleTag className="title">{title}</TitleTag>
                 </div>
-                {(iconPosition[deviceType] === 'bottom' || iconPosition[deviceType] === 'right') && headerContent()}
+                {(iconPosition[deviceType] === 'bottom' || iconPosition[deviceType] === 'right') && iconContent()}
             </div>
             {hoverBottom && <div className={'border-bottom'}>
                 <div className={`animated ${hoverBottomDirection}`}></div>
