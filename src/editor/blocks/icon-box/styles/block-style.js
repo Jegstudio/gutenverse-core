@@ -798,13 +798,13 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['iconBoxOverlay']) && data.push({
         'type': 'background',
         'id': 'iconBoxOverlay',
-        'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper`,
+        'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper::before`,
     });
 
     isNotEmpty(attributes['iconBoxHoverOverlay']) && data.push({
         'type': 'background',
         'id': 'iconBoxHoverOverlay',
-        'selector': `.${elementId} .guten-icon-box-wrapper::before`,
+        'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper::before`,
     });
 
 
