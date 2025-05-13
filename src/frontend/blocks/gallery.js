@@ -82,11 +82,32 @@ class GutenverseGallery extends Default {
         }
     }
 
+    _getFilterSearchValue(elementClassNames) {
+        const thisElement = u(`.${elementClassNames.split(' ').slice(0, 3).join('.')}`);
+        const searchElement = thisElement.find('#guten-gallery-search-box-input');
+        let searchValue = '';
+        let filterText = '';
+        if (searchElement.length > 0) {
+            searchValue = searchElement.first().value.toLowerCase();
+            filterText = thisElement.find('.search-filter-trigger span').text().toLowerCase();
+            if(thisElement.find('.search-filter-trigger').attr('data-flag-all')) {
+                filterText = 'all';
+            }
+        } else {
+            const filterElement = thisElement.find('.guten-gallery-control.active');
+            filterText = filterElement.text().toLowerCase();
+        }
+        const filterValue = filterText === 'all' ? '' : filterText;
+        return {searchValue, filterValue};
+    }
+
     _addSliderEffect(element, Swiper) {
         const $this = this;
         const thisElement = u(element);
+        const elementClassNames = thisElement.nodes[0].className;
         const gallery = thisElement.find('.gallery-items');
         const zoom = gallery.data('zoom');
+        const slides = thisElement.find('.swiper-slide').nodes;
 
         if (zoom === 'disable') return;
 
@@ -120,9 +141,24 @@ class GutenverseGallery extends Default {
                     observeParents: true,
                 };
 
-                swiper = new Swiper(`.${id} .swiper-container`, settings);
+                const { searchValue, filterValue } = $this._getFilterSearchValue(elementClassNames);
+                slides.forEach((slide) => {
+                    slide.remove();
+                    const controlText = slide.getAttribute('data-filter') ?? '';
+                    const titleText = slide.getAttribute('data-title') ?? '';
+                    const contentText = slide.getAttribute('data-content') ?? '';
+                    const categoryText = slide.getAttribute('data-category') ?? '';
 
-                galleryPopup.hasClass('hidden') ? galleryPopup.removeClass('hidden') : galleryPopup.addClass('hidden');
+                    if ((controlText.toLowerCase()).includes(filterValue) && ((titleText.toLowerCase()).includes(searchValue) || (contentText.toLowerCase()).includes(searchValue) || (categoryText.toLowerCase()).includes(searchValue))) {
+                        sliderContainer.find('.swiper-wrapper').append(slide);
+                    }
+                });
+
+                swiper = new Swiper(`.${id} .swiper-container`, settings);
+                setTimeout(() => {
+                    galleryPopup.hasClass('hidden') ? galleryPopup.removeClass('hidden') : galleryPopup.addClass('hidden');
+                },100);
+
             });
         });
 
@@ -168,6 +204,7 @@ class GutenverseGallery extends Default {
     }
 
     _addEvents(element, Shuffle) {
+        const $this = this;
         const thisElement = u(element);
         const filterPopup = thisElement.find('.search-filter-controls');
         const elementClassNames = thisElement.nodes[0].className;
@@ -177,18 +214,7 @@ class GutenverseGallery extends Default {
             speed: 500
         });
         const onSearch = (shuffle, elementClassNames) => {
-            const thisElement = u(`.${elementClassNames.split(' ').slice(0, 3).join('.')}`);
-            const searchElement = thisElement.find('#guten-gallery-search-box-input');
-            let searchValue = '';
-            let filterText = '';
-            if (searchElement.length > 0) {
-                searchValue = searchElement.first().value.toLowerCase();
-                filterText = thisElement.find('.search-filter-trigger span').text().toLowerCase();
-            } else {
-                const filterElement = thisElement.find('.guten-gallery-control.active');
-                filterText = filterElement.text().toLowerCase();
-            }
-            const filterValue = filterText === 'all' ? '' : filterText;
+            const { searchValue, filterValue } = $this._getFilterSearchValue(elementClassNames);
             const isValid = (item) => {
                 const element = u(item);
                 const controlText = element.data('control');
@@ -203,8 +229,11 @@ class GutenverseGallery extends Default {
         }
         thisElement.find('#guten-gallery-search-box-input').on('change keyup', e => onSearch(shuffle, elementClassNames));
         thisElement.find('.guten-gallery-control').on('click', e => {
-            const filter = u(e.target).data('filter');
+            const control = u(e.target);
+            const filter = control.data('filter');
+            const isFlagAll = control.data('flag-all');
             thisElement.find('#search-filter-trigger span').text(filter ? filter : 'All');
+            thisElement.find('#search-filter-trigger').attr('data-flag-all', isFlagAll);
             u(e.target).addClass('active');
             u(e.target).siblings().removeClass('active');
             onSearch(shuffle, elementClassNames);
