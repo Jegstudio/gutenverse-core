@@ -99,11 +99,15 @@ const FunFactBlock = compose(
     };
     const setShowIconContent = () => {
         if (iconPosition[deviceType] == 'left' || iconPosition[deviceType] == 'top') {
-            setAttributes( { topIconContent: true } );
-            setAttributes( { bottomIconContent: false } );
+            setAttributes( {
+                topIconContent: true,
+                bottomIconContent: false
+            } );
         } else {
-            setAttributes( { topIconContent: false } );
-            setAttributes( { bottomIconContent: true } );
+            setAttributes( {
+                topIconContent: false,
+                bottomIconContent: true
+            } );
         }
     };
 

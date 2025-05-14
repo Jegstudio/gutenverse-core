@@ -21,15 +21,16 @@
     .fun-fact-inner {
         position: relative;
         z-index: 2;
+
         .icon-box {
             display: inline-block;
+            vertical-align: middle;
 
             .icon {
-                margin-bottom: 15px;
                 padding: 15px;
                 font-size: 40px;
                 color: var(--guten-txt-color);
-    
+
                 i {
                     display: block;
                 }
@@ -54,6 +55,7 @@
             }
             &.inline-block {
                 display: inline-block;
+                vertical-align: middle;
             }
             .title {
                 margin: 0;
