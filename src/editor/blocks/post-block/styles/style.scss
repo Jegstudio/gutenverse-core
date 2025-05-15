@@ -27,7 +27,7 @@
         }
     }
 
-    .guten-post-category {
+    .guten-post-category a{
         font-size: 0.75rem;
         font-weight: bold;
         letter-spacing: 0.04em;
@@ -35,10 +35,8 @@
         margin-bottom: 0.5rem;
         display: inline-block;
         line-height: normal;
+        color: var(--guten-txt-a-color);
 
-        a {
-            color: var(--guten-txt-a-color);
-        }
     }
 
     .guten-post-title {

@@ -227,7 +227,7 @@ class Icon_List extends Style_Abstract {
 		if ( isset( $this->attrs['textIndent'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-list-item a",
+					'selector'       => ".{$this->element_id} .guten-icon-list-item a, .{$this->element_id} .list-wrapper .guten-icon-list-item a",
 					'property'       => function ( $value ) {
 						return "gap: {$value}px;";
 					},
