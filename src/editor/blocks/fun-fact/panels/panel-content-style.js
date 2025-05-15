@@ -1,7 +1,12 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
 
-export const contentStylePanel = ({ elementId }) => {
+export const contentStylePanel = (props) => {
+    const {
+        elementId
+    } = props;
+    console.log(props);
+
     return [
         {
             id: 'numberColor',
@@ -97,7 +102,7 @@ export const contentStylePanel = ({ elementId }) => {
                     'type': 'plain',
                     'id': 'numberRightSpace',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper `,
+                    'selector': `.${elementId} .fun-fact-inner .content .number-wrapper .number.loaded`,
                     'properties': [
                         {
                             'name': 'margin-right',
