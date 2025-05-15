@@ -106,7 +106,7 @@ const PostAuthorBlock = compose(
     });
 
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicStyle(elementId, {...attributes, inBlock: false}, getBlockStyle, elementRef);
 
     return <>
         <CopyElementToolbar {...props} />
