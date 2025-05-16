@@ -849,7 +849,7 @@ if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 				$size = $font['size'];
 				if ( $size ) {
 					foreach ( $variable_style as $device => $value ) {
-						if ( isset( $size[ $device ] ) && isset( $size[ $device ]['point'] ) && isset( $size[ $device ]['unit'] ) ) {
+						if ( isset( $size[ $device ] ) && isset( $size[ $device ]['point'] ) && $size[ $device ]['point'] && isset( $size[ $device ]['unit'] ) ) {
 							$value = $size[ $device ]['point'] . $size[ $device ]['unit'];
 							gutenverse_responsive_appender(
 								gutenverse_variable_font_name( $id, 'size' ) . ':' . $value . ';',
