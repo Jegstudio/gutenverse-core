@@ -474,8 +474,11 @@ class Post_Comment extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['inputBorder'] ) ) {
-			$this->handle_border( 'inputBorder', ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea,
-				.{$this->element_id} .commentlist .comment-respond textarea" );
+			$this->handle_border(
+				'inputBorder',
+				".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea,
+				.{$this->element_id} .commentlist .comment-respond textarea"
+			);
 		}
 
 		if ( isset( $this->attrs['inputBorderResponsive'] ) ) {
@@ -486,6 +489,54 @@ class Post_Comment extends Style_Abstract {
 						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['inputBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputBorderHover'] ) ) {
+			$this->handle_border(
+				'inputBorderHover',
+				".{$this->element_id} .comment-form form input:not([type=submit]):hover, .{$this->element_id} .comment-form form textarea:hover,
+				.{$this->element_id} .commentlist .comment-respond textarea:hover"
+			);
+		}
+
+		if ( isset( $this->attrs['inputBorderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]):hover, .{$this->element_id} .comment-form form textarea:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['inputBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputBorderFocus'] ) ) {
+			$this->handle_border(
+				'inputBorderFocus',
+				".{$this->element_id} .comment-form form input:not([type=submit]):focus, .{$this->element_id} .comment-form form textarea:focus,
+				.{$this->element_id} .commentlist .comment-respond textarea:focus"
+			);
+		}
+
+		if ( isset( $this->attrs['inputBorderFocusResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]):focus, .{$this->element_id} .comment-form form textarea:focus",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['inputBorderFocusResponsive'],
 					'device_control' => true,
 					'skip_device'    => array(
 						'Desktop',
