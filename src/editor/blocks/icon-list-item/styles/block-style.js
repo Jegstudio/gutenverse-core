@@ -21,7 +21,7 @@ const getBlockStyle = (elementId, attributes) => {
                 }
             }
         ],
-        'selector': `.${elementId}.guten-icon-list-item i`,
+        'selector': `.${elementId} i`,
     });
 
     /**Panel List */

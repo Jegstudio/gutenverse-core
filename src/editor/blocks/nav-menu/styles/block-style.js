@@ -50,6 +50,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['mobileWrapperBackground']) && data.push({
         'type': 'color',
         'id': 'mobileWrapperBackground',
+        'responsive': true,
         'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .break-point-mobile.guten-nav-menu .gutenverse-menu-wrapper, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .break-point-tablet.guten-nav-menu .gutenverse-menu-wrapper`,
         'properties': [
             {
