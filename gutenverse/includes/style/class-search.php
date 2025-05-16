@@ -347,7 +347,7 @@ class Search extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .search-input-container",
 					'property'       => function ( $value ) {
-						$point = (int) $value['point'];
+						$point = isset( $value['point'] ) && (int) $value['point'];
 						$unit = $value['unit'];
 						$diff = 'px' === $unit ? 2 : ( '%' === $unit ? 0.2 : 0.12 );
 						return 'max-width: calc(100% - ' . ( $point + $diff ) . $unit . ');';
