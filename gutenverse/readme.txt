@@ -310,6 +310,8 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix fun fact number right space
 * fix responsive font frontend
 * fix post author alignment
+* fix post author avatar issue
+* fix post block category
 
 = 3.0.3 =
 ##### Bug Fixes
