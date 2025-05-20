@@ -43,6 +43,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['colorDivider']) && data.push({
         'type': 'color',
         'id': 'colorDivider',
+        'responsive': true,
         'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
         'properties': [
             {
@@ -75,6 +76,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
         'type': 'color',
         'id': 'colorDivider',
         'selector': `.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+        'responsive': true,
         'properties': [
             {
                 'name': 'border-color',
@@ -110,6 +112,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['widthDivider']) && data.push({
         'type': 'unitPoint',
         'id': 'widthDivider',
+        'responsive': true,
         'selector': `.${elementId}.guten-icon-list > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item .list-divider`,
         'properties': [
             {
@@ -122,6 +125,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['widthDivider']) && data.push({
         'type': 'unitPoint',
         'id': 'widthDivider',
+        'responsive': true,
         'selector': `.${elementId}.guten-icon-list > .list-wrapper.inline-icon-list > .guten-icon-list-item .list-divider`,
         'properties': [
             {
@@ -134,6 +138,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['sizeDivider']) && data.push({
         'type': 'unitPoint',
         'id': 'sizeDivider',
+        'responsive': true,
         'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
         'properties': [
             {
@@ -146,6 +151,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['sizeDivider']) && data.push({
         'type': 'unitPoint',
         'id': 'sizeDivider',
+        'responsive': true,
         'selector': `.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
         'properties': [
             {
