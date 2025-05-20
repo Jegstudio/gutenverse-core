@@ -82,7 +82,7 @@
     "@babel/core": "^7.24.9",
     "@svgr/webpack": "^7.0.0",
     "@wordpress/babel-preset-default": "^7.15.0",
-    "@wordpress/scripts": "^28.3.0",
+    "@wordpress/scripts": "28.3.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^9.1.3",
     "concurrently": "^8.2.2",
