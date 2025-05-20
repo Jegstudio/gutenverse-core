@@ -20,7 +20,8 @@
 		"create": "node ./scripts/create-block.js",
 		"new": "node ./scripts/new-block.js",
 		"pot": "wp i18n make-pot ./release/gutenverse ./release/gutenverse/languages/gutenverse.pot --domain=gutenverse",
-		"jsonpot": "wp i18n make-json ./release/gutenverse/languages/"
+		"jsonpot": "wp i18n make-json ./release/gutenverse/languages/",
+    	"clean:package": "rm -rf node_modules package-lock.json gutenverse-core/node_modules gutenverse-core/package-lock.json"
 	},
 	"repository": {
 		"type": "git",
