@@ -78,6 +78,12 @@ const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSear
                     {slides.map((image, index) => <div data-filter={image.id} data-category={image.category} data-title={image.title} data-content={image.content} className="image-list" key={index}>
                         <div className="content-image swiper-zoom-container">
                             {image && <img className="main-image" src={image?.src?.image || imagePlaceholder} {...(image.lazyLoad && { loading: 'lazy' })} />}
+                            {image?.lightboxDescription ? <div className="content-description-wrapper">
+                                <h5 className="content-title">{image.title}</h5>
+                                <div className="content-description">
+                                    <p>{image.content}</p>
+                                </div>
+                            </div> : null}
                         </div>
                     </div>)}
                 </WPSwiper>

@@ -37,6 +37,11 @@ export const galleryPanel = () => {
                     component: TextareaControl,
                 },
                 {
+                    id: 'lightboxDescription',
+                    label: __('Lightbox Description', 'gutenverse'),
+                    component: CheckboxControl
+                },
+                {
                     id: 'showPrice',
                     label: __('Enable Price', 'gutenverse'),
                     component: CheckboxControl
