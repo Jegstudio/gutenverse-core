@@ -98,7 +98,6 @@ export const backgroundPanel = (props) => {
             {
                 'type': 'unitPoint',
                 'id': 'backgroundTransition',
-                'responsive': true,
                 'selector': normalSelector ? normalSelector : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
                 'properties': [
                     {

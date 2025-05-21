@@ -1659,7 +1659,7 @@ abstract class Style_Interface {
 						return $this->handle_unit_point( $value, 'transition' );
 					},
 					'value'          => $this->attrs['backgroundTransition'],
-					'device_control' => true,
+					'device_control' => false,
 				)
 			);
 		}
