@@ -78,7 +78,6 @@ export const backgroundPanel = (props) => {
         label: __('Background Transition', '--gctd--'),
         show: switcher.layout === 'hover',
         component: SizeControl,
-        allowDeviceControl: true,
         units: {
             s: {
                 text: 's',

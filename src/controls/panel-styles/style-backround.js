@@ -25,7 +25,6 @@ export const backgroundStyle = (props) => {
     isNotEmpty(attributes['backgroundTransition']) && data.push({
         'type': 'unitPoint',
         'id': 'backgroundTransition',
-        'responsive': true,
         'selector': backgroundSelector,
         'properties': [
             {
