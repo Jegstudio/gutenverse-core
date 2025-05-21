@@ -105,12 +105,7 @@
 		"backgroundTransition": {
 			"type": "object",
 			"copyStyle": true,
-			"default": {
-				"Desktop":{
-					"point": 1,
-					"unit":"s"
-				}
-			}
+			"default": {}
 		},
     "hideDesktop": {
       "type": "boolean",
