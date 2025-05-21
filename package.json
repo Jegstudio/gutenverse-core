@@ -4,11 +4,11 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "pnpm --prefix gutenverse-core start & pnpm start:js & pnpm start:css",
-		"dev": "pnpm --prefix gutenverse-core dev && pnpm start:dev && pnpm build:css",
-		"build": "pnpm --prefix gutenverse-core build && pnpm build:js && pnpm build:css",
-		"development": "gulp clean && pnpm --prefix gutenverse-core development && pnpm dev && gulp release && pnpm pot && gulp zip",
-		"production": "gulp clean && pnpm --prefix gutenverse-core production && pnpm build && gulp release && pnpm pot && gulp zip",
+		"start": "pnpm --filter gutenverse-core start & pnpm start:js & pnpm start:css",
+		"dev": "pnpm --filter gutenverse-core dev && pnpm start:dev && pnpm build:css",
+		"build": "pnpm --filter gutenverse-core build && pnpm build:js && pnpm build:css",
+		"development": "gulp clean && pnpm --filter gutenverse-core development && pnpm dev && gulp release && pnpm pot && gulp zip",
+		"production": "gulp clean && pnpm --filter gutenverse-core production && pnpm build && gulp release && pnpm pot && gulp zip",
 		"start:js": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js --watch",
 		"start:dev": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js",
 		"build:js": "cross-env NODE_ENV=production webpack --config .config/webpack.config.prod.js",
@@ -21,7 +21,8 @@
 		"new": "node ./scripts/new-block.js",
 		"pot": "wp i18n make-pot ./release/gutenverse ./release/gutenverse/languages/gutenverse.pot --domain=gutenverse",
 		"jsonpot": "wp i18n make-json ./release/gutenverse/languages/",
-		"clean:package": "rm -rf node_modules package-lock.json gutenverse-core/node_modules gutenverse-core/package-lock.json"
+		"clean:package": "rm -rf node_modules package-lock.json gutenverse-core/node_modules gutenverse-core/package-lock.json",
+		"install:all": "pnpm --filter gutenverse-core install && pnpm install"
 	},
 	"repository": {
 		"type": "git",
