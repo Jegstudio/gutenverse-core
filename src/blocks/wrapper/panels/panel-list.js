@@ -100,7 +100,6 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 blockType: 'wrapper',
-                withTransition: true,
                 normalOptions: ['default', 'gradient', 'video', 'fluid', 'slide'],
                 hoverOptions: ['default', 'gradient'],
                 normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-inner-wrap > .guten-background-animated .animated-layer`,
