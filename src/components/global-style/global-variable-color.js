@@ -170,12 +170,17 @@ const checkDoubleSlug = (slug, idx, colors) => {
     }
 };
 
+const isKebabCase = (str) => {
+    return /^[a-z0-9]+(-[a-z0-9]+)*$/.test(str);
+};
+
 const toKebabCase = (str) => {
+    if (isKebabCase(str)) return str;
     return str
         .match(/[A-Z]?[a-z]+|[A-Z]+(?![a-z])|\d+/g) // split into meaningful parts
         .map(part => part.toLowerCase())
         .join('-');
-}
+};
 
 
 /**
@@ -199,7 +204,7 @@ const GlobalCustomColor = ({ userConfig, setUserConfig }) => {
 
     const addVariableColor = () => {
         const name = `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`;
-        const key = cryptoRandomString({ length: 6, type: 'alphanumeric' });
+        const key = toKebabCase(cryptoRandomString({ length: 6, type: 'alphanumeric' }));
         const newColor = {
             key: key,
             id: key,
