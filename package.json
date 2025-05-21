@@ -21,7 +21,7 @@
 		"new": "node ./scripts/new-block.js",
 		"pot": "wp i18n make-pot ./release/gutenverse ./release/gutenverse/languages/gutenverse.pot --domain=gutenverse",
 		"jsonpot": "wp i18n make-json ./release/gutenverse/languages/",
-		"clean:package": "rm -rf node_modules package-lock.json gutenverse-core/node_modules gutenverse-core/package-lock.json",
+		"clean:package": "rm -rf node_modules package-lock.json pnpm-lock.yaml gutenverse-core/node_modules gutenverse-core/package-lock.json gutenverse-core/pnpm-lock.yaml",
 		"install:all": "pnpm --filter gutenverse-core install && pnpm install"
 	},
 	"repository": {
@@ -42,7 +42,9 @@
 	"devDependencies": {
 		"@babel/runtime": "^7.27.1",
 		"babel-loader": "^9.2.1",
-		"cross-env": "^7.0.3"
+		"cross-env": "^7.0.3",
+		"gulp": "^4.0.2",
+		"gulp-zip": "^6.0.0"
 	},
 	"dependencies": {
 		"@svgr/webpack": "^7.0.0",
