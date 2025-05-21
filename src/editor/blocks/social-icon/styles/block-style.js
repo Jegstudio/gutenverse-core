@@ -2,23 +2,14 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
 import colorStyle from './panel-style/style-color';
 import contentStyle from './panel-style/style-content';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
     data = colorStyle(elementId, attributes, data);
     data = contentStyle(elementId, attributes, data);
+    data = backgroundStyle({ attributes, data, elementId });
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
@@ -187,18 +178,18 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.${elementId}.guten-element`,
     },
-        {
-            'type': 'positioning',
-            'id': 'positioningAlign',
-            'properties': [
-                {
-                    'name': 'vertical-align',
-                    'valueType': 'direct'
-                }
-            ],
-            'attributeType': 'align',
-            'selector': `.${elementId}.guten-element`,
-        });
+    {
+        'type': 'positioning',
+        'id': 'positioningAlign',
+        'properties': [
+            {
+                'name': 'vertical-align',
+                'valueType': 'direct'
+            }
+        ],
+        'attributeType': 'align',
+        'selector': `.${elementId}.guten-element`,
+    });
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',

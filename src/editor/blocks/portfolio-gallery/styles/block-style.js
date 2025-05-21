@@ -3,25 +3,16 @@ import { applyFilters } from '@wordpress/hooks';
 import panelContentStyle from './panel-style/style-content';
 import panelLinkStyle from './panel-style/style-link';
 import panelSettingStyle from './panel-style/style-settings';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
     data = panelContentStyle(elementId, attributes, data);
     data = panelLinkStyle(elementId, attributes, data);
     data = panelSettingStyle(elementId, attributes, data);
+    data = backgroundStyle({ attributes, data, elementId });
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
