@@ -1,6 +1,5 @@
 import anime from 'animejs';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { u } from 'gutenverse-core/components';
 
 const TextStyleZoom = (props) => {
     const {
@@ -9,24 +8,13 @@ const TextStyleZoom = (props) => {
         animatedTextRef,
         splitByWord,
         style,
+        resetText,
         animationDuration,
         displayDuration,
     } = props;
 
     const [animation, setAnimation] = useState();
     const timeoutRef = useRef(null);
-
-    const resetText = () => {
-        const textWrapper = u(animatedTextRef.current).find('.text-content');
-        if (!textWrapper) return;
-        textWrapper.html(text);
-        textWrapper.html(
-            textWrapper.text().replace(
-                splitByWord ? /\b\w+\b/g : /\S/g,
-                (word) => `<span class='letter'>${word}</span>`
-            )
-        );
-    };
 
     const loopAnimation = () => {
         timeoutRef.current = setTimeout(() => {

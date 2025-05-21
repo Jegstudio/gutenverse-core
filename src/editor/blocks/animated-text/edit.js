@@ -1,7 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { useRef } from '@wordpress/element';
 import { useBlockProps } from '@wordpress/block-editor';
-import { classnames } from 'gutenverse-core/components';
+import { classnames, u } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import TextStyleZoom from './components/text-style-zoom';
@@ -33,6 +33,7 @@ const AnimatedTextBlock = compose(
         elementId,
         style,
         text,
+        splitByWord,
         titleTag: TitleTag,
         beforeTextAnimated,
         afterTextAnimated,
@@ -57,8 +58,21 @@ const AnimatedTextBlock = compose(
         ref: elementRef
     });
 
+    const resetText = () => {
+        const textWrapper = u(elementRef.current).find('.text-content');
+        if (!textWrapper) return;
+        textWrapper.html(text);
+        textWrapper.html(
+            textWrapper.text().replace(
+                splitByWord ? /\b\w+\b/g : /\S/g,
+                (word) => `<span class='letter'>${word}</span>`
+            )
+        );
+    };
+
     const animationProps = {
         ...attributes,
+        resetText: resetText,
         animatedTextRef : elementRef,
         animationDuration: parseInt(attributes.animationDuration),
         displayDuration: parseInt(attributes.displayDuration),
