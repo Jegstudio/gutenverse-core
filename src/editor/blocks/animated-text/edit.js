@@ -34,6 +34,8 @@ const AnimatedTextBlock = compose(
         style,
         text,
         titleTag: TitleTag,
+        beforeTextAnimated,
+        afterTextAnimated,
     } = attributes;
 
     const elementRef = useRef(null);
@@ -57,7 +59,9 @@ const AnimatedTextBlock = compose(
 
     const animationProps = {
         ...attributes,
-        animatedTextRef : elementRef
+        animatedTextRef : elementRef,
+        animationDuration: parseInt(attributes.animationDuration),
+        displayDuration: parseInt(attributes.displayDuration),
     };
 
     const loadAnimatedtext = () => {
@@ -83,7 +87,7 @@ const AnimatedTextBlock = compose(
             case 'fall':
                 return <TextStyleFall {...animationProps} />;
             default:
-                return <TitleTag>{text}</TitleTag>;
+                return <span>{text}</span>;
         }
     };
 
@@ -91,7 +95,11 @@ const AnimatedTextBlock = compose(
         <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <div  {...blockProps}>
-            {loadAnimatedtext()}
+            <TitleTag>
+                <span className={'non-animated-text before-text'}>{beforeTextAnimated}</span>
+                {loadAnimatedtext()}
+                <span className={'non-animated-text after-text'}>{afterTextAnimated}</span>
+            </TitleTag>
         </div>
     </>;
 });

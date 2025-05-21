@@ -13,6 +13,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"textType": {
+			"type": "string",
+			"default": "default"
+		},
 		"titleTag": {
 			"type": "string",
 			"default": "h2"
@@ -25,6 +29,36 @@
 		"text": {
 			"type": "string",
 			"default": "Placeholder Text"
+		},
+		"rotationTexts": {
+			"type":"array",
+			"default":[
+				{
+					"rotationText": "Three"
+				},
+				{
+					"rotationText":"Two"
+				},
+				{
+					"rotationText":"One"
+				}
+			]
+		},
+		"beforeTextAnimated": {
+			"type":"string",
+			"default":"Before "
+		},
+		"afterTextAnimated": {
+			"type":"string",
+			"default":" After"
+		},
+		"displayDuration": {
+			"type":"integer",
+			"default":"1000"
+		},
+		"animationDuration": {
+			"type":"integer",
+			"default":"600"
 		},
 		"splitByWord": {
 			"type": "boolean"

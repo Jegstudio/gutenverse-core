@@ -1,10 +1,30 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { CheckboxControl, IconRadioControl, SelectControl, SizeControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconRadioControl, RangeControl, RepeaterControl, SelectControl, SizeControl, TextControl } from 'gutenverse-core/controls';
 
-export const settingPanel = ({ elementId }) => {
+export const settingPanel = (props) => {
+    const {
+        elementId,
+        textType,
+        style,
+    } = props;
     return [
+        {
+            id: 'textType',
+            label: __('Text Type', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: __('Default', 'none'),
+                    value: 'default',
+                },
+                {
+                    label: __('Rotation'),
+                    value: 'rotation',
+                },
+            ]
+        },
         {
             id: 'titleTag',
             label: __('Title Tag', 'gutenverse'),
@@ -93,8 +113,53 @@ export const settingPanel = ({ elementId }) => {
         },
         {
             id: 'text',
-            label: __('Animated Text'),
+            show: textType === 'default',
+            label: __('Animated Text', 'gutenverse'),
             component: TextControl
+        },
+        {
+            id: 'displayDuration',
+            show: style !== 'none',
+            label: __('Display Duration', 'gutenverse'),
+            component: RangeControl,
+            min: 0,
+            max: 10000,
+            step: 100,
+            unit: 'ms',
+        },
+        {
+            id: 'animationDuration',
+            show: style !== 'none',
+            label: __('Animation Duration', 'gutenverse'),
+            component: RangeControl,
+            min: 0,
+            max: 10000,
+            step: 100,
+            unit: 'ms',
+        },
+        {
+            id: 'rotationTexts',
+            show: textType === 'rotation',
+            label: __('Animated Text'),
+            component: RepeaterControl,
+            titleFormat: '<strong><%= value.rotationText%></strong>',
+            options: [
+                {
+                    id: 'rotationText',
+                    label: __('Title', 'gutenverse'),
+                    component: TextControl,
+                }
+            ]
+        },
+        {
+            id: 'beforeTextAnimated',
+            label: __('Before Text Animated', 'gutenverse'),
+            component: TextControl,
+        },
+        {
+            id: 'afterTextAnimated',
+            label: __('After Text Animated', 'gutenverse'),
+            component: TextControl,
         },
         {
             id: 'splitByWord',
