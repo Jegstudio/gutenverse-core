@@ -161,13 +161,21 @@ const checkDoubleSlug = (slug, idx, colors) => {
         }
     });
 
+
     if (doubleFlag) {
         const newSlug = `${slug}-${Math.floor(Math.random() * 100)}`;
         return checkDoubleSlug(newSlug, idx, colors);
     } else {
-        return slug;
+        return toKebabCase(slug);
     }
 };
+
+const toKebabCase = (str) => {
+    return str
+        .match(/[A-Z]?[a-z]+|[A-Z]+(?![a-z])|\d+/g) // split into meaningful parts
+        .map(part => part.toLowerCase())
+        .join('-');
+}
 
 
 /**
