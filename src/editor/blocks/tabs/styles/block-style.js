@@ -1,10 +1,8 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
-import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
-    data = backgroundStyle({ attributes, data, elementId });
 
     //only if not responsive
     isNotEmpty(attributes['orientation']) && attributes['orientation'] === 'horizontal' && data.push({

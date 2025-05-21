@@ -2,15 +2,12 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
 import itemStyle from './panel-style/item-style';
 import spacingStyle from './panel-style/spacing-style';
-import { backgroundStyle } from 'gutenverse-core/controls';
-
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
     data = itemStyle(elementId, attributes, data);
     data = spacingStyle(elementId, attributes, data);
-    data = backgroundStyle({ attributes, data, elementId });
 
     /**Panel List */
     isNotEmpty(attributes['border']) && data.push({

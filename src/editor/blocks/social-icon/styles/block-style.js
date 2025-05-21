@@ -2,13 +2,11 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
 import colorStyle from './panel-style/style-color';
 import contentStyle from './panel-style/style-content';
-import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
     data = colorStyle(elementId, attributes, data);
     data = contentStyle(elementId, attributes, data);
-    data = backgroundStyle({ attributes, data, elementId });
     /**Panel List */
 
     isNotEmpty(attributes['border']) && data.push({

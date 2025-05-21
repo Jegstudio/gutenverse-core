@@ -102,6 +102,16 @@
       "default": {},
       "copyStyle": true
     },
+		"backgroundTransition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {
+				"Desktop":{
+					"point": 1,
+					"unit":"s"
+				}
+			}
+		},
     "hideDesktop": {
       "type": "boolean",
       "copyStyle": true

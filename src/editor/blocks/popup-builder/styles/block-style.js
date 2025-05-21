@@ -4,7 +4,6 @@ import panelCloseStyle from './panel-style/style-close';
 import panelContainerStyle from './panel-style/style-container';
 import panelOverlayStyle from './panel-style/style-overlay';
 import panelPopupStyle from './panel-style/style-popup';
-import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -12,7 +11,6 @@ const getBlockStyle = (elementId, attributes) => {
     data = panelContainerStyle(elementId, attributes, data);
     data = panelOverlayStyle(elementId, attributes, data);
     data = panelPopupStyle(elementId, attributes, data);
-    data = backgroundStyle({ attributes, data, elementId });
 
     /**Panel List */
 
