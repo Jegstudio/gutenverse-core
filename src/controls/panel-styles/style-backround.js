@@ -5,8 +5,9 @@ export const backgroundStyle = (props) => {
     const {
         attributes,
         data,
-        backgroundSelector,
-        backgroundHoverSelector
+        elementId,
+        backgroundSelector = `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        backgroundHoverSelector = `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
     } = props;
 
     isNotEmpty(attributes['background']) && data.push({
