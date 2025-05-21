@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
+import { RangeControl, SelectControl, SizeControl, CheckboxControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const layoutPanel = (props) => {
     const {
@@ -7,7 +8,9 @@ export const layoutPanel = (props) => {
         layout,
         heightControl,
         overflow,
+        wrapColumn
     } = props;
+    const device = getDeviceType();
 
     return [
         {
@@ -55,6 +58,14 @@ export const layoutPanel = (props) => {
                     ],
                 }
             ]
+        },
+        {
+            id: 'wrapColumn',
+            label: __('Wrap Column 100%', '--gctd--'),
+            description: __('This option only show if you have set the value in old version of the section.', '--gctd--'),
+            allowDeviceControl: true,
+            component: CheckboxControl,
+            show: wrapColumn[device],
         },
         {
             id: 'gap',

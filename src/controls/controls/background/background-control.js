@@ -212,6 +212,7 @@ const BackgroundControl = (props) => {
     const parameter = {
         value,
         onValueChange,
+        onLocalChange
     };
 
     const deviceType = getDeviceType();

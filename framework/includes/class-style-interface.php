@@ -312,7 +312,7 @@ abstract class Style_Interface {
 			}
 
 			if ( 'Mobile' === $device ) {
-				$selector = "{$selector}.guten-element";
+				$selector = "{$selector}.guten-element.guten-column";
 				if ( isset( $this->attrs['forceColumnHundred']['Mobile'] ) ) {
 					$this->generated[ $device ][ $selector ][] = 'width: 100%;';
 				} elseif ( isset( $value[ $device ] ) ) {
@@ -1696,7 +1696,7 @@ abstract class Style_Interface {
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
 							if ( '#gutenFeaturedImage' === $value['id'] ) {
-								$value['image'] = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/img-placeholder.jpg';
+								return 'background-image: url(#gutenFeaturedImage);';
 							}
 							return "background-image: url({$value['image']});";
 						},

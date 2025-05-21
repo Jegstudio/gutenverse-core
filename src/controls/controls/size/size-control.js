@@ -105,16 +105,18 @@ const SizeControl = (props) => {
         defaultUnit = '',
     } = props;
 
-    const generateValue = (val) => {
-        if (isNotEmpty(val.unit)) {
-            return val;
+    const generateValue = (value) => {
+        const newValue = typeof value === 'string'? {} : value;
+
+        if (isNotEmpty(newValue.unit)) {
+            return newValue;
         }
         if (defaultUnit == '') {
-            val.unit = Object.keys(units)[0];
-            return val;
+            newValue.unit = Object.keys(units)[0];
+            return newValue;
         }
-        val.unit = defaultUnit;
-        return val;
+        newValue.unit = defaultUnit;
+        return newValue;
     };
 
     const [localValue, setLocalValue] = useState(generateValue(value));
