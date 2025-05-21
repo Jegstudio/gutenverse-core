@@ -1,9 +1,16 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { applyFilters } from '@wordpress/hooks';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
+    data = backgroundStyle({
+        attributes,
+        data,
+        backgroundSelector: `.${elementId}:not(.background-animated), .${elementId}.background-animated > .guten-background-animated .animated-layer`,
+        backgroundHoverSelector: `.${elementId}:not(.background-animated):hover, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer`,
+    });
     const device = getDeviceType();
 
     isNotEmpty(attributes['width']) && data.push({
@@ -197,37 +204,6 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'shapeDivider',
         'id': 'bottomDivider',
         'selector': `section.guten-section.${elementId} .guten-shape-divider.guten-shape-divider-bottom svg, section.guten-section.${elementId} .guten-shape-divider.guten-shape-divider-bottom .guten-shape-fill path`,
-    });
-
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.${elementId}:not(.background-animated), .${elementId}.background-animated > .guten-background-animated .animated-layer`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.${elementId}:not(.background-animated):hover, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer`,
-    });
-
-    isNotEmpty(attributes['backgroundTransition']) && data.push({
-        'type': 'unitPoint',
-        'id': 'backgroundTransition',
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'transition',
-                'valueType': 'pattern',
-                'pattern': '{value}',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct',
-                    },
-                }
-            },
-        ],
-        'selector': `.${elementId}:not(.background-animated), .${elementId}.background-animated > .guten-background-animated .animated-layer`,
     });
 
     isNotEmpty(attributes['backgroundOverlay']) && data.push({
