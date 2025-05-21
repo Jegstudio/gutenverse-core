@@ -26,7 +26,7 @@ export const backgroundStyle = (props) => {
         'type': 'unitPoint',
         'id': 'backgroundTransition',
         'responsive': true,
-        'selector': backgroundHoverSelector,
+        'selector': backgroundSelector,
         'properties': [
             {
                 'name': 'transition',
