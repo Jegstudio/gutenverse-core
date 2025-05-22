@@ -4,9 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "cross-env PLUGIN_ENV=../gutenverse pnpm --filter gutenverse-core start & pnpm start:js & pnpm start:css",
-		"dev": "cross-env PLUGIN_ENV=../gutenverse pnpm --filter gutenverse-core dev && pnpm start:dev && pnpm build:css",
-		"build": "cross-env PLUGIN_ENV=../gutenverse pnpm --filter gutenverse-core build && pnpm build:js && pnpm build:css",
+		"start": "pnpm --filter gutenverse-core start & pnpm start:js & pnpm start:css",
+		"dev": "pnpm --filter gutenverse-core dev && pnpm start:dev && pnpm build:css",
+		"build": "pnpm --filter gutenverse-core build && pnpm build:js && pnpm build:css",
 		"development": "gulp clean && pnpm --filter gutenverse-core development && pnpm dev && gulp release && pnpm pot && gulp zip",
 		"production": "gulp clean && pnpm --filter gutenverse-core production && pnpm build && gulp release && pnpm pot && gulp zip",
 		"start:js": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js --watch",
