@@ -9,56 +9,66 @@ const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extract
 
 class BlockJsonCopyPlugin {
     constructor() {
-        this.initialRun = true;
+        this.firstRun = true;
+        this.watchRun = false;
     }
 
     apply(compiler) {
+        compiler.hooks.emit.tapAsync('BlockJsonCopyPlugin', (compilation, callback) => {
+            this.copyBlockProcess(compilation, callback);
+            this.firstRun = false;
+        });
+
         compiler.hooks.watchRun.tapAsync('BlockJsonCopyPlugin', (compilation, callback) => {
-            let changedBlocks = new Set();
-
-            const changedFiles = compilation.modifiedFiles || new Set();
-
-            if (this.initialRun || changedFiles.size === 0) {
-                const blockDirs = fs.readdirSync("./src/editor/blocks/");
-                for (const dir of blockDirs) {
-                    const jsonSource = `./src/editor/blocks/${dir}/block.json`;
-                    if (fs.existsSync(jsonSource)) {
-                        changedBlocks.add(dir);
-                    }
-                }
-                this.initialRun = false;
-            } else {
-                [...changedFiles].forEach(file => {
-                    const match = file.match(/src[\\/]+editor[\\/]+blocks[\\/]+([^\\/]+)/);
-                    if (match) {
-                        changedBlocks.add(match[1]);
-                    }
-                });
-            }
-
-            changedBlocks.forEach(blockName => {
-                const jsonSource = `./src/editor/blocks/${blockName}/block.json`;
-                const jsonDest = `./gutenverse/block/${blockName}/block.json`;
-
-                if (fs.existsSync(jsonSource)) {
-                    try {
-                        if (fs.existsSync(jsonDest)) {
-                            fs.unlinkSync(jsonDest);
-                        }
-
-                        fs.mkdirSync(path.dirname(jsonDest), { recursive: true });
-                        fs.copyFileSync(jsonSource, jsonDest);
-                        console.log(`Updating Gutenverse block.json: \x1b[34m${blockName}\x1b[0m`);
-                    } catch (err) {
-                        console.error(`Error copying block.json for ${blockName}:`, err);
-                    }
-                }
-            });
-
-            callback();
+            this.watchRun = true;
+            this.copyBlockProcess(compilation, callback);
         });
     }
+
+    copyBlockProcess = (compilation, callback) => {
+        let changedBlocks = new Set();
+        const changedFiles = compilation.modifiedFiles || new Set();
+
+        if (this.firstRun) {
+            const blockDirs = fs.readdirSync("./src/editor/blocks/");
+            for (const dir of blockDirs) {
+                const jsonSource = `./src/editor/blocks/${dir}/block.json`;
+                if (fs.existsSync(jsonSource)) {
+                    changedBlocks.add(dir);
+                }
+            }
+        } else if (this.watchRun) {
+            [...changedFiles].forEach(file => {
+                const match = file.match(/src[\\/]+editor[\\/]+blocks[\\/]+([^\\/]+)/);
+                if (match) {
+                    changedBlocks.add(match[1]);
+                }
+            });
+        }
+
+        changedBlocks.forEach(blockName => {
+            const jsonSource = `./src/editor/blocks/${blockName}/block.json`;
+            const jsonDest = `./gutenverse/block/${blockName}/block.json`;
+
+            if (fs.existsSync(jsonSource)) {
+                try {
+                    if (fs.existsSync(jsonDest)) {
+                        fs.unlinkSync(jsonDest);
+                    }
+
+                    fs.mkdirSync(path.dirname(jsonDest), { recursive: true });
+                    fs.copyFileSync(jsonSource, jsonDest);
+                    console.log(`Updating Gutenverse block.json: \x1b[31m${blockName}\x1b[0m`);
+                } catch (err) {
+                    console.error(`Error copying block.json for ${blockName}:`, err);
+                }
+            }
+        });
+
+        callback();
+    }
 }
+
 
 const blocks = {
     mode: "development",
