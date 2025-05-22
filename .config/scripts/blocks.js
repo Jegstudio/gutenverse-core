@@ -48,7 +48,7 @@ class BlockJsonCopyPlugin {
 
                         fs.mkdirSync(path.dirname(jsonDest), { recursive: true });
                         fs.copyFileSync(jsonSource, jsonDest);
-                        console.log(`Updating block.json: \x1b[34m${blockName}\x1b[0m`);
+                        console.log(`Updating Gutenverse block.json: \x1b[34m${blockName}\x1b[0m`);
                     } catch (err) {
                         console.error(`Error copying block.json for ${blockName}:`, err);
                     }
@@ -59,7 +59,6 @@ class BlockJsonCopyPlugin {
         });
     }
 }
-
 
 const blocks = {
     mode: "development",
