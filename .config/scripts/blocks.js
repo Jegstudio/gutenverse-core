@@ -37,10 +37,11 @@ class BlockJsonCopyPlugin {
 
             changedBlocks.forEach(blockName => {
                 const jsonSource = `./src/blocks/${blockName}/block.json`;
-                const jsonDest = `../gutenverse/block/${blockName}/block.json`;
 
-                if (fs.existsSync(jsonSource)) {
+                if (fs.existsSync(jsonSource) && process.env.PLUGIN_ENV) {
                     try {
+                        const jsonDest = `${process.env.PLUGIN_ENV}/block/${blockName}/block.json`;
+
                         if (fs.existsSync(jsonDest)) {
                             fs.unlinkSync(jsonDest);
                         }
