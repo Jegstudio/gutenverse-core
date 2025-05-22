@@ -7,23 +7,59 @@ const { stats, plugins } = require("gutenverse-core/.config/config");
 const { externals, coreExternals, coreFrontendExternals } = require("gutenverse-core/.config/externals");
 const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
 
-let copyPath = [];
-let deletePath = [];
-
-fs.readdirSync("./src/editor/blocks/").filter((file) => {
-    const path = "./src/editor/blocks/" + file;
-
-    if (fs.statSync(path).isDirectory()) {
-        const jsonPath = path + "/block.json";
-        if (fs.existsSync(jsonPath)) {
-            deletePath.push("./gutenverse/block/" + file + "/block.json");
-            copyPath.push({
-                source: jsonPath,
-                destination: "./gutenverse/block/" + file + "/block.json",
-            });
-        }
+class BlockJsonCopyPlugin {
+    constructor() {
+        this.initialRun = true;
     }
-});
+
+    apply(compiler) {
+        compiler.hooks.watchRun.tapAsync('BlockJsonCopyPlugin', (compilation, callback) => {
+            let changedBlocks = new Set();
+
+            const changedFiles = compilation.modifiedFiles || new Set();
+
+            if (this.initialRun || changedFiles.size === 0) {
+                const blockDirs = fs.readdirSync("./src/editor/blocks/");
+                for (const dir of blockDirs) {
+                    const jsonSource = `./src/editor/blocks/${dir}/block.json`;
+                    if (fs.existsSync(jsonSource)) {
+                        changedBlocks.add(dir);
+                    }
+                }
+                this.initialRun = false;
+            } else {
+                [...changedFiles].forEach(file => {
+                    const match = file.match(/src[\\/]+editor[\\/]+blocks[\\/]+([^\\/]+)/);
+                    if (match) {
+                        changedBlocks.add(match[1]);
+                    }
+                });
+            }
+
+            changedBlocks.forEach(blockName => {
+                const jsonSource = `./src/editor/blocks/${blockName}/block.json`;
+                const jsonDest = `./gutenverse/block/${blockName}/block.json`;
+
+                if (fs.existsSync(jsonSource)) {
+                    try {
+                        if (fs.existsSync(jsonDest)) {
+                            fs.unlinkSync(jsonDest);
+                        }
+
+                        fs.mkdirSync(path.dirname(jsonDest), { recursive: true });
+                        fs.copyFileSync(jsonSource, jsonDest);
+                        console.log(`Updating block.json: \x1b[31m${blockName}\x1b[0m`);
+                    } catch (err) {
+                        console.error(`Error copying block.json for ${blockName}:`, err);
+                    }
+                }
+            });
+
+            callback();
+        });
+    }
+}
+
 
 const blocks = {
     mode: "development",
@@ -51,14 +87,12 @@ const blocks = {
             events: {
                 onStart: {
                     delete: [
-                        ...deletePath,
                         "./gutenverse/assets/js/blocks.js*",
                         "./gutenverse/lib/dependencies/blocks.asset.php"
                     ]
                 },
                 onEnd: {
                     copy: [
-                        ...copyPath,
                         {
                             source: process.env.NODE_ENV === 'development' ? "./build/blocks.js*" : "./build/blocks.js",
                             destination: "./gutenverse/assets/js/",
@@ -72,6 +106,7 @@ const blocks = {
             },
             runTasksInSeries: true,
         }),
+        new BlockJsonCopyPlugin(),
     ],
 };
 
