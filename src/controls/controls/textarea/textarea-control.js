@@ -41,7 +41,7 @@ const TextareaControl = ({
                     id={`${id}-textarea`}
                     className="control-input-textarea"
                     placeholder={placeholder}
-                    value={value === undefined ? '' : value}
+                    value={localValue}
                     onChange={(e) => setLocalValue(e.target.value)}>
                 </textarea>
             </div>
