@@ -1,68 +1,49 @@
 {
-  "name": "gutenverse",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "npm run start --prefix gutenverse-core & npm run start:js & npm run start:css",
-    "dev": "npm run dev --prefix gutenverse-core && npm run start:dev && npm run build:css",
-    "build": "npm run build --prefix gutenverse-core && npm run build:js && npm run build:css",
-    "development": "gulp clean && npm run development --prefix gutenverse-core && npm run dev && gulp release && npm run pot && gulp zip",
-    "production": "gulp clean && npm run production --prefix gutenverse-core && npm run build && gulp release && npm run pot && gulp zip",
-    "start:js": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js --watch",
-    "start:dev": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js",
-    "build:js": "cross-env NODE_ENV=production webpack --config .config/webpack.config.prod.js",
-    "start:css": "cross-env NODE_ENV=development gulp watch",
-    "build:css": "cross-env NODE_ENV=production gulp build",
-    "format:js": "wp-scripts format-js",
-    "fix": "npx eslint --fix ./src || echo \"Formatting done! Please fix the remaining warnings and errors\"",
-    "fix-pkg": "npx eslint --fix ./gutenverse-core || echo \"Formatting done! Please fix the remaining warnings and errors\"",
-    "create": "node ./scripts/create-block.js",
-    "new": "node ./scripts/new-block.js",
-    "pot": "wp i18n make-pot ./release/gutenverse ./release/gutenverse/languages/gutenverse.pot --domain=gutenverse",
-    "jsonpot": "wp i18n make-json ./release/gutenverse/languages/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:Jegstudio/gutenverse.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "engines": {
-    "node": ">=20.10.0",
-    "npm": ">=10.2.3"
-  },
-  "overrides": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "webpack": "^5.93.0"
-  },
-  "devDependencies": {
-    "@wordpress/babel-preset-default": "^8.3.0",
-    "@wordpress/scripts": "^28.3.0",
-    "babel-eslint": "^10.1.0",
-    "concurrently": "^8.2.2",
-    "cross-env": "^7.0.3",
-    "css-mqpacker": "^7.0.0",
-    "cssnano": "^7.0.4",
-    "filemanager-webpack-plugin": "^8.0.0",
-    "gulp": "^5.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-postcss": "^10.0.0",
-    "gulp-sass": "^5.1.0",
-    "gulp-string-replace": "^1.1.2",
-    "gulp-zip": "^6.0.0",
-    "postcss": "^8.4.39",
-    "sass": "^1.77.8",
-    "webpack": "^5.93.0",
-    "webpack-cli": "^5.1.4"
-  },
-  "dependencies": {
-    "@wordpress/private-apis": "^1.20.0",
-    "animejs": "^3.2.2",
-    "classnames": "^2.5.1",
-    "gutenverse-core": "file:gutenverse-core",
-    "shufflejs": "^6.1.1",
-    "swiper": "https://gitpkg.vercel.app/Jegstudio/swiper-for-gutenverse/11.1.8?main"
-  }
+	"name": "gutenverse",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "npm run start --prefix gutenverse-core & npm run start:js & npm run start:css",
+		"dev": "npm run dev --prefix gutenverse-core && npm run start:dev && npm run build:css",
+		"build": "npm run build --prefix gutenverse-core && npm run build:js && npm run build:css",
+		"development": "gulp clean && npm run development --prefix gutenverse-core && npm run dev && gulp release && npm run pot && gulp zip",
+		"production": "gulp clean && npm run production --prefix gutenverse-core && npm run build && gulp release && npm run pot && gulp zip",
+		"start:js": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js --watch",
+		"start:dev": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js",
+		"build:js": "cross-env NODE_ENV=production webpack --config .config/webpack.config.prod.js",
+		"start:css": "cross-env NODE_ENV=development gulp watch",
+		"build:css": "cross-env NODE_ENV=production gulp build",
+		"format:js": "wp-scripts format-js",
+		"fix": "npx eslint --fix ./src || echo \"Formatting done! Please fix the remaining warnings and errors\"",
+		"fix-pkg": "npx eslint --fix ./gutenverse-core || echo \"Formatting done! Please fix the remaining warnings and errors\"",
+		"create": "node ./scripts/create-block.js",
+		"new": "node ./scripts/new-block.js",
+		"pot": "wp i18n make-pot ./release/gutenverse ./release/gutenverse/languages/gutenverse.pot --domain=gutenverse",
+		"jsonpot": "wp i18n make-json ./release/gutenverse/languages/",
+    	"clean:package": "rm -rf node_modules package-lock.json gutenverse-core/node_modules gutenverse-core/package-lock.json"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:Jegstudio/gutenverse.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"engines": {
+		"node": ">=20.10.0",
+		"npm": ">=10.2.3"
+	},
+	"overrides": {
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0",
+		"webpack": "^5.93.0"
+	},
+	"devDependencies": {},
+	"dependencies": {
+		"@wordpress/private-apis": "^1.20.0",
+		"animejs": "^3.2.2",
+		"gutenverse-core": "file:gutenverse-core",
+		"shufflejs": "^6.1.1",
+		"swiper": "https://gitpkg.vercel.app/Jegstudio/swiper-for-gutenverse/11.1.8?main"
+	}
 }
