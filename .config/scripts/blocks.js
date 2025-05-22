@@ -8,55 +8,64 @@ const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extract
 
 class BlockJsonCopyPlugin {
     constructor() {
-        this.initialRun = true;
+        this.firstRun = true;
+        this.watchRun = false;
     }
 
     apply(compiler) {
+        compiler.hooks.emit.tapAsync('BlockJsonCopyPlugin', (compilation, callback) => {
+            this.copyBlockProcess(compilation, callback);
+            this.firstRun = false;
+        });
+
         compiler.hooks.watchRun.tapAsync('BlockJsonCopyPlugin', (compilation, callback) => {
-            let changedBlocks = new Set();
+            this.watchRun = true;
+            this.copyBlockProcess(compilation, callback);
+        });
+    }
 
-            const changedFiles = compilation.modifiedFiles || new Set();
+    copyBlockProcess = (compilation, callback) => {
+        let changedBlocks = new Set();
+        const changedFiles = compilation.modifiedFiles || new Set();
 
-            if (this.initialRun || changedFiles.size === 0) {
-                const blockDirs = fs.readdirSync("./src/blocks/");
-                for (const dir of blockDirs) {
-                    const jsonSource = `./src/blocks/${dir}/block.json`;
-                    if (fs.existsSync(jsonSource)) {
-                        changedBlocks.add(dir);
-                    }
+        if (this.firstRun) {
+            const blockDirs = fs.readdirSync("./src/blocks/");
+            for (const dir of blockDirs) {
+                const jsonSource = `./src/blocks/${dir}/block.json`;
+                if (fs.existsSync(jsonSource)) {
+                    changedBlocks.add(dir);
                 }
-                this.initialRun = false;
-            } else {
-                [...changedFiles].forEach(file => {
-                    const match = file.match(/src[\\/]+blocks[\\/]+([^\\/]+)/);
-                    if (match) {
-                        changedBlocks.add(match[1]);
-                    }
-                });
             }
-
-            changedBlocks.forEach(blockName => {
-                const jsonSource = `./src/blocks/${blockName}/block.json`;
-
-                if (fs.existsSync(jsonSource) && process.env.PLUGIN_ENV) {
-                    try {
-                        const jsonDest = `${process.env.PLUGIN_ENV}/block/${blockName}/block.json`;
-
-                        if (fs.existsSync(jsonDest)) {
-                            fs.unlinkSync(jsonDest);
-                        }
-
-                        fs.mkdirSync(path.dirname(jsonDest), { recursive: true });
-                        fs.copyFileSync(jsonSource, jsonDest);
-                        console.log(`Updating Core block.json: \x1b[34m${blockName}\x1b[0m`);
-                    } catch (err) {
-                        console.error(`Error copying block.json for ${blockName}:`, err);
-                    }
+        } else if (this.watchRun) {
+            [...changedFiles].forEach(file => {
+                const match = file.match(/src[\\/]+blocks[\\/]+([^\\/]+)/);
+                if (match) {
+                    changedBlocks.add(match[1]);
                 }
             });
+        }
 
-            callback();
+        changedBlocks.forEach(blockName => {
+            const jsonSource = `./src/blocks/${blockName}/block.json`;
+
+            if (fs.existsSync(jsonSource) && process.env.PLUGIN_ENV) {
+                try {
+                    const jsonDest = `${process.env.PLUGIN_ENV}/block/${blockName}/block.json`;
+
+                    if (fs.existsSync(jsonDest)) {
+                        fs.unlinkSync(jsonDest);
+                    }
+
+                    fs.mkdirSync(path.dirname(jsonDest), { recursive: true });
+                    fs.copyFileSync(jsonSource, jsonDest);
+                    console.log(`Updating Core block.json: \x1b[31m${blockName}\x1b[0m`);
+                } catch (err) {
+                    console.error(`Error copying block.json for ${blockName}:`, err);
+                }
+            }
         });
+
+        callback();
     }
 }
 
@@ -91,7 +100,7 @@ const blocks = {
                 },
                 onEnd: {
                     copy: [
-                        {                            
+                        {
                             source: process.env.NODE_ENV === 'development' ? "./build/blocks.js*" : "./build/blocks.js",
                             destination: "./framework/assets/js/",
                         },
