@@ -60,6 +60,10 @@
 			"type":"integer",
 			"default":"600"
 		},
+		"transitionDuration": {
+			"type":"integer",
+			"default":"500"
+		},
 		"splitByWord": {
 			"type": "boolean"
 		},

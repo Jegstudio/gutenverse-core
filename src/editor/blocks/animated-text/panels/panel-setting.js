@@ -138,6 +138,16 @@ export const settingPanel = (props) => {
             unit: 'ms',
         },
         {
+            id: 'transitionDuration',
+            show: style !== 'none',
+            label: __('Transition Duration', 'gutenverse'),
+            component: RangeControl,
+            min: 0,
+            max: 10000,
+            step: 100,
+            unit: 'ms',
+        },
+        {
             id: 'rotationTexts',
             show: textType === 'rotation',
             label: __('Animated Text'),
