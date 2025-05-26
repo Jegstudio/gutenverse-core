@@ -5,7 +5,6 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
-import listAnimationStyles from './components/list-animation-styles';
 
 const save = compose(
     withMouseMoveEffectScript
@@ -16,11 +15,7 @@ const save = compose(
         text,
         titleTag: TitleTag,
         loop,
-        splitByWord,
-        beforeTextAnimated,
-        afterTextAnimated,
-        textType,
-        rotationTexts,
+        splitByWord
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -38,39 +33,27 @@ const save = compose(
     );
 
     const loadAnimatedText = () => {
-
-        if (Object.prototype.hasOwnProperty.call(listAnimationStyles, style)) {
-            return <>
-                <span className="text-content">
+        switch (style) {
+            case 'jump':
+            case 'bend':
+            case 'drop':
+            case 'flip':
+            case 'pop':
+                return <TitleTag className="text-content">
                     <span className="text-wrapper">
                         <span className="letters">{text}</span>
                     </span>
-                </span>
-            </>;
+                </TitleTag>;
+            default:
+                return <TitleTag className="text-content">{text}</TitleTag>;
         }
-        return <span className="text-content">{text}</span>;
     };
 
-    const animationProps = {
-        loop,
-        splitByWord,
-        style,
-        textType,
-        text,
-        rotationTexts,
-        animationDuration: parseInt(attributes.animationDuration),
-        displayDuration: parseInt(attributes.displayDuration),
-        transitionDuration: parseInt(attributes.transitionDuration),
-    };
-
-
-    return <div {...useBlockProps.save({ className })} data-animation={JSON.stringify(animationProps)}>
-        <TitleTag>
-            <span className={'non-animated-text before-text'}>{beforeTextAnimated}</span>
+    return (
+        <div className={className} data-animation={style} data-loop={loop} data-wordsplit={splitByWord}>
             {loadAnimatedText()}
-            <span className={'non-animated-text after-text'}>{afterTextAnimated}</span>
-        </TitleTag>
-    </div>;
+        </div>
+    );
 });
 
 export default save;
