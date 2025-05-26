@@ -53,15 +53,15 @@
 			"default":" After"
 		},
 		"displayDuration": {
-			"type":"integer",
+			"type":"string",
 			"default":"1000"
 		},
 		"animationDuration": {
-			"type":"integer",
+			"type":"string",
 			"default":"600"
 		},
 		"transitionDuration": {
-			"type":"integer",
+			"type":"string",
 			"default":"500"
 		},
 		"splitByWord": {
