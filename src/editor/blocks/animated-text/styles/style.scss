@@ -6,7 +6,7 @@
         margin: 0
     }
 
-    &.style-zoom, &.style-jump, &.style-bend, &.style-drop, &.style-flip, &.style-pop, &.style-slide, &.style-rising, &.style-fall {
+    &.style-zoom, &.style-jump, &.style-bend, &.style-drop, &.style-flip, &.style-pop, &.style-slide, &.style-rising, &.style-fall, &.style-fade {
         .text-content {
             .letter {
                 display: inline-block;
@@ -22,7 +22,6 @@
             .text-wrapper {
                 position: relative;
                 display: inline-block;
-                overflow: hidden;
             }
         }
     }
@@ -49,21 +48,5 @@
                 transform-origin: 0 0;
             }
         }
-    }
-
-    &.style-pop {
-        .text-content {
-            .text-wrapper {
-                position: relative;
-                display: inline-block;
-                padding-top: 0.1em;
-                padding-right: 0.05em;
-                padding-bottom: 0.15em;
-            }
-        }
-    }
-
-    &.style-fall {
-        overflow: hidden;
     }
 }

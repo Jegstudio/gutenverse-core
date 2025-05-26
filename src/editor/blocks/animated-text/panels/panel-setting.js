@@ -9,6 +9,59 @@ export const settingPanel = (props) => {
         textType,
         style,
     } = props;
+
+    const animationStyles = () => {
+        const styles = [
+            {
+                value: 'zoom',
+                label: __('Zoom')
+            },
+            {
+                value: 'fade',
+                label: __('Fade')
+            },
+            {
+                value: 'jump',
+                label: __('Jump')
+            },
+            {
+                value: 'bend',
+                label: __('Bend')
+            },
+            {
+                value: 'drop',
+                label: __('Drop')
+            },
+            {
+                value: 'flip',
+                label: __('Flip')
+            },
+            {
+                value: 'pop',
+                label: __('Pop')
+            },
+            {
+                value: 'slide',
+                label: __('Slide')
+            },
+            {
+                value: 'rising',
+                label: __('Rising')
+            },
+            {
+                value: 'fall',
+                label: __('Fall')
+            },
+        ];
+        if (textType == 'default') {
+            styles.unshift({
+                value: 'none',
+                label: __('None')
+            });
+        }
+        return styles;
+    };
+
     return [
         {
             id: 'textType',
@@ -64,52 +117,7 @@ export const settingPanel = (props) => {
             id: 'style',
             label: __('Animation Style', 'gutenverse'),
             component: SelectControl,
-            options: [
-                {
-                    value: 'none',
-                    label: __('None')
-                },
-                {
-                    value: 'zoom',
-                    label: __('Zoom')
-                },
-                {
-                    value: 'fade',
-                    label: __('Fade')
-                },
-                {
-                    value: 'jump',
-                    label: __('Jump')
-                },
-                {
-                    value: 'bend',
-                    label: __('Bend')
-                },
-                {
-                    value: 'drop',
-                    label: __('Drop')
-                },
-                {
-                    value: 'flip',
-                    label: __('Flip')
-                },
-                {
-                    value: 'pop',
-                    label: __('Pop')
-                },
-                {
-                    value: 'slide',
-                    label: __('Slide')
-                },
-                {
-                    value: 'rising',
-                    label: __('Rising')
-                },
-                {
-                    value: 'fall',
-                    label: __('Fall')
-                },
-            ]
+            options: animationStyles()
         },
         {
             id: 'text',
@@ -150,7 +158,7 @@ export const settingPanel = (props) => {
         {
             id: 'rotationTexts',
             show: textType === 'rotation',
-            label: __('Animated Text'),
+            label: __('Text Rotation', 'gutenverse'),
             component: RepeaterControl,
             titleFormat: '<strong><%= value.rotationText%></strong>',
             options: [
