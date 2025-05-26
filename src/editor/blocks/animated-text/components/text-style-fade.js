@@ -1,64 +1,35 @@
-import anime from 'animejs';
-import { useEffect, useRef, useState } from '@wordpress/element';
-import { u } from 'gutenverse-core/components';
-
-const TextStyleFade = (props) => {
+const textStyleFade = (props) => {
     const {
-        text,
         loop,
-        animatedTextRef,
-        splitByWord,
-        style,
-        resetText,
+        animationRef,
+        targetRef,
         animationDuration,
         displayDuration,
+        transitionDuration,
     } = props;
 
-    const [animation, setAnimation] = useState();
-    const timeoutRef = useRef(null);
+    animationRef.current.add({
+        targets: targetRef.current,
+        opacity: [0, 1],
+        easing: 'easeInOutQuad',
+        duration: animationDuration,
+        delay: (el, i) => 70 * i,
+    });
 
-    const loopAnimation = () => {
-        timeoutRef.current = setTimeout(() => {
-            resetText();
-            fadeAnimation();
-        }, displayDuration);
-    };
-
-    const fadeAnimation = () => {
-        anime.remove('.letter');
-        const animeInstance = anime({
-            targets: [...animatedTextRef.current.getElementsByClassName('letter')],
-            opacity: [0, 1],
-            easing: 'easeInOutQuad',
-            duration: animationDuration,
-            delay: (el, i) => 70 * i,
-            complete: () => {
-                if (loop) {
-                    loopAnimation();
-                }
-            }
+    if (loop) {
+        animationRef.current.add({ //display
+            targets: targetRef.current,
+            delay: displayDuration
         });
 
-        setAnimation(animeInstance);
-    };
-
-    useEffect(() => {
-        if (animation) {
-            anime.remove('.letter');
-            setAnimation(null);
-        }
-        resetText();
-        fadeAnimation();
-
-        return () => {
-            anime.remove('.letter');
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-        };
-    }, [loop, splitByWord, style, animationDuration, displayDuration, text]);
-
-    return <span className="text-content">{text}</span>;
+        animationRef.current.add({
+            targets: targetRef.current,
+            opacity: [1, 0],
+            easing: 'easeOutInQuad',
+            duration: transitionDuration,
+            delay: (el, i) => 70 * i,
+        });
+    }
 };
 
-export default TextStyleFade;
+export default textStyleFade;

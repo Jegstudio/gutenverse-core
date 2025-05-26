@@ -1,59 +1,27 @@
-import anime from 'animejs';
-import { useEffect, useState } from '@wordpress/element';
-import { u } from 'gutenverse-core/components';
-
-const TextStyleFlip = (props) => {
+const textStyleFlip = (props) => {
     const {
-        text,
-        titleTag: TitleTag,
         loop,
-        animatedTextRef,
-        splitByWord,
-        style
+        animationRef,
+        targetRef,
+        animationDuration,
+        displayDuration,
+        transitionDuration,
     } = props;
 
-    const [animation, setAnimation] = useState();
+    animationRef.current.add({
+        targets: targetRef.current,
+        rotateY: [-90, 0],
+        duration: animationDuration,
+        delay: (el, i) => 45 * i
+    });
 
-    const animeInit = () => {
-        const textWrapper = u(animatedTextRef.current).find('.text-content .letters');
-        textWrapper.html(textWrapper.text().replace(splitByWord ? /\b\w+\b/g : /\S/g, (word) => `<span class='letter'>${word}</span>`));
-
-        const animeInit = anime.timeline({loop})
-            .add({
-                targets: [...animatedTextRef.current.getElementsByClassName('letter')],
-                rotateY: [-90, 0],
-                duration: 1300,
-                delay: (el, i) => 45 * i
-            });
-
-        loop && animeInit.add({
-            targets: [...animatedTextRef.current.getElementsByClassName('text-content')],
-            opacity: 0,
-            duration: 1000,
-            easing: 'easeOutExpo',
-            delay: 1000
-        });
-
-        setAnimation(animeInit);
-    };
-
-    useEffect(() => animatedTextRef.current && animeInit(), [animatedTextRef]);
-
-    useEffect(() => {
-        animeInit();
-        return () => {
-            if (animation) {
-                animation.remove();
-                setAnimation(null);
-            }
-        };
-    }, [loop, splitByWord, style]);
-
-    return <TitleTag className="text-content">
-        <span className="text-wrapper">
-            <span className="letters">{text}</span>
-        </span>
-    </TitleTag>;
+    loop && animationRef.current.add({
+        targets: targetRef.current,
+        opacity: 0,
+        duration: transitionDuration,
+        easing: 'easeOutExpo',
+        delay: displayDuration
+    });
 };
 
-export default TextStyleFlip;
+export default textStyleFlip;

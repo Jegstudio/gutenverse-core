@@ -1,55 +1,37 @@
-import anime from 'animejs';
-import { useEffect, useState } from '@wordpress/element';
-import { u } from 'gutenverse-core/components';
-
-const TextStyleFall = (props) => {
+const textStyleFall = (props) => {
     const {
-        text,
-        titleTag: TitleTag,
         loop,
-        animatedTextRef,
-        splitByWord,
-        style
+        animationRef,
+        targetRef,
+        animationDuration,
+        displayDuration,
+        transitionDuration,
     } = props;
 
-    const [animation, setAnimation] = useState();
+    animationRef.current.add({
+        targets: targetRef.current,
+        translateY: [-100,0],
+        easing: 'easeOutExpo',
+        duration: animationDuration,
+        opacity: [0,1],
+        delay: (el, i) => 30 * i
+    });
 
-    const animeInit = () => {
-        const textWrapper = u(animatedTextRef.current).find('.text-content');
-        textWrapper.html(textWrapper.text().replace(splitByWord ? /\b\w+\b/g : /\S/g, (word) => `<span class='letter'>${word}</span>`));
-
-        const animeInit = anime.timeline({loop})
-            .add({
-                targets: [...animatedTextRef.current.getElementsByClassName('letter')],
-                translateY: [-100,0],
-                easing: 'easeOutExpo',
-                duration: 1400,
-                opacity: [0,1],
-                delay: (el, i) => 30 * i
-            });
-
-        loop && animeInit.add({
-            targets: [...animatedTextRef.current.getElementsByClassName('letter')],
-            opacity: 0,
-            duration: 1000,
-            easing: 'easeOutExpo',
-            delay: 1000
+    if (loop) {
+        animationRef.current.add({ //display
+            targets: targetRef.current,
+            delay: displayDuration
         });
 
-        setAnimation(animeInit);
-    };
-
-    useEffect(() => {
-        animeInit();
-        return () => {
-            if (animation) {
-                animation.remove();
-                setAnimation(null);
-            }
-        };
-    }, [loop, splitByWord, style]);
-
-    return <TitleTag className="text-content">{text}</TitleTag>;
+        animationRef.current.add({
+            targets: targetRef.current,
+            translateY: [0,100],
+            easing: 'easeInExpo',
+            duration: transitionDuration,
+            opacity: [1,0],
+            delay: (el, i) => 30 * i
+        });
+    }
 };
 
-export default TextStyleFall;
+export default textStyleFall;

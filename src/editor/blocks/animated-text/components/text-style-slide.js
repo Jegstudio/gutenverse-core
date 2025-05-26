@@ -1,57 +1,38 @@
-import anime from 'animejs';
-import { useEffect, useState } from '@wordpress/element';
-import { u } from 'gutenverse-core/components';
-
-const TextStyleSlide = (props) => {
+const textStyleSlide = (props) => {
     const {
-        text,
-        titleTag: TitleTag,
         loop,
-        animatedTextRef,
-        splitByWord,
-        style
+        animationRef,
+        targetRef,
+        animationDuration,
+        displayDuration,
+        transitionDuration,
     } = props;
 
-    const [animation, setAnimation] = useState();
+    animationRef.current.add({
+        targets: targetRef.current,
+        translateX: [40,0],
+        translateZ: 0,
+        opacity: [0,1],
+        easing: 'easeOutExpo',
+        duration: animationDuration,
+        delay: (el, i) => 500 + 30 * i
+    });
 
-    const animeInit = () => {
-        const textWrapper = u(animatedTextRef.current).find('.text-content');
-        textWrapper.html(textWrapper.text().replace(splitByWord ? /\b\w+\b/g : /\S/g, (word) => `<span class='letter'>${word}</span>`));
+    if (loop) {
+        animationRef.current.add({ //display
+            targets: targetRef.current,
+            delay: displayDuration
+        });
 
-        const animeInit = anime.timeline({loop})
-            .add({
-                targets: [...animatedTextRef.current.getElementsByClassName('letter')],
-                translateX: [40,0],
-                translateZ: 0,
-                opacity: [0,1],
-                easing: 'easeOutExpo',
-                duration: 1200,
-                delay: (el, i) => 500 + 30 * i
-            });
-
-        loop && animeInit.add({
-            targets: [...animatedTextRef.current.getElementsByClassName('letter')],
+        animationRef.current.add({
+            targets: targetRef.current,
             translateX: [0,-30],
             opacity: [1,0],
             easing: 'easeInExpo',
-            duration: 1100,
+            duration: transitionDuration,
             delay: (el, i) => 100 + 30 * i
         });
-
-        setAnimation(animeInit);
-    };
-
-    useEffect(() => {
-        animeInit();
-        return () => {
-            if (animation) {
-                animation.remove();
-                setAnimation(null);
-            }
-        };
-    }, [loop, splitByWord, style]);
-
-    return <TitleTag className="text-content">{text}</TitleTag>;
+    }
 };
 
-export default TextStyleSlide;
+export default textStyleSlide;

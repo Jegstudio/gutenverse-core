@@ -1,66 +1,39 @@
-import anime from 'animejs';
-import { useEffect, useRef, useState } from '@wordpress/element';
-
-const TextStyleZoom = (props) => {
+const textStyleZoom = (props) => {
     const {
-        text,
         loop,
-        animatedTextRef,
-        splitByWord,
-        style,
-        resetText,
+        animationRef,
+        targetRef,
         animationDuration,
         displayDuration,
+        transitionDuration,
     } = props;
 
-    const [animation, setAnimation] = useState();
-    const timeoutRef = useRef(null);
+    animationRef.current.add({
+        targets: targetRef.current,
+        scale: [4, 1],
+        opacity: [0, 1],
+        translateZ: 0,
+        easing: 'easeOutExpo',
+        duration: animationDuration,
+        delay: (el, i) => 70 * i,
+    });
 
-    const loopAnimation = () => {
-        timeoutRef.current = setTimeout(() => {
-            resetText();
-            zoomAnimation();
-        }, displayDuration);
-    };
-
-    const zoomAnimation = () => {
-        anime.remove('.letter');
-
-        const animeInstance = anime({
-            targets: [...animatedTextRef.current.getElementsByClassName('letter')],
-            scale: [4, 1],
-            opacity: [0, 1],
-            translateZ: 0,
-            easing: 'easeOutExpo',
-            duration: animationDuration,
-            delay: (el, i) => 70 * i,
-            complete: () => {
-                if (loop) {
-                    loopAnimation();
-                }
-            }
+    if (loop) {
+        animationRef.current.add({ //display
+            targets: targetRef.current,
+            delay: displayDuration
         });
 
-        setAnimation(animeInstance);
-    };
-
-    useEffect(() => {
-        if (animation) {
-            anime.remove('.letter');
-            setAnimation(null);
-        }
-        resetText();
-        zoomAnimation();
-
-        return () => {
-            anime.remove('.letter');
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-        };
-    }, [loop, splitByWord, style, animationDuration, displayDuration, text]);
-
-    return <span className="text-content">{text}</span>;
+        animationRef.current.add({
+            targets: targetRef.current,
+            scale: [1, 0],
+            opacity: [1, 0],
+            translateZ: 0,
+            easing: 'easeInExpo',
+            duration: transitionDuration,
+            delay: (el, i) => 70 * i,
+        });
+    }
 };
 
-export default TextStyleZoom;
+export default textStyleZoom;

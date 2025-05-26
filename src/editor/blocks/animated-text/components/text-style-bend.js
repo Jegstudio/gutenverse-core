@@ -1,62 +1,32 @@
-import anime from 'animejs';
-import { useEffect, useState } from '@wordpress/element';
-import { u } from 'gutenverse-core/components';
-
-const TextStyleBend = (props) => {
+const textStyleBend = (props) => {
     const {
-        text,
-        titleTag: TitleTag,
         loop,
-        animatedTextRef,
-        splitByWord,
-        style
+        animationRef,
+        targetRef,
+        animationDuration,
+        displayDuration,
+        transitionDuration,
     } = props;
 
-    const [animation, setAnimation] = useState();
+    animationRef.current.add({
+        targets: targetRef.current,
+        translateY: ['1.1em', 0],
+        translateX: ['0.55em', 0],
+        translateZ: 0,
+        rotateZ: [180, 0],
+        duration: animationDuration,
+        opacity: [0,1],
+        easing: 'easeOutExpo',
+        delay: (el, i) => 50 * i
+    });
 
-    const animeInit = () => {
-        const textWrapper = u(animatedTextRef.current).find('.text-content .letters');
-        textWrapper.html(textWrapper.text().replace(splitByWord ? /\b\w+\b/g : /\S/g, (word) => `<span class='letter'>${word}</span>`));
-
-        const animeInit = anime.timeline({loop})
-            .add({
-                targets: [...animatedTextRef.current.getElementsByClassName('letter')],
-                translateY: ['1.1em', 0],
-                translateX: ['0.55em', 0],
-                translateZ: 0,
-                rotateZ: [180, 0],
-                duration: 750,
-                opacity: [0,1],
-                easing: 'easeOutExpo',
-                delay: (el, i) => 50 * i
-            });
-
-        loop && animeInit.add({
-            targets: [...animatedTextRef.current.getElementsByClassName('text-content')],
-            opacity: 0,
-            duration: 1000,
-            easing: 'easeOutExpo',
-            delay: 1000
-        });
-
-        setAnimation(animeInit);
-    };
-
-    useEffect(() => {
-        animeInit();
-        return () => {
-            if (animation) {
-                animation.remove();
-                setAnimation(null);
-            }
-        };
-    }, [loop, splitByWord, style]);
-
-    return <TitleTag className="text-content">
-        <span className="text-wrapper">
-            <span className="letters">{text}</span>
-        </span>
-    </TitleTag>;
+    loop && animationRef.current.add({
+        targets: targetRef.current,
+        opacity: 0,
+        duration: transitionDuration,
+        easing: 'easeOutExpo',
+        delay: displayDuration
+    });
 };
 
-export default TextStyleBend;
+export default textStyleBend;

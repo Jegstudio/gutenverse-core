@@ -1,24 +1,15 @@
 import { compose } from '@wordpress/compose';
 import { useRef } from '@wordpress/element';
 import { useBlockProps } from '@wordpress/block-editor';
-import { classnames, u } from 'gutenverse-core/components';
+import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import TextStyleZoom from './components/text-style-zoom';
-import TextStyleFade from './components/text-style-fade';
-import TextStyleJump from './components/text-style-jump';
-import TextStyleBend from './components/text-style-bend';
-import TextStyleDrop from './components/text-style-drop';
-import TextStyleFlip from './components/text-style-flip';
-import TextStylePop from './components/text-style-pop';
-import TextStyleSlide from './components/text-style-slide';
-import TextStyleRising from './components/text-style-rising';
-import TextStyleFall from './components/text-style-fall';
 import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import TextAnimatedComponent from './components/text-animated-component';
 
 const AnimatedTextBlock = compose(
     withPartialRender,
@@ -32,8 +23,6 @@ const AnimatedTextBlock = compose(
     const {
         elementId,
         style,
-        text,
-        splitByWord,
         titleTag: TitleTag,
         beforeTextAnimated,
         afterTextAnimated,
@@ -58,51 +47,12 @@ const AnimatedTextBlock = compose(
         ref: elementRef
     });
 
-    const resetText = () => {
-        const textWrapper = u(elementRef.current).find('.text-content');
-        if (!textWrapper) return;
-        textWrapper.html(text);
-        textWrapper.html(
-            textWrapper.text().replace(
-                splitByWord ? /\b\w+\b/g : /\S/g,
-                (word) => `<span class='letter'>${word}</span>`
-            )
-        );
-    };
-
     const animationProps = {
         ...attributes,
-        resetText: resetText,
         animatedTextRef : elementRef,
         animationDuration: parseInt(attributes.animationDuration),
         displayDuration: parseInt(attributes.displayDuration),
-    };
-
-    const loadAnimatedtext = () => {
-        switch (style) {
-            case 'zoom':
-                return <TextStyleZoom {...animationProps} />;
-            case 'fade':
-                return <TextStyleFade {...animationProps} />;
-            case 'jump':
-                return <TextStyleJump {...animationProps} />;
-            case 'bend':
-                return <TextStyleBend {...animationProps} />;
-            case 'drop':
-                return <TextStyleDrop {...animationProps} />;
-            case 'flip':
-                return <TextStyleFlip {...animationProps} />;
-            case 'pop':
-                return <TextStylePop {...animationProps} />;
-            case 'slide':
-                return <TextStyleSlide {...animationProps} />;
-            case 'rising':
-                return <TextStyleRising {...animationProps} />;
-            case 'fall':
-                return <TextStyleFall {...animationProps} />;
-            default:
-                return <span>{text}</span>;
-        }
+        transitionDuration: parseInt(attributes.transitionDuration),
     };
 
     return <>
@@ -111,7 +61,7 @@ const AnimatedTextBlock = compose(
         <div  {...blockProps}>
             <TitleTag>
                 <span className={'non-animated-text before-text'}>{beforeTextAnimated}</span>
-                {loadAnimatedtext()}
+                <TextAnimatedComponent {...animationProps} />
                 <span className={'non-animated-text after-text'}>{afterTextAnimated}</span>
             </TitleTag>
         </div>
