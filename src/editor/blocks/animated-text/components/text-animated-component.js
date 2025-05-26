@@ -27,24 +27,55 @@ const listAnimationStyle = {
 
 const TextAnimatedComponent = (props) => {
     const {
-        text,
+        text = '',
         loop,
         animatedTextRef,
         splitByWord,
         style,
+        textType,
         animationDuration,
         displayDuration,
         transitionDuration,
+        rotationTexts,
     } = props;
 
     const animation = useRef(null);
     const targets = useRef(null);
+    const rotationTextIndex = useRef(0);
+    const rotationTextsLength = useRef(rotationTexts.length);
 
+    const getText = () => {
+        if (textType == 'rotation' && rotationTexts.length != 0) {
+            if (rotationTextIndex.current >= rotationTexts.length) {
+                rotationTextIndex.current = 0;
+            }
+            return rotationTexts[rotationTextIndex.current].rotationText;
+        }
+        return text;
+    };
+
+    const updateRotationIndex = () => {
+        if (rotationTextIndex.current + 1 >= rotationTexts.length) {
+            rotationTextIndex.current = 0;
+        } else {
+            rotationTextIndex.current++;
+        }
+    };
+
+    const stopRotating = () => {
+        const isLastItem = (rotationTextIndex.current + 1) >= rotationTextsLength.current;
+        return !loop && isLastItem;
+    };
+
+    const nextRotationText = () => {
+        updateRotationIndex();
+        textAnimation();
+    };
 
     const resetText = () => {
         const textWrapper = u(animatedTextRef.current).find('.text-content');
         if (!textWrapper) return;
-        textWrapper.html(text);
+        textWrapper.html(getText());
         textWrapper.html(
             textWrapper.text().replace(
                 splitByWord ? /\b\w+\b/g : /\S/g,
@@ -65,12 +96,17 @@ const TextAnimatedComponent = (props) => {
             ...props,
             animationRef: animation,
             targetRef: targets,
+            isRotationType: textType == 'rotation',
+            stopRotating,
+            nextRotationText,
         };
         const animationStyle = listAnimationStyle[style];
         animationStyle(animationProps);
     };
 
     useEffect(() => {
+        rotationTextIndex.current = 0;
+        rotationTextsLength.current = rotationTexts.length;
 
         if (Object.prototype.hasOwnProperty.call(listAnimationStyle, style)) {
             textAnimation();
@@ -85,16 +121,18 @@ const TextAnimatedComponent = (props) => {
         loop,
         splitByWord,
         style,
+        textType,
         animationDuration,
         displayDuration,
         transitionDuration,
         text,
+        rotationTexts,
     ]);
 
     return <>
         <span className="text-content">
             <span className="text-wrapper">
-                <span className="letters">{text}</span>
+                <span className="letters">{getText()}</span>
             </span>
         </span>
     </>;

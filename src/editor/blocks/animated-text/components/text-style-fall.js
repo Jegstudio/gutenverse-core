@@ -6,6 +6,9 @@ const textStyleFall = (props) => {
         animationDuration,
         displayDuration,
         transitionDuration,
+        isRotationType,
+        stopRotating,
+        nextRotationText,
     } = props;
 
     animationRef.current.add({
@@ -17,19 +20,26 @@ const textStyleFall = (props) => {
         delay: (el, i) => 30 * i
     });
 
-    if (loop) {
+    if (loop || isRotationType) {
+        if (isRotationType && stopRotating()) {
+            return;
+        }
         animationRef.current.add({ //display
             targets: targetRef.current,
             delay: displayDuration
         });
-
         animationRef.current.add({
             targets: targetRef.current,
             translateY: [0,100],
             easing: 'easeInExpo',
             duration: transitionDuration,
             opacity: [1,0],
-            delay: (el, i) => 30 * i
+            delay: (el, i) => 30 * i,
+            complete: () => {
+                if (isRotationType) {
+                    nextRotationText();
+                }
+            },
         });
     }
 };

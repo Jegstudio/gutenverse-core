@@ -6,6 +6,9 @@ const textStyleFade = (props) => {
         animationDuration,
         displayDuration,
         transitionDuration,
+        isRotationType,
+        stopRotating,
+        nextRotationText,
     } = props;
 
     animationRef.current.add({
@@ -16,18 +19,26 @@ const textStyleFade = (props) => {
         delay: (el, i) => 70 * i,
     });
 
-    if (loop) {
+    if (loop || isRotationType) {
+        if (isRotationType && stopRotating()) {
+            return;
+        }
+
         animationRef.current.add({ //display
             targets: targetRef.current,
             delay: displayDuration
         });
-
         animationRef.current.add({
             targets: targetRef.current,
             opacity: [1, 0],
             easing: 'easeOutInQuad',
             duration: transitionDuration,
             delay: (el, i) => 70 * i,
+            complete: () => {
+                if (isRotationType) {
+                    nextRotationText();
+                }
+            },
         });
     }
 };

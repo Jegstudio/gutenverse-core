@@ -6,6 +6,9 @@ const textStyleFlip = (props) => {
         animationDuration,
         displayDuration,
         transitionDuration,
+        isRotationType,
+        stopRotating,
+        nextRotationText,
     } = props;
 
     animationRef.current.add({
@@ -15,13 +18,24 @@ const textStyleFlip = (props) => {
         delay: (el, i) => 45 * i
     });
 
-    loop && animationRef.current.add({
-        targets: targetRef.current,
-        opacity: 0,
-        duration: transitionDuration,
-        easing: 'easeOutExpo',
-        delay: displayDuration
-    });
+    if (loop || isRotationType) {
+        if (isRotationType && stopRotating()) {
+            return;
+        }
+
+        animationRef.current.add({
+            targets: targetRef.current,
+            opacity: 0,
+            duration: transitionDuration,
+            easing: 'easeOutExpo',
+            delay: displayDuration,
+            complete: () => {
+                if (isRotationType) {
+                    nextRotationText();
+                }
+            },
+        });
+    }
 };
 
 export default textStyleFlip;

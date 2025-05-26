@@ -6,6 +6,9 @@ const textStyleSlide = (props) => {
         animationDuration,
         displayDuration,
         transitionDuration,
+        isRotationType,
+        stopRotating,
+        nextRotationText,
     } = props;
 
     animationRef.current.add({
@@ -18,19 +21,27 @@ const textStyleSlide = (props) => {
         delay: (el, i) => 500 + 30 * i
     });
 
-    if (loop) {
+    if (loop || isRotationType) {
+        if (isRotationType && stopRotating()) {
+            return;
+        }
+
         animationRef.current.add({ //display
             targets: targetRef.current,
             delay: displayDuration
         });
-
         animationRef.current.add({
             targets: targetRef.current,
             translateX: [0,-30],
             opacity: [1,0],
             easing: 'easeInExpo',
             duration: transitionDuration,
-            delay: (el, i) => 100 + 30 * i
+            delay: (el, i) => 100 + 30 * i,
+            complete: () => {
+                if (isRotationType) {
+                    nextRotationText();
+                }
+            }
         });
     }
 };
