@@ -92,7 +92,6 @@ const TextAnimatedComponent = (props) => {
         return () => {
             if (animation.current) {
                 animation.current.remove(targets.current);
-                resetText();
             }
         };
     }, [
