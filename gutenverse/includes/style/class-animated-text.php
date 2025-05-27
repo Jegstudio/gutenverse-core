@@ -106,51 +106,103 @@ class Animated_Text extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['color'] ) ) {
+		// Animated Text.
+		if ( isset( $this->attrs['textAnimatedColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} *",
+					'selector'       => ".{$this->element_id} .text-content *",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
-					'value'          => $this->attrs['color'],
+					'value'          => $this->attrs['textAnimatedColor'],
 					'device_control' => false,
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['typography'] ) ) {
+		if ( isset( $this->attrs['textAnimatedTypography'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => ".{$this->element_id} *",
+					'selector'       => ".{$this->element_id} .text-content *",
 					'property'       => function ( $value ) {},
-					'value'          => $this->attrs['typography'],
+					'value'          => $this->attrs['textAnimatedTypography'],
 					'device_control' => false,
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['textStroke'] ) ) {
+		if ( isset( $this->attrs['textAnimatedStroke'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} *",
+					'selector'       => ".{$this->element_id} .text-content *",
 					'property'       => function ( $value ) {
 						return $this->handle_text_stroke( $value );
 					},
-					'value'          => $this->attrs['textStroke'],
+					'value'          => $this->attrs['textAnimatedStroke'],
 					'device_control' => false,
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['textShadow'] ) ) {
+		if ( isset( $this->attrs['textAnimatedShadow'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} *",
+					'selector'       => ".{$this->element_id} .text-content *",
 					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
-					'value'          => $this->attrs['textShadow'],
+					'value'          => $this->attrs['textAnimatedShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		// Normal text.
+		if ( isset( $this->attrs['textNormalColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .non-animated-text",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['textNormalColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['textNormalTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .non-animated-text",
+					'property'       => function ( $value ) {},
+					'value'          => $this->attrs['textNormalTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['textNormalStroke'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .non-animated-text",
+					'property'       => function ( $value ) {
+						return $this->handle_text_stroke( $value );
+					},
+					'value'          => $this->attrs['textNormalStroke'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['textNormalShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .non-animated-text",
+					'property'       => function ( $value ) {
+						return $this->handle_text_shadow( $value );
+					},
+					'value'          => $this->attrs['textNormalShadow'],
 					'device_control' => false,
 				)
 			);

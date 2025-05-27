@@ -1,21 +1,21 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl } from 'gutenverse-core/controls';
 
-export const stylePanel = (props) => {
+export const styleTextNormalPanel = (props) => {
     const {
         elementId
     } = props;
 
     return [
         {
-            id: 'color',
+            id: 'textNormalColor',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
             liveStyle: [
                 {
                     'type': 'color',
-                    'id': 'color',
-                    'selector': `.editor-styles-wrapper .${elementId} *`,
+                    'id': 'textNormalColor',
+                    'selector': `.editor-styles-wrapper .${elementId} .non-animated-text`,
                     'properties': [
                         {
                             'name': 'color',
@@ -26,37 +26,37 @@ export const stylePanel = (props) => {
             ]
         },
         {
-            id: 'typography',
+            id: 'textNormalTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
         },
         {
-            id: 'textShadow',
+            id: 'textNormalShadow',
             label: __('Text Shadow', 'gutenverse'),
             component: TextShadowControl,
             liveStyle: [
                 {
                     'type': 'textShadow',
-                    'id': 'textShadow',
+                    'id': 'textNormalShadow',
                     'properties': [
                         {
                             'name': 'text-shadow',
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.editor-styles-wrapper .${elementId} *`,
+                    'selector': `.editor-styles-wrapper .${elementId} .non-animated-text`,
                 }
             ]
         },
         {
-            id: 'textStroke',
+            id: 'textNormalStroke',
             label: __('Text Stroke', 'gutenverse'),
             component: TextStrokeControl,
             liveStyle: [
                 {
                     'type': 'textStroke',
-                    'id': 'textStroke',
-                    'selector': `.editor-styles-wrapper .${elementId} *`,
+                    'id': 'textNormalStroke',
+                    'selector': `.editor-styles-wrapper .${elementId} .non-animated-text`,
                 }
             ]
         }

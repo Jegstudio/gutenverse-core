@@ -1,8 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { advancePanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, textClipPanel, transformPanel } from 'gutenverse-core/controls';
 import { settingPanel } from './panel-setting';
-import { stylePanel } from './panel-style';
+import { styleTextAnimatedPanel } from './panel-text-animated-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { styleTextNormalPanel } from './panel-text-normal-style';
 
 export const panelList = () => {
     return [
@@ -12,9 +13,15 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Style', 'gutenverse'),
+            title: __('Text Animated Style', 'gutenverse'),
             initialOpen: false,
-            panelArray: stylePanel,
+            panelArray: styleTextAnimatedPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Text Normal Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: styleTextNormalPanel,
             tabRole: TabStyle
         },
         {

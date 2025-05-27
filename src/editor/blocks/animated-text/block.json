@@ -26,6 +26,11 @@
 			"default": "none",
 			"copyStyle": true
 		},
+		"highlightedStyle": {
+			"type": "string",
+			"default": "none",
+			"copyStyle": true
+		},
 		"text": {
 			"type": "string",
 			"default": "Placeholder Text"
@@ -76,17 +81,38 @@
 			"default": true,
 			"copyStyle": true
 		},
-		"color": {
+		"textAnimatedColor": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"typography": {
+		"textAnimatedTypography": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"textShadow": {
+		"textAnimatedShadow": {
 			"type": "object",
 			"default": {},
+			"copyStyle": true
+		},
+		"textAnimatedStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textNormalColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textNormalTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textNormalShadow": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"textNormalStroke": {
+			"type": "object",
 			"copyStyle": true
 		},
 		"height": {
@@ -201,10 +227,6 @@
 			"copyStyle": true
 		},
 		"transform": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"textStroke": {
 			"type": "object",
 			"copyStyle": true
 		},
