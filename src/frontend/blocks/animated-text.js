@@ -25,29 +25,33 @@ class Animation {
         this.element = element;
         this.loop = animationProps.loop;
         this.splitByWord = animationProps.splitByWord;
-        this.style = animationProps.style;
         this.textType = animationProps.textType;
         this.text = animationProps.text;
         this.rotationTexts = animationProps.rotationTexts;
         this.animationDuration = animationProps.animationDuration;
         this.displayDuration = animationProps.displayDuration;
         this.transitionDuration = animationProps.transitionDuration;
-        this.rotationTextsLength = this.rotationTexts.length;
         this.rotationTextIndex = 0;
+        this.animationStyle = listAnimationStyles[animationProps.style];
+        this.animeInit = null;
+        this.target = null;
     }
 
     run() {
 
         this._resetText();
 
-        const letterWrapper = this.element.find('.text-content .letter');
-        let animeInit = anime.timeline({loop: this.loop});
+        if (this.animeInit) {
+            this.animeInit.remove(this.target.nodes);
+        }
+        this.target = this.element.find('.text-content .letter');
+        this.animeInit = anime.timeline({loop: this.loop});
 
-        if (Object.prototype.hasOwnProperty.call(listAnimationStyles, this.style)) {
-            listAnimationStyles[this.style]({
+        if (this.animationStyle) {
+            this.animationStyle({
                 loop: this.loop,
-                animation: animeInit,
-                target: letterWrapper.nodes,
+                animation: this.animeInit,
+                target: this.target.nodes,
                 animationDuration: this.animationDuration,
                 displayDuration: this.displayDuration,
                 transitionDuration: this.transitionDuration,
@@ -60,7 +64,7 @@ class Animation {
     }
     _getText = () => {
         if (this.textType == 'rotation' && this.rotationTexts.length != 0) {
-            if (this.rotationTextIndex >= this.rotationTextsLength) {
+            if (this.rotationTextIndex >= this.rotationTexts.length) {
                 this.rotationTextIndex = 0;
             }
             return this.rotationTexts[this.rotationTextIndex].rotationText;
@@ -81,7 +85,7 @@ class Animation {
     }
 
     _updateRotationIndex = () => {
-        if (this.rotationTextIndex + 1 >= this.rotationTextsLength) {
+        if (this.rotationTextIndex + 1 >= this.rotationTexts.length) {
             this.rotationTextIndex = 0;
         } else {
             this.rotationTextIndex++;
@@ -89,7 +93,7 @@ class Animation {
     };
 
     _stopRotating = () => {
-        const isLastItem = (this.rotationTextIndex + 1) >= this.rotationTextsLength;
+        const isLastItem = (this.rotationTextIndex + 1) >= this.rotationTexts.length;
         return !this.loop && isLastItem;
     };
 

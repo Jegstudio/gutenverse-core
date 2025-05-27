@@ -21,7 +21,7 @@ const TextAnimatedComponent = (props) => {
     const animation = useRef(null);
     const targets = useRef(null);
     const rotationTextIndex = useRef(0);
-    const rotationTextsLength = useRef(rotationTexts.length);
+    const animationStyle = listAnimationStyles[style];
 
     const getText = () => {
         if (textType == 'rotation' && rotationTexts.length != 0) {
@@ -42,7 +42,7 @@ const TextAnimatedComponent = (props) => {
     };
 
     const stopRotating = () => {
-        const isLastItem = (rotationTextIndex.current + 1) >= rotationTextsLength.current;
+        const isLastItem = (rotationTextIndex.current + 1) >= rotationTexts.length;
         return !loop && isLastItem;
     };
 
@@ -75,7 +75,7 @@ const TextAnimatedComponent = (props) => {
             ...props,
             animationRef: animation,
             targetRef: targets,
-            isRotationType: textType == 'rotation',
+            isRotationType: textType == 'rotation' && rotationTexts.length != 0,
             stopRotating,
             nextRotationText,
         };
@@ -85,9 +85,8 @@ const TextAnimatedComponent = (props) => {
 
     useEffect(() => {
         rotationTextIndex.current = 0;
-        rotationTextsLength.current = rotationTexts.length;
 
-        if (Object.prototype.hasOwnProperty.call(listAnimationStyles, style)) {
+        if (animationStyle) {
             textAnimation();
         }
 
