@@ -35,6 +35,11 @@ export const variableReducer = (state = defaultState, action) => {
                 ...state,
                 fonts: state.fonts.filter(font => font.id !== action.id)
             };
+        case 'SET_VARIABLE_FONT':
+            return {
+                ...state,
+                fonts: action.fonts
+            };
         default:
             return state;
     }
@@ -66,6 +71,12 @@ export const variableAction = {
             id
         };
     },
+    setVariableFont: (fonts) => {
+        return {
+            type: 'SET_VARIABLE_FONT',
+            fonts
+        };
+    }
 };
 
 export const variableSelector = {

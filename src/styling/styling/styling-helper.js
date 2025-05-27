@@ -197,7 +197,7 @@ export const injectStyleTag = (css, theWindow, cssId = 'gutenverse-block-css') =
 
         if (cssElement) {
             cssElement.id = cssId;
-            theWindow.document.head.appendChild(cssElement);
+            theWindow.document.body.appendChild(cssElement);
         }
     }
 
