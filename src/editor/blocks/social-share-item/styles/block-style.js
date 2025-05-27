@@ -56,7 +56,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper #${elementId}.gutenverse-share-item`,
     });
 
     isNotEmpty(attributes['boxShadowHover']) && data.push({
@@ -68,7 +68,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
+        'selector': `.editor-styles-wrapper #${elementId}.gutenverse-share-item:hover`,
     });
 
     isNotEmpty(attributes['mask']) && data.push({
@@ -190,18 +190,18 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.${elementId}.guten-element`,
     },
-        {
-            'type': 'positioning',
-            'id': 'positioningAlign',
-            'properties': [
-                {
-                    'name': 'vertical-align',
-                    'valueType': 'direct'
-                }
-            ],
-            'attributeType': 'align',
-            'selector': `.${elementId}.guten-element`,
-        });
+    {
+        'type': 'positioning',
+        'id': 'positioningAlign',
+        'properties': [
+            {
+                'name': 'vertical-align',
+                'valueType': 'direct'
+            }
+        ],
+        'attributeType': 'align',
+        'selector': `.${elementId}.guten-element`,
+    });
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',
