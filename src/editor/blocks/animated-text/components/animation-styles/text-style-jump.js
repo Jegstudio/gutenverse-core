@@ -20,11 +20,7 @@ const textStyleJump = (props) => {
         delay: (el, i) => 50 * i
     });
 
-    if (loop || isRotationType) {
-        if (isRotationType && stopRotating()) {
-            return;
-        }
-
+    if (loop || (isRotationType && !stopRotating())) {
         animationRef.current.add({
             targets: targetRef.current,
             opacity: 0,

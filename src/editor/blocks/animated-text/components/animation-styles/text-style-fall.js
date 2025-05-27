@@ -20,10 +20,7 @@ const textStyleFall = (props) => {
         delay: (el, i) => 30 * i
     });
 
-    if (loop || isRotationType) {
-        if (isRotationType && stopRotating()) {
-            return;
-        }
+    if (loop || (isRotationType && !stopRotating())) {
         animationRef.current.add({ //display
             targets: targetRef.current,
             delay: displayDuration

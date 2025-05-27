@@ -18,11 +18,7 @@ const textStyleFlip = (props) => {
         delay: (el, i) => 45 * i
     });
 
-    if (loop || isRotationType) {
-        if (isRotationType && stopRotating()) {
-            return;
-        }
-
+    if (loop || (isRotationType && !stopRotating())) {
         animationRef.current.add({
             targets: targetRef.current,
             opacity: 0,

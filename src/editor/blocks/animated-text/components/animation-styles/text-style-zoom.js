@@ -21,11 +21,7 @@ const textStyleZoom = (props) => {
         delay: (el, i) => 70 * i,
     });
 
-    if (loop || isRotationType) {
-        if (isRotationType && stopRotating()) {
-            return;
-        }
-
+    if (loop || (isRotationType && !stopRotating())) {
         animationRef.current.add({ //display
             targets: targetRef.current,
             delay: displayDuration
