@@ -5,7 +5,7 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
-import listAnimationStyles from './components/list-animation-styles';
+import listAnimationStyles from './components/animation-styles/list-animation-styles';
 
 const save = compose(
     withMouseMoveEffectScript
@@ -39,7 +39,7 @@ const save = compose(
 
     const loadAnimatedText = () => {
 
-        if (Object.prototype.hasOwnProperty.call(listAnimationStyles, style)) {
+        if (listAnimationStyles[style]) {
             return <>
                 <span className="text-content">
                     <span className="text-wrapper">

@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import { useEffect, useRef } from '@wordpress/element';
 import { u } from 'gutenverse-core/components';
-import listAnimationStyles from './list-animation-styles';
+import listAnimationStyles from './animation-styles/list-animation-styles';
 
 
 const TextAnimatedComponent = (props) => {
