@@ -12,12 +12,11 @@ const GlobalStyleContent = (props) => {
     if(openGlobal === 'open' && global){
         stage = global;
     }
-
     switch (stage) {
         case 'color':
-            return <GlobalVariableColor {...props} />;
+            return <GlobalVariableColor {...props} stage={stage}/>;
         case 'font':
-            return <GlobalVariableFont {...props} />;
+            return <GlobalVariableFont {...props} stage={stage}/>;
         default:
             return <GlobalStyleList {...props} />;
     }
