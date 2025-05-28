@@ -213,8 +213,8 @@ class Team extends Style_Abstract {
 		if ( isset( $this->attrs['nameColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .profile-title, #{$this->element_id} .profile-title, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-title,
-						.{$this->element_id} .profile-title> a, #{$this->element_id} .profile-title> a, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-title> a",
+					'selector'       => ".{$this->element_id} .profile-title, #{$this->element_id} .profile-title, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-title, .{$this->element_id} .profile-box .profile-card.card-title-social-horizontal .profile-body .profile-title,
+						.{$this->element_id} .profile-title> a, #{$this->element_id} .profile-title> a, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-title> a, .{$this->element_id} .profile-box .profile-card.card-title-social-horizontal .profile-body .profile-title> a",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -227,8 +227,8 @@ class Team extends Style_Abstract {
 		if ( isset( $this->attrs['nameColorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .profile-title, #{$this->element_id}:hover .profile-title, .{$this->element_id}:hover .profile-box .profile-card.card-overlay .profile-body .profile-title,
-						.{$this->element_id}:hover .profile-title> a, #{$this->element_id}:hover .profile-title> a, .{$this->element_id}:hover .profile-box .profile-card.card-overlay .profile-body .profile-title> a",
+					'selector'       => ".{$this->element_id}:hover .profile-title, #{$this->element_id}:hover .profile-title, .{$this->element_id}:hover .profile-box .profile-card.card-overlay .profile-body .profile-title, .{$this->element_id}:hover .profile-box .profile-card.card-title-social-horizontal .profile-body .profile-title,
+						.{$this->element_id}:hover .profile-title> a, #{$this->element_id}:hover .profile-title> a, .{$this->element_id}:hover .profile-box .profile-card.card-overlay .profile-body .profile-title> a, .{$this->element_id}:hover .profile-box .profile-card.card-title-social-horizontal .profile-body .profile-title> a",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -265,8 +265,8 @@ class Team extends Style_Abstract {
 		if ( isset( $this->attrs['jobColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .profile-sub, #{$this->element_id} .profile-sub, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-sub,
-						.{$this->element_id} .profile-sub> a, #{$this->element_id} .profile-sub> a, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-sub> a",
+					'selector'       => ".{$this->element_id} .profile-sub, #{$this->element_id} .profile-sub, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-sub, .{$this->element_id} .profile-box .profile-card.card-title-social-horizontal .profile-body .profile-sub,
+						.{$this->element_id} .profile-sub> a, #{$this->element_id} .profile-sub> a, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-sub> a, .{$this->element_id} .profile-box .profile-card.card-title-social-horizontal .profile-body .profile-sub> a",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -318,8 +318,8 @@ class Team extends Style_Abstract {
 		if ( isset( $this->attrs['descColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .profile-desc, #{$this->element_id} .profile-desc, #{$this->element_id} .profile-phone, #{$this->element_id} .profile-email, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-desc,
-									    .{$this->element_id} .profile-desc> a, #{$this->element_id} .profile-desc> a, #{$this->element_id} .profile-phone> a, #{$this->element_id} .profile-email> a, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-desc> a",
+					'selector'       => ".{$this->element_id} .profile-desc, #{$this->element_id} .profile-desc, #{$this->element_id} .profile-phone, #{$this->element_id} .profile-email, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-desc, .{$this->element_id} .profile-box .profile-card.card-title-social-horizontal .profile-body .profile-desc,
+									    .{$this->element_id} .profile-desc> a, #{$this->element_id} .profile-desc> a, #{$this->element_id} .profile-phone> a, #{$this->element_id} .profile-email> a, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-desc> a, .{$this->element_id} .profile-box .profile-card.card-title-social-horizontal .profile-body .profile-desc> a",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -509,11 +509,11 @@ class Team extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['imageBackground'] ) ){
+		if ( isset( $this->attrs['imageBackground'] ) ) {
 			$this->handle_background( ".{$this->element_id} .profile-box .profile-card img", $this->attrs['imageBackground'] );
 		}
 
-		if ( isset( $this->attrs['imageBackgroundHover'] ) ){
+		if ( isset( $this->attrs['imageBackgroundHover'] ) ) {
 			$this->handle_background( ".{$this->element_id} .profile-box .profile-card img:hover", $this->attrs['imageBackgroundHover'] );
 		}
 

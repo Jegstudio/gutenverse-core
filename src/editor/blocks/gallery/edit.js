@@ -57,6 +57,7 @@ const GalleryBlock = compose(
     const [activeIndex, setActiveIndex] = useState(0);
     const [showFilter, setShowFilter] = useState(false);
     const [currentFilter, setCurrentFilter] = useState('All');
+    const [currentSearch, setCurrentSearch] = useState('');
     const [showedItems, setShowedItems] = useState(showed);
     const elementRef = useRef(null);
     const shuffleInstance = useRef(null);
@@ -96,6 +97,7 @@ const GalleryBlock = compose(
 
     const onSearch = (value) => {
         const searchValue = value.toLowerCase();
+        setCurrentSearch(searchValue);
 
         const isValid = (item) => {
             const element = u(item);
@@ -193,25 +195,25 @@ const GalleryBlock = compose(
     return <>
         <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} liveAttr={liveAttr} setLiveAttr={setLiveAttr} />
-        {showPopup && createPortal(<GalleryPopup activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
+        {showPopup && createPortal(<GalleryPopup currentSearch={currentSearch} currentFilter={currentFilter} activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
         <div  {...blockProps} data-grid={grid}>
             {filter && (
                 filterType === 'tab' ? <div className="filter-controls">
                     <ul>
-                        <li className={`guten-gallery-control ${'All' === currentFilter ? 'active' : ''}`} onClick={() => changeFilter('All')}>{filterAll}</li>
+                        <li className={`guten-gallery-control ${'All' === currentFilter ? 'active' : ''}`} data-flag-all={true} data-filter={filterAll} onClick={() => changeFilter('All')}>{filterAll}</li>
                         {filterList && filterList.map((filterItem, index) => {
                             return filterItem.name && <li key={index} className={`guten-gallery-control ${filterItem.name === currentFilter ? 'active' : ''}`} data-filter={filterItem.name} onClick={() => changeFilter(filterItem.name)}>{filterItem.name}</li>;
                         })}
                     </ul>
                 </div> : <div className="search-filters-wrap">
                     <div className="filter-wrap">
-                        <button id="search-filter-trigger" className={`search-filter-trigger icon-position-${filterSearchIconPosition}`} onClick={() => setShowFilter(!showFilter)}>
+                        <button id="search-filter-trigger" data-flag-all={currentFilter === 'All'} className={`search-filter-trigger icon-position-${filterSearchIconPosition}`} onClick={() => setShowFilter(!showFilter)}>
                             {filterSearchIconPosition === 'before' && <i aria-hidden="true" className={filterSearchIcon}></i>}
-                            <span>{currentFilter}</span>
+                            <span>{currentFilter === 'All' ? filterAll : currentFilter}</span>
                             {filterSearchIconPosition === 'after' && <i aria-hidden="true" className={filterSearchIcon}></i>}
                         </button>
                         <ul className={`search-filter-controls ${showFilter ? 'open-controls' : ''}`}>
-                            <li className={`guten-gallery-control ${'All' === currentFilter ? 'active' : ''}`} onClick={() => changeFilter('All')}>{filterAll}</li>
+                            <li className={`guten-gallery-control ${'All' === currentFilter ? 'active' : ''}`} data-flag-all={true} data-filter={filterAll} onClick={() => changeFilter('All')}>{filterAll}</li>
                             {filterList && filterList.map((filterItem, index) => {
                                 return filterItem.name && <li key={index} className={`guten-gallery-control ${filterItem.name === currentFilter ? 'active' : ''}`} data-filter={filterItem.name} onClick={() => changeFilter(filterItem.name)}>{filterItem.name}</li>;
                             })}
