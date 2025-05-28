@@ -5,10 +5,10 @@ const contentStyle = (elementId, attributes, data) => {
         'type': 'plain',
         'id': 'contentAlignment',
         'responsive': true,
-        'selector': `.${elementId} .taxonomy-list-wrapper`,
+        'selector': `.${elementId} .taxonomy-list-item`,
         'properties': [
             {
-                'name': attributes['layout'] === 'column' ? 'align-items' : 'justify-content',
+                'name': 'justify-content',
                 'valueType': 'direct',
             }
         ],
