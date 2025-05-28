@@ -298,6 +298,26 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.0.5 =
+##### New & Improvemenets
+* add description in gallery lightbox popup
+
+##### Bug Fixes
+* fix feature list block connector line issue
+* fix feature list block typing text issue
+* fix icon box background overlay
+* fix icon box block’s box shadow issue
+* fix post block pagination box shadow and margin issue
+* fix post block type 5 category align
+* fix post content block toolbar setting is missing
+* fix progress bar wrapper height
+* fix search block button with inline positioning
+* fix search block close icon styling
+* fix search block input width
+* fix section background type video height
+* fix taxonomy alignment with divider on
+* fix team block style for title and socials
+
 = 3.0.4 =
 ##### Bug Fixes
 * fix nav menu mobile wrapper color
