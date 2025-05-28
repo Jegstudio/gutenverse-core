@@ -204,6 +204,7 @@ export const settingPanel = (props) => {
         },
         {
             id: 'splitByWord',
+            show: textType !== 'highlighted',
             label: __('Split By Word', 'gutenverse'),
             component: CheckboxControl
         },

@@ -2,11 +2,13 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
 import textAnimatedStyle from './panel-style/style-text-animated';
 import textNormalStyle from './panel-style/style-text-normal';
+import highlightStyle from './panel-style/style-highlight';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
     data = textAnimatedStyle({elementId, attributes, data});
     data = textNormalStyle({elementId, attributes, data});
+    data = highlightStyle({elementId, attributes, data});
 
     /**Panel Setting */
     isNotEmpty(attributes['alignText']) && data.push({

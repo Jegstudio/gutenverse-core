@@ -4,6 +4,7 @@ import { settingPanel } from './panel-setting';
 import { styleTextAnimatedPanel } from './panel-text-animated-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { styleTextNormalPanel } from './panel-text-normal-style';
+import { styleHighlightPanel } from './panel-highlighted-style';
 
 export const panelList = () => {
     return [
@@ -23,6 +24,12 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: styleTextNormalPanel,
             tabRole: TabStyle
+        },
+        {
+            title: __('Hihglight Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: styleHighlightPanel,
+            tabRole: TabStyle,
         },
         {
             title: __('Text Clip', 'gutenverse'),

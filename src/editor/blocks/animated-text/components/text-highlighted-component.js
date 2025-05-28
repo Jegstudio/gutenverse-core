@@ -1,4 +1,3 @@
-import { u } from 'gutenverse-core/components';
 import listHighlightStyles from './highlighted-styles/list-highlighted-styles';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import anime from 'animejs';
@@ -13,6 +12,9 @@ const TextHighlightedComponent = (props) => {
         textType,
         animationDuration,
         displayDuration,
+        highlightGradient,
+        highlightColorType,
+        highlightColor,
         transitionDuration,
     } = props;
 
@@ -20,16 +22,34 @@ const TextHighlightedComponent = (props) => {
     const targets = useRef(null);
     const animation = useRef(null);
 
+    const generateGradientColor = () => {
+        if (!highlightGradient) return null;
+        return highlightGradient.map((element, index) => (
+            <stop
+                key={index}
+                offset={element.offset}
+                style={{
+                    stopColor: element.color,
+                    stopOpacity: element.opacity || 1
+                }}
+            />
+        ));
+    };
+
     const renderStroke = () => {
-        const colorStyle = 'color';
         let gradientSvg = null;
         let gradientStroke = '';
 
-        if (colorStyle === 'gradient') {
+        if (highlightColorType === 'gradient') {
             gradientSvg = (
-                <linearGradient x1="0" y1="0" x2="100%" y2="100%" id={`${elementId}-highlight-gradient`}>
-                    <stop offset="0" />
-                    <stop offset="100%" />
+                <linearGradient
+                    x1="0"
+                    y1="0"
+                    x2="100%"
+                    y2="100%"
+                    id={`${elementId}-highlight-gradient`}
+                >
+                    {generateGradientColor()}
                 </linearGradient>
             );
             gradientStroke = `url(#${elementId}-highlight-gradient)`;
@@ -42,7 +62,7 @@ const TextHighlightedComponent = (props) => {
         };
 
         const commonPathProps = {
-            className: `style-${colorStyle}`,
+            className: `style-${highlightColorType}`,
             stroke: gradientStroke || undefined,
         };
 
@@ -86,7 +106,10 @@ const TextHighlightedComponent = (props) => {
     }, [
         text,
         highlightedStyle,
-        textType
+        textType,
+        highlightColorType,
+        highlightGradient,
+        highlightColor,
     ]);
 
     useEffect(() => {

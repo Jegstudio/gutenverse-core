@@ -23,12 +23,12 @@
 		},
 		"style": {
 			"type": "string",
-			"default": "none",
+			"default": "zoom",
 			"copyStyle": true
 		},
 		"highlightedStyle": {
 			"type": "string",
-			"default": "none",
+			"default": "circle",
 			"copyStyle": true
 		},
 		"text": {
@@ -114,6 +114,21 @@
 		"textNormalStroke": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"highlightColorType": {
+			"type": "string",
+			"default": "color"
+		},
+		"highlightColor": {
+			"type": "object",
+			"default": {}
+		},
+		"highlightGradient": {
+			"type":"array"
+		},
+		"highlightThickness": {
+			"type":"string",
+			"default":"10"
 		},
 		"height": {
 			"type": "object",
