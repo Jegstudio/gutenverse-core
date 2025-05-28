@@ -5,7 +5,6 @@ export const chartItemPanel = (props) => {
     const {
         chartContent,
         chartItems,
-        chartType
     } = props;
 
     let multiValue = false;
@@ -30,7 +29,7 @@ export const chartItemPanel = (props) => {
             titleFormat: '<strong><%= value.label ? value.label : "Chart Item" %></strong>',
             repeaterDefault: {
                 label: 'Chart Item',
-                value: "20",
+                value: '20',
                 backgroundColor: {
                     r: Math.floor(Math.random() * 256),
                     g: Math.floor(Math.random() * 256),

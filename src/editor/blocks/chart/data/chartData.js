@@ -6,8 +6,8 @@ const theColor = (color) => {
         g: 255,
         b: 255,
         a: 0
-    })
-}
+    });
+};
 
 export function getChartData(attributes, multiValue, canvas) {
     const {
@@ -29,20 +29,20 @@ export function getChartData(attributes, multiValue, canvas) {
     const backgroundColor = [];
     const borderWidth = [];
     const borderColor = [];
-    
+
     const responsiveSize = true;
     let maxBorderWidth = 1;
 
-    chartItems.forEach((item, index) => {
+    chartItems.forEach((item) => {
         //color control
         let color;
         if (item.colorMode === 'default' || item.colorMode === undefined) {
             color = theColor(item.backgroundColor);
         } else {
-            const gradient = "topBottom" === item.gradientDirection ? canvas.getContext('2d').createLinearGradient(0, 0, 0, 400) : canvas.getContext('2d').createLinearGradient(0, 0, 400, 0);
+            const gradient = 'topBottom' === item.gradientDirection ? canvas.getContext('2d').createLinearGradient(0, 0, 0, 400) : canvas.getContext('2d').createLinearGradient(0, 0, 400, 0);
             gradient.addColorStop(0, theColor(item.colorGradientOne));
-            gradient.addColorStop(1, theColor(item.colorGradientTwo)); 
-            color = gradient; 
+            gradient.addColorStop(1, theColor(item.colorGradientTwo));
+            color = gradient;
         }
 
         //push data to individual array
@@ -75,28 +75,28 @@ export function getChartData(attributes, multiValue, canvas) {
                     let numericCutout;
 
                     if (typeof cutout === 'string' && cutout.endsWith('%')) {
-                    const percentage = parseFloat(cutout);
-                    numericCutout = percentage > maxBorderWidth ? percentage - maxBorderWidth / 2 : percentage;
+                        const percentage = parseFloat(cutout);
+                        numericCutout = percentage > maxBorderWidth ? percentage - maxBorderWidth / 2 : percentage;
                     } else {
-                    numericCutout = parseFloat(cutout);
+                        numericCutout = parseFloat(cutout);
                     }
                     const cutoutPercent = numericCutout;
                     const innerRadius = (outerRadius * cutoutPercent) / 100;
-            
+
                     ctx.save();
-            
+
                     ctx.globalAlpha = cutoutBackground.a;
                     ctx.fillStyle = cutoutFill;
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
                     ctx.fill();
-            
+
                     ctx.globalAlpha = 1.0;
                     ctx.globalCompositeOperation = 'destination-out';
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, innerRadius, 0, Math.PI * 2);
                     ctx.fill();
-            
+
                     ctx.globalCompositeOperation = 'source-over';
                     ctx.restore();
                 }
@@ -106,7 +106,7 @@ export function getChartData(attributes, multiValue, canvas) {
                 const difference = topValue - sum;
                 values.push(difference);
                 labels.push('gutenEmptyDataSet');
-                backgroundColor.push('rgba(255, 255, 255, 0)')
+                backgroundColor.push('rgba(255, 255, 255, 0)');
                 borderColor.push('rgba(255, 255, 255, 0)');
                 borderWidth.push(0);
             }
@@ -154,10 +154,10 @@ export function getChartData(attributes, multiValue, canvas) {
                     },
                 },
                 plugins: [backgroundPlugin]
-            }
-        
+            };
+
         case 'bar' :
-            
+
             return {
                 type: chartType,
                 data: {
@@ -217,7 +217,7 @@ export function getChartData(attributes, multiValue, canvas) {
                         easing: 'easeInOutQuart'
                     },
                 },
-            }
+            };
 
         case 'line' :
             return {
@@ -279,6 +279,6 @@ export function getChartData(attributes, multiValue, canvas) {
                         easing: 'easeInOutQuart'
                     },
                 },
-            }
+            };
     }
 }

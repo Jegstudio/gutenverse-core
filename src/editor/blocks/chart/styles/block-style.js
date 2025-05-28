@@ -1,10 +1,8 @@
-import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
-    const device = getDeviceType();
 
     //panel content
     isNotEmpty(attributes['contentType']) && data.push({
@@ -102,6 +100,30 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['cardTitleTypography']) && data.push({
+        'type': 'typography',
+        'id': 'cardTitleTypography',
+        'selector': `.${elementId} .chart-content.content-card .chart-title,
+            .${elementId}.Desktop-noFlip .chart-content.content-card .chart-title,
+            .${elementId}.Tablet-noFlip .chart-content.content-card .chart-title,
+            .${elementId}.Mobile-noFlip .chart-content.content-card .chart-title`,
+    });
+
+    isNotEmpty(attributes['cardTitleTextShadow']) && data.push({
+        'type': 'textShadow',
+        'id': 'cardTitleTextShadow',
+        'properties': [
+            {
+                'name': 'text-shadow',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId} .chart-content.content-card .chart-title,
+            .${elementId}.Desktop-noFlip .chart-content.content-card .chart-title,
+            .${elementId}.Tablet-noFlip .chart-content.content-card .chart-title,
+            .${elementId}.Mobile-noFlip .chart-content.content-card .chart-title`,
+    });
+
     isNotEmpty(attributes['cardDescriptionTypography']) && data.push({
         'type': 'typography',
         'id': 'cardDescriptionTypography',
@@ -124,6 +146,37 @@ const getBlockStyle = (elementId, attributes) => {
             .${elementId}.Desktop-noFlip .chart-content.content-card .chart-description,
             .${elementId}.Tablet-noFlip .chart-content.content-card .chart-description,
             .${elementId}.Mobile-noFlip .chart-content.content-card .chart-description`,
+    });
+
+    isNotEmpty(attributes['cardDescriptionAlign']) && data.push({
+        'type': 'plain',
+        'id': 'cardDescriptionAlign',
+        'selector': `.${elementId} .chart-content.content-card .chart-description,
+            .${elementId}.Desktop-noFlip .chart-content.content-card .chart-description,
+            .${elementId}.Tablet-noFlip .chart-content.content-card .chart-description,
+            .${elementId}.Mobile-noFlip .chart-content.content-card .chart-description`,
+        'properties': [
+            {
+                'name': 'text-align',
+                'valueType': 'direct'
+            }
+        ],
+        'responsive': true,
+    });
+
+    isNotEmpty(attributes['cardDescriptionColor']) && data.push({
+        'type': 'color',
+        'id': 'cardDescriptionColor',
+        'selector': `.${elementId} .chart-content.content-card .chart-description,
+            .${elementId}.Desktop-noFlip .chart-content.content-card .chart-description,
+            .${elementId}.Tablet-noFlip .chart-content.content-card .chart-description,
+            .${elementId}.Mobile-noFlip .chart-content.content-card .chart-description`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
     });
 
     //panel chart

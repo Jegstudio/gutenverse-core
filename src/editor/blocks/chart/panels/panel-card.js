@@ -2,7 +2,6 @@ import { __ } from '@wordpress/i18n';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'react-feather';
 import { TypographyControl, BoxShadowControl, IconRadioControl, BackgroundControl, AlertControl, ColorControl, HeadingControl, DimensionControl, BorderResponsiveControl, TextShadowControl } from 'gutenverse-core/controls';
-import { handleColor, handleTypography, handleBackground, handleBorderResponsive, handleDimension, handleTextShadow, allowRenderTextShadow, handleBoxShadow, allowRenderBoxShadow } from 'gutenverse-core/styling';
 
 export const cardPanel = (props) => {
     const {
@@ -138,7 +137,7 @@ export const cardPanel = (props) => {
         },
         {
             id: 'cardTitleColor',
-            label: __('title Color', 'gutenverse'),
+            label: __('Title Color', 'gutenverse'),
             component: ColorControl,
             show: enableContent[deviceType],
             liveStyle: [
@@ -160,33 +159,29 @@ export const cardPanel = (props) => {
         },
         {
             id: 'cardTitleTypography',
-            label: __('title Typography', 'gutenverse'),
+            label: __('Title Typography', 'gutenverse'),
             component: TypographyControl,
             show: enableContent[deviceType],
-            style: [
-                {
-                    selector: `.${elementId} .chart-content.content-card .chart-title,
-                        .${elementId}.Desktop-noFlip .chart-content.content-card .chart-title,
-                        .${elementId}.Tablet-noFlip .chart-content.content-card .chart-title,
-                        .${elementId}.Mobile-noFlip .chart-content.content-card .chart-title`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'cardTitleTextShadow',
             label: __('Title Text Shadow', 'gutenverse'),
             show: enableContent[deviceType],
             component: TextShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .chart-content.content-card .chart-title,
+                    'type': 'textShadow',
+                    'id': 'cardTitleTextShadow',
+                    'properties': [
+                        {
+                            'name': 'text-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .chart-content.content-card .chart-title,
                         .${elementId}.Desktop-noFlip .chart-content.content-card .chart-title,
                         .${elementId}.Tablet-noFlip .chart-content.content-card .chart-title,
                         .${elementId}.Mobile-noFlip .chart-content.content-card .chart-title`,
-                    allowRender: (value) => allowRenderTextShadow(value),
-                    render: value => handleTextShadow(value)
                 }
             ]
         },
@@ -224,30 +219,28 @@ export const cardPanel = (props) => {
                     icon: <AlignJustify/>,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .chart-content.content-card .chart-description,
-                        .${elementId}.Desktop-noFlip .chart-content.content-card .chart-description,
-                        .${elementId}.Tablet-noFlip .chart-content.content-card .chart-description,
-                        .${elementId}.Mobile-noFlip .chart-content.content-card .chart-description`,
-                    render: value => `text-align: ${value};`
-                }
-            ]
         },
         {
             id: 'cardDescriptionColor',
             label: __('Description Color', 'gutenverse'),
             show: enableContent[deviceType],
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .chart-content.content-card .chart-description,
+                    'type': 'color',
+                    'id': 'cardDescriptionColor',
+                    'selector': `.${elementId} .chart-content.content-card .chart-description,
                         .${elementId}.Desktop-noFlip .chart-content.content-card .chart-description,
                         .${elementId}.Tablet-noFlip .chart-content.content-card .chart-description,
                         .${elementId}.Mobile-noFlip .chart-content.content-card .chart-description`,
-                    render: value => handleColor(value, 'color')
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ],
+            ]
         },
         {
             id: 'cardDescriptionTypography',

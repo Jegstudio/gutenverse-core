@@ -1,8 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { handleColor, handleDimension, handleBorderResponsive, elementVar, normalAppender, allowRenderBoxShadow, handleBorder } from 'gutenverse-core/styling';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelIconStyle = (props) => {
     const {
@@ -13,37 +11,6 @@ export const panelIconStyle = (props) => {
     } = props;
 
     const device = getDeviceType();
-
-    /**
-     * This is custom to prevent older saved values causing errors because BackgroundControl is used instead of GradientControl
-     */
-    const customHandleBackground = (background) => {
-        const elementStyle = elementVar();
-        const {
-            gradientColor,
-            gradientType = 'linear',
-            gradientAngle = 180,
-            gradientRadial = 'center center'
-        } = background;
-
-        if (gradientColor !== undefined) {
-            const colors = gradientColor.map(gradient => `${gradient.color} ${gradient.offset * 100}%`);
-
-            if (gradientType === 'radial') {
-                normalAppender({
-                    style: `background-image: radial-gradient(at ${gradientRadial}, ${colors.join(',')});`,
-                    elementStyle
-                });
-            } else {
-                normalAppender({
-                    style: `background-image: linear-gradient(${gradientAngle}deg, ${colors.join(',')});`,
-                    elementStyle
-                });
-            }
-        }
-
-        return elementStyle;
-    };
 
     return [
         {

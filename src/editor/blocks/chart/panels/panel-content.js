@@ -1,25 +1,23 @@
 import { __ } from '@wordpress/i18n';
-import { AlertControl, SelectControl, RangeControl, CheckboxControl } from 'gutenverse-core/controls';
+import { SelectControl, RangeControl, CheckboxControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const contentPanel = (props) => {
     const {
-        elementId,
         enableContent,
         chartType,
         chartContent,
-        chartItems,
     } = props;
 
-    let multiValue = false;
-    if (chartItems.length > 1) {
-        multiValue = true;
-    } else {
-        multiValue = false;
-    }
+    // let multiValue = false;
+    // if (chartItems.length > 1) {
+    //     multiValue = true;
+    // } else {
+    //     multiValue = false;
+    // }
 
     const deviceType = getDeviceType();
-    
+
     return [
         {
             id: 'chartContent',

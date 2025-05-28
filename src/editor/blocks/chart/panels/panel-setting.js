@@ -1,12 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { IconRadioControl, SelectControl, TextControl, CheckboxControl } from 'gutenverse-core/controls';
+import { SelectControl, CheckboxControl } from 'gutenverse-core/controls';
 
 export const settingPanel = (props) => {
     const {
-        elementId,
         chartType,
     } = props;
-    
+
     return [
         {
             id: 'chartType',

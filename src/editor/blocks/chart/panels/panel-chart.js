@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
 import { TypographyControl, IconRadioControl, RangeControl, ColorControl } from 'gutenverse-core/controls';
-import { handleColor, handleTypography } from 'gutenverse-core/styling';
 
 export const chartPanel = (props) => {
     const {
@@ -9,7 +8,7 @@ export const chartPanel = (props) => {
         chartType,
         chartContent
     } = props;
-    
+
     return [
         {
             id: 'chartContentAlign',
@@ -59,7 +58,7 @@ export const chartPanel = (props) => {
                                     'type': 'direct',
                                     'key': 'chartContainerSize',
                                 },
-            
+
                             }
                         }
                     ],
@@ -121,7 +120,7 @@ export const chartPanel = (props) => {
         },
         {
             id: 'cutoutBackground',
-            label: __('Cutout Background', 'gutenverse'),
+            label: __('Bar Background', 'gutenverse'),
             show: 'doughnut' === chartType,
             component: ColorControl,
         },
