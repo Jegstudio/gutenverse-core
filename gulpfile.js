@@ -77,6 +77,7 @@ gulp.task('form-default-style', function () {
         .pipe(postcss(postCSSOptions))
         .pipe(gulp.dest('gutenverse/assets/css/'));
 });
+
 gulp.task('form', function () {
     return gulp
         .src([path.resolve(__dirname, './src/assets/form_fallback/form.scss')])

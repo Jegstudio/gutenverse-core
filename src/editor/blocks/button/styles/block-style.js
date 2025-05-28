@@ -170,53 +170,54 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
-    isNotEmpty(attributes['hoverTextColor']) && !attributes['hoverWithParent'] && data.push({
-        'type': 'color',
-        'id': 'hoverTextColor',
-        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover span`,
-        'properties': [
-            {
-                'name': 'color',
-                'valueType': 'direct'
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['hoverTextColor']) && attributes['hoverWithParent'] && data.push({
-        'type': 'color',
-        'id': 'hoverTextColor',
-        'selector': attributes['parentSelector'] + ` .${elementId}.guten-button-wrapper .guten-button span`,
-        'properties': [
-            {
-                'name': 'color',
-                'valueType': 'direct'
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['hoverTextColor']) && !attributes['hoverWithParent'] && data.push({
-        'type': 'color',
-        'id': 'hoverTextColor',
-        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover i`,
-        'properties': [
-            {
-                'name': 'color',
-                'valueType': 'direct'
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['hoverTextColor']) && attributes['hoverWithParent'] && data.push({
-        'type': 'color',
-        'id': 'hoverTextColor',
-        'selector': attributes['parentSelector'] + ` .${elementId}.guten-button-wrapper .guten-button i`,
-        'properties': [
-            {
-                'name': 'color',
-                'valueType': 'direct'
-            }
-        ],
-    });
+    // Hover
+    if (isNotEmpty(attributes['hoverWithParent'])) {
+        isNotEmpty(attributes['hoverTextColor']) && data.push({
+            'type': 'color',
+            'id': 'hoverTextColor',
+            'selector': attributes['parentSelector'] + ` .${elementId}.guten-button-wrapper .guten-button span`,
+            'properties': [
+                {
+                    'name': 'color',
+                    'valueType': 'direct'
+                }
+            ],
+        });
+        isNotEmpty(attributes['hoverIconColor']) && data.push({
+            'type': 'color',
+            'id': 'hoverIconColor',
+            'selector': attributes['parentSelector'] + ` .${elementId}.guten-button-wrapper .guten-button i` ,
+            'properties': [
+                {
+                    'name': 'color',
+                    'valueType': 'direct'
+                }
+            ],
+        });
+    } else {
+        isNotEmpty(attributes['hoverTextColor']) && data.push({
+            'type': 'color',
+            'id': 'hoverTextColor',
+            'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover span`,
+            'properties': [
+                {
+                    'name': 'color',
+                    'valueType': 'direct'
+                }
+            ],
+        });
+        isNotEmpty(attributes['hoverIconColor']) && data.push({
+            'type': 'color',
+            'id': 'hoverIconColor',
+            'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover i`,
+            'properties': [
+                {
+                    'name': 'color',
+                    'valueType': 'direct'
+                }
+            ],
+        });
+    }
 
     isNotEmpty(attributes['typography']) && data.push({
         'type': 'typography',

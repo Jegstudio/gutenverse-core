@@ -83,7 +83,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'numberRightSpace',
         'responsive': true,
-        'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper `,
+        'selector': `.${elementId} .fun-fact-inner .content .number-wrapper .number.loaded`,
         'properties': [
             {
                 'name': 'margin-right',
