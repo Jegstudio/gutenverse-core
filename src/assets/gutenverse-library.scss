@@ -735,6 +735,7 @@ $border: #eaeaea;
             justify-content: flex-start;
             align-items: center;
             height: inherit;
+            position: relative;
 
             >svg {
                 margin-left: 10px;
@@ -745,15 +746,16 @@ $border: #eaeaea;
                 width: 100%;
                 height: inherit;
                 display: flex;
-                justify-content: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
 
                 .notice-inner {
                     display: flex;
                     gap: 5px;
                     align-items: center;
-                    padding: 10px 10px 2px;
+                    padding: 2px 10px 10px;
                     justify-content: space-between;
-                    width: 100%;
+                    width: inherit;
 
                     span {
                         font-family: "Roboto", serif;
@@ -772,10 +774,14 @@ $border: #eaeaea;
                     width: calc(100% + 16px);
                     height: 5px;
                     display: flex !important;
-                    position: absolute;
                     border-radius: 0 0 5px 5px;
                     background-color: #e3e4e6;
                     overflow: hidden;
+                    width: inherit;
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
 
                     .notice-bar-progress {
                         width: 0%;
