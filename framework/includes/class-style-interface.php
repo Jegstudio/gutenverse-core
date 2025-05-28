@@ -2344,6 +2344,10 @@ abstract class Style_Interface {
 	 * @return string|null
 	 */
 	public function handle_box_shadow( $value ) {
+		if ( gutenverse_truly_empty( $value['color'] ) ) {
+			$value['color'] = '#000000';
+		}
+
 		if ( ! gutenverse_truly_empty( $value['color'] ) ) {
 			$position     = ! gutenverse_truly_empty( $value['position'] ) && 'inset' === $value['position'] ? $value['position'] : '';
 			$horizontal   = ! gutenverse_truly_empty( $value['horizontal'] ) ? $value['horizontal'] : 0;
