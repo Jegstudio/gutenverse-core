@@ -50,7 +50,7 @@ const save = compose(
                     </div>
                 </div>
                 {
-                    showButton && <InnerBlocks.Content className="gutenverse-search-button" />
+                    showButton && <div className="guten-search-button-wrapper"><InnerBlocks.Content /></div>
                 }
             </form>
         </div>
