@@ -189,7 +189,7 @@ export const getWindowId = (elementRef) => {
     return null;
 };
 
-export const injectStyleTag = (css, theWindow, cssId = 'gutenverse-block-css') => {
+export const injectStyleTag = (css, theWindow, cssId = 'gutenverse-block-css', place = 'head') => {
     let cssElement = theWindow?.document?.getElementById(cssId);
 
     if (!cssElement) {
@@ -197,7 +197,15 @@ export const injectStyleTag = (css, theWindow, cssId = 'gutenverse-block-css') =
 
         if (cssElement) {
             cssElement.id = cssId;
-            theWindow.document.body.appendChild(cssElement);
+            switch (place) {
+                case 'body':
+                    theWindow.document.body.appendChild(cssElement);
+                    break;
+
+                default:
+                    theWindow.document.head.appendChild(cssElement);
+                    break;
+            }
         }
     }
 
@@ -385,7 +393,7 @@ const memoizeGlobalStyle = memoize(({ theWindow }) => {
     const globalVariables = getGlobalVariable();
     const globalCSS = buildGlobalStyle(globalVariables);
 
-    injectStyleTag(globalCSS, theWindow, 'gutenverse-global-style-css-v2');
+    injectStyleTag(globalCSS, theWindow, 'gutenverse-global-style-css-v2', 'body');
 
     injectFontStyle(theWindow, {
         googleArr: globalVariables.googleArr,
