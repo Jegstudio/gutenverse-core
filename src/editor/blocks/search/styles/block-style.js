@@ -105,27 +105,10 @@ const getBlockStyle = (elementId, attributes) => {
 
     isNotEmpty(attributes['inputWidth']) && isNotEmpty(attributes['inputWidth'][device]) && data.push(
         {
-            'type': '%' !== attributes['inputWidth'][device]['unit'] ? 'unitPoint' : 'plain',
-            'id': 'inputWidth',
-            'selector': `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .gutenverse-search-form .gutenverse-search-input, .${elementId} .search-input-container .gutenverse-search.gutenverse-search-input`,
-            'properties': '%' !== attributes['inputWidth'][device]['unit'] ?
-                [{
-                    'name': 'width',
-                    'valueType': 'direct',
-                    'important': true
-                }] :
-                [{
-                    'name': 'width',
-                    'valueType': 'pattern',
-                    'pattern': '100% !important',
-                }],
-            'responsive': true,
-        },
-        {
             'type': 'unitPoint',
             'id': 'inputWidth',
             'responsive': true,
-            'selector': `.${elementId} .search-input-container`,
+            'selector': `.${elementId} .search-input-container-outer`,
             'properties': [
                 {
                     'name': 'width',
@@ -152,7 +135,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'plain',
             'id': 'buttonWidth',
-            'selector': `.${elementId} .search-input-container`,
+            'selector': `.${elementId} .search-input-container-outer`,
             'properties': [
                 {
                     'name': 'max-width',
@@ -216,7 +199,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input`,
     });
 
     isNotEmpty(attributes['inputMargin']) && data.push({
@@ -229,7 +212,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+        'selector': `.${elementId} .search-input-container-outer`,
     });
 
     isNotEmpty(attributes['placeholderColor']) && data.push({
