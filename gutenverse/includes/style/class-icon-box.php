@@ -811,7 +811,7 @@ class Icon_Box extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['iconBoxHoverOverlay'] ) ) {
-			$this->handle_background( ".{$this->element_id} .guten-icon-box-wrapper:hover::before", $this->attrs['iconBoxHoverOverlay'] );
+			$this->handle_background( ".{$this->element_id} .guten-icon-box-wrapper::before", $this->attrs['iconBoxHoverOverlay'] );
 		}
 	}
 }
