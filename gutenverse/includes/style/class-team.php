@@ -146,10 +146,12 @@ class Team extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .profile-box .profile-card.card-default img,
 						.{$this->element_id} .profile-box .profile-card.card-overlay img,
+						.{$this->element_id} .profile-box .profile-card.card-title-social-horizontal img,
 						.{$this->element_id} .profile-box .profile-card.card-hover img,
 						.{$this->element_id} .profile-box .profile-card.card-default .profile-header img,
 						.{$this->element_id} .profile-box .profile-card.card-overlay .profile-header img,
 						.{$this->element_id} .profile-box .profile-card.card-hover .profile-header img,
+						.{$this->element_id} .profile-box .profile-card.card-title-social-horizontal,
 						.{$this->element_id} .profile-box .profile-card.card-overlay",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
@@ -166,6 +168,7 @@ class Team extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .profile-box .profile-card.card-default img,
 						.{$this->element_id} .profile-box .profile-card.card-overlay img,
 						.{$this->element_id} .profile-box .profile-card.card-hover img,
+						.{$this->element_id} .profile-box .profile-card.card-title-social-horizontal img,
 						.{$this->element_id} .profile-box .profile-card.card-default .profile-header img,
 						.{$this->element_id} .profile-box .profile-card.card-overlay .profile-header img,
 						.{$this->element_id} .profile-box .profile-card.card-hover .profile-header img",
@@ -183,6 +186,7 @@ class Team extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .profile-box .profile-card.card-default img,
 						.{$this->element_id} .profile-box .profile-card.card-overlay img,
+						.{$this->element_id} .profile-box .profile-card.card-title-social-horizontal img,
 						.{$this->element_id} .profile-box .profile-card.card-hover img,
 						.{$this->element_id} .profile-box .profile-card.card-default .profile-header img,
 						.{$this->element_id} .profile-box .profile-card.card-overlay .profile-header img,
