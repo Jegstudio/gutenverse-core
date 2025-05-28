@@ -76,6 +76,10 @@ export const settingPanel = (props) => {
                     label: __('Rotation'),
                     value: 'rotation',
                 },
+                {
+                    label: __('Highlighted'),
+                    value: 'highlighted',
+                },
             ]
         },
         {
@@ -115,13 +119,32 @@ export const settingPanel = (props) => {
         },
         {
             id: 'style',
+            show: textType !== 'highlighted',
             label: __('Animation Style', 'gutenverse'),
             component: SelectControl,
             options: animationStyles()
         },
         {
+            id: 'highlightedStyle',
+            show: textType === 'highlighted',
+            label: __('Highlighted Style', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                { label: __('Circle', 'gutenverse'), value: 'circle' },
+                { label: __('Curly', 'gutenverse'), value: 'curly' },
+                { label: __('Underline', 'gutenverse'), value: 'underline' },
+                { label: __('Double', 'gutenverse'), value: 'double' },
+                { label: __('Double Underline', 'gutenverse'), value: 'double-underline' },
+                { label: __('Underline Zigzag', 'gutenverse'), value: 'underline-zigzag' },
+                { label: __('Diagonal', 'gutenverse'), value: 'diagonal' },
+                { label: __('Strikethrough', 'gutenverse'), value: 'strikethrough' },
+                { label: __('X', 'gutenverse'), value: 'x' },
+            ]
+
+        },
+        {
             id: 'text',
-            show: textType === 'default',
+            show: (textType === 'default') || textType === 'highlighted',
             label: __('Animated Text', 'gutenverse'),
             component: TextControl
         },

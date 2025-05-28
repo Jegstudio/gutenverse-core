@@ -51,7 +51,7 @@ const TextAnimatedComponent = (props) => {
         textAnimation();
     };
 
-    const resetText = () => {
+    const generateText = () => {
         const textWrapper = u(animatedTextRef.current).find('.text-wrapper');
         if (!textWrapper) return;
         textWrapper.html(getText());
@@ -64,7 +64,7 @@ const TextAnimatedComponent = (props) => {
     };
 
     const textAnimation = () => {
-        resetText();
+        generateText();
         if (animation.current) {
             animation.current.remove(targets.current);
         }

@@ -10,6 +10,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 import TextAnimatedComponent from './components/text-animated-component';
+import TextHighlightedComponent from './components/text-highlighted-component';
 
 const AnimatedTextBlock = compose(
     withPartialRender,
@@ -26,6 +27,7 @@ const AnimatedTextBlock = compose(
         titleTag: TitleTag,
         beforeTextAnimated,
         afterTextAnimated,
+        textType,
     } = attributes;
 
     const elementRef = useRef(null);
@@ -55,13 +57,21 @@ const AnimatedTextBlock = compose(
         transitionDuration: parseInt(attributes.transitionDuration),
     };
 
+    const loadAnimatedComponent = () => {
+        if (textType == 'highlighted') {
+            return <TextHighlightedComponent {...animationProps} />;
+        }
+
+        return <TextAnimatedComponent {...animationProps}/>;
+    };
+
     return <>
         <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <div  {...blockProps}>
             <TitleTag>
                 <span className={'non-animated-text before-text'}>{beforeTextAnimated}</span>
-                <TextAnimatedComponent {...animationProps} />
+                {loadAnimatedComponent()}
                 <span className={'non-animated-text after-text'}>{afterTextAnimated}</span>
             </TitleTag>
         </div>
