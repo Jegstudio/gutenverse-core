@@ -76,6 +76,12 @@ const save = compose(
                                 {images.map((image, index) => <div className="swiper-slide image-list" data-filter={image.id} data-title={image.title} data-category={image.category} data-content={image.content} key={index}>
                                     <div className="content-image swiper-zoom-container">
                                         {image && imageCondition(image)}
+                                        {image?.lightboxDescription ? <div className="content-description-wrapper">
+                                            <h5 className="content-title">{image.title}</h5>
+                                            <div className="content-description">
+                                                <p>{image.content}</p>
+                                            </div>
+                                        </div> : null}
                                     </div>
                                 </div>)}
                             </div>
