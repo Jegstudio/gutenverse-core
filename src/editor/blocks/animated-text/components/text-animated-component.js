@@ -64,7 +64,6 @@ const TextAnimatedComponent = (props) => {
     };
 
     const textAnimation = () => {
-        generateText();
         if (animation.current) {
             animation.current.remove(targets.current);
         }
@@ -84,6 +83,7 @@ const TextAnimatedComponent = (props) => {
 
     useEffect(() => {
         rotationTextIndex.current = 0;
+        generateText();
 
         if (animationStyle) {
             textAnimation();
