@@ -128,7 +128,7 @@ const TextHighlightedComponent = (props) => {
     return (
         <span className="text-content">
             <span className="text-wrapper">
-                <span className="letters">{text}</span>
+                <span className="letter">{text}</span>
             </span>
             <span className="highlighted" key={highlightedStyle}>{svgElement}</span>
         </span>

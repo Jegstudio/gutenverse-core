@@ -109,7 +109,7 @@ const TextAnimatedComponent = (props) => {
     return <>
         <span className="text-content">
             <span className="text-wrapper">
-                <span className="letters">{getText()}</span>
+                <span className="letter">{getText()}</span>
             </span>
         </span>
     </>;
