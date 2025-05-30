@@ -9,7 +9,7 @@ class GutenverseChart extends Default {
             const dataElement = u(element).find('.chart-content.content-chart').find('.chart-container');
 
             if (dataElement.length) {
-                
+
                 const rawData = dataElement.data('chart');
                 if (rawData) {
                     const parsedData = JSON.parse(rawData);
@@ -21,12 +21,12 @@ class GutenverseChart extends Default {
                         x: eventPosition.x,
                         y: eventPosition.y,
                     });
-            
+
                     const tooltipPlugin = Chart.registry.getPlugin('tooltip');
                     if (tooltipPlugin) {
                         tooltipPlugin.positioners.custom = customPositioner;
                     }
-                    
+
                     new Chart(canvas.nodes[0], chartData);
 
                     const numberElement = u(element).find('.chart-content .chart-inside span');
@@ -47,12 +47,12 @@ class GutenverseChart extends Default {
 
         anime({
             targets: element.nodes[0],
-            innerHTML: multiValue || 'number' === chartContent ? [0, totalValue] : [0, chartItems[0].value], 
+            innerHTML: multiValue || 'number' === chartContent ? [0, totalValue] : [0, chartItems[0].value],
             duration: animationDuration,
             easing: 'cubicBezier(.02, .01, .47, 1)',
             round: 1,
         });
-        
+
     }
 
     _theColor (color) {
@@ -61,21 +61,35 @@ class GutenverseChart extends Default {
             g: 255,
             b: 255,
             a: 0
-        }
+        };
 
         const { r, g, b, a, type, id } = theColor;
         let result = '';
-    
+
         if ((r || r === 0) && (g || g === 0) && (g || g === 0)) {
             result = `rgba(${r}, ${g}, ${b}, ${a})`;
         }
-    
+
         if ('variable' === type) {
-            const value = variableColorName(id);
+            const value = `--wp--preset--color--${id}`;
             result = `var(${value})`;
         }
-    
+
         return result;
+    }
+
+    _getDeviceType() {
+        const {breakPoints} =  window['GutenverseConfig'] || window['GutenverseData'] || {};
+        const screenWidth = window.screen.width;
+        let currentDevice = 'Desktop';
+
+        if(screenWidth < breakPoints['Tablet'] && screenWidth > breakPoints['Mobile']){
+            currentDevice = 'Tablet';
+        } else if (screenWidth < breakPoints['Mobile']) {
+            currentDevice = 'Mobile';
+        }
+
+        return currentDevice;
     }
 
     _getChartData(data, canvas) {
@@ -94,82 +108,87 @@ class GutenverseChart extends Default {
             cutoutBackground,
             multiValue
         } = data;
-    
+
         const values = [];
         const labels = [];
         const backgroundColor = [];
         const borderWidth = [];
         const borderColor = [];
-        
+
         const responsiveSize = true;
-    
-        chartItems.forEach((item, index) => {
+
+        chartItems.forEach((item) => {
             //color control
             let color;
             if (item.colorMode === 'default' || item.colorMode === undefined) {
                 color = this._theColor(item.backgroundColor);
             } else {
-                const gradient = "topBottom" === item.gradientDirection ? canvas?.getContext('2d').createLinearGradient(0, 0, 0, 400) : canvas?.getContext('2d').createLinearGradient(0, 0, 400, 0);
+                const gradient = 'topBottom' === item.gradientDirection ? canvas?.getContext('2d').createLinearGradient(0, 0, 0, 400) : canvas?.getContext('2d').createLinearGradient(0, 0, 400, 0);
                 gradient.addColorStop(0, this._theColor(item.colorGradientOne));
-                gradient.addColorStop(1, this._theColor(item.colorGradientTwo)); 
-                color = gradient; 
+                gradient.addColorStop(1, this._theColor(item.colorGradientTwo));
+                color = gradient;
             }
-    
+
             //push data to individual array
             values.push(item.value);
             labels.push(item.label);
             backgroundColor.push(color);
             borderColor.push(this._theColor(item.borderColor));
-            borderWidth.push(item.borderWidth);
+            borderWidth.push( parseFloat(item.borderWidth) );
         });
-    
+
         const topValue = 'number' === chartContent ? parseFloat(totalValue) : 100;
         const bottomValue = 'number' === chartContent ? parseFloat(minValue) : 0;
         const cutoutFill = this._theColor({...cutoutBackground, a: 1});
-    
+
         switch(chartType) {
             case 'doughnut':
-    
+                const device = this._getDeviceType();
                 const sum = values.reduce((acc, val) => parseFloat(acc) + parseFloat(val), 0);
                 const backgroundPlugin = {
                     id: 'customBackground',
                     beforeDraw: (chart) => {
-                        const { ctx, chartArea } = chart;
-                        const { width, height } = chart;
-                        const centerX = chartArea.left + (chartArea.right - chartArea.left) / 2;
-                        const centerY = chartArea.top + (chartArea.bottom - chartArea.top) / 2;
-                        const outerRadius = Math.min(width, height) / 2;
-                        const cutoutPercent = parseFloat(chart.options.cutout);
-                        const innerRadius = (outerRadius * cutoutPercent) / 100;
-                
+                        const { ctx } = chart;
+                        const meta = chart.getDatasetMeta(0);
+                        const arc = meta.data[0];
+
+                        if (!arc) return;
+
+                        const centerX = arc.x;
+                        const centerY = arc.y;
+                        const outerRadius = arc.outerRadius;
+                        const innerRadius = arc.innerRadius;
+
                         ctx.save();
-                
+
+                        // Draw full outer circle
                         ctx.globalAlpha = cutoutBackground.a;
                         ctx.fillStyle = cutoutFill;
                         ctx.beginPath();
                         ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
                         ctx.fill();
-                
+
+                        // Cut inner circle (to make doughnut)
                         ctx.globalAlpha = 1.0;
                         ctx.globalCompositeOperation = 'destination-out';
                         ctx.beginPath();
                         ctx.arc(centerX, centerY, innerRadius, 0, Math.PI * 2);
                         ctx.fill();
-                
+
                         ctx.globalCompositeOperation = 'source-over';
                         ctx.restore();
                     }
                 };
-    
+
                 if (sum < topValue && 'doughnut' === chartType) {
                     const difference = topValue - sum;
                     values.push(difference);
                     labels.push('gutenEmptyDataSet');
-                    backgroundColor.push('rgba(255, 255, 255, 0)')
+                    backgroundColor.push('rgba(255, 255, 255, 0)');
                     borderColor.push('rgba(255, 255, 255, 0)');
                     borderWidth.push(0);
                 }
-    
+
                 return {
                     type: chartType,
                     data: {
@@ -186,7 +205,7 @@ class GutenverseChart extends Default {
                     options: {
                         responsive: responsiveSize,
                         maintainAspectRatio: false,
-                        cutout: `${cutout}%`,
+                        cutout: `${cutout[device]}%`,
                         plugins: {
                             tooltip: {
                                 enabled: tooltipDisplay,
@@ -213,10 +232,10 @@ class GutenverseChart extends Default {
                         },
                     },
                     plugins: [backgroundPlugin]
-                }
-            
+                };
+
             case 'bar' :
-                
+
                 return {
                     type: chartType,
                     data: {
@@ -276,8 +295,8 @@ class GutenverseChart extends Default {
                             easing: 'easeInOutQuart'
                         },
                     },
-                }
-    
+                };
+
             case 'line' :
                 return {
                     type: chartType,
@@ -338,7 +357,7 @@ class GutenverseChart extends Default {
                             easing: 'easeInOutQuart'
                         },
                     },
-                }
+                };
         }
     }
 }

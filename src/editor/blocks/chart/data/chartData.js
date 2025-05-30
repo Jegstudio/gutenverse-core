@@ -1,3 +1,4 @@
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { getColor } from 'gutenverse-core/styling';
 
 const theColor = (color) => {
@@ -51,7 +52,7 @@ export function getChartData(attributes, multiValue, canvas) {
         backgroundColor.push(color);
         borderColor.push(theColor(item.borderColor));
         if (item.borderWidth > maxBorderWidth) maxBorderWidth = item.borderWidth;
-        borderWidth.push(item.borderWidth);
+        borderWidth.push( parseFloat(item.borderWidth) );
     });
 
     const topValue = 'number' === chartContent ? parseFloat(totalValue) : 100;
@@ -60,37 +61,32 @@ export function getChartData(attributes, multiValue, canvas) {
 
     switch(chartType) {
         case 'doughnut':
-
+            const device = getDeviceType();
             const sum = values.reduce((acc, val) => parseFloat(acc) + parseFloat(val), 0);
             const backgroundPlugin = {
                 id: 'customBackground',
                 beforeDraw: (chart) => {
-                    const { ctx, chartArea } = chart;
-                    const { width, height } = chart;
-                    const centerX = chartArea.left + (chartArea.right - chartArea.left) / 2;
-                    const centerY = chartArea.top + (chartArea.bottom - chartArea.top) / 2;
-                    const outerRadius = Math.min(width, height) / 2;
-                    let cutout = chart.options.cutout;
+                    const { ctx } = chart;
+                    const meta = chart.getDatasetMeta(0);
+                    const arc = meta.data[0];
 
-                    let numericCutout;
+                    if (!arc) return;
 
-                    if (typeof cutout === 'string' && cutout.endsWith('%')) {
-                        const percentage = parseFloat(cutout);
-                        numericCutout = percentage > maxBorderWidth ? percentage - maxBorderWidth / 2 : percentage;
-                    } else {
-                        numericCutout = parseFloat(cutout);
-                    }
-                    const cutoutPercent = numericCutout;
-                    const innerRadius = (outerRadius * cutoutPercent) / 100;
+                    const centerX = arc.x;
+                    const centerY = arc.y;
+                    const outerRadius = arc.outerRadius;
+                    const innerRadius = arc.innerRadius;
 
                     ctx.save();
 
+                    // Draw full outer circle
                     ctx.globalAlpha = cutoutBackground.a;
                     ctx.fillStyle = cutoutFill;
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
                     ctx.fill();
 
+                    // Cut inner circle (to make doughnut)
                     ctx.globalAlpha = 1.0;
                     ctx.globalCompositeOperation = 'destination-out';
                     ctx.beginPath();
@@ -127,7 +123,7 @@ export function getChartData(attributes, multiValue, canvas) {
                 options: {
                     responsive: responsiveSize,
                     maintainAspectRatio: false,
-                    cutout: `${cutout}%`,
+                    cutout: `${cutout[device]}%`,
                     plugins: {
                         tooltip: {
                             enabled: tooltipDisplay,

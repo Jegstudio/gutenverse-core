@@ -107,6 +107,7 @@ export const chartPanel = (props) => {
             min: 0,
             max: 100,
             step: 1,
+            allowDeviceControl:true
         },
         {
             id: 'barThickness',

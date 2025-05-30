@@ -74,6 +74,8 @@ export const contentPanel = (props) => {
             label: __('Enable Content', 'gutenverse'),
             component: CheckboxControl,
             allowDeviceControl: true,
+            usePreviousDeviceValue: true,
+            deviceValues: enableContent,
         },
         {
             id: 'titleTag',

@@ -104,8 +104,12 @@
       }
     },
     "cutout": {
-			"type": "string",
-			"default": "90"
+			"type": "object",
+			"default": {
+        "Desktop": "90",
+        "Tablet": "90",
+        "Mobile": "90"
+      }
 		},
     "barThickness": {
 			"type": "string",

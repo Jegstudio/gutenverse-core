@@ -96,7 +96,7 @@ const ChartBlock = compose(
     //     panel: 'setting',
     //     section: 2,
     // };
-    
+
     const blockProps = useBlockProps({
         ref: elementRef,
         className: classnames(
@@ -162,7 +162,7 @@ const ChartBlock = compose(
 
         const canvas = document.getElementById(`chart-canvas-${elementId}`) || iframecanvas;
         if (!canvas) return;
-        
+
         const customPositioner = (elements, eventPosition) => ({
             x: eventPosition.x,
             y: eventPosition.y,
@@ -201,15 +201,15 @@ const ChartBlock = compose(
 
     useEffect(() => {
         if (!numberRef.current || (chartContent !== 'percentage' && 'number' !== chartContent)) return;
-    
+
         const animation = anime({
             targets: numberRef.current,
-            innerHTML: multiValue || 'number' === chartContent ? [0, totalValue] : [0, chartItems[0].value], 
+            innerHTML: multiValue || 'number' === chartContent ? [0, totalValue] : [0, chartItems[0].value],
             duration: animationDuration,
             easing: 'cubicBezier(.02, .01, .47, 1)',
             round: 1,
         });
-    
+
         return () => animation.pause();
     }, [chartItems, animationDuration, chartContent, totalValue, chartType]);
 
@@ -217,9 +217,9 @@ const ChartBlock = compose(
     // HighLightToolbar(props);
 
     const insideChart = <div className={`chart-inside type-${chartType}`}>
-        { 
-            'percentage' === chartContent || 'number' === chartContent ? 
-                <span ref={numberRef} >{multiValue || 'number' === chartContent ? '0' : '0%'}</span> 
+        {
+            'percentage' === chartContent || 'number' === chartContent ?
+                <span ref={numberRef} >{multiValue || 'number' === chartContent ? '0' : '0%'}</span>
                 : <i className={icon} onClick={() => setOpenIconLibrary(true)} />
         }
     </div>;
@@ -294,8 +294,8 @@ const ChartBlock = compose(
                     // parentHasLink={isGlobalLinkSet}
                 />
             </div>}
-            <div className='chart-content content-chart'>
-                <div className='chart-container'>
+            <div className="chart-content content-chart">
+                <div className="chart-container">
                     <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
                 </div>
                 {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
