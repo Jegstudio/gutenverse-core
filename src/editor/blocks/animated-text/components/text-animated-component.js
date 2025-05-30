@@ -64,6 +64,7 @@ const TextAnimatedComponent = (props) => {
     };
 
     const textAnimation = () => {
+        generateText();
         if (animation.current) {
             animation.current.remove(targets.current);
         }
