@@ -51,6 +51,26 @@ class Animated_Text extends Style_Abstract {
 	}
 
 	/**
+	 * Create additional attribute for gradient function
+	 *
+	 * @param array $selector .
+	 *
+	 * @return void
+	 */
+	public function additional_attribute_for_gradient( $selector ) {
+		$this->inject_style(
+			array(
+				'selector'       => $selector,
+				'property'       => function () {
+					return 'background-clip: text; -webkit-text-fill-color: transparent;';
+				},
+				'value'          => '',
+				'device_control' => true,
+			)
+		);
+	}
+
+	/**
 	 * Generate style base on attribute.
 	 */
 	public function generate() {
@@ -157,18 +177,49 @@ class Animated_Text extends Style_Abstract {
 			);
 		}
 
-		// Normal text.
-		if ( isset( $this->attrs['textNormalColor'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .non-animated-text",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'color' );
-					},
-					'value'          => $this->attrs['textNormalColor'],
-					'device_control' => false,
-				)
-			);
+		// Non animated text.
+		if ( 'color' === $this->attrs['normalColorType'] ) { // color type color.
+			if ( isset( $this->attrs['textNormalColor'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .non-animated-text",
+						'property'       => function ( $value ) {
+							return $this->handle_color( $value, 'color' );
+						},
+						'value'          => $this->attrs['textNormalColor'],
+						'device_control' => false,
+					)
+				);
+			}
+			if ( isset( $this->attrs['textNormalColorHover'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .non-animated-text:hover",
+						'property'       => function ( $value ) {
+							return $this->handle_color( $value, 'color' );
+						},
+						'value'          => $this->attrs['textNormalColorHover'],
+						'device_control' => false,
+					)
+				);
+			}
+		}
+
+		if ( 'gradient' === $this->attrs['normalColorType'] ) { // color type gradient.
+			if ( isset( $this->attrs['textNormalGradient'] ) ) {
+				$this->handle_gradient_with_angle(
+					".{$this->element_id} .non-animated-text",
+					$this->attrs['textNormalGradient']
+				);
+				$this->additional_attribute_for_gradient( ".{$this->element_id} .non-animated-text" );
+			}
+			if ( isset( $this->attrs['textNormalGradientHover'] ) ) {
+				$this->handle_gradient_with_angle(
+					".{$this->element_id} .non-animated-text:hover",
+					$this->attrs['textNormalGradientHover']
+				);
+				$this->additional_attribute_for_gradient( ".{$this->element_id} .non-animated-text:hover" );
+			}
 		}
 
 		if ( isset( $this->attrs['textNormalTypography'] ) ) {

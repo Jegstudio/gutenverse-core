@@ -20,6 +20,66 @@ const textNormalStyle = (props) => {
         ],
     });
 
+    isNotEmpty(attributes['textNormalColorHover']) && data.push({
+        'type': 'color',
+        'id': 'textNormalColorHover',
+        'selector': `.editor-styles-wrapper .${elementId} .non-animated-text:hover`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    if (isNotEmpty(attributes['normalColorType']) && attributes['normalColorType'] === 'gradient') {
+        isNotEmpty(attributes['textNormalGradient']) && data.push({
+            'type': 'plain',
+            'id': 'textNormalGradient',
+            'selector': `.editor-styles-wrapper .${elementId} .non-animated-text`,
+            'properties': [
+                {
+                    'name': 'background',
+                    'valueType': 'function',
+                    'functionName': 'customHandleBackground',
+                },
+                {
+                    'name': 'background-clip',
+                    'valueType': 'pattern',
+                    'pattern': 'text',
+                },
+                {
+                    'name': '-webkit-text-fill-color',
+                    'valueType': 'pattern',
+                    'pattern': 'transparent',
+                }
+            ],
+        });
+
+        isNotEmpty(attributes['textNormalGradientHover']) && data.push({
+            'type': 'plain',
+            'id': 'textNormalGradientHover',
+            'selector': `.editor-styles-wrapper .${elementId} .non-animated-text:hover`,
+            'properties': [
+                {
+                    'name': 'background',
+                    'valueType': 'function',
+                    'functionName': 'customHandleBackground',
+                },
+                {
+                    'name': 'background-clip',
+                    'valueType': 'pattern',
+                    'pattern': 'text',
+                },
+                {
+                    'name': '-webkit-text-fill-color',
+                    'valueType': 'pattern',
+                    'pattern': 'transparent',
+                }
+            ],
+        });
+    }
+
     isNotEmpty(attributes['textNormalTypography']) && data.push({
         'type': 'typography',
         'id': 'textNormalTypography',

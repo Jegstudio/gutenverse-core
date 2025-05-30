@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, GradientControl, GradientWithAngleControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { ColorControl, GradientControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
 
 export const styleHighlightPanel = (props) => {
     const {

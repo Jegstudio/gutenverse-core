@@ -14,15 +14,15 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Text Animated Style', 'gutenverse'),
-            initialOpen: false,
-            panelArray: styleTextAnimatedPanel,
-            tabRole: TabStyle
-        },
-        {
             title: __('Text Normal Style', 'gutenverse'),
             initialOpen: false,
             panelArray: styleTextNormalPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Text Animated Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: styleTextAnimatedPanel,
             tabRole: TabStyle
         },
         {

@@ -98,9 +98,27 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"normalColorType": {
+			"type": "string",
+			"default": "color"
+		},
 		"textNormalColor": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"textNormalColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textNormalGradient": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"textNormalGradientHover": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
 		},
 		"textNormalTypography": {
 			"type": "object",
