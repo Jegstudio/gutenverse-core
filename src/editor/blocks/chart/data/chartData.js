@@ -2,12 +2,30 @@ import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { getColor } from 'gutenverse-core/styling';
 
 const theColor = (color) => {
-    return getColor(color ? color : {
+    const {type} = color;
+    const rgbaColor = getColor(color ? color : {
         r: 255,
         g: 255,
         b: 255,
         a: 0
     });
+
+    if ('variable' === type) {
+        const temp = document.createElement('div');
+        document.body.appendChild(temp);
+
+        temp.style.setProperty('color', rgbaColor);
+        const computedColor = getComputedStyle(temp).color;
+        document.body.removeChild(temp);
+
+        const rgbaMatch = computedColor.match(/\d+/g);
+        if (!rgbaMatch || rgbaMatch.length < 3) return null;
+
+        const [r, g, b] = rgbaMatch.map(Number);
+        return `rgba(${r}, ${g}, ${b}, 1)`;
+    }
+
+    return rgbaColor;
 };
 
 export function getChartData(attributes, multiValue, canvas) {

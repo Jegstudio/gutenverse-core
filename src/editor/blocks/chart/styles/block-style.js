@@ -283,7 +283,7 @@ const getBlockStyle = (elementId, attributes) => {
                 }
             }
         ],
-        'selector': `.${elementId} .chart-inside.type-doughnut`,
+        'selector': `.${elementId} .chart-inside.type-doughnut, .${elementId} .chart-container`,
     });
 
     isNotEmpty(attributes['indicatorColor']) && data.push({

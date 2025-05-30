@@ -72,7 +72,18 @@ class GutenverseChart extends Default {
 
         if ('variable' === type) {
             const value = `--wp--preset--color--${id}`;
-            result = `var(${value})`;
+            const temp = document.createElement('div');
+            document.body.appendChild(temp);
+
+            temp.style.setProperty('color', `var(${value})`);
+            const computedColor = getComputedStyle(temp).color;
+            document.body.removeChild(temp);
+
+            const rgbaMatch = computedColor.match(/\d+/g);
+            if (!rgbaMatch || rgbaMatch.length < 3) return null;
+
+            const [r, g, b] = rgbaMatch.map(Number);
+            result = `rgba(${r}, ${g}, ${b}, 1)`;
         }
 
         return result;
