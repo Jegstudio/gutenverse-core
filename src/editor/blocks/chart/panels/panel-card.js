@@ -186,6 +186,28 @@ export const cardPanel = (props) => {
             ]
         },
         {
+            id: 'marginCardTitle',
+            label: __('Card Title Margin', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            show: enableContent[deviceType],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                percent: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+        },
+        {
             id: 'chartCardHeadingdescription',
             component: HeadingControl,
             show: enableContent[deviceType],
@@ -269,6 +291,28 @@ export const cardPanel = (props) => {
                         .${elementId}.Mobile-noFlip .chart-content.content-card .chart-description`,
                 }
             ]
+        },
+        {
+            id: 'marginCardDescription',
+            label: __('Card Description Margin', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            show: enableContent[deviceType],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                percent: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
         },
     ];
 };

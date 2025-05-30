@@ -85,7 +85,7 @@ export const chartPanel = (props) => {
                         {
                             'name': 'width',
                             'valueType': 'pattern',
-                            'pattern': 'width: {value}px !important',
+                            'pattern': '{value}px !important',
                             'patternValues': {
                                 'value': {
                                     'type': 'direct',
@@ -95,6 +95,25 @@ export const chartPanel = (props) => {
                         }
                     ],
                     'selector': `.${elementId} .chart-inside.type-doughnut`,
+                },
+                {
+                    'type': 'plain',
+                    'id': 'chartSize',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px !important; height: {value}px !important',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                    'key': 'chartSize',
+                                },
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} canvas`,
                 }
             ]
         },

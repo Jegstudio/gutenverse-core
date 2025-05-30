@@ -270,6 +270,22 @@ class Chart extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['marginCardTitle'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .chart-content.content-card .chart-title,
+                        .{$this->element_id}.Desktop-noFlip .chart-content.content-card .chart-title,
+                        .{$this->element_id}.Tablet-noFlip .chart-content.content-card .chart-title,
+                        .{$this->element_id}.Mobile-noFlip .chart-content.content-card .chart-title",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['marginCardTitle'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['cardDescriptionAlign'] ) ) {
 			$this->inject_style(
 				array(
@@ -328,6 +344,22 @@ class Chart extends Style_Abstract {
 					},
 					'value'          => $this->attrs['cardDescriptionTextShadow'],
 					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['marginCardDescription'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .chart-content.content-card .chart-description,
+                        .{$this->element_id}.Desktop-noFlip .chart-content.content-card .chart-description,
+                        .{$this->element_id}.Tablet-noFlip .chart-content.content-card .chart-description,
+                        .{$this->element_id}.Mobile-noFlip .chart-content.content-card .chart-description",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['marginCardDescription'],
+					'device_control' => true,
 				)
 			);
 		}

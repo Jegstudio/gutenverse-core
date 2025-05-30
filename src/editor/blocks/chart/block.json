@@ -185,6 +185,10 @@
 			"default": {},
 			"copyStyle": true
 		},
+    "marginCardTitle": {
+			"type": "object",
+			"copyStyle": true
+		},
     "cardDescriptionAlign": {
 			"type": "object",
 			"copyStyle": true
@@ -200,6 +204,10 @@
 		"cardDescriptionTextShadow": {
 			"type": "object",
 			"default": {},
+			"copyStyle": true
+		},
+    "marginCardDescription": {
+			"type": "object",
 			"copyStyle": true
 		},
     "rel": {

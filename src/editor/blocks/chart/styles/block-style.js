@@ -124,6 +124,22 @@ const getBlockStyle = (elementId, attributes) => {
             .${elementId}.Mobile-noFlip .chart-content.content-card .chart-title`,
     });
 
+    isNotEmpty(attributes['marginCardTitle']) && data.push({
+        'type': 'dimension',
+        'id': 'marginCardTitle',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'margin',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId} .chart-content.content-card .chart-title,
+            .${elementId}.Desktop-noFlip .chart-content.content-card .chart-title,
+            .${elementId}.Tablet-noFlip .chart-content.content-card .chart-title,
+            .${elementId}.Mobile-noFlip .chart-content.content-card .chart-title`,
+    });
+
     isNotEmpty(attributes['cardDescriptionTypography']) && data.push({
         'type': 'typography',
         'id': 'cardDescriptionTypography',
@@ -139,6 +155,22 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'text-shadow',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId} .chart-content.content-card .chart-description,
+            .${elementId}.Desktop-noFlip .chart-content.content-card .chart-description,
+            .${elementId}.Tablet-noFlip .chart-content.content-card .chart-description,
+            .${elementId}.Mobile-noFlip .chart-content.content-card .chart-description`,
+    });
+
+    isNotEmpty(attributes['marginCardDescription']) && data.push({
+        'type': 'dimension',
+        'id': 'marginCardDescription',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'margin',
                 'valueType': 'direct'
             }
         ],
@@ -222,7 +254,7 @@ const getBlockStyle = (elementId, attributes) => {
             {
                 'name': 'width',
                 'valueType': 'pattern',
-                'pattern': 'width: {value}px !important; height: {value}px !important',
+                'pattern': '{value}px !important; height: {value}px !important',
                 'patternValues': {
                     'value': {
                         'type': 'direct',
@@ -242,7 +274,7 @@ const getBlockStyle = (elementId, attributes) => {
             {
                 'name': 'width',
                 'valueType': 'pattern',
-                'pattern': 'width: {value}px !important',
+                'pattern': '{value}px !important',
                 'patternValues': {
                     'value': {
                         'type': 'direct',
