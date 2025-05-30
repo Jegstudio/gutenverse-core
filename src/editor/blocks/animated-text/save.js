@@ -37,20 +37,6 @@ const save = compose(
         },
     );
 
-    const loadAnimatedText = () => {
-
-        if (listAnimationStyles[style]) {
-            return <>
-                <span className="text-content">
-                    <span className="text-wrapper">
-                        <span className="letters">{text}</span>
-                    </span>
-                </span>
-            </>;
-        }
-        return <span className="text-content">{text}</span>;
-    };
-
     const animationProps = {
         loop,
         splitByWord,
@@ -67,7 +53,11 @@ const save = compose(
     return <div {...useBlockProps.save({ className })} data-animation={JSON.stringify(animationProps)}>
         <TitleTag>
             <span className={'non-animated-text before-text'}>{beforeTextAnimated}</span>
-            {loadAnimatedText()}
+            <span className="text-content">
+                <span className="text-wrapper">
+                    <span className="letter">{text}</span>
+                </span>
+            </span>
             <span className={'non-animated-text after-text'}>{afterTextAnimated}</span>
         </TitleTag>
     </div>;

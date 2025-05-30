@@ -81,9 +81,27 @@
 			"default": true,
 			"copyStyle": true
 		},
+		"animatedColorType": {
+			"type": "string",
+			"default": "color"
+		},
 		"textAnimatedColor": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"textAnimatedColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textAnimatedGradient": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"textAnimatedGradientHover": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
 		},
 		"textAnimatedTypography": {
 			"type": "object",

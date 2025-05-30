@@ -127,23 +127,54 @@ class Animated_Text extends Style_Abstract {
 		}
 
 		// Animated Text.
-		if ( isset( $this->attrs['textAnimatedColor'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .text-content *",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'color' );
-					},
-					'value'          => $this->attrs['textAnimatedColor'],
-					'device_control' => false,
-				)
-			);
+		if ( 'color' === $this->attrs['animatedColorType'] ) { // color type color.
+			if ( isset( $this->attrs['textAnimatedColor'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .text-content .text-wrapper",
+						'property'       => function ( $value ) {
+							return $this->handle_color( $value, 'color' );
+						},
+						'value'          => $this->attrs['textAnimatedColor'],
+						'device_control' => false,
+					)
+				);
+			}
+			if ( isset( $this->attrs['textAnimatedColorHover'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .text-content .text-wrapper:hover",
+						'property'       => function ( $value ) {
+							return $this->handle_color( $value, 'color' );
+						},
+						'value'          => $this->attrs['textAnimatedColorHover'],
+						'device_control' => false,
+					)
+				);
+			}
+		}
+
+		if ( 'gradient' === $this->attrs['animatedColorType'] ) { // color type gradient.
+			if ( isset( $this->attrs['textAnimatedGradient'] ) ) {
+				$this->handle_gradient_with_angle(
+					".{$this->element_id} .text-content .text-wrapper .letter",
+					$this->attrs['textAnimatedGradient']
+				);
+				$this->additional_attribute_for_gradient( ".{$this->element_id} .text-content .text-wrapper .letter" );
+			}
+			if ( isset( $this->attrs['textAnimatedGradientHover'] ) ) {
+				$this->handle_gradient_with_angle(
+					".{$this->element_id} .text-content .text-wrapper:hover .letter",
+					$this->attrs['textAnimatedGradientHover']
+				);
+				$this->additional_attribute_for_gradient( ".{$this->element_id} .text-content .text-wrapper:hover .letter" );
+			}
 		}
 
 		if ( isset( $this->attrs['textAnimatedTypography'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => ".{$this->element_id} .text-content *",
+					'selector'       => ".{$this->element_id} .text-content .text-wrapper",
 					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['textAnimatedTypography'],
 					'device_control' => false,
@@ -154,7 +185,7 @@ class Animated_Text extends Style_Abstract {
 		if ( isset( $this->attrs['textAnimatedStroke'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .text-content *",
+					'selector'       => ".{$this->element_id} .text-content .text-wrapper",
 					'property'       => function ( $value ) {
 						return $this->handle_text_stroke( $value );
 					},
@@ -167,7 +198,7 @@ class Animated_Text extends Style_Abstract {
 		if ( isset( $this->attrs['textAnimatedShadow'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .text-content *",
+					'selector'       => ".{$this->element_id} .text-content .text-wrapper",
 					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
