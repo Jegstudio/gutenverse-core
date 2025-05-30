@@ -1,4 +1,4 @@
-const textStyleBend = (props) => {
+const textStyleFlip = (props) => {
     const {
         loop,
         animation,
@@ -13,20 +13,12 @@ const textStyleBend = (props) => {
 
     animation.add({
         targets: target,
-        translateY: ['1.1em', 0],
-        translateX: ['0.55em', 0],
-        translateZ: 0,
-        rotateZ: [180, 0],
+        rotateY: [-90, 0],
         duration: animationDuration,
-        opacity: [0,1],
-        easing: 'easeOutExpo',
-        delay: (el, i) => 50 * i
+        delay: (el, i) => 45 * i
     });
 
-    if (loop || isRotationType) {
-        if (isRotationType && stopRotating()) {
-            return;
-        }
+    if (loop || (isRotationType && !stopRotating())) {
         animation.add({
             targets: target,
             opacity: 0,
@@ -42,4 +34,4 @@ const textStyleBend = (props) => {
     }
 };
 
-export default textStyleBend;
+export default textStyleFlip;

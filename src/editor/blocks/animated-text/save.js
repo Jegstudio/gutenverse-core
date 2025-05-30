@@ -5,7 +5,6 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
-import listAnimationStyles from './components/animation-styles/list-animation-styles';
 
 const save = compose(
     withMouseMoveEffectScript
@@ -49,7 +48,6 @@ const save = compose(
         transitionDuration: parseInt(attributes.transitionDuration),
     };
 
-
     return <div {...useBlockProps.save({ className })} data-animation={JSON.stringify(animationProps)}>
         <TitleTag>
             <span className={'non-animated-text before-text'}>{beforeTextAnimated}</span>
@@ -57,6 +55,7 @@ const save = compose(
                 <span className="text-wrapper">
                     <span className="letter">{text}</span>
                 </span>
+                <span className="highlighted" />
             </span>
             <span className={'non-animated-text after-text'}>{afterTextAnimated}</span>
         </TitleTag>

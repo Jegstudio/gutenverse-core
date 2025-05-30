@@ -1,4 +1,4 @@
-const textStylePop = (props) => {
+const textStyleZoom = (props) => {
     const {
         loop,
         animation,
@@ -13,25 +13,27 @@ const textStylePop = (props) => {
 
     animation.add({
         targets: target,
-        scale: [0.3, 1],
+        scale: [4, 1],
         opacity: [0, 1],
         translateZ: 0,
         easing: 'easeOutExpo',
         duration: animationDuration,
-        delay: (el, i) => 70 * i
+        delay: (el, i) => 70 * i,
     });
 
-    if (loop || isRotationType) {
-        if (isRotationType && stopRotating()) {
-            return;
-        }
-
+    if (loop || (isRotationType && !stopRotating())) {
+        animation.add({ //display
+            targets: target,
+            delay: displayDuration
+        });
         animation.add({
             targets: target,
-            opacity: 0,
+            scale: [1, 0],
+            opacity: [1, 0],
+            translateZ: 0,
+            easing: 'easeInExpo',
             duration: transitionDuration,
-            easing: 'easeOutExpo',
-            delay: displayDuration,
+            delay: (el, i) => 70 * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();
@@ -41,4 +43,4 @@ const textStylePop = (props) => {
     }
 };
 
-export default textStylePop;
+export default textStyleZoom;

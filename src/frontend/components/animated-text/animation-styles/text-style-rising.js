@@ -1,4 +1,4 @@
-const textStyleZoom = (props) => {
+const textStyleRising = (props) => {
     const {
         loop,
         animation,
@@ -13,31 +13,26 @@ const textStyleZoom = (props) => {
 
     animation.add({
         targets: target,
-        scale: [4, 1],
-        opacity: [0, 1],
+        translateY: [100,0],
         translateZ: 0,
+        opacity: [0,1],
         easing: 'easeOutExpo',
         duration: animationDuration,
-        delay: (el, i) => 70 * i,
+        delay: (el, i) => 300 + 30 * i
     });
 
-    if (loop || isRotationType) {
-        if (isRotationType && stopRotating()) {
-            return;
-        }
-
+    if (loop || (isRotationType && !stopRotating())) {
         animation.add({ //display
             targets: target,
             delay: displayDuration
         });
         animation.add({
             targets: target,
-            scale: [1, 0],
-            opacity: [1, 0],
-            translateZ: 0,
+            translateY: [0,-100],
+            opacity: [1,0],
             easing: 'easeInExpo',
             duration: transitionDuration,
-            delay: (el, i) => 70 * i,
+            delay: (el, i) => 100 + 30 * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();
@@ -47,4 +42,4 @@ const textStyleZoom = (props) => {
     }
 };
 
-export default textStyleZoom;
+export default textStyleRising;

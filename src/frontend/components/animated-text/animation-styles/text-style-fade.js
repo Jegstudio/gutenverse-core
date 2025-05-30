@@ -1,4 +1,4 @@
-const textStyleFlip = (props) => {
+const textStyleFade = (props) => {
     const {
         loop,
         animation,
@@ -13,22 +13,23 @@ const textStyleFlip = (props) => {
 
     animation.add({
         targets: target,
-        rotateY: [-90, 0],
+        opacity: [0, 1],
+        easing: 'easeInOutQuad',
         duration: animationDuration,
-        delay: (el, i) => 45 * i
+        delay: (el, i) => 70 * i,
     });
 
-    if (loop || isRotationType) {
-        if (isRotationType && stopRotating()) {
-            return;
-        }
-
+    if (loop || (isRotationType && !stopRotating())) {
+        animation.add({ //display
+            targets: target,
+            delay: displayDuration
+        });
         animation.add({
             targets: target,
-            opacity: 0,
+            opacity: [1, 0],
+            easing: 'easeOutInQuad',
             duration: transitionDuration,
-            easing: 'easeOutExpo',
-            delay: displayDuration,
+            delay: (el, i) => 70 * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();
@@ -38,4 +39,4 @@ const textStyleFlip = (props) => {
     }
 };
 
-export default textStyleFlip;
+export default textStyleFade;

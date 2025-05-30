@@ -1,7 +1,5 @@
 import { Default, u } from 'gutenverse-core-frontend';
-import anime from 'animejs';
-import listAnimationStyles from '../components/animated-text/list-animation-styles';
-
+import { AnimationStyle } from '../components/animated-text/animation-style';
 class GutenverseAnimatedText extends Default {
     /* public */
     init() {
@@ -15,91 +13,12 @@ class GutenverseAnimatedText extends Default {
         const thisElement = u(element);
         const animationProps = JSON.parse(thisElement.data('animation'));
 
-        const animation = new Animation(thisElement, animationProps);
-        animation.run();
-    }
-}
-
-class Animation {
-    constructor(element, animationProps) {
-        this.element = element;
-        this.loop = animationProps.loop;
-        this.splitByWord = animationProps.splitByWord;
-        this.textType = animationProps.textType;
-        this.text = animationProps.text;
-        this.rotationTexts = animationProps.rotationTexts;
-        this.animationDuration = animationProps.animationDuration;
-        this.displayDuration = animationProps.displayDuration;
-        this.transitionDuration = animationProps.transitionDuration;
-        this.rotationTextIndex = 0;
-        this.animationStyle = listAnimationStyles[animationProps.style];
-        this.animeInit = null;
-        this.target = null;
-    }
-
-    run() {
-
-        this._resetText();
-
-        if (this.animeInit) {
-            this.animeInit.remove(this.target.nodes);
-        }
-        this.target = this.element.find('.text-content .letter');
-        this.animeInit = anime.timeline({loop: this.loop});
-
-        if (this.animationStyle) {
-            this.animationStyle({
-                loop: this.loop,
-                animation: this.animeInit,
-                target: this.target.nodes,
-                animationDuration: this.animationDuration,
-                displayDuration: this.displayDuration,
-                transitionDuration: this.transitionDuration,
-                isRotationType: this.textType == 'rotation',
-                stopRotating: this._stopRotating,
-                nextRotationText: this._nextRotationText,
-            });
-        }
-
-    }
-    _getText = () => {
-        if (this.textType == 'rotation' && this.rotationTexts.length != 0) {
-            if (this.rotationTextIndex >= this.rotationTexts.length) {
-                this.rotationTextIndex = 0;
-            }
-            return this.rotationTexts[this.rotationTextIndex].rotationText;
-        }
-        return this.text;
-    }
-
-    _resetText = () => {
-        const textWrapper = u(this.element).find('.text-wrapper');
-        if (!textWrapper) return;
-        textWrapper.html(this._getText());
-        textWrapper.html(
-            textWrapper.text().replace(
-                this.splitByWord ? /\b\w+\b/g : /\S/g,
-                (word) => `<span class='letter'>${word}</span>`
-            )
-        );
-    }
-
-    _updateRotationIndex = () => {
-        if (this.rotationTextIndex + 1 >= this.rotationTexts.length) {
-            this.rotationTextIndex = 0;
+        if (animationProps.textType !== 'highlight') {
+            const animation = new AnimationStyle(thisElement, animationProps);
+            animation.run();
         } else {
-            this.rotationTextIndex++;
+            console.log('test');
         }
-    };
-
-    _stopRotating = () => {
-        const isLastItem = (this.rotationTextIndex + 1) >= this.rotationTexts.length;
-        return !this.loop && isLastItem;
-    };
-
-    _nextRotationText = () => {
-        this._updateRotationIndex();
-        this.run();
     }
 }
 

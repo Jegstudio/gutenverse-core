@@ -1,4 +1,4 @@
-const textStyleRising = (props) => {
+const textStyleJump = (props) => {
     const {
         loop,
         animation,
@@ -13,30 +13,20 @@ const textStyleRising = (props) => {
 
     animation.add({
         targets: target,
-        translateY: [100,0],
+        translateY: ['1.1em', 0],
         translateZ: 0,
-        opacity: [0,1],
-        easing: 'easeOutExpo',
         duration: animationDuration,
-        delay: (el, i) => 300 + 30 * i
+        opacity: [0,1],
+        delay: (el, i) => 50 * i
     });
 
-    if (loop || isRotationType) {
-        if (isRotationType && stopRotating()) {
-            return;
-        }
-
-        animation.add({ //display
-            targets: target,
-            delay: displayDuration
-        });
+    if (loop || (isRotationType && !stopRotating())) {
         animation.add({
             targets: target,
-            translateY: [0,-100],
-            opacity: [1,0],
-            easing: 'easeInExpo',
+            opacity: 0,
             duration: transitionDuration,
-            delay: (el, i) => 100 + 30 * i,
+            easing: 'easeOutExpo',
+            delay: displayDuration,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();
@@ -46,4 +36,4 @@ const textStyleRising = (props) => {
     }
 };
 
-export default textStyleRising;
+export default textStyleJump;

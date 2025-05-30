@@ -1,4 +1,4 @@
-const textStyleDrop = (props) => {
+const textStylePop = (props) => {
     const {
         loop,
         animation,
@@ -13,16 +13,15 @@ const textStyleDrop = (props) => {
 
     animation.add({
         targets: target,
-        scale: [0, 1],
+        scale: [0.3, 1],
+        opacity: [0, 1],
+        translateZ: 0,
+        easing: 'easeOutExpo',
         duration: animationDuration,
-        elasticity: 600,
-        delay: (el, i) => 45 * (i+1)
+        delay: (el, i) => 70 * i
     });
 
-    if (loop || isRotationType) {
-        if (isRotationType && stopRotating()) {
-            return;
-        }
+    if (loop || (isRotationType && !stopRotating())) {
         animation.add({
             targets: target,
             opacity: 0,
@@ -38,4 +37,4 @@ const textStyleDrop = (props) => {
     }
 };
 
-export default textStyleDrop;
+export default textStylePop;

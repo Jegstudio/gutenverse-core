@@ -21,11 +21,7 @@ const textStyleSlide = (props) => {
         delay: (el, i) => 500 + 30 * i
     });
 
-    if (loop || isRotationType) {
-        if (isRotationType && stopRotating()) {
-            return;
-        }
-
+    if (loop || (isRotationType && !stopRotating())) {
         animation.add({ //display
             targets: target,
             delay: displayDuration
