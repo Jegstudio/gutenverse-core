@@ -166,6 +166,14 @@
 			"type":"string",
 			"default":"10"
 		},
+		"highlightRoundedEdges": {
+			"type": "boolean",
+			"default": true
+		},
+		"highlightInFront": {
+			"type": "boolean",
+			"default": true
+		},
 		"height": {
 			"type": "object",
 			"copyStyle": true

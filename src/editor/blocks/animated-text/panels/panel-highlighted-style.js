@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, GradientControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, GradientControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
 
 export const styleHighlightPanel = (props) => {
     const {
@@ -65,6 +65,16 @@ export const styleHighlightPanel = (props) => {
                     ],
                 }
             ],
+        },
+        {
+            id: 'highlightRoundedEdges',
+            label: __('Rounded Edges'),
+            component: CheckboxControl,
+        },
+        {
+            id: 'highlightInFront',
+            label: __('Bring to Front'),
+            component: CheckboxControl,
         },
     ];
 };

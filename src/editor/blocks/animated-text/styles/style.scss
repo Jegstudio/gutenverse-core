@@ -6,11 +6,17 @@
         margin: 0;
         position: relative;
 
+        .text-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
         svg {
             position: absolute;
             left: 0;
             overflow: visible;
             width: 100%;
+            z-index: 1;
 
             path {
                 fill: none;
