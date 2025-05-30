@@ -16,29 +16,50 @@ export const withDeviceControl = (BlockControl) => {
             []
         );
 
+        //usePreviousDeviceValue = true if you need to inherit higher resolutions value.
         const deviceValues = (data) => {
             let newData = newData = {
                 ...value,
-                [deviceType]: data
+                [deviceType]: data,
+                previousValues: {
+                    ...value.previousValues,
+                    [deviceType]: 'valueIsSet'
+                }
             };
+
+            //check weather the value is set organically or inherit.
+            //if value undefined, follow higher resolutions value.
+            //if value previously set by inheriting, follow higher resolutions value.
             if (usePreviousDeviceValue && deviceType === 'Desktop' && newData.Desktop !== undefined) {
-                if ( newData.Tablet === undefined ) {
+                if ( newData.Tablet === undefined || newData.previousValues['Tablet'] !== 'valueIsSet' ) {
                     newData = {
                         ...newData,
-                        Tablet: data
+                        Tablet: data,
+                        previousValues: {
+                            ...value.previousValues,
+                            Tablet: 'inherit'
+                        }
                     };
                 }
-                if ( newData.Mobile === undefined && newData.Tablet === undefined ) {
+                if ( newData.Mobile === undefined || newData.previousValues['Mobile'] !== 'valueIsSet' ) {
                     newData = {
                         ...newData,
-                        Mobile: data
+                        Mobile: data,
+                        previousValues: {
+                            ...value.previousValues,
+                            Tablet: 'inherit'
+                        }
                     };
                 }
             } else if (usePreviousDeviceValue && deviceType === 'Tablet' && newData.Tablet !== undefined) {
-                if ( newData.Mobile === undefined ) {
+                if ( newData.Mobile === undefined || newData.previousValues['Mobile'] !== 'valueIsSet' ) {
                     newData = {
                         ...newData,
-                        Mobile: data
+                        Mobile: data,
+                        previousValues: {
+                            ...value.previousValues,
+                            Tablet: 'inherit'
+                        }
                     };
                 }
             }
