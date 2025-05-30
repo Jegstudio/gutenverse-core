@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl, RangeControl, CheckboxControl } from 'gutenverse-core/controls';
+import { SelectControl, RangeControl, CheckboxControl, AlertControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const contentPanel = (props) => {
@@ -7,18 +7,27 @@ export const contentPanel = (props) => {
         enableContent,
         chartType,
         chartContent,
+        chartItems
     } = props;
 
-    // let multiValue = false;
-    // if (chartItems.length > 1) {
-    //     multiValue = true;
-    // } else {
-    //     multiValue = false;
-    // }
+    let multiValue = false;
+    if (chartItems.length > 1) {
+        multiValue = true;
+    } else {
+        multiValue = false;
+    }
 
     const deviceType = getDeviceType();
 
     return [
+        {
+            id: 'activate-notice',
+            component: AlertControl,
+            show: multiValue && 'percentage' === chartContent,
+            children: <>
+                <span>{__('The Chart has more than 1 item, Max Value will be used instead of 100 for the percentage.', 'gutenverse')}</span>
+            </>
+        },
         {
             id: 'chartContent',
             label: __('Indicator Content', 'gutenverse'),
