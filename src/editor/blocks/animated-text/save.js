@@ -20,6 +20,10 @@ const save = compose(
         afterTextAnimated,
         textType,
         rotationTexts,
+        highlightedStyle,
+        highlightGradient,
+        highlightColorType,
+        highlightColor,
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -43,6 +47,10 @@ const save = compose(
         textType,
         text,
         rotationTexts,
+        highlightedStyle,
+        highlightGradient,
+        highlightColorType,
+        highlightColor,
         animationDuration: parseInt(attributes.animationDuration),
         displayDuration: parseInt(attributes.displayDuration),
         transitionDuration: parseInt(attributes.transitionDuration),

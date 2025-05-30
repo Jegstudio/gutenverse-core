@@ -49,13 +49,13 @@ export const styleHighlightPanel = (props) => {
             component: GradientControl,
         },
         {
-            id: 'highlightThickness',
-            label: __('Highlight Thcikness', 'gutenverse'),
+            id: 'highlightWidth',
+            label: __('Highlight Width', 'gutenverse'),
             component: RangeControl,
             liveStyle: [
                 {
                     'type': 'plain',
-                    'id': 'highlightThickness',
+                    'id': 'highlightWidth',
                     'selector': `.editor-styles-wrapper .${elementId} .text-content svg path`,
                     'properties': [
                         {

@@ -5,16 +5,16 @@ const Strikethrough = (props) => {
         commonPathProps,
     } = props;
 
-    return <>
-        <svg {...svgProps} className="svg-strikethrough">
-            <defs>{gradientSvg}</defs>
+    return `
+        <svg ${svgProps} class="svg-strikethrough">
+            <defs>${gradientSvg}</defs>
             <path
-                {...commonPathProps}
+                ${commonPathProps}
                 d="M7.5,75.5s200,10,485,0"
                 transform="translate(-7.28 -71)"
             />
         </svg>
-    </>;
+    `;
 };
 
 export default Strikethrough;

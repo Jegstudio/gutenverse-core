@@ -1,5 +1,6 @@
 import { Default, u } from 'gutenverse-core-frontend';
 import { AnimationStyle } from '../components/animated-text/animation-style';
+import { HighlightStyle } from '../components/animated-text/highlight-style';
 class GutenverseAnimatedText extends Default {
     /* public */
     init() {
@@ -13,11 +14,12 @@ class GutenverseAnimatedText extends Default {
         const thisElement = u(element);
         const animationProps = JSON.parse(thisElement.data('animation'));
 
-        if (animationProps.textType !== 'highlight') {
+        if (animationProps.textType !== 'highlighted') {
             const animation = new AnimationStyle(thisElement, animationProps);
             animation.run();
         } else {
-            console.log('test');
+            const highlight = new HighlightStyle(thisElement, animationProps);
+            highlight.run();
         }
     }
 }

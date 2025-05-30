@@ -19,9 +19,9 @@ const highlightStyle = (props) => {
         ],
     });
 
-    isNotEmpty(attributes['highlightThickness']) && data.push({
+    isNotEmpty(attributes['highlightWidth']) && data.push({
         'type': 'plain',
-        'id': 'highlightThickness',
+        'id': 'highlightWidth',
         'selector': `.editor-styles-wrapper .${elementId} .text-content svg path`,
         'properties': [
             {

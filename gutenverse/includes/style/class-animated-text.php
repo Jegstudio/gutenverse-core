@@ -289,5 +289,68 @@ class Animated_Text extends Style_Abstract {
 				)
 			);
 		}
+
+		// Highlight style.
+		if ( isset( $this->attrs['highlightColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .text-content svg path",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['highlightColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['highlightWidth'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .text-content svg path",
+					'property'       => function ( $value ) {
+						return "stroke-width: {$value};";
+					},
+					'value'          => $this->attrs['highlightWidth'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['highlightRoundedEdges'] ) && true === $this->attrs['highlightRoundedEdges'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .text-content svg path",
+					'property'       => function () {
+						return 'stroke-linecap: round; stroke-linejoin: round;';
+					},
+					'value'          => $this->attrs['highlightRoundedEdges'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['highlightInFront'] ) && true === $this->attrs['highlightInFront'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .text-content svg",
+					'property'       => function () {
+						return 'z-index: 2';
+					},
+					'value'          => $this->attrs['highlightInFront'],
+					'device_control' => false,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .text-content .text-wrapper",
+					'property'       => function () {
+						return 'z-index: 1';
+					},
+					'value'          => $this->attrs['highlightInFront'],
+					'device_control' => false,
+				)
+			);
+		}
 	}
 }

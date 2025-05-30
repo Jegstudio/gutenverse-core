@@ -162,7 +162,7 @@
 		"highlightGradient": {
 			"type":"array"
 		},
-		"highlightThickness": {
+		"highlightWidth": {
 			"type":"string",
 			"default":"10"
 		},

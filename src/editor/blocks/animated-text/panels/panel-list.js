@@ -14,19 +14,19 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Text Normal Style', 'gutenverse'),
+            title: __('Normal Text', 'gutenverse'),
             initialOpen: false,
             panelArray: styleTextNormalPanel,
             tabRole: TabStyle
         },
         {
-            title: __('Text Animated Style', 'gutenverse'),
+            title: __('Animated Text', 'gutenverse'),
             initialOpen: false,
             panelArray: styleTextAnimatedPanel,
             tabRole: TabStyle
         },
         {
-            title: __('Hihglight Style', 'gutenverse'),
+            title: __('Hihglight', 'gutenverse'),
             initialOpen: false,
             panelArray: styleHighlightPanel,
             tabRole: TabStyle,
