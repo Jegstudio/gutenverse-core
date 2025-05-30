@@ -57,7 +57,7 @@ class Animated_Text extends Style_Abstract {
 	 *
 	 * @return void
 	 */
-	public function additional_attribute_for_gradient( $selector ) {
+	public function additional_attribute_for_font_color( $selector ) {
 		$this->inject_style(
 			array(
 				'selector'       => $selector,
@@ -143,7 +143,7 @@ class Animated_Text extends Style_Abstract {
 			if ( isset( $this->attrs['textAnimatedColorHover'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".{$this->element_id} .text-content .text-wrapper:hover",
+						'selector'       => ".{$this->element_id}:hover .text-content .text-wrapper",
 						'property'       => function ( $value ) {
 							return $this->handle_color( $value, 'color' );
 						},
@@ -160,14 +160,14 @@ class Animated_Text extends Style_Abstract {
 					".{$this->element_id} .text-content .text-wrapper .letter",
 					$this->attrs['textAnimatedGradient']
 				);
-				$this->additional_attribute_for_gradient( ".{$this->element_id} .text-content .text-wrapper .letter" );
+				$this->additional_attribute_for_font_color( ".{$this->element_id} .text-content .text-wrapper .letter" );
 			}
 			if ( isset( $this->attrs['textAnimatedGradientHover'] ) ) {
 				$this->handle_gradient_with_angle(
-					".{$this->element_id} .text-content .text-wrapper:hover .letter",
+					".{$this->element_id}:hover .text-content .text-wrapper .letter",
 					$this->attrs['textAnimatedGradientHover']
 				);
-				$this->additional_attribute_for_gradient( ".{$this->element_id} .text-content .text-wrapper:hover .letter" );
+				$this->additional_attribute_for_font_color( ".{$this->element_id}:hover .text-content .text-wrapper .letter" );
 			}
 		}
 
@@ -225,7 +225,7 @@ class Animated_Text extends Style_Abstract {
 			if ( isset( $this->attrs['textNormalColorHover'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".{$this->element_id} .non-animated-text:hover",
+						'selector'       => ".{$this->element_id}:hover .non-animated-text",
 						'property'       => function ( $value ) {
 							return $this->handle_color( $value, 'color' );
 						},
@@ -242,14 +242,14 @@ class Animated_Text extends Style_Abstract {
 					".{$this->element_id} .non-animated-text",
 					$this->attrs['textNormalGradient']
 				);
-				$this->additional_attribute_for_gradient( ".{$this->element_id} .non-animated-text" );
+				$this->additional_attribute_for_font_color( ".{$this->element_id} .non-animated-text" );
 			}
 			if ( isset( $this->attrs['textNormalGradientHover'] ) ) {
 				$this->handle_gradient_with_angle(
-					".{$this->element_id} .non-animated-text:hover",
+					".{$this->element_id}:hover .non-animated-text",
 					$this->attrs['textNormalGradientHover']
 				);
-				$this->additional_attribute_for_gradient( ".{$this->element_id} .non-animated-text:hover" );
+				$this->additional_attribute_for_font_color( ".{$this->element_id}:hover .non-animated-text" );
 			}
 		}
 

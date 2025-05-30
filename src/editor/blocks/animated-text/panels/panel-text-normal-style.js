@@ -74,7 +74,7 @@ export const styleTextNormalPanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'textNormalColorHover',
-                    'selector': `.editor-styles-wrapper .${elementId} .non-animated-text:hover`,
+                    'selector': `.editor-styles-wrapper .${elementId}:hover .non-animated-text`,
                     'properties': [
                         {
                             'name': 'color',
@@ -124,7 +124,7 @@ export const styleTextNormalPanel = (props) => {
                 {
                     'type': 'plain',
                     'id': 'textNormalGradientHover',
-                    'selector': `.editor-styles-wrapper .${elementId} .non-animated-text:hover`,
+                    'selector': `.editor-styles-wrapper .${elementId}:hover .non-animated-text`,
                     'properties': [
                         {
                             'name': 'background',

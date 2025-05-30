@@ -74,7 +74,7 @@ export const styleTextAnimatedPanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'textAnimatedColorHover',
-                    'selector': `.editor-styles-wrapper .${elementId} .text-content .text-wrapper:hover`,
+                    'selector': `.editor-styles-wrapper .${elementId}:hover .text-content .text-wrapper`,
                     'properties': [
                         {
                             'name': 'color',
@@ -124,7 +124,7 @@ export const styleTextAnimatedPanel = (props) => {
                 {
                     'type': 'plain',
                     'id': 'textAnimatedGradientHover',
-                    'selector': `.editor-styles-wrapper .${elementId} .text-content .text-wrapper:hover .letter`,
+                    'selector': `.editor-styles-wrapper .${elementId}:hover .text-content .text-wrapper .letter`,
                     'properties': [
                         {
                             'name': 'background',

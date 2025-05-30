@@ -23,7 +23,7 @@ const textNormalStyle = (props) => {
     isNotEmpty(attributes['textNormalColorHover']) && data.push({
         'type': 'color',
         'id': 'textNormalColorHover',
-        'selector': `.editor-styles-wrapper .${elementId} .non-animated-text:hover`,
+        'selector': `.editor-styles-wrapper .${elementId}:hover .non-animated-text`,
         'properties': [
             {
                 'name': 'color',
@@ -59,7 +59,7 @@ const textNormalStyle = (props) => {
         isNotEmpty(attributes['textNormalGradientHover']) && data.push({
             'type': 'plain',
             'id': 'textNormalGradientHover',
-            'selector': `.editor-styles-wrapper .${elementId} .non-animated-text:hover`,
+            'selector': `.editor-styles-wrapper .${elementId}:hover .non-animated-text`,
             'properties': [
                 {
                     'name': 'background',
