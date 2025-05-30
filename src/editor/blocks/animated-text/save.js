@@ -46,6 +46,7 @@ const save = compose(
         style,
         textType,
         text,
+        elementId,
         rotationTexts,
         highlightedStyle,
         highlightGradient,

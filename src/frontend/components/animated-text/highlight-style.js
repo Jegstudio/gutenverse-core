@@ -4,6 +4,7 @@ import listHighlightStyles from './highlight-styles/list-highlighted-styles';
 export class HighlightStyle {
     constructor(element, animationProps) {
         this.element = element;
+        this.elementId = animationProps.elementId;
         this.loop = animationProps.loop;
         this.text = animationProps.text;
         this.animationDuration = animationProps.animationDuration;
@@ -42,12 +43,12 @@ export class HighlightStyle {
                     y1="0"
                     x2="100%"
                     y2="100%"
-                    id="${this.element}-highlight-gradient"
+                    id="${this.elementId}-highlight-gradient"
                 >
                     ${this.__generateGradient()}
                 </linearGradient>
             `;
-            gradientStroke = `url(#${this.element}-highlight-gradient)`;
+            gradientStroke = `url(#${this.elementId}-highlight-gradient)`;
         }
 
         const svgProps = `
