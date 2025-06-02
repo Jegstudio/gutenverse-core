@@ -25,7 +25,7 @@ const CheckboxControl = (props) => {
     let checked;
     const id = useInstanceId(CheckboxControl, 'inspector-checkbox-control');
     const device = getDeviceType();
-    checked = (usePreviousDevice || usePreviousDeviceValue) ? deviceStyleValue(device, deviceValues) : value;
+    checked = usePreviousDevice ? deviceStyleValue(device, deviceValues) : allowDeviceControl ? value[device] : value;
     const inputRef = useRef(null);
 
     const onChange = value => {
@@ -33,7 +33,7 @@ const CheckboxControl = (props) => {
     };
 
     const checkboxContent = <>
-        <input id={`${id}-checkbox`} ref={inputRef} type="checkbox" defaultChecked={checked} onClick={e => onChange(e.target.checked)} hidden disabled={proLabel}/>
+        <input id={`${id}-checkbox`} checked={checked} ref={inputRef} type="checkbox" defaultChecked={checked} onClick={e => onChange(e.target.checked)} hidden disabled={proLabel}/>
         <span className="switch"/>
     </>;
 
