@@ -249,7 +249,7 @@ abstract class Style_Interface {
 	 * @param array $data Control.
 	 */
 	public function inject_style( $data ) {
-		if ( $data['device_control'] && ! $this->is_variable( $data['value'] ) && is_array( $data['value'] ) ) {
+		if ( isset( $data['device_control'] ) && $data['device_control'] && ! $this->is_variable( $data['value'] ) && is_array( $data['value'] ) ) {
 
 			$devices = $this->get_all_device();
 			foreach ( $devices as $device ) {

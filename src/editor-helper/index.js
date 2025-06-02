@@ -201,6 +201,7 @@ export function useGlobalStylesConfig() {
                 settings: record?.settings ?? {},
             };
             const updatedConfig = callback(currentConfig);
+
             editEntityRecord('root', 'globalStyles', globalStylesId, {
                 styles: cleanEmptyObject(updatedConfig.styles) || {},
                 settings: cleanEmptyObject(updatedConfig.settings) || {},
