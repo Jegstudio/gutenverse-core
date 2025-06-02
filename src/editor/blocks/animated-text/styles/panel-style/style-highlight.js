@@ -7,7 +7,7 @@ const highlightStyle = (props) => {
         attributes,
     } = props;
 
-    isNotEmpty(attributes['highlightColor']) && data.push({
+    isNotEmpty(attributes['highlightColor']) && attributes['highlightColorType'] === 'color' && data.push({
         'type': 'color',
         'id': 'highlightColor',
         'selector': `.editor-styles-wrapper .${elementId} .text-content svg path`,

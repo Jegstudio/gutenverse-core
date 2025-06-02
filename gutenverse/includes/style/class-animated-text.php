@@ -291,12 +291,12 @@ class Animated_Text extends Style_Abstract {
 		}
 
 		// Highlight style.
-		if ( isset( $this->attrs['highlightColor'] ) ) {
+		if ( isset( $this->attrs['highlightColor'] ) && 'color' === $this->attrs['highlightColorType'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .text-content svg path",
+					'selector'       => ".guten-animated-text.{$this->element_id} .text-content svg path",
 					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'color' );
+						return $this->handle_color( $value, 'stroke' );
 					},
 					'value'          => $this->attrs['highlightColor'],
 					'device_control' => false,
