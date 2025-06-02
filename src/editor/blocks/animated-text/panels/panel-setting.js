@@ -154,6 +154,20 @@ export const settingPanel = (props) => {
             component: TextControl
         },
         {
+            id: 'rotationTexts',
+            show: textType === 'rotation',
+            label: __('Text Rotation', 'gutenverse'),
+            component: RepeaterControl,
+            titleFormat: '<strong><%= value.rotationText%></strong>',
+            options: [
+                {
+                    id: 'rotationText',
+                    label: __('Title', 'gutenverse'),
+                    component: TextControl,
+                }
+            ]
+        },
+        {
             id: 'afterTextAnimated',
             label: __('After Text Animated', 'gutenverse'),
             component: TextControl,
@@ -210,20 +224,6 @@ export const settingPanel = (props) => {
             max: 10000,
             step: 100,
             unit: 'ms',
-        },
-        {
-            id: 'rotationTexts',
-            show: textType === 'rotation',
-            label: __('Text Rotation', 'gutenverse'),
-            component: RepeaterControl,
-            titleFormat: '<strong><%= value.rotationText%></strong>',
-            options: [
-                {
-                    id: 'rotationText',
-                    label: __('Title', 'gutenverse'),
-                    component: TextControl,
-                }
-            ]
         },
         {
             id: 'splitByWord',
