@@ -70,7 +70,7 @@ class BlockJsonCopyPlugin {
 
 const blocks = {
     mode: "development",
-    devtool: 'cheap-module-source-map',
+    devtool: "source-map",
     entry: {
         blocks: {
             import: path.resolve(process.cwd(), "src/blocks/index.js"),
