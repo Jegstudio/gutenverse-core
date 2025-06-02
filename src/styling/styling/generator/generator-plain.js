@@ -5,11 +5,14 @@ import { handleFilterImage, customHandleBackground } from '../styling-helper';
 import { applyFilters } from '@wordpress/hooks';
 
 const cssGenerator = (attribute, style, css) => {
-    const { selector, responsive = false, otherAttribute, responsiveSelector = false } = style;
+    const { selector, responsive = false, otherAttribute, responsiveSelector = false, properties = [{}] } = style;
     if (!responsive) {
         const value = multiProperty(attribute, style, otherAttribute);
         if (isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
     }
+
+    const {functionName = null} = properties[0];
+    const exceptionForConditional = 'handleSimpleCondition' === functionName; //bypass false value from checkbox
 
     if (responsive) {
         let selectors = responsiveSelector ? { ...selector } : {
@@ -18,17 +21,17 @@ const cssGenerator = (attribute, style, css) => {
             'Mobile': selector,
         };
 
-        if (isNotEmpty(attribute['Desktop'])) {
+        if (isNotEmpty(attribute['Desktop']) || exceptionForConditional) {
             const value = multiProperty(attribute['Desktop'], style, otherAttribute, 'Desktop');
             if (isNotEmpty(value)) css.Desktop += ` ${selectors['Desktop']} { ${value} } `;
         }
 
-        if (isNotEmpty(attribute['Tablet'])) {
+        if (isNotEmpty(attribute['Tablet']) || exceptionForConditional) {
             const value = multiProperty(attribute['Tablet'], style, otherAttribute, 'Tablet');
             if (isNotEmpty(value)) css.Tablet += ` ${selectors['Tablet']} { ${value} } `;
         }
 
-        if (isNotEmpty(attribute['Mobile'])) {
+        if (isNotEmpty(attribute['Mobile']) || exceptionForConditional) {
             const value = multiProperty(attribute['Mobile'], style, otherAttribute, 'Mobile');
             if (isNotEmpty(value)) css.Mobile += ` ${selectors['Mobile']} { ${value} } `;
         }
