@@ -143,10 +143,43 @@ export const settingPanel = (props) => {
 
         },
         {
+            id: 'beforeTextAnimated',
+            label: __('Before Text Animated', 'gutenverse'),
+            component: TextControl,
+        },
+        {
             id: 'text',
             show: (textType === 'default') || textType === 'highlighted',
             label: __('Animated Text', 'gutenverse'),
             component: TextControl
+        },
+        {
+            id: 'afterTextAnimated',
+            label: __('After Text Animated', 'gutenverse'),
+            component: TextControl,
+        },
+        {
+            id: 'alignText',
+            label: __('Alignment', 'gutenverse'),
+            component: IconRadioControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: __('Align Left', 'gutenverse'),
+                    value: 'flex-start',
+                    icon: <AlignLeft />,
+                },
+                {
+                    label: __('Align Center', 'gutenverse'),
+                    value: 'center',
+                    icon: <AlignCenter />,
+                },
+                {
+                    label: __('Align Right', 'gutenverse'),
+                    value: 'flex-end',
+                    icon: <AlignRight />,
+                },
+            ],
         },
         {
             id: 'displayDuration',
@@ -193,43 +226,10 @@ export const settingPanel = (props) => {
             ]
         },
         {
-            id: 'beforeTextAnimated',
-            label: __('Before Text Animated', 'gutenverse'),
-            component: TextControl,
-        },
-        {
-            id: 'afterTextAnimated',
-            label: __('After Text Animated', 'gutenverse'),
-            component: TextControl,
-        },
-        {
             id: 'splitByWord',
             show: textType !== 'highlighted',
             label: __('Split By Word', 'gutenverse'),
             component: CheckboxControl
-        },
-        {
-            id: 'alignText',
-            label: __('Alignment', 'gutenverse'),
-            component: IconRadioControl,
-            allowDeviceControl: true,
-            options: [
-                {
-                    label: __('Align Left', 'gutenverse'),
-                    value: 'flex-start',
-                    icon: <AlignLeft />,
-                },
-                {
-                    label: __('Align Center', 'gutenverse'),
-                    value: 'center',
-                    icon: <AlignCenter />,
-                },
-                {
-                    label: __('Align Right', 'gutenverse'),
-                    value: 'flex-end',
-                    icon: <AlignRight />,
-                },
-            ],
         },
         {
             id: 'loop',
