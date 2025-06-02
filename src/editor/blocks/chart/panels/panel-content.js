@@ -84,6 +84,7 @@ export const contentPanel = (props) => {
             component: CheckboxControl,
             allowDeviceControl: true,
             usePreviousDeviceValue: true,
+            usePreviousDevice: true,
             deviceValues: enableContent,
         },
         {
