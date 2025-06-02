@@ -77,6 +77,10 @@ section.guten-section {
     opacity: 0;
     transition: opacity 1s ease-in-out;
 
+    video {
+      object-fit: cover;
+    }
+
     &.loaded {
       opacity: 1;
     }
