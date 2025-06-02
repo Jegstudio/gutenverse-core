@@ -71,6 +71,7 @@ export default compose(
             deleteVariableFont,
             setGoogleFonts,
             setCustomFonts,
+            setVariableFont,
         } = dispatch('gutenverse/global-style');
 
         return {
@@ -79,7 +80,8 @@ export default compose(
             editFontVar: editVariableFont,
             deleteFontVar: deleteVariableFont,
             setGoogleFonts: setGoogleFonts,
-            setCustomFonts: setCustomFonts
+            setCustomFonts: setCustomFonts,
+            setVariableFont: setVariableFont
         };
     }),
     withGlobalVariable,

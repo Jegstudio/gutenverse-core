@@ -118,7 +118,6 @@ export const buildGlobalStyle = (variable) => {
 
         const { slug, color } = item;
         const property = variableColorName(slug);
-
         normalAppender({
             style: `${property} : ${renderColor(hexToRgb(color))};`,
             elementStyle: variableStyle
@@ -136,8 +135,7 @@ export const buildGlobalStyle = (variable) => {
             elementStyle: variableStyle
         });
     });
-
-    return `body { ${variableStyle.adminStyle['Desktop']}; } @media only screen and (max-width: ${tabletBreakpoint}px) { body { ${variableStyle.adminStyle['Tablet']} }; } @media only screen and (max-width: ${mobileBreakpoint}px) { body { ${variableStyle.adminStyle['Mobile']} };}`;
+    return `:root :where(.editor-styles-wrapper) { -with-gutenverse: red;${variableStyle.adminStyle['Desktop']}; } @media only screen and (max-width: ${tabletBreakpoint}px) { :root :where(.editor-styles-wrapper) { ${variableStyle.adminStyle['Tablet']} }; } @media only screen and (max-width: ${mobileBreakpoint}px) { :root :where(.editor-styles-wrapper) { ${variableStyle.adminStyle['Mobile']} };}`;
 };
 
 const pointCheck = (deviceType, value) => {

@@ -227,6 +227,25 @@
   }
 }
 
+.sortable-drag {
+  .single-variable-color-wrapper,
+  .single-variable-font-wrapper {
+    display: flex;
+    align-items: center;
+
+    .single-variable-item-wrapper {
+      border: 1px solid #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 7px;
+      border-radius: 3px;
+      width: 90%;
+    }
+  }
+}
+
+
 .guten-dev-tools {
   margin-top: 40px;
   border-top: 1px solid #eee;
