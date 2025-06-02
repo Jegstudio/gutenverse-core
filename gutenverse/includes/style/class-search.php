@@ -58,7 +58,7 @@ class Search extends Style_Abstract {
 		if ( isset( $this->attrs['inputPadding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input",
+					'selector'       => ".{$this->element_id} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -71,7 +71,7 @@ class Search extends Style_Abstract {
 		if ( isset( $this->attrs['inputMargin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input",
+					'selector'       => ".{$this->element_id} .search-input-container-outer",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
@@ -268,18 +268,6 @@ class Search extends Style_Abstract {
 		if ( isset( $this->attrs['formStyle'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-search-form .guten-button-wrapper",
-					'property'       => function ( $value ) {
-						if ( '100%' === $value ) {
-							return "width: {$value} !important;";
-						}
-					},
-					'value'          => $this->attrs['formStyle'],
-					'device_control' => true,
-				)
-			);
-			$this->inject_style(
-				array(
 					'selector'       => ".{$this->element_id} .search-input-container",
 					'property'       => function ( $value ) {
 						if ( '100%' === $value ) {
@@ -307,22 +295,7 @@ class Search extends Style_Abstract {
 		if ( isset( $this->attrs['inputWidth'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input,
-						.{$this->element_id} .gutenverse-search-form .gutenverse-search-input,
-						.{$this->element_id} .search-input-container .gutenverse-search.gutenverse-search-input",
-					'property'       => function ( $value ) {
-						if ( is_array( $value ) && isset( $value['unit'] ) && '%' === $value['unit'] ) {
-							return 'width: 100%;';
-						}
-						return $this->handle_unit_point( $value, 'width' );
-					},
-					'value'          => $this->attrs['inputWidth'],
-					'device_control' => true,
-				)
-			);
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .search-input-container",
+					'selector'       => ".{$this->element_id} .search-input-container-outer",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
@@ -345,9 +318,9 @@ class Search extends Style_Abstract {
 			);
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .search-input-container",
+					'selector'       => ".{$this->element_id} .search-input-container-outer",
 					'property'       => function ( $value ) {
-						$point = isset( $value['point'] ) && (int) $value['point'];
+						$point = isset( $value['point'] ) ? (int) $value['point'] : 0;
 						$unit = $value['unit'];
 						$diff = 'px' === $unit ? 2 : ( '%' === $unit ? 0.2 : 0.12 );
 						return 'max-width: calc(100% - ' . ( $point + $diff ) . $unit . ');';

@@ -152,7 +152,10 @@ const PostContentBlock = compose(
 
     useEffect(() => {
         if (versionCompare(wordpressVersion, '6.7.0', '>')) {
-            setBlockEditingMode(clientId, 'contentOnly');
+            const renderingMode = select(editorStore).getRenderingMode();
+            if (renderingMode === 'template-locked') {
+                setBlockEditingMode(clientId, 'contentOnly');
+            }
         }
 
         return () => {

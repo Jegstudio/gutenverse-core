@@ -69,7 +69,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         'type': 'plain',
         'id': 'paginationHeight',
         'responsive' : true,
-        'selector': `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav`,
+        'selector': `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev)`,
         'properties': [
             {
                 'name': 'height',
