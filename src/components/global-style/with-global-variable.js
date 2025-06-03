@@ -9,6 +9,8 @@ import {
 } from 'gutenverse-core/editor-helper';
 import { modifyGlobalVariable } from 'gutenverse-core/requests';
 import { signal } from 'gutenverse-core/editor-helper';
+import isEmpty from 'lodash/isEmpty';
+import { cloneDeep } from 'lodash';
 
 const withGlobalVariable = GlobalStyle => {
     return props => {
@@ -16,6 +18,7 @@ const withGlobalVariable = GlobalStyle => {
 
         // Get global settings from wp
         const { userConfig } = useGlobalStylesConfig();
+        const { globalColors } = window['GutenverseConfig'] || {};
 
         const debounceSave = useCallback(
             debounce((params) => modifyGlobalVariable(params), 200),
@@ -27,6 +30,16 @@ const withGlobalVariable = GlobalStyle => {
         }, []);
 
         useEffect(() => {
+            if (isEmpty(variable?.colors)) {
+                variable.colors = {
+                    pallete: {
+                        theme: globalColors?.theme || [],
+                        default: globalColors?.default ||  [],
+                        custom: globalColors?.custom || []
+                    }
+                };
+            }
+
             debounceSave({
                 variable: variable,
                 colors: variable?.colors,
@@ -35,7 +48,20 @@ const withGlobalVariable = GlobalStyle => {
             });
 
             signal.globalStyleSignal.dispatch(v4());
-        }, [variable, userConfig]);
+        }, [variable]);
+
+        useEffect(() => {
+            let newVariable = cloneDeep(variable);
+            newVariable.colors = cloneDeep(userConfig?.settings?.color);
+            debounceSave({
+                variable: newVariable,
+                colors: userConfig?.settings?.color,
+                fonts: variable?.fonts,
+                googlefont: getGoogleFontDatas(googleFont)
+            });
+
+            signal.globalStyleSignal.dispatch(v4());
+        }, [userConfig]);
 
         const addFont = (id, font, weight) => {
             if (font?.type === 'google') {
