@@ -17,23 +17,25 @@ export class AnimationStyle {
         this.animationStyle = listAnimationStyles[animationProps.style];
         this.animeInit = null;
         this.target = null;
+        this.animationWrapper = null;
+        this.targetWrapper = null;
+
+        // Generate element fiirst time.
+        this._generateElement();
+        this._setTarget();
     }
 
     run() {
-
-        this._generateText();
-
         if (this.animeInit) {
             this.animeInit.remove(this.target.nodes);
         }
-        this.target = this.element.find('.text-content .letter');
         this.animeInit = anime.timeline({loop: this.loop});
 
         if (this.animationStyle) {
             this.animationStyle({
                 loop: this.loop,
                 animation: this.animeInit,
-                target: this.target.nodes,
+                target: this.target,
                 animationDuration: this.animationDuration,
                 displayDuration: this.displayDuration,
                 transitionDuration: this.transitionDuration,
@@ -42,29 +44,61 @@ export class AnimationStyle {
                 nextRotationText: this._nextRotationText,
             });
         }
-
-    }
-    _getText = () => {
-        if (this.textType == 'rotation' && this.rotationTexts.length != 0) {
-            if (this.rotationTextIndex >= this.rotationTexts.length) {
-                this.rotationTextIndex = 0;
-            }
-            return this.rotationTexts[this.rotationTextIndex].rotationText;
-        }
-        return this.text;
     }
 
-    _generateText = () => {
+    _generateElement = () => {
         const textWrapper = u(this.element).find('.text-wrapper');
-        if (!textWrapper) return;
-        textWrapper.html(this._getText());
-        textWrapper.html(
-            textWrapper.text().replace(
+        textWrapper.html('');
+
+        if (this.textType == 'rotation') {
+            this.rotationTexts.forEach((element, key) => {
+                const newDiv = u('<span>').addClass('rotation-text');
+                this._addActiveRotationClass(newDiv, key);
+                this._generateText(newDiv, element.rotationText);
+                textWrapper.append(newDiv);
+            });
+            const activeText = u(this.element).find('.rotation-text.active').first();
+            textWrapper.attr({
+                style: `width: ${activeText.offsetWidth}px;`
+            });
+
+        } else {
+            this._generateText(textWrapper, this.text);
+        }
+    }
+
+    _setTarget = () => {
+        if (this.textType === 'rotation') {
+            this.target = [...u(this.element).find('.rotation-text.active').find('.letter').nodes];
+        } else {
+            this.target = [...u(this.element).find('.letter').nodes];
+        }
+    };
+
+    _generateText = (wrapper, text) => {
+        wrapper.html(text);
+        wrapper.html(
+            wrapper.text().replace(
                 this.splitByWord ? /\b\w+\b/g : /\S/g,
                 (word) => `<span class='letter'>${word}</span>`
             )
         );
     }
+
+    _addActiveRotationClass = (element, key) => {
+        if (this.rotationTextIndex === key) {
+            u(element).addClass('active');
+        }
+    };
+
+    _updateActiveElementRotation = () => {
+        const rotationSpan = u(this.element).find('.rotation-text');
+
+        rotationSpan.removeClass('active');
+        rotationSpan.each((element, key) => {
+            this._addActiveRotationClass(element, key);
+        });
+    };
 
     _updateRotationIndex = () => {
         if (this.rotationTextIndex + 1 >= this.rotationTexts.length) {
@@ -79,8 +113,28 @@ export class AnimationStyle {
         return !this.loop && isLastItem;
     };
 
+    _smoothAnimationWrapper = () => {
+        if (this.animationWrapper != null) {
+            this.animationWrapper.remove(this.targetWrapper);
+        }
+
+        const length = u(this.element).find('.rotation-text.active').first().offsetWidth;
+        this.targetWrapper = u(this.element).find('.text-wrapper').nodes;
+
+        this.animationWrapper = anime({
+            targets: this.targetWrapper,
+            width: length + 'px',
+            duration: 300,
+            easing: 'easeInOutQuad',
+        });
+    };
+
     _nextRotationText = () => { // recursive
+        this.animeInit.remove(this.target);
         this._updateRotationIndex();
+        this._updateActiveElementRotation();
+        this._setTarget();
+        this._smoothAnimationWrapper();
         this.run();
     }
 }

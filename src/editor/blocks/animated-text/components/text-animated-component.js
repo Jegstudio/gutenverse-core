@@ -124,10 +124,10 @@ const TextAnimatedComponent = (props) => {
         }
 
         const length = u(animatedTextRef.current).find('.rotation-text.active').first().offsetWidth;
-        const target = u(animatedTextRef.current).find('.text-wrapper').nodes;
+        targetWrapper.current = u(animatedTextRef.current).find('.text-wrapper').nodes;
 
         animationWrapper.current = anime({
-            targets: target,
+            targets: targetWrapper.current,
             width: length + 'px',
             duration: 300,
             easing: 'easeInOutQuad',
