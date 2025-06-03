@@ -8,7 +8,27 @@
 
         .text-wrapper {
             position: relative;
+            display: inline-block;
             z-index: 2;
+
+            .letter {
+                display: inline-block;
+            }
+
+            .rotation-text {
+                position: absolute;
+                left: 0;
+                top: 0;
+                opacity: 0;
+                white-space: nowrap;
+                pointer-events: none;
+            }
+
+            .rotation-text.active {
+                position: relative;
+                opacity: 1;
+                pointer-events: auto;
+            }
         }
 
         svg {
@@ -67,38 +87,10 @@
         }
     }
 
-    &.style-zoom, &.style-jump, &.style-bend, &.style-drop, &.style-flip, &.style-pop, &.style-slide, &.style-rising, &.style-fall, &.style-fade {
-        .text-content {
-            .letter {
-                display: inline-block;
-                line-height: 1.5em;
-            }
-        }
-    }
-
-    &.style-jump, &.style-bend, &.style-drop, &.style-flip {
-        .text-content {
-            position: relative;
-          
-            .text-wrapper {
-                position: relative;
-                display: inline-block;
-            }
-        }
-    }
-
     &.style-bend {
         .text-content {
             .letter {
                 transform-origin: 0 100%;
-            }
-        }
-    }
-
-    &.style-drop {
-        .text-content {
-            .letter {
-                transform-origin: 50% 100%;
             }
         }
     }

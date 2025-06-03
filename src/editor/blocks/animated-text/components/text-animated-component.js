@@ -20,18 +20,10 @@ const TextAnimatedComponent = (props) => {
 
     const animation = useRef(null);
     const targets = useRef(null);
+    const animationWrapper = useRef(null);
+    const targetWrapper = useRef(null);
     const rotationTextIndex = useRef(0);
     const animationStyle = listAnimationStyles[style];
-
-    const getText = () => {
-        if (textType == 'rotation' && rotationTexts.length != 0) {
-            if (rotationTextIndex.current >= rotationTexts.length) {
-                rotationTextIndex.current = 0;
-            }
-            return rotationTexts[rotationTextIndex.current].rotationText;
-        }
-        return text;
-    };
 
     const updateRotationIndex = () => {
         if (rotationTextIndex.current + 1 >= rotationTexts.length) {
@@ -46,30 +38,74 @@ const TextAnimatedComponent = (props) => {
         return !loop && isLastItem;
     };
 
-    const nextRotationText = () => {
-        updateRotationIndex();
-        textAnimation();
-    };
-
-    const generateText = () => {
-        const textWrapper = u(animatedTextRef.current).find('.text-wrapper');
-        if (!textWrapper) return;
-        textWrapper.html(getText());
-        textWrapper.html(
-            textWrapper.text().replace(
+    const generateText = (wrapper, text) => {
+        wrapper.html(text);
+        wrapper.html(
+            wrapper.text().replace(
                 splitByWord ? /\b\w+\b/g : /\S/g,
                 (word) => `<span class='letter'>${word}</span>`
             )
         );
     };
 
-    const textAnimation = () => {
-        generateText();
-        if (animation.current) {
-            animation.current.remove(targets.current);
+    const addActiveRotationClass = (element, key) => {
+        if (rotationTextIndex.current === key) {
+            u(element).addClass('active');
         }
+    };
 
-        targets.current = [...animatedTextRef.current.getElementsByClassName('letter')];
+    const setTarget = () => {
+        if (textType === 'rotation') {
+            targets.current = [...u(animatedTextRef.current).find('.rotation-text.active').find('.letter').nodes];
+        } else {
+            targets.current = [...u(animatedTextRef.current).find('.letter').nodes];
+        }
+    };
+
+    const updateActiveElementRotation = () => {
+        const rotationSpan = u(animatedTextRef.current).find('.rotation-text');
+
+        rotationSpan.removeClass('active');
+        rotationSpan.each((element, key) => {
+            addActiveRotationClass(element, key);
+        });
+    };
+
+    const generateElement = () => {
+        const textWrapper = u(animatedTextRef.current).find('.text-wrapper');
+        textWrapper.html('');
+
+        if (textType == 'rotation') {
+            rotationTexts.forEach((element, key) => {
+                const newDiv = u('<span>').addClass('rotation-text');
+                addActiveRotationClass(newDiv, key);
+                generateText(newDiv, element.rotationText);
+                textWrapper.append(newDiv);
+            });
+            const activeText = u(animatedTextRef.current).find('.rotation-text.active').first();
+            textWrapper.attr({
+                style: `width: ${activeText.offsetWidth}px;`
+            });
+
+        } else {
+            generateText(textWrapper, text);
+            textWrapper.attr({
+                style: '',
+            });
+        }
+    };
+
+    const nextRotationText = () => {
+        animation.current.remove(targets.current);
+        updateRotationIndex();
+        updateActiveElementRotation();
+        setTarget();
+        smoothAnimationWrapper();
+        textAnimation();
+    };
+
+    // see this function if you want to track the flow
+    const textAnimation = () => {
         animation.current = anime.timeline({loop});
         const animationProps = {
             ...props,
@@ -82,10 +118,27 @@ const TextAnimatedComponent = (props) => {
         animationStyle(animationProps);
     };
 
+    const smoothAnimationWrapper = () => {
+        if (animationWrapper.current != null) {
+            animationWrapper.current.remove(targetWrapper.current);
+        }
+
+        const length = u(animatedTextRef.current).find('.rotation-text.active').first().offsetWidth;
+        const target = u(animatedTextRef.current).find('.text-wrapper').nodes;
+
+        animationWrapper.current = anime({
+            targets: target,
+            width: length + 'px',
+            duration: 300,
+            easing: 'easeInOutQuad',
+        });
+    };
+
     useEffect(() => {
         rotationTextIndex.current = 0;
-        generateText();
 
+        generateElement();
+        setTarget();
         if (animationStyle) {
             textAnimation();
         }
@@ -110,7 +163,7 @@ const TextAnimatedComponent = (props) => {
     return <>
         <span className="text-content">
             <span className="text-wrapper">
-                <span className="letter">{getText()}</span>
+                <span className="letter"/>
             </span>
         </span>
     </>;

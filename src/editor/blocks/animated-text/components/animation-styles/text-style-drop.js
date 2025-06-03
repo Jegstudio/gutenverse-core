@@ -14,6 +14,7 @@ const textStyleDrop = (props) => {
     animationRef.current.add({
         targets: targetRef.current,
         scale: [0, 1],
+        opacity: [0,1],
         duration: animationDuration,
         elasticity: 600,
         delay: (el, i) => 45 * (i+1)

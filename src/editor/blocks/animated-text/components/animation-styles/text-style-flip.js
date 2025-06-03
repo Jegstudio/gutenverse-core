@@ -14,6 +14,7 @@ const textStyleFlip = (props) => {
     animationRef.current.add({
         targets: targetRef.current,
         rotateY: [-90, 0],
+        opacity: [0,1],
         duration: animationDuration,
         delay: (el, i) => 45 * i
     });

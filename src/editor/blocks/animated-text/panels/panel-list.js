@@ -26,7 +26,7 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Hihglight', 'gutenverse'),
+            title: __('Highlight', 'gutenverse'),
             initialOpen: false,
             panelArray: styleHighlightPanel,
             tabRole: TabStyle,
