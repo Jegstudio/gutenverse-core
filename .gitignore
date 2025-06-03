@@ -8,3 +8,4 @@ framework/blocks
 framework/block
 framework/languages
 package-lock.json
+pnpm-lock.yaml

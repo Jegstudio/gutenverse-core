@@ -38,10 +38,6 @@ const BorderControl = (props) => {
         return state === active ? 'active' : '';
     };
 
-    const setActiveBorder = (state) => {
-        setActive(state);
-    };
-
     const checkFilledBorder = (position) => {
         return props?.value?.[position] ? 'filled' : '';
     };
@@ -57,23 +53,23 @@ const BorderControl = (props) => {
         <div className={'control-body'}>
             <div className={'border-icons'}>
                 <div>
-                    <div className={`icon ${checkActiveBorder('top')} ${checkFilledBorder('top')}`} onClick={() => setActiveBorder('top')}>
+                    <div className={`icon ${checkActiveBorder('top')} ${checkFilledBorder('top')}`} onClick={() => setActive('top')}>
                         <div className={'border-top'}></div>
                     </div>
                 </div>
                 <div>
-                    <div className={`icon ${checkActiveBorder('left')} ${checkFilledBorder('left')}`} onClick={() => setActiveBorder('left')}>
+                    <div className={`icon ${checkActiveBorder('left')} ${checkFilledBorder('left')}`} onClick={() => setActive('left')}>
                         <div className={'border-left'}></div>
                     </div>
-                    <div className={`icon ${checkActiveBorder('all')} ${checkFilledBorder('all')}`} onClick={() => setActiveBorder('all')}>
+                    <div className={`icon ${checkActiveBorder('all')} ${checkFilledBorder('all')}`} onClick={() => setActive('all')}>
                         <div className={'border-all'}></div>
                     </div>
-                    <div className={`icon ${checkActiveBorder('right')} ${checkFilledBorder('right')}`} onClick={() => setActiveBorder('right')}>
+                    <div className={`icon ${checkActiveBorder('right')} ${checkFilledBorder('right')}`} onClick={() => setActive('right')}>
                         <div className={'border-right'}></div>
                     </div>
                 </div>
                 <div>
-                    <div className={`icon ${checkActiveBorder('bottom')} ${checkFilledBorder('bottom')}`} onClick={() => setActiveBorder('bottom')}>
+                    <div className={`icon ${checkActiveBorder('bottom')} ${checkFilledBorder('bottom')}`} onClick={() => setActive('bottom')}>
                         <div className={'border-bottom'}></div>
                     </div>
                 </div>

@@ -33,6 +33,14 @@ const BorderResponsiveControl = (props) => {
         </span>
     </Tooltip>;
 
+    const checkActiveBorder = (state) => {
+        return state === active ? 'active' : '';
+    };
+
+    const checkFilledBorder = (position) => {
+        return props?.value?.[position] ? 'filled' : '';
+    };
+
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-borders'}>
         <ControlHeadingSimple
             id={`${id}-borders`}
@@ -45,23 +53,23 @@ const BorderResponsiveControl = (props) => {
         <div className={'control-body'}>
             <div className={'border-icons'}>
                 <div>
-                    <div className={`icon ${active === 'top' ? 'active' : ''}`} onClick={() => setActive('top')}>
+                    <div className={`icon ${checkActiveBorder('top')} ${checkFilledBorder('top')}`} onClick={() => setActive('top')}>
                         <div className={'border-top'}></div>
                     </div>
                 </div>
                 <div>
-                    <div className={`icon ${active === 'left' ? 'active' : ''}`} onClick={() => setActive('left')}>
+                    <div className={`icon ${checkActiveBorder('left')} ${checkFilledBorder('left')}`} onClick={() => setActive('left')}>
                         <div className={'border-left'}></div>
                     </div>
-                    <div className={`icon ${active === 'all' ? 'active' : ''}`} onClick={() => setActive('all')}>
+                    <div className={`icon ${checkActiveBorder('all')} ${checkFilledBorder('all')}`} onClick={() => setActive('all')}>
                         <div className={'border-all'}></div>
                     </div>
-                    <div className={`icon ${active === 'right' ? 'active' : ''}`} onClick={() => setActive('right')}>
+                    <div className={`icon ${checkActiveBorder('right')} ${checkFilledBorder('right')}`} onClick={() => setActive('right')}>
                         <div className={'border-right'}></div>
                     </div>
                 </div>
                 <div>
-                    <div className={`icon ${active === 'bottom' ? 'active' : ''}`} onClick={() => setActive('bottom')}>
+                    <div className={`icon ${checkActiveBorder('bottom')} ${checkFilledBorder('bottom')}`} onClick={() => setActive('bottom')}>
                         <div className={'border-bottom'}></div>
                     </div>
                 </div>
