@@ -7,7 +7,7 @@ const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extract
 
 const dashboard = {
     mode: "development",
-    devtool: 'cheap-module-source-map',
+    devtool: "source-map",
     entry: {
         dashboard: {
             import: path.resolve(process.cwd(), "src/dashboard/index.js"),
