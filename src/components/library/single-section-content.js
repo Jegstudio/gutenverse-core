@@ -84,15 +84,21 @@ const SingleSectionContent = (props) => {
         importSingleSectionContent(params, customAPI).then(result => {
             const data = JSON.parse(result);
             if (data) {
-                const updatedGlobalContentImage = data.contents_global.replace(/\{\{\{image:(\d+):url\}\}\}/g, (_, index) => {
-                    return data.images[index];
-                });
-                const updatedContentGlobal = handleGlobalStyleContent(updatedGlobalContentImage, data.global, setUnavailableGlobalFonts, setUnavailableGlobalColors);
-                setContentGlobal(updatedContentGlobal);
 
                 const updatedNormalContentImage = data.contents.replace(/\{\{\{image:(\d+):url\}\}\}/g, (_, index) => {
                     return data.images[index];
                 });
+
+                if (data.contents_global) {
+                    const updatedGlobalContentImage = data.contents_global?.replace(/\{\{\{image:(\d+):url\}\}\}/g, (_, index) => {
+                        return data.images[index];
+                    });
+                    const updatedContentGlobal = handleGlobalStyleContent(updatedGlobalContentImage, data.global, setUnavailableGlobalFonts, setUnavailableGlobalColors);
+                    setContentGlobal(updatedContentGlobal);
+                } else {
+                    setContentGlobal(updatedNormalContentImage);
+                }
+
                 setContentNormal(updatedNormalContentImage);
             }
         });
@@ -269,12 +275,12 @@ const extractTypographyBlocks = (content) => {
     const matches = [];
     let index = 0;
 
-    while ((index = content.indexOf('"typography":{', index)) !== -1) {
+    while ((index = content?.indexOf('"typography":{', index)) !== -1) {
         let start = index + '"typography":'.length;
         let braceCount = 0;
         let end = start;
 
-        if (content[start] === '{') {
+        if (!Number.isNaN(content[start]) && content[start] === '{') {
             do {
                 const char = content[end];
                 if (char === '{') braceCount++;
