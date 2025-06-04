@@ -11,7 +11,7 @@ if (!fs.existsSync(reactPlayerStandalone)) {
 
 const corefrontend = {
     mode: "development",
-    devtool: 'cheap-module-source-map',
+    devtool: "source-map",
     entry: {
         corefrontend: {
             import: path.resolve(process.cwd(), "src/frontend/index.js"),

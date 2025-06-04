@@ -7,7 +7,7 @@ const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extract
 
 const core = {
     mode: "development",
-    devtool: 'cheap-module-source-map',
+    devtool: "source-map",
     entry: {
         core: {
             import: path.resolve(process.cwd(), "src"),

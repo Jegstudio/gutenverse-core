@@ -48,9 +48,10 @@ const ColorControl = (props) => {
     const [variableOpen, setVariableOpen] = useState(false);
 
     const defaultPalette = useSettingFallback('color.palette.default');
-    const themePalette = useSettingFallback('color.palette.theme');
+    const themeColors = useSettingFallback('color.palette.theme');
     const customs = useSettingFallback('color.palette.custom') ? useSettingFallback('color.palette.custom') : [];
     const [customPalette, setCustomPalette] = useState(customs);
+    const [themePalette, setThemePalette] = useState(themeColors);
 
     const { isUserConfigReady, userConfig } = useGlobalStylesConfig();
 
@@ -132,6 +133,7 @@ const ColorControl = (props) => {
     useEffect(() => {
         if (userConfig.settings.color && userConfig.settings.color.palette && userConfig.settings.color.palette) {
             setCustomPalette(userConfig.settings.color.palette.custom);
+            setThemePalette(userConfig.settings.color.palette.theme);
         }
     }, [isUserConfigReady, userConfig]);
 
@@ -182,11 +184,11 @@ const ColorControl = (props) => {
         setLocalColor(value);
     }, [deviceType]);
 
-    useEffect(()=> {
-        if(localColor.r !== value.r || localColor.g !== value.g || localColor.b !== value.b || localColor.a !== value.a) {
+    useEffect(() => {
+        if (localColor.r !== value.r || localColor.g !== value.g || localColor.b !== value.b || localColor.a !== value.a) {
             setLocalColor(value);
         }
-    },[value]);
+    }, [value]);
 
     const id = useInstanceId(ColorControl, 'inspector-color-control');
 

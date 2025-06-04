@@ -549,6 +549,54 @@ abstract class Style_Interface {
 	}
 
 	/**
+	 * Creating handle background with angle to handle old values because format is changed
+	 *
+	 * @since 3.0.6 create this function.
+	 * @param string $selector .
+	 * @param object $attribute .
+	 */
+	public function handle_gradient_with_angle( $selector, $attribute ) {
+		$this->inject_style(
+			array(
+				'selector'       => $selector,
+				'property'       => function ( $value ) {
+					$gradient_color        = $value['gradientColor'];
+					$gradient_type         = $value['gradientType'];
+					$gradient_angle        = $value['gradientAngle'];
+					$gradient_radial       = $value['gradientRadial'];
+
+					if ( ! empty( $gradient_color ) ) {
+						$colors = array();
+
+						foreach ( $gradient_color as $gradient ) {
+							$offset  = $gradient['offset'] * 100;
+							$colors[] = "{$gradient['color']} {$offset}%";
+						}
+
+						$colors = join( ',', $colors );
+
+						if ( 'radial' === $gradient_type ) {
+							return "background: radial-gradient(at {$gradient_radial}, {$colors});";
+						} else {
+							return "background: linear-gradient({$gradient_angle}deg, {$colors});";
+						}
+					}
+				},
+				'value'          => array(
+					'gradientColor'       => isset( $attribute['gradientColor'] ) ? $attribute['gradientColor'] : null,
+					'gradientPosition'    => isset( $attribute['gradientPosition'] ) ? $attribute['gradientPosition'] : 0,
+					'gradientEndColor'    => isset( $attribute['gradientEndColor'] ) ? $attribute['gradientEndColor'] : null,
+					'gradientEndPosition' => isset( $attribute['gradientEndPosition'] ) ? $attribute['gradientEndPosition'] : 100,
+					'gradientType'        => isset( $attribute['gradientType'] ) ? $attribute['gradientType'] : 'linear',
+					'gradientAngle'       => isset( $attribute['gradientAngle'] ) ? $attribute['gradientAngle'] : 180,
+					'gradientRadial'      => isset( $attribute['gradientRadial'] ) ? $attribute['gradientRadial'] : 'center center',
+				),
+				'device_control' => false,
+			)
+		);
+	}
+
+	/**
 	 * Handle color
 	 *
 	 * @param array  $props Value of Color.
@@ -2359,6 +2407,10 @@ abstract class Style_Interface {
 	 * @return string|null
 	 */
 	public function handle_box_shadow( $value ) {
+		if ( gutenverse_truly_empty( $value['color'] ) ) {
+			$value['color'] = '#000000';
+		}
+
 		if ( ! gutenverse_truly_empty( $value['color'] ) ) {
 			$position     = ! gutenverse_truly_empty( $value['position'] ) && 'inset' === $value['position'] ? $value['position'] : '';
 			$horizontal   = ! gutenverse_truly_empty( $value['horizontal'] ) ? $value['horizontal'] : 0;
