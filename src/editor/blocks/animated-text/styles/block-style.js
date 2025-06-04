@@ -1,22 +1,17 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
-<<<<<<< HEAD
 import textAnimatedStyle from './panel-style/style-text-animated';
 import textNormalStyle from './panel-style/style-text-normal';
 import highlightStyle from './panel-style/style-highlight';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
     data = textAnimatedStyle({elementId, attributes, data});
     data = textNormalStyle({elementId, attributes, data});
     data = highlightStyle({elementId, attributes, data});
-=======
-import { backgroundStyle } from 'gutenverse-core/controls';
 
-const getBlockStyle = (elementId, attributes) => {
-    let data = [];
     data = backgroundStyle({ attributes, data, elementId });
->>>>>>> trunk
 
     /**Panel Setting */
     isNotEmpty(attributes['alignText']) && data.push({
