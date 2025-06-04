@@ -19,10 +19,47 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['connectorStyle']) && data.push({
+        'type': 'plain',
+        'id': 'connectorStyle',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top, .${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom`,
+        'properties': [
+            {
+                'name': 'border-style',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['connectorStyle']) && attributes['connectorStyle'] != 'solid' && attributes['connectorStyle'] != 'double' && attributes['contentPosition'] == 'center' && data.push({
+        'type': 'plain',
+        'id': 'connectorStyle',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top`,
+        'properties': [
+            {
+                'name': 'top',
+                'valueType': 'static',
+                'staticValue': 'var(--connector-width)'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['connectorColor']) && data.push({
         'type': 'color',
         'id': 'connectorColor',
         'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector`,
+        'properties': [
+            {
+                'name': 'border-color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['connectorColor']) && data.push({
+        'type': 'color',
+        'id': 'connectorColor',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top, .${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom`,
         'properties': [
             {
                 'name': 'border-color',
@@ -36,6 +73,25 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'connectorWidth',
         'responsive': true,
         'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector`,
+        'properties': [
+            {
+                'name': 'border-width',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['connectorWidth']) && data.push({
+        'type': 'plain',
+        'id': 'connectorWidth',
+        'responsive': true,
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top, .${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom`,
         'properties': [
             {
                 'name': 'border-width',
@@ -78,6 +134,84 @@ const getBlockStyle = (elementId, attributes) => {
             {
                 'name': 'align-items',
                 'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['contentPosition']) && attributes['contentPosition'] === 'start'  && data.push({
+        'type': 'plain',
+        'id': 'contentPosition',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top`,
+        'properties': [
+            {
+                'name': 'display',
+                'valueType': 'static',
+                'staticValue': 'none !important',
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['contentPosition']) && attributes['contentPosition'] === 'start' && data.push({
+        'type': 'plain',
+        'id': 'contentPosition',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom`,
+        'properties': [
+            {
+                'name': 'top',
+                'valueType': 'static',
+                'staticValue': 'calc(var(--icon-size)) !important',
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['contentPosition']) && attributes['contentPosition'] === 'start' && data.push({
+        'type': 'plain',
+        'id': 'contentPosition',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom`,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'static',
+                'staticValue': 'calc(100% + var(--space-between) - var(--icon-size) ) !important',
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['contentPosition']) && attributes['contentPosition'] === 'end'  && data.push({
+        'type': 'plain',
+        'id': 'contentPosition',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom`,
+        'properties': [
+            {
+                'name': 'display',
+                'valueType': 'static',
+                'staticValue': 'none !important',
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['contentPosition']) && attributes['contentPosition'] === 'end' && data.push({
+        'type': 'plain',
+        'id': 'contentPosition',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top`,
+        'properties': [
+            {
+                'name': 'top',
+                'valueType': 'static',
+                'staticValue': 'calc(var(--space-between) * -1) !important',
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['contentPosition']) && attributes['contentPosition'] === 'end' && data.push({
+        'type': 'plain',
+        'id': 'contentPosition',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top`,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'static',
+                'staticValue': 'calc(100% + var(--space-between) - var(--icon-size)) !important',
             }
         ]
     });

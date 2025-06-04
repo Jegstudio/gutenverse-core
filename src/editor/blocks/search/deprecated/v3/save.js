@@ -1,5 +1,5 @@
 
-import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import { InnerBlocks } from '@wordpress/block-editor';
 import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
@@ -32,25 +32,23 @@ const save = compose(
     );
 
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
+        <div className={className} {...advanceAnimationData}>
             <form className="gutenverse-search-form">
-                <div className={'search-input-container-outer'}>
-                    <div className="search-input-container">
-                        <input type="text"
-                            placeholder={inputPlaceholder}
-                            name="s"
-                            className={classnames(
-                                'gutenverse-search',
-                                'gutenverse-search-input',
-                            )}
-                        />
-                        <div className="close-icon">
-                            <i className={closeIcon}></i>
-                        </div>
+                <div className="search-input-container">
+                    <input type="text"
+                        placeholder={inputPlaceholder}
+                        name="s"
+                        className={classnames(
+                            'gutenverse-search',
+                            'gutenverse-search-input',
+                        )}
+                    />
+                    <div className="close-icon">
+                        <i className={closeIcon}></i>
                     </div>
                 </div>
                 {
-                    showButton && <div className="guten-search-button-wrapper"><InnerBlocks.Content /></div>
+                    showButton && <InnerBlocks.Content className="gutenverse-search-button" />
                 }
             </form>
         </div>
