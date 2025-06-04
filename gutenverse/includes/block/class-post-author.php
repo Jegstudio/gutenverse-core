@@ -39,7 +39,7 @@ class Post_Author extends Block_Abstract {
 			if ( ! empty( $post ) ) {
 				$author_name = $this->get_author_name( $post, $type );
 
-				if ( ! empty( $author_name ) ) {
+				if ( ! empty( $author_name ) || 'none' === $type ) {
 					if ( $avatar ) {
 						$content .= get_avatar( get_the_author_meta( 'email', $post->post_author ), 48 );
 					}
@@ -90,12 +90,15 @@ class Post_Author extends Block_Abstract {
 			case 'user_name':
 				$author_name = get_the_author_meta( 'user_login', $post->post_author );
 				break;
+			case 'none':
+				$author_name = '';
+				break;
 			default:
 				$author_name = esc_html__( 'Post Author', 'gutenverse' );
 				break;
 		}
 
-		if ( empty( $author_name ) ) {
+		if ( empty( $author_name ) && 'none' !== $type ) {
 			$author_name = get_the_author_meta( 'display_name', $post->post_author );
 		}
 

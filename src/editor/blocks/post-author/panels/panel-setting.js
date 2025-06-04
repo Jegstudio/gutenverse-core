@@ -40,6 +40,10 @@ export const settingPanel = (props) => {
                     label: __('User Name'),
                     value: 'user_name'
                 },
+                {
+                    label: __('None'),
+                    value: 'none'
+                },
             ],
         },
         {

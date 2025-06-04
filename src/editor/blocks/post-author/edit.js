@@ -87,6 +87,9 @@ const PostAuthorBlock = compose(
                 case 'user_name':
                     setAuthorName(authorDetails['username']);
                     break;
+                case 'none':
+                    setAuthorName('');
+                    break;
                 default:
                     break;
             }
