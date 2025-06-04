@@ -40,7 +40,7 @@ class Social_Share_Pinterest extends Block_Abstract {
 		$content = $this->render_content( $text );
 
 		return "<div class='gutenverse-share-pinterest gutenverse-share-item' id='{$this->get_element_id()}'>
-			<a href='#' aria-label='{$text}'>
+			<a aria-label='{$text}'>
 				{$content}
 			</a>
 		</div>";

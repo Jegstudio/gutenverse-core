@@ -160,6 +160,11 @@
       "default": {},
       "copyStyle": true
     },
+		"backgroundTransition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
     "margin": {
       "type": "object",
       "copyStyle": true

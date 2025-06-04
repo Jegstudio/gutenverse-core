@@ -5,7 +5,6 @@ export const contentStylePanel = (props) => {
     const {
         elementId
     } = props;
-    console.log(props);
 
     return [
         {

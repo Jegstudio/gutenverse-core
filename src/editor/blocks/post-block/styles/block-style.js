@@ -13,6 +13,7 @@ import thumbnailContainerStyle from './panel-style/style-thumbnail-container';
 import thumbnailOverlayStyle from './panel-style/style-thumbnail-overlay';
 import thumbnailStyle from './panel-style/style-thumbnail';
 import titleStyle from './panel-style/style-title';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -30,20 +31,9 @@ const getBlockStyle = (elementId, attributes) => {
     data = thumbnailOverlayStyle(elementId, attributes, data);
     data = thumbnailStyle(elementId, attributes, data);
     data = titleStyle(elementId, attributes, data);
+    data = backgroundStyle({ attributes, data, elementId });
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
-
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
         'id': 'border',

@@ -808,10 +808,30 @@ class Icon_Box extends Style_Abstract {
 
 		if ( isset( $this->attrs['iconBoxOverlay'] ) ) {
 			$this->handle_background( ".{$this->element_id} .guten-icon-box-wrapper::before", $this->attrs['iconBoxOverlay'] );
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'property'       => function () {
+						return 'overflow: hidden;';
+					},
+					'value'          => $this->attrs['iconBoxHoverOverlay'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconBoxHoverOverlay'] ) ) {
 			$this->handle_background( ".{$this->element_id} .guten-icon-box-wrapper::before", $this->attrs['iconBoxHoverOverlay'] );
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'property'       => function () {
+						return 'overflow: hidden;';
+					},
+					'value'          => $this->attrs['iconBoxHoverOverlay'],
+					'device_control' => false,
+				)
+			);
 		}
 	}
 }
