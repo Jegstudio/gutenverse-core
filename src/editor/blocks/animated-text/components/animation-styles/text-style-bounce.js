@@ -1,4 +1,4 @@
-const textStyleFlip = (props) => {
+const textStyleBounce = (props) => {
     const {
         loop,
         animationRef,
@@ -13,31 +13,30 @@ const textStyleFlip = (props) => {
 
     animationRef.current.add({
         targets: targetRef.current,
-        rotateY: [-90, 0],
-        opacity: [0,1],
+        scale: [0.3, 1.4, 0.7, 1],
+        easing: 'easeOutQuad',
         duration: animationDuration,
-        delay: (el, i) => 45 * i
+        delay: (el, i) => 50 * i,
     });
 
     if (loop || (isRotationType && !stopRotating())) {
-        animationRef.current.add({ //display
+        animationRef.current.add({
             targets: targetRef.current,
-            delay: displayDuration
+            delay: displayDuration,
         });
         animationRef.current.add({
             targets: targetRef.current,
-            rotateY: [0,90],
-            opacity: [1,0],
+            scale: [1, 0.7, 1.4, 0.3],
             duration: transitionDuration,
-            easing: 'easeOutExpo',
-            delay: (el, i) => 45 * i,
+            easing: 'easeInQuad',
+            delay: (el, i) => 50 * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();
                 }
-            },
+            }
         });
     }
 };
 
-export default textStyleFlip;
+export default textStyleBounce;

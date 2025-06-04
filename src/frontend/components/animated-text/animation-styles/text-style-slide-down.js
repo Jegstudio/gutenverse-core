@@ -1,8 +1,8 @@
-const textStyleFlip = (props) => {
+const textStyleSlideDown = (props) => {
     const {
         loop,
-        animationRef,
-        targetRef,
+        animation,
+        target,
         animationDuration,
         displayDuration,
         transitionDuration,
@@ -11,33 +11,33 @@ const textStyleFlip = (props) => {
         nextRotationText,
     } = props;
 
-    animationRef.current.add({
-        targets: targetRef.current,
-        rotateY: [-90, 0],
+    animation.add({
+        targets: target,
+        translateY: [-40,0],
+        translateZ: 0,
         opacity: [0,1],
+        easing: 'easeOutExpo',
         duration: animationDuration,
-        delay: (el, i) => 45 * i
     });
 
     if (loop || (isRotationType && !stopRotating())) {
-        animationRef.current.add({ //display
-            targets: targetRef.current,
+        animation.add({ //display
+            targets: target,
             delay: displayDuration
         });
-        animationRef.current.add({
-            targets: targetRef.current,
-            rotateY: [0,90],
+        animation.add({
+            targets: target,
+            translateY: [0,40],
             opacity: [1,0],
+            easing: 'easeInExpo',
             duration: transitionDuration,
-            easing: 'easeOutExpo',
-            delay: (el, i) => 45 * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();
                 }
-            },
+            }
         });
     }
 };
 
-export default textStyleFlip;
+export default textStyleSlideDown;

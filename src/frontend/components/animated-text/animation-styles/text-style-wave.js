@@ -1,4 +1,4 @@
-const textStyleFlip = (props) => {
+const textStyleWave = (props) => {
     const {
         loop,
         animationRef,
@@ -13,10 +13,10 @@ const textStyleFlip = (props) => {
 
     animationRef.current.add({
         targets: targetRef.current,
-        rotateY: [-90, 0],
-        opacity: [0,1],
-        duration: animationDuration,
-        delay: (el, i) => 45 * i
+        scale: [0.3, 1],
+        opacity: [0, 1],
+        translateZ: 0,
+        delay: (el, i) => animationDuration * i
     });
 
     if (loop || (isRotationType && !stopRotating())) {
@@ -26,11 +26,10 @@ const textStyleFlip = (props) => {
         });
         animationRef.current.add({
             targets: targetRef.current,
-            rotateY: [0,90],
-            opacity: [1,0],
-            duration: transitionDuration,
-            easing: 'easeOutExpo',
-            delay: (el, i) => 45 * i,
+            scale: [1, 0.3],
+            opacity: [1, 0],
+            translateZ: 0,
+            delay: (el, i) => transitionDuration * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();
@@ -40,4 +39,4 @@ const textStyleFlip = (props) => {
     }
 };
 
-export default textStyleFlip;
+export default textStyleWave;

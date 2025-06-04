@@ -1,8 +1,8 @@
-const textStyleFlip = (props) => {
+const textStyleBlinds = (props) => {
     const {
         loop,
-        animationRef,
-        targetRef,
+        animation,
+        target,
         animationDuration,
         displayDuration,
         transitionDuration,
@@ -11,26 +11,24 @@ const textStyleFlip = (props) => {
         nextRotationText,
     } = props;
 
-    animationRef.current.add({
-        targets: targetRef.current,
+    animation.add({
+        targets: target,
         rotateY: [-90, 0],
         opacity: [0,1],
-        duration: animationDuration,
-        delay: (el, i) => 45 * i
+        delay: (el, i) => animationDuration * i
     });
 
     if (loop || (isRotationType && !stopRotating())) {
-        animationRef.current.add({ //display
-            targets: targetRef.current,
+        animation.add({ //display
+            targets: target,
             delay: displayDuration
         });
-        animationRef.current.add({
-            targets: targetRef.current,
+        animation.add({
+            targets: target,
             rotateY: [0,90],
             opacity: [1,0],
-            duration: transitionDuration,
             easing: 'easeOutExpo',
-            delay: (el, i) => 45 * i,
+            delay: (el, i) => transitionDuration * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();
@@ -40,4 +38,4 @@ const textStyleFlip = (props) => {
     }
 };
 
-export default textStyleFlip;
+export default textStyleBlinds;

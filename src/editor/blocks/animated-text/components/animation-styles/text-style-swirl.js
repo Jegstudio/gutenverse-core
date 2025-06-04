@@ -1,4 +1,4 @@
-const textStyleFlip = (props) => {
+const textStyleSwirl = (props) => {
     const {
         loop,
         animationRef,
@@ -13,31 +13,29 @@ const textStyleFlip = (props) => {
 
     animationRef.current.add({
         targets: targetRef.current,
-        rotateY: [-90, 0],
+        rotateX: [-90, 0],
         opacity: [0,1],
-        duration: animationDuration,
-        delay: (el, i) => 45 * i
+        delay: (el, i) => animationDuration * i,
     });
 
     if (loop || (isRotationType && !stopRotating())) {
-        animationRef.current.add({ //display
-            targets: targetRef.current,
-            delay: displayDuration
-        });
         animationRef.current.add({
             targets: targetRef.current,
-            rotateY: [0,90],
-            opacity: [1,0],
-            duration: transitionDuration,
-            easing: 'easeOutExpo',
-            delay: (el, i) => 45 * i,
+            delay: displayDuration,
+        });
+
+        animationRef.current.add({
+            targets: targetRef.current,
+            rotateX: [0, 90],
+            opacity: [1, 0],
+            delay: (el, i) => transitionDuration * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();
                 }
-            },
+            }
         });
     }
 };
 
-export default textStyleFlip;
+export default textStyleSwirl;

@@ -10,54 +10,36 @@ export const settingPanel = (props) => {
         style,
     } = props;
 
+    const showLetterSpeed = () => {
+        return [/*'typing',*/ 'swirl', 'blinds', 'wave'].includes(style);
+    };
+
     const animationStyles = () => {
         const styles = [
-            {
-                value: 'zoom',
-                label: __('Zoom')
-            },
-            {
-                value: 'fade',
-                label: __('Fade')
-            },
-            {
-                value: 'jump',
-                label: __('Jump')
-            },
-            {
-                value: 'bend',
-                label: __('Bend')
-            },
-            {
-                value: 'drop',
-                label: __('Drop')
-            },
-            {
-                value: 'flip',
-                label: __('Flip')
-            },
-            {
-                value: 'pop',
-                label: __('Pop')
-            },
-            {
-                value: 'slide',
-                label: __('Slide')
-            },
-            {
-                value: 'rising',
-                label: __('Rising')
-            },
-            {
-                value: 'fall',
-                label: __('Fall')
-            },
+            { value: 'bend', label: __('Bend') },
+            { value: 'blinds', label: __('Blinds') },
+            { value: 'bounce', label: __('Bounce') },
+            { value: 'drop', label: __('Drop') },
+            { value: 'fade', label: __('Fade') },
+            { value: 'fall', label: __('Fall') },
+            { value: 'flip', label: __('Flip') },
+            { value: 'jump', label: __('Jump') },
+            { value: 'pop', label: __('Pop') },
+            { value: 'rising', label: __('Rising') },
+            { value: 'rubber-band', label: __('Rubber Band') },
+            { value: 'slide-down', label: __('Slide Down') },
+            { value: 'slide-left', label: __('Slide Left') },
+            { value: 'slide-right', label: __('Slide Right') },
+            { value: 'slide-up', label: __('Slide Up') },
+            { value: 'swing', label: __('Swing') },
+            { value: 'swirl', label: __('Swirl') },
+            { value: 'wave', label: __('Wave') },
+            { value: 'zoom', label: __('Zoom') },
+            // { value: 'typing', label: __('Typing')},
+            // { value: 'clip', label: __('Typing')},
         ];
         if (textType == 'default') {
-            styles.unshift({
-                value: 'none',
-                label: __('None')
-            });
+            styles.unshift({ value: 'none', label: __('None') });
         }
         return styles;
     };
@@ -208,7 +190,7 @@ export const settingPanel = (props) => {
         {
             id: 'animationDuration',
             show: style !== 'none',
-            label: __('Animation Duration', 'gutenverse'),
+            label: showLetterSpeed()? __('Letter Speed In') : __('Animation Duration', 'gutenverse'),
             component: RangeControl,
             min: 0,
             max: 10000,
@@ -218,7 +200,7 @@ export const settingPanel = (props) => {
         {
             id: 'transitionDuration',
             show: style !== 'none',
-            label: __('Transition Duration', 'gutenverse'),
+            label: showLetterSpeed()? __('Letter Speed Out') : __('Transition Duration', 'gutenverse'),
             component: RangeControl,
             min: 0,
             max: 10000,

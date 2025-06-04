@@ -1,8 +1,8 @@
-const textStyleSlide = (props) => {
+const textStyleSlideRight = (props) => {
     const {
         loop,
-        animationRef,
-        targetRef,
+        animation,
+        target,
         animationDuration,
         displayDuration,
         transitionDuration,
@@ -11,8 +11,8 @@ const textStyleSlide = (props) => {
         nextRotationText,
     } = props;
 
-    animationRef.current.add({
-        targets: targetRef.current,
+    animation.add({
+        targets: target,
         translateX: [40,0],
         translateZ: 0,
         opacity: [0,1],
@@ -22,13 +22,13 @@ const textStyleSlide = (props) => {
     });
 
     if (loop || (isRotationType && !stopRotating())) {
-        animationRef.current.add({ //display
-            targets: targetRef.current,
+        animation.add({ //display
+            targets: target,
             delay: displayDuration
         });
-        animationRef.current.add({
-            targets: targetRef.current,
-            translateX: [0,-30],
+        animation.add({
+            targets: target,
+            translateX: [0,-40],
             opacity: [1,0],
             easing: 'easeInExpo',
             duration: transitionDuration,
@@ -42,4 +42,4 @@ const textStyleSlide = (props) => {
     }
 };
 
-export default textStyleSlide;
+export default textStyleSlideRight;

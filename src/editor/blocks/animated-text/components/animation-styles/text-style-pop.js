@@ -22,12 +22,17 @@ const textStylePop = (props) => {
     });
 
     if (loop || (isRotationType && !stopRotating())) {
+        animationRef.current.add({ //display
+            targets: targetRef.current,
+            delay: displayDuration
+        });
         animationRef.current.add({
             targets: targetRef.current,
-            opacity: 0,
+            scale: [1, 0.3],
+            opacity: [1, 0],
             duration: transitionDuration,
             easing: 'easeOutExpo',
-            delay: displayDuration,
+            delay: (el, i) => 70 * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();

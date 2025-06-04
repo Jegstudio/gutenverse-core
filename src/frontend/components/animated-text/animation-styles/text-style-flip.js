@@ -20,12 +20,17 @@ const textStyleFlip = (props) => {
     });
 
     if (loop || (isRotationType && !stopRotating())) {
+        animation.add({ //display
+            targets: target,
+            delay: displayDuration
+        });
         animation.add({
             targets: target,
-            opacity: 0,
+            rotateY: [0,90],
+            opacity: [1,0],
             duration: transitionDuration,
             easing: 'easeOutExpo',
-            delay: displayDuration,
+            delay: (el, i) => 45 * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();

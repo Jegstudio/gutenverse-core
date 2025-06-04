@@ -1,4 +1,4 @@
-const textStyleSlide = (props) => {
+const textStyleSwirl = (props) => {
     const {
         loop,
         animation,
@@ -13,26 +13,22 @@ const textStyleSlide = (props) => {
 
     animation.add({
         targets: target,
-        translateX: [40,0],
-        translateZ: 0,
+        rotateX: [-90, 0],
         opacity: [0,1],
-        easing: 'easeOutExpo',
-        duration: animationDuration,
-        delay: (el, i) => 500 + 30 * i
+        delay: (el, i) => animationDuration * i,
     });
 
     if (loop || (isRotationType && !stopRotating())) {
-        animation.add({ //display
-            targets: target,
-            delay: displayDuration
-        });
         animation.add({
             targets: target,
-            translateX: [0,-30],
-            opacity: [1,0],
-            easing: 'easeInExpo',
-            duration: transitionDuration,
-            delay: (el, i) => 100 + 30 * i,
+            delay: displayDuration,
+        });
+
+        animation.add({
+            targets: target,
+            rotateX: [0, 90],
+            opacity: [1, 0],
+            delay: (el, i) => transitionDuration * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();
@@ -42,4 +38,4 @@ const textStyleSlide = (props) => {
     }
 };
 
-export default textStyleSlide;
+export default textStyleSwirl;

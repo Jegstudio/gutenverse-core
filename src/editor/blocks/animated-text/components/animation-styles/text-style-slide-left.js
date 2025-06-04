@@ -1,4 +1,4 @@
-const textStyleFlip = (props) => {
+const textStyleSlideLeft = (props) => {
     const {
         loop,
         animationRef,
@@ -13,10 +13,12 @@ const textStyleFlip = (props) => {
 
     animationRef.current.add({
         targets: targetRef.current,
-        rotateY: [-90, 0],
+        translateX: [-40, 0],
+        translateZ: 0,
         opacity: [0,1],
+        easing: 'easeOutExpo',
         duration: animationDuration,
-        delay: (el, i) => 45 * i
+        delay: (el, i) => 500 + 30 * i
     });
 
     if (loop || (isRotationType && !stopRotating())) {
@@ -26,18 +28,18 @@ const textStyleFlip = (props) => {
         });
         animationRef.current.add({
             targets: targetRef.current,
-            rotateY: [0,90],
+            translateX: [0, 40],
             opacity: [1,0],
+            easing: 'easeInExpo',
             duration: transitionDuration,
-            easing: 'easeOutExpo',
-            delay: (el, i) => 45 * i,
+            delay: (el, i) => 100 + 30 * i,
             complete: () => {
                 if (isRotationType) {
                     nextRotationText();
                 }
-            },
+            }
         });
     }
 };
 
-export default textStyleFlip;
+export default textStyleSlideLeft;
