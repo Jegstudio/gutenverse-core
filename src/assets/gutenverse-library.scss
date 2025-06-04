@@ -1657,6 +1657,26 @@ $border: #eaeaea;
             .guten-hide-desktop {
                 display: none;
             }
+
+            .is-root-container.wrapper-imitator {
+                position: relative;
+                height: fit-content;
+            
+                .library-content-container.global-content,
+                .library-content-container.normal-content {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: fit-content;
+                    transition: opacity 0.3s ease;
+                }
+
+                .global-content {
+                    opacity: 0;
+                    z-index: 1;
+                }
+            }
         }
     }
 }
