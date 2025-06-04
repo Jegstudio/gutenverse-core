@@ -807,6 +807,35 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper::before`,
     });
 
+    isNotEmpty(attributes['iconBoxHoverOverlay']) && undefined !== attributes['iconBoxHoverOverlay'] && data.push(
+        {
+            'type': 'plain',
+            'id': 'iconBoxHoverOverlay',
+            'properties': [
+                {
+                    'name': 'overflow',
+                    'valueType': 'pattern',
+                    'pattern': 'hidden',
+                }
+            ],
+            'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper`,
+        }
+    );
+
+    isNotEmpty(attributes['iconBoxOverlay']) && undefined !== attributes['iconBoxOverlay'] && data.push(
+        {
+            'type': 'plain',
+            'id': 'iconBoxOverlay',
+            'properties': [
+                {
+                    'name': 'overflow',
+                    'valueType': 'pattern',
+                    'pattern': 'hidden',
+                }
+            ],
+            'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper`,
+        }
+    );
 
     /**Panel List */
     isNotEmpty(attributes['background']) && data.push({
