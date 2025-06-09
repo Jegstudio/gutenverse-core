@@ -1,8 +1,10 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
+    data = backgroundStyle({ attributes, data, elementId });
 
     /**Panel Focus Title */
     isNotEmpty(attributes['focusColor']) && data.push({
@@ -76,20 +78,14 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     isNotEmpty(attributes['lineWidth']) && isNotEmpty(attributes['showLine']) && attributes['showLine'] !== 'none' && data.push({
-        'type': 'plain',
+        'type': 'unitPoint',
         'id': 'lineWidth',
         'responsive': true,
         'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
         'properties': [
             {
                 'name': 'width',
-                'valueType': 'pattern',
-                'pattern': '{value}%',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct',
-                    }
-                }
+                'valueType': 'direct',
             }
         ]
     });
@@ -268,17 +264,6 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',

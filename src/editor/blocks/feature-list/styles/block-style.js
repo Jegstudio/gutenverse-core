@@ -1,8 +1,10 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
+    data = backgroundStyle({ attributes, data, elementId });
 
     /**Panel Connector */
     isNotEmpty(attributes['connectorStyle']) && data.push({
@@ -366,6 +368,19 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'unitPoint',
         'id': 'iconSize',
         'responsive': true,
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon .icon-number`,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['iconSize']) && data.push({
+        'type': 'unitPoint',
+        'id': 'iconSize',
+        'responsive': true,
         'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon img`,
         'properties': [
             {
@@ -387,10 +402,34 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['iconColor']) && data.push({
+        'type': 'color',
+        'id': 'iconColor',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon .icon-number`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['iconColorHover']) && data.push({
         'type': 'color',
         'id': 'iconColorHover',
         'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon i`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['iconColorHover']) && data.push({
+        'type': 'color',
+        'id': 'iconColorHover',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon .icon-number`,
         'properties': [
             {
                 'name': 'color',
@@ -519,17 +558,6 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
@@ -808,6 +836,19 @@ export const featureListGetBlockStyle = (elementId, attribute) => {
             'type': 'unitPoint',
             'id': 'iconSize',
             'responsive': true,
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon .icon-number`,
+            'properties': [
+                {
+                    'name': 'font-size',
+                    'valueType': 'direct'
+                }
+            ]
+        });
+
+        isNotEmpty(el['iconSize']) && arrOpt.push({
+            'type': 'unitPoint',
+            'id': 'iconSize',
+            'responsive': true,
             'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon img`,
             'properties': [
                 {
@@ -829,10 +870,34 @@ export const featureListGetBlockStyle = (elementId, attribute) => {
             ]
         });
 
+        isNotEmpty(el['iconColor']) && arrOpt.push({
+            'type': 'color',
+            'id': 'iconColor',
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon .icon-number`,
+            'properties': [
+                {
+                    'name': 'color',
+                    'valueType': 'direct'
+                }
+            ]
+        });
+
         isNotEmpty(el['iconColorHover']) && arrOpt.push({
             'type': 'color',
             'id': 'iconColorHover',
             'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}):hover .icon i`,
+            'properties': [
+                {
+                    'name': 'color',
+                    'valueType': 'direct'
+                }
+            ]
+        });
+
+        isNotEmpty(el['iconColorHover']) && arrOpt.push({
+            'type': 'color',
+            'id': 'iconColorHover',
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}):hover .icon .icon-number`,
             'properties': [
                 {
                     'name': 'color',

@@ -34,7 +34,7 @@ const save = compose(
         'guten-feature-list',
     );
 
-    const iconContent = (item) => {
+    const iconContent = (item, index) => {
         switch (item.type) {
             case 'icon':
                 return <div className="icon-wrapper">
@@ -50,6 +50,12 @@ const save = compose(
                             alt={item.title}
                             {...(item.lazyLoad && { loading: 'lazy' })}
                         />
+                    </div>
+                </div>;
+            case 'number':
+                return <div className="icon-wrapper">
+                    <div className="icon">
+                        <span className="icon-number">{typeof item.number === 'number' && !Number.isNaN(item.number) ? item.number : index + 1 }</span>
                     </div>
                 </div>;
             default:

@@ -298,6 +298,19 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.0.6 =
+##### New & Improvemenets
+* add px unit for line width and height for advance heading block
+* add filter on hover option for logo slider block
+* add number option for featured list icon
+* add option for icon position for fun fact block
+* add color option for icon in post meta for post block
+* add speed option for fun fact block
+* add responsive styling for divider in icon list block
+* add box shadow option for each socials element in social share block
+* add new rotating text for animated text block
+* improve option for border styling for post comment block
+
 = 3.0.5 =
 ##### New & Improvemenets
 * add description in gallery lightbox popup

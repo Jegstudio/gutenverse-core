@@ -434,6 +434,16 @@ class Feature_List extends Style_Abstract {
 			);
 			$this->inject_style(
 				array(
+					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .icon .icon-number",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'font-size' );
+					},
+					'value'          => $this->attrs['iconSize'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
 					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .icon img",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
@@ -447,6 +457,16 @@ class Feature_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .icon i",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['iconColor'],
+					'device_control' => false,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .icon .icon-number",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -477,6 +497,16 @@ class Feature_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon i",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['iconColorHover'],
+					'device_control' => false,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon .icon-number",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -520,6 +550,16 @@ class Feature_List extends Style_Abstract {
 					);
 					$this->inject_style(
 						array(
+							'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child({$index}) .icon .icon-number",
+							'property'       => function ( $value ) {
+								return $this->handle_unit_point( $value, 'font-size' );
+							},
+							'value'          => $list['iconSize'],
+							'device_control' => true,
+						)
+					);
+					$this->inject_style(
+						array(
 							'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child({$index}) .icon img",
 							'property'       => function ( $value ) {
 								return $this->handle_unit_point( $value, 'width' );
@@ -533,6 +573,16 @@ class Feature_List extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child({$index}) .icon i",
+							'property'       => function ( $value ) {
+								return $this->handle_color( $value, 'color' );
+							},
+							'value'          => $list['iconColor'],
+							'device_control' => false,
+						)
+					);
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child({$index}) .icon .icon-number",
 							'property'       => function ( $value ) {
 								return $this->handle_color( $value, 'color' );
 							},
@@ -563,6 +613,16 @@ class Feature_List extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child({$index}):hover .icon i",
+							'property'       => function ( $value ) {
+								return $this->handle_color( $value, 'color' );
+							},
+							'value'          => $list['iconColorHover'],
+							'device_control' => false,
+						)
+					);
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child({$index}):hover .icon .icon-number",
 							'property'       => function ( $value ) {
 								return $this->handle_color( $value, 'color' );
 							},

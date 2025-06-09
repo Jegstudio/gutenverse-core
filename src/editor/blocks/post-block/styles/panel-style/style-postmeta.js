@@ -18,6 +18,17 @@ const postMetaStyle = (elementId, attributes, data) => {
             }
         ],
     });
+    isNotEmpty(attributes['metaColorIcon']) && data.push({
+        'type': 'color',
+        'id': 'metaColorIcon',
+        'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta i`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
 
     isNotEmpty(attributes['metaAuthorTypography']) && data.push({
         'type': 'typography',

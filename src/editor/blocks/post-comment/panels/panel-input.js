@@ -19,29 +19,6 @@ export const inputPanel = (props) => {
             component: TypographyControl,
         },
         {
-            id: 'inputBorder',
-            show: device === 'Desktop',
-            label: __('Border', 'gutenverse'),
-            component: BorderControl,
-            liveStyle: {
-                'type': 'border',
-                'id': 'inputBorder',
-                'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
-            }
-        },
-        {
-            id: 'inputBorderResponsive',
-            show: device !== 'Desktop',
-            label: __('Border', 'gutenverse'),
-            component: BorderResponsiveControl,
-            allowDeviceControl: true,
-            liveStyle: {
-                'type': 'borderResponsive',
-                'id': 'inputBorderResponsive',
-                'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
-            }
-        },
-        {
             id: 'inputMargin',
             label: __('Input Margin', 'gutenverse'),
             component: DimensionControl,
@@ -109,6 +86,87 @@ export const inputPanel = (props) => {
                 }
             ],
             onChange: ({ __itemState }) => setSwitcher({ ...switcher, inputState: __itemState })
+        },
+        {
+            id: 'inputBorder',
+            show: device === 'Desktop' && (!switcher.inputState || switcher.inputState === 'normal'),
+            label: __('Border', 'gutenverse'),
+            component: BorderControl,
+            liveStyle: [
+                {
+                    'type': 'border',
+                    'id': 'inputBorder',
+                    'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                }
+            ]
+        },
+        {
+            id: 'inputBorderResponsive',
+            show: device !== 'Desktop' && (!switcher.inputState || switcher.inputState === 'normal'),
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'borderResponsive',
+                    'id': 'inputBorderResponsive',
+                    'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                }
+            ]
+        },
+        {
+            id: 'inputBorderHover',
+            show: device === 'Desktop' && switcher.inputState === 'hover',
+            label: __('Border', 'gutenverse'),
+            component: BorderControl,
+            liveStyle: [
+                {
+                    'type': 'border',
+                    'id': 'inputBorderHover',
+                    'selector': `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
+                }
+            ]
+        },
+        {
+            id: 'inputBorderHoverResponsive',
+            show: device !== 'Desktop' && switcher.inputState === 'hover',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'borderResponsive',
+                    'id': 'inputBorderHoverResponsive',
+                    'selector': `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
+                }
+            ]
+        },
+        {
+            id: 'inputBorderFocus',
+            show: device === 'Desktop' && switcher.inputState === 'focus',
+            label: __('Border Focus', 'gutenverse'),
+            component: BorderControl,
+            liveStyle: [
+                {
+                    'type': 'border',
+                    'id': 'inputBorderFocus',
+                    'selector': `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus`,
+                }
+            ]
+        },
+        {
+            id: 'inputBorderFocusResponsive',
+            show: device !== 'Desktop' && switcher.inputState === 'focus',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'borderResponsive',
+                    'id': 'inputBorderFocusResponsive',
+                    'selector': `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus`,
+                }
+            ]
         },
         {
             id: 'inputColorNormal',

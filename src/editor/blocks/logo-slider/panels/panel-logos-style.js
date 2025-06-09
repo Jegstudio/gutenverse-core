@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, CheckboxControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, CheckboxControl, DimensionControl, ImageFilterControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const logosStylePanel = (props) => {
@@ -146,6 +146,12 @@ export const logosStylePanel = (props) => {
             max: 10,
             step: 0.1,
             allowDeviceControl: true,
+        },
+        {
+            id: 'filterHover',
+            show: switcher.imageHover === 'hover',
+            label: __('Filter', 'gutenverse'),
+            component: ImageFilterControl,
         },
         {
             id: 'imageHoverPadding',
