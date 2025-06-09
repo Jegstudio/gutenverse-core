@@ -33,24 +33,24 @@ const save = compose(
 
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <form
-                className="gutenverse-search-form"
-            >
-                <div className="search-input-container">
-                    <input type="text"
-                        placeholder={inputPlaceholder}
-                        name="s"
-                        className={classnames(
-                            'gutenverse-search',
-                            'gutenverse-search-input',
-                        )}
-                    />
-                    <div className="close-icon">
-                        <i className={closeIcon}></i>
+            <form className="gutenverse-search-form">
+                <div className={'search-input-container-outer'}>
+                    <div className="search-input-container">
+                        <input type="text"
+                            placeholder={inputPlaceholder}
+                            name="s"
+                            className={classnames(
+                                'gutenverse-search',
+                                'gutenverse-search-input',
+                            )}
+                        />
+                        <div className="close-icon">
+                            <i className={closeIcon}></i>
+                        </div>
                     </div>
                 </div>
                 {
-                    showButton && <InnerBlocks.Content className="gutenverse-search-button" />
+                    showButton && <div className="guten-search-button-wrapper"><InnerBlocks.Content /></div>
                 }
             </form>
         </div>
