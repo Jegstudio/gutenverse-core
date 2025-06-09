@@ -32,7 +32,10 @@ const save = compose(
         hoverBottomDirection,
         image,
         imageAlt,
-        lazyLoad
+        lazyLoad,
+        contentDisplay,
+        topIconContent,
+        bottomIconContent,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -53,9 +56,13 @@ const save = compose(
     const headerContent = () => {
         switch (iconType) {
             case 'icon':
-                return <div className="icon"><i className={icon}></i></div>;
+                return <div className="icon-box">
+                    <div className="icon"><i className={icon}></i></div>
+                </div>;
             case 'image':
-                return <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} /></div>;
+                return <div className="icon-box">
+                    <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} /></div>
+                </div>;
             default:
                 return null;
         }
@@ -64,8 +71,8 @@ const save = compose(
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
             <div className="fun-fact-inner">
-                {headerContent()}
-                <div className="content">
+                {topIconContent && headerContent()}
+                <div className={`content ${contentDisplay}`}>
                     <div className="number-wrapper">
                         <span className="prefix">{`${prefix}`}</span>
                         <span className="number loaded" data-number={number} data-duration={duration}></span>
@@ -74,6 +81,7 @@ const save = compose(
                     </div>
                     <TitleTag className="title">{title}</TitleTag>
                 </div>
+                {bottomIconContent && headerContent()}
             </div>
             {hoverBottom && <div className={'border-bottom'}>
                 <div className={`animated ${hoverBottomDirection}`}></div>

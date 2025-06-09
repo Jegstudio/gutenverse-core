@@ -39,6 +39,7 @@ class Post_Author extends Style_Abstract {
 	public function __construct( $attrs ) {
 		parent::__construct( $attrs );
 
+		$this->in_block = false;
 		$this->set_feature(
 			array(
 				'background'  => null,
@@ -138,7 +139,7 @@ class Post_Author extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id} img",
 						'property'       => function ( $value ) {
-							return $this->handle_unit_point( $value, 'max-width' );
+							return $this->handle_unit_point( $value, 'width' );
 						},
 						'value'          => $this->attrs['size'],
 						'device_control' => true,

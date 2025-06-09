@@ -381,7 +381,10 @@ class Post_Block extends Style_Abstract {
 							$this->inject_style(
 								array(
 									'selector'       => ".{$this->element_id} .guten-postblock .guten-block-container .guten-postblock-content",
-									'property'       => function () {
+									'property'       => function ( $value ) {
+										if ( 'end' === $value ) {
+											return '';
+										}
 										return 'height: 100%; display: grid; grid-template-rows: 1fr auto;';
 									},
 									'value'          => $this->attrs['categoryVerticalAlign'],
@@ -394,6 +397,9 @@ class Post_Block extends Style_Abstract {
 						array(
 							'selector'       => ".{$this->element_id} .guten-postblock .guten-block-container .guten-postblock-content .post-category-container",
 							'property'       => function ( $value ) {
+								if ( 'end' === $value ) {
+									return '';
+								}
 								return "align-self: {$value}";
 							},
 							'value'          => $this->attrs['categoryVerticalAlign'],
@@ -900,6 +906,19 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['metaColorIcon'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content .guten-post-meta i",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['metaColorIcon'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['metaAuthorTypography'] ) ) {
 			$this->inject_typography(
 				array(
@@ -1010,7 +1029,7 @@ class Post_Block extends Style_Abstract {
 		if ( isset( $this->attrs['paginationMargin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore, .{$this->element_id} .guten-postblock .guten_block_nav",
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},

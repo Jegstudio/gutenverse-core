@@ -11,6 +11,7 @@ import panelItemStyle from './panel-style/style-item-style';
 import panelLoadMoreStyle from './panel-style/style-load-more';
 import panelThumbnailStyle from './panel-style/style-thumbnail';
 import panelPriceRating from './panel-style/style-price-rating';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -37,17 +38,7 @@ const getBlockStyle = (elementId, attributes) => {
     /**Panel Setting */
     data = panelSettingStyle(elementId, attributes, data);
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
+    data = backgroundStyle({ attributes, data, elementId });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',

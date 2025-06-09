@@ -255,5 +255,31 @@ class Social_Share_Item extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['boxShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.gutenverse-share-item",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['boxShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['boxShadowHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.gutenverse-share-item:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['boxShadowHover'],
+					'device_control' => false,
+				)
+			);
+		}
 	}
 }

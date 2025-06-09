@@ -58,7 +58,7 @@ export const panelList = () => {
         {
             title: __('Positioning', 'gutenverse'),
             initialOpen: false,
-            panelArray: positioningPanel,
+            panelArray: value => positioningPanel({ ...value, inBlock: false }),
             tabRole: TabSetting
         },
         {
