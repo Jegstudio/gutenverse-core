@@ -132,13 +132,13 @@ class Search extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['inputBorderNormal'] ) ) {
-			$this->handle_border( 'inputBorderNormal', ".{$this->element_id} .gutenverse-search.gutenverse-search-input, , .{$this->element_id} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input" );
+			$this->handle_border( 'inputBorderNormal', ".{$this->element_id} .gutenverse-search.gutenverse-search-input, .{$this->element_id} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input" );
 		}
 
 		if ( isset( $this->attrs['inputBorderNormalResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input, , .{$this->element_id} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input",
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input, .{$this->element_id} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
