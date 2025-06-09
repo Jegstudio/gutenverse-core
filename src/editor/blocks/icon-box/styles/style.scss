@@ -10,6 +10,11 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
+
+
+        &::before {
+            pointer-events: none;
+        }
     }
     >a {
         text-decoration: none;
