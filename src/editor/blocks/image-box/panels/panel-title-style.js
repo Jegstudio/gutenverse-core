@@ -4,7 +4,8 @@ import { ColorControl, DimensionControl, RangeControl, SwitchControl, Typography
 export const panelTitleStyle = props => {
     const {
         elementId,
-        __titleHover,
+        switcher,
+        setSwitcher,
     } = props;
 
     return [
@@ -125,10 +126,11 @@ export const panelTitleStyle = props => {
                     label: 'Hover'
                 }
             ],
+            onChange: ({ __titleHover }) => setSwitcher({ ...switcher, titleHover: __titleHover })
         },
         {
             id: 'titleNormalColor',
-            show: !__titleHover || __titleHover === 'normal',
+            show: !switcher.titleHover || switcher.titleHover === 'normal',
             label: __('Title Color', 'gutenverse'),
             component: ColorControl,
             liveStyle: [
@@ -147,7 +149,7 @@ export const panelTitleStyle = props => {
         },
         {
             id: 'titleNormalIconColor',
-            show: !__titleHover || __titleHover === 'normal',
+            show: !switcher.titleHover || switcher.titleHover === 'normal',
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
             liveStyle: [
@@ -166,7 +168,7 @@ export const panelTitleStyle = props => {
         },
         {
             id: 'titleHoverColor',
-            show: __titleHover === 'hover',
+            show: switcher.titleHover === 'hover',
             label: __('Title Hover Color', 'gutenverse'),
             component: ColorControl,
             liveStyle: [
@@ -185,7 +187,7 @@ export const panelTitleStyle = props => {
         },
         {
             id: 'titleHoverIconColor',
-            show: __titleHover === 'hover',
+            show: switcher.titleHover === 'hover',
             label: __('Icon Hover Color', 'gutenverse'),
             component: ColorControl,
             liveStyle: [

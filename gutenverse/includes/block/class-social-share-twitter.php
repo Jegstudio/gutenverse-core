@@ -26,6 +26,7 @@ class Social_Share_Twitter extends Block_Abstract {
 	 */
 	public function render_content( $text, $selected ) {
 		$share_text = $this->attributes['showText'] ? "<div class='gutenverse-share-text'>{$text}</div>" : '';
+
 		return "<div class='gutenverse-share-icon'>
 				<i class='fab fa-{$selected}'></i>
 			</div>{$share_text}";
@@ -40,7 +41,7 @@ class Social_Share_Twitter extends Block_Abstract {
 		$content  = $this->render_content( $text, $selected );
 
 		return "<div class='gutenverse-share-twitter gutenverse-share-item {$selected}' id='{$this->get_element_id()}'>
-			<a href='#' aria-label='{$text}'>
+			<a  aria-label='{$text}'>
 				{$content}
 			</a>
 		</div>";

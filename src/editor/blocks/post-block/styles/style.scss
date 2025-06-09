@@ -28,18 +28,25 @@
     }
 
     .guten-post-category {
-        font-size: 0.75rem;
-        font-weight: bold;
-        letter-spacing: 0.04em;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
-        display: inline-block;
-        line-height: normal;
+        display: inline-flex;
+
+        span {
+            line-height: normal;
+            display: inherit;
+            align-items: center;
+        }
 
         a {
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+            line-height: normal;
             color: var(--guten-txt-a-color);
         }
     }
+
 
     .guten-post-title {
         font-size: 1rem;
@@ -122,6 +129,7 @@
         @include userselect('none');
         @include transition(false, false, .2s ease);
     }
+
     .guten-readmore {
         i {
             transition: none !important;
@@ -461,12 +469,13 @@
             }
 
             &.current {
-                background-color: var(--guten-btn-bg-color,#0058e6);
+                background-color: var(--guten-btn-bg-color, #0058e6);
                 color: var(--guten-btn-txt-color, #fff);
                 cursor: auto;
             }
 
-            &.next, &.prev {
+            &.next,
+            &.prev {
                 align-items: center;
                 display: inline-flex;
                 gap: 5px;

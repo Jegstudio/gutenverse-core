@@ -55,6 +55,7 @@ const FunFactBlock = compose(
 
     useEffect(() => {
         if (elementRef.current) {
+            elementRef.current.querySelector('.number').innerHTML = 0;
             anime({
                 targets: elementRef.current.querySelector('.number'),
                 innerHTML: number,

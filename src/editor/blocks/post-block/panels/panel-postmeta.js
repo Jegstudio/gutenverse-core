@@ -31,6 +31,24 @@ export const postmetaPanel = (props) => {
             ]
         },
         {
+            id: 'metaColorIcon',
+            label: __('Icon color', 'gutenverse'),
+            component: ColorControl,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'metaColorIcon',
+                    'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta i`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                }
+            ]
+        },
+        {
             id: 'metaAuthorTypography',
             label: __('Author Typography', 'gutenverse'),
             component: TypographyControl,

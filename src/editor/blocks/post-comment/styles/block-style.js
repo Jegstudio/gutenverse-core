@@ -9,6 +9,7 @@ import typographyHeadingStyle from './panel-style/style-typography-heading';
 import typographyLabelStyle from './panel-style/style-typography-label';
 import typographyLlinkStyle from './panel-style/style-typography-link';
 import typographyTextStyle from './panel-style/style-typography-text';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -31,20 +32,10 @@ const getBlockStyle = (elementId, attributes) => {
     data = typographyLlinkStyle(elementId, attributes, data);
     //panel typography text
     data = typographyTextStyle(elementId, attributes, data);
+    //panel background
+    data = backgroundStyle({ attributes, data, elementId });
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
-
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
         'id': 'border',
