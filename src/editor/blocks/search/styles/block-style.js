@@ -1,9 +1,11 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
+    data = backgroundStyle({ attributes, data, elementId });
     const device = getDeviceType();
 
     //panel content
@@ -105,27 +107,10 @@ const getBlockStyle = (elementId, attributes) => {
 
     isNotEmpty(attributes['inputWidth']) && isNotEmpty(attributes['inputWidth'][device]) && data.push(
         {
-            'type': '%' !== attributes['inputWidth'][device]['unit'] ? 'unitPoint' : 'plain',
-            'id': 'inputWidth',
-            'selector': `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .gutenverse-search-form .gutenverse-search-input, .${elementId} .search-input-container .gutenverse-search.gutenverse-search-input`,
-            'properties': '%' !== attributes['inputWidth'][device]['unit'] ?
-                [{
-                    'name': 'width',
-                    'valueType': 'direct',
-                    'important': true
-                }] :
-                [{
-                    'name': 'width',
-                    'valueType': 'pattern',
-                    'pattern': '100% !important',
-                }],
-            'responsive': true,
-        },
-        {
             'type': 'unitPoint',
             'id': 'inputWidth',
             'responsive': true,
-            'selector': `.${elementId} .search-input-container`,
+            'selector': `.${elementId} .search-input-container-outer`,
             'properties': [
                 {
                     'name': 'width',
@@ -152,7 +137,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'plain',
             'id': 'buttonWidth',
-            'selector': `.${elementId} .search-input-container`,
+            'selector': `.${elementId} .search-input-container-outer`,
             'properties': [
                 {
                     'name': 'max-width',
@@ -216,7 +201,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input`,
     });
 
     isNotEmpty(attributes['inputMargin']) && data.push({
@@ -229,7 +214,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+        'selector': `.${elementId} .search-input-container-outer`,
     });
 
     isNotEmpty(attributes['placeholderColor']) && data.push({
@@ -431,17 +416,6 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',

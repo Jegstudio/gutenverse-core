@@ -41,11 +41,16 @@ const save = compose(
                 <div id={elementId} className="swiper-container" {...swiperData(attributes)}>
                     <div className="swiper-wrapper">
                         {logos.map((logo, index) => {
-                            return <div className="swiper-slide image-list" key={index}>
-                                <div className="content-image">
-                                    {logoNormalLazyLoad(logo)}
-                                    {logoHoverLazyLoad(logo)}
-                                </div>
+                            return <div className="image-list" key={index}>
+                                {
+                                    logo.link ? <a href={logo.link} className="content-image">
+                                        {logo && logoNormalLazyLoad(logo)}
+                                        {logo && logoHoverLazyLoad(logo)}
+                                    </a> : <div className="content-image">
+                                        {logo && logoNormalLazyLoad(logo)}
+                                        {logo && logoHoverLazyLoad(logo)}
+                                    </div>
+                                }
                             </div>;
                         })}
                     </div>

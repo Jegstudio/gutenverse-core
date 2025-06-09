@@ -227,7 +227,7 @@ class Icon_List extends Style_Abstract {
 		if ( isset( $this->attrs['textIndent'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-list-item a",
+					'selector'       => ".{$this->element_id} .guten-icon-list-item a, .{$this->element_id} .list-wrapper .guten-icon-list-item a",
 					'property'       => function ( $value ) {
 						return "gap: {$value}px;";
 					},
@@ -289,7 +289,7 @@ class Icon_List extends Style_Abstract {
 								return $this->handle_color( $value, 'border-color' );
 							},
 							'value'          => $this->attrs['colorDivider'],
-							'device_control' => false,
+							'device_control' => true,
 						)
 					);
 					$this->inject_style(
@@ -299,7 +299,7 @@ class Icon_List extends Style_Abstract {
 								return $this->handle_color( $value, 'border-color' );
 							},
 							'value'          => $this->attrs['colorDivider'],
-							'device_control' => false,
+							'device_control' => true,
 						)
 					);
 				}
@@ -333,7 +333,7 @@ class Icon_List extends Style_Abstract {
 								return $this->handle_unit_point( $value, 'border-top-width' );
 							},
 							'value'          => $this->attrs['sizeDivider'],
-							'device_control' => false,
+							'device_control' => true,
 						)
 					);
 					$this->inject_style(
@@ -343,7 +343,7 @@ class Icon_List extends Style_Abstract {
 								return $this->handle_unit_point( $value, 'border-left-width' );
 							},
 							'value'          => $this->attrs['sizeDivider'],
-							'device_control' => false,
+							'device_control' => true,
 						)
 					);
 				}
@@ -355,7 +355,7 @@ class Icon_List extends Style_Abstract {
 								return $this->handle_unit_point( $value, 'width' );
 							},
 							'value'          => $this->attrs['widthDivider'],
-							'device_control' => false,
+							'device_control' => true,
 						)
 					);
 					$this->inject_style(
@@ -365,7 +365,7 @@ class Icon_List extends Style_Abstract {
 								return $this->handle_unit_point( $value, 'height' );
 							},
 							'value'          => $this->attrs['widthDivider'],
-							'device_control' => false,
+							'device_control' => true,
 						)
 					);
 				}

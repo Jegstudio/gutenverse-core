@@ -1,9 +1,16 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
+    data = backgroundStyle({
+        attributes,
+        data,
+        backgroundSelector: `.editor-styles-wrapper .is-root-container .${elementId}.guten-element.wp-block-gutenverse-nav-menu`,
+        backgroundHoverSelector: `.editor-styles-wrapper .is-root-container .${elementId}.guten-element.wp-block-gutenverse-nav-menu:hover`,
+    });
     const device = getDeviceType();
 
     //panel content
@@ -50,6 +57,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['mobileWrapperBackground']) && data.push({
         'type': 'color',
         'id': 'mobileWrapperBackground',
+        'responsive': true,
         'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .break-point-mobile.guten-nav-menu .gutenverse-menu-wrapper, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .break-point-tablet.guten-nav-menu .gutenverse-menu-wrapper`,
         'properties': [
             {
@@ -929,18 +937,6 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element.wp-block-gutenverse-nav-menu`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element.wp-block-gutenverse-nav-menu:hover`,
-    });
-
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
         'id': 'border',

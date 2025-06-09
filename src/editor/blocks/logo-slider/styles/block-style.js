@@ -4,6 +4,7 @@ import panelArrowStyle from './panel-style/style-arrow';
 import panelDotsStyle from './panel-style/style-dots';
 import panelLogosStyle from './panel-style/style-logos-style';
 import panelLogosWrapperStyle from './panel-style/style-logos-wrapper';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -13,17 +14,7 @@ const getBlockStyle = (elementId, attributes) => {
     data = panelLogosWrapperStyle(elementId, attributes, data);
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
+    data = backgroundStyle({ attributes, data, elementId });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',

@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 3.0.3
+Stable tag: 3.0.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,7 +298,52 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.0.5 =
+##### New & Improvemenets
+* add description in gallery lightbox popup
+
+##### Bug Fixes
+* fix feature list block connector line issue
+* fix feature list block typing text issue
+* fix icon box background overlay
+* fix icon box block’s box shadow issue
+* fix post block pagination box shadow and margin issue
+* fix post block type 5 category align
+* fix post content block toolbar setting is missing
+* fix progress bar wrapper height
+* fix search block button with inline positioning
+* fix search block close icon styling
+* fix search block input width
+* fix section background type video height
+* fix taxonomy alignment with divider on
+* fix team block style for title and socials
+
+= 3.0.4 =
+##### Bug Fixes
+* fix nav menu mobile wrapper color
+* fix icon list text indent & icon item height
+* fix taxonomy default align
+* fix post block pagination
+* fix post block type 5 category vertical align
+* fix image box title color
+* fix testimonial dot color
+* fix fun fact number right space
+* fix responsive font frontend
+* fix post author alignment
+* fix post author avatar issue
+* fix post block category
+
 = 3.0.3 =
+##### Bug Fixes
+* fix google map panel
+* fix column responsive width
+* fix icon box overlay
+* fix post content toolbar
+* fix image box floating option
+* fix caching column width
+* fix post comment
+* fix feature list
+* fix button hover icon color
 
 = 3.0.2 =
 ##### Bug Fixes

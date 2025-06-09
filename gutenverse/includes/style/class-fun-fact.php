@@ -117,7 +117,7 @@ class Fun_Fact extends Style_Abstract {
 		if ( isset( $this->attrs['iconColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
+					'selector'       => ".{$this->element_id}.guten-fun-fact .fun-fact-inner .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -130,7 +130,7 @@ class Fun_Fact extends Style_Abstract {
 		if ( isset( $this->attrs['iconBgColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
+					'selector'       => ".{$this->element_id}.guten-fun-fact .fun-fact-inner .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
@@ -248,7 +248,7 @@ class Fun_Fact extends Style_Abstract {
 		if ( isset( $this->attrs['iconMargin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
+					'selector'       => ".{$this->element_id}.guten-fun-fact .fun-fact-inner .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},

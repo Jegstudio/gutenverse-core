@@ -17,7 +17,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav`,
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
     });
 
     isNotEmpty(attributes['paginationPadding']) && data.push({
@@ -30,7 +30,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav`,
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
     });
 
     isNotEmpty(attributes['numberGap']) && data.push({
@@ -69,7 +69,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         'type': 'plain',
         'id': 'paginationHeight',
         'responsive' : true,
-        'selector': `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav`,
+        'selector': `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev)`,
         'properties': [
             {
                 'name': 'height',

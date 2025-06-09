@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, IconControl, ImageControl, RangeControl, RepeaterControl, SelectControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconControl, ImageControl, NumberControl, RangeControl, RepeaterControl, SelectControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
 
 export const settingsPanel = (props) => {
     const {
@@ -42,6 +42,10 @@ export const settingsPanel = (props) => {
                             value: 'image',
                             label: 'Image'
                         },
+                        {
+                            value: 'number',
+                            label: 'Number'
+                        },
                     ],
                 },
                 {
@@ -61,6 +65,12 @@ export const settingsPanel = (props) => {
                     label: __('Icon', 'gutenverse'),
                     show: value => value.type === 'icon',
                     component: IconControl,
+                },
+                {
+                    id: 'number',
+                    label: __('Number', 'gutenverse'),
+                    show: value => value.type === 'number',
+                    component: NumberControl,
                 },
             ],
         },
@@ -104,6 +114,7 @@ export const settingsPanel = (props) => {
             component: RangeControl,
             label: __('List Space', 'gutenverse'),
             allowDeviceControl: true,
+            unit: 'px',
             min: 1,
             max: 100,
             step: 1,

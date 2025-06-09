@@ -4,11 +4,16 @@ import { imagePlaceholder } from 'gutenverse-core/config';
 import { Maximize, Minimize, X, ZoomIn } from 'gutenverse-core/components';
 import { swiperSettings } from '../../../components/swiper/helper';
 
-const GalleryPopup = ({ activeIndex, images, onClose }) => {
+const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSearch }) => {
     const [zoomIn, setZoomIn] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
     const popupRef = useRef();
     const sliderRef = useRef();
+    const [slides, setSlides] = useState(images);
+
+    useState(() => {
+        setSlides([...slides.filter(slide => (((slide.id.toLowerCase()).includes(currentFilter.toLowerCase()) || currentFilter === 'All')) && ((slide.title.toLowerCase()).includes(currentSearch) || (slide.content.toLowerCase()).includes(currentSearch) || (slide.content.toLowerCase()).includes(currentSearch)))]);
+    }, [currentFilter, currentSearch]);
 
     const toggleZoom = element => {
         if (zoomIn) {
@@ -70,9 +75,15 @@ const GalleryPopup = ({ activeIndex, images, onClose }) => {
                         itemShowed: 1,
                     })}
                     ref={sliderRef}>
-                    {images.map((image, index) => <div className="image-list" key={index}>
+                    {slides.map((image, index) => <div data-filter={image.id} data-category={image.category} data-title={image.title} data-content={image.content} className="image-list" key={index}>
                         <div className="content-image swiper-zoom-container">
                             {image && <img className="main-image" src={image?.src?.image || imagePlaceholder} {...(image.lazyLoad && { loading: 'lazy' })} />}
+                            {image?.lightboxDescription ? <div className="content-description-wrapper">
+                                <h5 className="content-title">{image.title}</h5>
+                                <div className="content-description">
+                                    <p>{image.content}</p>
+                                </div>
+                            </div> : null}
                         </div>
                     </div>)}
                 </WPSwiper>
