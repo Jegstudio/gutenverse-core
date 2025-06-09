@@ -77,6 +77,11 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"backgroundTransition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
 		"border": {
 			"type": "object",
 			"copyStyle": true
