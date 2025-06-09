@@ -142,6 +142,28 @@ class Feature_List extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top, .{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom",
+					'property'       => function ( $value ) {
+						return "border-style: {$value};";
+					},
+					'value'          => $this->attrs['connectorStyle'],
+					'device_control' => false,
+				)
+			);
+			if ( 'solid' !== $this->attrs['connectorStyle'] && 'double' !== $this->attrs['connectorStyle'] && isset( $this->attrs['contentPosition'] ) && 'center' === $this->attrs['contentPosition'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top",
+						'property'       => function () {
+							return 'top: var(--connector-width);';
+						},
+						'value'          => $this->attrs['connectorStyle'],
+						'device_control' => false,
+					)
+				);
+			}
 		}
 		if ( isset( $this->attrs['connectorColor'] ) ) {
 			$this->inject_style(
@@ -155,10 +177,32 @@ class Feature_List extends Style_Abstract {
 				)
 			);
 		}
+		if ( isset( $this->attrs['connectorColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top, .{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'border-color' );
+					},
+					'value'          => $this->attrs['connectorColor'],
+					'device_control' => false,
+				)
+			);
+		}
 		if ( isset( $this->attrs['connectorWidth'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector",
+					'property'       => function ( $value ) {
+						return "border-width: {$value}px;";
+					},
+					'value'          => $this->attrs['connectorWidth'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top, .{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom",
 					'property'       => function ( $value ) {
 						return "border-width: {$value}px;";
 					},
@@ -194,7 +238,73 @@ class Feature_List extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+			if ( 'start' === $this->attrs['contentPosition'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top",
+						'property'       => function () {
+							return 'display : none !important;';
+						},
+						'value'          => $this->attrs['contentPosition'],
+						'device_control' => false,
+					)
+				);
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom",
+						'property'       => function () {
+							return 'top : calc(var(--icon-size)) !important;';
+						},
+						'value'          => $this->attrs['contentPosition'],
+						'device_control' => false,
+					)
+				);
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom",
+						'property'       => function () {
+							return 'height : calc(100% + var(--space-between) - var(--icon-size) ) !important;';
+						},
+						'value'          => $this->attrs['contentPosition'],
+						'device_control' => false,
+					)
+				);
+			}
+
+			if ( 'end' === $this->attrs['contentPosition'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom",
+						'property'       => function () {
+							return 'display : none !important;';
+						},
+						'value'          => $this->attrs['contentPosition'],
+						'device_control' => false,
+					)
+				);
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top",
+						'property'       => function () {
+							return 'top : calc(var(--space-between) * -1) !important;';
+						},
+						'value'          => $this->attrs['contentPosition'],
+						'device_control' => false,
+					)
+				);
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top",
+						'property'       => function () {
+							return 'height : calc(100% + var(--space-between) - var(--icon-size)) !important;';
+						},
+						'value'          => $this->attrs['contentPosition'],
+						'device_control' => false,
+					)
+				);
+			}
 		}
+
 		if ( isset( $this->attrs['contentSpace'] ) ) {
 			$this->inject_style(
 				array(

@@ -13,17 +13,6 @@ const getBlockStyle = (elementId, attributes) => {
     data = panelPopupStyle(elementId, attributes, data);
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',

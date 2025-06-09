@@ -104,6 +104,7 @@ export const settingsPanel = (props) => {
             component: RangeControl,
             label: __('List Space', 'gutenverse'),
             allowDeviceControl: true,
+            unit: 'px',
             min: 1,
             max: 100,
             step: 1,
