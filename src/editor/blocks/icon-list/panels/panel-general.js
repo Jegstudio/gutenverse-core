@@ -57,10 +57,12 @@ export const panelGeneral = (props) => {
             label: __('Color Divider', 'gutenverse'),
             show: isDivider,
             component: ColorControl,
+            allowDeviceControl: true,
             liveStyle: [
                 {
                     'type': 'color',
                     'id': 'colorDivider',
+                    'responsive': true,
                     'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {
@@ -100,10 +102,12 @@ export const panelGeneral = (props) => {
             label: displayInline ? __('Height Divider', 'gutenverse') : __('Width Divider', 'gutenverse'),
             show: isDivider,
             component: SizeControl,
+            allowDeviceControl: true,
             liveStyle: [
                 {
                     'type': 'unitPoint',
                     'id': 'widthDivider',
+                    'responsive': true,
                     'selector': `.${elementId}.guten-icon-list > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
@@ -115,6 +119,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'widthDivider',
+                    'responsive': true,
                     'selector': `.${elementId}.guten-icon-list > .list-wrapper.inline-icon-list > .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
@@ -130,10 +135,12 @@ export const panelGeneral = (props) => {
             label: __('Size Divider', 'gutenverse'),
             show: isDivider,
             component: SizeControl,
+            allowDeviceControl: true,
             liveStyle: [
                 {
                     'type': 'unitPoint',
                     'id': 'sizeDivider',
+                    'responsive': true,
                     'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {
@@ -145,6 +152,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'sizeDivider',
+                    'responsive': true,
                     'selector': `.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {

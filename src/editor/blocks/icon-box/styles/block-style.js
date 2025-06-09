@@ -1,9 +1,11 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
+    data = backgroundStyle({ attributes, data, elementId });
     const device = getDeviceType();
     //panel general
     isNotEmpty(attributes['iconPositionResponsive']) && device !== 'Desktop' && attributes['iconPositionResponsive'][device] === 'left' && data.push(
@@ -807,19 +809,37 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper::before`,
     });
 
+    isNotEmpty(attributes['iconBoxHoverOverlay']) && undefined !== attributes['iconBoxHoverOverlay'] && data.push(
+        {
+            'type': 'plain',
+            'id': 'iconBoxHoverOverlay',
+            'properties': [
+                {
+                    'name': 'overflow',
+                    'valueType': 'pattern',
+                    'pattern': 'hidden',
+                }
+            ],
+            'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper`,
+        }
+    );
+
+    isNotEmpty(attributes['iconBoxOverlay']) && undefined !== attributes['iconBoxOverlay'] && data.push(
+        {
+            'type': 'plain',
+            'id': 'iconBoxOverlay',
+            'properties': [
+                {
+                    'name': 'overflow',
+                    'valueType': 'pattern',
+                    'pattern': 'hidden',
+                }
+            ],
+            'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper`,
+        }
+    );
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
