@@ -513,6 +513,7 @@ $border: #eaeaea;
                         color: #fff;
                         padding: 20px;
                         text-align: center;
+                        align-items: center;
                         font-size: 11px;
                         font-weight: 400;
                         gap: 5px;
@@ -1568,6 +1569,7 @@ $border: #eaeaea;
                     flex-direction: row;
                     padding: 10px 10px;
                     justify-content: center;
+                    align-items: center;
                     gap: 6px;
                     box-sizing: border-box;
 
@@ -1656,6 +1658,26 @@ $border: #eaeaea;
 
             .guten-hide-desktop {
                 display: none;
+            }
+
+            .is-root-container.wrapper-imitator {
+                position: relative;
+                height: fit-content;
+            
+                .library-content-container.global-content,
+                .library-content-container.normal-content {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: fit-content;
+                    transition: opacity 0.3s ease;
+                }
+
+                .global-content {
+                    opacity: 0;
+                    z-index: 1;
+                }
             }
         }
     }

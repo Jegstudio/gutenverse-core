@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { importImage, importSingleSectionContent } from 'gutenverse-core/requests';
 import { withSelect, dispatch, select } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
-import { IconDownload2SVG } from 'gutenverse-core/icons';
+import { IconDownload2SVG, IconEyeSVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
 import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
@@ -242,7 +242,7 @@ const ImportSectionButton = props => {
                     setSingleData(data);
                 }}>
                     <span>{__('Preview Section', '--gctd--')}</span>
-                    <IconDownload2SVG />
+                    <IconEyeSVG width={12.8} height= {12.8} />
                 </div>
             </div>
         ) : (

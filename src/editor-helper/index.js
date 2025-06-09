@@ -172,9 +172,19 @@ export function useGlobalStylesConfig() {
                 _globalStylesId
             )
             : undefined;
+        const { globalColors } = window['GutenverseConfig'];
+        const defaultSettings = {
+            color: {
+                palette: {
+                    theme: globalColors?.theme || [],
+                    default: globalColors?.default || [],
+                    custom: globalColors?.custom || []
+                }
+            },
+        }
         return {
             globalStylesId: _globalStylesId,
-            settings: record?.settings,
+            settings: !isEmpty(record?.settings) ?  record?.settings : defaultSettings,
             styles: record?.styles,
         };
     }, []);
