@@ -29,6 +29,11 @@ export const logosPanel = () => {
                     id: 'lazyLoad',
                     label: __('Set Lazy Load', 'gutenverse'),
                     component: CheckboxControl
+                },
+                {
+                    id: 'link',
+                    label: __('Link', 'gutenverse'),
+                    component: TextControl
                 }
             ],
         },

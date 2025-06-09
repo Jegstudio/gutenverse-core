@@ -5,6 +5,7 @@ import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { store as coreStore } from '@wordpress/core-data';
+import { store as editorStore } from '@wordpress/editor';
 import { useSelect } from '@wordpress/data';
 import { isEmpty } from 'lodash';
 import { useRef } from '@wordpress/element';
@@ -44,22 +45,26 @@ const PostAuthorBlock = compose(
 
     const authorDetails = useSelect(
         (select) => {
-            const { getEditedEntityRecord, getUser } = select(
-                coreStore
-            );
-            const _authorId = getEditedEntityRecord(
-                'postType',
-                postType,
-                postId
-            )?.author;
+            const { getEditedEntityRecord, getUser, getCurrentUser } = select(coreStore);
+            const { getCurrentPostType } = select(editorStore);
 
-            return _authorId ? getUser(_authorId) : null;
+            if (getCurrentPostType() === 'post') {
+                const _authorId = getEditedEntityRecord(
+                    'postType',
+                    postType,
+                    postId
+                )?.author;
+
+                return _authorId ? getUser(_authorId) : null;
+            } else {
+                return getCurrentUser();
+            }
         },
         [postType, postId]
     );
 
     useEffect(() => {
-        if ( ! isEmpty( authorDetails ) ) {
+        if (!isEmpty(authorDetails)) {
             switch (authorType) {
                 case 'first_name':
                     setAuthorName(authorDetails['first_name']);
@@ -101,10 +106,10 @@ const PostAuthorBlock = compose(
     });
 
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicStyle(elementId, {...attributes, inBlock: false}, getBlockStyle, elementRef);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Author works?', 'gutenverse')}
@@ -122,8 +127,8 @@ const PostAuthorBlock = compose(
         </InspectorControls>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
-            {! isEmpty(authorDetails) && authorAvatar && <img className="avatar photo" width="48" src={authorDetails['avatar_urls']['48']} alt={authorDetails['name']}/>}
-            <HtmlTag>{! isEmpty(authorDetails) && authorLink ? <a href={authorDetails['link']} target={linkTarget} rel={authorLinkRel} onClick={e => e.preventDefault()}>{authorName}</a> : authorName}</HtmlTag>
+            {!isEmpty(authorDetails) && authorAvatar && <img className="avatar photo" width="48" src={authorDetails['avatar_urls']['48']} alt={authorDetails['name']} />}
+            <HtmlTag>{!isEmpty(authorDetails) && authorLink ? <a href={authorDetails['link']} target={linkTarget} rel={authorLinkRel} onClick={e => e.preventDefault()}>{authorName}</a> : authorName}</HtmlTag>
         </div>
     </>;
 });
