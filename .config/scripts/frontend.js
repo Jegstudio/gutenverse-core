@@ -15,7 +15,7 @@ let copyPath = [
 
 const frontend = {
     mode: "development",
-    devtool: "cheap-module-source-map",
+    devtool: "source-map",
     entry: {
         frontend: {
             import: path.resolve(__dirname, "../../src/frontend/index.js"),

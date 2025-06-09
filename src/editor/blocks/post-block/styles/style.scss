@@ -30,7 +30,13 @@
     .guten-post-category {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
-        display: inline-block;
+        display: inline-flex;
+
+        span {
+            line-height: normal;
+            display: inherit;
+            align-items: center;
+        }
 
         a {
             font-size: 0.75rem;

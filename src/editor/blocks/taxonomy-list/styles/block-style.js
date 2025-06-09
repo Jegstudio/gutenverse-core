@@ -4,6 +4,7 @@ import contentStyle from './panel-style/style-content';
 import dividerStyle from './panel-style/style-divider';
 import iconStyle from './panel-style/style-icon';
 import settingStyle from './panel-style/style-setting';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -12,20 +13,9 @@ const getBlockStyle = (elementId, attributes) => {
     data = dividerStyle(elementId, attributes, data);
     data = iconStyle(elementId, attributes, data);
     data = settingStyle(elementId, attributes, data);
+    data = backgroundStyle({ attributes, data, elementId });
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
-
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
         'id': 'border',
@@ -193,18 +183,18 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.${elementId}.guten-element`,
     },
-        {
-            'type': 'positioning',
-            'id': 'positioningAlign',
-            'properties': [
-                {
-                    'name': 'vertical-align',
-                    'valueType': 'direct'
-                }
-            ],
-            'attributeType': 'align',
-            'selector': `.${elementId}.guten-element`,
-        });
+    {
+        'type': 'positioning',
+        'id': 'positioningAlign',
+        'properties': [
+            {
+                'name': 'vertical-align',
+                'valueType': 'direct'
+            }
+        ],
+        'attributeType': 'align',
+        'selector': `.${elementId}.guten-element`,
+    });
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',

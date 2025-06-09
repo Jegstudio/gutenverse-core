@@ -122,32 +122,16 @@ class Taxonomy_List extends Style_Abstract {
 				)
 			);
 			if ( isset( $this->attrs['contentAlignment'] ) ) {
-				if ( 'column' === $this->attrs['layout'] ) {
-					$this->inject_style(
-						array(
-							'selector'       => ".{$this->element_id} .taxonomy-list-wrapper",
-							'property'       => function ( $value ) {
-								if ( 'space-between' === $value ) {
-									return 'align-items: flex-start;';
-								}
-								return "align-items: {$value};";
-							},
-							'value'          => $this->attrs['contentAlignment'],
-							'device_control' => true,
-						)
-					);
-				} elseif ( 'row' === $this->attrs['layout'] ) {
-					$this->inject_style(
-						array(
-							'selector'       => ".{$this->element_id} .taxonomy-list-wrapper",
-							'property'       => function ( $value ) {
-								return "justify-content: {$value};";
-							},
-							'value'          => $this->attrs['contentAlignment'],
-							'device_control' => true,
-						)
-					);
-				}
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .taxonomy-list-item",
+						'property'       => function ( $value ) {
+							return "justify-content: {$value};";
+						},
+						'value'          => $this->attrs['contentAlignment'],
+						'device_control' => true,
+					)
+				);
 			}
 		}
 
