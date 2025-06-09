@@ -509,6 +509,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"metaColorIcon": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"metaAuthorTypography": {
 			"type": "object",
 			"copyStyle": true
@@ -662,6 +666,11 @@
 			"type": "object",
 			"default": {},
 			"copyStyle": true
+		},
+		"backgroundTransition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
 		},
 		"border": {
 			"type": "object",

@@ -95,8 +95,9 @@ const FeatureListBlock = compose(
                 {
                     featureList.map((el, index) => {
                         return <div key={index} className={`icon-position-${iconPosition} feature-list-item`}>
-                            {showConnector && <span className={`connector icon-position-${iconPosition}`}></span>}
-                            {iconContent(el, index)}
+                            {showConnector && index != 0 && <span className={`connector-top icon-position-${iconPosition}`}></span>}
+                            {showConnector && index != featureList.length - 1 && <span className={`connector-bottom icon-position-${iconPosition}`}></span>}
+                            {iconContent(el)}
                             <div className="feature-list-content">
                                 {el.link ? <a href={el.link} target="_blank" rel="noreferrer" aria-label={el.title}><h2 className="feature-list-title">{el.title}</h2></a> : <h2 className="feature-list-title">{el.title}</h2>}
                                 <p className="feature-list-desc">{el.content}</p>

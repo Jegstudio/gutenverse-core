@@ -114,10 +114,15 @@ const LogoSlider = compose(
                     rebuildOnUpdate={true}>
                     {logos.map((logo, index) => {
                         return <div className="image-list" key={index}>
-                            <div className="content-image">
-                                {logo && logoNormalLazyLoad(logo)}
-                                {logo && logoHoverLazyLoad(logo)}
-                            </div>
+                            {
+                                logo.link ? <a href={logo.link} className="content-image">
+                                    {logo && logoNormalLazyLoad(logo)}
+                                    {logo && logoHoverLazyLoad(logo)}
+                                </a> : <div className="content-image">
+                                    {logo && logoNormalLazyLoad(logo)}
+                                    {logo && logoHoverLazyLoad(logo)}
+                                </div>
+                            }
                         </div>;
                     })}
                 </Swiper>

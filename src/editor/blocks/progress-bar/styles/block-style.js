@@ -3,25 +3,16 @@ import { applyFilters } from '@wordpress/hooks';
 import percentageStyle from './panel-style/style-percentage';
 import progressStyle from './panel-style/style-progress';
 import titleStyle from './panel-style/style-title';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
     data = percentageStyle(elementId, attributes, data);
     data = progressStyle(elementId, attributes, data);
     data = titleStyle(elementId, attributes, data);
+    data = backgroundStyle({ attributes, data, elementId });
 
     /**Panel List */
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
-    });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',

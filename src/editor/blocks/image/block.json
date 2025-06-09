@@ -245,6 +245,11 @@
       "default": {},
       "copyStyle": true
     },
+		"backgroundTransition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
     "lazyLoad": {
       "type": "boolean",
       "copyStyle": true
