@@ -814,7 +814,7 @@ class Icon_Box extends Style_Abstract {
 					'property'       => function () {
 						return 'overflow: hidden;';
 					},
-					'value'          => $this->attrs['iconBoxHoverOverlay'],
+					'value'          => $this->attrs['iconBoxOverlay'],
 					'device_control' => false,
 				)
 			);
