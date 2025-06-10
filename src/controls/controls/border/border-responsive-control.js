@@ -1,5 +1,5 @@
-import {useState} from '@wordpress/element';
-import {useInstanceId} from '@wordpress/compose';
+import { useState } from '@wordpress/element';
+import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
@@ -29,7 +29,7 @@ const BorderResponsiveControl = (props) => {
             <RefreshCw size={14} onClick={() => {
                 onValueChange(undefined);
                 setActive('all');
-            }}/>
+            }} />
         </span>
     </Tooltip>;
 
@@ -38,7 +38,13 @@ const BorderResponsiveControl = (props) => {
     };
 
     const checkFilledBorder = (position) => {
-        return props?.value?.[position] ? 'filled' : '';
+        if (props?.value?.[position]) {
+            if (props?.value?.[position]?.type || props?.value?.[position]?.width || props?.value?.[position]?.color) {
+                return 'filled';
+            }
+        }
+
+        return '';
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-borders'}>
