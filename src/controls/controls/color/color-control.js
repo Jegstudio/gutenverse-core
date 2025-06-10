@@ -185,7 +185,7 @@ const ColorControl = (props) => {
     }, [deviceType]);
 
     useEffect(() => {
-        if (localColor.r !== value.r || localColor.g !== value.g || localColor.b !== value.b || localColor.a !== value.a) {
+        if (JSON.stringify(value) !== JSON.stringify(localColor)) {
             setLocalColor(value);
         }
     }, [value]);
