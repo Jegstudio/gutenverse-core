@@ -211,7 +211,7 @@ class Fun_Fact extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
 					'property'       => function ( $value ) {
-						return "font-size: {$value}px;";
+						return "font-size: {$value}px !important;";
 					},
 					'value'          => $this->attrs['iconSize'],
 					'device_control' => true,
