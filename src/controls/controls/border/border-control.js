@@ -39,7 +39,13 @@ const BorderControl = (props) => {
     };
 
     const checkFilledBorder = (position) => {
-        return props?.value?.[position] ? 'filled' : '';
+        if (props?.value?.[position]) {
+            if (props?.value?.[position]?.type || props?.value?.[position]?.width || props?.value?.[position]?.color) {
+                return 'filled';
+            }
+        }
+
+        return '';
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-borders'}>
