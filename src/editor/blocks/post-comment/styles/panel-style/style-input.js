@@ -20,6 +20,30 @@ const inputStyle = (elementId, attributes, data) => {
         'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
     });
 
+    isNotEmpty(attributes['inputBorderHover']) && data.push({
+        'type': 'border',
+        'id': 'inputBorderHover',
+        'selector': `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
+    });
+
+    isNotEmpty(attributes['inputBorderHoverResponsive']) && data.push({
+        'type': 'borderResponsive',
+        'id': 'inputBorderHoverResponsive',
+        'selector': `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
+    });
+
+    isNotEmpty(attributes['inputBorderFocus']) && data.push({
+        'type': 'border',
+        'id': 'inputBorderFocus',
+        'selector': `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus`,
+    });
+
+    isNotEmpty(attributes['inputBorderFocusResponsive']) && data.push({
+        'type': 'borderResponsive',
+        'id': 'inputBorderFocusResponsive',
+        'selector': `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus`,
+    });
+
     isNotEmpty(attributes['inputMargin']) && data.push({
         'type': 'dimension',
         'id': 'inputMargin',

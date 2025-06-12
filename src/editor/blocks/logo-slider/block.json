@@ -95,6 +95,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"filter": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"filterHover": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"spacing": {
 			"type": "object",
 			"default": {},

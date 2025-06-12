@@ -172,6 +172,7 @@ export const contentPanel = props => {
                             'functionName': 'searchButtonContainerWidth',
                         }
                     ],
+                    'skip_device': ['Mobile'],
                     'responsive': true,
                 },
             ]

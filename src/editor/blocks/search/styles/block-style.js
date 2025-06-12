@@ -145,6 +145,7 @@ const getBlockStyle = (elementId, attributes) => {
                     'functionName': 'searchButtonContainerWidth',
                 }
             ],
+            'skip_device': ['Mobile'],
             'responsive': true,
         },
     );
@@ -241,7 +242,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'inputColorNormal',
         'responsive': true,
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input`,
         'properties': [
             {
                 'name': 'color',
@@ -254,7 +255,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'inputBgColorNormal',
         'responsive': true,
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input`,
         'properties': [
             {
                 'name': 'background-color',
@@ -266,20 +267,20 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['inputBorderNormal']) && data.push({
         'type': 'border',
         'id': 'inputBorderNormal',
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input`,
     });
 
     isNotEmpty(attributes['inputBorderNormalResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'inputBorderNormalResponsive',
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input`,
     });
 
     isNotEmpty(attributes['inputColorHover']) && data.push({
         'type': 'color',
         'id': 'inputColorHover',
         'responsive': true,
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:hover`,
         'properties': [
             {
                 'name': 'color',
@@ -292,7 +293,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'inputBgColorHover',
         'responsive': true,
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:hover`,
         'properties': [
             {
                 'name': 'background-color',
@@ -304,20 +305,20 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['inputBorderHover']) && data.push({
         'type': 'border',
         'id': 'inputBorderHover',
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:hover`,
     });
 
     isNotEmpty(attributes['inputBorderHoverResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'inputBorderHoverResponsive',
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:hover`,
     });
 
     isNotEmpty(attributes['inputColorFocus']) && data.push({
         'type': 'color',
         'id': 'inputColorFocus',
         'responsive': true,
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:focus`,
         'properties': [
             {
                 'name': 'color',
@@ -330,7 +331,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'inputBgColorFocus',
         'responsive': true,
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:focus`,
         'properties': [
             {
                 'name': 'background-color',
@@ -343,12 +344,12 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'border',
             'id': 'inputBorderFocus',
-            'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+            'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:focus`,
         },
         {
             'type': 'plain',
             'id': 'inputBorderFocus',
-            'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus-visible`,
+            'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:focus-visible`,
             'properties': [
                 {
                     'name': 'outline',
@@ -363,12 +364,12 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'borderResponsive',
             'id': 'inputBorderFocusResponsive',
-            'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+            'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:focus`,
         },
         {
             'type': 'plain',
             'id': 'inputBorderFocusResponsive',
-            'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus-visible`,
+            'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:focus-visible`,
             'properties': [
                 {
                     'name': 'outline',
@@ -388,7 +389,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .guten-button-wrapper .guten-button`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input, .${elementId} .guten-button-wrapper .guten-button`,
     });
 
     isNotEmpty(attributes['inputAreaBoxShadowHover']) && data.push({
@@ -400,7 +401,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover, .${elementId} .guten-button-wrapper .guten-button:hover`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:hover, .${elementId} .guten-button-wrapper .guten-button:hover`,
     });
 
     isNotEmpty(attributes['inputAreaBoxShadowFocus']) && data.push({
@@ -412,7 +413,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover, .${elementId} .guten-button-wrapper .guten-button:focus`,
+        'selector': `.${elementId} .search-input-container-outer .search-input-container .gutenverse-search.gutenverse-search-input:hover, .${elementId} .guten-button-wrapper .guten-button:focus`,
     });
 
     /**Panel List */

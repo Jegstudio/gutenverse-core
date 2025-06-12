@@ -351,31 +351,32 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
-    isNotEmpty(attributes['iconSize']) && data.push({
-        'type': 'unitPoint',
-        'id': 'iconSize',
-        'responsive': true,
-        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon i`,
-        'properties': [
-            {
-                'name': 'font-size',
-                'valueType': 'direct'
-            }
-        ]
-    });
-
-    isNotEmpty(attributes['iconSize']) && data.push({
-        'type': 'unitPoint',
-        'id': 'iconSize',
-        'responsive': true,
-        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon img`,
-        'properties': [
-            {
-                'name': 'width',
-                'valueType': 'direct'
-            }
-        ]
-    });
+    isNotEmpty(attributes['iconSize']) && data.push(
+        {
+            'type': 'unitPoint',
+            'id': 'iconSize',
+            'responsive': true,
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon i`,
+            'properties': [
+                {
+                    'name': 'font-size',
+                    'valueType': 'direct'
+                }
+            ]
+        },
+        {
+            'type': 'unitPoint',
+            'id': 'iconSize',
+            'responsive': true,
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon img`,
+            'properties': [
+                {
+                    'name': 'width',
+                    'valueType': 'direct'
+                }
+            ]
+        }
+    );
 
     isNotEmpty(attributes['iconColor']) && data.push({
         'type': 'color',
@@ -401,6 +402,36 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['numberColor']) && data.push({
+        'type': 'color',
+        'id': 'numberColor',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon .icon-number`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['numberColorHover']) && data.push({
+        'type': 'color',
+        'id': 'numberColorHover',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon .icon-number`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['numberTypography']) && data.push({
+        'type': 'typography',
+        'id': 'numberTypography',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon .icon-number`,
+    });
+
     isNotEmpty(attributes['iconBackground']) && data.push({
         'type': 'background',
         'id': 'iconBackground',
@@ -419,6 +450,12 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon`,
     });
 
+    isNotEmpty(attributes['iconBorderHover']) && data.push({
+        'type': 'borderResponsive',
+        'id': 'iconBorderHover',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon`,
+    });
+
     if (isNotEmpty(attributes['featureList'])) {
         let repeaterOption = featureListGetBlockStyle(elementId, attributes['featureList']);
         data.push({
@@ -428,11 +465,6 @@ const getBlockStyle = (elementId, attributes) => {
         });
     }
 
-    isNotEmpty(attributes['iconBorderHover']) && data.push({
-        'type': 'borderResponsive',
-        'id': 'iconBorderHover',
-        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon`,
-    });
 
     /**Panel Settings */
     if (isNotEmpty(attributes['iconWrapperShape'])) {
@@ -482,43 +514,44 @@ const getBlockStyle = (elementId, attributes) => {
         });
     }
 
-    isNotEmpty(attributes['listSpace']) && data.push({
-        'type': 'plain',
-        'id': 'listSpace',
-        'responsive': true,
-        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper`,
-        'properties': [
-            {
-                'name': 'gap',
-                'valueType': 'pattern',
-                'pattern': '{value}px',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct'
+    isNotEmpty(attributes['listSpace']) && data.push(
+        {
+            'type': 'plain',
+            'id': 'listSpace',
+            'responsive': true,
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper`,
+            'properties': [
+                {
+                    'name': 'gap',
+                    'valueType': 'pattern',
+                    'pattern': '{value}px',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct'
+                        }
+                    }
+                },
+            ]
+        },
+        {
+            'type': 'plain',
+            'id': 'listSpace',
+            'selector': `.${elementId}.guten-feature-list`,
+            'responsive': true,
+            'properties': [
+                {
+                    'name': '--space-between',
+                    'valueType': 'pattern',
+                    'pattern': '{value}px',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct'
+                        }
                     }
                 }
-            },
-        ]
-    });
-
-    isNotEmpty(attributes['listSpace']) && data.push({
-        'type': 'plain',
-        'id': 'listSpace',
-        'selector': `.${elementId}.guten-feature-list`,
-        'responsive': true,
-        'properties': [
-            {
-                'name': '--space-between',
-                'valueType': 'pattern',
-                'pattern': '{value}px',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct'
-                    }
-                }
-            }
-        ]
-    });
+            ]
+        }
+    );
 
     /**Panel List */
 
@@ -782,30 +815,61 @@ const getBlockStyle = (elementId, attributes) => {
 export const featureListGetBlockStyle = (elementId, attribute) => {
     return attribute.map((el, index) => {
         let arrOpt = [];
-        isNotEmpty(el['iconSize']) && arrOpt.push({
-            'type': 'unitPoint',
-            'id': 'iconSize',
-            'responsive': true,
-            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon i`,
+        isNotEmpty(el['iconSize']) && arrOpt.push(
+            {
+                'type': 'unitPoint',
+                'id': 'iconSize',
+                'responsive': true,
+                'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon i`,
+                'properties': [
+                    {
+                        'name': 'font-size',
+                        'valueType': 'direct'
+                    }
+                ]
+            },
+            {
+                'type': 'unitPoint',
+                'id': 'iconSize',
+                'responsive': true,
+                'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon img`,
+                'properties': [
+                    {
+                        'name': 'width',
+                        'valueType': 'direct'
+                    }
+                ]
+            }
+        );
+
+        isNotEmpty(el['numberColor']) && arrOpt.push({
+            'type': 'color',
+            'id': 'numberColor',
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon .icon-number`,
             'properties': [
                 {
-                    'name': 'font-size',
+                    'name': 'color',
                     'valueType': 'direct'
                 }
             ]
         });
 
-        isNotEmpty(el['iconSize']) && arrOpt.push({
-            'type': 'unitPoint',
-            'id': 'iconSize',
-            'responsive': true,
-            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon img`,
+        isNotEmpty(el['numberColorHover']) && arrOpt.push({
+            'type': 'color',
+            'id': 'numberColorHover',
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}):hover .icon .icon-number`,
             'properties': [
                 {
-                    'name': 'width',
+                    'name': 'color',
                     'valueType': 'direct'
                 }
             ]
+        });
+
+        isNotEmpty(el['numberTypography']) && arrOpt.push({
+            'type': 'typography',
+            'id': 'numberTypography',
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon .icon-number`
         });
 
         isNotEmpty(el['iconColor']) && arrOpt.push({

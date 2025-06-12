@@ -13,18 +13,61 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"textType": {
+			"type": "string",
+			"default": "default"
+		},
 		"titleTag": {
 			"type": "string",
 			"default": "h2"
 		},
 		"style": {
 			"type": "string",
-			"default": "none",
+			"default": "zoom",
+			"copyStyle": true
+		},
+		"highlightedStyle": {
+			"type": "string",
+			"default": "circle",
 			"copyStyle": true
 		},
 		"text": {
 			"type": "string",
 			"default": "Placeholder Text"
+		},
+		"rotationTexts": {
+			"type":"array",
+			"default":[
+				{
+					"rotationText": "Three"
+				},
+				{
+					"rotationText":"Two"
+				},
+				{
+					"rotationText":"One"
+				}
+			]
+		},
+		"beforeTextAnimated": {
+			"type":"string",
+			"default":"Before "
+		},
+		"afterTextAnimated": {
+			"type":"string",
+			"default":" After"
+		},
+		"displayDuration": {
+			"type":"string",
+			"default":"1000"
+		},
+		"animationDuration": {
+			"type":"string",
+			"default":"600"
+		},
+		"transitionDuration": {
+			"type":"string",
+			"default":"500"
 		},
 		"splitByWord": {
 			"type": "boolean"
@@ -38,18 +81,98 @@
 			"default": true,
 			"copyStyle": true
 		},
-		"color": {
+		"animatedColorType": {
+			"type": "string",
+			"default": "color"
+		},
+		"textAnimatedColor": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"typography": {
+		"textAnimatedColorHover": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"textShadow": {
+		"textAnimatedGradient": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"textAnimatedGradientHover": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"textAnimatedTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textAnimatedShadow": {
 			"type": "object",
 			"default": {},
 			"copyStyle": true
+		},
+		"textAnimatedStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"normalColorType": {
+			"type": "string",
+			"default": "color"
+		},
+		"textNormalColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textNormalColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textNormalGradient": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"textNormalGradientHover": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"textNormalTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textNormalShadow": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"textNormalStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"highlightColorType": {
+			"type": "string",
+			"default": "color"
+		},
+		"highlightColor": {
+			"type": "object",
+			"default": {}
+		},
+		"highlightGradient": {
+			"type":"array"
+		},
+		"highlightWidth": {
+			"type":"string",
+			"default":"10"
+		},
+		"highlightRoundedEdges": {
+			"type": "boolean",
+			"default": true
+		},
+		"highlightInFront": {
+			"type": "boolean",
+			"default": true
 		},
 		"height": {
 			"type": "object",
@@ -168,10 +291,6 @@
 			"copyStyle": true
 		},
 		"transform": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"textStroke": {
 			"type": "object",
 			"copyStyle": true
 		},

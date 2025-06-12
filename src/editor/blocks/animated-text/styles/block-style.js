@@ -1,9 +1,16 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
+import textAnimatedStyle from './panel-style/style-text-animated';
+import textNormalStyle from './panel-style/style-text-normal';
+import highlightStyle from './panel-style/style-highlight';
 import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
+    data = textAnimatedStyle({elementId, attributes, data});
+    data = textNormalStyle({elementId, attributes, data});
+    data = highlightStyle({elementId, attributes, data});
+
     data = backgroundStyle({ attributes, data, elementId });
 
     /**Panel Setting */
@@ -49,43 +56,6 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.${elementId}`,
         'responsive': true
-    });
-
-    /**Panel Style */
-    isNotEmpty(attributes['color']) && data.push({
-        'type': 'color',
-        'id': 'color',
-        'selector': `.editor-styles-wrapper .${elementId} *`,
-        'properties': [
-            {
-                'name': 'color',
-                'valueType': 'direct'
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['typography']) && data.push({
-        'type': 'typography',
-        'id': 'typography',
-        'selector': `.editor-styles-wrapper .${elementId} *`,
-    });
-
-    isNotEmpty(attributes['textShadow']) && data.push({
-        'type': 'textShadow',
-        'id': 'textShadow',
-        'properties': [
-            {
-                'name': 'text-shadow',
-                'valueType': 'direct'
-            }
-        ],
-        'selector': `.editor-styles-wrapper .${elementId} *`,
-    });
-
-    isNotEmpty(attributes['textStroke']) && data.push({
-        'type': 'textStroke',
-        'id': 'textStroke',
-        'selector': `.editor-styles-wrapper .${elementId} *`,
     });
 
     /**Panel List */

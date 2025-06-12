@@ -906,6 +906,19 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['metaColorIcon'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content .guten-post-meta i",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['metaColorIcon'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['metaAuthorTypography'] ) ) {
 			$this->inject_typography(
 				array(
