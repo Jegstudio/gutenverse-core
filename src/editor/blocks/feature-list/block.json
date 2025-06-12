@@ -64,6 +64,18 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"numberTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"numberColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"numberColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"iconWrapperSize": {
 			"type": "object",
 			"copyStyle": true
