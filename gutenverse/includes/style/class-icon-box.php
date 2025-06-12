@@ -833,5 +833,18 @@ class Icon_Box extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['watermarkShow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'property'       => function () {
+						return 'overflow: hidden;';
+					},
+					'value'          => $this->attrs['watermarkShow'],
+					'device_control' => false,
+				)
+			);
+		}
 	}
 }

@@ -839,6 +839,21 @@ const getBlockStyle = (elementId, attributes) => {
         }
     );
 
+    (isNotEmpty(attributes['watermarkShow']) && attributes['watermarkShow']) && data.push(
+        {
+            'type': 'plain',
+            'id': 'watermarkShow',
+            'properties': [
+                {
+                    'name': 'overflow',
+                    'valueType': 'pattern',
+                    'pattern': 'hidden',
+                }
+            ],
+            'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper`,
+        }
+    );
+
     /**Panel List */
 
     isNotEmpty(attributes['border']) && data.push({
