@@ -93,6 +93,19 @@ export const logosStylePanel = (props) => {
             ],
             onChange: ({ __imageHover }) => setSwitcher({ ...switcher, imageHover: __imageHover })
         },
+        // Normal
+        {
+            id: 'filter',
+            show: !switcher.imageHover || switcher.imageHover === 'normal',
+            label: __('Filter', 'gutenverse'),
+            component: ImageFilterControl,
+        },
+        {
+            id: 'filterHover',
+            show: switcher.imageHover === 'hover',
+            label: __('Filter', 'gutenverse'),
+            component: ImageFilterControl,
+        },
         {
             id: 'imagePadding',
             show: !switcher.imageHover || switcher.imageHover === 'normal',
@@ -146,12 +159,6 @@ export const logosStylePanel = (props) => {
             max: 10,
             step: 0.1,
             allowDeviceControl: true,
-        },
-        {
-            id: 'filterHover',
-            show: switcher.imageHover === 'hover',
-            label: __('Filter', 'gutenverse'),
-            component: ImageFilterControl,
         },
         {
             id: 'imageHoverPadding',
