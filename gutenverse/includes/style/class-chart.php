@@ -113,7 +113,7 @@ class Chart extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} canvas",
 					'property'       => function ( $value ) {
-						return "width: {$value}px !important; width: {$value}px !important;";
+						return "height: {$value}px !important; width: {$value}px !important;";
 					},
 					'value'          => $this->attrs['chartSize'],
 					'device_control' => true,
@@ -122,7 +122,7 @@ class Chart extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .chart-inside.type-doughnut",
+					'selector'       => ".{$this->element_id} .chart-inside.type-doughnut, .{$this->element_id} .chart-container",
 					'property'       => function ( $value ) {
 						return "width: {$value}px !important;";
 					},
