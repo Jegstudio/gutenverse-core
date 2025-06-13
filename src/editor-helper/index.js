@@ -17,7 +17,7 @@ import { useEffect } from '@wordpress/element';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
-export const getImageSrc = (src, placeholder = imagePlaceholder ) => src && src.image ? src.image : placeholder;
+export const getImageSrc = (src, placeholder = imagePlaceholder) => src && src.image ? src.image : placeholder;
 
 export const signal = {
     styleDrawerSignal: new MiniSignal,
@@ -172,9 +172,19 @@ export function useGlobalStylesConfig() {
                 _globalStylesId
             )
             : undefined;
+        const { globalColors } = window['GutenverseConfig'];
+        const defaultSettings = {
+            color: {
+                palette: {
+                    theme: globalColors?.theme || [],
+                    default: globalColors?.default || [],
+                    custom: globalColors?.custom || []
+                }
+            },
+        }
         return {
             globalStylesId: _globalStylesId,
-            settings: record?.settings,
+            settings: !isEmpty(record?.settings) ?  record?.settings : defaultSettings,
             styles: record?.styles,
         };
     }, []);
@@ -317,6 +327,11 @@ export const getDeviceType = () => {
     return deviceType.charAt(0).toUpperCase() + deviceType.slice(1);
 };
 
+export const getEditorWidth = () => {
+    const width = document.querySelector('.edit-post-visual-editor iframe')?.clientWidth || document.querySelector('.editor-styles-wrapper')?.clientWidth;
+    return width;
+};
+
 export const setControlStyle = ({
     id,
     value,
@@ -440,4 +455,4 @@ export const useUrlChange = (callback) => {
             window.removeEventListener('urlchange', handleChange);
         };
     }, [callback]);
-}
+};

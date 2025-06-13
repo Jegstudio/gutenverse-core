@@ -5,7 +5,7 @@ import { handleFilterImage, customHandleBackground } from '../styling-helper';
 import { applyFilters } from '@wordpress/hooks';
 
 const cssGenerator = (attribute, style, css) => {
-    const { selector, responsive = false, otherAttribute, responsiveSelector = false, properties = [{}] } = style;
+    const { selector, responsive = false, otherAttribute, responsiveSelector = false, properties = [{}],  skip_device = [] } = style;
     if (!responsive) {
         const value = multiProperty(attribute, style, otherAttribute);
         if (isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
@@ -21,17 +21,17 @@ const cssGenerator = (attribute, style, css) => {
             'Mobile': selector,
         };
 
-        if (isNotEmpty(attribute['Desktop']) || exceptionForConditional) {
+        if ((isNotEmpty(attribute['Desktop']) && skip_device.includes('Desktop') === false) || exceptionForConditional) {
             const value = multiProperty(attribute['Desktop'], style, otherAttribute, 'Desktop');
             if (isNotEmpty(value)) css.Desktop += ` ${selectors['Desktop']} { ${value} } `;
         }
 
-        if (isNotEmpty(attribute['Tablet']) || exceptionForConditional) {
+        if ((isNotEmpty(attribute['Tablet']) && skip_device.includes('Tablet') === false) || exceptionForConditional) {
             const value = multiProperty(attribute['Tablet'], style, otherAttribute, 'Tablet');
             if (isNotEmpty(value)) css.Tablet += ` ${selectors['Tablet']} { ${value} } `;
         }
 
-        if (isNotEmpty(attribute['Mobile']) || exceptionForConditional) {
+        if ((isNotEmpty(attribute['Mobile']) && skip_device.includes('Mobile') === false) || exceptionForConditional) {
             const value = multiProperty(attribute['Mobile'], style, otherAttribute, 'Mobile');
             if (isNotEmpty(value)) css.Mobile += ` ${selectors['Mobile']} { ${value} } `;
         }

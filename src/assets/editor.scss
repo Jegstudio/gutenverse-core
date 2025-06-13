@@ -111,6 +111,13 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 .interface-interface-skeleton__content .edit-post-visual-editor {
 	overflow: unset;
 }
+.block-editor-block-contextual-toolbar{
+	z-index: 999;
+}
+
+.components-popover.block-editor-block-popover{
+	z-index: 999;
+}
 
 #gutenverse-warn {
 	.gutenverse-editor-warn {

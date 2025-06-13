@@ -32,7 +32,7 @@ const ChoiceOptionSingle = (props) => {
         'choices__item--selectable',
         {
             'is-highlighted': option.value === hovered,
-            'is-selected' : selected && option === selected
+            'is-selected': selected && option === selected
         }
     );
 
@@ -129,7 +129,7 @@ const ChoiceSingleOptions = (props) => {
         setOpen(false);
     };
 
-    return <div className={`choices__list choices__list--dropdown ${open? 'is-active' : ''}`}>
+    return <div className={`choices__list choices__list--dropdown ${open ? 'is-active' : ''}`}>
         <input type="text" className="choices__input" value={searchKeyword} onChange={updateSearch} />
         <div className="choices__list">
             {!excludePlaceholder && <ChoicePlaceholderOption
@@ -173,7 +173,7 @@ const ChoiceMultiOptions = props => {
         ]);
     };
 
-    return <div className={`choices__list choices__list--dropdown ${open? 'is-active' : ''}`}>
+    return <div className={`choices__list choices__list--dropdown ${open ? 'is-active' : ''}`}>
         <div className="choices__list">
             {
                 choices.map(option => <ChoiceOptionMulti
@@ -215,7 +215,7 @@ const ChoiceGroupMultiOptions = props => {
     };
     const handleGroupClick = (group) => {
         let notInSelect = group.options;
-        for(let i = 0; i < selected.length; i++ ){
+        for (let i = 0; i < selected.length; i++) {
             notInSelect = notInSelect.filter(item => item.value !== selected[i].value);
         }
         setSelected([
@@ -224,7 +224,7 @@ const ChoiceGroupMultiOptions = props => {
         ]);
     };
 
-    return <div className={`choices__list choices__list--dropdown ${open? 'is-active' : ''}`}>
+    return <div className={`choices__list choices__list--dropdown ${open ? 'is-active' : ''}`}>
         <div className="choices__list">
             {
                 choices.map(group =>
@@ -268,16 +268,16 @@ const ChoiceInnerSingle = ({ selected, clearSelected, placeholder }) => {
 
 const ChoiceMultiInner = props => {
     const { selected, setSelected, setOpen, setSearch, searchKeyword, placeholder } = props;
-    const [ placeholderContent, setPlaceholderContent ] = useState(placeholder);
+    const [placeholderContent, setPlaceholderContent] = useState(placeholder);
     const innerRef = useRef();
     const inputRef = useRef();
     useEffect(() => {
-        if(selected.length > 0){
+        if (selected.length > 0) {
             setPlaceholderContent('');
-        }else{
+        } else {
             setPlaceholderContent(placeholder);
         }
-    },[selected]);
+    }, [selected]);
     const choiceInnerClicked = () => {
         setOpen(true);
         inputRef.current.focus();
@@ -309,7 +309,7 @@ const ChoiceMultiInner = props => {
 };
 
 const ChoiceSingleInner = (props) => {
-    const { selected, setSelected, placeholder, setOpen } = props;
+    const { selected, setSelected, placeholder, setOpen, useCustomDropdown, dropDownIconOpen, dropDownIconClose, setDropdownIcon, dropdownIcon } = props;
     const innerRef = useRef();
     const choiceClass = classnames(
         'choices__item',
@@ -323,7 +323,12 @@ const ChoiceSingleInner = (props) => {
         setSelected({ value: '' });
     };
 
-    const toggleOpen = () => setOpen(flag => !flag);
+    const toggleOpen = () => {
+        setOpen(flag => !flag);
+        if (useCustomDropdown) {
+            setDropdownIcon(prev => prev === dropDownIconOpen ? dropDownIconClose : dropDownIconOpen);
+        }
+    };
 
     return <div className="choices__inner" ref={innerRef} onClick={() => toggleOpen()}>
         <div className="choices__list choices__list--single" >
@@ -335,14 +340,24 @@ const ChoiceSingleInner = (props) => {
                 />
             </div>
         </div>
+        {useCustomDropdown && <i className={dropdownIcon} />}
     </div>;
 };
 
 const ChoiceSelect = (props) => {
-    const { placeholder, multi, selected, setSelected, isGroup = false } = props;
+    const { placeholder, multi, selected, setSelected, isGroup = false, useCustomDropdown = false, dropDownIconClose = '', dropDownIconOpen = '' } = props;
     const [searchKeyword, setSearch] = useState('');
     const [open, setOpen] = useState(false);
+    const [dropdownIcon, setDropdownIcon] = useState(null);
     const selectRef = useRef();
+
+    useEffect(() => {
+        if (useCustomDropdown) {
+            setOpen(false);
+            setDropdownIcon(dropDownIconOpen);
+        }
+    }, [useCustomDropdown, dropDownIconOpen, dropDownIconClose]);
+
     const theProps = {
         ...props,
         open,
@@ -352,16 +367,24 @@ const ChoiceSelect = (props) => {
         searchKeyword,
         setSearch,
         setOpen,
+        dropdownIcon,
+        setDropdownIcon
     };
 
     const choiceClasses = classnames(
         'choices',
         {
             'is-open': open
+        },
+        {
+            'custom-dropdown': useCustomDropdown,
         }
     );
 
-    useOnClickOutside(selectRef, () => setOpen(false));
+    useOnClickOutside(selectRef, () => {
+        setOpen(false);
+        setDropdownIcon(dropDownIconOpen);
+    });
 
     return <div
         className={choiceClasses}

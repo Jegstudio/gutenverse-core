@@ -104,6 +104,11 @@
       "default": {},
       "copyStyle": true
     },
+		"backgroundTransition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
     "backgroundOverlay": {
       "type": "object",
       "copyStyle": true

@@ -151,6 +151,7 @@ class Global_Variable {
 	public function get_global_variable( $type = null ) {
 		// Get value from old option.
 		$global_variable = get_option( $this->variable_option );
+		$global_pallete  = wp_get_global_settings( array( 'color', 'palette' ) );
 
 		// Get value from new options.
 		$global_fonts  = $this->get_global_fonts();
@@ -196,7 +197,9 @@ class Global_Variable {
 			}
 			return $custom_font;
 		}
-
+		if ( empty( $global_colors ) ) {
+			$global_colors = $global_pallete;
+		}
 		return array(
 			'colors'    => $global_colors,
 			'fonts'     => $global_fonts,

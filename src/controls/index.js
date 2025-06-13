@@ -110,3 +110,6 @@ export { PanelSequence, TabSetting, TabStyle, TabAdvance, TabPro } from './panel
 export { conditionPanel } from './panels/panel-condition';
 export { dynamicContentPanel } from './panels/panel-dynamic-content';
 export { textStrokePanel } from './panels/panel-text-stroke';
+
+// Export General Style for block style
+export { backgroundStyle } from './panel-styles/style-backround';

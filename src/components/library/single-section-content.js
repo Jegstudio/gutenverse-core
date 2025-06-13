@@ -1,8 +1,8 @@
 import { __, } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
-import { useEffect, useState, useMemo } from '@wordpress/element';
+import { useEffect, useState, useMemo, useRef } from '@wordpress/element';
 import classnames from 'classnames';
-import { RecursionProvider, useBlockProps, __experimentalUseBlockPreview as useBlockPreview } from '@wordpress/block-editor';
+import { RecursionProvider, BlockPreview } from '@wordpress/block-editor';
 import { IconEmpty2SVG, IconArrowLeftSVG } from 'gutenverse-core/icons';
 import { LeftSkeleton, RightSkeleton, FullSkeleton } from 'gutenverse-core/components';
 import { importSingleSectionContent } from 'gutenverse-core/requests';
@@ -24,17 +24,43 @@ const SingleSectionContent = (props) => {
         setLibraryError
     } = props;
 
-    const [content, setContent] = useState(null);
+    const [contentNormal, setContentNormal] = useState(null);
+    const [contentGlobal, setContentGlobal] = useState(null);
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = singleData;
     const [selectedOption, setSelectedOption] = useState('default');
     const [dataToImport, setDataToImport] = useState(singleData);
     const [unavailableGlobalFonts, setUnavailableGlobalFonts] = useState([]);
     const [unavailableGlobalColors, setUnavailableGlobalColors] = useState([]);
     const {supportGlobalImport} =  window['GutenverseConfig'] || window['GutenverseData'] || {};
-    // const supportGlobalImport = false; //untuk testing
+    // const supportGlobalImport = true; //untuk testing
+
+    const normalRef = useRef(null);
+    const globalRef = useRef(null);
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
+        setDataToImport(event.target.value);
+
+        //directly change attributes of elements so doesn't trigger re-render. no heavy loader
+        if ('global' === event.target.value) {
+            // Hide current, show remote
+            normalRef.current.style.opacity = '0';
+            normalRef.current.style.zIndex = '1';
+            normalRef.current.style.pointerEvents = 'none';
+
+            globalRef.current.style.opacity = '1';
+            globalRef.current.style.zIndex = '2';
+            globalRef.current.style.pointerEvents = 'auto';
+        } else {
+            // Show current, hide remote
+            normalRef.current.style.opacity = '1';
+            normalRef.current.style.zIndex = '2';
+            normalRef.current.style.pointerEvents = 'auto';
+
+            globalRef.current.style.opacity = '0';
+            globalRef.current.style.zIndex = '1';
+            globalRef.current.style.pointerEvents = 'none';
+        }
     };
 
     const singleClass = classnames('gutenverse-library-single-section', {
@@ -57,30 +83,29 @@ const SingleSectionContent = (props) => {
 
         importSingleSectionContent(params, customAPI).then(result => {
             const data = JSON.parse(result);
+            if (data) {
 
-            if ('global' === selectedOption) {
-                const updatedContentImage = data.contents_global.replace(/\{\{\{image:(\d+):url\}\}\}/g, (_, index) => {
+                const updatedNormalContentImage = data.contents.replace(/\{\{\{image:(\d+):url\}\}\}/g, (_, index) => {
                     return data.images[index];
                 });
-                const updatedContentGlobal = handleGlobalStyleContent(updatedContentImage, data.global, setUnavailableGlobalFonts, setUnavailableGlobalColors);
-                setDataToImport('global');
-                setContent(updatedContentGlobal);
-            } else {
-                const updatedContentImage = data.contents.replace(/\{\{\{image:(\d+):url\}\}\}/g, (_, index) => {
-                    return data.images[index];
-                });
-                setDataToImport('defult');
-                setContent(updatedContentImage);
+
+                if (data.contents_global) {
+                    const updatedGlobalContentImage = data.contents_global?.replace(/\{\{\{image:(\d+):url\}\}\}/g, (_, index) => {
+                        return data.images[index];
+                    });
+                    const updatedContentGlobal = handleGlobalStyleContent(updatedGlobalContentImage, data.global, setUnavailableGlobalFonts, setUnavailableGlobalColors);
+                    setContentGlobal(updatedContentGlobal);
+                } else {
+                    setContentGlobal(updatedNormalContentImage);
+                }
+
+                setContentNormal(updatedNormalContentImage);
             }
         });
 
-    }, [singleData, content, selectedOption]);
+    }, [singleData, contentGlobal, contentNormal, selectedOption]);
 
     const layoutClassNames = 'library-content-container';
-    const parentLayout = {
-        contentSize: '1140px',
-        wideSize: '1240px'
-    };
 
     return <>
         <div className={singleClass}>
@@ -147,12 +172,19 @@ const SingleSectionContent = (props) => {
                             <RecursionProvider uniqueId={singleData.id}>
                                 <div className="editor-styles-wrapper wrapper-imitator">
                                     <div className="is-root-container wrapper-imitator">
-                                        {singleData && content !== null ? (
-                                            <Content
-                                                content={content}
-                                                parentLayout={parentLayout}
-                                                layoutClassNames={layoutClassNames}
-                                            />
+                                        {singleData ? (
+                                            <>
+                                                <div ref={normalRef} className={`${layoutClassNames} normal-content`}>
+                                                    <Content
+                                                        content={contentNormal}
+                                                    />
+                                                </div>
+                                                <div ref={globalRef} className={`${layoutClassNames} global-content`}>
+                                                    <Content
+                                                        content={contentGlobal}
+                                                    />
+                                                </div>
+                                            </>
                                         ) : (
                                             <FullSkeleton />
                                         )}
@@ -216,8 +248,8 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
         (_, prefix, id, suffix) => {
             let notExist = false;
             let color = {};
-            const populateColor = globalVariables.colors.custom.concat(globalVariables.colors.theme);
-            const matchedColor = populateColor.find(f => f.slug.toLowerCase() === id.toLowerCase());
+            const populateColor = globalVariables.colors?.custom.concat(globalVariables.colors.theme);
+            const matchedColor = populateColor?.find(f => f?.slug.toLowerCase() === id.toLowerCase());
 
             if (!matchedColor) {
                 color = global.color.find(c => c.slug.toLowerCase() === id.toLowerCase());
@@ -243,12 +275,12 @@ const extractTypographyBlocks = (content) => {
     const matches = [];
     let index = 0;
 
-    while ((index = content.indexOf('"typography":{', index)) !== -1) {
+    while ((index = content?.indexOf('"typography":{', index)) !== -1) {
         let start = index + '"typography":'.length;
         let braceCount = 0;
         let end = start;
 
-        if (content[start] === '{') {
+        if (!Number.isNaN(content[start]) && content[start] === '{') {
             do {
                 const char = content[end];
                 if (char === '{') braceCount++;
@@ -267,39 +299,20 @@ const extractTypographyBlocks = (content) => {
 };
 
 const Content = (props) => {
-    const { content, layoutClassNames } = props;
+    const { content } = props;
 
     return <ReadOnlyContent
-        parentLayout={props.parentLayout}
-        layoutClassNames={layoutClassNames}
         content={content}
     />;
 };
 
 const ReadOnlyContent = ({
-    layoutClassNames,
-    parentLayout,
     content
 }) => {
-    const blockProps = useBlockProps({ className: layoutClassNames });
     const blocks = useMemo(() => {
         return content ? parse(content) : [];
     }, [content]);
-    const blockPreviewProps = useBlockPreview({
-        blocks,
-        props: blockProps,
-        layout: parentLayout,
-    });
-
-    /*
-    * Rendering the block preview using the raw content blocks allows for
-    * block support styles to be generated and applied by the editor.
-    *
-    * The preview using the raw blocks can only be presented to users with
-    * edit permissions for the post to prevent potential exposure of private
-    * block content.
-    */
-    return <div {...blockPreviewProps}></div>;
+    return <BlockPreview blocks={blocks} />;
 };
 
 export default withSelect(select => {

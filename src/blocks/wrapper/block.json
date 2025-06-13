@@ -90,6 +90,11 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"backgroundTransition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
 		"backgroundHover": {
 			"type": "object",
 			"default": {},
