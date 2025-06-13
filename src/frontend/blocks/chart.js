@@ -1,6 +1,7 @@
 import anime from 'animejs';
 import { Default, u } from 'gutenverse-core-frontend';
 import { Chart} from 'chart.js/auto';
+import { isEmpty } from 'lodash';
 
 class GutenverseChart extends Default {
     /* public */
@@ -93,6 +94,10 @@ class GutenverseChart extends Default {
         const {breakPoints} =  window['GutenverseConfig'] || window['GutenverseData'] || {};
         const screenWidth = window.screen.width;
         let currentDevice = 'Desktop';
+
+        if (isEmpty(breakPoints)) {
+            return currentDevice;
+        }
 
         if(screenWidth < breakPoints['Tablet'] && screenWidth > breakPoints['Mobile']){
             currentDevice = 'Tablet';
