@@ -163,7 +163,7 @@ class Portfolio_Gallery extends Style_Abstract {
 		if ( isset( $this->attrs['contentPadding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .portfolio-gallery-container .row-item .row-item-info",
+					'selector'       => ".guten-portfolio-gallery.{$this->element_id} .portfolio-gallery-container .row-item .row-item-info",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -439,7 +439,7 @@ class Portfolio_Gallery extends Style_Abstract {
 			);
 		}
 
-        if ( isset( $this->attrs['linkColorHover'] ) ) {
+		if ( isset( $this->attrs['linkColorHover'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .portfolio-gallery-container .row-item .row-link-wrapper:hover a",

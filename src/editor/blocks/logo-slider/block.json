@@ -95,6 +95,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"filter": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"filterHover": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"spacing": {
 			"type": "object",
 			"default": {},
@@ -262,6 +270,11 @@
 			"type": "object",
 			"default": {},
 			"copyStyle": true
+		},
+		"backgroundTransition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
 		},
 		"border": {
 			"type": "object",

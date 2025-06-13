@@ -502,6 +502,42 @@ class Feature_List extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['numberColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .icon .icon-number",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['numberColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['numberColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon .icon-number",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['numberColorHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['numberTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector' => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .icon .icon-number",
+					'value'    => $this->attrs['numberTypography'],
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['featureList'] ) ) {
 			$lists = $this->attrs['featureList'];
 
@@ -585,6 +621,41 @@ class Feature_List extends Style_Abstract {
 							},
 							'value'          => $list['iconBorderHover'],
 							'device_control' => true,
+						)
+					);
+				}
+
+				if ( isset( $list['numberColor'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child({$index}) .icon .icon-number",
+							'property'       => function ( $value ) {
+								return $this->handle_color( $value, 'color' );
+							},
+							'value'          => $list['numberColor'],
+							'device_control' => false,
+						)
+					);
+				}
+
+				if ( isset( $list['numberColorHover'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child({$index}):hover .icon .icon-number",
+							'property'       => function ( $value ) {
+								return $this->handle_color( $value, 'color' );
+							},
+							'value'          => $list['numberColorHover'],
+							'device_control' => false,
+						)
+					);
+				}
+
+				if ( isset( $list['numberTypography'] ) ) {
+					$this->inject_typography(
+						array(
+							'selector' => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child({$index}) .icon .icon-number",
+							'value'    => $list['numberTypography'],
 						)
 					);
 				}

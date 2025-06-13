@@ -150,9 +150,9 @@ class Icon_Box extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box.icon-box-header",
 					'property'       => function ( $value ) {
 						if ( 'left' === $value ) {
-							return 'margin-right: 15px;';
+							return 'margin-right: 15px; margin-left: unset !important;';
 						} elseif ( 'right' === $value ) {
-							return 'margin-left: 15px;';
+							return 'margin-left: 15px; margin-right: unset !important;';
 						} elseif ( 'top' === $value ) {
 							return 'position: relative; z-index: 2; line-height: 0; margin: 0 !important;';
 						} elseif ( 'bottom' === $value ) {
@@ -814,7 +814,7 @@ class Icon_Box extends Style_Abstract {
 					'property'       => function () {
 						return 'overflow: hidden;';
 					},
-					'value'          => $this->attrs['iconBoxHoverOverlay'],
+					'value'          => $this->attrs['iconBoxOverlay'],
 					'device_control' => false,
 				)
 			);
@@ -829,6 +829,19 @@ class Icon_Box extends Style_Abstract {
 						return 'overflow: hidden;';
 					},
 					'value'          => $this->attrs['iconBoxHoverOverlay'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['watermarkShow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'property'       => function () {
+						return 'overflow: hidden;';
+					},
+					'value'          => $this->attrs['watermarkShow'],
 					'device_control' => false,
 				)
 			);
