@@ -159,6 +159,7 @@ export const panelIconStyle = (props) => {
             id: 'iconGradient',
             show: (!switcher.icon || switcher.icon === 'normal') && iconStyleMode === 'gradient',
             component: BackgroundControl,
+            type: 'Gradient Color',
             options: ['gradient'],
             liveStyle: [
                 {
@@ -179,6 +180,7 @@ export const panelIconStyle = (props) => {
             id: 'iconGradientHover',
             show: switcher.icon === 'hover' && iconStyleMode === 'gradient',
             component: BackgroundControl,
+            type: 'Hover Gradient Color',
             options: ['gradient'],
             liveStyle: [
                 {
@@ -201,6 +203,7 @@ export const panelIconStyle = (props) => {
             show: (!switcher.icon || switcher.icon === 'normal') && iconStyleMode === 'gradient',
             component: BackgroundControl,
             options: ['gradient'],
+            type: 'Gradient Background Color',
             liveStyle: [
                 {
                     'type': 'plain',
@@ -221,6 +224,7 @@ export const panelIconStyle = (props) => {
             show: switcher.icon === 'hover' && iconStyleMode === 'gradient',
             component: BackgroundControl,
             options: ['gradient'],
+            type: 'Hover Gradient Background Color',
             liveStyle: [
                 {
                     'type': 'plain',
