@@ -300,6 +300,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 == Changelog ==
 = 3.0.6 =
 ##### New & Improvemenets
+* new block: chart block
 * add px unit for line width and height for advance heading block
 * add filter on hover option for logo slider block
 * add number option for featured list icon
