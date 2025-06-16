@@ -1,0 +1,308 @@
+.guten-chart {
+    display: flex;
+    flex-direction: row;
+
+    .chart-content {
+        // width: 50%;
+        display: inherit;
+        position: relative;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        transition: all .4s ease;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        
+        .chart-inside {
+            top: 50%;
+            width: 100%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: absolute;
+            text-align: center;
+            transform: translateY(-50%);
+
+            &.type-bar {
+                margin: 0 0 15px 0;
+                position: static;
+                transform: translateY(0);
+            }
+        }
+
+        &.content-card * {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    &.Desktop-noFlip {
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+        height: unset;
+        overflow: unset;
+        height: unset;
+
+        .content-chart,
+        .content-card {
+            width: unset;
+            position: relative;
+            top: 0;
+            left: 0;
+            height: unset;
+
+            .chart-inside {
+                transform: translateY(-50%);
+            }
+        }
+        .content-chart{
+            opacity: 1;
+            visibility: visible;
+        }
+        .content-card {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            background-color: unset;
+        }
+
+        &:hover {
+            .content-chart{
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+
+                .chart-inside {
+                    transform: translateY(-50%);
+                }
+            }
+            .content-card {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
+    &.Desktop-flipCard {
+        flex-direction: column-reverse;
+        align-items: center;
+        position: relative;
+        height: min-content;
+        overflow: hidden;
+        height: 250px;
+
+        .content-chart,
+        .content-card {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }
+        .content-chart{
+            opacity: 1;
+            visibility: visible;
+        }
+        .content-card {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(100%);
+            background-color: aqua;
+        }
+
+        &:hover {
+            .content-chart{
+                transform: translateY(100%);
+                opacity: 0;
+                visibility: hidden;
+            }
+            .content-card {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .guten-chart {
+        &.Tablet-noFlip {
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+            height: unset;
+            overflow: unset;
+            height: unset;
+    
+            .content-chart,
+            .content-card {
+                width: unset;
+                position: relative;
+                top: 0;
+                left: 0;
+                height: unset;
+
+                .chart-inside {
+                    transform: translateY(-50%);
+                }
+            }
+            .content-chart{
+                opacity: 1;
+                visibility: visible;
+            }
+            .content-card {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                background-color: unset;
+            }
+    
+            &:hover {
+                .content-chart{
+                    transform: translateY(0);
+                    opacity: 1;
+                    visibility: visible;
+
+                }
+                .content-card {
+                    transform: translateY(0);
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+
+        &.Tablet-flipCard {
+            flex-direction: column-reverse;
+            align-items: center;
+            position: relative;
+            height: min-content;
+            overflow: hidden;
+            height: 250px;
+    
+            .content-chart,
+            .content-card {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+            }
+            .content-chart{
+                opacity: 1;
+                visibility: visible;
+            }
+            .content-card {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(100%);
+                background-color: aqua;
+            }
+    
+            &:hover {
+                .content-chart{
+                    transform: translateY(100%);
+                    opacity: 0;
+                    visibility: hidden;
+                }
+                .content-card {
+                    transform: translateY(0);
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .guten-chart {
+        &.Mobile-noFlip {
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+            height: unset;
+            overflow: unset;
+            height: unset;
+    
+            .content-chart,
+            .content-card {
+                width: unset;
+                position: relative;
+                top: 0;
+                left: 0;
+                height: unset;
+
+                .chart-inside {
+                    transform: translateY(-50%);
+                }
+            }
+            .content-chart{
+                opacity: 1;
+                visibility: visible;
+            }
+            .content-card {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                background-color: unset;
+            }
+    
+            &:hover {
+                .content-chart{
+                    transform: translateY(0);
+                    opacity: 1;
+                    visibility: visible;
+                }
+                .content-card {
+                    transform: translateY(0);
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+
+        &.Mobile-flipCard {
+            flex-direction: column-reverse;
+            align-items: center;
+            position: relative;
+            height: min-content;
+            overflow: hidden;
+            height: 250px;
+    
+            .content-chart,
+            .content-card {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+            }
+            .content-chart{
+                opacity: 1;
+                visibility: visible;
+            }
+            .content-card {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(100%);
+                background-color: aqua;
+            }
+    
+            &:hover {
+                .content-chart{
+                    transform: translateY(100%);
+                    opacity: 0;
+                    visibility: hidden;
+                }
+                .content-card {
+                    transform: translateY(0);
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+}

@@ -16,12 +16,12 @@ class GutenversePostComment extends Default {
         if(!enableSuffix) this._removeSuffix(element);
 
         const mainSuffix = u(element).find('.says:not(.children .says)');
-        mainSuffix.each(function(el, index) {
+        mainSuffix.each(function(el) {
             el.textContent = suffixMain;
         });
 
         const replySuffix = u(element).find('.children .says');
-        replySuffix.each(function(el, index) {
+        replySuffix.each(function(el) {
             el.textContent = suffixReply;
         });
     }

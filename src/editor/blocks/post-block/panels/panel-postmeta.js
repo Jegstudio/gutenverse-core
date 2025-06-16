@@ -4,6 +4,7 @@ import { ColorControl, DimensionControl, RangeControl, TypographyControl, Checkb
 export const postmetaPanel = (props) => {
     const {
         elementId,
+        postMetaInline
     } = props;
 
     return [
@@ -193,6 +194,9 @@ export const postmetaPanel = (props) => {
             label: __('Set Inline Post Meta', 'gutenverse'),
             component: CheckboxControl,
             allowDeviceControl: true,
+            deviceValues: postMetaInline,
+            usePreviousDeviceValue: true,
+            usePreviousDevice: true,
         },
     ];
 };

@@ -58,6 +58,7 @@
 	"dependencies": {
 		"@svgr/webpack": "^7.0.0",
 		"@wordpress/private-apis": "^1.20.0",
+		"chart.js": "^4.4.8",
 		"animejs": "^3.2.2",
 		"classnames": "^2.5.1",
 		"flatpickr": "^4.6.13",
