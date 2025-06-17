@@ -1,5 +1,5 @@
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { getColor } from 'gutenverse-core/styling';
+import { getColor, getColorValueFromVariable } from 'gutenverse-core/styling';
 
 const theColor = (color) => {
     const {type} = color;
@@ -75,7 +75,12 @@ export function getChartData(attributes, multiValue, canvas) {
 
     const topValue = 'number' === chartContent ? parseFloat(totalValue) : 100;
     const bottomValue = 'number' === chartContent ? parseFloat(minValue) : 0;
-    const cutoutFill = getColor({...cutoutBackground, a: 1});
+    let cutoutFill = '';
+    if (cutoutBackground.type === 'variable') {
+        cutoutFill = getColorValueFromVariable(cutoutBackground);
+    } else {
+        cutoutFill = getColor({...cutoutBackground, a: 1});
+    }
 
     switch(chartType) {
         case 'doughnut':
