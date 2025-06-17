@@ -1,6 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, IconControl, IconRadioControl, SelectControl, AlertControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconControl, IconRadioControl, SelectControl, AlertControl, SizeControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { handleAlign } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
@@ -10,6 +10,7 @@ export const panelGeneral = (props) => {
         elementId,
         watermarkShow,
         badgeShow,
+        heightControl
     } = props;
     const deviceType = getDeviceType();
 
@@ -109,6 +110,66 @@ export const panelGeneral = (props) => {
                     icon: <AlignRight />,
                 },
             ],
+        },
+        {
+            id: 'heightControl',
+            label: __('Icon Box Height', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: __('Default', 'gutenverse'),
+                    value: 'default'
+                },
+                {
+                    label: __('Minimum Height', 'gutenverse'),
+                    value: 'min'
+                },
+                {
+                    label: __('Fit Screen', 'gutenverse'),
+                    value: 'fit'
+                },
+            ],
+        },
+        {
+            id: 'height',
+            label: __('Minimum Height', 'gutenverse'),
+            show: heightControl === 'min',
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 58,
+                    max: 1440,
+                    step: 1
+                },
+                vh: {
+                    text: 'vh',
+                    min: 5,
+                    max: 100,
+                    step: 1
+                },
+                vw: {
+                    text: 'vw',
+                    min: 5,
+                    max: 100,
+                    step: 1
+                },
+            },
+            liveStyle: [
+                {
+                    'type': 'unitPoint',
+                    'id': 'height',
+                    'responsive': true,
+                    'selector': `.guten-icon-box.${elementId} .guten-icon-box-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'min-height',
+                            'valueType': 'direct'
+                        }
+                    ],
+                }
+            ]
         },
         {
             id: 'titleTag',
