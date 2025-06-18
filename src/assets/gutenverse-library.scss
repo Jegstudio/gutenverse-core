@@ -3,6 +3,7 @@ $primary2: #006caa;
 $border: #eaeaea;
 
 @import "./pro.scss";
+@import "./gutenverse-ai.scss";
 
 .gutenverse-library-wrapper {
     opacity: 0;
@@ -1897,7 +1898,8 @@ $border: #eaeaea;
     }
 }
 
-.gutenverse-lock-button-wrapper  {
+.gutenverse-lock-button-wrapper,
+.gutenverse-ai-button-wrapper  {
     padding: 0 !important;
     ::before {
         outline: none !important;
@@ -1929,6 +1931,15 @@ $border: #eaeaea;
     &.unlocked {
         border: 1px solid #6CE9A6;
     }
+}
+
+.gutenverse-ai-button {
+    cursor: pointer;
+    display: flex;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #F6FEF9;
+    border: 1px solid #6CE9A6;
 }
 
 .gutenverse-import,

@@ -9,6 +9,7 @@ import { getEditSiteHeader, signal } from 'gutenverse-core/editor-helper';
 import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
 import EditorModePlugin from '../editor-mode/editor-mode';
+import AIButton from '../ai-button/ai-button';
 
 const initLibraryState = {
     active: 'layout',
@@ -83,9 +84,12 @@ const Library = (props) => {
 
     const lockModeButton = <EditorModePlugin />;
 
+    const ai_button = <AIButton />;
+
     const navButtonWrapper = <>
         {libraryButton}
         {lockModeButton}
+        {ai_button}
     </>;
 
     useEffect(() => {

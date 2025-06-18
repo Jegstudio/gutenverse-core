@@ -1,4 +1,4 @@
-import { useEffect, useState, createPortal } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
 import { ToolbarButton } from '@wordpress/components';
@@ -27,7 +27,7 @@ const EditorModePlugin = () => {
 
     const editorModeButton = (
         <ToolbarButton
-            className='gutenverse-lock-button-wrapper'
+            className="gutenverse-lock-button-wrapper"
             onClick={changeMode}
             label={renderingMode === 'template-locked' ? __('You are on Show Template mode. Click to go into Content Editing.', '--gctd--') : __('You are currently in Content Editing mode. Click to go to Show Template mode.', '--gctd--')}>
             <div className={`gutenverse-lock-button ${renderingMode === 'template-locked' ? 'locked' : 'unlocked'}`} >
@@ -41,8 +41,8 @@ const EditorModePlugin = () => {
     );
 
     return <>
-        {compatible  && ['post', 'page'].includes(currentPostType) && editorModeButton}
+        {compatible && ['post', 'page'].includes(currentPostType) && editorModeButton}
     </>;
-}
+};
 
 export default EditorModePlugin;

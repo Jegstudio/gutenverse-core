@@ -1,0 +1,151 @@
+/* --- Gutenverse AI Button & Modal Styling --- */
+
+.gutenverse-ai-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+
+    p {
+        margin: 0;
+        font-size: 0.85em;
+        font-weight: 600;
+        color: currentColor;
+        line-height: 1;
+    }
+
+    &:hover {
+        background-color: currentColor;
+
+        p {
+            color: #fff;
+        }
+    }
+}
+
+.gutenverse-ai-modal {
+    .components-modal__content {
+        width: 550px;
+        max-width: 95%;
+        box-sizing: border-box;
+        padding: 2.5em;
+    }
+
+    .components-modal__header {
+        border-bottom: 1px solid #eee;
+        padding: 1.5em 2.5em;
+        margin-bottom: 1.5em;
+
+        button.components-button {
+            top: 1.5em;
+            right: 1.5em;
+        }
+
+        h1.components-modal__header__title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #333;
+        }
+    }
+}
+
+.gutenverse-ai-loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+    padding: 3em;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.gutenverse-ai-error-message {
+    color: #d12929;
+    background-color: #fef2f2;
+    border: 1px solid #d12929;
+    padding: 1em 1.5em;
+    margin-bottom: 2em;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.gutenverse-ai-step-one {
+    text-align: center;
+    padding: 1em 0;
+
+    .gutenverse-ai-step-one-question {
+        font-size: 1.3em;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 2em;
+        color: #333;
+    }
+}
+
+.gutenverse-ai-button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+    margin-top: 2em;
+    margin-bottom: 1em;
+
+    &--right {
+        justify-content: flex-end;
+        padding-top: 1em;
+        border-top: 1px solid #eee;
+        margin-top: 2em;
+    }
+
+    .components-button.is-primary {
+        min-width: 120px;
+        padding: 0.8em 1.5em;
+        font-size: 1em;
+        height: auto;
+    }
+
+    .components-button.is-secondary {
+        min-width: 100px;
+        padding: 0.8em 1.5em;
+        font-size: 1em;
+        height: auto;
+    }
+}
+
+.gutenverse-ai-step-two {
+    padding: 1em 0;
+
+    .gutenverse-ai-text-control-label {
+        font-size: 1.2em;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 0.8em;
+        display: block;
+    }
+
+    .components-base-control__field {
+        margin-bottom: 1em;
+    }
+
+    .components-form-token-field,
+    .components-text-control__input,
+    .components-textarea-control__input {
+        border-radius: 4px;
+        padding: 0.8em 1em;
+        font-size: 1em;
+        line-height: 1.5;
+        border: 1px solid #ddd;
+        box-shadow: none;
+        transition: all 0.2s ease-in-out;
+
+        &:focus {
+            border-color: #007cba;
+            box-shadow: 0 0 0 1px #007cba;
+            outline: none;
+        }
+    }
+}
