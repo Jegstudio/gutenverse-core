@@ -8,6 +8,7 @@ import TemplateSetting from './src/settings/template-setting';
 import FontIconSetting from './src/settings/font-icon-setting';
 import { DashboardBody, DashboardContent, DashboardHeader,PopupPro } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
+import ApiServices from './src/settings/api-settings';
 
 const SettingsBody = ({ settings, ...props }) => {
 
@@ -24,6 +25,9 @@ const SettingsBody = ({ settings, ...props }) => {
             break;
         case 'font-icon':
             body = <FontIconSetting {...props} />;
+            break;
+        case 'api-services':
+            body = <ApiServices {...props} />;
             break;
         case 'gtb-setting-tab':
             body = applyFilters(
@@ -78,6 +82,10 @@ const Settings = (props) => {
             },
             template: {
                 title : __('Template', '--gctd--'),
+                pro   : false,
+            },
+            ['api-services']: {
+                title : __('API Services', '--gctd--'),
                 pro   : false,
             },
             ['font-icon']: {
