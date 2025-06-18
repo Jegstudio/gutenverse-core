@@ -43,7 +43,7 @@ const AIButton = () => {
         setErrorMessage( null );
         setIsLoading( true );
 
-        const prompt = `${ firstPromptAnswer } content: ${ secondPromptAnswer }`;
+        const prompt = `create me a ${ firstPromptAnswer } for: ${ secondPromptAnswer }`;
 
         try {
             const response = await apiFetch( {
