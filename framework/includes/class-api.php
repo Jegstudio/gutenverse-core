@@ -1291,11 +1291,11 @@ class Api {
 						$option_name = $api_id;
 
 						// Save key in option, so it won't be showed on the setting page.
-						if ( '[REDACTED_FOR_SECURITY]' !== $api_value ) {
+						if ( '[REDACTED_DATA]' !== $api_value ) {
 							update_option( $option_name, $api_value );
 						}
 						
-						$replacement[ $api_id ] = '[REDACTED_FOR_SECURITY]';
+						$replacement[ $api_id ] = '[REDACTED_DATA]';
 					}
 				}
 
