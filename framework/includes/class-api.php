@@ -10,6 +10,7 @@
 namespace Gutenverse\Framework;
 
 use WP_Query;
+use WP_REST_Response;
 
 /**
  * Class Api
@@ -299,6 +300,16 @@ class Api {
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'notice_close' ),
+				'permission_callback' => 'gutenverse_permission_check_author',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
+			'ai/request',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'ai_request' ),
 				'permission_callback' => 'gutenverse_permission_check_author',
 			)
 		);
@@ -1294,7 +1305,7 @@ class Api {
 						if ( '[REDACTED_DATA]' !== $api_value ) {
 							update_option( $option_name, $api_value );
 						}
-						
+
 						$replacement[ $api_id ] = '[REDACTED_DATA]';
 					} else {
 						$replacement[ $api_id ] = $api_value;
@@ -1723,5 +1734,90 @@ class Api {
 		}
 
 		return null;
+	}
+
+	/**
+	 * AI Request
+	 *
+	 * @param object $request The WP_REST_Request object.
+	 *
+	 * @return WP_REST_Response|null.
+	 */
+	public function ai_request( $request ) {
+		$prompt = $request->get_param( 'prompt' );
+
+		if ( ! empty( $prompt ) ) {
+			$gutenverse_ai_key = get_option( 'gutenverse_ai_key', false );
+
+			$api_url = GUTENVERSE_FRAMEWORK_AI_URL . '/process_data';
+
+			$payload = wp_json_encode(
+				array(
+					'prompt' => strtolower( $prompt ),
+					'key' => $gutenverse_ai_key,
+				)
+			);
+
+			$args = array(
+				'method'      => 'POST',
+				'timeout'     => 30,
+				'headers'     => array(
+					'Content-Type' => 'application/json; charset=' . get_option( 'blog_charset' ),
+					'Accept'       => 'application/json',
+				),
+				'body'        => $payload,
+				'data_format' => 'body',
+			);
+
+			$response = wp_remote_post( $api_url, $args );
+
+			if ( is_wp_error( $response ) ) {
+				$error_message = $response->get_error_message();
+				gutenverse_rlog( 'Request Error: ' . $error_message );
+				return new WP_REST_Response(
+					array(
+						'status'  => 500,
+						'message' => 'Failed to connect to service: ' . $error_message,
+					),
+					500
+				);
+			}
+
+			gutenverse_rlog( $response );
+
+			$response_body    = wp_remote_retrieve_body( $response );
+			$http_status_code = wp_remote_retrieve_response_code( $response );
+
+			$decoded_response = json_decode( $response_body, true );
+
+			if ( $http_status_code >= 200 && $http_status_code < 300 ) {
+				return new WP_REST_Response(
+					array(
+						'status'  => $http_status_code,
+						'data'    => $decoded_response,
+						'message' => 'Request successful.',
+					),
+					$http_status_code
+				);
+			} else {
+				gutenverse_rlog( 'Service Error: Status ' . $http_status_code . ' - Response: ' . $response_body );
+				return new WP_REST_Response(
+					array(
+						'status'  => $http_status_code,
+						'message' => 'Service returned an error.',
+						'details' => $decoded_response,
+					),
+					$http_status_code
+				);
+			}
+		}
+
+		return new WP_REST_Response(
+			array(
+				'status'  => 400,
+				'message' => 'Prompts parameter is required and cannot be empty.',
+			),
+			400
+		);
 	}
 }
