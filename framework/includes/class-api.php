@@ -1274,8 +1274,32 @@ class Api {
 					$wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE );
 				}
 			}
+
 			if ( 'frontend_settings' === $key ) {
 				gutenverse_delete_sceduler( 'gutenverse_cleanup_cached_style' );
+			}
+
+			if ( 'api_services' === $key && isset( $data['api_services'] ) && is_array( $data['api_services'] ) ) {
+				$replacement = array();
+
+				foreach ( $data['api_services'] as $api_id => $api_value ) {
+					$keys_to_process = array(
+						'gutenverse_ai_key',
+					);
+
+					if ( in_array( $api_id, $keys_to_process, true ) ) {
+						$option_name = $api_id;
+
+						// Save key in option, so it won't be showed on the setting page.
+						if ( '[REDACTED_FOR_SECURITY]' !== $api_value ) {
+							update_option( $option_name, $api_value );
+						}
+						
+						$replacement[ $api_id ] = '[REDACTED_FOR_SECURITY]';
+					}
+				}
+
+				$value['api_services'] = $replacement;
 			}
 		}
 		if ( ! isset( $option ) ) {
