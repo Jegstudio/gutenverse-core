@@ -1296,6 +1296,8 @@ class Api {
 						}
 						
 						$replacement[ $api_id ] = '[REDACTED_DATA]';
+					} else {
+						$replacement[ $api_id ] = $api_value;
 					}
 				}
 

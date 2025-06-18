@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ControlTextHidden } from 'gutenverse-core/backend';
+import { ControlCheckbox, ControlTextHidden } from 'gutenverse-core/backend';
 
 const ApiServices = ({ settingValues, updateSettingValues, saving, saveData }) => {
     const {
@@ -17,6 +17,13 @@ const ApiServices = ({ settingValues, updateSettingValues, saving, saveData }) =
                 title={__('Gutenverse AI Key', 'gutenverse-form')}
                 description={__('This is the API Key that will be used to generate Gutenverse AI Content.', '--gctd--')}
                 value={api_services.gutenverse_ai_key}
+                updateValue={updateValue}
+            />
+            <ControlCheckbox
+                id={'gutenverse_ai_access'}
+                title={__('Allow editors to use Gutenverse AI', '--gctd--')}
+                description={__('Allow other users with edit posts capability to also use Gutenverse AI. (Users with role such as: Editor, Author, and Contributor).', '--gctd--')}
+                value={api_services.gutenverse_ai_access}
                 updateValue={updateValue}
             />
         </div>
