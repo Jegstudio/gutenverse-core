@@ -143,14 +143,14 @@ const AIButton = () => {
                                     <strong className="gutenverse-ai-step-one-question">{ __( 'Do you want to generate a Full Page or a Section?', '--gctd--' ) }</strong>
                                     <div className="gutenverse-ai-button-group">
                                         <Button
-                                            isPrimary
+                                            variant="primary"
                                             isLarge
                                             onClick={ () => handleContentTypeSelection( 'page' ) }
                                         >
                                             { __( 'Full Page', '--gctd--' ) }
                                         </Button>
                                         <Button
-                                            isPrimary
+                                            variant="primary"
                                             isLarge
                                             onClick={ () => handleContentTypeSelection( 'section' ) }
                                         >
@@ -180,14 +180,14 @@ const AIButton = () => {
                                     <div className="gutenverse-ai-button-group gutenverse-ai-button-group--right">
                                         { currentPostType !== 'wp_block' && (
                                             <Button
-                                                isSecondary
+                                                variant="secondary"
                                                 onClick={ () => setCurrentStep( 1 ) }
                                             >
                                                 { __( 'Back', '--gctd--' ) }
                                             </Button>
                                         ) }
                                         <Button
-                                            isPrimary
+                                            variant="primary"
                                             onClick={ handleSecondPromptSubmit }
                                         >
                                             { __( 'Generate Content', '--gctd--' ) }
