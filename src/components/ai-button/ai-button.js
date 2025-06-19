@@ -101,7 +101,7 @@ const AIButton = () => {
 
             { isModalOpen && (
                 <Modal
-                    title={ __( 'Gutenverse AI Content Generation', '--gctd--' ) }
+                    title={ __( 'Gutenverse AI Content', '--gctd--' ) }
                     onRequestClose={ closeModal }
                     className="gutenverse-ai-modal"
                 >

@@ -1,54 +1,119 @@
 /* --- Gutenverse AI Button & Modal Styling --- */
 
-.gutenverse-ai-button {
-    display: flex;
-    justify-content: center;
+// Define color variables
+$primary: #3b57f7;
+$primary2: #006caa;
+$border: #eaeaea;
+$text-dark: #333;
+$text-medium: #555;
+$text-light: #777;
+$background-light: #fff;
+$error-background: #fef2f2;
+$error-text: #d12929;
+
+// Base font size for better consistency scaling
+$base-font-size: 15px;
+
+.gutenverse-ai-button-wrapper {
+    display: inline-flex;
     align-items: center;
-    width: 32px;
-    height: 32px;
-    border: 1px solid currentColor;
-    border-radius: 4px;
-    transition: all 0.2s ease-in-out;
+    justify-content: center;
 
-    p {
-        margin: 0;
-        font-size: 0.85em;
-        font-weight: 600;
-        color: currentColor;
-        line-height: 1;
-    }
-
-    &:hover {
-        background-color: currentColor;
+    .gutenverse-ai-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        border: 1px solid $primary;
+        border-radius: 6px;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        margin: 0px 10px;
 
         p {
-            color: #fff;
+            margin: 0;
+            font-size: $base-font-size - 2px;
+            font-weight: 700;
+            color: $primary;
+            line-height: 1;
+        }
+
+        &:hover,
+        &:focus {
+            background-color: $primary;
+            border-color: $primary;
+            p {
+                color: $background-light;
+            }
         }
     }
 }
 
 .gutenverse-ai-modal {
-    .components-modal__content {
-        width: 550px;
-        max-width: 95%;
+    &.components-modal__frame {
+        width: 460px;
+        min-height: 260px;
+        max-width: 90%;
         box-sizing: border-box;
-        padding: 2.5em;
+        border-radius: 8px;
+        background-color: $background-light;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        padding: 0;
+        position: relative;
+    }
+
+    .components-modal__content {
+        padding: 25px;
     }
 
     .components-modal__header {
-        border-bottom: 1px solid #eee;
-        padding: 1.5em 2.5em;
-        margin-bottom: 1.5em;
+        border-bottom: 1px solid $border;
+        padding: 15px 25px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        button.components-button {
-            top: 1.5em;
-            right: 1.5em;
+        .components-modal__header-heading {
+            font-size: 19px;
+            font-weight: 600;
+            color: $text-dark;
+            margin: 0;
+            padding: 0;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        h1.components-modal__header__title {
-            font-size: 1.5em;
-            font-weight: 600;
-            color: #333;
+        button.components-button.is-compact.has-icon {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            color: $text-medium;
+            min-width: unset;
+            padding: 0;
+            height: auto;
+            width: auto;
+            background: none;
+            border: none;
+            box-shadow: none;
+
+            &:hover {
+                color: $text-dark;
+                background: none;
+            }
+
+            svg {
+                width: 20px;
+                height: 20px;
+                fill: currentColor;
+            }
+        }
+        .components-spacer {
+            display: none;
         }
     }
 }
@@ -57,95 +122,151 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5em;
-    padding: 3em;
-    font-size: 1.1em;
-    color: #555;
+    justify-content: center;
+    min-height: 160px;
+    gap: 15px;
+    padding: 20px;
+    font-size: $base-font-size + 1px;
+    color: $text-medium;
+    text-align: center;
+
+    .components-spinner {
+        width: 40px;
+        height: 40px;
+        &:after {
+            border-width: 4px;
+            border-top-color: $primary;
+            border-left-color: $primary;
+            border-bottom-color: $primary;
+        }
+    }
+
+    p {
+        margin: 0;
+        font-size: $base-font-size + 1px;
+    }
 }
 
 .gutenverse-ai-error-message {
-    color: #d12929;
-    background-color: #fef2f2;
-    border: 1px solid #d12929;
-    padding: 1em 1.5em;
-    margin-bottom: 2em;
+    color: $error-text;
+    background-color: lighten($error-background, 2%);
+    border: 1px solid $error-text;
+    padding: 10px 15px;
+    margin-bottom: 20px;
     border-radius: 4px;
     text-align: center;
-    font-weight: 500;
+    font-weight: 600;
+    line-height: 1.4;
+    font-size: $base-font-size - 1px;
 }
 
 .gutenverse-ai-step-one {
     text-align: center;
-    padding: 1em 0;
+    padding: 10px 0;
 
     .gutenverse-ai-step-one-question {
-        font-size: 1.3em;
-        font-weight: 500;
+        font-size: $base-font-size + 1px;
+        font-weight: 600;
         display: block;
-        margin-bottom: 2em;
-        color: #333;
+        margin-bottom: 20px;
+        color: $text-dark;
     }
 }
 
 .gutenverse-ai-button-group {
     display: flex;
     justify-content: center;
-    gap: 1.5em;
-    margin-top: 2em;
-    margin-bottom: 1em;
+    gap: 15px;
+    margin-bottom: 10px;
 
     &--right {
         justify-content: flex-end;
-        padding-top: 1em;
-        border-top: 1px solid #eee;
-        margin-top: 2em;
+        padding-top: 15px;
     }
 
-    .components-button.is-primary {
-        min-width: 120px;
-        padding: 0.8em 1.5em;
-        font-size: 1em;
+    .components-button {
+        min-width: 110px;
+        padding: 9px 18px;
+        font-size: $base-font-size - 1px;
         height: auto;
-    }
+        border-radius: 5px;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-    .components-button.is-secondary {
-        min-width: 100px;
-        padding: 0.8em 1.5em;
-        font-size: 1em;
-        height: auto;
+        &.is-primary {
+            background-color: $primary;
+            border-color: $primary;
+            color: $background-light;
+            &:hover,
+            &:focus {
+                background-color: darken($primary, 8%);
+                border-color: darken($primary, 8%);
+                box-shadow: 0 3px 8px rgba($primary, 0.2);
+            }
+        }
+
+        &.is-secondary {
+            background-color: #f8f9fa;
+            border: 1px solid $border;
+            color: $text-dark;
+            &:hover,
+            &:focus {
+                background-color: darken(#f8f9fa, 3%);
+                border-color: darken($border, 5%);
+                color: $text-dark;
+            }
+        }
     }
 }
 
 .gutenverse-ai-step-two {
-    padding: 1em 0;
+    padding: 10px 0;
+
+    .components-base-control__label {
+        margin-bottom: 8px;
+    }
 
     .gutenverse-ai-text-control-label {
-        font-size: 1.2em;
-        font-weight: 500;
-        color: #333;
-        margin-bottom: 0.8em;
+        font-size: $base-font-size + 1px;
+        font-weight: 600;
+        color: $text-dark;
         display: block;
+        text-transform: capitalize;
     }
 
     .components-base-control__field {
-        margin-bottom: 1em;
+        margin-bottom: 0;
     }
 
     .components-form-token-field,
     .components-text-control__input,
     .components-textarea-control__input {
         border-radius: 4px;
-        padding: 0.8em 1em;
-        font-size: 1em;
+        padding: 9px 12px;
+        font-size: $base-font-size;
         line-height: 1.5;
-        border: 1px solid #ddd;
-        box-shadow: none;
+        border: 1px solid $border;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
         transition: all 0.2s ease-in-out;
+        width: 100%;
 
         &:focus {
-            border-color: #007cba;
-            box-shadow: 0 0 0 1px #007cba;
+            border-color: $primary;
+            box-shadow: 0 0 0 1px $primary, 0 0 0 3px rgba($primary, 0.2);
             outline: none;
         }
+
+        &::placeholder {
+            color: $text-light;
+            opacity: 0.8;
+        }
+    }
+    .components-base-control__help {
+        font-size: $base-font-size - 2px;
+        color: $text-light;
+        margin-top: 5px;
     }
 }
