@@ -1,5 +1,5 @@
-import { useState } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
+import { useState, useEffect } from '@wordpress/element'; // Import useEffect
+import { useDispatch, useSelect } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
 import { parse } from '@wordpress/blocks';
 import { ToolbarButton, Modal, TextControl, Button, Spinner } from '@wordpress/components';
@@ -16,10 +16,29 @@ const AIButton = () => {
 
     const { insertBlocks } = useDispatch( editorStore );
 
+    const currentPostType = useSelect((select) => {
+        return select(editorStore).getCurrentPostType ? select(editorStore).getCurrentPostType() : '_return';
+    });
+
+    // New useEffect to handle initial step for 'wp_block'
+    useEffect(() => {
+        if (currentPostType === 'wp_block' && isModalOpen) {
+            setCurrentStep(2);
+            // Set firstPromptAnswer to 'section' as it's the logical choice for a block
+            setFirstPromptAnswer('section');
+        }
+    }, [currentPostType, isModalOpen]);
+
     const openModal = () => {
         setIsModalOpen( true );
-        setCurrentStep( 1 );
-        setFirstPromptAnswer( '' );
+        // Determine the starting step based on currentPostType
+        if (currentPostType === 'wp_block') {
+            setCurrentStep(2);
+            setFirstPromptAnswer('section'); // Pre-set for 'wp_block'
+        } else {
+            setCurrentStep(1);
+            setFirstPromptAnswer('');
+        }
         setSecondPromptAnswer( '' );
         setErrorMessage( null );
     };
@@ -43,6 +62,7 @@ const AIButton = () => {
         setErrorMessage( null );
         setIsLoading( true );
 
+        // Use firstPromptAnswer, which will be 'section' for wp_block
         const prompt = `create me a ${ firstPromptAnswer } for: ${ secondPromptAnswer }`;
 
         try {
@@ -95,6 +115,10 @@ const AIButton = () => {
         </ToolbarButton>
     );
 
+    if ( ['wp_template', 'wp_template_part'].includes(currentPostType) ) {
+        return null;
+    }
+
     return (
         <>
             { aiButton }
@@ -118,7 +142,8 @@ const AIButton = () => {
                                 </div>
                             ) }
 
-                            { currentStep === 1 && (
+                            {/* Conditionally render step 1 */}
+                            { currentStep === 1 && currentPostType !== 'wp_block' && (
                                 <div className="gutenverse-ai-step-one">
                                     <strong className="gutenverse-ai-step-one-question">{ __( 'Do you want to generate a Full Page or a Section?', '--gctd--' ) }</strong>
                                     <div className="gutenverse-ai-button-group">
@@ -140,30 +165,35 @@ const AIButton = () => {
                                 </div>
                             ) }
 
-                            { currentStep === 2 && (
+                            {/* Always show step 2 if currentStep is 2, or if currentPostType is 'wp_block' */}
+                            { ( currentStep === 2 || currentPostType === 'wp_block' ) && (
                                 <div className="gutenverse-ai-step-two">
                                     <TextControl
                                         label={ <span className="gutenverse-ai-text-control-label">{ sprintf(
                                             /* translators: %s: 'page' or 'section' */
                                             __( 'Create a %s for:', '--gctd--' ),
-                                            firstPromptAnswer
+                                            // Ensure firstPromptAnswer is 'section' if currentPostType is 'wp_block'
+                                            currentPostType === 'wp_block' ? 'section' : firstPromptAnswer
                                         ) }</span> }
                                         value={ secondPromptAnswer }
                                         onChange={ setSecondPromptAnswer }
                                         placeholder={
-                                            firstPromptAnswer === 'page'
-                                                ? __( 'e.g., "Fitness app sales page."', '--gctd--' )
-                                                : __( 'e.g., "Mindful eating benefits."', '--gctd--' )
+                                            currentPostType === 'wp_block' || firstPromptAnswer === 'section'
+                                                ? __( 'e.g., "Mindful eating benefits."', '--gctd--' )
+                                                : __( 'e.g., "Fitness app sales page."', '--gctd--' )
                                         }
                                         __experimentalShowCount={ true }
                                     />
                                     <div className="gutenverse-ai-button-group gutenverse-ai-button-group--right">
-                                        <Button
-                                            isSecondary
-                                            onClick={ () => setCurrentStep( 1 ) }
-                                        >
-                                            { __( 'Back', '--gctd--' ) }
-                                        </Button>
+                                        {/* Conditionally render the 'Back' button */}
+                                        { currentPostType !== 'wp_block' && (
+                                            <Button
+                                                isSecondary
+                                                onClick={ () => setCurrentStep( 1 ) }
+                                            >
+                                                { __( 'Back', '--gctd--' ) }
+                                            </Button>
+                                        ) }
                                         <Button
                                             isPrimary
                                             onClick={ handleSecondPromptSubmit }
