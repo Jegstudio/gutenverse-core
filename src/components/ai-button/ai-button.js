@@ -20,21 +20,18 @@ const AIButton = () => {
         return select(editorStore).getCurrentPostType ? select(editorStore).getCurrentPostType() : '_return';
     });
 
-    // New useEffect to handle initial step for 'wp_block'
     useEffect(() => {
         if (currentPostType === 'wp_block' && isModalOpen) {
             setCurrentStep(2);
-            // Set firstPromptAnswer to 'section' as it's the logical choice for a block
             setFirstPromptAnswer('section');
         }
     }, [currentPostType, isModalOpen]);
 
     const openModal = () => {
         setIsModalOpen( true );
-        // Determine the starting step based on currentPostType
         if (currentPostType === 'wp_block') {
             setCurrentStep(2);
-            setFirstPromptAnswer('section'); // Pre-set for 'wp_block'
+            setFirstPromptAnswer('section');
         } else {
             setCurrentStep(1);
             setFirstPromptAnswer('');
@@ -62,7 +59,6 @@ const AIButton = () => {
         setErrorMessage( null );
         setIsLoading( true );
 
-        // Use firstPromptAnswer, which will be 'section' for wp_block
         const prompt = `create me a ${ firstPromptAnswer } for: ${ secondPromptAnswer }`;
 
         try {
@@ -142,7 +138,6 @@ const AIButton = () => {
                                 </div>
                             ) }
 
-                            {/* Conditionally render step 1 */}
                             { currentStep === 1 && currentPostType !== 'wp_block' && (
                                 <div className="gutenverse-ai-step-one">
                                     <strong className="gutenverse-ai-step-one-question">{ __( 'Do you want to generate a Full Page or a Section?', '--gctd--' ) }</strong>
@@ -165,14 +160,12 @@ const AIButton = () => {
                                 </div>
                             ) }
 
-                            {/* Always show step 2 if currentStep is 2, or if currentPostType is 'wp_block' */}
                             { ( currentStep === 2 || currentPostType === 'wp_block' ) && (
                                 <div className="gutenverse-ai-step-two">
                                     <TextControl
                                         label={ <span className="gutenverse-ai-text-control-label">{ sprintf(
                                             /* translators: %s: 'page' or 'section' */
                                             __( 'Create a %s for:', '--gctd--' ),
-                                            // Ensure firstPromptAnswer is 'section' if currentPostType is 'wp_block'
                                             currentPostType === 'wp_block' ? 'section' : firstPromptAnswer
                                         ) }</span> }
                                         value={ secondPromptAnswer }
@@ -185,7 +178,6 @@ const AIButton = () => {
                                         __experimentalShowCount={ true }
                                     />
                                     <div className="gutenverse-ai-button-group gutenverse-ai-button-group--right">
-                                        {/* Conditionally render the 'Back' button */}
                                         { currentPostType !== 'wp_block' && (
                                             <Button
                                                 isSecondary
