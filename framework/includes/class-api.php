@@ -9,6 +9,7 @@
 
 namespace Gutenverse\Framework;
 
+use WP_Error;
 use WP_Query;
 use WP_REST_Response;
 
@@ -1744,17 +1745,26 @@ class Api {
 	 * @return WP_REST_Response|null.
 	 */
 	public function ai_request( $request ) {
-		$prompt = $request->get_param( 'prompt' );
+		$prompt   = $request->get_param( 'prompt' );
+		$settings = get_option( 'gutenverse-settings', array() );
+
+		if ( ! current_user_can( 'manage_options' ) && ( ( ! isset( $settings['api_services']['gutenverse_ai_access'] ) || ! $settings['api_services']['gutenverse_ai_access'] ) ) ) {
+			return new WP_Error(
+				'rest_forbidden_access',
+				__( 'You do not have permission to access the AI service.', 'your-text-domain' ),
+				array( 'status' => rest_authorization_required_code() )
+			);
+		}
 
 		if ( ! empty( $prompt ) ) {
 			$gutenverse_ai_key = get_option( 'gutenverse_ai_key', false );
 
-			$api_url = GUTENVERSE_FRAMEWORK_AI_URL . '/process_data';
+			$api_url = GUTENVERSE_FRAMEWORK_AI_URL . '/get_sections';
 
 			$payload = wp_json_encode(
 				array(
 					'prompt' => strtolower( $prompt ),
-					'key' => $gutenverse_ai_key,
+					'key'    => $gutenverse_ai_key,
 				)
 			);
 
@@ -1782,8 +1792,6 @@ class Api {
 					500
 				);
 			}
-
-			gutenverse_rlog( $response );
 
 			$response_body    = wp_remote_retrieve_body( $response );
 			$http_status_code = wp_remote_retrieve_response_code( $response );
