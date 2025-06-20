@@ -187,6 +187,16 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"height": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"heightControl": {
+			"type": "string",
+			"default": "default",
+			"copyStyle": true
+		},
 		"containerPadding": {
 			"type": "object",
 			"copyStyle": true

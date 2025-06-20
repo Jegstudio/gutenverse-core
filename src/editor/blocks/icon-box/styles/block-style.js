@@ -128,6 +128,45 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
     });
 
+    isNotEmpty(attributes['heightControl']) && attributes['heightControl'] === 'fit' && data.push({
+        'type': 'plain',
+        'id': 'heightControl',
+        'selector': `.guten-icon-box.${elementId}`,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'pattern',
+                'pattern': '100%',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['heightControl']) && attributes['heightControl'] === 'fit' && data.push({
+        'type': 'plain',
+        'id': 'heightControl',
+        'selector': `.guten-icon-box.${elementId} .guten-icon-box-wrapper`,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'pattern',
+                'pattern': '100%',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['heightControl']) && attributes['heightControl'] === 'min' && data.push({
+        'type': 'unitPoint',
+        'id': 'height',
+        'responsive': true,
+        'selector': `.guten-icon-box.${elementId} .guten-icon-box-wrapper`,
+        'properties': [
+            {
+                'name': 'min-height',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
     //panel icon
 
     isNotEmpty(attributes['iconType']) && attributes['iconType'] === 'icon' && data.push({
