@@ -6,6 +6,7 @@ import { ToolbarButton, Modal, TextControl, Button, Spinner } from '@wordpress/c
 import { __, sprintf } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { BlockPreview } from '@wordpress/block-editor';
+import { applyFilters } from '@wordpress/hooks';
 
 const AIButton = () => {
     const [ isModalOpen, setIsModalOpen ] = useState( false );
@@ -64,13 +65,18 @@ const AIButton = () => {
         setErrorMessage( null );
         setIsLoading( true );
 
-        const prompt = `create me a ${ firstPromptAnswer } for: ${ secondPromptAnswer }`;
+        const params = applyFilters(
+            'gutenverse.library.import.parameter',
+            {
+                prompt: `create me a ${ firstPromptAnswer } for: ${ secondPromptAnswer }`
+            }
+        );
 
         try {
             const response = await apiFetch( {
                 path: '/gutenverse-client/v1/ai/request',
                 method: 'POST',
-                data: { prompt: prompt },
+                data: { ...params },
             } );
 
             let mergedContent = '';

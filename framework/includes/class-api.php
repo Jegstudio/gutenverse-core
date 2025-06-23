@@ -1746,6 +1746,7 @@ class Api {
 	 */
 	public function ai_request( $request ) {
 		$prompt   = $request->get_param( 'prompt' );
+		$key      = $request->get_param( 'key' );
 		$settings = get_option( 'gutenverse-settings', array() );
 
 		if ( ! current_user_can( 'manage_options' ) && ( ( ! isset( $settings['api_services']['gutenverse_ai_access'] ) || ! $settings['api_services']['gutenverse_ai_access'] ) ) ) {
@@ -1761,12 +1762,16 @@ class Api {
 
 			$api_url = GUTENVERSE_FRAMEWORK_AI_URL . '/get_sections';
 
-			$payload = wp_json_encode(
-				array(
-					'prompt' => strtolower( $prompt ),
-					'key'    => $gutenverse_ai_key,
-				)
+			$payload_data = array(
+				'prompt' => strtolower( $prompt ),
+				'ai_key' => $gutenverse_ai_key,
 			);
+
+			if ( ! empty( $key ) ) {
+				$payload_data['key'] = $key;
+			}
+
+			$payload = wp_json_encode( $payload_data );
 
 			$args = array(
 				'method'      => 'POST',
