@@ -1,10 +1,11 @@
-import { useState, useEffect } from '@wordpress/element'; // Import useEffect
+import { useState, useEffect } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
 import { parse } from '@wordpress/blocks';
 import { ToolbarButton, Modal, TextControl, Button, Spinner } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
+import { BlockPreview } from '@wordpress/block-editor';
 
 const AIButton = () => {
     const [ isModalOpen, setIsModalOpen ] = useState( false );
@@ -13,6 +14,8 @@ const AIButton = () => {
     const [ secondPromptAnswer, setSecondPromptAnswer ] = useState( '' );
     const [ isLoading, setIsLoading ] = useState( false );
     const [ errorMessage, setErrorMessage ] = useState( null );
+    const [ showPreviewModal, setShowPreviewModal ] = useState( false );
+    const [ previewBlocks, setPreviewBlocks ] = useState( [] );
 
     const { insertBlocks } = useDispatch( editorStore );
 
@@ -42,6 +45,8 @@ const AIButton = () => {
 
     const closeModal = () => {
         setIsModalOpen( false );
+        setShowPreviewModal( false );
+        setPreviewBlocks( [] );
     };
 
     const handleContentTypeSelection = ( type ) => {
@@ -80,10 +85,9 @@ const AIButton = () => {
             }
 
             const blocksToInsert = parse( mergedContent );
-
-            insertBlocks( blocksToInsert );
-
-            closeModal();
+            setPreviewBlocks( blocksToInsert );
+            setShowPreviewModal( true );
+            setIsModalOpen( false );
 
         } catch ( error ) {
             console.error( 'Error during AI request:', error );
@@ -97,6 +101,11 @@ const AIButton = () => {
         } finally {
             setIsLoading( false );
         }
+    };
+
+    const handleConfirmInsert = () => {
+        insertBlocks( previewBlocks );
+        closeModal();
     };
 
     const aiButton = (
@@ -197,6 +206,39 @@ const AIButton = () => {
                             ) }
                         </>
                     ) }
+                </Modal>
+            ) }
+
+            { showPreviewModal && (
+                <Modal
+                    title={ __( 'Preview AI Generated Content', '--gctd--' ) }
+                    onRequestClose={ closeModal }
+                    className="gutenverse-ai-preview-modal"
+                >
+                    <div className="gutenverse-ai-preview-content">
+                        { previewBlocks.length > 0 ? (
+                            <BlockPreview
+                                blocks={ previewBlocks }
+                                viewportWidth={ 1200 }
+                            />
+                        ) : (
+                            <p>{ __( 'No content to preview.', '--gctd--' ) }</p>
+                        ) }
+                    </div>
+                    <div className="gutenverse-ai-button-group gutenverse-ai-button-group--right">
+                        <Button
+                            variant="secondary"
+                            onClick={ closeModal }
+                        >
+                            { __( 'Cancel', '--gctd--' ) }
+                        </Button>
+                        <Button
+                            variant="primary"
+                            onClick={ handleConfirmInsert }
+                        >
+                            { __( 'Insert into Editor', '--gctd--' ) }
+                        </Button>
+                    </div>
                 </Modal>
             ) }
         </>

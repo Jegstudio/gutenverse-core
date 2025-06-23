@@ -118,6 +118,30 @@ $base-font-size: 15px;
     }
 }
 
+.gutenverse-ai-preview-modal {
+    &.components-modal__frame {
+        width: 80%;
+        max-width: 1200px;
+        min-height: 600px;
+        max-height: 90vh;
+        box-sizing: border-box;
+        border-radius: 8px;
+        background-color: $background-light;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        padding: 0;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .components-modal__content {
+        padding: 25px;
+        flex-grow: 1;
+        overflow: auto;
+    }
+}
+
 .gutenverse-ai-loading-state {
     display: flex;
     flex-direction: column;
