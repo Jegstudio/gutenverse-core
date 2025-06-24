@@ -164,7 +164,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-    "cardboxShadow": {
+    "cardBoxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},

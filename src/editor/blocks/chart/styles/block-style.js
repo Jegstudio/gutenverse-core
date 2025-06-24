@@ -54,9 +54,9 @@ const getBlockStyle = (elementId, attributes) => {
             .${elementId}.Mobile-noFlip .chart-content.content-card`,
     });
 
-    isNotEmpty(attributes['boxShadow']) && data.push({
+    isNotEmpty(attributes['cardBoxShadow']) && data.push({
         'type': 'boxShadow',
-        'id': 'boxShadow',
+        'id': 'cardBoxShadow',
         'properties': [
             {
                 'name': 'box-shadow',
