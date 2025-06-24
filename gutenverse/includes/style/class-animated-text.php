@@ -352,5 +352,56 @@ class Animated_Text extends Style_Abstract {
 				)
 			);
 		}
+
+		// Style fallback before feature rotation text.
+		if ( isset( $this->attrs['color'] ) && ! isset( $this->attrs['textAnimatedColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} *",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['color'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['typography'] ) && ! isset( $this->attrs['textAnimatedTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} *",
+					'property'       => function ( $value ) {},
+					'value'          => $this->attrs['typography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['textStroke'] ) && ! isset( $this->attrs['textAnimatedStroke'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} *",
+					'property'       => function ( $value ) {
+						return $this->handle_text_stroke( $value );
+					},
+					'value'          => $this->attrs['textStroke'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['textShadow'] ) && ! isset( $this->attrs['textAnimatedShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} *",
+					'property'       => function ( $value ) {
+						return $this->handle_text_shadow( $value );
+					},
+					'value'          => $this->attrs['textShadow'],
+					'device_control' => false,
+				)
+			);
+		}
 	}
 }
