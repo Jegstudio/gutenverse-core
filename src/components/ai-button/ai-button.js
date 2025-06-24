@@ -86,11 +86,10 @@ const AIButton = () => {
             setIsModalOpen( false );
 
         } catch ( error ) {
-            console.error( 'Error during AI request:', error );
             let msg = __( 'An unknown error occurred during AI request.', '--gctd--' );
-            if ( error && error.message ) {
-                msg = error.message;
-            } else if ( error && error.response && error.response.data && error.response.data.message ) {
+            if ( error?.details?.message ) {
+                msg = error.details?.message;
+            } else if ( error?.response?.data?.message ) {
                 msg = error.response.data.message;
             }
             setErrorMessage( msg );
