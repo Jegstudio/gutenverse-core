@@ -79,17 +79,7 @@ const AIButton = () => {
                 data: { ...params },
             } );
 
-            let mergedContent = '';
-            const sectionsOrder = response.data.extracted_data.sections;
-            const generatedContent = response.data.llm_generated_content;
-
-            for (const section of sectionsOrder) {
-                const sectionType = section.type;
-                if (generatedContent[sectionType] && generatedContent[sectionType].generated_content) {
-                    mergedContent += generatedContent[sectionType].generated_content;
-                }
-            }
-
+            const mergedContent = response?.data?.content?.generated_content_inline;
             const blocksToInsert = parse( mergedContent );
             setPreviewBlocks( blocksToInsert );
             setShowPreviewModal( true );

@@ -1760,7 +1760,7 @@ class Api {
 		if ( ! empty( $prompt ) ) {
 			$gutenverse_ai_key = get_option( 'gutenverse_ai_key', false );
 
-			$api_url = GUTENVERSE_FRAMEWORK_AI_URL . '/get_sections';
+			$api_url = GUTENVERSE_FRAMEWORK_AI_URL . '/wp-json/gutenverse-pro/v1/ai/request';
 
 			$payload_data = array(
 				'prompt' => strtolower( $prompt ),
