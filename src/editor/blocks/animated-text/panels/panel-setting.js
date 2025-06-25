@@ -190,7 +190,7 @@ export const settingPanel = (props) => {
         {
             id: 'animationDuration',
             show: style !== 'none',
-            label: showLetterSpeed() && !textType === 'highlighted'? __('Letter Speed In') : __('Animation Duration', 'gutenverse'),
+            label: showLetterSpeed() && textType !== 'highlighted'? __('Letter Speed In') : __('Animation Duration', 'gutenverse'),
             component: RangeControl,
             min: 0,
             max: 10000,
@@ -200,7 +200,7 @@ export const settingPanel = (props) => {
         {
             id: 'transitionDuration',
             show: style !== 'none',
-            label: showLetterSpeed() && !textType === 'highlighted'? __('Letter Speed Out') : __('Transition Duration', 'gutenverse'),
+            label: showLetterSpeed() && textType !== 'highlighted'? __('Letter Speed Out') : __('Transition Duration', 'gutenverse'),
             component: RangeControl,
             min: 0,
             max: 10000,
