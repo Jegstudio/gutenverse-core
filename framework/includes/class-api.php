@@ -1745,9 +1745,10 @@ class Api {
 	 * @return WP_REST_Response|null.
 	 */
 	public function ai_request( $request ) {
-		$prompt   = $request->get_param( 'prompt' );
-		$key      = $request->get_param( 'key' );
-		$settings = get_option( 'gutenverse-settings', array() );
+		$prompt          = $request->get_param( 'prompt' );
+		$key             = $request->get_param( 'key' );
+		$chat_session_id = $request->get_param( 'chat_session_id' );
+		$settings        = get_option( 'gutenverse-settings', array() );
 
 		if ( ! current_user_can( 'manage_options' ) && ( ( ! isset( $settings['api_services']['gutenverse_ai_access'] ) || ! $settings['api_services']['gutenverse_ai_access'] ) ) ) {
 			return new WP_Error(
@@ -1763,8 +1764,9 @@ class Api {
 			$api_url = GUTENVERSE_FRAMEWORK_AI_URL . '/wp-json/gutenverse-pro/v1/ai/request';
 
 			$payload_data = array(
-				'prompt' => strtolower( $prompt ),
-				'ai_key' => $gutenverse_ai_key,
+				'prompt'          => strtolower( $prompt ),
+				'ai_key'          => $gutenverse_ai_key,
+				'chat_session_id' => ! empty( $chat_session_id ) ? $chat_session_id : 0,
 			);
 
 			if ( ! empty( $key ) ) {

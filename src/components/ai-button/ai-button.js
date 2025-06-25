@@ -17,6 +17,7 @@ const AIButton = () => {
     const [ errorMessage, setErrorMessage ] = useState( null );
     const [ showPreviewModal, setShowPreviewModal ] = useState( false );
     const [ previewBlocks, setPreviewBlocks ] = useState( [] );
+    const [ showSessionPrompt, setShowSessionPrompt ] = useState( false );
 
     const { insertBlocks } = useDispatch( editorStore );
 
@@ -25,29 +26,41 @@ const AIButton = () => {
     });
 
     useEffect(() => {
-        if (currentPostType === 'wp_block' && isModalOpen) {
+        if (currentPostType === 'wp_block' && isModalOpen && currentStep !== 0) {
             setCurrentStep(2);
             setFirstPromptAnswer('section');
         }
-    }, [currentPostType, isModalOpen]);
+    }, [currentPostType, isModalOpen, currentStep]);
+
 
     const openModal = () => {
-        setIsModalOpen( true );
-        if (currentPostType === 'wp_block') {
-            setCurrentStep(2);
-            setFirstPromptAnswer('section');
+        const existingChatSessionId = localStorage.getItem( 'gutenverse_ai_chat_session_id' );
+
+        if ( existingChatSessionId ) {
+            setIsModalOpen( true );
+            setShowSessionPrompt( true );
+            setCurrentStep( 0 );
         } else {
-            setCurrentStep(1);
-            setFirstPromptAnswer('');
+            setIsModalOpen( true );
+            setShowSessionPrompt( false );
+            if ( currentPostType === 'wp_block' ) {
+                setCurrentStep( 2 );
+                setFirstPromptAnswer( 'section' );
+            } else {
+                setCurrentStep( 1 );
+                setFirstPromptAnswer( '' );
+            }
+            setSecondPromptAnswer( '' );
+            setErrorMessage( null );
         }
-        setSecondPromptAnswer( '' );
-        setErrorMessage( null );
     };
 
     const closeModal = () => {
         setIsModalOpen( false );
         setShowPreviewModal( false );
         setPreviewBlocks( [] );
+        setShowSessionPrompt( false );
+        setErrorMessage( null );
     };
 
     const handleContentTypeSelection = ( type ) => {
@@ -55,6 +68,30 @@ const AIButton = () => {
         setErrorMessage( null );
         setCurrentStep( 2 );
     };
+
+    const proceedToPromptFlow = () => {
+        setShowSessionPrompt( false );
+        setErrorMessage( null );
+        setSecondPromptAnswer( '' );
+
+        if ( currentPostType === 'wp_block' ) {
+            setCurrentStep( 2 );
+            setFirstPromptAnswer( 'section' );
+        } else {
+            setCurrentStep( 1 );
+            setFirstPromptAnswer( '' );
+        }
+    };
+
+    const handleContinueLastChat = () => {
+        proceedToPromptFlow();
+    };
+
+    const handleStartNewChat = () => {
+        localStorage.removeItem( 'gutenverse_ai_chat_session_id' );
+        proceedToPromptFlow();
+    };
+
 
     const handleSecondPromptSubmit = async () => {
         if ( secondPromptAnswer.trim() === '' ) {
@@ -65,12 +102,18 @@ const AIButton = () => {
         setErrorMessage( null );
         setIsLoading( true );
 
-        const params = applyFilters(
+        const existingChatSessionId = localStorage.getItem( 'gutenverse_ai_chat_session_id' );
+
+        let params = applyFilters(
             'gutenverse.library.import.parameter',
             {
                 prompt: `create me a ${ firstPromptAnswer } for: ${ secondPromptAnswer }`
             }
         );
+
+        if ( existingChatSessionId ) {
+            params = { ...params, chat_session_id: existingChatSessionId };
+        }
 
         try {
             const response = await apiFetch( {
@@ -84,6 +127,10 @@ const AIButton = () => {
             setPreviewBlocks( blocksToInsert );
             setShowPreviewModal( true );
             setIsModalOpen( false );
+
+            if ( response?.data?.chat_session_id ) {
+                localStorage.setItem( 'gutenverse_ai_chat_session_id', response.data.chat_session_id );
+            }
 
         } catch ( error ) {
             let msg = __( 'An unknown error occurred during AI request.', '--gctd--' );
@@ -142,7 +189,31 @@ const AIButton = () => {
                                 </div>
                             ) }
 
-                            { currentStep === 1 && currentPostType !== 'wp_block' && (
+                            { showSessionPrompt && currentStep === 0 && (
+                                <div className="gutenverse-ai-session-prompt">
+                                    <strong className="gutenverse-ai-session-question">
+                                        { __( 'A previous chat session was found. Use the same style as previously generated content?', '--gctd--' ) }
+                                    </strong>
+                                    <div className="gutenverse-ai-button-group">
+                                        <Button
+                                            variant="primary"
+                                            isLarge
+                                            onClick={ handleContinueLastChat }
+                                        >
+                                            { __( 'Continue Last Chat', '--gctd--' ) }
+                                        </Button>
+                                        <Button
+                                            variant="secondary"
+                                            isLarge
+                                            onClick={ handleStartNewChat }
+                                        >
+                                            { __( 'Start New Chat', '--gctd--' ) }
+                                        </Button>
+                                    </div>
+                                </div>
+                            ) }
+
+                            { !showSessionPrompt && currentStep === 1 && currentPostType !== 'wp_block' && (
                                 <div className="gutenverse-ai-step-one">
                                     <strong className="gutenverse-ai-step-one-question">{ __( 'Do you want to generate a Full Page or a Section?', '--gctd--' ) }</strong>
                                     <div className="gutenverse-ai-button-group">
@@ -164,7 +235,7 @@ const AIButton = () => {
                                 </div>
                             ) }
 
-                            { ( currentStep === 2 || currentPostType === 'wp_block' ) && (
+                            { !showSessionPrompt && ( currentStep === 2 || currentPostType === 'wp_block' ) && (
                                 <div className="gutenverse-ai-step-two">
                                     <TextControl
                                         label={ <span className="gutenverse-ai-text-control-label">{ sprintf(
