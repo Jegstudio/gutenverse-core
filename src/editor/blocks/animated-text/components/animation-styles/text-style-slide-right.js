@@ -21,7 +21,7 @@ const textStyleSlideRight = (props) => {
         delay: (el, i) => 500 + 30 * i
     });
 
-    if (loop || (isRotationType && !stopRotating())) {
+    if (loop || (isRotationType && !stopRotating)) {
         animationRef.current.add({ //display
             targets: targetRef.current,
             delay: displayDuration

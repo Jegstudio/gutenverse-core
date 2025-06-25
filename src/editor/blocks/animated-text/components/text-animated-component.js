@@ -112,7 +112,7 @@ const TextAnimatedComponent = (props) => {
             animationRef: animation,
             targetRef: targets,
             isRotationType: textType == 'rotation' && rotationTexts.length != 0,
-            stopRotating,
+            stopRotating: stopRotating(),
             nextRotationText,
         };
         animationStyle(animationProps);

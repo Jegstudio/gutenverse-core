@@ -26,7 +26,7 @@ const textStyleSwing = (props) => {
         delay: (el, i) => 50 * i,
     });
 
-    if (loop || (isRotationType && !stopRotating())) {
+    if (loop || (isRotationType && !stopRotating)) {
         animationRef.current.add({
             targets: targetRef.current,
             delay: displayDuration

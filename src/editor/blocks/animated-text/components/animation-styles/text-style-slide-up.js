@@ -20,7 +20,7 @@ const textStyleSlideUp = (props) => {
         duration: animationDuration,
     });
 
-    if (loop || (isRotationType && !stopRotating())) {
+    if (loop || (isRotationType && !stopRotating)) {
         animationRef.current.add({ //display
             targets: targetRef.current,
             delay: displayDuration
