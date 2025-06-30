@@ -298,6 +298,19 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['indicatorIconSize']) && data.push({
+        'type': 'unitPoint',
+        'id': 'indicatorIconSize',
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .${elementId} .chart-content .chart-inside > i`,
+        'responsive': true
+    });
+
     isNotEmpty(attributes['indicatorTypography']) && data.push({
         'type': 'typography',
         'id': 'indicatorTypography',
