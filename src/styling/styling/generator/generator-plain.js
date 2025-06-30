@@ -131,7 +131,7 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}, otherA
         case 'searchButtonContainerWidth':
             if (isNotEmpty(attribute)) {
                 const diff = (attribute.unit === 'px') ? 2 : (attribute.unit === '%') ? 0.2 : 0.12;
-                value = `calc(100% - ${parseInt(attribute.point) + diff}${attribute.unit})`;
+                value = `max(calc(100% - ${parseInt(attribute.point) + diff}${attribute.unit}), 100%)`;
             }
             break;
         case 'handleDefaultValue':

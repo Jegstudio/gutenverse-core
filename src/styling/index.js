@@ -1,5 +1,5 @@
 export { handleBackground } from './styling/handler/handle-background';
-export { handleColor, getColor } from './styling/handler/handle-color';
+export { handleColor, getColor, getColorValueFromVariable } from './styling/handler/handle-color';
 export { handleDimension, getDimension } from './styling/handler/handle-dimension';
 export { handleTypography } from './styling/handler/handle-typography';
 export { handleUnitPoint, getUnitPoint } from './styling/handler/handle-unit-point';
