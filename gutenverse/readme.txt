@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 3.0.6
+Stable tag: 3.0.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,6 +298,16 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.0.7 =
+##### New & Improvemenets
+* add icon box height option
+
+##### Bug Fixes
+* fix chart block
+* fix issue with animation in older plugin version
+* fix button mask frontend selector
+* fix archive title block issue
+
 = 3.0.6 =
 ##### New & Improvemenets
 * new block: chart block
