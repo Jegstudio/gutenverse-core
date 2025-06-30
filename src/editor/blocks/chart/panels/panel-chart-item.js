@@ -116,6 +116,15 @@ export const chartItemPanel = (props) => {
                     ],
                 },
                 {
+                    id: 'gradientPosition',
+                    label: __('Gradient Position', 'gutenverse'),
+                    component: RangeControl,
+                    min: 0,
+                    max: 500,
+                    step: 1,
+                    unit: 'px'
+                },
+                {
                     id: 'backgroundColor',
                     show: value => value.colorMode === 'default' || value.colorMode === undefined,
                     label: __('Color', 'gutenverse'),
