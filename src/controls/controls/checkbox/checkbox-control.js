@@ -7,7 +7,7 @@ import { compose } from '@wordpress/compose';
 import { deviceStyleValue } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { __ } from '@wordpress/i18n';
-import { useEffect, useRef } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 
 const CheckboxControl = (props) => {
     const {
@@ -25,44 +25,15 @@ const CheckboxControl = (props) => {
     let checked;
     const id = useInstanceId(CheckboxControl, 'inspector-checkbox-control');
     const device = getDeviceType();
-    checked = usePreviousDevice ? deviceStyleValue(device, deviceValues) : value;
+    checked = usePreviousDevice ? deviceStyleValue(device, deviceValues) : allowDeviceControl ? value[device] : value;
     const inputRef = useRef(null);
 
     const onChange = value => {
         onValueChange(value);
     };
 
-    useEffect(() => {
-        if (usePreviousDeviceValue && device !== 'Desktop' && (deviceValues.Desktop || deviceValues.Desktop === undefined)) {
-            const shouldClickInput = () => {
-                if (
-                    device === 'Tablet' &&
-                    !checked && deviceValues[device] === undefined &&
-                    deviceValues.Desktop !== undefined
-                ) {
-                    return true;
-                }
-                if (
-                    device === 'Mobile' &&
-                    !checked &&
-                    deviceValues[device] === undefined &&
-                    (deviceValues.Tablet === undefined || deviceValues.Tablet) &&
-                    !(deviceValues.Desktop === undefined && deviceValues.Tablet === undefined)
-                ) {
-                    return true;
-                }
-                return false;
-            };
-
-            if (shouldClickInput()) {
-                setTimeout(() => inputRef.current?.click(), 100);
-                checked = true;
-            }
-        }
-    }, [device, deviceValues, checked]);
-
     const checkboxContent = <>
-        <input id={`${id}-checkbox`} ref={inputRef} type="checkbox" defaultChecked={checked} onClick={e => onChange(e.target.checked)} hidden disabled={proLabel}/>
+        <input id={`${id}-checkbox`} checked={checked} ref={inputRef} type="checkbox" defaultChecked={checked} onClick={e => onChange(e.target.checked)} hidden disabled={proLabel}/>
         <span className="switch"/>
     </>;
 

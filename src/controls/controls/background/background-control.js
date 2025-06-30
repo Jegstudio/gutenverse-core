@@ -254,6 +254,7 @@ const BackgroundControl = (props) => {
                 deviceValues={useFeaturedImage}
                 allowDeviceControl={true}
                 usePreviousDeviceValue={true}
+                usePreviousDevice={true}
                 onValueChange={useFeaturedImage => onValueChange({ ...value, useFeaturedImage })}
             />}
             {!isEmpty(useFeaturedImage) ?
