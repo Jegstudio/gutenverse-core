@@ -7,9 +7,9 @@ import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
-    data = textAnimatedStyle({elementId, attributes, data});
-    data = textNormalStyle({elementId, attributes, data});
-    data = highlightStyle({elementId, attributes, data});
+    data = textAnimatedStyle({ elementId, attributes, data });
+    data = textNormalStyle({ elementId, attributes, data });
+    data = highlightStyle({ elementId, attributes, data });
 
     data = backgroundStyle({ attributes, data, elementId });
 
@@ -303,6 +303,49 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
+
+    // Style fallback before rotation text feature
+    if (isNotEmpty(attributes['color']) && !isNotEmpty(attributes['textAnimatedColor'])) {
+        data.push({
+            'type': 'color',
+            'id': 'color',
+            'selector': `.editor-styles-wrapper .${elementId} .text-content .text-wrapper`,
+            'properties': [
+                {
+                    'name': 'color',
+                    'valueType': 'direct'
+                }
+            ],
+        });
+    }
+    if (isNotEmpty(attributes['typography']) && !isNotEmpty(attributes['textAnimatedTypography'])) {
+        data.push({
+            'type': 'typography',
+            'id': 'typography',
+            'selector': `.editor-styles-wrapper .${elementId} .text-content .text-wrapper`,
+        });
+    }
+    if (isNotEmpty(attributes['textShadow']) && !isNotEmpty(attributes['textAnimatedShadow'])) {
+        data.push({
+            'type': 'textShadow',
+            'id': 'textAnimatedShadow',
+            'properties': [
+                {
+                    'name': 'text-shadow',
+                    'valueType': 'direct'
+                }
+            ],
+            'selector': `.editor-styles-wrapper .${elementId} .text-content .text-wrapper`,
+        });
+    }
+    if (isNotEmpty(attributes['textStroke']) && !isNotEmpty(attributes['textAnimatedStroke'])) {
+        data.push({
+            'type': 'textStroke',
+            'id': 'textAnimatedStroke',
+            'selector': `.editor-styles-wrapper .${elementId} .text-content .text-wrapper`,
+        });
+    }
+    // <<---- END STYLE FALLBACK ---->>
 
     return [
         ...data,

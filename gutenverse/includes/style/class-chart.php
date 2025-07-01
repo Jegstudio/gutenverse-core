@@ -192,6 +192,19 @@ class Chart extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['indicatorIconSize'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .chart-content .chart-inside > i",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'font-size' );
+					},
+					'value'          => $this->attrs['indicatorIconSize'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['cardBoxShadow'] ) ) {
 			$this->inject_style(
 				array(

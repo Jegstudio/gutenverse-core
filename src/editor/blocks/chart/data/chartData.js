@@ -1,5 +1,5 @@
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { getColor } from 'gutenverse-core/styling';
+import { getColor, getColorValueFromVariable } from 'gutenverse-core/styling';
 
 const theColor = (color) => {
     const {type} = color;
@@ -40,7 +40,7 @@ export function getChartData(attributes, multiValue, canvas) {
         animationDuration,
         cutout,
         barThickness,
-        cutoutBackground
+        cutoutBackground,
     } = attributes;
 
     const values = [];
@@ -58,7 +58,7 @@ export function getChartData(attributes, multiValue, canvas) {
         if (item.colorMode === 'default' || item.colorMode === undefined) {
             color = theColor(item.backgroundColor);
         } else {
-            const gradient = 'topBottom' === item.gradientDirection ? canvas.getContext('2d').createLinearGradient(0, 0, 0, 400) : canvas.getContext('2d').createLinearGradient(0, 0, 400, 0);
+            const gradient = 'topBottom' === item.gradientDirection ? canvas.getContext('2d').createLinearGradient(0, 0, 0, item.gradientPosition ? item.gradientPosition :  200) : canvas.getContext('2d').createLinearGradient(0, 0, item.gradientPosition ? item.gradientPosition :  200, 0);
             gradient.addColorStop(0, theColor(item.colorGradientOne));
             gradient.addColorStop(1, theColor(item.colorGradientTwo));
             color = gradient;
@@ -75,7 +75,12 @@ export function getChartData(attributes, multiValue, canvas) {
 
     const topValue = 'number' === chartContent ? parseFloat(totalValue) : 100;
     const bottomValue = 'number' === chartContent ? parseFloat(minValue) : 0;
-    const cutoutFill = getColor({...cutoutBackground, a: 1});
+    let cutoutFill = '';
+    if (cutoutBackground.type === 'variable') {
+        cutoutFill = getColorValueFromVariable(cutoutBackground);
+    } else {
+        cutoutFill = getColor({...cutoutBackground, a: 1});
+    }
 
     switch(chartType) {
         case 'doughnut':

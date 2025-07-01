@@ -50,7 +50,7 @@ class Button extends Style_Abstract {
 					'normal' => ".{$this->element_id} .guten-button",
 					'hover'  => ".{$this->element_id} .guten-button:hover",
 				),
-				'mask'        => null,
+				'mask'        => ".{$this->element_id} .guten-button",
 			)
 		);
 	}

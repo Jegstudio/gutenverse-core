@@ -208,7 +208,6 @@
 		},
         "border": {
             "type": "object",
-            "default": {},
             "copyStyle": true
         },
         "borderResponsive": {
@@ -221,14 +220,10 @@
         },
         "boxShadow": {
             "type": "object",
-            "default": {
-                "position": "outline"
-            },
             "copyStyle": true
         },
         "borderHover": {
             "type": "object",
-            "default": {},
             "copyStyle": true
         },
         "borderHoverResponsive": {
@@ -241,9 +236,6 @@
         },
         "boxShadowHover": {
             "type": "object",
-            "default": {
-                "position": "outline"
-            },
             "copyStyle": true
         },
         "margin": {

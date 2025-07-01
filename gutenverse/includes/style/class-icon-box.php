@@ -126,6 +126,44 @@ class Icon_Box extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['height'] ) && isset( $this->attrs['heightControl'] ) && 'min' === $this->attrs['heightControl'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'min-height' );
+					},
+					'value'          => $this->attrs['height'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( 'fit' === $this->attrs['heightControl'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-icon-box",
+					'property'       => function ( $value ) {
+						return 'height: 100%;';
+					},
+					'value'          => $this->attrs['heightControl'],
+					'device_control' => false,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'property'       => function ( $value ) {
+						return 'height: 100%;';
+					},
+					'value'          => $this->attrs['heightControl'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['iconPositionResponsive'] ) ) {
 			$this->inject_style(
 				array(
