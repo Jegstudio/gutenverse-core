@@ -181,7 +181,7 @@ export function useGlobalStylesConfig() {
                     custom: globalColors?.custom || []
                 }
             },
-        }
+        };
         return {
             globalStylesId: _globalStylesId,
             settings: !isEmpty(record?.settings) ?  record?.settings : defaultSettings,
@@ -206,9 +206,19 @@ export function useGlobalStylesConfig() {
                 'globalStyles',
                 globalStylesId
             );
+            const { globalColors } = window['GutenverseConfig'];
+            const defaultSettings = {
+                color: {
+                    palette: {
+                        theme: globalColors?.theme || [],
+                        default: globalColors?.default || [],
+                        custom: globalColors?.custom || []
+                    }
+                },
+            };
             const currentConfig = {
                 styles: record?.styles ?? {},
-                settings: record?.settings ?? {},
+                settings: !isEmpty(record?.settings) ? record?.settings : defaultSettings,
             };
             const updatedConfig = callback(currentConfig);
 
