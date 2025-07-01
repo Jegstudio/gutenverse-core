@@ -1,9 +1,10 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl, RangeControl, CheckboxControl, AlertControl } from 'gutenverse-core/controls';
+import { SelectControl, RangeControl, CheckboxControl, AlertControl, SizeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const contentPanel = (props) => {
     const {
+        elementId,
         enableContent,
         chartType,
         chartContent,
@@ -51,7 +52,41 @@ export const contentPanel = (props) => {
                 },
             ],
         },
-
+        {
+            id: 'indicatorIconSize',
+            label: __('Icon Size', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            show: 'icon' === chartContent,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 100,
+                    step: 1
+                },
+                em: {
+                    text: 'em',
+                    min: 0.1,
+                    max: 3,
+                    step: 0.1
+                },
+            },
+            liveStyle: [
+                {
+                    'type': 'unitPoint',
+                    'id': 'indicatorIconSize',
+                    'responsive': true,
+                    'selector': `.editor-styles-wrapper .${elementId} .chart-content .chart-inside > i`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'direct'
+                        }
+                    ]
+                },
+            ],
+        },
         {
             id: 'minValue',
             label: __('Min Value', 'gutenverse'),
