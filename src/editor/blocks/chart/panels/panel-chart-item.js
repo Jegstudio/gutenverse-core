@@ -112,6 +112,14 @@ export const chartItemPanel = (props) => {
                         {
                             label: __('Left to Right', 'gutenverse'),
                             value: 'leftRight'
+                        },
+                        {
+                            label: __('Bottom to Top', 'gutenverse'),
+                            value: 'bottomTop'
+                        },
+                        {
+                            label: __('Right to Left', 'gutenverse'),
+                            value: 'rightLeft'
                         }
                     ],
                 },
