@@ -11,7 +11,7 @@ export const settingPanel = (props) => {
     } = props;
 
     const showLetterSpeed = () => {
-        return [/*'typing',*/ 'swirl', 'blinds', 'wave'].includes(style);
+        return ['typing', 'swirl', 'blinds', 'wave'].includes(style);
     };
 
     const animationStyles = () => {
@@ -35,7 +35,7 @@ export const settingPanel = (props) => {
             { value: 'swirl', label: __('Swirl') },
             { value: 'wave', label: __('Wave') },
             { value: 'zoom', label: __('Zoom') },
-            // { value: 'typing', label: __('Typing')},
+            { value: 'typing', label: __('Typing')},
             // { value: 'clip', label: __('Typing')},
         ];
         if (textType == 'default') {
@@ -209,7 +209,7 @@ export const settingPanel = (props) => {
         },
         {
             id: 'splitByWord',
-            show: textType !== 'highlighted',
+            show: textType !== 'highlighted' && style !== 'typing',
             label: __('Split By Word', 'gutenverse'),
             component: CheckboxControl
         },
