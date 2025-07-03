@@ -54,9 +54,9 @@ const getBlockStyle = (elementId, attributes) => {
             .${elementId}.Mobile-noFlip .chart-content.content-card`,
     });
 
-    isNotEmpty(attributes['boxShadow']) && data.push({
+    isNotEmpty(attributes['cardBoxShadow']) && data.push({
         'type': 'boxShadow',
-        'id': 'boxShadow',
+        'id': 'cardBoxShadow',
         'properties': [
             {
                 'name': 'box-shadow',
@@ -296,6 +296,19 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
+    });
+
+    isNotEmpty(attributes['indicatorIconSize']) && data.push({
+        'type': 'unitPoint',
+        'id': 'indicatorIconSize',
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .${elementId} .chart-content .chart-inside > i`,
+        'responsive': true
     });
 
     isNotEmpty(attributes['indicatorTypography']) && data.push({
