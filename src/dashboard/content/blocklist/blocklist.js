@@ -30,15 +30,15 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
     });
 
     const updateValue = (id, value) => {
-        updateSettingValues('active_blocks', id, value);
-    };
-
-    const updateValueHasChild = (id, value) => {
-        blocksHasChild[id].child.map((block) => {
-            active_blocks[block.name] = value;
-        });
-        active_blocks[id] = value;
-        updateValues('active_blocks', active_blocks);
+        if (blocksHasChild[id]) {
+            blocksHasChild[id].child.map((blockName) => {
+                active_blocks[blockName] = value;
+            });
+            active_blocks[id] = value;
+            updateValues('active_blocks', active_blocks);
+        } else {
+            updateSettingValues('active_blocks', id, value);
+        }
     };
 
     const enableCategory = (category) => {
@@ -201,13 +201,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                                         <p className="block-title">{block?.title}</p>
                                                     </div>
                                                     <div className="block-control" ref={controlRef}>
-                                                        <ControlCheckbox id={block.name} value={active_blocks[block.name]} updateValue={(id, value) => {
-                                                            if (blocksHasChild[id]) {
-                                                                updateValueHasChild(id, value);
-                                                            } else {
-                                                                updateValue(id, value);
-                                                            }
-                                                        }} />
+                                                        <ControlCheckbox id={block.name} value={active_blocks[block.name]} updateValue={updateValue} />
                                                     </div>
                                                 </div>
                                             );
