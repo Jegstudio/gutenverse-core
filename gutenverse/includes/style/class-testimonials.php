@@ -126,7 +126,8 @@ class Testimonials extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
 					'property'       => function ( $value ) {
-						return "opacity: calc({$value}/100);";
+						$calc = $value / 100;
+						return "opacity: {$calc};";
 					},
 					'value'          => $this->attrs['arrowOpacity'],
 					'device_control' => true,
@@ -222,9 +223,10 @@ class Testimonials extends Style_Abstract {
 		if ( isset( $this->attrs['arrowHoverOpacity'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}div[class*='swiper-button-']:not(.swiper-button-disabled):hover ",
+					'selector'       => ".{$this->element_id} div[class*='swiper-button-']:not(.swiper-button-disabled):hover ",
 					'property'       => function ( $value ) {
-						return "opacity: calc({$value}/100);";
+						$calc = $value / 100;
+						return "opacity: {$calc};";
 					},
 					'value'          => $this->attrs['arrowHoverOpacity'],
 					'device_control' => true,
@@ -322,7 +324,8 @@ class Testimonials extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .swiper-button-disabled",
 					'property'       => function ( $value ) {
-						return "opacity: calc({$value}/100);";
+						$calc = $value / 100;
+						return "opacity: {$calc} !important;";
 					},
 					'value'          => $this->attrs['arrowDisabledOpacity'],
 					'device_control' => true,
