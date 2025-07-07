@@ -195,7 +195,7 @@ const GalleryBlock = compose(
     return <>
         <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} liveAttr={liveAttr} setLiveAttr={setLiveAttr} />
-        {showPopup && createPortal(<GalleryPopup currentSearch={currentSearch} currentFilter={currentFilter} activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
+        {showPopup && createPortal(<GalleryPopup elementId={elementId} currentSearch={currentSearch} currentFilter={currentFilter} activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
         <div  {...blockProps} data-grid={grid}>
             {filter && (
                 filterType === 'tab' ? <div className="filter-controls">
