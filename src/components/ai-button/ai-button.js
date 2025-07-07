@@ -122,7 +122,7 @@ const AIButton = () => {
                 data: { ...params },
             } );
 
-            const mergedContent = response?.data?.content?.generated_content_inline;
+            const mergedContent = response?.data?.content?.local_content;
             const blocksToInsert = parse( mergedContent );
             setPreviewBlocks( blocksToInsert );
             setShowPreviewModal( true );
