@@ -1777,7 +1777,7 @@ class Api {
 
 			$args = array(
 				'method'      => 'POST',
-				'timeout'     => 30,
+				'timeout'     => 900,
 				'headers'     => array(
 					'Content-Type' => 'application/json; charset=' . get_option( 'blog_charset' ),
 					'Accept'       => 'application/json',
