@@ -119,6 +119,21 @@
 			"copyStyle": true,
 			"default": {}
 		},
+    "percentSwitchBoxShadow": {
+      "type": "object",
+      "default": {},
+      "copyStyle": true
+    },
+    "percentSwitchSize": {
+      "type": "object",
+      "default": {},
+      "copyStyle": true
+    },
+    "percentSwitchBorder": {
+      "type": "object",
+      "default": {},
+      "copyStyle": true
+    },
     "border": {
       "type": "object",
       "default": {},
