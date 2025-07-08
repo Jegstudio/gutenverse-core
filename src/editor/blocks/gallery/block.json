@@ -892,8 +892,37 @@
 				"Desktop": "column"
 			},
 			"copyStyle": true
+		},
+		"itemLightboxTitleTypography": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"itemLightboxTitleColor": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"itemLightboxDescriptionTypography": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"itemLightboxDescriptionColor": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"itemLightboxTextPadding": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"itemLightboxTextMargin": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
 		}
-
 	},
 	"supports": {
 		"className": false
