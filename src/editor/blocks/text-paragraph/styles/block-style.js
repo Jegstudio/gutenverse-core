@@ -6,6 +6,20 @@ const getBlockStyle = (elementId, attributes) => {
     let data = [];
     data = backgroundStyle({ attributes, data, elementId });
 
+    isNotEmpty(attributes['textIndent']) && data.push({
+        'type': 'unitPoint',
+        'id': 'textIndent',
+        'responsive': true,
+        'selector': `p.gutenverse-text.${elementId}`,
+        'properties': [
+            {
+                'name': 'text-indent',
+                'valueType': 'direct',
+                'important': true,
+            }
+        ]
+    });
+
     isNotEmpty(attributes['columns']) && data.push({
         'type': 'plain',
         'id': 'columns',
