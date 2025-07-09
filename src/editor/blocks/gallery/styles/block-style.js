@@ -12,6 +12,7 @@ import panelLoadMoreStyle from './panel-style/style-load-more';
 import panelThumbnailStyle from './panel-style/style-thumbnail';
 import panelPriceRating from './panel-style/style-price-rating';
 import { backgroundStyle } from 'gutenverse-core/controls';
+import panelLightboxStyle from './panel-style/style-lightbox';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -39,6 +40,8 @@ const getBlockStyle = (elementId, attributes) => {
     data = panelSettingStyle(elementId, attributes, data);
     /**Panel List */
     data = backgroundStyle({ attributes, data, elementId });
+    /**Panel Lightbox */
+    data = panelLightboxStyle(elementId, attributes, data);
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',

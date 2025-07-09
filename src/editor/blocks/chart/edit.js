@@ -22,6 +22,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { withPassRef, withMouseMoveEffect, withPartialRender, withCopyElementToolbar } from 'gutenverse-core/hoc';
 
+//commented code is for integrating with dynamic and text highlight
 const NEW_TAB_REL = 'noreferrer noopener';
 
 export const flipClasses = (contentType) => {
