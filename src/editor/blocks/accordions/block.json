@@ -94,7 +94,23 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"contentBackgroundColorClosed": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentBackgroundColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"contentTextColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentTextColorClosed": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentTextColorHover": {
 			"type": "object",
 			"copyStyle": true
 		},

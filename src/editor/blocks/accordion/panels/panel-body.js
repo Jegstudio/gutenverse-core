@@ -1,11 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import {
-    BorderControl,
-    BorderResponsiveControl,
     ColorControl,
-    DimensionControl,
     SwitchControl,
-    TypographyControl
 } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
@@ -16,63 +12,9 @@ export const panelBody = (props) => {
         setSwitcher,
     } = props;
 
-    const device = getDeviceType();
-
     return [
         {
-            id: 'contentTypography',
-            label: __('Typography', 'gutenverse'),
-            component: TypographyControl,
-        },
-        {
-            id: 'contentPadding',
-            label: __('Padding', 'gutenverse'),
-            component: DimensionControl,
-            position: ['top', 'right', 'bottom', 'left'],
-            allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                percent: {
-                    text: '%',
-                    unit: '%'
-                },
-            },
-        },
-        {
-            id: 'contentBorder',
-            show: device === 'Desktop',
-            label: __('Border', 'gutenverse'),
-            component: BorderControl,
-            liveStyle: [
-                {
-                    'type': 'border',
-                    'selector': `.${elementId} .accordion-item .accordion-content`,
-                }
-            ]
-        },
-        {
-            id: 'contentBorderResponsive',
-            show: device !== 'Desktop',
-            label: __('Border', 'gutenverse'),
-            component: BorderResponsiveControl,
-            allowDeviceControl: true,
-            liveStyle: [
-                {
-                    'type': 'borderResponsive',
-                    'responsive': true,
-                    'selector': `.${elementId} .accordion-item .accordion-content`,
-                }
-            ]
-        },
-        {
-            id: '__accordionBodyColor',
+            id: '__accordionItemBodyColor',
             component: SwitchControl,
             options: [
                 {
@@ -88,13 +30,13 @@ export const panelBody = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({ __accordionBodyColor }) => setSwitcher({ ...switcher, accordionBodyColor: __accordionBodyColor })
+            onChange: ({ __accordionItemBodyColor }) => setSwitcher({ ...switcher, accordionItemBodyColor: __accordionItemBodyColor })
         },
         {
             id: 'contentTextColor',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            show: !switcher.accordionBodyColor || switcher.accordionBodyColor === 'open',
+            show: !switcher.accordionItemBodyColor || switcher.accordionItemBodyColor === 'open',
             liveStyle: [
                 {
                     'id': 'contentTextColor',
@@ -113,7 +55,7 @@ export const panelBody = (props) => {
             id: 'contentBackgroundColor',
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
-            show: !switcher.accordionBodyColor || switcher.accordionBodyColor === 'open',
+            show: !switcher.accordionItemBodyColor || switcher.accordionItemBodyColor === 'open',
             liveStyle: [
                 {
                     'type': 'color',
@@ -131,25 +73,25 @@ export const panelBody = (props) => {
             id: 'contentTextColorClosed',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            show: switcher.accordionBodyColor === 'closed',
+            show: switcher.accordionItemBodyColor === 'closed',
         },
         {
             id: 'contentBackgroundColorClosed',
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
-            show: switcher.accordionBodyColor === 'closed',
+            show: switcher.accordionItemBodyColor === 'closed',
         },
         {
             id: 'contentTextColorHover',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            show: switcher.accordionBodyColor === 'hover',
+            show: switcher.accordionItemBodyColor === 'hover',
         },
         {
             id: 'contentBackgroundColorHover',
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
-            show: switcher.accordionBodyColor === 'hover',
+            show: switcher.accordionItemBodyColor === 'hover',
         },
     ];
 };

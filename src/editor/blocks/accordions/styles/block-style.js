@@ -108,10 +108,58 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['contentTextColorClosed']) && data.push({
+        'type': 'color',
+        'id': 'contentTextColorClosed',
+        'selector': `.${elementId} .accordion-item .accordion-body.closed .accordion-content`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['contentTextColorHover']) && data.push({
+        'type': 'color',
+        'id': 'contentTextColor',
+        'selector': `.${elementId} .accordion-item .accordion-body:not(.closed) .accordion-content:hover`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
     isNotEmpty(attributes['contentBackgroundColor']) && data.push({
         'type': 'color',
         'id': 'contentBackgroundColor',
         'selector': `.${elementId} .accordion-item .accordion-content`,
+        'properties': [
+            {
+                'name': 'background-color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['contentBackgroundColorClosed']) && data.push({
+        'type': 'color',
+        'id': 'contentBackgroundColorClosed',
+        'selector': `.${elementId} .accordion-item .accordion-body.closed .accordion-content`,
+        'properties': [
+            {
+                'name': 'background-color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['contentBackgroundColorHover']) && data.push({
+        'type': 'color',
+        'id': 'contentBackgroundColorHover',
+        'selector': `.${elementId} .accordion-item .accordion-body:not(.closed) .accordion-content:hover`,
         'properties': [
             {
                 'name': 'background-color',
