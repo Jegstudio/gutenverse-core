@@ -27,6 +27,7 @@ class Upgrader {
 		add_action( 'admin_notices', array( $this, 'page_content_notice' ) );
 		add_action( 'init', array( $this, 'set_upgrader_page_content' ), 99 );
 		add_action( 'init', array( $this, 'set_upgrader_plugin_split' ), 99 );
+		add_action( 'init', array( $this, 'set_upgrader_theme_select' ), 99 );
 		add_action( 'wp_ajax_gutenverse_upgrader_page_content_close', array( $this, 'upgrader_page_content_close' ) );
 		add_action( 'wp_ajax_gutenverse_upgrader_page_upgrade_close', array( $this, 'upgrader_page_upgrade_close' ) );
 		add_action( 'gutenverse_plugin_upgrade', array( $this, 'upgrade_like' ), 20 );
@@ -143,7 +144,16 @@ class Upgrader {
 	 * @return string.
 	 */
 	public function get_plugin_upgrade_option_name() {
-		return 'gutenverse_upgrader_complete';
+		return 'gutenverse_upgrader_completed';
+	}
+
+	/**
+	 * Ge Upgrader Option Name.
+	 *
+	 * @return string.
+	 */
+	public function get_plugin_theme_select_name() {
+		return 'gutenverse_theme_select_complete';
 	}
 
 	/**
@@ -169,6 +179,19 @@ class Upgrader {
 		if ( ! $flag && $version_flag && current_user_can( 'manage_options' ) ) {
 			add_option( $this->get_plugin_split_option_name(), true );
 			wp_safe_redirect( admin_url( 'admin.php?action=gutenverse-upgrade-wizard' ) );
+		}
+	}
+
+	/**
+	 * Set form split option meta
+	 */
+	public function set_upgrader_theme_select() {
+		$flag = get_option( $this->get_plugin_theme_select_name() );
+		// delete_option( $this->get_plugin_theme_select_name() );
+
+		if ( ! $flag && current_user_can( 'manage_options' ) ) {
+			add_option( $this->get_plugin_theme_select_name(), true );
+			wp_safe_redirect( admin_url( 'admin.php?action=gutenverse-onboarding-wizard' ) );
 		}
 	}
 
