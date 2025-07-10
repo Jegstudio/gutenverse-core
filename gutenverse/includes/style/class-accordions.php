@@ -338,6 +338,32 @@ class Accordions extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['contentBackgroundColorClosed'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item .accordion-body.closed .accordion-content",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['contentBackgroundColorClosed'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['contentBackgroundColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item .accordion-body .accordion-content:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['contentBackgroundColorHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['contentTextColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -346,6 +372,32 @@ class Accordions extends Style_Abstract {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['contentTextColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['contentTextColorClosed'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item .accordion-body.closed .accordion-content",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['contentTextColorClosed'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['contentTextColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item .accordion-body .accordion-content:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['contentTextColorHover'],
 					'device_control' => false,
 				)
 			);
