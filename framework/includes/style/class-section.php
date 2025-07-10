@@ -32,7 +32,11 @@ class Section extends Style_Abstract {
 	public function __construct( $attrs ) {
 		parent::__construct( $attrs );
 
-		$element_id = explode( '-', $this->element_id )[1];
+		$exploded = explode( '-', $this->element_id );
+		if ( count( $exploded ) <= 1 ) {
+			return;
+		}
+		$element_id = $exploded[1];
 
 		$this->set_feature(
 			array(
