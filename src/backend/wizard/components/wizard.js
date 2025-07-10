@@ -3,63 +3,15 @@ import { Fragment, useEffect, useState } from '@wordpress/element';
 import { UpgradePro } from '../pages/upgrade-pro';
 import { ImportTemplates } from '../pages/import-templates';
 import apiFetch from '@wordpress/api-fetch';
-import { store as noticesStore } from '@wordpress/notices';
-import { useDispatch } from '@wordpress/data';
 
-// const activateTheme = (createInfoNotice, slug) => {
-//     // setStatus(slug);
-
-//     apiFetch({
-//         path: 'gutenverse-client/v1/themes/activate',
-//         method: 'POST',
-//         data: {
-//             stylesheet: slug,
-//         },
-//     })
-//         .then(() => { })
-//         .catch(() => { })
-//         .finally(() => {
-//             createInfoNotice(__('Theme Activated', '--gctd--'), {
-//                 type: 'snackbar',
-//                 isDismissible: true,
-//             });
-//         });
-// };
-
-// const installTheme = (createInfoNotice, slug) => {
-//     let response = null;
-
-//     const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-//     const formData = new FormData();
-//     formData.append('slug', slug);
-//     formData.append('action', 'install-theme');
-//     formData.append('_ajax_nonce', installNonce);
-
-//     setStatus(slug);
-
-//     response = axios.post(window.ajaxurl, formData, config);
-
-//     response
-//         .then(value => {
-//             if (value !== false) {
-//                 getInstalledThemes(() => {
-//                     setInitialAction('install' === initialAction ? 'activate' : '');
-//                     setStatus(false);
-//                     createInfoNotice(__('Theme Installed', '--gctd--'), {
-//                         type: 'snackbar',
-//                         isDismissible: true,
-//                     });
-//                 });
-//             } else {
-//                 setStatus(false);
-//                 createInfoNotice(__('Install Failed', '--gctd--'), {
-//                     type: 'snackbar',
-//                     isDismissible: true,
-//                 });
-//             }
-//         })
-//         .catch();
-// };
+const getInstalledThemes = (func) => {
+    apiFetch({
+        path: 'wp/v2/themes',
+        method: 'GET',
+    }).then((data) => {
+        func && func();
+    });
+};
 
 const ImportLoading = (props) => {
     let progress = '0%';
@@ -101,8 +53,24 @@ const ImportLoading = (props) => {
 };
 
 const InstallPlugin = ({ action, setAction, updateProgress }) => {
-    const { plugins } = window.GutenverseWizard;
+    const { plugins, installNonce, ajaxurl, themeData } = window.GutenverseWizard;
     const [installing, setInstalling] = useState({ show: true, message: 'Preparing...', progress: '1/4' });
+    const [themeStatus, setThemeStatus] = useState('notExist');
+
+    wp?.apiFetch({ path: '/wp/v2/themes' }).then(themes => {
+        const themeSlug = themeData['slug'];
+        const theme = themes.find(t => t.stylesheet === themeSlug);
+
+        if (theme) {
+            if (theme.status === 'active') {
+                setThemeStatus('active');
+            } else {
+                setThemeStatus('installed');
+            }
+        } else {
+            setThemeStatus('notExist');
+        }
+    });
 
     useEffect(() => {
         let allActive = true;
@@ -114,6 +82,62 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
             setAction('done');
         }
     }, []);
+
+    const activateTheme = () => {
+        setInstalling({ show: true, message: 'Activating Theme...', progress: '3/4' });
+        apiFetch({
+            path: 'gutenverse-client/v1/themes/activate',
+            method: 'POST',
+            data: {
+                stylesheet: themeData['slug'],
+            },
+        })
+            .then(() => { })
+            .catch(() => {
+                setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
+                console.error('Error during theme activation');
+                setAction('done');
+            })
+            .finally(() => {
+                getInstalledThemes(() => {
+                    setInstalling({ show: true, message: 'Installing Complete', progress: '4/4' });
+                    setAction('done');
+                });
+            });
+    };
+
+    const installTheme = () => {
+        let response = null;
+        const formData = new FormData();
+        formData.append('slug', themeData['slug']);
+        formData.append('action', 'install-theme');
+        formData.append('_ajax_nonce', installNonce);
+        setInstalling({ show: true, message: 'Installing Theme...', progress: '2/4' });
+
+        response = fetch(ajaxurl, {
+            method: 'POST',
+            body: formData,
+        });
+
+        response
+            .then(value => {
+                if (value !== false) {
+                    getInstalledThemes(() => {
+                        setInstalling({ show: true, message: 'Theme Installed.', progress: '2/4' });
+                    });
+                    activateTheme();
+                } else {
+                    setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
+                    console.error('Error during theme installation');
+                    setAction('done');
+                }
+            })
+            .catch(err => {
+                setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
+                console.error('Error during theme installation: ' + err);
+                setAction('done');
+            });
+    };
 
     const boldWord = (str = '', word) => {
         const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -146,6 +170,7 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
                     }).then(() => {
                         installPlugins(index + 1);
                     }).catch(() => {
+                        setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
                         console.error('Error during installing plugin');
                     });
                 } else if (!plugin?.active) {
@@ -158,6 +183,7 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
                     }).then(() => {
                         installPlugins(index + 1);
                     }).catch(() => {
+                        setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
                         console.error('Error during plugin activation');
                         installPlugins(index);
                     });
@@ -181,27 +207,34 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
 
     const pluginActions = () => {
         switch (action) {
-            case 'done':
-                return <Fragment>
-                    <div className="button-done">{__('Installed & Activated', 'gutenverse')}</div>
-                    <div onClick={() => updateProgress('importTemplate', 1)} className="button-next">{__('Next', 'gutenverse')}</div>
-                </Fragment>;
             case 'loading':
                 return <Fragment>
                     <ImportLoading message={installing?.message} progress={installing?.progress} />
                 </Fragment>;
-            case 'install':
             default:
                 return <Fragment>
-                    <div onClick={() => onInstall()} className="button-install">{__('Install Required Plugins', 'gutenverse')}</div>
+                    <div onClick={() => updateProgress('importTemplate', 1)} className="button-next">{__('Next', 'gutenverse')}</div>
                 </Fragment>;
+        }
+    };
+
+    const themeAction = (step) => {
+        setAction('loading');
+        switch (step) {
+            case 1 :
+                installTheme();
+                break;
+            case 2 :
+            default:
+                activateTheme();
+                break;
         }
     };
 
     return <div className="plugin-install">
         <h1 className="content-title">{__('Install Required Plugins', 'gutenverse')}</h1>
         <p className="content-desc">{__('To access the full range of theme features, please install and activate the required plugins. Your enhanced user experience is just a few steps away!', 'gutenverse')}</p>
-        <div className="plugin-list">
+        <div className="requirment-list">
             {plugins?.map((plugin, key) => {
                 return <div className="plugin-data" key={key}>
                     <div className="logo">
@@ -211,8 +244,32 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
                         <h3 className="plugin-title">{boldWord(plugin?.title, 'Gutenverse')}</h3>
                         <p className="plugin-desc">{plugin?.short_desc?.toLowerCase()}</p>
                     </div>
+                    <div className="button-container">
+                        <div onClick={() => onInstall() } className={`button-install ${(plugin?.active || action === 'done') && 'installed'}`}>
+                            {__(`${plugin?.active || action === 'done' ? 'Plugin Active' : plugin?.installed ? 'Activate Plugin' : 'Install Plugin'}`, 'gutenverse')}
+                        </div>
+                    </div>
                 </div>;
             })}
+            <div className="theme-data">
+                <div className="logo">
+                    {themeData?.icon && <img src={themeData?.icons} />}
+                </div>
+                <div className="theme-detail">
+                    <h3 className="theme-title">{boldWord(themeData?.name, 'Gutenverse')}</h3>
+                    <p className="theme-desc"></p>
+                </div>
+                <div className="button-container">
+                    {
+                        ('installed' === themeStatus) ?
+                            <div onClick={() => themeAction(1) } className="button-install">{__('Activate Theme', 'gutenverse')}</div>
+                            : ('notExist' === themeStatus) ?
+                                <div onClick={() => themeAction(2) } className="button-install">{__('Install Theme', 'gutenverse')}</div>
+                                :
+                                <div className="button-install installed">{__('Theme Active', 'gutenverse')}</div>
+                    }
+                </div>
+            </div>
         </div>
         <div className="plugin-actions">
             {pluginActions()}
@@ -224,77 +281,11 @@ const WizardPage = () => {
     const [progress, setProgress] = useState('pluginAndTheme');
     const [progressCount, setProgressCount] = useState(0);
     const [action, setAction] = useState('install');
-    // const { installNonce } = window['GutenverseThemeList'];
-    // const { createInfoNotice } = useDispatch(noticesStore);
-    // const [pluginState, setPluginState] = useState('install');
 
     const updateProgress = (progress, inc) => {
         setProgress(progress);
-        setProgressCount(progressCount + inc);
+        setProgressCount(inc);
     };
-
-    // const installPlugins = (index = 0) => {
-    //     const { plugins } = window.GutenverseWizard;
-    //     if (plugins && index < plugins.length) {
-    //         const plugin = plugins[index];
-
-    //         if (!plugin?.installed) {
-    //             if (plugin?.download_url) {
-    //                 wp?.apiFetch({
-    //                     path: 'gtb-themes-backend/v1/install/plugins',
-    //                     method: 'POST',
-    //                     data: {
-    //                         slug: plugin?.slug,
-    //                         download_url: plugin?.download_url
-    //                     }
-    //                 }).then(() => {
-    //                     wp?.apiFetch({
-    //                         path: `wp/v2/plugins/plugin?plugin=${plugin?.slug}/${plugin?.slug}`,
-    //                         method: 'POST',
-    //                         data: {
-    //                             status: 'active'
-    //                         }
-    //                     }).then(() => {
-    //                         installPlugins(index + 1);
-    //                     }).catch(() => {
-    //                         console.error('Error during plugin activation');
-    //                         installPlugins(index);
-    //                     });
-    //                 });
-    //             } else {
-    //                 wp?.apiFetch({
-    //                     path: 'wp/v2/plugins',
-    //                     method: 'POST',
-    //                     data: {
-    //                         slug: plugin?.slug,
-    //                         status: 'active'
-    //                     },
-    //                 }).then(() => {
-    //                     installPlugins(index + 1);
-    //                 }).catch(() => {
-    //                     console.error('Error during installing plugin');
-    //                 });
-    //             }
-    //         } else if (!plugin?.active) {
-    //             wp?.apiFetch({
-    //                 path: `wp/v2/plugins/plugin?plugin=${plugin?.slug}/${plugin?.slug}`,
-    //                 method: 'POST',
-    //                 data: {
-    //                     status: 'active'
-    //                 }
-    //             }).then(() => {
-    //                 installPlugins(index + 1);
-    //             }).catch(() => {
-    //                 console.error('Error during plugin activation');
-    //                 installPlugins(index);
-    //             });
-    //         } else {
-    //             installPlugins(index + 1);
-    //         }
-    //     } else {
-    //         setPluginState('done');
-    //     }
-    // };
 
     const content = () => {
         switch (progress) {

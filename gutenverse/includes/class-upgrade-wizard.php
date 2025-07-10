@@ -143,9 +143,16 @@ class Upgrade_Wizard {
 	 * @return array
 	 */
 	public function wizard_config() {
-		$config              = array();
-		$config['dashboard'] = admin_url( 'admin.php?page=gutenverse' );
-		$config['status']    = array(
+		$config                 = array();
+		$config['dashboard']    = admin_url( 'admin.php?page=gutenverse' );
+		$config['ajaxurl']      = admin_url( 'admin-ajax.php' );
+		$config['themeData']        = array(
+			'name' => 'Startupzy',
+			'slug' => 'startupzy',
+			'icon' => GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-logo-dashboard.svg',
+		);
+		$config['installNonce'] = wp_create_nonce( 'updates' );
+		$config['status']       = array(
 			'form' => ! is_plugin_active( 'gutenverse-form/gutenverse-form.php' ),
 			'icon' => ! Init::instance()->assets->is_font_icon_exists(),
 		);
