@@ -107,36 +107,38 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
     };
 
     const installTheme = () => {
-        let response = null;
-        const formData = new FormData();
-        formData.append('slug', themeData['slug']);
-        formData.append('action', 'install-theme');
-        formData.append('_ajax_nonce', installNonce);
-        setInstalling({ show: true, message: 'Installing Theme...', progress: '2/4' });
+        setTimeout(() => {
+            let response = null;
+            const formData = new FormData();
+            formData.append('slug', themeData['slug']);
+            formData.append('action', 'install-theme');
+            formData.append('_ajax_nonce', installNonce);
+            setInstalling({ show: true, message: 'Installing Theme...', progress: '2/4' });
 
-        response = fetch(ajaxurl, {
-            method: 'POST',
-            body: formData,
-        });
-
-        response
-            .then(value => {
-                if (value !== false) {
-                    getInstalledThemes(() => {
-                        setInstalling({ show: true, message: 'Theme Installed.', progress: '2/4' });
-                    });
-                    activateTheme();
-                } else {
-                    setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
-                    console.error('Error during theme installation');
-                    setAction('done');
-                }
-            })
-            .catch(err => {
-                setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
-                console.error('Error during theme installation: ' + err);
-                setAction('done');
+            response = fetch(ajaxurl, {
+                method: 'POST',
+                body: formData,
             });
+
+            response
+                .then(value => {
+                    if (value !== false) {
+                        getInstalledThemes(() => {
+                            setInstalling({ show: true, message: 'Theme Installed.', progress: '2/4' });
+                        });
+                        activateTheme();
+                    } else {
+                        setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
+                        console.error('Error during theme installation');
+                        setAction('done');
+                    }
+                })
+                .catch(err => {
+                    setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
+                    console.error('Error during theme installation: ' + err);
+                    setAction('done');
+                });
+        }, 1500);
     };
 
     const boldWord = (str = '', word) => {
@@ -169,9 +171,9 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
                         },
                     }).then(() => {
                         installPlugins(index + 1);
-                    }).catch(() => {
+                    }).catch((err) => {
                         setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
-                        console.error('Error during installing plugin');
+                        console.error('Error during installing plugin: ' + err);
                     });
                 } else if (!plugin?.active) {
                     wp?.apiFetch({
@@ -182,9 +184,9 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
                         }
                     }).then(() => {
                         installPlugins(index + 1);
-                    }).catch(() => {
+                    }).catch((err) => {
                         setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
-                        console.error('Error during plugin activation');
+                        console.error('Error during plugin activation: ' + err);
                         installPlugins(index);
                     });
                 } else {
@@ -262,9 +264,9 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
                 <div className="button-container">
                     {
                         ('installed' === themeStatus) ?
-                            <div onClick={() => themeAction(1) } className="button-install">{__('Activate Theme', 'gutenverse')}</div>
+                            <div onClick={() => themeAction(2) } className="button-install">{__('Activate Theme', 'gutenverse')}</div>
                             : ('notExist' === themeStatus) ?
-                                <div onClick={() => themeAction(2) } className="button-install">{__('Install Theme', 'gutenverse')}</div>
+                                <div onClick={() => themeAction(1) } className="button-install">{__('Install Theme', 'gutenverse')}</div>
                                 :
                                 <div className="button-install installed">{__('Theme Active', 'gutenverse')}</div>
                     }
