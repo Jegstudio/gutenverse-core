@@ -168,6 +168,24 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['contentBackgroundGradient']) && data.push({
+        'type': 'background',
+        'id': 'contentBackgroundGradient',
+        'selector': `.${elementId}.guten-accordions .accordion-item .accordion-content`,
+    });
+
+    isNotEmpty(attributes['contentBackgroundGradientClosed']) && data.push({
+        'type': 'background',
+        'id': 'contentBackgroundGradientClosed',
+        'selector': `.${elementId}.guten-accordions .accordion-item .accordion-body.closed .accordion-content`,
+    });
+
+    isNotEmpty(attributes['contentBackgroundGradientHover']) && data.push({
+        'type': 'background',
+        'id': 'contentBackgroundGradientHover',
+        'selector': `.${elementId}.guten-accordions .accordion-item .accordion-body:not(.closed) .accordion-content:hover`,
+    });
+
     isNotEmpty(attributes['contentBorder']) && data.push({
         'type': 'border',
         'id': 'contentBorder',

@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import {
+    BackgroundControl,
     ColorControl,
     SwitchControl,
 } from 'gutenverse-core/controls';
@@ -70,6 +71,14 @@ export const panelBody = (props) => {
             ]
         },
         {
+            id: 'contentBackgroundGradient',
+            show: !switcher.accordionItemBodyColor || switcher.accordionItemBodyColor === 'open',
+            type: __('Background Gradient', '--gctd--'),
+            component: BackgroundControl,
+            allowDeviceControl: false,
+            options: ['gradient'],
+        },
+        {
             id: 'contentTextColorClosed',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
@@ -92,6 +101,22 @@ export const panelBody = (props) => {
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
             show: switcher.accordionItemBodyColor === 'hover',
+        },
+        {
+            id: 'contentBackgroundGradientClosed',
+            show: switcher.accordionItemBodyColor === 'closed',
+            type: __('Background Gradient', '--gctd--'),
+            component: BackgroundControl,
+            allowDeviceControl: false,
+            options: ['gradient'],
+        },
+        {
+            id: 'contentBackgroundGradientHover',
+            show: switcher.accordionItemBodyColor === 'hover',
+            type: __('Background Gradient', '--gctd--'),
+            component: BackgroundControl,
+            allowDeviceControl: false,
+            options: ['gradient'],
         },
     ];
 };

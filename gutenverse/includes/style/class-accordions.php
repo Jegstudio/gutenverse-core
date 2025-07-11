@@ -364,6 +364,18 @@ class Accordions extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['contentBackgroundGradient'] ) ) {
+			$this->handle_background( ".{$this->element_id}.guten-accordions .accordion-item .accordion-content", $this->attrs['contentBackgroundGradient'] );
+		}
+
+		if ( isset( $this->attrs['contentBackgroundGradientClosed'] ) ) {
+			$this->handle_background( ".{$this->element_id}.guten-accordions .accordion-item .accordion-body.closed .accordion-content", $this->attrs['contentBackgroundGradientClosed'] );
+		}
+
+		if ( isset( $this->attrs['contentBackgroundGradientHover'] ) ) {
+			$this->handle_background( ".{$this->element_id}.guten-accordions .accordion-item .accordion-body .accordion-content:hover", $this->attrs['contentBackgroundGradientHover'] );
+		}
+
 		if ( isset( $this->attrs['contentTextColor'] ) ) {
 			$this->inject_style(
 				array(

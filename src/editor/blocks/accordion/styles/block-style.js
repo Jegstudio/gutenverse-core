@@ -6,10 +6,10 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['contentBackgroundColor']) && data.push({
         'type': 'color',
         'id': 'contentBackgroundColor',
-        'selector': `.${elementId}.accordion-item .accordion-content:first-child`,
+        'selector': `.guten-accordions .${elementId}.accordion-item .accordion-content:first-child`,
         'properties': [
             {
-                'name': 'background-color',
+                'name': 'background',
                 'valueType': 'direct',
             }
         ],
@@ -18,10 +18,10 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['contentBackgroundColorClosed']) && data.push({
         'type': 'color',
         'id': 'contentBackgroundColorClosed',
-        'selector': `.${elementId}.accordion-item .accordion-body.closed .accordion-content:first-child`,
+        'selector': `.guten-accordions .${elementId}.accordion-item .accordion-body.closed .accordion-content:first-child`,
         'properties': [
             {
-                'name': 'background-color',
+                'name': 'background',
                 'valueType': 'direct',
                 'important': true,
             }
@@ -31,10 +31,10 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['contentBackgroundColorHover']) && data.push({
         'type': 'color',
         'id': 'contentBackgroundColorHover',
-        'selector': `.${elementId}.accordion-item .accordion-body:not(.closed) .accordion-content:first-child:hover`,
+        'selector': `.guten-accordions .${elementId}.accordion-item .accordion-body:not(.closed) .accordion-content:first-child:hover`,
         'properties': [
             {
-                'name': 'background-color',
+                'name': 'background',
                 'valueType': 'direct',
                 'important': true,
             }
@@ -78,6 +78,24 @@ const getBlockStyle = (elementId, attributes) => {
                 'important': true,
             }
         ],
+    });
+
+    isNotEmpty(attributes['contentBackgroundGradient']) && data.push({
+        'type': 'background',
+        'id': 'contentBackgroundGradient',
+        'selector': `.guten-accordions .${elementId}.accordion-item .accordion-content:first-child`,
+    });
+
+    isNotEmpty(attributes['contentBackgroundGradientClosed']) && data.push({
+        'type': 'background',
+        'id': 'contentBackgroundGradientClosed',
+        'selector': `.guten-accordions .${elementId}.accordion-item .accordion-body.closed .accordion-content:first-child`,
+    });
+
+    isNotEmpty(attributes['contentBackgroundGradientHover']) && data.push({
+        'type': 'background',
+        'id': 'contentBackgroundGradientHover',
+        'selector': `.guten-accordions .${elementId}.accordion-item .accordion-body:not(.closed) .accordion-content:first-child:hover`,
     });
 
     return [

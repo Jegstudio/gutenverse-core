@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import {
+    BackgroundControl,
     BorderControl,
     BorderResponsiveControl,
     ColorControl,
@@ -128,6 +129,21 @@ export const panelBody = (props) => {
             ]
         },
         {
+            id: 'contentBackgroundGradient',
+            show: !switcher.accordionBodyColor || switcher.accordionBodyColor === 'open',
+            type: __('Background Gradient', '--gctd--'),
+            component: BackgroundControl,
+            allowDeviceControl: false,
+            options: ['gradient'],
+            liveStyle: [
+                {
+                    'type': 'background',
+                    'selector': `.${elementId} .accordion-item .accordion-content`,
+                    'responsive': true
+                }
+            ]
+        },
+        {
             id: 'contentTextColorClosed',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
@@ -150,6 +166,22 @@ export const panelBody = (props) => {
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
             show: switcher.accordionBodyColor === 'hover',
+        },
+        {
+            id: 'contentBackgroundGradientClosed',
+            show: switcher.accordionBodyColor === 'closed',
+            type: __('Background Gradient', '--gctd--'),
+            component: BackgroundControl,
+            allowDeviceControl: false,
+            options: ['gradient'],
+        },
+        {
+            id: 'contentBackgroundGradientHover',
+            show: switcher.accordionBodyColor === 'hover',
+            type: __('Background Gradient', '--gctd--'),
+            component: BackgroundControl,
+            allowDeviceControl: false,
+            options: ['gradient'],
         },
     ];
 };

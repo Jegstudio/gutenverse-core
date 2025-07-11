@@ -102,6 +102,18 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"contentBackgroundGradient": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentBackgroundGradientClosed": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentBackgroundGradientHover": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"contentTextColor": {
 			"type": "object",
 			"copyStyle": true
