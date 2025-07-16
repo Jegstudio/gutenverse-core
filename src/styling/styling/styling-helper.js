@@ -448,9 +448,7 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
                 setIframeWindowId(windowId);
             }
 
-            if (generatedCSS) {
-                injectStyleToIFrame(idHolder.current, iframeWindowRef.current, generatedCSS);
-            }
+            injectStyleToIFrame(idHolder.current, iframeWindowRef.current, generatedCSS);
 
             if (fontUsed.some(value => value)) {
                 injectFontToIFrame(idHolder.current, iframeWindowRef.current, fontUsed);

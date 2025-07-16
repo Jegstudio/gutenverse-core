@@ -12,14 +12,33 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
     const { blockCategories } = window['GutenverseSettings'];
     const controlRef = useRef();
     const blocks = select('gutenverse/blocklist').getList();
+    const blocksHasChild = [];
     blocks.map((block) => {
         if (!(block?.name in active_blocks) && !block?.parent) {
             active_blocks[block.name] = true;
         }
+
+        if (block?.parent) {
+            if (!blocksHasChild[block.parent]) {
+                blocksHasChild[block.parent] = {
+                    child: []
+                };
+            }
+
+            blocksHasChild[block.parent].child.push(block.name);
+        }
     });
 
     const updateValue = (id, value) => {
-        updateSettingValues('active_blocks', id, value);
+        if (blocksHasChild[id]) {
+            blocksHasChild[id].child.map((blockName) => {
+                active_blocks[blockName] = value;
+            });
+            active_blocks[id] = value;
+            updateValues('active_blocks', active_blocks);
+        } else {
+            updateSettingValues('active_blocks', id, value);
+        }
     };
 
     const enableCategory = (category) => {

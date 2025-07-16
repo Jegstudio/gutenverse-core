@@ -120,13 +120,13 @@ export const backgroundCSS = (attribute) => {
             }
 
             if (fixed) {
-                if (fixed?.Desktop) {
+                if (fixed?.Desktop !== undefined) {
                     background.Desktop.push(`background-attachment: ${fixed.Desktop ? 'fixed' : 'scroll'};`);
                 }
-                if (fixed?.Tablet) {
+                if (fixed?.Tablet !== undefined) {
                     background.Tablet.push(`background-attachment: ${fixed.Tablet ? 'fixed' : 'scroll'};`);
                 }
-                if (fixed?.Mobile) {
+                if (fixed?.Mobile !== undefined) {
                     background.Mobile.push(`background-attachment: ${fixed.Mobile ? 'fixed' : 'scroll'};`);
                 }
             }

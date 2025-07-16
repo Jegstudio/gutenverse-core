@@ -294,7 +294,7 @@ abstract class Style_Interface {
 		foreach ( $devices as $device ) {
 			$this->generated[ $device ][ $selector ] = array();
 			if ( 'Desktop' === $device ) {
-				if ( isset( $this->attrs['forceColumnHundred']['Desktop'] ) ) {
+				if ( isset( $this->attrs['forceColumnHundred']['Desktop'] ) && $this->attrs['forceColumnHundred']['Desktop'] ) {
 					$this->generated[ $device ][ $selector ][] = 'width: 100%;';
 				} elseif ( isset( $value[ $device ] ) ) {
 					$this->generated[ $device ][ $selector ][] = "width: {$value[$device]}%;";
@@ -302,7 +302,7 @@ abstract class Style_Interface {
 			}
 
 			if ( 'Tablet' === $device ) {
-				if ( isset( $this->attrs['forceColumnHundred']['Tablet'] ) ) {
+				if ( isset( $this->attrs['forceColumnHundred']['Tablet'] ) && $this->attrs['forceColumnHundred']['Tablet'] ) {
 					$this->generated[ $device ][ $selector ][] = 'width: 100%;';
 				} elseif ( isset( $value[ $device ] ) ) {
 					$this->generated[ $device ][ $selector ][] = "width: {$value[$device]}%;";
@@ -313,7 +313,7 @@ abstract class Style_Interface {
 
 			if ( 'Mobile' === $device ) {
 				$selector = "{$selector}.guten-element.guten-column";
-				if ( isset( $this->attrs['forceColumnHundred']['Mobile'] ) ) {
+				if ( isset( $this->attrs['forceColumnHundred']['Mobile'] ) && $this->attrs['forceColumnHundred']['Mobile'] ) {
 					$this->generated[ $device ][ $selector ][] = 'width: 100%;';
 				} elseif ( isset( $value[ $device ] ) ) {
 					$this->generated[ $device ][ $selector ]   = array();

@@ -70,7 +70,7 @@ class Style_Generator {
 			return;
 		}
 
-		wp_add_inline_style( 'gutenverse-frontend', $style );
+		wp_add_inline_style( 'gutenverse-frontend-style', $style );
 	}
 
 	/**
@@ -109,7 +109,7 @@ class Style_Generator {
 		$variable = apply_filters( 'gutenverse_global_css', '' );
 
 		if ( ! empty( trim( $variable ) ) ) {
-			wp_add_inline_style( 'gutenverse-frontend', $variable );
+			wp_add_inline_style( 'gutenverse-frontend-style', $variable );
 		}
 	}
 

@@ -6,7 +6,7 @@ import { withParentControl } from 'gutenverse-core/hoc';
 const GradientWithAngleControl = (props) => {
 
     const {
-        label,
+        label = 'Gradient',
         value = {},
         onValueChange,
         onLocalChange,

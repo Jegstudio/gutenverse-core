@@ -164,6 +164,8 @@ class Frontend_Assets {
 	 * @return array
 	 */
 	public function gutenverse_data() {
+		$tablet_breakpoint      = gutenverse_breakpoint( 'Tablet' );
+		$mobile_breakpoint      = gutenverse_breakpoint( 'Mobile' );
 		$settings_data          = get_option( 'gutenverse-settings' );
 		$config                 = array();
 		$config['postId']       = get_the_ID();
@@ -185,6 +187,10 @@ class Frontend_Assets {
 		$config['activePlugins'] = $arr_plugin;
 		$post_featured           = get_the_post_thumbnail_url( $config['postId'], 'full' );
 		$config['featuredImage'] = ! empty( $post_featured ) ? $post_featured : GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/img-placeholder.jpg';
+		$config['breakPoints']   = array(
+			'Tablet' => $tablet_breakpoint,
+			'Mobile' => $mobile_breakpoint,
+		);
 
 		return apply_filters( 'gutenverse_frontend_config', $config );
 	}
