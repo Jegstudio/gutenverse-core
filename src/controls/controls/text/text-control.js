@@ -4,7 +4,7 @@ import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
-import { useState, useRef, useDeferredValue, useEffect } from '@wordpress/element';
+import { useRef, useDeferredValue, useEffect } from '@wordpress/element';
 
 const TextControl = ({
     label,
@@ -16,8 +16,7 @@ const TextControl = ({
 }) => {
     const id = useInstanceId(TextControl, 'inspector-text-control');
 
-    const [localValue, setLocalValue] = useState(value);
-    const deferredValue = useDeferredValue(localValue);
+    const deferredValue = useDeferredValue(value);
     const isFirstRender = useRef(true);
 
     useEffect(() => {
@@ -42,8 +41,8 @@ const TextControl = ({
                     type="text"
                     className="control-input-text"
                     placeholder={placeholder}
-                    value={localValue}
-                    onChange={(e) => setLocalValue(e.target.value)}
+                    value={value}
+                    onChange={(e) => value = e.target.value}
                 />
             </div>
         </div>
