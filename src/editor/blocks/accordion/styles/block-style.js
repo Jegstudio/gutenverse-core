@@ -69,7 +69,7 @@ const getBlockStyle = (elementId, attributes) => {
 
     isNotEmpty(attributes['contentTextColorHover']) && data.push({
         'type': 'color',
-        'id': 'contentTextColor',
+        'id': 'contentTextColorHover',
         'selector': `.${elementId}.accordion-item .accordion-body:not(.closed) .accordion-content:first-child:hover`,
         'properties': [
             {
