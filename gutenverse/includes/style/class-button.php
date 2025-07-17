@@ -221,17 +221,16 @@ class Button extends Style_Abstract {
 				$this->handle_background( $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button", $this->attrs['buttonBackgroundHover'] );
 			}
 			if ( isset( $this->attrs['buttonBorderHover'] ) ) {
-				
 				$this->attrs['newButtonBorderHover'] = $this->attrs['buttonBorderHover'];
 				if ( isset( $this->attrs['buttonBorder']['all'] ) ) {
-
 					$border_hover = $this->attrs['buttonBorderHover']['all'];
-					$border = $this->attrs['buttonBorder']['all'];
-					$this->attrs['newButtonBorderHover']['all'] = [
-						'type' => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
+					$border       = $this->attrs['buttonBorder']['all'];
+
+					$this->attrs['newButtonBorderHover']['all'] = array(
+						'type'  => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
 						'width' => isset( $border_hover['width'] ) ? $border_hover['width'] : $border['width'],
 						'color' => isset( $border_hover['color'] ) ? $border_hover['color'] : $border['color'],
-					];
+					);
 				}
 				$this->handle_border( 'newButtonBorderHover', $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button" );
 			}
@@ -240,14 +239,14 @@ class Button extends Style_Abstract {
 
 				$this->attrs['newbuttonBorderHoverResponsive'] = $this->attrs['buttonBorderHoverResponsive'];
 				if ( isset( $this->attrs['buttonBorderResponsive']['all'] ) ) {
-
 					$border_hover = $this->attrs['buttonBorderHoverResponsive']['all'];
-					$border = $this->attrs['buttonBorderResponsive']['all'];
-					$this->attrs['newbuttonBorderHoverResponsive']['all'] = [
-						'type' => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
+					$border       = $this->attrs['buttonBorderResponsive']['all'];
+
+					$this->attrs['newbuttonBorderHoverResponsive']['all'] = array(
+						'type'  => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
 						'width' => isset( $border_hover['width'] ) ? $border_hover['width'] : $border['width'],
 						'color' => isset( $border_hover['color'] ) ? $border_hover['color'] : $border['color'],
-					];
+					);
 				}
 
 				$this->inject_style(
@@ -312,12 +311,12 @@ class Button extends Style_Abstract {
 				if ( isset( $this->attrs['buttonBorder']['all'] ) ) {
 
 					$border_hover = isset( $this->attrs['buttonBorderHover']['all'] ) ? $this->attrs['buttonBorderHover']['all'] : null;
-					$border       = isset( $this->attrs['buttonBorder']['all'] ) ? $this->attrs['buttonBorder']['all'] : null;
+					$border       = $this->attrs['buttonBorder']['all'];
 
 					$this->attrs['newButtonBorderHover']['all'] = array(
-						'type'  => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
-						'width' => isset( $border_hover['width'] ) ? $border_hover['width'] : $border['width'],
-						'color' => isset( $border_hover['color'] ) ? $border_hover['color'] : $border['color'],
+						'type'  => isset( $border_hover['type'] ) ? $border_hover['type'] : ( isset( $border['type'] ) ? $border['type'] : '' ),
+						'width' => isset( $border_hover['width'] ) ? $border_hover['width'] : ( isset( $border['width'] ) ? $border['width'] : '' ),
+						'color' => isset( $border_hover['color'] ) ? $border_hover['color'] : ( isset( $border['color'] ) ? $border['color'] : '' ),
 					);
 				}
 
@@ -328,14 +327,14 @@ class Button extends Style_Abstract {
 
 				$this->attrs['newbuttonBorderHoverResponsive'] = $this->attrs['buttonBorderHoverResponsive'];
 				if ( isset( $this->attrs['buttonBorderResponsive']['all'] ) ) {
-
 					$border_hover = $this->attrs['buttonBorderHoverResponsive']['all'];
-					$border = $this->attrs['buttonBorderResponsive']['all'];
-					$this->attrs['newbuttonBorderHoverResponsive']['all'] = [
-						'type' => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
+					$border       = $this->attrs['buttonBorderResponsive']['all'];
+
+					$this->attrs['newbuttonBorderHoverResponsive']['all'] = array(
+						'type'  => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
 						'width' => isset( $border_hover['width'] ) ? $border_hover['width'] : $border['width'],
 						'color' => isset( $border_hover['color'] ) ? $border_hover['color'] : $border['color'],
-					];
+					);
 				}
 
 				$this->inject_style(
