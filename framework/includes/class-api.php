@@ -1554,7 +1554,7 @@ class Api {
 		$response = wp_remote_get( $url, array( 'timeout' => 30 ) );
 
 		if ( is_wp_error( $response ) ) {
-			error_log( 'Error fetching file from URL ' . $url . ': ' . $response->get_error_message() );
+			gutenverse_rlog( 'Error fetching file from URL ' . $url . ': ' . $response->get_error_message() );
 			return null;
 		}
 
@@ -1562,13 +1562,13 @@ class Api {
 		$content_type = wp_remote_retrieve_header( $response, 'content-type' );
 
 		if ( empty( $file_content ) || empty( $content_type ) ) {
-			error_log( 'Failed to retrieve file content or content-type for URL: ' . $url );
+			gutenverse_rlog( 'Failed to retrieve file content or content-type for URL: ' . $url );
 			return null;
 		}
 
 		$extension = $this->get_extension_from_mime_type( $content_type );
 		if ( ! $extension ) {
-			error_log( 'Could not determine file extension for content type: ' . $content_type . ' from URL: ' . $url );
+			gutenverse_rlog( 'Could not determine file extension for content type: ' . $content_type . ' from URL: ' . $url );
 			return null;
 		}
 
@@ -1578,7 +1578,7 @@ class Api {
 		$upload = wp_upload_bits( $file_name, null, $file_content );
 
 		if ( ! empty( $upload['error'] ) ) {
-			error_log( 'Error uploading file with wp_upload_bits for URL ' . $url . ': ' . $upload['error'] );
+			gutenverse_rlog( 'Error uploading file with wp_upload_bits for URL ' . $url . ': ' . $upload['error'] );
 			return null;
 		}
 

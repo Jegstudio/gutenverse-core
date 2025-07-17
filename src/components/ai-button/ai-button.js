@@ -8,6 +8,12 @@ import apiFetch from '@wordpress/api-fetch';
 import { BlockPreview } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
 import { Info } from 'react-feather';
+import { importImage } from 'gutenverse-core/requests';
+import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
+import { globalStyleStore } from 'gutenverse-core/store';
+import cloneDeep from 'lodash/cloneDeep';
+import set from 'lodash/set';
+import cryptoRandomString from 'crypto-random-string';
 
 const AIButton = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,11 +25,16 @@ const AIButton = () => {
     const [showPreviewModal, setShowPreviewModal] = useState(false);
     const [globalContentPreview, setGlobalContentPreview] = useState('');
     const [localContentPreview, setLocalContentPreview] = useState('');
+    const [globalStyles, setGlobalStyles] = useState({});
     const [showGlobalContent, setShowGlobalContent] = useState(false);
+    const [imageList, setImageList] = useState(false);
+    const [importImages, setImportImages] = useState(false);
     const [showSessionPrompt, setShowSessionPrompt] = useState(false);
     const [showInsertConfirmationModal, setShowInsertConfirmationModal] = useState(false);
 
+    const { userConfig, setUserConfig } = useGlobalStylesConfig();
     const { insertBlocks } = useDispatch(editorStore);
+    const { addVariableFont } = useDispatch(globalStyleStore);
 
     const currentPostType = useSelect((select) => {
         return select(editorStore).getCurrentPostType ? select(editorStore).getCurrentPostType() : '_return';
@@ -36,6 +47,45 @@ const AIButton = () => {
         }
     }, [currentPostType, isModalOpen, currentStep]);
 
+    const importGlobalVariable = ({ globalColors, globalFonts }) => {
+        const customs = userConfig.settings.color && userConfig.settings.color.palette && userConfig.settings.color.palette.custom;
+        const customPalette = customs ? customs.map(item => {
+            return {
+                ...item,
+                key: item.key ? item.key : cryptoRandomString({ length: 6, type: 'alphanumeric' })
+            };
+        }) : [];
+
+        const newColor = [];
+        for (const color of globalColors) {
+            const key = cryptoRandomString({ length: 6, type: 'alphanumeric' });
+
+            if (color) {
+                newColor.push({
+                    slug: color.slug,
+                    key: key,
+                    name: color.name,
+                    color: color.color
+                });
+            }
+        }
+
+        setUserConfig((currentConfig) => {
+            const newUserConfig = cloneDeep(currentConfig);
+            const pathToSet = 'settings.color.palette.custom';
+
+            set(newUserConfig, pathToSet, [...customPalette, ...newColor]);
+            return newUserConfig;
+        });
+
+        for (const font of globalFonts) {
+            addVariableFont({
+                id: font?.id,
+                name: font?.name,
+                font: font?.font
+            });
+        }
+    };
 
     const openModal = () => {
         const existingChatSessionId = localStorage.getItem('gutenverse_ai_chat_session_id');
@@ -130,9 +180,17 @@ const AIButton = () => {
 
             const globalContent = response?.data?.content?.global_content || '';
             const localContent = response?.data?.content?.local_content || '';
+            const globalFonts = response?.data?.content?.global_fonts || [];
+            const globalColors = response?.data?.content?.global_colors || [];
+            const images = response?.data?.content?.images || {};
 
             setGlobalContentPreview(globalContent);
             setLocalContentPreview(localContent);
+            setGlobalStyles({
+                globalFonts,
+                globalColors
+            });
+            setImageList(images);
 
             setShowGlobalContent(!localContent && globalContent);
 
@@ -156,7 +214,18 @@ const AIButton = () => {
         }
     };
 
-    const handleConfirmInsert = () => {
+    const handleConfirmInsert = async () => {
+        if (importImages && imageList) {
+            for (const key of Object.keys(imageList)) {
+                await importImage(imageList[key]?.url).catch(() => { });
+            }
+            importContent();
+        } else {
+            importContent();
+        }
+    };
+
+    const importContent = () => {
         if (showGlobalContent) {
             const blocksToInsert = parse(globalContentPreview);
             insertBlocks(blocksToInsert);
@@ -176,6 +245,7 @@ const AIButton = () => {
     const handleConfirmGlobalInsert = () => {
         const blocksToInsert = parse(globalContentPreview);
         insertBlocks(blocksToInsert);
+        importGlobalVariable(globalStyles);
         closeModal();
     };
 
@@ -310,6 +380,27 @@ const AIButton = () => {
                     onRequestClose={closeModal}
                     className="gutenverse-ai-preview-modal"
                 >
+                    <div className="gutenverse-ai-preview-toggle" style={{ marginBottom: '15px', display: 'flex', alignItems: 'center' }}>
+                        <label className="gutenverse-ai-toggle-switch">
+                            <input
+                                type="checkbox"
+                                id="global-content-toggle"
+                                checked={importImages}
+                                onChange={(e) => setImportImages(e.target.checked)}
+                            />
+                            <span className="gutenverse-ai-toggle-slider"></span>
+                        </label>
+                        <label htmlFor="global-content-toggle" style={{ marginLeft: '10px', cursor: 'pointer' }}>
+                            {__('Import Images', '--gctd--')}
+                        </label>
+                        <span
+                            className="gutenverse-ai-info-icon"
+                            title={__('Import generated images into media.', '--gctd--')}
+                        >
+                            <Info size={16} />
+                        </span>
+                    </div>
+
                     <div className="gutenverse-ai-preview-toggle" style={{ marginBottom: '15px', display: 'flex', alignItems: 'center' }}>
                         <label className="gutenverse-ai-toggle-switch">
                             <input
