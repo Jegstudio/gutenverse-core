@@ -298,6 +298,37 @@ body {
                 color: #011627;
             }
 
+            .info-notice {
+                position: relative;
+
+                .popup {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    margin-top: 4px;
+                    background: #f8f9ff;
+                    border: 1px solid #d0d5f5;
+                    padding: 6px 10px;
+                    font-size: 12px;
+                    color: #2c3e50;
+                    border-radius: 4px;
+                    white-space: nowrap;
+                    z-index: 10;
+                    display: none;
+                    opacity: 0;
+                    transition: opacity 0.5s ease;
+                }
+
+                &:hover {
+                    .popup 
+                    {
+                        display: block;
+                        opacity: 1;
+                    }
+                }
+                
+            }
+
             &.done {
                 border-bottom: 3px solid #933AFF;
             }
@@ -323,12 +354,13 @@ body {
         display: flex;
         overflow: hidden;
 
-        .plugin-install {
+        .theme-install {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             position: relative;
+            width: 100%;
 
             .title,
             .desc {
@@ -370,104 +402,386 @@ body {
                 margin-top: 48px;
                 display: flex;
                 flex-wrap: wrap;
-                gap: 24px;
+                gap: 15px;
                 padding: 0 50px;
 
-                .plugin-data, .theme-data {
-                    border-radius: 10px;
-                    border: solid 1px #e3e4e6;
+                &.loading {
                     width: 100%;
-                    padding: 24px;
-                    display: flex;
-                    align-items: center;
-                    gap: 24px;
-                    max-width: 670px;
-                    margin: 0 auto;
+                }
 
-                    .logo {
-                        width: 64px;
-                        height: 64px;
-                        background-color: #e3e4e6;
-                        border-radius: 50%;
-                        overflow: hidden;
+                .themes-data {
+                    background: #f9f9ff;
+                    border-radius: 5px;
+                    border: 1px solid #e6e6ef;
+                    margin: 0 10px 20px;
+                    position: relative;
+                    width: calc(33.33333% - 32px);
 
-                        img {
-                            width: 100%;
-                        }
-                    }
-
-                    .plugin-detail, .theme-detail {
-                        width: 60%;
+                    .status {
+                        left: 50%;
+                        position: absolute;
+                        text-transform: uppercase;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
                         display: flex;
-                        flex-wrap: wrap;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
                         gap: 8px;
+                        padding: 9px 20px;
+                        border-radius: 5px;
+                        background-color: #8181a5;
+                        font-family: "Roboto", serif;
+                        font-size: 12px;
+                        font-weight: 500;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
+                        text-align: center;
+                        color: #fff;
+
                     }
 
-                    .plugin-title, .theme-title {
-                        font-family: "Plus Jakarta Sans";
-                        font-size: 20px;
-                        font-weight: 300;
-                        letter-spacing: -0.4px;
-                        text-align: left;
-                        color: #011627;
-                        margin: 0;
-                        width: 100%;
+                    .theme-desc {
+                        padding: 16px;
+                        position: relative;
 
-                        .gutenverse {
-                            font-weight: 800;
-                        }
-                    }
+                        .button-container {
+                            width: 50%;
 
-                    .button-container {
-                        width: 25%;
-
-                        .button-install {
-                            cursor: pointer;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            padding: 12px 20px;
-                            border-radius: 5px;
-                            background-color: #3b57f7;
-                            font-family: Inter;
-                            font-size: 14px;
-                            font-weight: 400;
-                            text-align: center;
-                            color: #fff;
-                            transition: background 0.3s ease, color 0.3s ease;
-
-                            &:hover {
-                                background: #2435ec;
-                            }
-
-                            &.installed {
+                            .button-install {
+                                cursor: pointer;
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
-                                gap: 8px;
                                 padding: 12px 20px;
                                 border-radius: 5px;
-                                background-color: #99a2a9;
+                                background-color: #3b57f7;
                                 font-family: Inter;
                                 font-size: 14px;
-                                font-weight: 500;
+                                font-weight: 400;
                                 text-align: center;
                                 color: #fff;
-                                pointer-events: none;
-                                cursor: auto;
+                                transition: background 0.3s ease, color 0.3s ease;
+
+                                &:hover {
+                                    background: #2435ec;
+                                }
+
+                                &.installed {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    gap: 8px;
+                                    padding: 12px 20px;
+                                    border-radius: 5px;
+                                    background-color: #99a2a9;
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-weight: 500;
+                                    text-align: center;
+                                    color: #fff;
+                                    pointer-events: none;
+                                    cursor: auto;
+                                }
                             }
                         }
                     }
 
-                    .plugin-desc, .plugin-desc {
-                        font-family: Inter;
-                        font-size: 14px;
-                        line-height: 1.4;
+                    .theme-thumbnail {
+                        cursor: pointer;
+                        height: 200px;
+                        overflow: hidden;
+                        position: relative;
+
+                        img {
+                            width: 100%;
+                            border-radius: 5px;
+                        }
+
+                        .draft-label {
+                            color: red;
+                            font-size: 12px;
+                            font-weight: 700;
+                            line-height: 24px;
+                            font-family: "Roboto", serif;
+                            position: absolute;
+                            left: 10px;
+                            top: 5px;
+                            border: 3px solid red;
+                            border-radius: 5px;
+                            padding: 0 5px 0 5px;
+                        }
+
+                        .pro-flag {
+                            color: #fff;
+                            font-size: 9px;
+                            width: fit-content;
+                            cursor: pointer;
+                            z-index: 99;
+                            position: absolute;
+                            top: 6px;
+                            right: 6px;
+                            font-family: 'Inter', serif;
+                            line-height: normal;
+                            letter-spacing: 2%;
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 1px;
+                            padding: 3px 4px 4px;
+                            border-radius: 3px;
+                            background-image: linear-gradient(215deg, #ff808b 40%, #f93a50 100%);
+                        }
+                    }
+
+                    .theme-title,
+                    .theme-title a {
+                        height: 24px;
+                        flex-grow: 0;
+                        padding: 4px 0;
+                        font-family: "Heebo", serif;
+                        font-size: 16px;
+                        font-weight: 500;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
                         text-align: left;
-                        color: #40505d;
+                        color: #011627;
+                        text-decoration: none;
+                    }
+
+                    .theme-title {
+                        align-items: center;
+                        display: inline-flex;
+                        gap: 4px;
                         margin: 0;
+                        padding: 0;
+
+                        .tooltip-wrapper {
+                            align-items: center;
+                            display: flex;
+                            position: relative;
+
+                            &::after {
+                                border-color: #011627 transparent transparent transparent;
+                                border-style: solid;
+                                border-width: 8px 8px 0px 8px;
+                                bottom: 100%;
+                                content: "";
+                                display: block;
+                                height: 0;
+                                left: 50%;
+                                position: absolute;
+                                transform: translateX(-50%);
+                                visibility: hidden;
+                                width: 0;
+                            }
+                        }
+
+                        .tooltip-description:hover {
+                            .tooltip-wrapper::after {
+                                visibility: visible;
+                            }
+
+                            .tooltip-description-text {
+                                visibility: visible;
+                            }
+                        }
+
+                        .tooltip-description-text {
+                            background-color: #011627;
+                            border-radius: 6px;
+                            bottom: calc(100% - 20px);
+                            color: white;
+                            font-size: 12px;
+                            left: 0;
+                            line-height: 1.4em;
+                            margin: 0 20px;
+                            padding: 15px 18px;
+                            position: absolute;
+                            text-align: left;
+                            visibility: hidden;
+                            white-space: normal;
+                            z-index: 1;
+                        }
+                    }
+
+                    .theme-author {
+                        color: #99A2A9;
+                        display: block;
+                        font-size: 12px;
+                        margin-top: 3px;
+                    }
+
+                    &.active {
+                        .theme-button {
+                            &.activate {
+                                background-color: white !important;
+                                color: #40505d;
+                            }
+                        }
+
+                        .theme-thumbnail {
+                            a::before {
+                                background: rgba(28, 29, 33, 0.8);
+                                content: "";
+                                height: 100%;
+                                left: 0;
+                                position: absolute;
+                                top: 0;
+                                width: 100%;
+                            }
+                        }
+                    }
+
+                    .theme-buttons {
+                        display: flex;
+                        margin-top: 8px;
                         width: 100%;
-                        text-transform: capitalize;
+                        gap: 12px;
+
+                        .theme-button:first-child {
+                            margin-right: 10px;
+                        }
+
+                        .theme-button, a {
+                            font-family: "Roboto", serif;
+                            font-size: 12px;
+                            font-weight: 500;
+                            text-align: center;
+                            line-height: normal;
+                        }
+                        
+                        .theme-button {
+                            color: #fff;
+                        }
+                        
+                        a {
+                            color: #40505d;
+                        }
+
+                        .theme-button {
+                            color: white;
+                            cursor: pointer;
+                            font-size: 12px;
+                            font-weight: 500;
+                            overflow: hidden;
+                            text-align: center;
+                            text-decoration: none;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            flex: 1;
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 9px 20px;
+                            border-radius: 5px;
+                            background-color: #3b57f7;
+                            transition: transform 0.5s ease, opacity 0.5s ease;
+
+                            @keyframes rotation {
+                                from {
+                                    transform: rotate(0deg);
+                                }
+
+                                to {
+                                    transform: rotate(359deg);
+                                }
+                            }
+
+                            svg {
+                                animation: rotation 2s infinite linear;
+                                margin-right: 5px;
+                                vertical-align: sub;
+                            }
+
+                            &.activated {
+                                cursor: text;
+                                background-color: #777777;
+                            }
+
+                            &.activate, &.install {
+                                background-color: var(--gutenverse-dashboard-primary);
+
+                                &:hover {
+                                    box-shadow: 0 8px 44px 0 rgba(255, 255, 255, 0.12);
+                                    background-color: #2435ec;
+
+                                    span {
+                                        font-family: "Roboto", serif;
+                                        font-size: 12px;
+                                        font-weight: 500;
+                                        font-stretch: normal;
+                                        font-style: normal;
+                                        line-height: normal;
+                                        letter-spacing: normal;
+                                        text-align: center;
+                                        color: #fff;
+                                    }
+                                }
+                            }
+
+                            &.demo {
+                                background-color: white;
+                                border: 1px solid #e6e6ef;
+                                font-family: "Roboto", serif;
+                                font-size: 12px;
+                                font-weight: 500;
+                                font-stretch: normal;
+                                font-style: normal;
+                                line-height: normal;
+                                letter-spacing: normal;
+                                text-align: center;
+                                color: #40505d;
+
+                                &:hover {
+                                    border: solid 1px #3b57f7;
+                                    font-family: "Roboto", serif;
+                                    font-size: 12px;
+                                    font-weight: 500;
+                                    font-stretch: normal;
+                                    font-style: normal;
+                                    line-height: normal;
+                                    letter-spacing: normal;
+                                    text-align: center;
+                                    color: #3b57f7;
+
+                                }
+                            }
+
+                            &.disabled {
+                                background-color: #40505d;
+                                color: white;
+                            }
+
+                            &.manage-plugin {
+                                background-color: #ffc908;
+                                font-family: "Roboto", serif;
+                                font-size: 12px;
+                                font-weight: 600;
+                                font-stretch: normal;
+                                font-style: normal;
+                                line-height: normal;
+                                letter-spacing: normal;
+                                text-align: center;
+                                color: #473b14;
+
+                                &:hover {
+                                    background-color: #f5c000;
+                                }
+                            }
+
+                            &.expire {
+                                background-color: #eabb46;
+                                color: white;
+                            }
+                        }
                     }
                 }
             }
@@ -713,8 +1027,23 @@ body {
         margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
+        position: relative;
 
+        &.uncomplete {
+            max-height: 600px;
+            overflow: hidden;
 
+            .overlay {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+                pointer-events: none;
+                z-index: 1;
+            }
+        }
 
         .template-page {
             width: calc(33.33% - 22px);

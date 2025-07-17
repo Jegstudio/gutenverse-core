@@ -9,6 +9,7 @@
 
 namespace Gutenverse;
 
+use Gutenverse\Framework\Api;
 use Gutenverse\Framework\Init;
 
 /**
@@ -144,14 +145,11 @@ class Upgrade_Wizard {
 	 */
 	public function wizard_config() {
 		$config                 = array();
+		$config['imageContoh']  = GUTENVERSE_URL . '/assets/img/cuma-untuk-test.png';
 		$config['dashboard']    = admin_url( 'admin.php?page=gutenverse' );
 		$config['ajaxurl']      = admin_url( 'admin-ajax.php' );
-		$config['themeData']        = array(
-			'name' => 'Startupzy',
-			'slug' => 'startupzy',
-			'icon' => GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-logo-dashboard.svg',
-		);
 		$config['installNonce'] = wp_create_nonce( 'updates' );
+		$config['theme_slug']   = wp_get_theme()->get_template();
 		$config['status']       = array(
 			'form' => ! is_plugin_active( 'gutenverse-form/gutenverse-form.php' ),
 			'icon' => ! Init::instance()->assets->is_font_icon_exists(),
@@ -177,6 +175,30 @@ class Upgrade_Wizard {
 				'download_url' => '',
 			),
 		);
+
+		$config['requirementComplete'] = apply_filters( 'gutenverse_companion_base_theme', false ) && in_array( 'gutenverse-companion', $plugins, true );
+
+		$response = Api::instance()->base_theme_get( '' );
+		if ( isset( $response ) ) {
+			$data_list = $response->data['companion'];
+			$new_list  = array();
+
+			foreach ( $data_list as $data ) {
+				$slug     = $data['slug'];
+				$new_data = $data;
+
+				$is_active    = wp_get_theme()->get_stylesheet() === $slug;
+				$is_installed = wp_get_theme( $slug )->exists();
+
+				$new_data['active']    = $is_active;
+				$new_data['installed'] = $is_installed;
+
+				$new_list[] = $new_data;
+			}
+			$config['themeData'] = $new_list;
+		} else {
+			$config['themeData'] = null;
+		}
 		return $config;
 	}
 
@@ -205,10 +227,13 @@ class Upgrade_Wizard {
 	 * @throws \Exception Throw exception.
 	 */
 	public function onboard_wizard_page() {
+		$flag = get_option( 'gutenverse_theme_select_complete' );
+		$flag = null;
+		if ( $flag || ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'You are not allowed to access this page.', 'Access Denied', array( 'response' => 403 ) );
+		}
+
 		try {
-			if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), self::$onboard ) ) {
-				// Nanti implement.
-			}
 
 			if ( ! current_user_can( 'install_plugins' ) ) {
 				throw new \Exception( 'Access denied', 403 );

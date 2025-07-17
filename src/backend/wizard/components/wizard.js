@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from '@wordpress/element';
 import { UpgradePro } from '../pages/upgrade-pro';
 import { ImportTemplates } from '../pages/import-templates';
 import apiFetch from '@wordpress/api-fetch';
+import classnames from 'classnames';
 
 const getInstalledThemes = (func) => {
     apiFetch({
@@ -52,25 +53,9 @@ const ImportLoading = (props) => {
     </div>;
 };
 
-const InstallPlugin = ({ action, setAction, updateProgress }) => {
+const SelectBaseTheme = ({ action, setAction, updateProgress }) => {
     const { plugins, installNonce, ajaxurl, themeData } = window.GutenverseWizard;
     const [installing, setInstalling] = useState({ show: true, message: 'Preparing...', progress: '1/4' });
-    const [themeStatus, setThemeStatus] = useState('notExist');
-
-    wp?.apiFetch({ path: '/wp/v2/themes' }).then(themes => {
-        const themeSlug = themeData['slug'];
-        const theme = themes.find(t => t.stylesheet === themeSlug);
-
-        if (theme) {
-            if (theme.status === 'active') {
-                setThemeStatus('active');
-            } else {
-                setThemeStatus('installed');
-            }
-        } else {
-            setThemeStatus('notExist');
-        }
-    });
 
     useEffect(() => {
         let allActive = true;
@@ -83,13 +68,13 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
         }
     }, []);
 
-    const activateTheme = () => {
+    const activateTheme = (slug) => {
         setInstalling({ show: true, message: 'Activating Theme...', progress: '3/4' });
         apiFetch({
             path: 'gutenverse-client/v1/themes/activate',
             method: 'POST',
             data: {
-                stylesheet: themeData['slug'],
+                stylesheet: slug,
             },
         })
             .then(() => { })
@@ -106,11 +91,11 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
             });
     };
 
-    const installTheme = () => {
+    const installTheme = (slug) => {
         setTimeout(() => {
             let response = null;
             const formData = new FormData();
-            formData.append('slug', themeData['slug']);
+            formData.append('slug', slug);
             formData.append('action', 'install-theme');
             formData.append('_ajax_nonce', installNonce);
             setInstalling({ show: true, message: 'Installing Theme...', progress: '2/4' });
@@ -220,59 +205,69 @@ const InstallPlugin = ({ action, setAction, updateProgress }) => {
         }
     };
 
-    const themeAction = (step) => {
+    const themeAction = (step, slug) => {
         setAction('loading');
         switch (step) {
             case 1 :
-                installTheme();
+                installTheme(slug);
                 break;
             case 2 :
             default:
-                activateTheme();
+                activateTheme(slug);
                 break;
         }
     };
 
-    return <div className="plugin-install">
-        <h1 className="content-title">{__('Install Required Plugins', 'gutenverse')}</h1>
-        <p className="content-desc">{__('To access the full range of theme features, please install and activate the required plugins. Your enhanced user experience is just a few steps away!', 'gutenverse')}</p>
+    const contentBody = themeData ?
         <div className="requirment-list">
-            {plugins?.map((plugin, key) => {
-                return <div className="plugin-data" key={key}>
-                    <div className="logo">
-                        {plugin?.icons && plugin?.icons['1x'] && <img src={plugin?.icons['1x']} />}
+            {themeData?.map((theme, key) => {
+                const active = theme?.active;
+                return <div key={key} className={classnames('themes-data', { active: active })}>
+                    <div className="theme-thumbnail">
+                        <a href={'#'} target="_blank" rel="noreferrer">
+                            <img src={theme?.image[0]} />
+                        </a>
+                        {active && <span className="status">{__('Active Theme', 'gutenverse')}</span>}
                     </div>
-                    <div className="plugin-detail">
-                        <h3 className="plugin-title">{boldWord(plugin?.title, 'Gutenverse')}</h3>
-                        <p className="plugin-desc">{plugin?.short_desc?.toLowerCase()}</p>
-                    </div>
-                    <div className="button-container">
-                        <div onClick={() => onInstall() } className={`button-install ${(plugin?.active || action === 'done') && 'installed'}`}>
-                            {__(`${plugin?.active || action === 'done' ? 'Plugin Active' : plugin?.installed ? 'Activate Plugin' : 'Install Plugin'}`, 'gutenverse')}
+                    <div className="theme-desc">
+                        <h3 className="theme-title">
+                            <a href={'#'} target="_blank" rel="noreferrer">
+                                {`${theme?.title}`}
+                            </a>
+                        </h3>
+                        <div className="theme-buttons">
+                            <div className="button-container">
+                                {
+                                    (theme?.active) ?
+                                        <div className="button-install installed">{__('Theme Active', 'gutenverse')}</div>
+                                        : (theme?.installed) ?
+                                            <div onClick={() => {
+                                                themeAction(2, theme?.slug);
+                                                onInstall();
+                                            } } className="button-install">{__('Activate Theme', 'gutenverse')}</div>
+                                            :
+                                            <div onClick={() => {
+                                                themeAction(1, theme?.slug);
+                                                onInstall();
+                                            } } className="button-install">{__('Install Theme', 'gutenverse')}</div>
+                                }
+                            </div>
+                            <a href={'#'} target="_blank" rel="noreferrer" className="demo theme-button">
+                                {__('View Demo', 'gutenverse')}
+                            </a>
                         </div>
                     </div>
                 </div>;
             })}
-            <div className="theme-data">
-                <div className="logo">
-                    {themeData?.icon && <img src={themeData?.icons} />}
-                </div>
-                <div className="theme-detail">
-                    <h3 className="theme-title">{boldWord(themeData?.name, 'Gutenverse')}</h3>
-                    <p className="theme-desc"></p>
-                </div>
-                <div className="button-container">
-                    {
-                        ('installed' === themeStatus) ?
-                            <div onClick={() => themeAction(2) } className="button-install">{__('Activate Theme', 'gutenverse')}</div>
-                            : ('notExist' === themeStatus) ?
-                                <div onClick={() => themeAction(1) } className="button-install">{__('Install Theme', 'gutenverse')}</div>
-                                :
-                                <div className="button-install installed">{__('Theme Active', 'gutenverse')}</div>
-                    }
-                </div>
-            </div>
         </div>
+        :  <div className="requirment-list loading">
+            <div className="loader-template"></div>
+        </div>;
+
+    return <div className="theme-install">
+        <h1 className="content-title">{__('Choose Theme', 'gutenverse')}</h1>
+        <p className="content-desc">{__('pick one of our theme and choose pebuilt template', 'gutenverse')}</p>
+        {contentBody}
         <div className="plugin-actions">
             {pluginActions()}
         </div>
@@ -293,7 +288,7 @@ const WizardPage = () => {
         switch (progress) {
             case 'done':
                 // const { images } = window['GutenverseCompanionConfig'];
-                const {adminUrl} =  window['GutenverseConfig'] || window['GutenverseDashboard'] || window.location.origin + '/wp-admin/';
+                const {adminUrl} =  window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
                 return <div className="finalizing">
                     <div className="image-wrapper">
@@ -303,12 +298,12 @@ const WizardPage = () => {
                         <h3 className="final-title">{__('Congratulations All Set 🤩', 'gutenverse')}</h3>
                         <p className="final-desc">{__('This theme is built with Gutenverse, a powerful and lightweight Gutenberg blocks and page builder plugin for the WordPress Site Editor.', 'gutenverse')}</p>
                         <div onClick={() => {
-                            window.location.href = adminUrl;
+                            window.location.href = adminUrl ? adminUrl : window.location.origin + '/wp-admin/';
                         }} className="button-visit">{__('Visit Dashboard', 'gutenverse')}</div>
                     </div>
                 </div>;
             case 'pluginAndTheme':
-                return <InstallPlugin updateProgress={updateProgress} action={action} setAction={setAction} />;
+                return <SelectBaseTheme updateProgress={updateProgress} action={action} setAction={setAction} />;
             case 'upgradePro':
                 return <UpgradePro updateProgress={updateProgress} />;
             case 'importTemplate':
@@ -327,6 +322,14 @@ const WizardPage = () => {
                 <div className={`progress ${progress === 'importTemplate' ? 'active' : ''} ${progressCount >= 1 ? 'done' : ''}`}>
                     <p className="number">2</p>
                     <h3 className="progress-title">{__('Import Template', 'gutenverse')}</h3>
+                    <h2 className="info-notice" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#3B57F7">
+                            <path d="M6.781 0a6.782 6.782 0 1 0 .002 13.565A6.782 6.782 0 0 0 6.781 0m0 3.008a1.148 1.148 0 1 1 0 2.297 1.148 1.148 0 0 1 0-2.297m1.532 6.945a.33.33 0 0 1-.329.328H5.578a.33.33 0 0 1-.328-.328v-.656c0-.181.147-.328.328-.328h.328v-1.75h-.328a.33.33 0 0 1-.328-.328v-.657c0-.18.147-.328.328-.328h1.75c.181 0 .328.147.328.328V8.97h.328c.182 0 .329.147.329.328z"></path>
+                        </svg>
+                        <div className="popup">
+                            <span>{__('You can only import demo if you use gutenverse base theme.', 'gutenverse')}</span>
+                        </div>
+                    </h2>
                 </div>
                 <div className={`progress ${progress === 'upgradePro' ? 'active' : ''} ${progressCount >= 2 ? 'done' : ''}`}>
                     <p className="number">3</p>

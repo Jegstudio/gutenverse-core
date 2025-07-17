@@ -4,7 +4,7 @@ import { applyFilters } from '@wordpress/hooks';
 import { addQueryArgs } from '@wordpress/url';
 
 export const getDemo = (param) => new Promise(resolve => {
-    const { theme_slug } = window['GutenverseCompanionConfig'];
+    const { theme_slug } = window.GutenverseWizard;
     apiFetch({
         path: 'gutenverse-companion/v1/demo/get',
         method: 'POST',
@@ -12,6 +12,24 @@ export const getDemo = (param) => new Promise(resolve => {
             'gutenverse.library.import.parameter',
             {
                 theme_slug,
+                ...param
+            }
+        )
+    }).then((data) => {
+        resolve(data);
+    }).catch((e) => {
+        alert(e.message);
+        resolve([]);
+    });
+});
+
+export const getBaseTheme = (param) => new Promise(resolve => {
+    apiFetch({
+        path: 'gutenverse-client/v1/base-theme/get',
+        method: 'POST',
+        data: applyFilters(
+            'gutenverse.library.import.parameter',
+            {
                 ...param
             }
         )

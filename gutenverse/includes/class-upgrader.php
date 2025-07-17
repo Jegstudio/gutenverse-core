@@ -186,10 +186,9 @@ class Upgrader {
 	 * Set form split option meta
 	 */
 	public function set_upgrader_theme_select() {
-		$flag = get_option( $this->get_plugin_theme_select_name() );
-		// delete_option( $this->get_plugin_theme_select_name() );
-
-		if ( ! $flag && current_user_can( 'manage_options' ) ) {
+		$flag             = get_option( $this->get_plugin_theme_select_name() );
+		$using_base_theme = apply_filters( 'gutenverse_companion_base_theme', false );
+		if ( ! $flag && current_user_can( 'manage_options' ) && ! $using_base_theme ) {
 			add_option( $this->get_plugin_theme_select_name(), true );
 			wp_safe_redirect( admin_url( 'admin.php?action=gutenverse-onboarding-wizard' ) );
 		}

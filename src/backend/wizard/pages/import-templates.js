@@ -20,6 +20,7 @@ export const ImportTemplates = ({ updateProgress }) => {
     const loader = useRef();
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(null);
+    const { requirementComplete, imageContoh } = window.GutenverseWizard;
 
     const updateTemplateStatus = (title) => {
         setTemplateList(prevTemplateList =>
@@ -197,31 +198,7 @@ export const ImportTemplates = ({ updateProgress }) => {
         };
     }, [fetch]);
 
-    return <div className="template-install">
-        {modal && <ImporterModal
-            setImporterStep={setImporterStep}
-            importerStep={importerStep}
-            importerNotice={importerNotice}
-            importerCurrent={importerCurrent}
-            importerStatus={importerStatus}
-            selectedTemplate={selectedTemplate}
-            updateTemplateStatus={updateTemplateStatus}
-            setModal={setModal}
-            close={() => {
-                setModal(false);
-                setFetch(false);
-                updateTemplateStatus(selectedTemplate.title);
-            }}
-            template={selectedTemplate}
-            templateList={templateList}
-            importTemplates={importTemplates}
-            setSelectedTemplate={setSelectedTemplate}
-            content={modalContent}
-        />}
-        <div className="template-title">
-            <h1 className="content-title">{__('Choose Prebuilt Templates', 'gutenverse')}</h1>
-            <p>{__('Discover a wide selection of themes, each carefully crafted to meet the unique needs of your website. Whether you\'re building a blog, portfolio, or business site.', 'gutenverse')}</p>
-        </div>
+    const templateContent = <>
         <div className="template-list">
             {!isEmpty(templateList) ? templateList?.map((template, key) => {
                 return <DemoCard
@@ -261,8 +238,47 @@ export const ImportTemplates = ({ updateProgress }) => {
         {
             fetch && <div className="loader-template"></div>
         }
+    </>;
+
+    return <div className="template-install">
+        {modal && <ImporterModal
+            setImporterStep={setImporterStep}
+            importerStep={importerStep}
+            importerNotice={importerNotice}
+            importerCurrent={importerCurrent}
+            importerStatus={importerStatus}
+            selectedTemplate={selectedTemplate}
+            updateTemplateStatus={updateTemplateStatus}
+            setModal={setModal}
+            close={() => {
+                setModal(false);
+                setFetch(false);
+                updateTemplateStatus(selectedTemplate.title);
+            }}
+            template={selectedTemplate}
+            templateList={templateList}
+            importTemplates={importTemplates}
+            setSelectedTemplate={setSelectedTemplate}
+            content={modalContent}
+        />}
+        <div className="template-title">
+            <h1 className="content-title">{__('Choose Prebuilt Templates', 'gutenverse')}</h1>
+            <p>{__('Discover a wide selection of themes, each carefully crafted to meet the unique needs of your website. Whether you\'re building a blog, portfolio, or business site.', 'gutenverse')}</p>
+        </div>
+        {requirementComplete ? templateContent :
+            <div className="template-list uncomplete">
+                <img src={imageContoh} />
+                <div className="overlay" />
+            </div>
+        }
 
         <div className="template-actions">
+            <div onClick={() => updateProgress('pluginAndTheme', 0)} className="button-back">
+                <svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 5.1C15.3314 5.1 15.6 4.83137 15.6 4.5C15.6 4.16863 15.3314 3.9 15 3.9V5.1ZM0.575736 4.07574C0.341421 4.31005 0.341421 4.68995 0.575736 4.92426L4.39411 8.74264C4.62843 8.97696 5.00833 8.97696 5.24264 8.74264C5.47696 8.50833 5.47696 8.12843 5.24264 7.89411L1.84853 4.5L5.24264 1.10589C5.47696 0.871573 5.47696 0.491674 5.24264 0.257359C5.00833 0.0230446 4.62843 0.0230446 4.39411 0.257359L0.575736 4.07574ZM15 3.9L1 3.9V5.1L15 5.1V3.9Z" fill="#99A2A9" />
+                </svg>
+                {__('Back', 'gutenverse')}
+            </div>
             <div onClick={() => updateProgress('upgradePro', 2)} className="button-next">{__('Next', 'gutenverse')}</div>
         </div>
     </div>;
