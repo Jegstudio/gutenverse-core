@@ -1551,9 +1551,36 @@ class Api {
 	 * @return int|null
 	 */
 	public function handle_file( $url ) {
-		$file_name = basename( $url );
-		$upload    = wp_upload_bits( $file_name, null, '' );
-		$this->fetch_file( $url, $upload['file'] );
+		$response = wp_remote_get( $url, array( 'timeout' => 30 ) );
+
+		if ( is_wp_error( $response ) ) {
+			error_log( 'Error fetching file from URL ' . $url . ': ' . $response->get_error_message() );
+			return null;
+		}
+
+		$file_content = wp_remote_retrieve_body( $response );
+		$content_type = wp_remote_retrieve_header( $response, 'content-type' );
+
+		if ( empty( $file_content ) || empty( $content_type ) ) {
+			error_log( 'Failed to retrieve file content or content-type for URL: ' . $url );
+			return null;
+		}
+
+		$extension = $this->get_extension_from_mime_type( $content_type );
+		if ( ! $extension ) {
+			error_log( 'Could not determine file extension for content type: ' . $content_type . ' from URL: ' . $url );
+			return null;
+		}
+
+		$base_filename = sanitize_file_name( md5( $url ) );
+		$file_name     = $base_filename . '.' . $extension;
+
+		$upload = wp_upload_bits( $file_name, null, $file_content );
+
+		if ( ! empty( $upload['error'] ) ) {
+			error_log( 'Error uploading file with wp_upload_bits for URL ' . $url . ': ' . $upload['error'] );
+			return null;
+		}
 
 		if ( $upload['file'] ) {
 			$file_loc  = $upload['file'];
@@ -1567,7 +1594,10 @@ class Api {
 				'post_status'    => 'inherit',
 			);
 
-			include_once ABSPATH . 'wp-admin/includes/image.php';
+			if ( ! function_exists( 'wp_generate_attachment_metadata' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/image.php';
+			}
+
 			$attach_id = wp_insert_attachment( $attachment, $file_loc );
 			update_post_meta( $attach_id, '_import_source', $url );
 
@@ -1577,7 +1607,7 @@ class Api {
 			} catch ( \Exception $e ) {
 				$this->handle_exception( $e );
 			} catch ( \Throwable $t ) {
-				$this->handle_exception( $e );
+				$this->handle_exception( $t );
 			}
 
 			return array(
@@ -1587,6 +1617,19 @@ class Api {
 		} else {
 			return null;
 		}
+	}
+
+	private function get_extension_from_mime_type( $mime_type ) {
+		$mime_map = array(
+			'image/jpeg'               => 'jpg',
+			'image/png'                => 'png',
+			'image/gif'                => 'gif',
+			'image/bmp'                => 'bmp',
+			'image/webp'               => 'webp',
+			'image/svg+xml'            => 'svg',
+		);
+
+		return isset( $mime_map[ $mime_type ] ) ? $mime_map[ $mime_type ] : false;
 	}
 
 	/**
