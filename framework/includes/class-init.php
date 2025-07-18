@@ -335,7 +335,7 @@ class Init {
 		if ( isset( $screen->parent_file ) && 'plugins.php' === $screen->parent_file && 'update' === $screen->id ) {
 			return;
 		}
-
+ 
 		if ( 'true' === get_user_meta( get_current_user_id(), 'gutenverse_install_notice', true ) ) {
 			return;
 		}

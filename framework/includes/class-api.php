@@ -303,6 +303,26 @@ class Api {
 			)
 		);
 
+		register_rest_route(
+			self::ENDPOINT,
+			'base-theme/get',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'base_theme_get' ),
+				'permission_callback' => function () {
+					if ( ! current_user_can( 'manage_options' ) ) {
+						return new \WP_Error(
+							'forbidden_permission',
+							esc_html__( 'Forbidden Access', '--gctd--' ),
+							array( 'status' => 403 )
+						);
+					}
+
+					return true;
+				},
+			)
+		);
+
 		/** ----------------------------------------------------------------
 		 * Frontend/Global Routes
 		 */
@@ -1697,5 +1717,116 @@ class Api {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get base theme data
+	 *
+	 * @param object $request .
+	 *
+	 * @return object
+	 */
+	public function base_theme_get( $request ) {
+
+		/**Check if file exist */
+		$upload_dir       = wp_upload_dir();
+		$upload_base_path = $upload_dir['basedir'];
+		$file_path        = $upload_base_path . '/gutenverse/base-themes/data.json';
+
+		global $wp_filesystem;
+
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+
+		/**Check schedule fetch */
+		$companion_data = get_option( 'gutenverse-companion-base-theme', false );
+		$fetch_time     = null;
+		$now            = time();
+		if ( $companion_data ) {
+			$fetch_time = $companion_data['fetch_time'];
+		}
+		/**Check if file exist */
+		if ( ! $wp_filesystem->exists( $file_path ) ) {
+			$updated = $this->update_basetheme_data( $request );
+			if ( ! $updated ) {
+				return new \WP_REST_Response(
+					array(
+						'message' => 'Unable to fetch demo data : Server Down! Please try again later.',
+					),
+					400
+				);
+			}
+			$next_fetch = $now + ( 24 * 60 * 60 );
+			update_option(
+				'gutenverse-companion-base-theme',
+				array(
+					'fetch_time' => $next_fetch,
+				)
+			);
+		}
+		if ( null === $fetch_time || $fetch_time < $now ) {
+			/**Update demo data and fetch time */
+			$updated = $this->update_basetheme_data( $request );
+			if ( ! $updated ) {
+				return new \WP_REST_Response(
+					array(
+						'message' => 'Unable to fetch demo data : Server Down! Please try again later.',
+					),
+					400
+				);
+			}
+			$next_fetch = $now + ( 24 * 60 * 60 );
+			update_option(
+				'gutenverse-companion-base-theme',
+				array(
+					'fetch_time' => $next_fetch,
+				)
+			);
+		}
+
+		$json_content = file_get_contents( $file_path );
+		$data         = json_decode( $json_content, true );
+		return rest_ensure_response( $data );
+	}
+
+	/**
+	 * Update base theme Data
+	 *
+	 * @param object $request .
+	 */
+	public function update_basetheme_data( $request ) {
+
+		$response = wp_remote_post(
+			GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-server/v4/companion/base-theme',
+			array(
+				'body'    => '',
+				'headers' => array(
+					'Content-Type' => 'application/json',
+				),
+			)
+		);
+
+		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+			return false;
+		}
+
+		$response_body = wp_remote_retrieve_body( $response );
+
+		/**Check if directory exist */
+		$basedir   = wp_upload_dir()['basedir'];
+		$directory = $basedir . '/gutenverse/base-themes';
+		if ( ! is_dir( $directory ) ) {
+			wp_mkdir_p( $directory );
+		}
+		$file_path = $directory . '/data.json';
+
+		/**Save data to json file */
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		WP_Filesystem();
+		global $wp_filesystem;
+		$wp_filesystem->put_contents( $file_path, $response_body, FS_CHMOD_FILE );
+		return true;
 	}
 }
