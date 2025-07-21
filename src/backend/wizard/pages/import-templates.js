@@ -268,7 +268,9 @@ export const ImportTemplates = ({ updateProgress }) => {
         {requirementComplete ? templateContent :
             <div className="template-list uncomplete">
                 <img src={imageContoh} />
-                <div className="overlay" />
+                <div className="overlay">
+                    <span>{__('You need to install Gutenverse Base Theme to choose template', 'gutenverse')}</span>
+                </div>
             </div>
         }
 

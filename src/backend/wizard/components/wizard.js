@@ -10,7 +10,7 @@ const getInstalledThemes = (func) => {
         path: 'wp/v2/themes',
         method: 'GET',
     }).then((data) => {
-        func && func();
+        func && func(data);
     });
 };
 
@@ -53,9 +53,13 @@ const ImportLoading = (props) => {
     </div>;
 };
 
-const SelectBaseTheme = ({ action, setAction, updateProgress }) => {
-    const { plugins, installNonce, ajaxurl, themeData } = window.GutenverseWizard;
+const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }) => {
+    const { plugins, installNonce, ajaxurl } = gutenverseWizard;
     const [installing, setInstalling] = useState({ show: true, message: 'Preparing...', progress: '1/4' });
+    const [ reload, setReload ] = useState(false);
+    const [themeData, setThemeData] = useState(() => {
+        return gutenverseWizard?.themeData || [];
+    });
 
     useEffect(() => {
         let allActive = true;
@@ -65,6 +69,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress }) => {
 
         if (allActive) {
             setAction('done');
+            setReload(false);
         }
     }, []);
 
@@ -82,11 +87,16 @@ const SelectBaseTheme = ({ action, setAction, updateProgress }) => {
                 setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
                 console.error('Error during theme activation');
                 setAction('done');
+                setReload(false);
             })
             .finally(() => {
-                getInstalledThemes(() => {
+                getInstalledThemes((themes) => {
+
+                    //loop theme to get updated data
+
                     setInstalling({ show: true, message: 'Installing Complete', progress: '4/4' });
                     setAction('done');
+                    setReload(false);
                 });
             });
     };
@@ -116,12 +126,14 @@ const SelectBaseTheme = ({ action, setAction, updateProgress }) => {
                         setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
                         console.error('Error during theme installation');
                         setAction('done');
+                        setReload(false);
                     }
                 })
                 .catch(err => {
                     setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
                     console.error('Error during theme installation: ' + err);
                     setAction('done');
+                    setReload(false);
                 });
         }, 1500);
     };
@@ -182,6 +194,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress }) => {
             setInstalling({ show: true, message: 'Installing Complete', progress: '4/4' });
             setTimeout(() => {
                 setAction('done');
+                setReload(false);
             }, 1500);
         }
 
@@ -235,27 +248,33 @@ const SelectBaseTheme = ({ action, setAction, updateProgress }) => {
                                 {`${theme?.title}`}
                             </a>
                         </h3>
-                        <div className="theme-buttons">
-                            <div className="button-container">
-                                {
-                                    (theme?.active) ?
-                                        <div className="button-install installed">{__('Theme Active', 'gutenverse')}</div>
-                                        : (theme?.installed) ?
-                                            <div onClick={() => {
-                                                themeAction(2, theme?.slug);
-                                                onInstall();
-                                            } } className="button-install">{__('Activate Theme', 'gutenverse')}</div>
-                                            :
-                                            <div onClick={() => {
-                                                themeAction(1, theme?.slug);
-                                                onInstall();
-                                            } } className="button-install">{__('Install Theme', 'gutenverse')}</div>
-                                }
-                            </div>
-                            <a href={'#'} target="_blank" rel="noreferrer" className="demo theme-button">
-                                {__('View Demo', 'gutenverse')}
-                            </a>
-                        </div>
+                        {reload ?
+                            <Fragment>
+                                <ImportLoading message={installing?.message} progress={installing?.progress} />
+                            </Fragment> :
+                            <div className="theme-buttons">
+                                <div className="button-container">
+                                    {
+                                        (theme?.active) ?
+                                            <div className="button-install installed">{__('Theme Active', 'gutenverse')}</div>
+                                            : (theme?.installed) ?
+                                                <div onClick={() => {
+                                                    themeAction(2, theme?.slug);
+                                                    onInstall();
+                                                    setReload(true);
+                                                } } className="button-install">{__('Activate Theme', 'gutenverse')}</div>
+                                                :
+                                                <div onClick={() => {
+                                                    themeAction(1, theme?.slug);
+                                                    onInstall();
+                                                    setReload(true);
+                                                } } className="button-install">{__('Install Theme', 'gutenverse')}</div>
+                                    }
+                                </div>
+                                <a href={'#'} target="_blank" rel="noreferrer" className="demo theme-button">
+                                    {__('View Theme', 'gutenverse')}
+                                </a>
+                            </div>}
                     </div>
                 </div>;
             })}
@@ -278,6 +297,7 @@ const WizardPage = () => {
     const [progress, setProgress] = useState('pluginAndTheme');
     const [progressCount, setProgressCount] = useState(0);
     const [action, setAction] = useState('install');
+    const gutenverseWizard = window.GutenverseWizard;
 
     const updateProgress = (progress, inc) => {
         setProgress(progress);
@@ -303,7 +323,7 @@ const WizardPage = () => {
                     </div>
                 </div>;
             case 'pluginAndTheme':
-                return <SelectBaseTheme updateProgress={updateProgress} action={action} setAction={setAction} />;
+                return <SelectBaseTheme updateProgress={updateProgress} action={action} setAction={setAction} gutenverseWizard={gutenverseWizard} />;
             case 'upgradePro':
                 return <UpgradePro updateProgress={updateProgress} />;
             case 'importTemplate':
