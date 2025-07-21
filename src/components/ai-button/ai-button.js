@@ -380,48 +380,49 @@ const AIButton = () => {
                     onRequestClose={closeModal}
                     className="gutenverse-ai-preview-modal"
                 >
-                    <div className="gutenverse-ai-preview-toggle" style={{ marginBottom: '15px', display: 'flex', alignItems: 'center' }}>
-                        <label className="gutenverse-ai-toggle-switch">
-                            <input
-                                type="checkbox"
-                                id="global-content-toggle"
-                                checked={importImages}
-                                onChange={(e) => setImportImages(e.target.checked)}
-                            />
-                            <span className="gutenverse-ai-toggle-slider"></span>
-                        </label>
-                        <label htmlFor="global-content-toggle" style={{ marginLeft: '10px', cursor: 'pointer' }}>
-                            {__('Import Images', '--gctd--')}
-                        </label>
-                        <span
-                            className="gutenverse-ai-info-icon"
-                            title={__('Import generated images into media.', '--gctd--')}
-                        >
-                            <Info size={16} />
-                        </span>
-                    </div>
+                    <div className="gutenverse-ai-toggles">
+                        <div className="gutenverse-ai-preview-toggle">
+                            <label className="gutenverse-ai-toggle-switch">
+                                <input
+                                    type="checkbox"
+                                    id="global-content-toggle"
+                                    checked={importImages}
+                                    onChange={(e) => setImportImages(e.target.checked)}
+                                />
+                                <span className="gutenverse-ai-toggle-slider"></span>
+                            </label>
+                            <label htmlFor="global-content-toggle" style={{ marginLeft: '10px', cursor: 'pointer' }}>
+                                {__('Import Images', '--gctd--')}
+                            </label>
+                            <span
+                                className="gutenverse-ai-info-icon"
+                                title={__('Import generated images into media.', '--gctd--')}
+                            >
+                                <Info size={16} />
+                            </span>
+                        </div>
 
-                    <div className="gutenverse-ai-preview-toggle" style={{ marginBottom: '15px', display: 'flex', alignItems: 'center' }}>
-                        <label className="gutenverse-ai-toggle-switch">
-                            <input
-                                type="checkbox"
-                                id="global-content-toggle"
-                                checked={showGlobalContent}
-                                onChange={(e) => setShowGlobalContent(e.target.checked)}
-                            />
-                            <span className="gutenverse-ai-toggle-slider"></span>
-                        </label>
-                        <label htmlFor="global-content-toggle" style={{ marginLeft: '10px', cursor: 'pointer' }}>
-                            {__('Use Global Style', '--gctd--')}
-                        </label>
-                        <span
-                            className="gutenverse-ai-info-icon"
-                            title={__('Toggle to switch between global content (inherits theme styles) and local content (uses inline styles).', '--gctd--')}
-                        >
-                            <Info size={16} />
-                        </span>
+                        <div className="gutenverse-ai-preview-toggle">
+                            <label className="gutenverse-ai-toggle-switch">
+                                <input
+                                    type="checkbox"
+                                    id="global-content-toggle"
+                                    checked={showGlobalContent}
+                                    onChange={(e) => setShowGlobalContent(e.target.checked)}
+                                />
+                                <span className="gutenverse-ai-toggle-slider"></span>
+                            </label>
+                            <label htmlFor="global-content-toggle" style={{ marginLeft: '10px', cursor: 'pointer' }}>
+                                {__('Use Global Style', '--gctd--')}
+                            </label>
+                            <span
+                                className="gutenverse-ai-info-icon"
+                                title={__('Toggle to switch between global content (inherits theme styles) and local content (uses inline styles).', '--gctd--')}
+                            >
+                                <Info size={16} />
+                            </span>
+                        </div>
                     </div>
-
                     <div className="gutenverse-ai-preview-content">
                         {(showGlobalContent && globalContentPreview) || (!showGlobalContent && localContentPreview) ? (
                             <BlockPreview

@@ -135,15 +135,40 @@ $base-font-size: 15px;
 		flex-direction: column;
 	}
 
+	.components-modal__header {
+		padding: 20px 30px;
+	}
+
 	.components-modal__content {
-		padding: 25px;
+		padding: 0 10px 72px;
 		flex-grow: 1;
 		overflow: auto;
+	}
+
+	.gutenverse-ai-toggles {
+		align-items: center;
+		align-content: center;
+		flex-wrap: wrap;
+		display: flex;
+		gap: 20px;
+		padding: 24px 0;
+		margin: 0 100px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		justify-content: flex-end;
+		z-index: 999;
 	}
 
 	.gutenverse-ai-preview-toggle {
 		display: flex;
 		justify-content: flex-end;
+		align-items: center;
+
+		label {
+			font-size: 14px;
+		}
 	}
 
 	.gutenverse-ai-toggle-switch {
@@ -202,6 +227,7 @@ $base-font-size: 15px;
 		cursor: help;
 		color: #555;
 		vertical-align: middle;
+		display: flex;
 	}
 	.gutenverse-ai-info-icon:hover {
 		color: #007cba;
@@ -267,7 +293,14 @@ $base-font-size: 15px;
 	display: flex;
 	justify-content: center;
 	gap: 15px;
-	margin-bottom: 10px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 20px 40px;
+	background: white;
+	border-top: 1px solid #e3e4e6;
+	z-index: 999;
 
 	&--right {
 		justify-content: flex-end;
