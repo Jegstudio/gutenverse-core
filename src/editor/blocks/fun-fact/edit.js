@@ -59,16 +59,32 @@ const FunFactBlock = compose(
 
     useEffect(() => {
         if (elementRef.current) {
-            elementRef.current.querySelector('.number').innerHTML = 0;
+            const numberElement = elementRef.current.querySelector('.number');
+
+            const isValidNumber = /^-?\d+(\.\d+)?$/.test(number);
+            if (!isValidNumber) {
+                console.warn('[FunFact] Invalid number input (potentially unsafe):', number);
+                numberElement.textContent = 'Invalid number';
+                return;
+            }
+
+            const parsedNumber = parseFloat(number);
+
+            numberElement.textContent = '0';
+
             anime({
-                targets: elementRef.current.querySelector('.number'),
-                innerHTML: number,
+                targets: numberElement,
+                innerHTML: Math.round(parsedNumber),
                 easing: 'easeInOutQuart',
                 round: 1,
                 duration,
             });
         }
-        return () => anime.remove(elementRef.current?.querySelector('.number'));
+
+        return () => {
+            const numberElement = elementRef.current?.querySelector('.number');
+            if (numberElement) anime.remove(numberElement);
+        };
     }, [number, duration]);
 
     useEffect(() => {
