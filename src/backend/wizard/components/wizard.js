@@ -56,7 +56,7 @@ const ImportLoading = (props) => {
 const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }) => {
     const { plugins, installNonce, ajaxurl } = gutenverseWizard;
     const [installing, setInstalling] = useState({ show: true, message: 'Preparing...', progress: '1/4' });
-    const [ reload, setReload ] = useState(false);
+    const [reloadingSlug, setReloadingSlug] = useState(null);
     const [themeData, setThemeData] = useState(() => {
         return gutenverseWizard?.themeData || [];
     });
@@ -69,7 +69,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
 
         if (allActive) {
             setAction('done');
-            setReload(false);
+            setReloadingSlug(null);
         }
     }, []);
 
@@ -87,16 +87,27 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
                 setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
                 console.error('Error during theme activation');
                 setAction('done');
-                setReload(false);
+                setReloadingSlug(null);
             })
             .finally(() => {
                 getInstalledThemes((themes) => {
 
-                    //loop theme to get updated data
+                    const updatedThemeData = themeData.map(data => {
+                        const matchingTheme = themes.find(theme => theme.stylesheet === data.slug);
+                        if (matchingTheme) {
+                            return {
+                                ...data,
+                                active: matchingTheme.status !== 'inactive',
+                            };
+                        }
+                        return data;
+                    });
+
+                    setThemeData(updatedThemeData);
 
                     setInstalling({ show: true, message: 'Installing Complete', progress: '4/4' });
                     setAction('done');
-                    setReload(false);
+                    setReloadingSlug(null);
                 });
             });
     };
@@ -121,19 +132,20 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
                         getInstalledThemes(() => {
                             setInstalling({ show: true, message: 'Theme Installed.', progress: '2/4' });
                         });
+                        console.log(value);
                         activateTheme();
                     } else {
                         setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
                         console.error('Error during theme installation');
                         setAction('done');
-                        setReload(false);
+                        setReloadingSlug(null);
                     }
                 })
                 .catch(err => {
                     setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
                     console.error('Error during theme installation: ' + err);
                     setAction('done');
-                    setReload(false);
+                    setReloadingSlug(null);
                 });
         }, 1500);
     };
@@ -194,7 +206,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
             setInstalling({ show: true, message: 'Installing Complete', progress: '4/4' });
             setTimeout(() => {
                 setAction('done');
-                setReload(false);
+                setReloadingSlug(null);
             }, 1500);
         }
 
@@ -235,6 +247,8 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
         <div className="requirment-list">
             {themeData?.map((theme, key) => {
                 const active = theme?.active;
+                const isReloading = reloadingSlug === theme?.slug;
+
                 return <div key={key} className={classnames('themes-data', { active: active })}>
                     <div className="theme-thumbnail">
                         <a href={'#'} target="_blank" rel="noreferrer">
@@ -248,7 +262,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
                                 {`${theme?.title}`}
                             </a>
                         </h3>
-                        {reload ?
+                        {isReloading ?
                             <Fragment>
                                 <ImportLoading message={installing?.message} progress={installing?.progress} />
                             </Fragment> :
@@ -261,13 +275,13 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
                                                 <div onClick={() => {
                                                     themeAction(2, theme?.slug);
                                                     onInstall();
-                                                    setReload(true);
+                                                    setReloadingSlug(theme?.slug);
                                                 } } className="button-install">{__('Activate Theme', 'gutenverse')}</div>
                                                 :
                                                 <div onClick={() => {
                                                     themeAction(1, theme?.slug);
                                                     onInstall();
-                                                    setReload(true);
+                                                    setReloadingSlug(theme?.slug);
                                                 } } className="button-install">{__('Install Theme', 'gutenverse')}</div>
                                     }
                                 </div>

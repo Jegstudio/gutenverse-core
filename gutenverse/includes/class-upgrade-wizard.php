@@ -9,7 +9,6 @@
 
 namespace Gutenverse;
 
-use Gutenverse\Framework\Api;
 use Gutenverse\Framework\Init;
 
 /**
@@ -24,6 +23,13 @@ class Upgrade_Wizard {
 	 * @var string
 	 */
 	public static $action = 'gutenverse-upgrade-wizard';
+
+	/**
+	 * Hold API Variable Instance.
+	 *
+	 * @var Api
+	 */
+	public $api;
 
 	/**
 	 * Onboard Action Slug
