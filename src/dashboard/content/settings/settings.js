@@ -6,7 +6,7 @@ import { applyFilters } from '@wordpress/hooks';
 import EditorSetting from './src/settings/editor-setting';
 import TemplateSetting from './src/settings/template-setting';
 import FontIconSetting from './src/settings/font-icon-setting';
-import { DashboardBody, DashboardContent, DashboardHeader,PopupPro } from '../../components';
+import { DashboardBody, DashboardContent, DashboardHeader, PopupPro } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
 
 const SettingsBody = ({ settings, ...props }) => {
@@ -69,26 +69,31 @@ const Settings = (props) => {
         'gutenverse.dashboard.settings.navigation',
         {
             editor: {
-                title : __('Editor', '--gctd--'),
-                pro   : false,
+                title: __('Editor', '--gctd--'),
+                pro: false,
             },
-            frontend:{
-                title : __('Frontend', '--gctd--'),
-                pro   : false,
+            frontend: {
+                title: __('Frontend', '--gctd--'),
+                pro: false,
             },
             template: {
-                title : __('Template', '--gctd--'),
-                pro   : false,
+                title: __('Template', '--gctd--'),
+                pro: false,
             },
             ['font-icon']: {
-                title : __('Font Icon', '--gctd--'),
-                pro   : false,
+                title: __('Font Icon', '--gctd--'),
+                pro: false,
             },
             ['custom-font']: {
-                title : __('Custom Font', '--gctd--'),
-                pro   : true,
+                title: __('Custom Font', '--gctd--'),
+                pro: true,
             },
         }
+    );
+
+    const pluginTabs = applyFilters(
+        'gutenverse.dashboard.plugin-settings.navigation',
+        {}
     );
     props = { ...props, settings };
     return <DashboardContent>
@@ -122,7 +127,7 @@ const Settings = (props) => {
                                 className={classes}
                                 location={location}
                                 pro={tabs[key].pro}
-                                setActive={()=>setPopupActive(true)}
+                                setActive={() => setPopupActive(true)}
                             >
                                 {item}
                             </Link>;
