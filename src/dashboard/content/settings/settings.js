@@ -109,29 +109,25 @@ const Settings = (props) => {
             <div className="setting-tabs">
                 <div className="settings-tab-header">
                     <div className="tab-items">
-                        {Object.keys(tabs).map(key => {
-                            const item = tabs[key].title;
-                            const param = `?page=${page}&path=${path}&settings=${key}`;
-                            const classes = classnames('tab-item', {
-                                active: key === settings,
-                                locked: tabs[key].pro
-                            });
+                        <SettingLists
+                            label={__('General Settings', '--gcdt--')}
+                            path={path}
+                            page={page}
+                            pathname={pathname}
+                            setPopupActive={setPopupActive}
+                            settings={settings}
+                            tabs={tabs}
+                        />
 
-                            return <Link
-                                index={key}
-                                key={param}
-                                to={{
-                                    pathname: pathname,
-                                    search: param,
-                                }}
-                                className={classes}
-                                location={location}
-                                pro={tabs[key].pro}
-                                setActive={() => setPopupActive(true)}
-                            >
-                                {item}
-                            </Link>;
-                        })}
+                        <SettingLists
+                            label={__('Plugins Settings', '--gcdt--')}
+                            path={path}
+                            page={page}
+                            pathname={pathname}
+                            setPopupActive={setPopupActive}
+                            settings={settings}
+                            tabs={pluginTabs}
+                        />
                     </div>
                 </div>
                 <SettingsBody {...props} />
@@ -139,5 +135,37 @@ const Settings = (props) => {
         </DashboardBody>
     </DashboardContent>;
 };
+
+const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, tabs }) => {
+    if (Object.keys(tabs).length === 0) {
+        return '';
+    }
+    return <>
+        <span className="tab-label">{label}</span>
+        {Object.keys(tabs).map(key => {
+            const item = tabs[key].title;
+            const param = `?page=${page}&path=${path}&settings=${key}`;
+            const classes = classnames('tab-item', {
+                active: key === settings,
+                locked: tabs[key].pro
+            });
+
+            return <Link
+                index={key}
+                key={param}
+                to={{
+                    pathname: pathname,
+                    search: param,
+                }}
+                className={classes}
+                location={location}
+                pro={tabs[key].pro}
+                setActive={() => setPopupActive(true)}
+            >
+                {item}
+            </Link>;
+        })}
+    </>
+}
 
 export default Settings;
