@@ -220,9 +220,6 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
     const pluginActions = () => {
         switch (action) {
             case 'loading':
-                return <Fragment>
-                    <ImportLoading message={installing?.message} progress={installing?.progress} />
-                </Fragment>;
             default:
                 return <Fragment>
                     <div onClick={() => updateProgress('importTemplate', 1)} className="button-next">{__('Next', 'gutenverse')}</div>

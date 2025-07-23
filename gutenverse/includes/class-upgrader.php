@@ -27,7 +27,7 @@ class Upgrader {
 		add_action( 'admin_notices', array( $this, 'page_content_notice' ) );
 		add_action( 'init', array( $this, 'set_upgrader_page_content' ), 99 );
 		add_action( 'init', array( $this, 'set_upgrader_plugin_split' ), 99 );
-		add_action( 'init', array( $this, 'set_upgrader_theme_select' ), 99 );
+		add_action( 'admin_init', array( $this, 'set_upgrader_theme_select' ), 99 );
 		add_action( 'wp_ajax_gutenverse_upgrader_page_content_close', array( $this, 'upgrader_page_content_close' ) );
 		add_action( 'wp_ajax_gutenverse_upgrader_page_upgrade_close', array( $this, 'upgrader_page_upgrade_close' ) );
 		add_action( 'gutenverse_plugin_upgrade', array( $this, 'upgrade_like' ), 20 );
@@ -188,6 +188,20 @@ class Upgrader {
 	public function set_upgrader_theme_select() {
 		$flag             = get_option( $this->get_plugin_theme_select_name() );
 		$using_base_theme = apply_filters( 'gutenverse_companion_base_theme', false );
+		add_filter( 'wp_redirect', function( $location, $status ) {
+			if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
+				$referer = $_SERVER['HTTP_REFERER'];
+
+				if ( strpos( $referer, 'page=theme-wizard' ) !== false ) {
+					if ( isset( $_SERVER['QUERY_STRING'] ) && 'action=gutenverse-onboarding-wizard' === $_SERVER['QUERY_STRING'] ) {
+
+					} else {
+						delete_option( $this->get_plugin_theme_select_name() );
+					}
+				}
+			}
+			return $location;
+		}, 10, 2 );
 		if ( ! $flag && current_user_can( 'manage_options' ) && ! $using_base_theme ) {
 			add_option( $this->get_plugin_theme_select_name(), true );
 			wp_safe_redirect( admin_url( 'admin.php?action=gutenverse-onboarding-wizard' ) );
