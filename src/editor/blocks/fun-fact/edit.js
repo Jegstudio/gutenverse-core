@@ -45,6 +45,7 @@ const FunFactBlock = compose(
         lazyLoad,
         iconPosition,
         contentDisplay,
+        numberFormat = '',
     } = attributes;
 
     const imageAltText = imageAlt || null;
@@ -59,6 +60,16 @@ const FunFactBlock = compose(
 
     useEffect(() => {
         if (elementRef.current) {
+            let formatter = null;
+            if(numberFormat === 'comma') {
+                formatter = new Intl.NumberFormat('en-US', {
+                    maximumFractionDigits: 0
+                });
+            }else if(numberFormat === 'point') {
+                formatter = new Intl.NumberFormat('id-ID', {
+                    maximumFractionDigits: 0
+                });
+            }
             elementRef.current.querySelector('.number').innerHTML = 0;
             anime({
                 targets: elementRef.current.querySelector('.number'),
@@ -66,10 +77,14 @@ const FunFactBlock = compose(
                 easing: 'easeInOutQuart',
                 round: 1,
                 duration,
+                update: function(anim) {
+                    const val = parseInt(anim.animations[0].currentValue);
+                    elementRef.current.querySelector('.number').innerHTML = formatter && !isNaN(val) ? `${formatter.format( val )} ` : anim.animations[0].currentValue;
+                }
             });
         }
         return () => anime.remove(elementRef.current?.querySelector('.number'));
-    }, [number, duration]);
+    }, [number, duration, numberFormat]);
 
     useEffect(() => {
         if (elementRef) {
