@@ -8,6 +8,7 @@ import TemplateSetting from './src/settings/template-setting';
 import FontIconSetting from './src/settings/font-icon-setting';
 import { DashboardBody, DashboardContent, DashboardHeader, PopupPro } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
+import { IconSettingsEditorSVG } from 'gutenverse-core/icons';
 
 const SettingsBody = ({ settings, ...props }) => {
 
@@ -64,6 +65,8 @@ const Settings = (props) => {
     const page = query.get('page');
     const path = query.get('path');
     const settings = query.get('settings') ? query.get('settings') : 'editor';
+    const subSettings = query.get('sub-menu') ? query.get('sub-menu') : '';
+
 
     const tabs = applyFilters(
         'gutenverse.dashboard.settings.navigation',
@@ -102,33 +105,30 @@ const Settings = (props) => {
             setActive={setPopupActive}
             description={<>{__('Upgrade ', '--gctd--')}<span>{__(' Gutenverse PRO ', '--gctd--')}</span>{__(' version to ', '--gctd--')}<br />{__(' unlock these premium features', '--gctd--')}</>}
         />
-        <DashboardHeader>
-            <h2>{__('General Settings', '--gctd--')}</h2>
-        </DashboardHeader>
         <DashboardBody>
             <div className="setting-tabs">
                 <div className="settings-tab-header">
-                    <div className="tab-items">
-                        <SettingLists
-                            label={__('General Settings', '--gcdt--')}
-                            path={path}
-                            page={page}
-                            pathname={pathname}
-                            setPopupActive={setPopupActive}
-                            settings={settings}
-                            tabs={tabs}
-                        />
+                    <SettingLists
+                        label={__('General Settings', '--gcdt--')}
+                        path={path}
+                        page={page}
+                        pathname={pathname}
+                        setPopupActive={setPopupActive}
+                        settings={settings}
+                        tabs={tabs}
+                        subSettings={subSettings}
+                    />
 
-                        <SettingLists
-                            label={__('Plugins Settings', '--gcdt--')}
-                            path={path}
-                            page={page}
-                            pathname={pathname}
-                            setPopupActive={setPopupActive}
-                            settings={settings}
-                            tabs={pluginTabs}
-                        />
-                    </div>
+                    <SettingLists
+                        label={__('Plugins Settings', '--gcdt--')}
+                        path={path}
+                        page={page}
+                        pathname={pathname}
+                        setPopupActive={setPopupActive}
+                        settings={settings}
+                        tabs={pluginTabs}
+                        subSettings={subSettings}
+                    />
                 </div>
                 <SettingsBody {...props} />
             </div>
@@ -136,36 +136,82 @@ const Settings = (props) => {
     </DashboardContent>;
 };
 
-const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, tabs }) => {
+const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, tabs, subSettings }) => {
+
+    console.log('SettingLists-----');
+
+    console.log(tabs);
     if (Object.keys(tabs).length === 0) {
         return '';
     }
-    return <>
+
+    return <div className="tab-items">
         <span className="tab-label">{label}</span>
         {Object.keys(tabs).map(key => {
             const item = tabs[key].title;
-            const param = `?page=${page}&path=${path}&settings=${key}`;
+            const param = "subMenu" in tabs[key] ? `?page=${page}&path=${path}&settings=${key}&sub-menu=${tabs[key].subMenu[0].id}` : `?page=${page}&path=${path}&settings=${key}`;
             const classes = classnames('tab-item', {
                 active: key === settings,
                 locked: tabs[key].pro
             });
+            return <div className='nav-wrapper'>
+                <div className='main-menu'>
+                    <Link
+                        index={key}
+                        key={param}
+                        to={{
+                            pathname: pathname,
+                            search: param,
+                        }}
+                        className={classes}
+                        location={location}
+                        pro={tabs[key].pro}
+                        setActive={() => setPopupActive(true)}
+                    >
+                        <IconSettingsEditorSVG />
+                        {item}
+                    </Link>
+                </div>
 
-            return <Link
-                index={key}
-                key={param}
-                to={{
-                    pathname: pathname,
-                    search: param,
-                }}
-                className={classes}
-                location={location}
-                pro={tabs[key].pro}
-                setActive={() => setPopupActive(true)}
-            >
-                {item}
-            </Link>;
+                {"subMenu" in tabs[key] && (key === settings) && <div className='sub-menu'>
+                    {tabs[key].subMenu.map((value) => {
+
+                        console.log('SUB MENU ITEM');
+                        console.log(value);
+                        let item = value.title;
+                        let param = `?page=${page}&path=${path}&settings=${key}&sub-menu=${value.id}`;
+                        let classes = classnames('tab-item', {
+                            active: value.id === subSettings,
+                            locked: value.pro
+                        });
+                        return <Link
+                            index={key}
+                            key={param}
+                            to={{
+                                pathname: pathname,
+                                search: param,
+                            }}
+                            className={classes}
+                            location={location}
+                            pro={value.pro}
+                            setActive={() => setPopupActive(true)}
+                        >
+                            {item}
+                        </Link>
+                    })}
+
+                </div>}
+
+            </div>
         })}
-    </>
+    </div>
 }
+
+
+const SubMenu = () => {
+
+    return
+}
+
 
 export default Settings;
