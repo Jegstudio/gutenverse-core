@@ -15,9 +15,17 @@ class GutenverseFunFact extends Default {
         const number = targetElement.data('number');
         const duration = targetElement.data('duration');
 
+        const isValidNumber = /^-?\d+(\.\d+)?$/.test(number);
+        if (!isValidNumber) {
+            targetElement.first().textContent = 'Invalid number';
+            return;
+        }
+
+        const parsedNumber = parseFloat(number);
+
         const numberAnimation = anime({
             targets: targetElement.first(),
-            innerHTML: number,
+            innerHTML: parsedNumber,
             easing: 'easeInOutQuart',
             round: 1,
             duration,
