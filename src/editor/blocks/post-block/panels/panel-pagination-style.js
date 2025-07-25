@@ -532,7 +532,7 @@ export const paginationStylePanel = (props) => {
                 {
                     'type': 'border',
                     'id': 'paginationBorder',
-                    'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
+                    'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:not(.current)`,
                 }
             ]
         },
@@ -546,7 +546,7 @@ export const paginationStylePanel = (props) => {
                 {
                     'type': 'borderResponsive',
                     'id': 'paginationBorderResponsive',
-                    'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
+                    'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:not(.current)`,
                 }
             ]
         },
@@ -559,7 +559,7 @@ export const paginationStylePanel = (props) => {
                 {
                     'type': 'border',
                     'id': 'paginationHoverBorder',
-                    'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover`,
+                    'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover, .${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.current`,
                 }
             ]
         },
@@ -573,7 +573,7 @@ export const paginationStylePanel = (props) => {
                 {
                     'type': 'borderResponsive',
                     'id': 'paginationHoverBorderResponsive',
-                    'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover`,
+                    'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover, .${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.current`,
                 }
             ]
         },
