@@ -123,7 +123,27 @@ class GutenverseGallery extends Default {
             const triggerItem = zoom === 'button' ? u(item).find('.gallery-link.zoom') : u(item);
 
             triggerItem.on('click', () => {
-                const activeIndex = u(item).data('index');
+                let activeIndex = u(item).data('index');
+
+                const { searchValue, filterValue } = $this._getFilterSearchValue(elementClassNames);
+                let slideLength = 0;
+                slides.forEach((slide) => {
+                    slide.remove();
+                    const controlText = slide.getAttribute('data-filter') ?? '';
+                    const titleText = slide.getAttribute('data-title') ?? '';
+                    const contentText = slide.getAttribute('data-content') ?? '';
+                    const categoryText = slide.getAttribute('data-category') ?? '';
+                    const dataIndex = slide.getAttribute('data-index') ?? -1;
+
+                    if ((controlText.toLowerCase()).includes(filterValue) && ((titleText.toLowerCase()).includes(searchValue) || (contentText.toLowerCase()).includes(searchValue) || (categoryText.toLowerCase()).includes(searchValue))) {
+                        sliderContainer.find('.swiper-wrapper').append(slide);
+                        if (dataIndex === activeIndex) {
+                            activeIndex = slideLength;
+                        }
+                        slideLength++;
+                    }
+
+                });
 
                 const settings = {
                     initialSlide: parseInt(activeIndex),
@@ -140,19 +160,6 @@ class GutenverseGallery extends Default {
                     observer: true,
                     observeParents: true,
                 };
-
-                const { searchValue, filterValue } = $this._getFilterSearchValue(elementClassNames);
-                slides.forEach((slide) => {
-                    slide.remove();
-                    const controlText = slide.getAttribute('data-filter') ?? '';
-                    const titleText = slide.getAttribute('data-title') ?? '';
-                    const contentText = slide.getAttribute('data-content') ?? '';
-                    const categoryText = slide.getAttribute('data-category') ?? '';
-
-                    if ((controlText.toLowerCase()).includes(filterValue) && ((titleText.toLowerCase()).includes(searchValue) || (contentText.toLowerCase()).includes(searchValue) || (categoryText.toLowerCase()).includes(searchValue))) {
-                        sliderContainer.find('.swiper-wrapper').append(slide);
-                    }
-                });
 
                 swiper = new Swiper(`.${id} .swiper-container`, settings);
                 setTimeout(() => {

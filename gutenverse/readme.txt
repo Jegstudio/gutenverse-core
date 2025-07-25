@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 3.0.7
+Stable tag: 3.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,6 +298,18 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.1.0 =
+##### New & Improvemenets
+* improve progress bar block styles
+* add accordion item wrapper background
+* add text indent on text editor
+* fix testimonial typography hover/normal
+
+##### Bug Fixes
+* fix gallery light box
+* fix testimonial arrow
+* fix blocklist enable/disable option for wrapper block
+
 = 3.0.7 =
 ##### New & Improvemenets
 * add icon box height option

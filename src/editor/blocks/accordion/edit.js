@@ -1,8 +1,9 @@
 import { __ } from '@wordpress/i18n';
+import anime from 'animejs';
 import { useEffect, useRef } from '@wordpress/element';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { RichTextComponent, classnames } from 'gutenverse-core/components';
+import { RichTextComponent, classnames, u } from 'gutenverse-core/components';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { Check, X } from 'gutenverse-core/components';
 import { dispatch, useSelect } from '@wordpress/data';
@@ -80,11 +81,43 @@ const Accordion = props => {
         template: [['core/paragraph']]
     });
 
+    const animate = (accordionBodies, setClosed = false) => {
+        for (let i = 0; i < accordionBodies.length; i++) {
+            const item = accordionBodies[i];
+            const body = u(item);
+            const bodySize = body.find('.accordion-content').size();
+            const isActive = body.hasClass('active');
+            if(isActive) {
+                anime({
+                    targets: body.first(),
+                    height: bodySize.height,
+                    duration: 500,
+                    easing: 'easeOutCubic',
+                }).finished.finally(() => {
+                    body.attr('style', '');
+                });
+            } else {
+                setClosed && body.addClass('closed');
+                anime({
+                    targets: body.first(),
+                    height: '0',
+                    duration: 500,
+                    easing: 'easeOutCubic',
+                }).finished.finally(() => {
+                    setClosed && body.removeClass('closed');
+                    body.attr('style', '');
+                });
+            }
+        }
+    };
+
     const setFirstActive = () => {
         // Remove Active.
         const parent = elementRef.current.parentElement;
         const headings = parent.getElementsByClassName('accordion-heading');
         const bodies = parent.getElementsByClassName('accordion-body');
+
+        animate(bodies, false);
 
         for (let i = 0; i < headings.length; i++) {
             headings[i].classList.remove('active');
@@ -99,6 +132,8 @@ const Accordion = props => {
             heading[0].classList.add('active');
             body[0].classList.add('active');
         }
+
+        animate(bodies, true);
 
         // Commit to attribute.
         setTimeout(() => {
