@@ -105,7 +105,11 @@ const PostBlockBlock = compose(
             u(elementRef.current)
                 .find('.guten-block-loadmore')
                 .on('click', () => {
-                    setPostLoaded(postLoaded + parseInt(paginationNumberPost));
+                    u(elementRef.current).find('.guten-block-loadmore').html(`<span data-load="Load More" data-loading="Loading...">${paginationLoadingText}</span>`);
+                    setTimeout(() => {
+                        setPostLoaded(postLoaded + parseInt(paginationNumberPost));
+                        u(elementRef.current).find('.guten-block-loadmore').html(`<span data-load="Load More" data-loading="Loading...">${paginationLoadmoreText}</span>`);
+                    }, 500);
                 });
             u(elementRef.current)
                 .find('.btn-pagination.next:not(.disabled)')
