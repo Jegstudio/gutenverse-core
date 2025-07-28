@@ -85,7 +85,7 @@ export const removingPrevious = (template, active) => {
 export const installingPlugins = (template, setImporterStatus) => {
     return new Promise((resolve, reject) => {
 
-        const { plugins: installedPlugin } = window['GutenverseCompanionConfig'];
+        const { plugin_list: installedPlugin } = window['GutenverseWizard'];
         const pluginsList = [
             {
                 slug: 'gutenverse',
@@ -233,7 +233,7 @@ export const importingPattern = (patterns, installed, template, misc, setImporte
                 : Object.values(imagesRaw || {});
 
             const placeholderPath = '/lib/framework/assets/img/img-placeholder.jpg';
-            const { plugins_url } = window['GutenverseCompanionConfig'];
+            const { plugins_url } = window['GutenverseWizard'];
 
             const processImages = images.reduce((promiseChain, image) => {
                 return promiseChain.then(() => {

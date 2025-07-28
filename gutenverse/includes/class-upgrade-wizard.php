@@ -168,7 +168,9 @@ class Upgrade_Wizard {
 			$plugins[] = explode( '/', $active )[0];
 		}
 
-		$config['plugins'] = array(
+		$config['plugins_url'] = plugins_url();
+		$config['plugin_list'] = self::list_plugin();
+		$config['plugins']     = array(
 			array(
 				'slug'         => 'gutenverse-companion',
 				'title'        => 'Gutenverse Companion',
@@ -206,6 +208,32 @@ class Upgrade_Wizard {
 			$config['themeData'] = null;
 		}
 		return $config;
+	}
+
+	/**
+	 * Get List Of Installed Plugin.
+	 *
+	 * @return array
+	 */
+	public static function list_plugin() {
+		$plugins = array();
+		$active  = array();
+
+		foreach ( get_option( 'active_plugins' ) as  $plugin ) {
+			$active[] = explode( '/', $plugin )[0];
+		}
+
+		foreach ( get_plugins() as $key => $plugin ) {
+			$slug             = explode( '/', $key )[0];
+			$data             = array();
+			$data['active']   = in_array( $slug, $active, true );
+			$data['version']  = $plugin['Version'];
+			$data['name']     = $plugin['Name'];
+			$data['path']     = str_replace( '.php', '', $key );
+			$plugins[ $slug ] = $data;
+		}
+
+		return $plugins;
 	}
 
 	/**
