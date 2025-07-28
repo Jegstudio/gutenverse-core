@@ -92,7 +92,7 @@ const FunFactBlock = compose(
                 duration,
                 update: function(anim) {
                     const val = parseInt(anim.animations[0].currentValue);
-                    elementRef.current.querySelector('.number').innerHTML = formatter && !isNaN(val) ? `${formatter.format( val )} ` : anim.animations[0].currentValue;
+                    numberElement.textContent = formatter && !isNaN(val) ? `${formatter.format( val )} ` : anim.animations[0].currentValue;
                 }
             });
         }
