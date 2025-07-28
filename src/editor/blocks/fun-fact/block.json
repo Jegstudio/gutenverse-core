@@ -126,6 +126,10 @@
 			"type": "string",
 			"default": "M"
 		},
+		"numberFormat": {
+			"type": "string",
+			"default": ""
+		},
 		"title": {
 			"type": "string",
 			"default": "Fun Fact"

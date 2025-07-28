@@ -39,7 +39,7 @@ const TextAnimatedComponent = (props) => {
     };
 
     const generateText = (wrapper, text) => {
-        wrapper.html(text);
+        wrapper.text(text);
         wrapper.html(
             wrapper.text().replace(
                 splitByWord ? /\b\w+\b/g : /\S/g,

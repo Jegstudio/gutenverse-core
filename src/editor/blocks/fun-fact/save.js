@@ -36,6 +36,7 @@ const save = compose(
         contentDisplay,
         topIconContent,
         bottomIconContent,
+        numberFormat,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -75,7 +76,7 @@ const save = compose(
                 <div className={`content ${contentDisplay}`}>
                     <div className="number-wrapper">
                         <span className="prefix">{`${prefix}`}</span>
-                        <span className="number loaded" data-number={number} data-duration={duration}></span>
+                        <span className="number loaded" data-number-format={numberFormat} data-number={number} data-duration={duration}></span>
                         <span className="suffix">{suffix}</span>
                         {showSupper && <sup className="super">{supper}</sup>}
                     </div>
