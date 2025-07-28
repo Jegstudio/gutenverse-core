@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, NumberControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, NumberControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
 export const contentPanel = ({showSupper}) => {
     return [
@@ -17,6 +17,25 @@ export const contentPanel = ({showSupper}) => {
             id: 'suffix',
             label: __('Number Suffix', 'gutenverse'),
             component: TextControl,
+        },
+        {
+            id: 'numberFormat',
+            label: __('Number Format', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    value: '',
+                    label: 'None'
+                },
+                {
+                    value: 'comma',
+                    label: 'Comma'
+                },
+                {
+                    value: 'point',
+                    label: 'Point'
+                },
+            ]
         },
         {
             id: 'duration',

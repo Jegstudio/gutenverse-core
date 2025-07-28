@@ -76,7 +76,7 @@ export class AnimationStyle {
     };
 
     _generateText = (wrapper, text) => {
-        wrapper.html(text);
+        wrapper.text(text);
         wrapper.html(
             wrapper.text().replace(
                 this.splitByWord ? /\b\w+\b/g : /\S/g,
