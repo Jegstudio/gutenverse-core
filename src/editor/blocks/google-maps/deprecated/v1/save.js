@@ -28,7 +28,6 @@ const save = compose(
     const className = classnames(
         'guten-element',
         'gutenverse-maps',
-        'guten-maps',
         elementId,
         animationClass,
         displayClass,
@@ -47,12 +46,12 @@ const save = compose(
         scrolling: 'no',
         marginHeight: 0,
         marginWidth: 0,
-        src: '',
+        src: 'https://maps.google.com/maps?' + encodeDataToURL(parameter),
         title: parameter['q'],
     };
 
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })} data-src={`https://maps.google.com/maps?${encodeDataToURL(parameter)}`}>
+        <div className={className} {...advanceAnimationData}>
             <iframe {...iframeParam}/>
         </div>
     );
