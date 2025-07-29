@@ -118,14 +118,84 @@
                 font-size: 14px;
                 line-height: 100%;
                 color: #011627;
+                display: flex;
+                gap: 16px;
+                flex-direction: column;
 
+                svg {
+                    width: 18px;
+                    height: 18px;
+                }
 
-                .tab-label {}
+                &.plugins {
+                    padding-top: 24px;
+
+                    svg {
+                        width: 24px;
+                        height: 24px;
+                    }
+
+                    .tab-item {
+                        &.active {
+                            svg {
+                                rect {
+                                    fill: var(--gutenverse-dashboard-primary);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.general {
+                    padding-bottom: 24px;
+                    border-bottom: 1px solid #E3E4E6;
+
+                    .tab-item {
+                        &.active {
+                            svg {
+                                path {
+                                    fill: var(--gutenverse-dashboard-primary);
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                .nav-wrapper {
+                    .main-menu {
+                        a {
+                            display: flex;
+                            gap: 14px;
+                            align-items: center;
+                        }
+
+                    }
+
+                    .sub-menu {
+                        display: flex;
+                        flex-direction: column;
+                        background: #F2F4F7;
+                        padding: 16px;
+                        gap: 16px;
+                        border-radius: 3px;
+                        margin-top: 18px;
+                        font-size: 13px;
+                    }
+                }
 
                 .tab-item {
                     text-decoration: none;
                     cursor: pointer;
                     color: #011627;
+
+                    &.locked {
+                        .setting-label {
+                            display: flex;
+                            gap: 14px;
+                            align-items: center;
+                        }
+                    }
 
                     &:focus {
                         box-shadow: none;

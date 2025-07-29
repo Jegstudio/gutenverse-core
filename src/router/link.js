@@ -23,9 +23,9 @@ const Link = ({
     if (pro) {
         const ButtonPro = applyFilters('gutenverse.setting-pro-button', () =>
             <div className={className} onClick={setActive}>
-                <p className="pro-label">PRO</p>
                 <div className="setting-label" >
                     {children}
+                    <span className="pro-label">PRO</span>
                 </div>
             </div>, { to, className, onClick, children });
         return <ButtonPro />;

@@ -8,7 +8,7 @@ import TemplateSetting from './src/settings/template-setting';
 import FontIconSetting from './src/settings/font-icon-setting';
 import { DashboardBody, DashboardContent, DashboardHeader, PopupPro } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
-import { IconSettingsEditorSVG } from 'gutenverse-core/icons';
+import { getSettingsIcon } from 'gutenverse-core/icons';
 
 const SettingsBody = ({ settings, ...props }) => {
 
@@ -67,7 +67,6 @@ const Settings = (props) => {
     const settings = query.get('settings') ? query.get('settings') : 'editor';
     const subSettings = query.get('sub-menu') ? query.get('sub-menu') : '';
 
-
     const tabs = applyFilters(
         'gutenverse.dashboard.settings.navigation',
         {
@@ -117,6 +116,7 @@ const Settings = (props) => {
                         settings={settings}
                         tabs={tabs}
                         subSettings={subSettings}
+                        extraClasses={'general'}
                     />
 
                     <SettingLists
@@ -128,6 +128,7 @@ const Settings = (props) => {
                         settings={settings}
                         tabs={pluginTabs}
                         subSettings={subSettings}
+                        extraClasses={'plugins'}
                     />
                 </div>
                 <SettingsBody {...props} />
@@ -136,19 +137,17 @@ const Settings = (props) => {
     </DashboardContent>;
 };
 
-const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, tabs, subSettings }) => {
-
-    console.log('SettingLists-----');
-
-    console.log(tabs);
+const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, tabs, subSettings, extraClasses }) => {
+    const icons = getSettingsIcon();
     if (Object.keys(tabs).length === 0) {
         return '';
     }
 
-    return <div className="tab-items">
+    return <div className={`tab-items ${extraClasses}`}>
         <span className="tab-label">{label}</span>
         {Object.keys(tabs).map(key => {
             const item = tabs[key].title;
+            const icon = icons[key] ? icons[key] : '';
             const param = "subMenu" in tabs[key] ? `?page=${page}&path=${path}&settings=${key}&sub-menu=${tabs[key].subMenu[0].id}` : `?page=${page}&path=${path}&settings=${key}`;
             const classes = classnames('tab-item', {
                 active: key === settings,
@@ -168,7 +167,7 @@ const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, t
                         pro={tabs[key].pro}
                         setActive={() => setPopupActive(true)}
                     >
-                        <IconSettingsEditorSVG />
+                        {icon}
                         {item}
                     </Link>
                 </div>
