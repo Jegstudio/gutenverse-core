@@ -100,11 +100,12 @@ export const filterLayout = (layoutData, filter, perPage) => {
     const { paging } = filter;
     const data = layoutFilter(layoutData, filter).map((layout) => {
         const { id, name, data, like, author, customAPI, customArgs } = layout;
-        const { pro, slug, cover, demo, compatible_version: compatibleVersion, requirements } = data;
+        const { pro, tier, slug, cover, demo, compatible_version: compatibleVersion, requirements } = data;
 
         return {
             id,
             pro: pro === '1',
+            licenseType: tier,
             slug,
             title: name,
             cover,
@@ -322,11 +323,12 @@ export const filterTheme = (themeData, filter, perPage) => {
 
     const data = themeFilter(themeData, filter).map((layout) => {
         const { id, name, data, author, customAPI, customArgs } = layout;
-        const { pro, slug, cover, host, demo, compatible_version: compatibleVersion, requirements, status } = data;
+        const { pro, tier, slug, cover, host, demo, compatible_version: compatibleVersion, requirements, status } = data;
 
         return {
             id,
             pro: pro === '1',
+            licenseType: tier,
             slug,
             title: name,
             cover,
@@ -407,12 +409,13 @@ export const filterSection = (sectionData, filter, perPage) => {
     const { paging } = filter;
     const data = sectionFilter(sectionData, filter).map((section) => {
         const { id, data, like, customAPI, customArgs, author, name: unfilteredName, categories } = section;
-        const { pro, slug, cover, compatible_version: compatibleVersion, requirements } = data;
+        const { pro, tier, slug, cover, compatible_version: compatibleVersion, requirements } = data;
         let name = unfilteredName;
         name = name.replace('PRO', '').replace('&#8211;', '').replace('Dark', '- Dark').replace('Free', '');
         return {
             id,
             pro: pro === '1',
+            licenseType: tier,
             categories,
             slug,
             cover,

@@ -338,6 +338,8 @@ class Api {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
 
+		$this->update_library_data();
+
 		$upload_dir       = wp_upload_dir();
 		$upload_base_path = $upload_dir['basedir'];
 
@@ -727,7 +729,7 @@ class Api {
 		if ( ! apply_filters( 'gutenverse_server_mode', false ) ) {
 			$endpoints = array(
 				array(
-					'version'  => 'v3',
+					'version'  => 'v5',
 					'endpoint' => 'layout/data',
 					'filename' => 'layout/data',
 				),
@@ -737,7 +739,7 @@ class Api {
 					'filename' => 'layout/categories',
 				),
 				array(
-					'version'  => 'v3',
+					'version'  => 'v5',
 					'endpoint' => 'theme/data',
 					'filename' => 'theme/data',
 				),
@@ -747,7 +749,7 @@ class Api {
 					'filename' => 'theme/categories',
 				),
 				array(
-					'version'  => 'v3',
+					'version'  => 'v5',
 					'endpoint' => 'section/data',
 					'filename' => 'section/data',
 				),
