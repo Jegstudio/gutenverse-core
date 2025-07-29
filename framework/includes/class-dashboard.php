@@ -313,7 +313,7 @@ class Dashboard {
 		$upload_path = wp_upload_dir();
 
 		$config                    = array();
-		$config['settingsData']    = get_option( 'gutenverse-settings', array() );
+		$config['settingsData']    = apply_filters( 'gutenverse_settings_data', get_option( 'gutenverse-settings', array() ) );
 		$config['blockCategories'] = Init::instance()->blocks->gutenverse_categories();
 		$config['uploadPath']      = $upload_path['basedir'];
 		$config['renderSchedule']  = gmdate( 'Y-m-d H:i:s', wp_next_scheduled( 'gutenverse_cleanup_cached_style' ) );

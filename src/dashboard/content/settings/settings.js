@@ -11,7 +11,6 @@ import FrontEndSetting from './src/settings/frontend-setting';
 import { getSettingsIcon } from 'gutenverse-core/icons';
 
 const SettingsBody = ({ settings, ...props }) => {
-
     let body = '';
     switch (settings) {
         case 'editor':
@@ -45,6 +44,14 @@ const SettingsBody = ({ settings, ...props }) => {
         case 'custom-font':
             body = applyFilters(
                 'gutenverse.setting-pro-content',
+                body,
+                settings,
+                props
+            );
+            break;
+        case 'news':
+            body = applyFilters(
+                'gutenverse.dashboard.settings.news',
                 body,
                 settings,
                 props
@@ -97,7 +104,7 @@ const Settings = (props) => {
         'gutenverse.dashboard.plugin-settings.navigation',
         {}
     );
-    props = { ...props, settings };
+    props = { ...props, settings, subSettings };
     return <DashboardContent>
         <PopupPro
             active={popupActive}
