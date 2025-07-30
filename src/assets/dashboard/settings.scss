@@ -194,6 +194,16 @@
                             display: flex;
                             gap: 14px;
                             align-items: center;
+
+                            .pro-label {
+                                background: linear-gradient(247.17deg, #FF808B 27.14%, #F93A50 104.63%);
+                                padding: 4px 6px;
+                                font-weight: 600;
+                                font-size: 8px;
+                                color: #fff;
+                                border-radius: 3px;
+                                margin-left: -2px;
+                            }
                         }
                     }
 
