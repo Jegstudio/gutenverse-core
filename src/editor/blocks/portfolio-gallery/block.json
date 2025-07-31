@@ -165,6 +165,10 @@
 			"type": "object",
             "copyStyle" : true
 		},
+		"linkBackgroundHover":{
+			"type": "object",
+			"copyStyle" : true
+		},
 		"linkBorder":{
 			"type": "object",
             "copyStyle" : true
