@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,6 +298,18 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.1.1 =
+##### New & Improvemenets
+* add default spacing  in paragraph block
+
+##### Bug Fixes
+* fix funfact input with number can now includes decimal numbers
+* fix post terms styling is inconsistent on frontend and backend
+* fix advance heading input 
+* fix post block pagination’s active border
+* fix block preview in library
+* fix google map glitching when there is local anchor url
+
 = 3.1.0 =
 ##### New & Improvemenets
 * improve progress bar block styles
