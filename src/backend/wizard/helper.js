@@ -41,6 +41,21 @@ export const getBaseTheme = (param) => new Promise(resolve => {
     });
 });
 
+export const licenseCheck = (param) => new Promise(resolve => {
+    apiFetch({
+        path: 'gutenverse-client/v1/check/license',
+        method: 'POST',
+        data: param
+    }).then((data) => {
+        console.log(data);
+        resolve(data);
+        return data;
+    }).catch((e) => {
+        alert(e.message);
+        resolve([]);
+    });
+});
+
 export const formatArray = (arr) => {
     if (!arr) {
         return '';

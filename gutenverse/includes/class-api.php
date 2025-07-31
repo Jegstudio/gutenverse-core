@@ -111,6 +111,16 @@ class Api {
 				},
 			)
 		);
+
+		register_rest_route(
+			self::ENDPOINT,
+			'check/license',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'license_check' ),
+				'permission_callback' => '__return_true',
+			)
+		);
 	}
 
 	/**
@@ -351,5 +361,30 @@ class Api {
 		global $wp_filesystem;
 		$wp_filesystem->put_contents( $file_path, $response_body, FS_CHMOD_FILE );
 		return true;
+	}
+
+	/**
+	 * Check if license key is active.
+	 *
+	 * @param Array $param Array of Request.
+	 *
+	 * @return WP_Rest.
+	 */
+	public function license_check( $param ) {
+		$response = wp_remote_post(
+			GUTENVERSE_LICENSE_SERVER . '/wp-json/gutenverse-pro/v1/license/validate',
+			array(
+				'body'    => wp_json_encode( $param ),
+				'headers' => array(
+					'Content-Type' => 'application/json',
+				),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return false;
+		} else {
+			return json_decode( wp_remote_retrieve_body( $response ) );
+		}
 	}
 }

@@ -278,7 +278,7 @@ body {
 
             .number {
                 background-color: white;
-                font-family: Inter;
+                font-family: "Inter", sans-serif;
                 font-size: 18px;
                 font-weight: 500;
                 width: 40px;
@@ -291,51 +291,20 @@ body {
             }
 
             .progress-title {
-                font-family: Inter;
+                font-family: "Inter", sans-serif;
                 font-size: 16px;
                 font-weight: 500;
                 text-align: left;
                 color: #011627;
             }
 
-            .info-notice {
-                position: relative;
-
-                .popup {
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    margin-top: 4px;
-                    background: #f8f9ff;
-                    border: 1px solid #d0d5f5;
-                    padding: 6px 10px;
-                    font-size: 12px;
-                    color: #2c3e50;
-                    border-radius: 4px;
-                    white-space: nowrap;
-                    z-index: 10;
-                    display: none;
-                    opacity: 0;
-                    transition: opacity 0.5s ease;
-                }
-
-                &:hover {
-                    .popup 
-                    {
-                        display: block;
-                        opacity: 1;
-                    }
-                }
-                
-            }
-
             &.done {
-                border-bottom: 3px solid #933AFF;
+                border-bottom: 3px solid #3B57F7;
             }
 
             &.active {
                 .number {
-                    background-color: #933AFF;
+                    background-color: #3B57F7;
                     border: none;
                     color: white;
                 }
@@ -382,19 +351,18 @@ body {
             }
 
             .content-desc {
-                color: #40505d;
-                font-family: Inter;
-                font-size: 14px;
-                font-stretch: normal;
-                font-style: normal;
-                font-weight: 400;
-                letter-spacing: normal;
-                line-height: 1.4;
+                position: relative;
+                z-index: 1;
                 margin: 12px auto 0;
                 max-width: 400px;
-                position: relative;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.4;
+                letter-spacing: normal;
                 text-align: center;
-                z-index: 1;
+                color: rgba(64, 80, 93, 1);
+                vertical-align: middle;
             }
 
             .requirment-list {
@@ -891,7 +859,7 @@ body {
 
                 .final-title {
                     width: 100%;
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 32px;
                     font-weight: 600;
                     text-align: center;
@@ -903,7 +871,7 @@ body {
                 .final-desc {
                     width: 100%;
                     margin: 12px 0 0;
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 14px;
                     line-height: 1.4;
                     text-align: center;
@@ -918,8 +886,8 @@ body {
                     gap: 9px;
                     padding: 12px 32px;
                     border-radius: 5px;
-                    background-color: #933AFF;
-                    font-family: Inter;
+                    background-color: #3B57F7;
+                    font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: 500;
                     text-align: center;
@@ -928,8 +896,194 @@ body {
                     transition: background-color 0.3s ease, color 0.3s ease;
 
                     &:hover {
-                        background-color: #781BE9;
+                        background-color: #3B57F7;
                     }
+                }
+            }
+        }
+
+        .getting-started {
+            position: relative;
+            height: 725px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px 0 40px;
+            box-sizing: border-box;
+
+            .bg-image-wizard {
+                height: inherit;
+                width: inherit;
+                z-index: 1;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            .content-top {
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .content-title {
+                    position: relative;
+                    z-index: 1;
+                    margin: 20px auto 0;
+                    max-width: 700px;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 48px;
+                    font-weight: 700;
+                    line-height: 1.1;
+                    letter-spacing: -0.48px;
+                    text-align: center;
+                    color: #011627;
+                    font-weight: 700;
+                    vertical-align: middle;
+
+                    .gradient-text {
+                        background: linear-gradient(89.55deg, #E948FF 40.61%, #466AFF 68.55%, #63D2F6 91.41%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        background-clip: text;
+                        /* For non-webkit browsers */
+                        text-fill-color: transparent;
+                        /* For non-webkit browsers */
+                        position: relative;
+                    }
+                }
+
+                p {
+                    z-index: 2;
+                    text-align: center;
+                    max-width: 478px;
+
+                    &.welcome {
+                        font-family: "Inter", sans-serif;
+                        font-weight: 500;
+                        font-size: 14px;
+                        font-style: Medium;
+                        line-height: 100%;
+                        letter-spacing: 1.4px;
+                        vertical-align: middle;
+                        color: rgba(64, 80, 93, 0.6);
+                        margin: 0;
+                    }
+
+                    &.content-desc {
+                        font-family: "Inter", sans-serif;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 140%;
+                        text-align: center;
+                        vertical-align: middle;
+                        color: rgba(64, 80, 93, 1);
+                        margin: 12px 0 30px;
+                    }
+                }
+
+                .button-next {
+                    background: linear-gradient(91.52deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%);
+                    border-radius: 8px;
+                    padding-top: 14px;
+                    padding-right: 25px;
+                    padding-bottom: 14px;
+                    padding-left: 30px;
+                    gap: 8px;
+                    opacity: 1;
+                    z-index: 2;
+                    font-family: "Roboto", sans-serif;
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 100%;
+                    text-align: center;
+                    vertical-align: middle;
+                    color: rgba(255, 255, 255, 1);
+                    cursor: pointer;
+                    transition: transform 0.3s ease;
+
+                    &:hover {
+                        transform: scale(0.94);
+                    }
+                }
+            }
+
+            .content-bottom {
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 48px;
+
+                a, p {
+                    font-family: "Inter", sans-serif;
+                    color: rgba(255, 255, 255, 1);
+                    line-height: 1.7;
+                    margin: 0;
+                }
+
+                p.consent-notice {
+                    font-weight: 400;
+                    font-size: 14px;
+                    letter-spacing: 0%;
+                    text-align: center;
+                    vertical-align: middle;
+                }
+
+                a.consent-notice-link {
+                    font-weight: 600;
+                    font-size: 14px;
+                    letter-spacing: 0;
+                    text-align: center;
+                    vertical-align: middle;
+                    text-decoration: underline;
+                    text-decoration-style: solid;
+                    text-decoration-offset: 0;
+                    text-decoration-thickness: 1px;
+                }
+            }
+
+            .wizard-image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 2;
+
+                &.item-1 {
+                    width: 63.9px;
+                    height: 63.9px;
+                    top: 359px;
+                    left: 777px;
+                }
+
+                &.item-2 {
+                    width: 56.6px;
+                    height: 56.6px;
+                    top: 407px;
+                    left: 319px;
+                }
+
+                &.item-3 {
+                    width: 389.6px;
+                    height: 247.0px;
+                    top: 330px;
+                    left: 405px;
+                }
+
+                &.item-4 {
+                    width: 212.5px;
+                    height: 281.1px;
+                    top: 307.67px;
+                    left: 676.23px;
+                }
+
+                &.item-5 {
+                    width: 20.0px;
+                    height: 21.8px;
+                    top: 97px;
+                    left: 923px;
                 }
             }
         }
@@ -967,7 +1121,7 @@ body {
             gap: 5px;
             padding: 12px 15px;
             border-radius: 5px;
-            background-color: #933AFF;
+            background-color: rgba(59, 87, 247, 1);
             font-family: Inter;
             font-size: 14px;
             font-weight: 500;
@@ -1064,11 +1218,11 @@ body {
             overflow: hidden;
 
             &:hover {
-                border: 1px solid #933AFF;
+                border: 1px solid rgba(59, 87, 247, 1);
 
                 .button-view-demo {
-                    border: 1px solid #933AFF !important;
-                    color: #933AFF;
+                    border: 1px solid rgba(59, 87, 247, 1) !important;
+                    color: rgba(59, 87, 247, 1);
                 }
 
                 .template-thumbnail {
@@ -1140,7 +1294,7 @@ body {
 
             .pro-flag {
                 align-items: center;
-                background: #EF3AFF;
+                background: rgba(59, 87, 247, 1);
                 border-radius: 4px;
                 color: #fff;
                 cursor: pointer;
@@ -1181,7 +1335,7 @@ body {
                     cursor: pointer;
                     transition: all 0.5s ease;
                     border-radius: 5px;
-                    background: #EF3AFF;
+                    background: rgba(59, 87, 247, 1);
                     background-origin: border-box;
                     background-clip: content-box, content-box, border-box;
 
@@ -1248,7 +1402,7 @@ body {
                         gap: 8px;
                         padding: 10px 20px;
                         border-radius: 5px;
-                        background-color: #933AFF;
+                        background-color: rgba(59, 87, 247, 1);
                         flex-grow: 0;
                         font-family: Inter;
                         font-size: 12px;
@@ -1258,7 +1412,7 @@ body {
                         transition: background-color 0.3s ease, color 0.3s ease;
 
                         &:hover {
-                            background-color: #781BE9;
+                            background-color: rgba(59, 87, 247, 1);
                         }
 
                         &.imported {
@@ -1331,16 +1485,16 @@ body {
             gap: 6px;
             padding: 10px 24px;
             border-radius: 5px;
-            border: solid 1px #933AFF;
+            border: solid 1px #3B57F7;
             background-color: #fff;
             font-family: Inter;
             font-size: 14px;
             font-weight: 500;
             text-align: center;
-            color: #933AFF;
+            color: #3B57F7;
 
             &:hover {
-                background: #933AFF;
+                background: #3B57F7;
                 color: #fff;
             }
         }
@@ -1409,17 +1563,17 @@ body {
             position: relative;
             margin: 24px auto 0;
             cursor: pointer;
+            background: linear-gradient(91.52deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%);
             transition: all 0.5s ease;
-            background: radial-gradient(103.69% 112% at 51.27% 100%, #4992FF 0%, #7722FF 100%);
             border-radius: 10px;
             overflow: hidden;
 
-            &::before {
+            &::before.disable {
                 content: "";
                 position: absolute;
                 inset: 0;
                 padding: 2px;
-                background: linear-gradient(180deg, #9760FF 0%, rgba(255, 255, 255, 0.1) 100%);
+                background: linear-gradient(91.52deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%);
                 box-shadow: 0px 4px 4px -4px #00000033;
                 border-radius: 10px;
                 mask:
@@ -1456,22 +1610,21 @@ body {
         }
 
         .content-title {
-            z-index: 1;
             position: relative;
+            z-index: 1;
             margin: 20px auto 0;
             max-width: 700px;
-            font-family: Inter;
+            font-family: 'Inter', sans-serif;
             font-size: 48px;
-            font-weight: bold;
-            font-stretch: normal;
-            font-style: normal;
+            font-weight: 700;
             line-height: 1.1;
             letter-spacing: -0.48px;
             text-align: center;
             color: #011627;
+            vertical-align: middle;
 
             .gradient-text {
-                background: linear-gradient(90.05deg, #49C3FF 18.77%, #4992FF 50.51%, #7722FF 85.64%);
+                background: linear-gradient(89.55deg, #E948FF 40.61%, #466AFF 68.55%, #63D2F6 91.41%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -1483,26 +1636,25 @@ body {
         }
 
         .content-desc {
-            z-index: 1;
             position: relative;
+            z-index: 1;
             margin: 12px auto 0;
             max-width: 400px;
-            font-family: Inter;
+            font-family: 'Inter', sans-serif;
             font-size: 14px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-style: normal;
+            font-weight: 400;
             line-height: 1.4;
             letter-spacing: normal;
             text-align: center;
-            color: #40505d;
+            color: rgba(64, 80, 93, 1);
+            vertical-align: middle;
         }
 
         .upgrade-image {
             z-index: 1;
             position: relative;
             width: 640px;
-            margin: -10px auto 35px;
+            margin: -0px auto 35px;
         }
     }
 
@@ -1538,16 +1690,16 @@ body {
             gap: 6px;
             padding: 10px 24px;
             border-radius: 5px;
-            border: solid 1px #933AFF;
+            border: solid 1px #3B57F7;
             background-color: #fff;
             font-family: Inter;
             font-size: 14px;
             font-weight: 500;
             text-align: center;
-            color: #933AFF;
+            color: #3B57F7;
 
             &:hover {
-                background: #933AFF;
+                background: #3B57F7;
                 color: #fff;
             }
         }
@@ -1778,7 +1930,7 @@ body {
             border-radius: 5px;
             background-color: #FFFFFF;
             border: 1px solid #E3E4E6;
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             font-stretch: normal;
@@ -1807,7 +1959,7 @@ body {
             justify-content: space-between;
 
             span {
-                font-family: Inter;
+                font-family: "Inter", sans-serif;
                 font-size: 20px;
                 font-weight: 600;
                 font-stretch: normal;
@@ -1840,7 +1992,7 @@ body {
                 }
 
                 .acceptance-question {
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-weight: 500;
                     font-size: 14px;
                     line-height: 20px;
@@ -1849,7 +2001,7 @@ body {
                 }
 
                 .acceptance-label {
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-weight: 400;
                     font-size: 14px;
                     margin: 0;
@@ -1865,7 +2017,7 @@ body {
                 margin-bottom: 20px;
 
                 span {
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: normal;
                     font-stretch: normal;
@@ -1879,7 +2031,7 @@ body {
 
             .importer-step {
                 .import-step-notice {
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: normal;
                     font-stretch: normal;
@@ -1912,7 +2064,7 @@ body {
                             margin-right: 10px;
 
                             .option-label {
-                                font-family: Inter;
+                                font-family: "Inter", sans-serif;
                                 font-weight: 500;
                                 font-size: 14px;
                                 line-height: 20px;
@@ -1923,7 +2075,7 @@ body {
                             }
 
                             .option-desc {
-                                font-family: Inter;
+                                font-family: "Inter", sans-serif;
                                 font-weight: 400;
                                 font-size: 14px;
                                 line-height: 20px;
@@ -1933,7 +2085,7 @@ body {
                         }
 
                         >span {
-                            font-family: Inter;
+                            font-family: "Inter", sans-serif;
                             font-size: 12px;
                             font-weight: normal;
                             font-stretch: normal;
@@ -1985,7 +2137,7 @@ body {
                 justify-content: space-between;
 
                 span {
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 12px;
                     font-weight: normal;
                     font-stretch: normal;
@@ -2007,9 +2159,9 @@ body {
             .button-confirm {
                 border-radius: 5px;
                 padding: 12px 22px;
-                background: #933AFF;
+                background: rgba(59, 87, 247, 1);
                 color: white;
-                font-family: Inter;
+                font-family: "Inter", sans-serif;
                 font-weight: 500;
                 font-size: 14px;
                 line-height: 100%;
@@ -2029,7 +2181,7 @@ body {
                 padding: 12px 22px;
                 background: #99a2a9;
                 color: white;
-                font-family: Inter;
+                font-family: "Inter", sans-serif;
                 font-weight: 500;
                 font-size: 14px;
                 line-height: 100%;
@@ -2085,7 +2237,7 @@ body {
                 align-items: center;
                 gap: 10px;
                 padding: 28px 4px;
-                font-family: Inter;
+                font-family: "Inter", sans-serif;
                 font-size: 14px;
                 font-weight: 500;
                 font-stretch: normal;
@@ -2142,7 +2294,7 @@ body {
                 }
 
                 .description {
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 16px;
                     font-weight: 500;
                     font-stretch: normal;
@@ -2162,7 +2314,7 @@ body {
                     padding: 4px 10px 6px;
                     border-radius: 5px;
                     background-color: #3b57f7;
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 10px;
                     font-weight: 500;
                     font-stretch: normal;
@@ -2220,7 +2372,7 @@ body {
 
                         .texts-title {
                             width: 100%;
-                            font-family: Inter;
+                            font-family: "Inter", sans-serif;
                             font-size: 36px;
                             font-weight: bold;
                             font-stretch: normal;
@@ -2255,7 +2407,7 @@ body {
 
                         .texts-description {
                             width: 100%;
-                            font-family: Inter;
+                            font-family: "Inter", sans-serif;
                             font-size: 14px;
                             font-weight: 300;
                             font-stretch: normal;
@@ -2290,7 +2442,7 @@ body {
                     overflow: hidden;
 
                     .content-title {
-                        font-family: Inter;
+                        font-family: "Inter", sans-serif;
                         font-size: 20px;
                         font-weight: 600;
                         font-stretch: normal;
@@ -2303,18 +2455,19 @@ body {
                         z-index: 1;
                     }
 
-                    .content-description {
-                        font-family: Inter;
-                        font-size: 14px;
-                        font-weight: 300;
-                        font-stretch: normal;
-                        font-style: normal;
-                        line-height: 1.43;
-                        letter-spacing: normal;
-                        text-align: left;
-                        color: #7d8292;
-                        margin: 8px 0 0;
+                    .content-desc {
+                        position: relative;
                         z-index: 1;
+                        margin: 12px auto 0;
+                        max-width: 400px;
+                        font-family: 'Inter', sans-serif;
+                        font-size: 14px;
+                        font-weight: 400;
+                        line-height: 1.4;
+                        letter-spacing: normal;
+                        text-align: center;
+                        color: rgba(64, 80, 93, 1);
+                        vertical-align: middle;
                     }
 
                     .wave {
@@ -2383,7 +2536,7 @@ body {
                         padding: 10px 22px 12px;
                         border-radius: 8px;
                         border: solid 1px #3b57f7;
-                        font-family: Inter;
+                        font-family: "Inter", sans-serif;
                         font-size: 14px;
                         font-weight: 400;
                         font-stretch: normal;
@@ -2405,7 +2558,7 @@ body {
                             padding: 10px 22px 12px;
                             border-radius: 8px;
                             background-color: #3b57f7;
-                            font-family: Inter;
+                            font-family: "Inter", sans-serif;
                             font-size: 14px;
                             font-weight: 400;
                             font-stretch: normal;
@@ -2447,7 +2600,7 @@ body {
                 }
 
                 .content-title {
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 24px;
                     font-weight: bold;
                     font-stretch: normal;
@@ -2477,7 +2630,7 @@ body {
                 }
 
                 .content-description {
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: normal;
                     font-stretch: normal;
@@ -2509,7 +2662,7 @@ body {
                         linear-gradient(to bottom, #fff3, #fff3);
                     z-index: 2;
                     position: relative;
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: 500;
                     font-stretch: normal;
@@ -2551,7 +2704,7 @@ body {
                 position: relative;
 
                 .content-title {
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 24px;
                     font-weight: 600;
                     font-stretch: normal;
@@ -2564,7 +2717,7 @@ body {
                 }
 
                 .content-description {
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: normal;
                     font-stretch: normal;
@@ -2599,7 +2752,7 @@ body {
                     background-image: radial-gradient(circle at 50% 100%,
                             #68e4f4,
                             #3f3bf7 207%);
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: 500;
                     font-stretch: normal;
@@ -2682,7 +2835,7 @@ body {
 .button-upgrade-pro {
     align-items: center;
     border-radius: 5px;
-    background: #EF3AFF;
+    background: rgba(59, 87, 247, 1);
     color: rgba(255, 255, 255, 1) !important;
     cursor: pointer;
     display: flex;
@@ -2712,7 +2865,7 @@ body {
     }
 
     &:hover {
-        background: #E000F5;
+        background: #3B57F7;
     }
 
     &.activate {

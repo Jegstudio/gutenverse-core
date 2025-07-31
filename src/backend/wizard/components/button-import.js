@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
+import { licenseCheck } from '../helper';
 
 export const ButtonImport = (props) => {
     const { template } = props;
@@ -49,6 +50,7 @@ const ButtonUpgradePro = (props) => {
     };
 
     const TheButton = () => {
+        console.log(licenseCheck());
         if (isEmpty(window?.gprodata)) {
             return button(text, 'crown', false);
         } else {

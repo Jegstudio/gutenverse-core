@@ -222,7 +222,13 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
             case 'loading':
             default:
                 return <Fragment>
-                    <div onClick={() => updateProgress('importTemplate', 1)} className="button-next">{__('Next', 'gutenverse')}</div>
+                    <div onClick={() => updateProgress('startWizard', 0)} className="button-back">
+                        <svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 5.1C15.3314 5.1 15.6 4.83137 15.6 4.5C15.6 4.16863 15.3314 3.9 15 3.9V5.1ZM0.575736 4.07574C0.341421 4.31005 0.341421 4.68995 0.575736 4.92426L4.39411 8.74264C4.62843 8.97696 5.00833 8.97696 5.24264 8.74264C5.47696 8.50833 5.47696 8.12843 5.24264 7.89411L1.84853 4.5L5.24264 1.10589C5.47696 0.871573 5.47696 0.491674 5.24264 0.257359C5.00833 0.0230446 4.62843 0.0230446 4.39411 0.257359L0.575736 4.07574ZM15 3.9L1 3.9V5.1L15 5.1V3.9Z" fill="#99A2A9" />
+                        </svg>
+                        {__('Back', 'gutenverse')}
+                    </div>
+                    <div onClick={() => updateProgress('importTemplate', 2)} className="button-next">{__('Next', 'gutenverse')}</div>
                 </Fragment>;
         }
     };
@@ -304,8 +310,34 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
     </div>;
 };
 
+const GettingStarted = ({updateProgress, gutenverseImgDir, ImgDir}) => {
+    return <div className="getting-started">
+        <img className="bg-image-wizard" src={gutenverseImgDir + '/bg-upgrade-wizard-started.png'} />
+        <div className="content-top">
+            <p className="welcome">{__('WELCOME', 'gutenverse')}</p>
+            <h3 className="content-title">
+                {__('Get Started with ', 'gutenverse')}
+                <span className="gradient-text">{__('Gutenverse', 'gutenverse')}</span>
+            </h3>
+            <p className="content-desc">
+                {__('Thank you for choosing Gutenverse. Follow these simple steps of easy setup wizard & enjoy your Full Site Editing experience now!', 'gutenverse')}
+            </p>
+            <div onClick={() => updateProgress('pluginAndTheme', 1)} className="button-next">{__('Proceed to Next Step', 'gutenverse')}</div>
+        </div>
+        <img className="wizard-image item-1" src={ImgDir + '/pop-up-icon-element-2.png'} />
+        <img className="wizard-image item-2" src={ImgDir + '/pop-up-icon-element-3.png'} />
+        <img className="wizard-image item-3" src={ImgDir + '/pop-up-mockup-pro.png'} />
+        <img className="wizard-image item-4" src={ImgDir + '/pop-up-3d-cube-2.png'} />
+        <img className="wizard-image item-5" src={ImgDir + '/banner-graphic-blink.png'} />
+        <div className="content-bottom">
+            <p className="consent-notice">{__('By proceeding, you grant permission for this plugin to collect your information. ', 'gutenverse')}</p>
+            <a className="consent-notice-link" href="#" title="View our privacy policy">{__('Find out what we collect.', 'gutenverse')}</a>
+        </div>
+    </div>;
+};
+
 const WizardPage = () => {
-    const [progress, setProgress] = useState('pluginAndTheme');
+    const [progress, setProgress] = useState('startWizard');
     const [progressCount, setProgressCount] = useState(0);
     const [action, setAction] = useState('install');
     const gutenverseWizard = window.GutenverseWizard;
@@ -316,58 +348,60 @@ const WizardPage = () => {
     };
 
     const content = () => {
+        const {
+            gutenverseImgDir,
+            ImgDir
+        } = window['GutenverseWizard'];
+        const {adminUrl} =  window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+
         switch (progress) {
+            case 'pluginAndTheme':
+                return <SelectBaseTheme updateProgress={updateProgress} action={action} setAction={setAction} gutenverseWizard={gutenverseWizard} />;
+            case 'importTemplate':
+                return <ImportTemplates updateProgress={updateProgress} />;
+            case 'upgradePro':
+                return <UpgradePro updateProgress={updateProgress} />;
             case 'done':
-                // const { images } = window['GutenverseCompanionConfig'];
-                const {adminUrl} =  window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
                 return <div className="finalizing">
                     <div className="image-wrapper">
-                        {/* <img className="image-done" src={images + '/final.png'} /> */}
+                        <img className="image-done" src={gutenverseImgDir + '/final.png'} />
                     </div>
                     <div className="final-detail">
                         <h3 className="final-title">{__('Congratulations All Set 🤩', 'gutenverse')}</h3>
-                        <p className="final-desc">{__('This theme is built with Gutenverse, a powerful and lightweight Gutenberg blocks and page builder plugin for the WordPress Site Editor.', 'gutenverse')}</p>
+                        <p className="final-desc">{__('Gutenverse is a powerful and lightweight Gutenberg blocks and page builder plugin for WordPress Site Editor.', 'gutenverse')}</p>
                         <div onClick={() => {
                             window.location.href = adminUrl ? adminUrl : window.location.origin + '/wp-admin/';
                         }} className="button-visit">{__('Visit Dashboard', 'gutenverse')}</div>
                     </div>
                 </div>;
-            case 'pluginAndTheme':
-                return <SelectBaseTheme updateProgress={updateProgress} action={action} setAction={setAction} gutenverseWizard={gutenverseWizard} />;
-            case 'upgradePro':
-                return <UpgradePro updateProgress={updateProgress} />;
-            case 'importTemplate':
+            case 'startWizard':
             default:
-                return <ImportTemplates updateProgress={updateProgress} />;
+                return <GettingStarted updateProgress={updateProgress} gutenverseImgDir={gutenverseImgDir} ImgDir={ImgDir} />;
         }
     };
 
     return <div className="theme-wizard-wrapper">
         <div className="theme-wizard">
             <div className="wizard-header">
-                <div className={`progress ${progress === 'pluginAndTheme' ? 'active' : ''} ${progressCount >= 0 ? 'done' : ''}`}>
+                <div className={`progress ${progress === 'startWizard' ? 'active' : ''} ${progressCount >= 0 ? 'done' : ''}`}>
                     <p className="number">1</p>
-                    <h3 className="progress-title">{__('Welcome', 'gutenverse')}</h3>
+                    <h3 className="progress-title">{__('Getting Started', 'gutenverse')}</h3>
                 </div>
-                <div className={`progress ${progress === 'importTemplate' ? 'active' : ''} ${progressCount >= 1 ? 'done' : ''}`}>
+                <div className={`progress ${progress === 'pluginAndTheme' ? 'active' : ''} ${progressCount >= 1 ? 'done' : ''}`}>
                     <p className="number">2</p>
-                    <h3 className="progress-title">{__('Import Template', 'gutenverse')}</h3>
-                    <h2 className="info-notice" >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#3B57F7">
-                            <path d="M6.781 0a6.782 6.782 0 1 0 .002 13.565A6.782 6.782 0 0 0 6.781 0m0 3.008a1.148 1.148 0 1 1 0 2.297 1.148 1.148 0 0 1 0-2.297m1.532 6.945a.33.33 0 0 1-.329.328H5.578a.33.33 0 0 1-.328-.328v-.656c0-.181.147-.328.328-.328h.328v-1.75h-.328a.33.33 0 0 1-.328-.328v-.657c0-.18.147-.328.328-.328h1.75c.181 0 .328.147.328.328V8.97h.328c.182 0 .329.147.329.328z"></path>
-                        </svg>
-                        <div className="popup">
-                            <span>{__('You can only import demo if you use gutenverse base theme.', 'gutenverse')}</span>
-                        </div>
-                    </h2>
+                    <h3 className="progress-title">{__('Choose Base Theme', 'gutenverse')}</h3>
                 </div>
-                <div className={`progress ${progress === 'upgradePro' ? 'active' : ''} ${progressCount >= 2 ? 'done' : ''}`}>
+                <div className={`progress ${progress === 'importTemplate' ? 'active' : ''} ${progressCount >= 2 ? 'done' : ''}`}>
                     <p className="number">3</p>
+                    <h3 className="progress-title">{__('Import Template', 'gutenverse')}</h3>
+                </div>
+                <div className={`progress ${progress === 'upgradePro' ? 'active' : ''} ${progressCount >= 3 ? 'done' : ''}`}>
+                    <p className="number">4</p>
                     <h3 className="progress-title">{__('Upgrade Your Site', 'gutenverse')}</h3>
                 </div>
-                <div className={`progress ${progress === 'done' ? 'active' : ''} ${progressCount >= 3 ? 'done' : ''}`}>
-                    <p className="number">4</p>
+                <div className={`progress ${progress === 'done' ? 'active' : ''} ${progressCount >= 4 ? 'done' : ''}`}>
+                    <p className="number">5</p>
                     <h3 className="progress-title">{__('Finalizing', 'gutenverse')}</h3>
                 </div>
             </div>
