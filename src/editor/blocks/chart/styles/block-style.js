@@ -18,6 +18,53 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
     });
 
+    if (isNotEmpty(attributes['contentOrder'])) {
+        let orders = attributes['contentOrder'].split(',');
+
+        if(orders.length !== 3) {
+            orders = [1,2,3];
+        }
+
+        data.push(
+            {
+                'type': 'plain',
+                'id': 'contentOrder',
+                'selector': `.${elementId} .chart-content .chart-title`,
+                'properties': [
+                    {
+                        'name': 'order',
+                        'valueType': 'static',
+                        'staticValue': `${orders[0]}`,
+                    }
+                ],
+            },
+            {
+                'type': 'plain',
+                'id': 'contentOrder',
+                'selector': `.${elementId} .chart-content .chart-inside`,
+                'properties': [
+                    {
+                        'name': 'order',
+                        'valueType': 'static',
+                        'staticValue': `${orders[1]}`,
+                    }
+                ],
+            },
+            {
+                'type': 'plain',
+                'id': 'contentOrder',
+                'selector': `.${elementId} .chart-content .chart-description`,
+                'properties': [
+                    {
+                        'name': 'order',
+                        'valueType': 'static',
+                        'staticValue': `${orders[2]}`,
+                    }
+                ],
+            },
+        );
+    }
+
     //panel card
     isNotEmpty(attributes['cardBackground']) && data.push({
         'type': 'background',
