@@ -8,7 +8,10 @@ export const galleryPanel = () => {
             component: RepeaterControl,
             titleFormat: '<strong><%= value.title ? value.title : "Gallery Item" %></strong>',
             repeaterDefault: {
-                id: ''
+                id: '',
+                title: '',
+                content: '',
+                lazyload: false,
             },
             options: [
                 {
