@@ -30,6 +30,25 @@ const postMetaStyle = (elementId, attributes, data) => {
         ],
     });
 
+    isNotEmpty(attributes['metaSizeIcon']) && data.push({
+        'type': 'plain',
+        'id': 'metaSizeIcon',
+        'responsive' : true,
+        'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta i`,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ]
+    });
+
     isNotEmpty(attributes['metaAuthorTypography']) && data.push({
         'type': 'typography',
         'id': 'metaAuthorTypography',

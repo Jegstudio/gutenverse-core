@@ -50,6 +50,36 @@ export const postmetaPanel = (props) => {
             ]
         },
         {
+            id: 'metaSizeIcon',
+            label: __('Icon Size', 'gutenverse'),
+            component: RangeControl,
+            min: 1,
+            max: 100,
+            step: 1,
+            allowDeviceControl: true,
+            unit: 'px',
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'metaSizeIcon',
+                    'responsive' : true,
+                    'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta i`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+        },
+        {
             id: 'metaAuthorTypography',
             label: __('Author Typography', 'gutenverse'),
             component: TypographyControl,
