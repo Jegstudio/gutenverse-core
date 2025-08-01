@@ -1,6 +1,9 @@
 .guten-chart {
-    display: flex;
-    flex-direction: row;
+    .guten-chart-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
 
     .chart-content {
         // width: 50%;
@@ -95,9 +98,6 @@
         .content-chart,
         .content-card {
             width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
             height: 100%;
         }
         .content-chart{
@@ -109,6 +109,9 @@
             visibility: hidden;
             transform: translateY(100%);
             background-color: aqua;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         &:hover {
@@ -185,9 +188,6 @@
             .content-chart,
             .content-card {
                 width: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
                 height: 100%;
             }
             .content-chart{
@@ -199,6 +199,9 @@
                 visibility: hidden;
                 transform: translateY(100%);
                 background-color: aqua;
+                position: absolute;
+                top: 0;
+                left: 0;
             }
     
             &:hover {
@@ -275,9 +278,6 @@
             .content-chart,
             .content-card {
                 width: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
                 height: 100%;
             }
             .content-chart{
@@ -289,6 +289,9 @@
                 visibility: hidden;
                 transform: translateY(100%);
                 background-color: aqua;
+                position: absolute;
+                top: 0;
+                left: 0;
             }
     
             &:hover {
