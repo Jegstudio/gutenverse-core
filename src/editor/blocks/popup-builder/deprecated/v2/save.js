@@ -23,7 +23,6 @@ const save = compose(
         openScrollDistance,
         openAnchor,
         openMaxClick,
-        openInterval,
         showCloseButton,
         closePosition,
         closePopupOverlay,
@@ -47,7 +46,6 @@ const save = compose(
         'data-anchor': openAnchor,
         'data-max-click': isNaN(openMaxClick) ? undefined : openMaxClick,
         'data-close-overlay': closePopupOverlay,
-        'data-inactive-interval': openInterval ? JSON.stringify(openInterval) : undefined,
     });
 
     return (

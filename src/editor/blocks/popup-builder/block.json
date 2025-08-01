@@ -216,6 +216,13 @@
 		"openMaxClick": {
 			"type": "integer"
 		},
+		"openInterval": {
+			"type": "object",
+			"default": {
+				"point": 5,
+				"unit": "m"
+			}
+		},
 		"transform": {
 			"type": "object",
 			"copyStyle": true
