@@ -387,6 +387,30 @@ class Feature_List extends Style_Abstract {
 	 * Generate style in icon/image panel
 	 */
 	public function icon_style() {
+		if ( isset( $this->attrs['iconWrapperHorizontalAlignment'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .icon-wrapper .icon",
+					'property'       => function ( $value ) {
+						return "justify-content : {$value};";
+					},
+					'value'          => $this->attrs['iconWrapperHorizontalAlignment'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['iconWrapperVerticalAlignment'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .icon-wrapper .icon",
+					'property'       => function ( $value ) {
+						return "align-items : {$value};";
+					},
+					'value'          => $this->attrs['iconWrapperVerticalAlignment'],
+					'device_control' => false,
+				)
+			);
+		}
 		if ( isset( $this->attrs['iconWrapperSize'] ) ) {
 			$this->inject_style(
 				array(

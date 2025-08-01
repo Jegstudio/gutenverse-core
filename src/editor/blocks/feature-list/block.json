@@ -291,6 +291,14 @@
 		"hasInnerBlocks": {
 			"type": "boolean",
 			"default": false
+		},
+		"iconWrapperHorizontalAlignment": {
+			"type": "string",
+			"default": "center"
+		},
+		"iconWrapperVerticalAlignment": {
+			"type": "string",
+			"default": "middle"
 		}
 	},
 	"supports": {

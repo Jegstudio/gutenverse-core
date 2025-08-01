@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderResponsiveControl, RangeControl, RepeaterControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
+import { BackgroundControl, BorderResponsiveControl, RangeControl, RepeaterControl, SelectControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
 import { featureListGetBlockStyle } from '../styles/block-style';
 
 export const iconWrapperPanel = (props) => {
@@ -125,6 +125,46 @@ export const iconWrapperPanel = (props) => {
                     ]
                 }
             ]
+        },
+        {
+            id: 'iconWrapperHorizontalAlignment',
+            label: __('Horizontal Align', 'gutenverse'),
+            show: switcher.iconWrapperStyleSwitch === 'all' || !switcher.iconWrapperStyleSwitch,
+            component: SelectControl,
+            options: [
+                {
+                    label: __('Start'),
+                    value: 'start'
+                },
+                {
+                    label: __('Center'),
+                    value: 'center'
+                },
+                {
+                    label: __('End'),
+                    value: 'end'
+                },
+            ],
+        },
+        {
+            id: 'iconWrapperVerticalAlignment',
+            label: __('Vertical Align', 'gutenverse'),
+            show: switcher.iconWrapperStyleSwitch === 'all' || !switcher.iconWrapperStyleSwitch,
+            component: SelectControl,
+            options: [
+                {
+                    label: __('Top'),
+                    value: 'start'
+                },
+                {
+                    label: __('Middle'),
+                    value: 'center'
+                },
+                {
+                    label: __('Bottom'),
+                    value: 'end'
+                },
+            ],
         },
         {
             id: '__allIconWrapperStyleSwitch',
