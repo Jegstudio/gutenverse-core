@@ -104,6 +104,26 @@ class Api {
 
 		register_rest_route(
 			self::ENDPOINT,
+			'global/additional_settings',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'get_global_additional_settings' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
+			'global/additional_settings/update',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'update_global_additional_settings' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
 			'themes/activate',
 			array(
 				'methods'             => 'POST',
@@ -1329,6 +1349,62 @@ class Api {
 		Init::instance()->global_variable->set_global_variable( $variable );
 		do_action( 'gutenverse_modify_global_variable', $variable );
 		return true;
+	}
+
+	/**
+	 * Get Global Additional Settings.
+	 *
+	 * @param object $request .
+	 */
+	public function get_global_additional_settings( $request ) {
+		$post_id = (int) $request->get_param( 'id' );
+		$types   = is_array( $request->get_param( 'types' ) ) ? $request->get_param( 'types' ) : array();
+		$data    = array();
+
+		foreach ( $types as $type ) {
+			switch ( $type ) {
+				case 'custom_css':
+					if ( ! empty( $post_id ) ) {
+						$data['custom_css'] = get_post_meta( $post_id, 'gutenverse_page_custom_css', true );
+					}
+					break;
+				case 'custom_js':
+					if ( ! empty( $post_id ) ) {
+						$data['custom_js'] = get_post_meta( $post_id, 'gutenverse_page_custom_js', true );
+					}
+					break;
+				default:
+					break;
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Update Global Additional Settings.
+	 *
+	 * @param object $request .
+	 */
+	public function update_global_additional_settings( $request ) {
+		$post_id         = (int) $request->get_param( 'id' );
+		$setting_type    = sanitize_text_field( $request->get_param( 'type' ) );
+		$setting_content = sanitize_text_field( $request->get_param( 'content' ) );
+
+		switch ( $setting_type ) {
+			case 'custom_css':
+				if ( ! empty( $post_id ) ) {
+					update_post_meta( $post_id, 'gutenverse_page_custom_css', $setting_content );
+				}
+				break;
+			case 'custom_js':
+				if ( ! empty( $post_id ) ) {
+					update_post_meta( $post_id, 'gutenverse_page_custom_js', $setting_content );
+				}
+				break;
+			default:
+				break;
+		}
 	}
 
 	/**
