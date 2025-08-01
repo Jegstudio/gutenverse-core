@@ -78,6 +78,7 @@ export const displayPanel = (props) => {
                         {
                             'name': 'width',
                             'valueType': 'direct',
+                            'important': true
                         }
                     ],
                 }
