@@ -305,6 +305,18 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover`,
     });
 
+    isNotEmpty(attributes['paginationActiveBorder']) && data.push({
+        'type': 'border',
+        'id': 'paginationActiveBorder',
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.current, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.current`,
+    });
+
+    isNotEmpty(attributes['paginationActiveBorderResponsive']) && data.push({
+        'type': 'borderResponsive',
+        'id': 'paginationActiveBorderResponsive',
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.current, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.current`,
+    });
+
     isNotEmpty(attributes['paginationShadow']) && data.push({
         'type': 'boxShadow',
         'id': 'paginationShadow',
@@ -327,6 +339,18 @@ const panelPaginationStyle = (elementId, attributes, data) => {
             }
         ],
         'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover`,
+    });
+
+    isNotEmpty(attributes['paginationActiveShadow']) && data.push({
+        'type': 'boxShadow',
+        'id': 'paginationActiveShadow',
+        'properties': [
+            {
+                'name': 'box-shadow',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.current, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.current`,
     });
 
     isNotEmpty(attributes['paginationDisabledBorder']) && data.push({

@@ -1302,6 +1302,26 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['paginationActiveBorder'] ) ) {
+			$this->handle_border( 'paginationActiveBorder', ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore.current, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination.current" );
+		}
+
+		if ( isset( $this->attrs['paginationActiveBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore.current, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination.current",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['paginationActiveBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['paginationDisabledBorder'] ) ) {
 			$this->inject_style(
 				array(
@@ -1336,6 +1356,19 @@ class Post_Block extends Style_Abstract {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['paginationHoverShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['paginationActiveShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore.current, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination.current",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['paginationActiveShadow'],
 					'device_control' => false,
 				)
 			);
