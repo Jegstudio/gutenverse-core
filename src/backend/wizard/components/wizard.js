@@ -4,6 +4,7 @@ import { UpgradePro } from '../pages/upgrade-pro';
 import { ImportTemplates } from '../pages/import-templates';
 import apiFetch from '@wordpress/api-fetch';
 import classnames from 'classnames';
+import { requirementCheck } from '../helper';
 
 const getInstalledThemes = (func) => {
     apiFetch({
@@ -53,7 +54,7 @@ const ImportLoading = (props) => {
     </div>;
 };
 
-const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }) => {
+const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, setClicked, requirement }) => {
     const { plugins, installNonce, ajaxurl } = gutenverseWizard;
     const [installing, setInstalling] = useState({ show: true, message: 'Preparing...', progress: '1/4' });
     const [reloadingSlug, setReloadingSlug] = useState(null);
@@ -220,15 +221,19 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
     const pluginActions = () => {
         switch (action) {
             case 'loading':
+                <Fragment>
+                    <ImportLoading message={installing?.message} progress={installing?.progress} />
+                </Fragment>;
+                break;
             default:
                 return <Fragment>
-                    <div onClick={() => updateProgress('startWizard', 0)} className="button-back">
+                    <div onClick={() => updateProgress('startWizard', 0 )} className="button-back">
                         <svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15 5.1C15.3314 5.1 15.6 4.83137 15.6 4.5C15.6 4.16863 15.3314 3.9 15 3.9V5.1ZM0.575736 4.07574C0.341421 4.31005 0.341421 4.68995 0.575736 4.92426L4.39411 8.74264C4.62843 8.97696 5.00833 8.97696 5.24264 8.74264C5.47696 8.50833 5.47696 8.12843 5.24264 7.89411L1.84853 4.5L5.24264 1.10589C5.47696 0.871573 5.47696 0.491674 5.24264 0.257359C5.00833 0.0230446 4.62843 0.0230446 4.39411 0.257359L0.575736 4.07574ZM15 3.9L1 3.9V5.1L15 5.1V3.9Z" fill="#99A2A9" />
                         </svg>
                         {__('Back', 'gutenverse')}
                     </div>
-                    <div onClick={() => updateProgress('importTemplate', 2)} className="button-next">{__('Next', 'gutenverse')}</div>
+                    <div onClick={() => requirement ? updateProgress('importTemplate', 2) : updateProgress('upgradePro', 3)} className="button-next">{__('Next', 'gutenverse')}</div>
                 </Fragment>;
         }
     };
@@ -279,12 +284,14 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard }
                                                     themeAction(2, theme?.slug);
                                                     onInstall();
                                                     setReloadingSlug(theme?.slug);
+                                                    setClicked(prev => prev + 1);
                                                 } } className="button-install">{__('Activate Theme', 'gutenverse')}</div>
                                                 :
                                                 <div onClick={() => {
                                                     themeAction(1, theme?.slug);
                                                     onInstall();
                                                     setReloadingSlug(theme?.slug);
+                                                    setClicked(prev => prev + 1);
                                                 } } className="button-install">{__('Install Theme', 'gutenverse')}</div>
                                     }
                                 </div>
@@ -331,7 +338,15 @@ const GettingStarted = ({updateProgress, gutenverseImgDir, ImgDir}) => {
         <img className="wizard-image item-5" src={ImgDir + '/banner-graphic-blink.png'} />
         <div className="content-bottom">
             <p className="consent-notice">{__('By proceeding, you grant permission for this plugin to collect your information. ', 'gutenverse')}</p>
-            <a className="consent-notice-link" href="#" title="View our privacy policy">{__('Find out what we collect.', 'gutenverse')}</a>
+            <a
+                className="consent-notice-link"
+                href="https://gutenverse.com/privacy-policy/"
+                title="View our privacy policy"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {__('Find out what we collect.', 'gutenverse')}
+            </a>
         </div>
     </div>;
 };
@@ -340,12 +355,23 @@ const WizardPage = () => {
     const [progress, setProgress] = useState('startWizard');
     const [progressCount, setProgressCount] = useState(0);
     const [action, setAction] = useState('install');
+    const [clicked, setClicked] = useState(0);
+    const [requirement, setRequirement] = useState(0);
     const gutenverseWizard = window.GutenverseWizard;
 
     const updateProgress = (progress, inc) => {
         setProgress(progress);
         setProgressCount(inc);
     };
+
+    useEffect(() => {
+        setTimeout(() => {
+            requirementCheck()
+                .then(response => {
+                    setRequirement(response);
+                });
+        }, 200);
+    }, [clicked]);
 
     const content = () => {
         const {
@@ -356,11 +382,11 @@ const WizardPage = () => {
 
         switch (progress) {
             case 'pluginAndTheme':
-                return <SelectBaseTheme updateProgress={updateProgress} action={action} setAction={setAction} gutenverseWizard={gutenverseWizard} />;
+                return <SelectBaseTheme updateProgress={updateProgress} action={action} setAction={setAction} gutenverseWizard={gutenverseWizard} setClicked={setClicked} requirement={requirement} />;
             case 'importTemplate':
                 return <ImportTemplates updateProgress={updateProgress} />;
             case 'upgradePro':
-                return <UpgradePro updateProgress={updateProgress} />;
+                return <UpgradePro updateProgress={updateProgress} requirement={requirement}/>;
             case 'done':
 
                 return <div className="finalizing">
@@ -390,12 +416,12 @@ const WizardPage = () => {
                 </div>
                 <div className={`progress ${progress === 'pluginAndTheme' ? 'active' : ''} ${progressCount >= 1 ? 'done' : ''}`}>
                     <p className="number">2</p>
-                    <h3 className="progress-title">{__('Choose Base Theme', 'gutenverse')}</h3>
+                    <h3 className="progress-title">{__('Unibiz Theme', 'gutenverse')}</h3>
                 </div>
-                <div className={`progress ${progress === 'importTemplate' ? 'active' : ''} ${progressCount >= 2 ? 'done' : ''}`}>
+                {requirement && <div className={`progress ${progress === 'importTemplate' ? 'active' : ''} ${progressCount >= 2 ? 'done' : ''}`}>
                     <p className="number">3</p>
                     <h3 className="progress-title">{__('Import Template', 'gutenverse')}</h3>
-                </div>
+                </div>}
                 <div className={`progress ${progress === 'upgradePro' ? 'active' : ''} ${progressCount >= 3 ? 'done' : ''}`}>
                     <p className="number">4</p>
                     <h3 className="progress-title">{__('Upgrade Your Site', 'gutenverse')}</h3>

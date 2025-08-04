@@ -102,7 +102,7 @@ class Api {
 					if ( ! current_user_can( 'manage_options' ) ) {
 						return new \WP_Error(
 							'forbidden_permission',
-							esc_html__( 'Forbidden Access', '--gctd--' ),
+							esc_html__( 'Forbidden Access', 'gutenverse' ),
 							array( 'status' => 403 )
 						);
 					}
@@ -118,6 +118,16 @@ class Api {
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'license_check' ),
+				'permission_callback' => '__return_true',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
+			'check/requirement',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'requirement_check' ),
 				'permission_callback' => '__return_true',
 			)
 		);
@@ -347,6 +357,32 @@ class Api {
 
 		$response_body = wp_remote_retrieve_body( $response );
 
+		$data = json_decode( $response_body, true );
+
+		if ( json_last_error() !== JSON_ERROR_NONE ) {
+			gutenverse_rlog( 'JSON Decode Error: ' . json_last_error_msg() );
+			return false;
+		}
+
+		// filter show case.
+		if ( isset( $data['companion'] ) && is_array( $data['companion'] ) ) {
+			$data['companion'] = array_values(
+				array_filter(
+					$data['companion'],
+					function ( $item ) {
+						return isset( $item['slug'] ) && 'show-case' !== $item['slug'];
+					}
+				)
+			);
+		}
+
+		$filtered_json = wp_json_encode( $data );
+
+		if ( false === $filtered_json ) {
+			gutenverse_rlog( 'JSON Encode Error' );
+			return false;
+		}
+
 		/**Check if directory exist */
 		$basedir   = wp_upload_dir()['basedir'];
 		$directory = $basedir . '/gutenverse/base-themes';
@@ -359,7 +395,7 @@ class Api {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		WP_Filesystem();
 		global $wp_filesystem;
-		$wp_filesystem->put_contents( $file_path, $response_body, FS_CHMOD_FILE );
+		$wp_filesystem->put_contents( $file_path, $filtered_json, FS_CHMOD_FILE );
 		return true;
 	}
 
@@ -386,5 +422,21 @@ class Api {
 		} else {
 			return json_decode( wp_remote_retrieve_body( $response ) );
 		}
+	}
+
+	/**
+	 * Check if requirement fullfiled.
+	 *
+	 * @return bool.
+	 */
+	public function requirement_check() {
+		$plugins        = array();
+		$active_plugins = get_option( 'active_plugins' );
+
+		foreach ( $active_plugins as $active ) {
+			$plugins[] = explode( '/', $active )[0];
+		}
+		$is_complete = apply_filters( 'gutenverse_companion_base_theme', false ) && in_array( 'gutenverse-companion', $plugins, true );
+		return $is_complete;
 	}
 }

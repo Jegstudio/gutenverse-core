@@ -56,6 +56,21 @@ export const licenseCheck = (param) => new Promise(resolve => {
     });
 });
 
+export const requirementCheck = (param) => new Promise(resolve => {
+    apiFetch({
+        path: 'gutenverse-client/v1/check/requirement',
+        method: 'POST',
+        data: param
+    }).then((data) => {
+        console.log(data);
+        resolve(data);
+        return data;
+    }).catch((e) => {
+        alert(e.message);
+        resolve([]);
+    });
+});
+
 export const formatArray = (arr) => {
     if (!arr) {
         return '';

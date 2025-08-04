@@ -71,42 +71,6 @@ const CompanionButton = ({ demoUsed, key, templateList, template, setAdditional,
         onClick={() => {
             setModal(true);
             setSelectedTemplate(template);
-            // if (template.acf || template.post) {
-            //     const additionalOptions = [];
-
-            //     if (template.acf) {
-            //         additionalOptions.push({ id: 1, label: 'ACF Data', checked: true, desc: 'Include additional ACF data to be imported on the template import.' });
-            //     }
-            //     if (template.post) {
-            //         additionalOptions.push({ id: 2, label: 'Post Demo', checked: true, desc: 'Include additional posts demo to be imported on the template import.' });
-            //     }
-
-            //     if (!template.status.using_template) {
-            //         setModal(true);
-            //     }
-            // } else {
-            //     setAdditional([
-            //         { id: 1, label: 'ACF Data', checked: false },
-            //         { id: 2, label: 'Post Demo', checked: false },
-            //     ]);
-            //     if ( !template.status.using_template ) {
-            //         const switchingTemplate = !template.status.using_template && template?.status?.exists;
-            //         // const importingTemplate = !template?.status?.exists;
-
-            //         if (switchingTemplate) {
-            //             setAdditional([
-            //                 { id: 1, label: 'Replace', checked: false, desc: 'Replace the existing page with the new one if a page with the same name already exists.' },
-            //                 { id: 2, label: 'Keep a Copy', checked: false, desc: 'Keep both the existing page and the new one if a page with the same name already exists.' },
-            //                 { id: 3, label: 'Do not Import', checked: false, desc: 'Skip importing the new page if a page with the same name already exists.' },
-            //             ]);
-            //             setSwitchModal(true);
-            //             setSelectedTemplate(template);
-            //         } else {
-            //             importTemplates(template, templateList.find(template => template?.status?.using_template));
-            //         }
-            //     }
-            // }
-
         }}
     >
         {demoUsed

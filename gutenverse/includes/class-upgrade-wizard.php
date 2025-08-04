@@ -155,7 +155,7 @@ class Upgrade_Wizard {
 		$config['dashboard']    = admin_url( 'admin.php?page=gutenverse' );
 		$config['ajaxurl']      = admin_url( 'admin-ajax.php' );
 		$config['installNonce'] = wp_create_nonce( 'updates' );
-		$config['theme_slug']   = wp_get_theme()->get_template();
+		$config['theme_slug']   = apply_filters( 'gutenverse_companion_base_theme', false ) ? wp_get_theme()->get_template() : 'show-case';
 		$config['status']       = array(
 			'form' => ! is_plugin_active( 'gutenverse-form/gutenverse-form.php' ),
 			'icon' => ! Init::instance()->assets->is_font_icon_exists(),
@@ -184,10 +184,9 @@ class Upgrade_Wizard {
 			),
 		);
 
-		$config['isProExist']          = in_array( 'gutenverse-pro', $plugins, true );
-		$config['requirementComplete'] = apply_filters( 'gutenverse_companion_base_theme', false ) && in_array( 'gutenverse-companion', $plugins, true );
-		$config['gutenverseImgDir']    = GUTENVERSE_URL . '/assets/img';
-		$config['ImgDir']              = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
+		$config['isProExist']       = in_array( 'gutenverse-pro', $plugins, true );
+		$config['gutenverseImgDir'] = GUTENVERSE_URL . '/assets/img';
+		$config['ImgDir']           = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
 
 		$response = Api::instance()->base_theme_get( '' );
 		if ( isset( $response ) ) {
