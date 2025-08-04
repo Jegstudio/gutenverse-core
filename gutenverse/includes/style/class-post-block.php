@@ -1263,13 +1263,13 @@ class Post_Block extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['paginationBorder'] ) ) {
-			$this->handle_border( 'paginationBorder', ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination:not(.current)" );
+			$this->handle_border( 'paginationBorder', ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination" );
 		}
 
 		if ( isset( $this->attrs['paginationBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination:not(.current)",
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -1283,13 +1283,13 @@ class Post_Block extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['paginationHoverBorder'] ) ) {
-			$this->handle_border( 'paginationHoverBorder', ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination:hover, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination.current" );
+			$this->handle_border( 'paginationHoverBorder', ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination:hover" );
 		}
 
 		if ( isset( $this->attrs['paginationHoverBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination:hover, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination.current",
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination:hover",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
