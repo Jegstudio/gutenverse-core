@@ -120,7 +120,11 @@
 		},
 		"number": {
 			"type": "string",
-			"default": "789"
+			"default": ""
+		},
+		"safeNumber": {
+			"type": "string",
+			"default": ""
 		},
 		"suffix": {
 			"type": "string",

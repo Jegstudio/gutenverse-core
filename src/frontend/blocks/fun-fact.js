@@ -13,39 +13,42 @@ class GutenverseFunFact extends Default {
     _addAnimation(element) {
         const targetElement = u(element).find('.number');
         const number = targetElement.data('number');
+        const safeNumber = targetElement.data('safe');
         const duration = targetElement.data('duration');
         const numberFormat = targetElement.data('number-format');
 
         let formatter = null;
-        if(numberFormat === 'comma') {
-            formatter = new Intl.NumberFormat('en-US', {
-                maximumFractionDigits: 0
-            });
-        }else if(numberFormat === 'point') {
-            formatter = new Intl.NumberFormat('id-ID', {
-                maximumFractionDigits: 0
-            });
+        let used = number ? number : safeNumber;
+
+        if (safeNumber) {
+            const formatComma = safeNumber.replaceAll( ',', '.' );
+            const isValidNumber = /^-?\d+(\.\d+)?$/.test(formatComma);
+            if (!isValidNumber) {
+                targetElement.first().textContent = 'Invalid number';
+                return;
+            }
+            if(numberFormat === 'comma') {
+                formatter = new Intl.NumberFormat('en-US', {
+                    maximumFractionDigits: 0
+                });
+            }else if(numberFormat === 'point') {
+                formatter = new Intl.NumberFormat('id-ID', {
+                    maximumFractionDigits: 0
+                });
+            }
+            used = Math.round(parseFloat(formatComma));
         }
-
-        const isValidNumber = /^-?\d+(\.\d+)?$/.test(number);
-        if (!isValidNumber) {
-            targetElement.first().textContent = 'Invalid number';
-            return;
-        }
-
-        const parsedNumber = parseFloat(number);
-
         const numberAnimation = anime({
             targets: targetElement.first(),
-            innerHTML: parsedNumber,
+            innerHTML: used,
             easing: 'easeInOutQuart',
             round: 1,
             duration,
             autoplay: false,
-            update: function(anim) {
+            update: (formatter && safeNumber) ? function(anim) {
                 const val = parseInt(anim.animations[0].currentValue);
-                targetElement.first().innerHTML = formatter && !isNaN(val) ? `${formatter.format( val )} ` : anim.animations[0].currentValue;
-            }
+                targetElement.first().innerHTML = !isNaN(val) ? formatter.format( val ) : anim.animations[0].currentValue;
+            } : null
         });
 
         this.playOnScreen(element, [numberAnimation]);
