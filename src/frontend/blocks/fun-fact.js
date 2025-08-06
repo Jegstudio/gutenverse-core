@@ -36,7 +36,7 @@ class GutenverseFunFact extends Default {
                     maximumFractionDigits: 0
                 });
             }
-            used = Math.round(parseFloat(formatComma));
+            used = `${Math.round(parseFloat(formatComma))} `;
         }
         const numberAnimation = anime({
             targets: targetElement.first(),
@@ -47,7 +47,7 @@ class GutenverseFunFact extends Default {
             autoplay: false,
             update: (formatter && safeNumber) ? function(anim) {
                 const val = parseInt(anim.animations[0].currentValue);
-                targetElement.first().innerHTML = !isNaN(val) ? formatter.format( val ) : anim.animations[0].currentValue;
+                targetElement.first().innerHTML = !isNaN(val) ? `${formatter.format( val )} ` : `${anim.animations[0].currentValue} `;
             } : null
         });
 
