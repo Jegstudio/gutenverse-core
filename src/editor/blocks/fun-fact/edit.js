@@ -86,7 +86,7 @@ const FunFactBlock = compose(
                     });
                 }
 
-                used = Math.round(parseFloat(formatComma));
+                used = `${Math.round(parseFloat(formatComma))} `;
             }
 
             numberElement.textContent = '0';
@@ -99,7 +99,7 @@ const FunFactBlock = compose(
                 duration,
                 update: formatter && safeNumber ? function(anim) {
                     const val = parseInt(anim.animations[0].currentValue);
-                    numberElement.textContent = !isNaN(val) ? formatter.format( val ) : anim.animations[0].currentValue;
+                    numberElement.textContent = !isNaN(val) ? `${formatter.format( val )} ` : `${anim.animations[0].currentValue} `;
                 } : null
             });
         }
