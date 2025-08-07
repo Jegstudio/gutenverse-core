@@ -48,6 +48,7 @@ import IconFont from './icon/icon-font.svg';
 import IconDownload from './icon/icon-download.svg';
 import IconAddFont from './icon/icon-add-font.svg';
 import IconFlexibleWrapper from './icon/icon-flexible-wrapper.svg';
+import IconSectionSlider from './icon/icon-section-slider.svg';
 
 /* Block */
 import IconColumn from './icon/icon-column.svg';
@@ -418,4 +419,8 @@ export const IconDinamicSVG = (props) => {
 
 export const IconWarningDeprecatedSVG = () => {
     return <IconWarningDeprecated />;
+};
+
+export const IconSectionSliderSVG = () => {
+    return <IconSectionSlider />;
 };
