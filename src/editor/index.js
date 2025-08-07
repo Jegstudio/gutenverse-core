@@ -61,14 +61,6 @@ addFilter(
                 locked: true,
             },
             {
-                name: 'gutenverse/image-marque',
-                title: 'Image Marque',
-                category: 'gutenverse-element',
-                icon: <IconImageMarqueeSVG />,
-                pro: true,
-                locked: true,
-            },
-            {
                 name: 'gutenverse/post-carousel',
                 title: 'Post Carousel',
                 category: 'gutenverse-post',
