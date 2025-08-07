@@ -48,6 +48,7 @@ import IconFont from './icon/icon-font.svg';
 import IconDownload from './icon/icon-download.svg';
 import IconAddFont from './icon/icon-add-font.svg';
 import IconFlexibleWrapper from './icon/icon-flexible-wrapper.svg';
+import IconSectionSlider from './icon/icon-section-slider.svg';
 
 /* Block */
 import IconColumn from './icon/icon-column.svg';
@@ -55,6 +56,10 @@ import IconSection from './icon/icon-section.svg';
 
 /* Block Pro */
 import IconConditionsBlock from './icon/icon-condition-filter.svg';
+
+/* Additional Icons */
+import IconWarningDeprecated from './icon/deprecated-warning.svg';
+
 
 export const LogoGutenverseSquareSVG = ({fill = 'none', height='128', width='128'}) => {
     return <svg fill={fill} height={height} viewBox="0 0 128 128" width={width} xmlns="http://www.w3.org/2000/svg">
@@ -410,4 +415,12 @@ export const IconHighlightSVG = () => {
 
 export const IconDinamicSVG = (props) => {
     return <GradientDinamic {...props} />;
+};
+
+export const IconWarningDeprecatedSVG = () => {
+    return <IconWarningDeprecated />;
+};
+
+export const IconSectionSliderSVG = () => {
+    return <IconSectionSlider />;
 };
