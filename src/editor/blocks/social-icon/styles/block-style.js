@@ -12,25 +12,25 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
         'id': 'border',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper .is-root-container #${elementId}`,
     });
 
     isNotEmpty(attributes['borderHover']) && data.push({
         'type': 'border',
         'id': 'borderHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
+        'selector': `.editor-styles-wrapper .is-root-container #${elementId}:hover`,
     });
 
     isNotEmpty(attributes['borderResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'borderResponsive',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper .is-root-container #${elementId}`,
     });
 
     isNotEmpty(attributes['borderResponsiveHover']) && data.push({
         'type': 'borderResponsive',
         'id': 'borderResponsiveHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
+        'selector': `.editor-styles-wrapper .is-root-container #${elementId}:hover`,
     });
 
     isNotEmpty(attributes['boxShadow']) && data.push({
