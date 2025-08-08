@@ -9,7 +9,7 @@ import FontIconSetting from './src/settings/font-icon-setting';
 import { DashboardBody, DashboardContent, DashboardHeader, PopupPro } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
 import { getSettingsIcon } from 'gutenverse-core/icons';
-import { generalTabs, getPluginTabs, pluginTabs } from "./tabs";
+import { generalTabs, getSettingTitle, pluginTabs } from "./tabs";
 
 const SettingsBody = ({ settings, ...props }) => {
     let body = '';
@@ -61,8 +61,16 @@ const SettingsBody = ({ settings, ...props }) => {
         default:
             break;
     }
-
-    return <div className="settings-tab-body">{body}</div>;
+    return <div className="settings-tab-body-wrapper">
+        <div className="tab-header">
+            <h1>
+                {getSettingTitle(props.subSettings ? props.subSettings : settings)}
+            </h1>
+        </div>
+        <div className="settings-tab-body">
+            {body}
+        </div>
+    </div>;
 };
 
 const Settings = (props) => {

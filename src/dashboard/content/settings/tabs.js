@@ -59,5 +59,19 @@ export const generalTabs = {
 };
 
 export const pluginTabs = getPluginTabs();
+const setitngTitle = {
+    editor: 'Editor Settings',
+    frontend: 'Frontend Settings',
+    template: 'Template Settings',
+    'gtb-setting-tab': 'Theme Builder Settings',
+    'font-icon': 'Font Icon Settings',
+    'custom-font': 'Custom Font Settings',
+    form: 'Form Settings',
+    block_settings: 'Global Block Settings',
+    additional_features: 'Gutenverse News Additional Settings',
 
+};
 
+export const getSettingTitle = (key) => {
+    return setitngTitle[key] ? setitngTitle[key] : '';
+};

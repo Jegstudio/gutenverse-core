@@ -1,5 +1,6 @@
 @import "settings-control.scss";
 @import "settings/additional-features.scss";
+
 #gutenverse-dashboard {
     .content-wrapper.settings {
         padding: 0;
@@ -234,159 +235,190 @@
             }
         }
 
-        .settings-tab-body {
+        .settings-tab-body-wrapper {
             background: #fff;
             border-radius: 5px;
             border-radius: 5px;
             border: 1px solid var(--gutenverse-dashboard-border);
             min-height: 600px;
-            padding: 30px 30px 100px;
             position: relative;
             width: 100%;
 
-            .frontend-setting-dashboard {
-                .control-body {
+            .tab-header {
+                padding: 30px;
+                border-bottom: 1px solid #E3E4E6;
+
+                h1 {
+                    font-family: "Roboto";
+                    font-weight: 600;
+                    font-size: 26px;
+                    line-height: 1;
+                    margin: 0;
+                }
+            }
+
+            .settings-tab-body {
+                padding: 30px 30px 100px;
+
+                .form-tab-body h2:first-child {
+                    margin-top: 10px;
+                }
+
+                .template-tab-body:first-child {
+                    .control-wrapper {
+                        padding-top: 10px;
+                    }
+
+                    h2:first-child {
+                        margin-top: 10px;
+                    }
+
+                }
+
+                .frontend-setting-dashboard {
+                    .control-body {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+
+                span {
+                    color: #40505d;
+                }
+
+                .control-wrapper {
+                    &.control-number {
+                        >label {
+                            align-items: center;
+                            display: flex;
+                            justify-content: space-between;
+
+                            >input {
+                                border-radius: 3px;
+                                border: 1px solid var(--gutenverse-dashboard-border);
+                                color: #3e475b;
+                                font-size: 13px;
+                                max-width: 80px;
+                                min-height: 34px;
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+
+                .setting-box {
+                    position: relative;
                     display: flex;
                     align-items: center;
-                }
-            }
-
-            span {
-                color: #40505d;
-            }
-
-            .control-wrapper {
-                &.control-number {
-                    >label {
-                        align-items: center;
-                        display: flex;
-                        justify-content: space-between;
-
-                        >input {
-                            border-radius: 3px;
-                            border: 1px solid var(--gutenverse-dashboard-border);
-                            color: #3e475b;
-                            font-size: 13px;
-                            max-width: 80px;
-                            min-height: 34px;
-                            width: 100%;
-                        }
-                    }
-                }
-            }
-
-            .setting-box {
-                position: relative;
-                display: flex;
-                align-items: center;
-                padding: 24px 86px 24px 24px;
-                background: #f9f9ff;
-                border: 1px solid #e3e4e6;
-                border-radius: 5px;
-
-                .icon {
-                    svg {
-                        color: #fff;
-                        height: 28px;
-                    }
-
-                    &-wrapper {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 64px;
-                        height: 64px;
-                        background: #3b57f7;
-                        border-radius: 50%;
-                    }
-                }
-
-                .info {
-                    margin-left: 24px;
-
-                    >* {
-                        margin: 0;
-                    }
-
-                    h4 {
-                        font-family: "Plus Jakarta Sans", serif;
-                        font-style: normal;
-                        font-weight: 600;
-                        font-size: 20px;
-                        line-height: 25px;
-                        color: #011627;
-                        margin-bottom: 8px;
-                    }
-
-                    p {
-                        font-family: "Roboto", serif;
-                        font-style: normal;
-                        font-weight: 400;
-                        font-size: 14px;
-                        line-height: 140%;
-                        color: #40505d;
-                    }
-                }
-
-                .action {
-                    position: absolute;
-                    top: 50%;
-                    right: 24px;
-                    transform: translateY(-50%);
-                    cursor: pointer;
+                    padding: 24px 86px 24px 24px;
+                    background: #f9f9ff;
+                    border: 1px solid #e3e4e6;
+                    border-radius: 5px;
 
                     .icon {
-                        position: relative;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 38px;
-                        height: 38px;
-                        border-radius: 50%;
-                        border: 1px solid #3A9551;
-
                         svg {
-                            height: 11px;
+                            color: #fff;
+                            height: 28px;
                         }
 
-                        &.check {
-                            border-color: #3A9551;
+                        &-wrapper {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 64px;
+                            height: 64px;
+                            background: #3b57f7;
+                            border-radius: 50%;
+                        }
+                    }
 
-                            svg {
-                                color: #3A9551;
-                            }
+                    .info {
+                        margin-left: 24px;
+
+                        >* {
+                            margin: 0;
                         }
 
-                        &.download {
-                            border-color: #3b57f7;
+                        h4 {
+                            font-family: "Plus Jakarta Sans", serif;
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 20px;
+                            line-height: 25px;
+                            color: #011627;
+                            margin-bottom: 8px;
+                        }
+
+                        p {
+                            font-family: "Roboto", serif;
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 140%;
+                            color: #40505d;
+                        }
+                    }
+
+                    .action {
+                        position: absolute;
+                        top: 50%;
+                        right: 24px;
+                        transform: translateY(-50%);
+                        cursor: pointer;
+
+                        .icon {
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 38px;
+                            height: 38px;
+                            border-radius: 50%;
+                            border: 1px solid #3A9551;
 
                             svg {
-                                color: #3b57f7;
+                                height: 11px;
                             }
 
-                            &.downloading {
-                                border-color: transparent;
+                            &.check {
+                                border-color: #3A9551;
 
-                                &::before {
-                                    position: absolute;
-                                    content: "";
-                                    width: 100%;
-                                    height: 100%;
-                                    top: 0;
-                                    left: 0;
-                                    border: solid 1px transparent;
-                                    border-top-color: #3b57f7;
-                                    border-radius: 50%;
-                                    animation: spin 2s linear infinite;
+                                svg {
+                                    color: #3A9551;
+                                }
+                            }
+
+                            &.download {
+                                border-color: #3b57f7;
+
+                                svg {
+                                    color: #3b57f7;
+                                }
+
+                                &.downloading {
+                                    border-color: transparent;
+
+                                    &::before {
+                                        position: absolute;
+                                        content: "";
+                                        width: 100%;
+                                        height: 100%;
+                                        top: 0;
+                                        left: 0;
+                                        border: solid 1px transparent;
+                                        border-top-color: #3b57f7;
+                                        border-radius: 50%;
+                                        animation: spin 2s linear infinite;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            .gutenverse-button {
-                border-radius: 5px !important;
+                .gutenverse-button {
+                    border-radius: 5px !important;
+                }
             }
         }
     }
