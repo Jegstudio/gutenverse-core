@@ -159,9 +159,6 @@ const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, t
 
                 {"subMenu" in tabs[key] && (key === settings) && <div className='sub-menu'>
                     {tabs[key].subMenu.map((value) => {
-
-                        console.log('SUB MENU ITEM');
-                        console.log(value);
                         let item = value.title;
                         let param = `?page=${page}&path=${path}&settings=${key}&sub-menu=${value.id}`;
                         let classes = classnames('tab-item', {
