@@ -11,8 +11,13 @@ export { libraryStore } from 'gutenverse-core/store';
 import EditorModePlugin from '../editor-mode/editor-mode';
 
 const initLibraryState = {
-    active: 'layout',
+    active: 'themes',
     tabs: [
+        {
+            id: 'themes',
+            icon: <IconBlocksSVG />,
+            label: __('Themes', '--gctd--'),
+        },
         {
             id: 'layout',
             icon: <IconLayoutsSVG />,

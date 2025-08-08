@@ -178,6 +178,13 @@ class Editor_Assets {
 		);
 
 		wp_enqueue_style(
+			'gutenverse-roboto-font',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/fonts/roboto/roboto.css',
+			array(),
+			GUTENVERSE_FRAMEWORK_VERSION
+		);
+
+		wp_enqueue_style(
 			'gutenverse-poppins-font',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/fonts/poppins/poppins.css',
 			array(),
@@ -203,6 +210,12 @@ class Editor_Assets {
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/toolbar.css',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
+		);
+		wp_enqueue_style(
+			'gutenverse-google-fonts-host-grostesk',
+			'https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap',
+			false,
+			1
 		);
 	}
 }
