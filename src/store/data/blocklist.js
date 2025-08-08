@@ -1,13 +1,21 @@
 import { createReduxStore, combineReducers, register } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
-import { IconConditionsBlockSVG } from 'gutenverse-core/icons';
+import { IconSectionSliderSVG } from 'gutenverse-core/icons';
 
 const PRO_STATE_DEFAULT = [
+    // {
+    //     name: 'gutenverse/conditions',
+    //     title: 'Condition Filter',
+    //     category: 'gutenverse-structure',
+    //     icon: <IconConditionsBlockSVG />,
+    //     pro: true,
+    //     locked: true,
+    // },
     {
-        name: 'gutenverse/conditions',
-        title: 'Condition Filter',
+        name: 'gutenverse/section-slider',
+        title: 'Section Slider',
         category: 'gutenverse-structure',
-        icon: <IconConditionsBlockSVG />,
+        icon: <IconSectionSliderSVG />,
         pro: true,
         locked: true,
     },
@@ -36,7 +44,7 @@ const getList = (state = []) => {
     const { blockList } = state;
     const lockedList = [];
 
-    const lockedBlocks = applyFilters('gutenverse.blocklist.locked', []);
+    const lockedBlocks = applyFilters('gutenverse.blocklist.locked', PRO_STATE_DEFAULT);
 
     lockedBlocks.map(lockedBlock => {
         let exist = false;
