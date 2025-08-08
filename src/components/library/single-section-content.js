@@ -26,7 +26,7 @@ const SingleSectionContent = (props) => {
 
     const [contentNormal, setContentNormal] = useState(null);
     const [contentGlobal, setContentGlobal] = useState(null);
-    const { pro: isPro, slug, customAPI = null, customArgs = {} } = singleData;
+    const { slug, customAPI = null, customArgs = {} } = singleData;
     const [selectedOption, setSelectedOption] = useState('default');
     const [dataToImport, setDataToImport] = useState(singleData);
     const [unavailableGlobalFonts, setUnavailableGlobalFonts] = useState([]);
@@ -224,13 +224,13 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
             let notExist = false;
             let font = {};
             const updatedBlock = block.replace(/"id"\s*:\s*"([^"]+)"/, (_, id) => {
-                const matchedFont = globalVariables.fonts.find(f => f.id === id.toLowerCase());
+                const matchedFont = globalVariables.fonts.find(f => f.id === id?.toLowerCase());
                 if(!matchedFont) {
-                    font = global.font.find(f => f.slug.toLowerCase() === id.toLowerCase());
+                    font = global.font.find(f => f.slug?.toLowerCase() === id?.toLowerCase());
                     unavailableFonts.push({id : id, font: font});
                     notExist = true;
                 }
-                return `"id":"${id.toLowerCase()}"`;
+                return `"id":"${id?.toLowerCase()}"`;
             });
 
             if (notExist) {
@@ -249,10 +249,10 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
             let notExist = false;
             let color = {};
             const populateColor = globalVariables.colors?.custom.concat(globalVariables.colors.theme);
-            const matchedColor = populateColor?.find(f => f?.slug.toLowerCase() === id.toLowerCase());
+            const matchedColor = populateColor?.find(f => f?.slug?.toLowerCase() === id?.toLowerCase());
 
             if (!matchedColor) {
-                color = global.color.find(c => c.slug.toLowerCase() === id.toLowerCase());
+                color = global.color.find(c => c.slug?.toLowerCase() === id?.toLowerCase());
                 unavailableColors.push({id : id, color: color});
                 notExist = true;
             }
@@ -260,7 +260,7 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
             if (notExist) {
                 return `${JSON.stringify(hexToRgb(color ? color.color : {}))}`;
             } else {
-                return `${prefix}${id.toLowerCase()}${suffix}`;
+                return `${prefix}${id?.toLowerCase()}${suffix}`;
             }
         }
     );
@@ -306,13 +306,59 @@ const Content = (props) => {
     />;
 };
 
-const ReadOnlyContent = ({
-    content
-}) => {
+const ReadOnlyContent = ({ content }) => {
+    const iframeRef = useRef(null);
+
     const blocks = useMemo(() => {
         return content ? parse(content) : [];
     }, [content]);
-    return <BlockPreview blocks={blocks} />;
+
+    useEffect(() => {
+        const checkIframeLoaded = () => {
+            if (iframeRef.current) {
+                const iframe = iframeRef.current.querySelector('iframe');
+                if (iframe) {
+                    const onLoad = () => {
+                        const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+                        if (!iframeDoc) return;
+
+                        const styleTag = iframeDoc.createElement('style');
+                        styleTag.innerHTML = `
+                            .input-warning {
+                                display: none;
+                            }
+
+                            .guten-hide-desktop {
+                                display: none;
+                            }
+
+                            /* You can add more custom styles here */
+                        `;
+                        styleTag.className = 'custom-preview-style';
+                        iframeDoc.head.appendChild(styleTag);
+                    };
+                    iframe.addEventListener('load', onLoad);
+
+                    return () => {
+                        iframe.removeEventListener('load', onLoad);
+                    };
+                }
+            }
+        };
+
+        const observer = new MutationObserver(checkIframeLoaded);
+        if (iframeRef.current) {
+            observer.observe(iframeRef.current, { childList: true, subtree: true });
+        }
+
+        return () => observer.disconnect();
+    }, [blocks]);
+
+    return (
+        <div ref={iframeRef}>
+            <BlockPreview blocks={blocks} />
+        </div>
+    );
 };
 
 export default withSelect(select => {

@@ -48,6 +48,7 @@ import IconFont from './icon/icon-font.svg';
 import IconDownload from './icon/icon-download.svg';
 import IconAddFont from './icon/icon-add-font.svg';
 import IconFlexibleWrapper from './icon/icon-flexible-wrapper.svg';
+import IconSectionSlider from './icon/icon-section-slider.svg';
 
 /* Block */
 import IconColumn from './icon/icon-column.svg';
@@ -55,6 +56,10 @@ import IconSection from './icon/icon-section.svg';
 
 /* Block Pro */
 import IconConditionsBlock from './icon/icon-condition-filter.svg';
+
+/* Additional Icons */
+import IconWarningDeprecated from './icon/deprecated-warning.svg';
+
 
 /* Settings Icon */
 import IconSettingsEditor from './icon/settings-editor.svg';
@@ -420,6 +425,14 @@ export const IconHighlightSVG = () => {
 
 export const IconDinamicSVG = (props) => {
     return <GradientDinamic {...props} />;
+};
+
+export const IconWarningDeprecatedSVG = () => {
+    return <IconWarningDeprecated />;
+};
+
+export const IconSectionSliderSVG = () => {
+    return <IconSectionSlider />;
 };
 
 export const getSettingsIcon = () => {

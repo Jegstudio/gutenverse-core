@@ -13,6 +13,7 @@ const TextControl = ({
     value = allowDeviceControl ? {} : '',
     onValueChange,
     description = '',
+    liveUpdate = false,
 }) => {
     const id = useInstanceId(TextControl, 'inspector-text-control');
 
@@ -27,6 +28,13 @@ const TextControl = ({
         }
         onValueChange(deferredValue);
     }, [deferredValue]);
+
+    useEffect(() => {
+        if (!liveUpdate) {
+            return;
+        }
+        setLocalValue(value);
+    }, [value]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-text'}>
         <ControlHeadingSimple
