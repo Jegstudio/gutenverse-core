@@ -185,10 +185,30 @@ class Dashboard {
 		$config['eventBanner']      = gutenverse_get_event_banner();
 		$config['activeTheme']      = get_option( 'stylesheet' );
 		$config['showThemeList']    = apply_filters( 'gutenverse_show_theme_list', true );
+		$config['activePlugins']    = $this->get_active_plugins();
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
+	/**
+	 * Get active plugin lists.
+	 *
+	 * @return array
+	 */
+	public function get_active_plugins() {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
 
+		$all_plugins       = get_plugins();
+		$activated_plugins = array();
+		foreach ( $all_plugins as $plugin ) {
+			if ( isset( $plugin['TextDomain'] ) ) {
+				$activated_plugins[] = $plugin['TextDomain'];
+			}
+		}
+
+		return $activated_plugins;
+	}
 	/**
 	 * System Status.
 	 *

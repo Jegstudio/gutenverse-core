@@ -9,6 +9,7 @@ import FontIconSetting from './src/settings/font-icon-setting';
 import { DashboardBody, DashboardContent, DashboardHeader, PopupPro } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
 import { getSettingsIcon } from 'gutenverse-core/icons';
+import { generalTabs, getPluginTabs, pluginTabs } from "./tabs";
 
 const SettingsBody = ({ settings, ...props }) => {
     let body = '';
@@ -73,37 +74,6 @@ const Settings = (props) => {
     const path = query.get('path');
     const settings = query.get('settings') ? query.get('settings') : 'editor';
     const subSettings = query.get('sub-menu') ? query.get('sub-menu') : '';
-
-    const tabs = applyFilters(
-        'gutenverse.dashboard.settings.navigation',
-        {
-            editor: {
-                title: __('Editor', '--gctd--'),
-                pro: false,
-            },
-            frontend: {
-                title: __('Frontend', '--gctd--'),
-                pro: false,
-            },
-            template: {
-                title: __('Template', '--gctd--'),
-                pro: false,
-            },
-            ['font-icon']: {
-                title: __('Font Icon', '--gctd--'),
-                pro: false,
-            },
-            ['custom-font']: {
-                title: __('Custom Font', '--gctd--'),
-                pro: true,
-            },
-        }
-    );
-
-    const pluginTabs = applyFilters(
-        'gutenverse.dashboard.plugin-settings.navigation',
-        {}
-    );
     props = { ...props, settings, subSettings };
     return <DashboardContent>
         <PopupPro
@@ -121,7 +91,7 @@ const Settings = (props) => {
                         pathname={pathname}
                         setPopupActive={setPopupActive}
                         settings={settings}
-                        tabs={tabs}
+                        tabs={generalTabs}
                         subSettings={subSettings}
                         extraClasses={'general'}
                     />
@@ -212,12 +182,5 @@ const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, t
         })}
     </div>
 }
-
-
-const SubMenu = () => {
-
-    return
-}
-
 
 export default Settings;
