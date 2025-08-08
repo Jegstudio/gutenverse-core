@@ -20,11 +20,6 @@ const getPluginTabs = () => {
                 {
                     id: 'block_settings',
                     title: 'Global Block Settings'
-                },
-                {
-                    id: 'additional_features',
-                    title: 'Addiitonal Features',
-                    pro: true
                 }
             ]
         },
