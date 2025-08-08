@@ -184,9 +184,11 @@ class Upgrade_Wizard {
 			),
 		);
 
-		$config['isProExist']       = in_array( 'gutenverse-pro', $plugins, true );
+		$config['isProActive']      = defined( 'GUTENVERSE_PRO_VERSION' );
+		$config['adminUrl']         = admin_url();
 		$config['gutenverseImgDir'] = GUTENVERSE_URL . '/assets/img';
 		$config['ImgDir']           = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
+		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
 
 		$response = Api::instance()->base_theme_get( '' );
 		if ( isset( $response ) ) {

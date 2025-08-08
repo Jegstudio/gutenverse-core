@@ -47,7 +47,6 @@ export const licenseCheck = (param) => new Promise(resolve => {
         method: 'POST',
         data: param
     }).then((data) => {
-        console.log(data);
         resolve(data);
         return data;
     }).catch((e) => {
@@ -62,7 +61,6 @@ export const requirementCheck = (param) => new Promise(resolve => {
         method: 'POST',
         data: param
     }).then((data) => {
-        console.log(data);
         resolve(data);
         return data;
     }).catch((e) => {

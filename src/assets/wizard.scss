@@ -100,7 +100,6 @@ body {
 
         &.selected {
             .wizard-item-check {
-
                 path {
                     fill: #3B57F7;
                 }
@@ -330,468 +329,177 @@ body {
             align-items: center;
             position: relative;
             width: 100%;
+            height: 725px;
 
-            .title,
-            .desc {
-                width: 100%;
-            }
-
-            .content-title {
-                width: 100%;
-                margin-top: 50px;
-                height: 38px;
-                font-family: Inter;
-                font-size: 32px;
-                font-weight: 600;
-                line-height: 1.2;
-                letter-spacing: -0.64px;
-                text-align: center;
-                color: #011627;
-                margin-bottom: unset;
-            }
-
-            .content-desc {
-                position: relative;
-                z-index: 1;
-                margin: 12px auto 0;
-                max-width: 400px;
-                font-family: 'Inter', sans-serif;
-                font-size: 14px;
-                font-weight: 400;
-                line-height: 1.4;
-                letter-spacing: normal;
-                text-align: center;
-                color: rgba(64, 80, 93, 1);
-                vertical-align: middle;
-            }
-
-            .requirment-list {
-                width: 100%;
-                margin-top: 48px;
+            .content-wrapper {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 15px;
-                padding: 0 50px;
+                justify-content: flex-start;
+                align-items:flex-start;
+                position: relative;
+                width: inherit;
+                height: inherit;
 
-                &.loading {
-                    width: 100%;
+                .text-content {
+                    z-index: 3;
+                    margin-left: 64px;
+                    margin-top: 148px;
+                    max-width: 545px;
+
+                    .content-title {
+                        font-family: "Inter", sans-serif;
+                        font-weight: 700;
+                        font-style: Bold;
+                        font-size: 45px;
+                        line-height: 115%;
+                        text-transform: capitalize;
+                        margin-bottom: 20px;
+
+                        span {
+                            background: linear-gradient(84.36deg, #7032FF 15.93%, #4B8EFF 106.42%);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+
+                            /* For modern browsers */
+                            background-clip: text;
+                            color: transparent;
+                        }
+                    }
+
+                    .content-list {
+                        font-family: "Host Grotesk", sans-serif;
+                        font-weight: 400;
+                        font-size: 20px;
+                        line-height: 100%;
+                        display: flex;
+                        align-items: center;
+                        color: rgba(0, 34, 61, 0.6);
+                        margin: 0 0 8px 0;
+
+                        svg {
+                            margin-right: 12px;
+                        }
+                    }
+
+                    .button-install {
+                        width: fit-content;
+                        padding: 18px 30px 20px;
+                        margin-top: 30px;
+                        border: 2px 1px 1px 1px solid white;
+                        position: relative;
+                        border-radius: 10px;
+                        background: linear-gradient(91.52deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%);
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+
+                        font-family: 'Host Grotesk', sans-serif;
+                        font-weight: 600;
+                        font-size: 18px;
+                        line-height: 24.3px;
+                        letter-spacing: 0.36px;
+                        vertical-align: middle;
+                        color: white;
+                        
+                        &:hover {
+                            transform: scale(0.94);
+                        }
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            inset: 0;
+                            padding: 2px 1px 1px 1px;
+                            background: linear-gradient(91.52deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%);
+                            border-radius: 10px;
+                            -webkit-mask:
+                                linear-gradient(#fff 0 0) content-box, 
+                                linear-gradient(#fff 0 0);
+                            -webkit-mask-composite: xor;
+                            mask-composite: exclude;
+                            z-index: 3;
+                        }
+
+                        &.complete {
+                            background: rgba(153, 162, 169, 1);
+                            pointer-events: none;
+
+                            &::before {
+                                display: none;
+                            }
+                        }
+                    }
                 }
 
-                .themes-data {
-                    background: #f9f9ff;
-                    border-radius: 5px;
-                    border: 1px solid #e6e6ef;
-                    margin: 0 10px 20px;
-                    position: relative;
-                    width: calc(33.33333% - 32px);
+                .image {
+                    position: absolute;
+                    z-index: 0;
 
-                    .status {
-                        left: 50%;
-                        position: absolute;
-                        text-transform: uppercase;
-                        top: 50%;
-                        transform: translate(-50%, -50%);
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: center;
-                        align-items: center;
-                        gap: 8px;
-                        padding: 9px 20px;
-                        border-radius: 5px;
-                        background-color: #8181a5;
-                        font-family: "Roboto", serif;
-                        font-size: 12px;
-                        font-weight: 500;
-                        font-stretch: normal;
-                        font-style: normal;
-                        line-height: normal;
-                        letter-spacing: normal;
-                        text-align: center;
-                        color: #fff;
+                    &.wizard-mockup-demo-companion {
+                        right: 0;
+                        top: 135px;
+                        width: 475px;
+                        z-index: 2;
 
-                    }
-
-                    .theme-desc {
-                        padding: 16px;
-                        position: relative;
-
-                        .button-container {
-                            width: 50%;
-
-                            .button-install {
-                                cursor: pointer;
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                padding: 12px 20px;
-                                border-radius: 5px;
-                                background-color: #3b57f7;
-                                font-family: Inter;
-                                font-size: 14px;
-                                font-weight: 400;
-                                text-align: center;
-                                color: #fff;
-                                transition: background 0.3s ease, color 0.3s ease;
-
-                                &:hover {
-                                    background: #2435ec;
-                                }
-
-                                &.installed {
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                    gap: 8px;
-                                    padding: 12px 20px;
-                                    border-radius: 5px;
-                                    background-color: #99a2a9;
-                                    font-family: Inter;
-                                    font-size: 14px;
-                                    font-weight: 500;
-                                    text-align: center;
-                                    color: #fff;
-                                    pointer-events: none;
-                                    cursor: auto;
-                                }
-                            }
-                        }
-                    }
-
-                    .theme-thumbnail {
-                        cursor: pointer;
-                        height: 200px;
-                        overflow: hidden;
-                        position: relative;
-
-                        img {
-                            width: 100%;
-                            border-radius: 5px;
-                        }
-
-                        .draft-label {
-                            color: red;
-                            font-size: 12px;
-                            font-weight: 700;
-                            line-height: 24px;
-                            font-family: "Roboto", serif;
-                            position: absolute;
-                            left: 10px;
-                            top: 5px;
-                            border: 3px solid red;
-                            border-radius: 5px;
-                            padding: 0 5px 0 5px;
-                        }
-
-                        .pro-flag {
-                            color: #fff;
-                            font-size: 9px;
-                            width: fit-content;
-                            cursor: pointer;
-                            z-index: 99;
-                            position: absolute;
-                            top: 6px;
-                            right: 6px;
-                            font-family: 'Inter', serif;
-                            line-height: normal;
-                            letter-spacing: 2%;
-                            display: flex;
-                            flex-direction: row;
-                            justify-content: center;
-                            align-items: center;
-                            gap: 1px;
-                            padding: 3px 4px 4px;
-                            border-radius: 3px;
-                            background-image: linear-gradient(215deg, #ff808b 40%, #f93a50 100%);
-                        }
-                    }
-
-                    .theme-title,
-                    .theme-title a {
-                        height: 24px;
-                        flex-grow: 0;
-                        padding: 4px 0;
-                        font-family: "Heebo", serif;
-                        font-size: 16px;
-                        font-weight: 500;
-                        font-stretch: normal;
-                        font-style: normal;
-                        line-height: normal;
-                        letter-spacing: normal;
-                        text-align: left;
-                        color: #011627;
-                        text-decoration: none;
-                    }
-
-                    .theme-title {
-                        align-items: center;
-                        display: inline-flex;
-                        gap: 4px;
-                        margin: 0;
-                        padding: 0;
-
-                        .tooltip-wrapper {
-                            align-items: center;
-                            display: flex;
-                            position: relative;
-
-                            &::after {
-                                border-color: #011627 transparent transparent transparent;
-                                border-style: solid;
-                                border-width: 8px 8px 0px 8px;
-                                bottom: 100%;
-                                content: "";
-                                display: block;
-                                height: 0;
-                                left: 50%;
-                                position: absolute;
-                                transform: translateX(-50%);
-                                visibility: hidden;
-                                width: 0;
-                            }
-                        }
-
-                        .tooltip-description:hover {
-                            .tooltip-wrapper::after {
-                                visibility: visible;
-                            }
-
-                            .tooltip-description-text {
-                                visibility: visible;
-                            }
-                        }
-
-                        .tooltip-description-text {
-                            background-color: #011627;
-                            border-radius: 6px;
-                            bottom: calc(100% - 20px);
-                            color: white;
-                            font-size: 12px;
-                            left: 0;
-                            line-height: 1.4em;
-                            margin: 0 20px;
-                            padding: 15px 18px;
-                            position: absolute;
-                            text-align: left;
-                            visibility: hidden;
-                            white-space: normal;
+                        &.layout {
+                            border-radius: 10px;
+                            box-shadow: 0 0 40px #000;
+                            height: 230px;
+                            right: 77px;
+                            top: 196px;
+                            width: 321px;
                             z-index: 1;
                         }
                     }
 
-                    .theme-author {
-                        color: #99A2A9;
-                        display: block;
-                        font-size: 12px;
-                        margin-top: 3px;
+                    &.bg-list-demo-wizard {
+                        height: 644px;
+                        opacity: .9;
+                        right: -17px;
+                        top: 0;
+                        width: 44.75%;
                     }
 
-                    &.active {
-                        .theme-button {
-                            &.activate {
-                                background-color: white !important;
-                                color: #40505d;
-                            }
-                        }
-
-                        .theme-thumbnail {
-                            a::before {
-                                background: rgba(28, 29, 33, 0.8);
-                                content: "";
-                                height: 100%;
-                                left: 0;
-                                position: absolute;
-                                top: 0;
-                                width: 100%;
-                            }
-                        }
-                    }
-
-                    .theme-buttons {
-                        display: flex;
-                        margin-top: 8px;
+                    &.bg-image-wizard-cta {
                         width: 100%;
-                        gap: 12px;
-
-                        .theme-button:first-child {
-                            margin-right: 10px;
-                        }
-
-                        .theme-button, a {
-                            font-family: "Roboto", serif;
-                            font-size: 12px;
-                            font-weight: 500;
-                            text-align: center;
-                            line-height: normal;
-                        }
-                        
-                        .theme-button {
-                            color: #fff;
-                        }
-                        
-                        a {
-                            color: #40505d;
-                        }
-
-                        .theme-button {
-                            color: white;
-                            cursor: pointer;
-                            font-size: 12px;
-                            font-weight: 500;
-                            overflow: hidden;
-                            text-align: center;
-                            text-decoration: none;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                            flex: 1;
-                            display: flex;
-                            flex-direction: row;
-                            justify-content: center;
-                            align-items: center;
-                            gap: 8px;
-                            padding: 9px 20px;
-                            border-radius: 5px;
-                            background-color: #3b57f7;
-                            transition: transform 0.5s ease, opacity 0.5s ease;
-
-                            @keyframes rotation {
-                                from {
-                                    transform: rotate(0deg);
-                                }
-
-                                to {
-                                    transform: rotate(359deg);
-                                }
-                            }
-
-                            svg {
-                                animation: rotation 2s infinite linear;
-                                margin-right: 5px;
-                                vertical-align: sub;
-                            }
-
-                            &.activated {
-                                cursor: text;
-                                background-color: #777777;
-                            }
-
-                            &.activate, &.install {
-                                background-color: var(--gutenverse-dashboard-primary);
-
-                                &:hover {
-                                    box-shadow: 0 8px 44px 0 rgba(255, 255, 255, 0.12);
-                                    background-color: #2435ec;
-
-                                    span {
-                                        font-family: "Roboto", serif;
-                                        font-size: 12px;
-                                        font-weight: 500;
-                                        font-stretch: normal;
-                                        font-style: normal;
-                                        line-height: normal;
-                                        letter-spacing: normal;
-                                        text-align: center;
-                                        color: #fff;
-                                    }
-                                }
-                            }
-
-                            &.demo {
-                                background-color: white;
-                                border: 1px solid #e6e6ef;
-                                font-family: "Roboto", serif;
-                                font-size: 12px;
-                                font-weight: 500;
-                                font-stretch: normal;
-                                font-style: normal;
-                                line-height: normal;
-                                letter-spacing: normal;
-                                text-align: center;
-                                color: #40505d;
-
-                                &:hover {
-                                    border: solid 1px #3b57f7;
-                                    font-family: "Roboto", serif;
-                                    font-size: 12px;
-                                    font-weight: 500;
-                                    font-stretch: normal;
-                                    font-style: normal;
-                                    line-height: normal;
-                                    letter-spacing: normal;
-                                    text-align: center;
-                                    color: #3b57f7;
-
-                                }
-                            }
-
-                            &.disabled {
-                                background-color: #40505d;
-                                color: white;
-                            }
-
-                            &.manage-plugin {
-                                background-color: #ffc908;
-                                font-family: "Roboto", serif;
-                                font-size: 12px;
-                                font-weight: 600;
-                                font-stretch: normal;
-                                font-style: normal;
-                                line-height: normal;
-                                letter-spacing: normal;
-                                text-align: center;
-                                color: #473b14;
-
-                                &:hover {
-                                    background-color: #f5c000;
-                                }
-                            }
-
-                            &.expire {
-                                background-color: #eabb46;
-                                color: white;
-                            }
-                        }
+                        top: 0;
+                        height: 644px;
                     }
                 }
             }
 
-            .plugin-actions {
+            .wizard-footer {
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
                 border-top: solid 1px #e3e4e6;
-                padding: 20px 50px;
                 gap: 20px;
+                margin-top: -81px;
+                position: absolute;
+                bottom: 0;
+                right: 0;
                 width: 100%;
-                margin-top: 100px;
+                padding: 22px 50px;
+                box-sizing: border-box;
 
                 .button-skip {
                     cursor: pointer;
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: 400;
                     text-align: center;
                     color: #99a2a9;
                 }
 
-                .button-install {
+                .button-back {
                     cursor: pointer;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 8px;
-                    padding: 12px 20px;
-                    border-radius: 5px;
-                    background-color: #3b57f7;
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 14px;
-                    font-weight: 400;
-                    text-align: center;
-                    color: #fff;
-                    transition: background 0.3s ease, color 0.3s ease;
-
-                    &:hover {
-                        background: #2435ec;
-                    }
+                    font-weight: 500;
+                    justify-content: center;
+                    color: #99a2a9;
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
                 }
 
                 .button-next {
@@ -802,34 +510,18 @@ body {
                     gap: 6px;
                     padding: 10px 24px;
                     border-radius: 5px;
-                    border: solid 1px #3b57f7;
+                    border: solid 1px #3B57F7;
                     background-color: #fff;
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: 500;
                     text-align: center;
-                    color: #3b57f7;
-                    transition: background 0.3s ease, color 0.3s ease;
+                    color: #3B57F7;
 
                     &:hover {
-                        background: #3b57f7;
+                        background: #3B57F7;
                         color: #fff;
                     }
-                }
-
-                .button-done {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 8px;
-                    padding: 12px 20px;
-                    border-radius: 5px;
-                    background-color: #99a2a9;
-                    font-family: Inter;
-                    font-size: 14px;
-                    font-weight: 500;
-                    text-align: center;
-                    color: #fff;
                 }
             }
         }
@@ -1048,42 +740,21 @@ body {
             .wizard-image {
                 position: absolute;
                 top: 0;
-                left: 0;
                 z-index: 2;
 
                 &.item-1 {
-                    width: 63.9px;
-                    height: 63.9px;
-                    top: 359px;
-                    left: 777px;
+                    height: 408px;
+                    top: 275px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 600px;
                 }
 
                 &.item-2 {
-                    width: 56.6px;
-                    height: 56.6px;
-                    top: 407px;
-                    left: 319px;
-                }
-
-                &.item-3 {
-                    width: 389.6px;
-                    height: 247.0px;
-                    top: 330px;
-                    left: 405px;
-                }
-
-                &.item-4 {
-                    width: 212.5px;
-                    height: 281.1px;
-                    top: 307.67px;
-                    left: 676.23px;
-                }
-
-                &.item-5 {
-                    width: 20.0px;
                     height: 21.8px;
-                    top: 97px;
-                    left: 923px;
+                    right: 257px;
+                    top: 95px;
+                    width: 20px;
                 }
             }
         }
@@ -1122,7 +793,7 @@ body {
             padding: 12px 15px;
             border-radius: 5px;
             background-color: rgba(59, 87, 247, 1);
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             text-align: left;
@@ -1158,14 +829,14 @@ body {
         }
 
         h3 {
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-weight: 600;
             font-size: 20px;
             color: #00223D;
         }
 
         p {
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-weight: 400;
             font-size: 14px;
             line-height: 20px;
@@ -1268,7 +939,7 @@ body {
                     justify-content: center;
 
                     .required-title {
-                        font-family: Inter;
+                        font-family: "Inter", sans-serif;
                         font-weight: 500;
                         font-size: 14px;
                         line-height: 100%;
@@ -1281,7 +952,7 @@ body {
 
                     .required-tier {
                         text-align: center;
-                        font-family: Inter;
+                        font-family: "Inter", sans-serif;
                         font-weight: 400;
                         font-size: 14px;
                         line-height: 100%;
@@ -1294,18 +965,13 @@ body {
 
             .pro-flag {
                 align-items: center;
-                background: rgba(59, 87, 247, 1);
                 border-radius: 4px;
                 color: #fff;
                 cursor: pointer;
                 display: flex;
                 flex-direction: row;
-                font-family: Inter, serif;
-                font-size: 10px;
                 gap: 1px;
                 justify-content: center;
-                letter-spacing: 2%;
-                line-height: normal;
                 padding: 4px 6px 4px 6px;
                 position: absolute;
                 right: 10px;
@@ -1313,6 +979,12 @@ body {
                 width: -moz-fit-content;
                 width: fit-content;
                 z-index: 99;
+                background: linear-gradient(261.49deg, #FF808B 5.02%, #FA4358 89.77%);
+                font-family: "Inter", sans-serif;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 12px;
+                letter-spacing: 0.24px;
             }
 
             img {
@@ -1367,7 +1039,7 @@ body {
 
                 h3 {
                     margin: 0;
-                    font-family: Inter;
+                    font-family: "Inter", sans-serif;
                     font-size: 16px;
                     font-weight: 500;
                     letter-spacing: -0.16px;
@@ -1404,15 +1076,16 @@ body {
                         border-radius: 5px;
                         background-color: rgba(59, 87, 247, 1);
                         flex-grow: 0;
-                        font-family: Inter;
+                        font-family: "Inter", sans-serif;
                         font-size: 12px;
                         font-weight: 500;
                         text-align: center;
-                        color: #fff;
-                        transition: background-color 0.3s ease, color 0.3s ease;
+                        color: rgb(255, 255, 255);
+                        transition: all 0.3s ease;
 
                         &:hover {
-                            background-color: rgba(59, 87, 247, 1);
+                           transform: scale(0.94);
+                           color: rgba(255, 255, 255, 0.75);
                         }
 
                         &.imported {
@@ -1421,6 +1094,8 @@ body {
 
                             &:hover {
                                 background-color: #99a2a9;
+                                transform: none;
+                                color: rgba(255, 255, 255, 1);
                             }
                         }
                     }
@@ -1436,7 +1111,7 @@ body {
                         box-shadow: 0 1px 2px 0 #e3e4e6;
                         border: solid 1px #e3e4e6;
                         background-color: #fff;
-                        font-family: Inter;
+                        font-family: "Inter", sans-serif;
                         font-size: 12px;
                         font-weight: 500;
                         text-align: center;
@@ -1458,7 +1133,7 @@ body {
 
         .button-skip {
             cursor: pointer;
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 400;
             text-align: center;
@@ -1467,7 +1142,7 @@ body {
 
         .button-back {
             cursor: pointer;
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             justify-content: center;
@@ -1487,7 +1162,7 @@ body {
             border-radius: 5px;
             border: solid 1px #3B57F7;
             background-color: #fff;
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             text-align: center;
@@ -1672,7 +1347,7 @@ body {
 
         .button-back {
             cursor: pointer;
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             justify-content: center;
@@ -1692,7 +1367,7 @@ body {
             border-radius: 5px;
             border: solid 1px #3B57F7;
             background-color: #fff;
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             text-align: center;
@@ -1871,7 +1546,7 @@ body {
         }
 
         .complete-title {
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-size: 22px;
             font-weight: 600;
             font-stretch: normal;
@@ -1884,7 +1559,7 @@ body {
         }
 
         .complete-subtitle {
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: normal;
             font-stretch: normal;
@@ -1906,7 +1581,7 @@ body {
             gap: 9px;
             border-radius: 5px;
             background-color: #3b57f7;
-            font-family: Inter;
+            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             font-stretch: normal;
@@ -2835,7 +2510,7 @@ body {
 .button-upgrade-pro {
     align-items: center;
     border-radius: 5px;
-    background: rgba(59, 87, 247, 1);
+    background: linear-gradient(90.25deg, #F045FF -9.26%, #4569FF 52.47%, #68E4F4 105.06%);
     color: rgba(255, 255, 255, 1) !important;
     cursor: pointer;
     display: flex;
@@ -2851,6 +2526,7 @@ body {
     width: calc(50% - 6px);
     justify-content: center;
     white-space: nowrap;
+    transition: all 0.3s ease;
 
     &.thin {
         padding: 8px 16px;
@@ -2865,7 +2541,7 @@ body {
     }
 
     &:hover {
-        background: #3B57F7;
+        transform: scale(0.94);
     }
 
     &.activate {

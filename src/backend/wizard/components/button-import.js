@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { applyFilters } from '@wordpress/hooks';
+import { applyFilters, hasFilter } from '@wordpress/hooks';
+import { useEffect } from '@wordpress/element';
 import isEmpty from 'lodash/isEmpty';
 import { licenseCheck } from '../helper';
 
@@ -31,7 +32,7 @@ const ButtonUpgradePro = (props) => {
         template
     } = props;
 
-    const { upgradeProUrl, adminUrl, api } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+    const { upgradeProUrl, adminUrl, api } = window['GutenverseConfig'] || window['GutenverseWizard'] || {};
     const proLink = link ? link : upgradeProUrl;
     const dashboardLink = adminUrl + 'admin.php?page=gutenverse&path=license';
     const upgradeURL = api + '/account/license';
@@ -50,14 +51,13 @@ const ButtonUpgradePro = (props) => {
     };
 
     const TheButton = () => {
-        console.log(licenseCheck());
-        if (isEmpty(window?.gprodata)) {
+        if (isEmpty(window?.GutenverseWizard?.isProActive)) {
             return button(text, 'crown', false);
         } else {
             return applyFilters('gutenverse.button.pro.banner',
                 button(__('Activate License', 'gutenverse'), 'key', false),
                 button(__('Renew License', 'gutenverse'), 'key', false),
-                button(__('Upgrade License', 'gutenverse-companion'), 'key', false, true)
+                button(__('Upgrade License', 'gutenverse'), 'key', false, true)
             );
         }
     };
@@ -74,7 +74,7 @@ const CompanionButton = ({ demoUsed, key, templateList, template, setAdditional,
         }}
     >
         {demoUsed
-            ? (template?.status?.using_template ? __('Imported', 'gutenverse-companion') : __('Switch Demo', 'gutenverse-companion'))
-            : __('Import Demo', 'gutenverse-companion')}
+            ? (template?.status?.using_template ? __('Imported', 'gutenverse') : __('Switch Demo', 'gutenverse'))
+            : __('Import Demo', 'gutenverse')}
     </div>;
 };

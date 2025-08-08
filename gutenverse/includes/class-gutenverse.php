@@ -187,6 +187,7 @@ class Gutenverse {
 		);
 		if ( 'wp-json' !== $check_url[1] ) {
 			set_transient( 'gutenverse_redirect', 1, 30 );
+			set_transient( 'gutenverse_wizard_redirect', true, 30 );
 		}
 	}
 

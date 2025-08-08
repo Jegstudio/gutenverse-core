@@ -269,8 +269,8 @@ const ModalContent = ({
                                 return (
                                     <div key={index} className={`steps ${importerCurrent > item ? 'done' : importerCurrent == item ? 'current' : ''}`}>
                                         {importerCurrent > item ? <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <rect x="0.5" y="0.5" width="15" height="15" rx="7.5" fill="#933AFF" />
-                                            <rect x="0.5" y="0.5" width="15" height="15" rx="7.5" stroke="#933AFF" />
+                                            <rect x="0.5" y="0.5" width="15" height="15" rx="7.5" fill="#3b57f7" />
+                                            <rect x="0.5" y="0.5" width="15" height="15" rx="7.5" stroke="#3b57f7" />
                                             <path d="M12 5L6.5 10.5L4 8" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                             : <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -398,7 +398,7 @@ const ModalContent = ({
                             {confirmationWarning.map((process, key) => (
                                 <div key={key} className="steps" style={{ alignItems: 'normal' }}>
                                     <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13 1L4.75 9L1 5.36364" stroke="#7722FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M13 1L4.75 9L1 5.36364" stroke="#3b57f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                     <div>
                                         <p className="option-label">{process.label}</p>
@@ -414,8 +414,8 @@ const ModalContent = ({
                             <div className="acceptance-checkbox">
                                 {
                                     consent ? <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="0.5" y="1" width="14" height="14" rx="2.5" fill="#7722FF" />
-                                        <rect x="0.5" y="1" width="14" height="14" rx="2.5" stroke="#7722FF" />
+                                        <rect x="0.5" y="1" width="14" height="14" rx="2.5" fill="#3b57f7" />
+                                        <rect x="0.5" y="1" width="14" height="14" rx="2.5" stroke="#3b57f7" />
                                         <path d="M11.25 5.1875L6.09375 10.3438L3.75 8" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg> : <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <rect x="0.5" y="1" width="14" height="14" rx="2.5" stroke="#BDBEBF" />
