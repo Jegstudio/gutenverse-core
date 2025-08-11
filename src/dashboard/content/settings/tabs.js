@@ -63,7 +63,7 @@ const setitngTitle = {
     'custom-font': 'Custom Font Settings',
     form: 'Form Settings',
     block_settings: 'Global Block Settings',
-    additional_features: 'Gutenverse News Additional Settings',
+    additional_features: 'Gutenverse News Additional Features',
 
 };
 
