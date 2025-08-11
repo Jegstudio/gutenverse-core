@@ -10,14 +10,11 @@ import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
 import EditorModePlugin from '../editor-mode/editor-mode';
 
+const { activeTheme } = window['GutenverseConfig'] || {};
+
 const initLibraryState = {
-    active: 'themes',
+    active: 'layout',
     tabs: [
-        {
-            id: 'themes',
-            icon: <IconBlocksSVG />,
-            label: __('Themes', '--gctd--'),
-        },
         {
             id: 'layout',
             icon: <IconLayoutsSVG />,
@@ -35,6 +32,15 @@ const initLibraryState = {
         },
     ],
 };
+
+if (activeTheme !== 'unibiz') {
+    initLibraryState.active = 'themes';
+    initLibraryState.tabs.unshift({
+        id: 'themes',
+        icon: <IconBlocksSVG />,
+        label: __('Themes', '--gctd--'),
+    });
+}
 
 const initLayoutState = {
     categories: [],
