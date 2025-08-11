@@ -6,7 +6,7 @@ import { applyFilters } from '@wordpress/hooks';
 import EditorSetting from './src/settings/editor-setting';
 import TemplateSetting from './src/settings/template-setting';
 import FontIconSetting from './src/settings/font-icon-setting';
-import { DashboardBody, DashboardContent, DashboardHeader, PopupPro } from '../../components';
+import { DashboardBody, DashboardContent, DashboardHeader, PopupPro, PopupInstallPlugin } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
 import { getSettingsIcon } from 'gutenverse-core/icons';
 import { generalTabs, getSettingTitle, pluginTabs } from "./tabs";
@@ -75,6 +75,8 @@ const SettingsBody = ({ settings, ...props }) => {
 
 const Settings = (props) => {
     const [popupActive, setPopupActive] = useState(false);
+    const [installPopup, setInstallPopup] = useState(false);
+
     const { location } = props;
     const { pathname, search } = location;
     const query = new URLSearchParams(search);
@@ -88,6 +90,11 @@ const Settings = (props) => {
             active={popupActive}
             setActive={setPopupActive}
             description={<>{__('Upgrade ', '--gctd--')}<span>{__(' Gutenverse PRO ', '--gctd--')}</span>{__(' version to ', '--gctd--')}<br />{__(' unlock these premium features', '--gctd--')}</>}
+        />
+        <PopupInstallPlugin
+            active={installPopup}
+            setActive={setInstallPopup}
+            description={<>Please Install Gutenverse News Add's On Plugin</>}
         />
         <DashboardBody>
             <div className="setting-tabs">
@@ -116,7 +123,7 @@ const Settings = (props) => {
                         extraClasses={'plugins'}
                     />
                 </div>
-                <SettingsBody {...props} />
+                <SettingsBody {...props} setPopupActive={setPopupActive} setInstallPopup={setInstallPopup} />
             </div>
         </DashboardBody>
     </DashboardContent>;
@@ -138,11 +145,10 @@ const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, t
                 active: key === settings,
                 locked: tabs[key].pro
             });
-            return <div className='nav-wrapper'>
+            return <div className='nav-wrapper' key={param}>
                 <div className='main-menu'>
                     <Link
                         index={key}
-                        key={param}
                         to={{
                             pathname: pathname,
                             search: param,
@@ -176,6 +182,7 @@ const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, t
                             location={location}
                             pro={value.pro}
                             setActive={() => setPopupActive(true)}
+                            withAccess={value.withAccess}
                         >
                             {item}
                         </Link>

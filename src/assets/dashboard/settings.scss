@@ -123,6 +123,25 @@
                 gap: 16px;
                 flex-direction: column;
 
+                .sub-menu {
+                    .tab-item.locked {
+                        .setting-label {
+
+                            gap: 10px;
+
+                            .pro-label {
+                                border: 0.3px solid #E32D64;
+                                background: #FFDBDE;
+                                color: #E32D64;
+                                font-family: "Heebo";
+                                font-weight: 500;
+                                font-size: 10px;
+                                line-height: 1;
+                            }
+                        }
+                    }
+                }
+
                 svg {
                     width: 18px;
                     height: 18px;
