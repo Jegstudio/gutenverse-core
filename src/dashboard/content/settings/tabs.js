@@ -7,7 +7,7 @@ const {
     activePlugins = []
 } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
-export const getPluginTabs = () => {
+export const getPluginTabs = (settingValues) => {
     const pluginTabs = {
         'form': {
             title: __('Form', 'gutenverse'),
@@ -27,7 +27,7 @@ export const getPluginTabs = () => {
                     pro: true,
                     withAccess: true
                 }
-            ])
+            ], settingValues)
         },
     };
 

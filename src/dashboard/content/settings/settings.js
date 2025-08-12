@@ -85,7 +85,7 @@ const Settings = (props) => {
     const settings = query.get('settings') ? query.get('settings') : 'editor';
     const subSettings = query.get('sub-menu') ? query.get('sub-menu') : '';
     props = { ...props, settings, subSettings };
-    const pluginTabs = getPluginTabs();
+    const pluginTabs = getPluginTabs(props.settingValues);
     return <DashboardContent>
         <PopupPro
             active={popupActive}
