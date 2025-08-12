@@ -2512,6 +2512,14 @@
             color: #011627;
           }
         }
+
+        p.upgrade-required {
+          color: #E32D64;
+          font-family: "Roboto", serif;
+          font-size: 12px;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
       }
 
       &-pro-notice {
