@@ -2,9 +2,7 @@ import { saveLayoutLikeState, saveSectionLikeState } from 'gutenverse-core/reque
 import isEmpty from 'lodash/isEmpty';
 import semver from 'semver';
 import { dispatch, useDispatch } from '@wordpress/data';
-import { IconInfoYellowSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
-import { Loader } from 'react-feather';
 import { store as editorStore } from '@wordpress/editor';
 import Notice from '../notice';
 
@@ -23,7 +21,7 @@ const layoutFilter = (layoutData, filter) => {
     }
     layoutData = layoutData.filter((layout) => {
         const { data, author: layoutAuthor, categories: layoutCategories, like: layoutLike } = layout;
-        const { name, pro, status } = data;
+        const { name, status } = data;
         const { name: authorName } = layoutAuthor;
         const dev = '--dev_mode--';
 
@@ -40,12 +38,20 @@ const layoutFilter = (layoutData, filter) => {
         }
 
         if (license) {
-            const proState = pro === '0' ? 'free' : 'pro';
+            // const proState = pro === '0' ? 'free' : 'pro';
 
-            if (proState !== license) {
+            // if (proState !== license) {
+            //     return false;
+            // }
+            const availablePlans = data?.available;
+
+            if (!Array.isArray(license) || !Array.isArray(availablePlans)) {
                 return false;
             }
+
+            return license.some(filterItem => availablePlans.includes(filterItem?.value));
         }
+
         if (!isEmpty(categories)) {
             let isTrue = true;
             Object.keys(parents).forEach(el => {
@@ -232,7 +238,7 @@ const sectionFilter = (sectionData, filter) => {
 
     sectionData = sectionData.filter((section) => {
         const { data, author: sectionAuthor, categories: sectionCategories, like: sectionLike } = section;
-        const { pro, status } = data;
+        const { status } = data;
         const { name: authorName } = sectionAuthor;
         const dev = '--dev_mode--';
 
@@ -243,11 +249,18 @@ const sectionFilter = (sectionData, filter) => {
         }
 
         if (license) {
-            const proState = pro === '0' ? 'free' : 'pro';
+            // const proState = pro === '0' ? 'free' : 'pro';
 
-            if (proState !== license) {
+            // if (proState !== license) {
+            //     return false;
+            // }
+            const availablePlans = data?.available;
+
+            if (!Array.isArray(license) || !Array.isArray(availablePlans)) {
                 return false;
             }
+
+            return license.some(filterItem => availablePlans.includes(filterItem?.value));
         }
 
         if ('true' === dev) {
@@ -444,7 +457,7 @@ export const likeSection = (slug, flag) => {
 };
 
 export const ImportNotice = (props) => {
-    const { resolve, blocks, setLibraryError, supportGlobalImport = false, processGlobalStyle = () => {} } = props;
+    const { resolve, blocks, setLibraryError, supportGlobalImport = false, processGlobalStyle = () => { } } = props;
     const { setRenderingMode } = useDispatch(editorStore);
     const { insertBlocks } = dispatch('core/block-editor');
 

@@ -66,11 +66,37 @@
     background: linear-gradient(92deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%), rgba(255, 255, 255, 0.20);
 }
 
-.button-upgrade-pro-banner:hover {
+.button-upgrade-pro-banner:hover,
+.button-upgrade-plan-banner:hover {
     transform: scale(0.94);
     svg {
         opacity: 0.75;
     }
+}
+
+.button-upgrade-plan-banner {cursor: pointer;
+    display: flex;
+    gap: 6px;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-family: "Roboto", serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: fit-content;
+    white-space: nowrap;
+    color: white;
+    transition: all .5s ease;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    border-radius: 5px;
+    background: linear-gradient(92deg, #FF4D59 0%, #FF8C93 100%), rgba(255, 255, 255, 0.20);
+}
+
+.button-upgrade-plan-banner:hover {
+    color: white;
 }
 
 .event-banner-wrapper{

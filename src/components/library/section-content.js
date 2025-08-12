@@ -66,7 +66,7 @@ const SectionContentWrapper = (props) => {
     const { modalData, closeImporter, setExporting, exporting, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger, setLibraryError, setSingleId, setSingleData, selectItem, setSelectItem } = props;
     const { layoutContentData: data } = modalData;
     const [categories, setCategories] = useState({});
-    const [license, setLicense] = useState(false);
+    const [license, setLicense] = useState([]);
     const [status, setStatus] = useState('');
     const [content, setContent] = useState({});
     const [scroller, setScroller] = useState(null);
@@ -107,7 +107,7 @@ const SectionContentWrapper = (props) => {
     useEffect(() => {
         const { sectionData, sectionCategories } = library;
         const categories = filterCategories(sectionData, sectionCategories, {
-            license: license?.value,
+            license: license,
             author: author?.value,
             status: status?.value,
         }, 'section');

@@ -6,7 +6,6 @@ import { withSelect, dispatch } from '@wordpress/data';
 import { filterLayout, filterCategories, likeLayout } from './library-helper';
 import SearchBar from './search-bar';
 import Select from 'react-select';
-import { Loader } from 'react-feather';
 import { customStyles } from './style';
 import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG } from 'gutenverse-core/icons';
 import Paging from './paging';
@@ -56,7 +55,7 @@ const LayoutContent = (props) => {
 const LayoutContentList = ({ libraryData, modalData, content, setContent, setSingleId, setSlug, burger }) => {
     const data = modalData.layoutContentData;
     const [categories, setCategories] = useState([]);
-    const [license, setLicense] = useState('');
+    const [license, setLicense] = useState([]);
     const [status, setStatus] = useState('');
     const [scroller, setScroller] = useState(null);
     const scrollerRef = useRef();
@@ -84,7 +83,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     useEffect(() => {
         const { layoutData, layoutCategories } = libraryData;
         const categories = filterCategories(layoutData, layoutCategories, {
-            license: license?.value,
+            license: license,
             author: author?.value,
             status: status?.value,
             keyword,
@@ -153,15 +152,17 @@ export const SelectLicense = ({ license, setLicense }) => {
     return <div className="gutenverse-library-select">
         <Select
             styles={customStyles}
-            isMulti={false}
+            isMulti={true}
             value={license}
             onChange={license => {
                 setLicense(license);
-                dispatch( 'gutenverse/library' ).setLicense(license.value);
+                dispatch( 'gutenverse/library' ).setLicense(license);
             }}
             options={[
-                { value: '', label: __('All', '--gctd--') },
-                { value: 'pro', label: __('Pro', '--gctd--') },
+                { value: 'basic', label: __('Basic', '--gctd--') },
+                { value: 'professional', label: __('Professional', '--gctd--') },
+                { value: 'agency', label: __('Agency', '--gctd--') },
+                { value: 'Enterprise', label: __('Enterprise', '--gctd--') },
                 { value: 'free', label: __('Free', '--gctd--') },
             ]}
         />
