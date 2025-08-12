@@ -7,7 +7,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { installAndActivateTheme, installingPlugins } from 'gutenverse-core/helper';
 
 const ThemesContent = (props) => {
-    const { imgDir, proDemoUrl, domainURL } = window['GutenverseConfig'] || {};
+    const { imgDir, proDemoUrl, domainURL } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
     const [buttonText, setButtonText] = useState(__('Install Unibiz Theme', 'gutenverse'));
     const activateTheme = (slug) => {
         setButtonText(<IconLoadingSVG />);

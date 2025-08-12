@@ -341,6 +341,7 @@ class Dashboard {
 	 */
 	public function child_menu() {
 		$path            = admin_url( 'admin.php?page=gutenverse&path=' );
+		$active_theme    = get_option( 'stylesheet' );
 		$show_theme_list = apply_filters( 'gutenverse_show_theme_list', true );
 
 		add_submenu_page(
@@ -363,17 +364,17 @@ class Dashboard {
 			1
 		);
 
-		if ( $show_theme_list ) {
-			add_submenu_page(
-				self::TYPE,
-				esc_html__( 'Theme List', '--gctd--' ),
-				esc_html__( 'Theme List', '--gctd--' ),
-				'manage_options',
-				$path . 'theme-list',
-				null,
-				2
-			);
-		}
+		// if ( $show_theme_list ) {
+		// add_submenu_page(
+		// self::TYPE,
+		// esc_html__( 'Theme List', '--gctd--' ),
+		// esc_html__( 'Theme List', '--gctd--' ),
+		// 'manage_options',
+		// $path . 'theme-list',
+		// null,
+		// 2
+		// );
+		// }
 
 		add_submenu_page(
 			self::TYPE,
@@ -382,8 +383,20 @@ class Dashboard {
 			'manage_options',
 			$path . 'block-list',
 			null,
-			3
+			2
 		);
+
+		if ( 'unibiz' !== $active_theme ) {
+			add_submenu_page(
+				self::TYPE,
+				esc_html__( 'Themes', '--gctd--' ),
+				esc_html__( 'Themes', '--gctd--' ),
+				'manage_options',
+				$path . 'themes',
+				null,
+				3
+			);
+		}
 
 		add_submenu_page(
 			self::TYPE,

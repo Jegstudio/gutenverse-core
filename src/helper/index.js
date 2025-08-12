@@ -812,7 +812,7 @@ export const versionCompare = (v1, v2, operator) => {
 
 export const installingPlugins = (pluginsList) => {
     return new Promise((resolve, reject) => {
-        const { plugins: installedPlugin } = window['GutenverseConfig'];
+        const { plugins: installedPlugin } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
         const plugins = pluginsList.map(plgn => ({
             name: plgn.name,

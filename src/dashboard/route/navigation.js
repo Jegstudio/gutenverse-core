@@ -37,16 +37,22 @@ const Navigation = ({ location }) => {
                 path: 'ecosystem',
                 priority: 1
             },
-            !isEmpty(showThemeList) && {
-                name: __('Theme List', '--gctd--'),
-                slug: homeSlug,
-                path: 'theme-list',
-                priority: 2
-            },
+            // !isEmpty(showThemeList) && {
+            //     name: __('Theme List', '--gctd--'),
+            //     slug: homeSlug,
+            //     path: 'theme-list',
+            //     priority: 2
+            // },
             {
                 name: __('Blocks', '--gctd--'),
                 slug: homeSlug,
                 path: 'block-list',
+                priority: 2
+            },
+            activeTheme !== 'unibiz' && {
+                name: __('Themes', '--gctd--'),
+                slug: homeSlug,
+                path: 'themes',
                 priority: 3
             },
             {
