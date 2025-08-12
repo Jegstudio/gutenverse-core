@@ -33,12 +33,14 @@ const Link = ({
             return <ButtonPro />;
 
         } else {
-            return <a href={to?.search} className={className} onClick={onClick}>
-                <div className="setting-label" >
-                    {children}
-                    <span className="pro-label">PRO</span>
-                </div>
-            </a>
+            const ButtonPro = applyFilters('gutenverse.setting-pro-button', () =>
+                <a href={to?.search} className={className} onClick={onClick}>
+                    <div className="setting-label" >
+                        {children}
+                        <span className="pro-label">PRO</span>
+                    </div>
+                </a>, { to, className, onClick, children });
+            return <ButtonPro />;
         }
     }
 
