@@ -1,4 +1,5 @@
 import { __ } from '@wordpress/i18n';
+import { applyFilters } from '@wordpress/hooks';
 
 
 
@@ -6,8 +7,7 @@ const {
     activePlugins = []
 } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
-const getPluginTabs = () => {
-
+export const getPluginTabs = () => {
     const pluginTabs = {
         'form': {
             title: __('Form', 'gutenverse'),
@@ -16,7 +16,7 @@ const getPluginTabs = () => {
         'news': {
             title: __('Gutenverse News', 'gutenverse'),
             pro: false,
-            subMenu: [
+            subMenu: applyFilters('gutenverse.news.settings.submenu', [
                 {
                     id: 'block_settings',
                     title: 'Global Block Settings'
@@ -27,7 +27,7 @@ const getPluginTabs = () => {
                     pro: true,
                     withAccess: true
                 }
-            ]
+            ])
         },
     };
 
@@ -59,17 +59,18 @@ export const generalTabs = {
     },
 };
 
-export const pluginTabs = getPluginTabs();
 const setitngTitle = {
-    editor: 'Editor Settings',
-    frontend: 'Frontend Settings',
-    template: 'Template Settings',
-    'gtb-setting-tab': 'Theme Builder Settings',
-    'font-icon': 'Font Icon Settings',
-    'custom-font': 'Custom Font Settings',
-    form: 'Form Settings',
-    block_settings: 'Global Block Settings',
-    additional_features: 'Gutenverse News Additional Features',
+    editor: __('Editor Settings', '--gctd--'),
+    frontend: __('Frontend Settings', '--gctd--'),
+    template: __('Template Settings', '--gctd--'),
+    'gtb-setting-tab': __('Theme Builder Settings', '--gctd--'),
+    'font-icon': __('Font Icon Settings', '--gctd--'),
+    'custom-font': __('Custom Font Settings', '--gctd--'),
+    form: __('Form Settings', '--gctd--'),
+    block_settings: __('Global Block Settings', '--gctd--'),
+    additional_features: __('Gutenverse News Additional Features', '--gctd--'),
+    view_counter: __('View Counter Settings', '--gctd--'),
+    paywall: __('Paywall Settings', '--gctd--'),
 
 };
 

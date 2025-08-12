@@ -9,7 +9,7 @@ import FontIconSetting from './src/settings/font-icon-setting';
 import { DashboardBody, DashboardContent, DashboardHeader, PopupPro, PopupInstallPlugin } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
 import { getSettingsIcon } from 'gutenverse-core/icons';
-import { generalTabs, getSettingTitle, pluginTabs } from "./tabs";
+import { generalTabs, getPluginTabs, getSettingTitle } from "./tabs";
 
 const SettingsBody = ({ settings, ...props }) => {
     let body = '';
@@ -85,6 +85,7 @@ const Settings = (props) => {
     const settings = query.get('settings') ? query.get('settings') : 'editor';
     const subSettings = query.get('sub-menu') ? query.get('sub-menu') : '';
     props = { ...props, settings, subSettings };
+    const pluginTabs = getPluginTabs();
     return <DashboardContent>
         <PopupPro
             active={popupActive}
