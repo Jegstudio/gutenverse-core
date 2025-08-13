@@ -1245,65 +1245,70 @@ class Api {
 	 * @param object $request .
 	 */
 	public function modify_settings( $request ) {
-		global $wp_filesystem;
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-		WP_Filesystem();
-		$data        = $request->get_param( 'setting' );
-		$option      = get_option( 'gutenverse-settings' );
-		$value       = $option ? $option : array();
-		$upload_dir  = wp_upload_dir();
-		$upload_path = $upload_dir['basedir'];
-		foreach ( $data as $key => $setting ) {
-			$value[ $key ] = $setting;
-			if ( 'custom_font' === $key ) {
-				foreach ( $data['custom_font']['value'] as $v ) {
-					$local_file = $upload_path . '/' . $v['font_family'] . '.css';
-					if ( file_exists( $local_file ) ) {
-						wp_delete_file( $local_file );
-					}
-				}
-				foreach ( $data['custom_font']['value'] as $v ) {
+		$data = $request->get_param( 'setting' );
 
-					if ( ! $v['font_style'] ) {
-						$v['font_style'] = 'normal';
+		if ( array_key_exists( 'gvnews_settings', $data ) ) {
+			update_option( 'gvnews_settings', $data['gvnews_settings'] );
+		} else {
+			global $wp_filesystem;
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			WP_Filesystem();
+			$option      = get_option( 'gutenverse-settings' );
+			$value       = $option ? $option : array();
+			$upload_dir  = wp_upload_dir();
+			$upload_path = $upload_dir['basedir'];
+			foreach ( $data as $key => $setting ) {
+				$value[ $key ] = $setting;
+				if ( 'custom_font' === $key ) {
+					foreach ( $data['custom_font']['value'] as $v ) {
+						$local_file = $upload_path . '/' . $v['font_family'] . '.css';
+						if ( file_exists( $local_file ) ) {
+							wp_delete_file( $local_file );
+						}
 					}
-					if ( ! $v['font_weight'] ) {
-						$v['font_weight'] = 'normal';
+					foreach ( $data['custom_font']['value'] as $v ) {
+
+						if ( ! $v['font_style'] ) {
+							$v['font_style'] = 'normal';
+						}
+						if ( ! $v['font_weight'] ) {
+							$v['font_weight'] = 'normal';
+						}
+						$text = '';
+						if ( $v['font_src_woff'] ) {
+							$text .= $this->add_css_custom_font( $v, $v['font_src_woff'] );
+						}
+						if ( $v['font_src_woff2'] ) {
+							$text .= $this->add_css_custom_font( $v, $v['font_src_woff2'] );
+						}
+						if ( $v['font_src_ttf'] ) {
+							$text .= $this->add_css_custom_font( $v, $v['font_src_ttf'] );
+						}
+						if ( $v['font_src_otf'] ) {
+							$text .= $this->add_css_custom_font( $v, $v['font_src_otf'] );
+						}
+						if ( $v['font_src_svg'] ) {
+							$text .= $this->add_css_custom_font( $v, $v['font_src_svg'] );
+						}
+						$local_file = $upload_path . '/' . $v['font_family'] . '.css';
+						if ( $wp_filesystem->exists( $local_file ) ) {
+							$content  = $wp_filesystem->get_contents( $local_file );
+							$content .= $text;
+						} else {
+							$content = $text;
+						}
+						$wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE );
 					}
-					$text = '';
-					if ( $v['font_src_woff'] ) {
-						$text .= $this->add_css_custom_font( $v, $v['font_src_woff'] );
-					}
-					if ( $v['font_src_woff2'] ) {
-						$text .= $this->add_css_custom_font( $v, $v['font_src_woff2'] );
-					}
-					if ( $v['font_src_ttf'] ) {
-						$text .= $this->add_css_custom_font( $v, $v['font_src_ttf'] );
-					}
-					if ( $v['font_src_otf'] ) {
-						$text .= $this->add_css_custom_font( $v, $v['font_src_otf'] );
-					}
-					if ( $v['font_src_svg'] ) {
-						$text .= $this->add_css_custom_font( $v, $v['font_src_svg'] );
-					}
-					$local_file = $upload_path . '/' . $v['font_family'] . '.css';
-					if ( $wp_filesystem->exists( $local_file ) ) {
-						$content  = $wp_filesystem->get_contents( $local_file );
-						$content .= $text;
-					} else {
-						$content = $text;
-					}
-					$wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE );
+				}
+				if ( 'frontend_settings' === $key ) {
+					gutenverse_delete_sceduler( 'gutenverse_cleanup_cached_style' );
 				}
 			}
-			if ( 'frontend_settings' === $key ) {
-				gutenverse_delete_sceduler( 'gutenverse_cleanup_cached_style' );
+			if ( ! isset( $option ) ) {
+				add_option( 'gutenverse-settings', $value );
+			} else {
+				update_option( 'gutenverse-settings', $value );
 			}
-		}
-		if ( ! isset( $option ) ) {
-			add_option( 'gutenverse-settings', $value );
-		} else {
-			update_option( 'gutenverse-settings', $value );
 		}
 
 		return true;

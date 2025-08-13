@@ -185,10 +185,30 @@ class Dashboard {
 		$config['eventBanner']      = gutenverse_get_event_banner();
 		$config['activeTheme']      = get_option( 'stylesheet' );
 		$config['showThemeList']    = apply_filters( 'gutenverse_show_theme_list', true );
+		$config['activePlugins']    = $this->get_active_plugins();
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
+	/**
+	 * Get active plugin lists.
+	 *
+	 * @return array
+	 */
+	public function get_active_plugins() {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+		$active_plugins = get_option( 'active_plugins' );
+		$all_plugins    = get_plugins();
+		$plugin_lists   = array();
+		foreach ( $active_plugins as $plugin ) {
+			if ( isset( $all_plugins[ $plugin ] ) && isset( $all_plugins[ $plugin ]['TextDomain'] ) ) {
+				$plugin_lists[] = $all_plugins[ $plugin ]['TextDomain'];
+			}
+		}
 
+		return $plugin_lists;
+	}
 	/**
 	 * System Status.
 	 *
@@ -313,7 +333,7 @@ class Dashboard {
 		$upload_path = wp_upload_dir();
 
 		$config                    = array();
-		$config['settingsData']    = get_option( 'gutenverse-settings', array() );
+		$config['settingsData']    = apply_filters( 'gutenverse_settings_data', get_option( 'gutenverse-settings', array() ) );
 		$config['blockCategories'] = Init::instance()->blocks->gutenverse_categories();
 		$config['uploadPath']      = $upload_path['basedir'];
 		$config['renderSchedule']  = gmdate( 'Y-m-d H:i:s', wp_next_scheduled( 'gutenverse_cleanup_cached_style' ) );

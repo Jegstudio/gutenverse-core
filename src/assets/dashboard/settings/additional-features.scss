@@ -1,0 +1,87 @@
+.template-tab-body {
+    &.additional-features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+
+        .feature-card {
+            background: #F2F4F7;
+            border: 1px solid #E3E4E6;
+            border-radius: 5px;
+            font-family: "Roboto";
+            color: #011627;
+
+            &.locked {
+                border: 1px solid #E32D64;
+                position: relative;
+                overflow: hidden;
+
+                .pro-label {
+                    background-color: #e32d64;
+                    color: #fff;
+                    font-size: 9px;
+                    font-weight: 600;
+                    left: 0;
+                    line-height: 1;
+                    margin: 0;
+                    padding: 10px 16px 2px;
+                    position: absolute;
+                    top: 0;
+                    transform: rotate(-45deg) translate(-9px, -13px);
+                }
+            }
+
+            .card-body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 24px 20px;
+                border-bottom: 1px solid #E3E4E6;
+
+                .card-title {
+                    margin: 16px 0 6px 0;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 1;
+                }
+
+                p {
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 1.4;
+                    color: #40505D;
+                    margin: 0;
+                    text-align: center;
+                }
+
+                .card-icon {
+                    width: 64px;
+                    height: 64px;
+                    background: #3B57F7;
+                    border-radius: 50%;
+                    display: flex;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+
+            .card-action {
+                padding: 20px;
+
+                .control-wrapper {
+                    padding: 0 !important;
+                    border: none;
+
+                    label {
+                        margin: 0 !important;
+                        font-weight: 500;
+                        font-size: 12px;
+                        line-height: 1;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+    }
+}

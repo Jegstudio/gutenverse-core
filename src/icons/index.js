@@ -61,6 +61,16 @@ import IconConditionsBlock from './icon/icon-condition-filter.svg';
 import IconWarningDeprecated from './icon/deprecated-warning.svg';
 
 
+/* Settings Icon */
+import IconSettingsEditor from './icon/settings-editor.svg';
+import IconSettingsFrontend from './icon/settings-frontend.svg';
+import IconSettingsFontIcon from './icon/settings-font-icon.svg';
+import IconSettingsCustomFont from './icon/settings-custom-font.svg';
+import IconSettingsTemplate from './icon/settings-template.svg';
+import IconSettingsNews from './icon/settings-news.svg';
+import IconSettingsTemplateBuilder from './icon/settings-theme-builder.svg';
+import IconSettingsForm from './icon/settings-form.svg';
+
 export const LogoGutenverseSquareSVG = ({fill = 'none', height='128', width='128'}) => {
     return <svg fill={fill} height={height} viewBox="0 0 128 128" width={width} xmlns="http://www.w3.org/2000/svg">
         <path d="m0 0h128v128h-128z" fill="#3b57f7"/>
@@ -424,3 +434,15 @@ export const IconWarningDeprecatedSVG = () => {
 export const IconSectionSliderSVG = () => {
     return <IconSectionSlider />;
 };
+
+export const getSettingsIcon = () => {
+    return {
+        editor: <IconSettingsEditor />,
+        frontend: <IconSettingsFrontend />,
+        template: <IconSettingsTemplate />,
+        ['font-icon']: <IconSettingsFontIcon />,
+        ['custom-font']: <IconSettingsCustomFont />,
+        news: <IconSettingsNews />,
+        form: <IconSettingsForm />,
+    }
+}
