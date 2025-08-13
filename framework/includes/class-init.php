@@ -455,7 +455,6 @@ class Init {
 			const installingPlugins = (pluginsList) => {
 				return new Promise((resolve, reject) => {
 					const { plugins: installedPlugin } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
-
 					const plugins = pluginsList.map(plgn => ({
 						name: plgn.name,
 						slug: plgn.slug,
@@ -464,7 +463,6 @@ class Init {
 						installed: !!installedPlugin[plgn.slug],
 						active: !!installedPlugin[plgn.slug]?.active,
 					}));
-
 					setTimeout(() => {
 						const installPlugins = (index = 0) => {
 							if (index >= plugins.length) {
@@ -478,35 +476,27 @@ class Init {
 								// Not installed
 								if (!plugin.installed) {
 									wp.apiFetch({
-										url: 'wp/v2/plugins',
+										path: 'wp/v2/plugins',
 										method: 'POST',
 										data: {
 											slug: plugin.slug,
 											status: 'active'
-										},
-										success: () => {
-											setTimeout(() => installPlugins(index + 1), 1500);
-										},
-										error: () => {
-											setTimeout(() => installPlugins(index + 1), 1500);
 										}
-									});
+									}).then(()=> setTimeout(() => installPlugins(index + 1), 1500)
+									).catch((err) => console.log(err));
 
 									// Installed but not active
 								} else if (!plugin.active) {
+									const slug = plugin.slug;
+									const path = `${slug}/${slug}`;
 									wp.apiFetch({
-										url: `wp/v2/plugins/plugin?plugin=${plugin.slug}/${plugin.slug}`,
+										path: `wp/v2/plugins/plugin?plugin=${path}`,
 										method: 'POST',
 										data: {
-											data: { status: 'active' }
-										},
-										success: () => {
-											setTimeout(() => installPlugins(index + 1), 1500);
-										},
-										error: () => {
-											setTimeout(() => installPlugins(index + 1), 1500);
+											status: 'active'
 										}
-									});
+									}).then(()=> setTimeout(() => installPlugins(index + 1), 1500)
+									).catch((err) => console.log(err));
 
 									// Already installed & active
 								} else {
@@ -522,17 +512,15 @@ class Init {
 			const installAndActivateTheme = (slug) => {
 				return new Promise((resolve, reject) => {
 					wp.apiFetch({
-						url: `gutenverse-client/v1/library/install-activate-theme`,
+						path: `gutenverse-client/v1/library/install-activate-theme`,
 						method: 'POST',
 						data: {
 							slug: slug,
-							_ajax_nonce: window.themeInstallNonce
 						},
-						success: (data) => resolve(data),
-						error: (err) => {
-							console.error('Error:', err);
-							reject(err);
-						}
+					}).then((data) => resolve(data)
+					).catch((err) => {
+						console.error('Error', err);
+						reject(err);
 					});
 				});
 			}
@@ -556,25 +544,16 @@ class Init {
 					// Step 1: Install + Activate Theme
 					installAndActivateTheme(themeSlug)
 						.then(themeResponse => {
-							console.log('Theme installed and activated:', themeResponse);
-
-							// Step 2: Install + Activate Plugins
 							return installingPlugins(pluginsList);
 						})
 						.then(() => {
-							console.log('All plugins installed and activated!');
-							
 							// Redirect to Gutenverse Companion dashboard demo page
 							window.location.replace(
-								`${domainURL}/wp-admin/admin.php?page=gutenverse-companion-dashboard&path=demo`
+								`${window.location.origin}/wp-admin/admin.php?page=gutenverse-companion-dashboard&path=demo`
 							);
 						})
 						.catch(err => {
 							console.error('Installation failed:', err);
-							
-							// Optional: only run if setButtonText is defined
-							
-							
 							alert('Something went wrong during installation. Please try again.');
 						});
 				});
