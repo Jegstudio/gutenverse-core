@@ -74,7 +74,8 @@
     }
 }
 
-.button-upgrade-plan-banner {cursor: pointer;
+.button-upgrade-plan-banner {
+    cursor: pointer;
     display: flex;
     gap: 6px;
     padding: 10px 16px;
@@ -86,7 +87,7 @@
     line-height: normal;
     width: fit-content;
     white-space: nowrap;
-    color: white;
+    color: white !important;
     transition: all .5s ease;
     justify-content: center;
     align-items: center;
