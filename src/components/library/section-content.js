@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from '@wordpress/element';
 import PluginInstallMode from './plugin-install-mode';
 import { useSelect, dispatch, withSelect } from '@wordpress/data';
-import { RenderCategories, SelectAuthor, SelectLicense, SelectStatus } from './layout-content';
+import { RenderCategories, SelectLicense, SelectStatus } from './layout-content';
 import { filterCategories, filterSection, likeSection, getPluginRequirementStatus } from './library-helper';
 import Paging from './paging';
 import { __, _n, sprintf } from '@wordpress/i18n';
@@ -72,8 +72,6 @@ const SectionContentWrapper = (props) => {
     const [scroller, setScroller] = useState(null);
     const [categoryCache, setCategoryCache] = useState('');
     const scrollerRef = useRef();
-    const [authors, setAuthors] = useState([]);
-    const [author, setAuthor] = useState(null);
     const savedScrollPosition = useRef(0);
 
     useEffect(() => {
@@ -108,11 +106,10 @@ const SectionContentWrapper = (props) => {
         const { sectionData, sectionCategories } = library;
         const categories = filterCategories(sectionData, sectionCategories, {
             license: license,
-            author: author?.value,
             status: status?.value,
         }, 'section');
         setCategories(categories);
-    }, [license, author]);
+    }, [license]);
 
     const categoryListClicked = (id, name) => {
         dispatch('gutenverse/library').setPaging(1);
@@ -138,10 +135,6 @@ const SectionContentWrapper = (props) => {
             {dev && <>
                 <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
                 <SelectStatus status={status} setStatus={setStatus} />
-            </>}
-            {authors.length > 1 && <>
-                <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
-                <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} dispatchData={dispatchData} />
             </>}
             <h2 className="gutenverse-library-side-heading">
                 {__('Style', '--gctd--')}
