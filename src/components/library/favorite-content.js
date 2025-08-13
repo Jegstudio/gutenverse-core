@@ -2,9 +2,9 @@
 import { sprintf, __ } from '@wordpress/i18n';
 import { withSelect, dispatch } from '@wordpress/data';
 import { useEffect, useState, useRef } from '@wordpress/element';
-import { filterCategories, filterSection, getDistincAuthor, filterLayout } from './library-helper';
+import { filterCategories, filterSection, filterLayout } from './library-helper';
 import { IconBlocksSVG, IconLayoutsSVG } from 'gutenverse-core/icons';
-import { LayoutContentData, RenderCategories, SelectAuthor, SelectLicense, SelectStatus } from './layout-content';
+import { LayoutContentData, RenderCategories, SelectLicense, SelectStatus } from './layout-content';
 import { SectionContentData } from './section-content';
 import SingleLayoutContent from './single-layout-content';
 import PluginInstallMode from './plugin-install-mode';
@@ -26,8 +26,6 @@ const FavoriteContent = props => {
     const scrollerRef = useRef();
     const [currentItem, setCurrentItem] = useState(null);
     const [pluginInstallMode, setPluginInstallMode] = useState(false);
-    const [authors, setAuthors] = useState([]);
-    const [author, setAuthor] = useState(null);
 
     useEffect(() => {
         dispatch('gutenverse/library').setCategories([]);
@@ -96,18 +94,12 @@ const FavoriteContent = props => {
                 like: true
             });
             refreshContent(result);
-
-            const authors = getDistincAuthor(layoutData);
-            setAuthors(authors);
         } else {
             const result = filterSection(sectionData, {
                 ...layoutContentData,
                 like: true
             });
             refreshContent(result);
-
-            const authors = getDistincAuthor(sectionData);
-            setAuthors(authors);
         }
     }, [layoutContentData, library]);
 
@@ -176,10 +168,6 @@ const FavoriteContent = props => {
                 {dev && <>
                     <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
                     <SelectStatus status={status} setStatus={setStatus} />
-                </>}
-                {authors.length > 1 && <>
-                    <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
-                    <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} />
                 </>}
                 {
                     'layout' === layoutContentData.library ? <>

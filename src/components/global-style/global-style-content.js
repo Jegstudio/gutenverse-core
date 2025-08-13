@@ -26,7 +26,7 @@ const GlobalStyleContent = (props) => {
                     'gutenverse.custom.css.locked',
                     <DefaultLayout
                         title={__('Unlock Custom CSS', '--gctd--')}
-                        description={__('Have a small styling you need to fix? You can dd your own custom CSS for each page.', '--gctd--')}
+                        description={__('Have a styling you need to fix? You can do your own custom CSS for each page.', '--gctd--')}
                         isOpen={true}
                         permaLink={__('animation-effects/')}
                     />,
@@ -39,7 +39,7 @@ const GlobalStyleContent = (props) => {
                     'gutenverse.custom.js.locked',
                     <DefaultLayout
                         title={__('Unlock Custom JS', '--gctd--')}
-                        description={__('Need to run a specific script? You can dd your own custom JS for each page.', '--gctd--')}
+                        description={__('Need to run a specific script? You can do your own custom JS for each page.', '--gctd--')}
                         isOpen={true}
                         permaLink={__('animation-effects/')}
                     />,

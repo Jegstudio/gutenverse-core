@@ -6,10 +6,10 @@ import { applyFilters } from '@wordpress/hooks';
 import EditorSetting from './src/settings/editor-setting';
 import TemplateSetting from './src/settings/template-setting';
 import FontIconSetting from './src/settings/font-icon-setting';
-import { DashboardBody, DashboardContent, DashboardHeader, PopupPro, PopupInstallPlugin } from '../../components';
+import { DashboardBody, DashboardContent, PopupPro, PopupInstallPlugin } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
 import { getSettingsIcon } from 'gutenverse-core/icons';
-import { generalTabs, getPluginTabs, getSettingTitle } from "./tabs";
+import { generalTabs, getPluginTabs, getSettingTitle } from './tabs';
 
 const SettingsBody = ({ settings, ...props }) => {
     let body = '';
@@ -95,7 +95,7 @@ const Settings = (props) => {
         <PopupInstallPlugin
             active={installPopup}
             setActive={setInstallPopup}
-            description={<>Please Install Gutenverse News Add's On Plugin</>}
+            description={<>{__('Please Install Gutenverse News Add\'s On Plugin', '--gctd--')}</>}
         />
         <DashboardBody>
             <div className="setting-tabs">
@@ -141,13 +141,13 @@ const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, t
         {Object.keys(tabs).map(key => {
             const item = tabs[key].title;
             const icon = icons[key] ? icons[key] : '';
-            const param = "subMenu" in tabs[key] ? `?page=${page}&path=${path}&settings=${key}&sub-menu=${tabs[key].subMenu[0].id}` : `?page=${page}&path=${path}&settings=${key}`;
+            const param = 'subMenu' in tabs[key] ? `?page=${page}&path=${path}&settings=${key}&sub-menu=${tabs[key].subMenu[0].id}` : `?page=${page}&path=${path}&settings=${key}`;
             const classes = classnames('tab-item', {
                 active: key === settings,
                 locked: tabs[key].pro
             });
-            return <div className='nav-wrapper' key={param}>
-                <div className='main-menu'>
+            return <div className="nav-wrapper" key={param}>
+                <div className="main-menu">
                     <Link
                         index={key}
                         to={{
@@ -164,7 +164,7 @@ const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, t
                     </Link>
                 </div>
 
-                {"subMenu" in tabs[key] && (key === settings) && <div className='sub-menu'>
+                {'subMenu' in tabs[key] && (key === settings) && <div className="sub-menu">
                     {tabs[key].subMenu.map((value) => {
                         let item = value.title;
                         let param = `?page=${page}&path=${path}&settings=${key}&sub-menu=${value.id}`;
@@ -186,14 +186,14 @@ const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, t
                             withAccess={value.withAccess}
                         >
                             {item}
-                        </Link>
+                        </Link>;
                     })}
 
                 </div>}
 
-            </div>
+            </div>;
         })}
-    </div>
-}
+    </div>;
+};
 
 export default Settings;
