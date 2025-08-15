@@ -8,7 +8,6 @@ export const popupPanel = (props) => {
         position,
         openTrigger,
     } = props;
-
     const {
         gutenverseImgDir
     } = window['GutenverseConfig'];

@@ -130,7 +130,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['height'] ) && isset( $this->attrs['heightControl'] ) && 'min' === $this->attrs['heightControl'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'min-height' );
 					},
@@ -154,7 +154,7 @@ class Icon_Box extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper",
 					'property'       => function ( $value ) {
 						return 'height: 100%;';
 					},
@@ -167,7 +167,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconPositionResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper",
 					'property'       => function ( $value ) {
 						if ( 'left' === $value ) {
 							return 'display: flex; align-items: flex-start; flex-direction: row !important;';
@@ -185,7 +185,7 @@ class Icon_Box extends Style_Abstract {
 			);
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box.icon-box-header",
+					'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper .icon-box.icon-box-header",
 					'property'       => function ( $value ) {
 						if ( 'left' === $value ) {
 							return 'margin-right: 15px; margin-left: unset !important;';
@@ -212,7 +212,7 @@ class Icon_Box extends Style_Abstract {
 			if ( isset( $this->attrs['iconSize'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon i",
+						'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper .icon-box .icon i",
 						'property'       => function ( $value ) {
 							return "font-size: {$value}px;";
 						},
@@ -227,7 +227,7 @@ class Icon_Box extends Style_Abstract {
 			if ( isset( $this->attrs['imageWidthResponsive'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
+						'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper .icon-box .icon",
 						'property'       => function ( $value ) {
 							return "width: {$value}px;";
 						},
@@ -243,7 +243,7 @@ class Icon_Box extends Style_Abstract {
 			if ( isset( $this->attrs['imageHeightResponsive'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
+						'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper .icon-box .icon",
 						'property'       => function ( $value ) {
 							return "height: {$value}px;";
 						},
@@ -259,7 +259,7 @@ class Icon_Box extends Style_Abstract {
 			if ( isset( $this->attrs['imageWidth'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
+						'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper .icon-box .icon",
 						'property'       => function ( $value ) {
 							return "width: {$value}px;";
 						},
@@ -272,7 +272,7 @@ class Icon_Box extends Style_Abstract {
 			if ( isset( $this->attrs['imageHeight'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
+						'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper .icon-box .icon",
 						'property'       => function ( $value ) {
 							return "height: {$value}px";
 						},
@@ -285,7 +285,7 @@ class Icon_Box extends Style_Abstract {
 			if ( isset( $this->attrs['imageFit'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon img",
+						'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper .icon-box .icon img",
 						'property'       => function ( $value ) {
 							return "object-fit: {$value};";
 						},
@@ -304,7 +304,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['containerPadding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -317,7 +317,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['containerPaddingHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .guten-icon-box-wrapper",
+					'selector'       => ".guten-icon-box.{$this->element_id}:hover .guten-icon-box-wrapper",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -328,21 +328,21 @@ class Icon_Box extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['containerBackground'] ) ) {
-			$this->handle_background( ".{$this->element_id} .guten-icon-box-wrapper", $this->attrs['containerBackground'] );
+			$this->handle_background( ".guten-icon-box.{$this->element_id} .guten-icon-box-wrapper", $this->attrs['containerBackground'] );
 		}
 
 		if ( isset( $this->attrs['containerBackgroundHover'] ) ) {
-			$this->handle_background( ".{$this->element_id}:hover .guten-icon-box-wrapper", $this->attrs['containerBackgroundHover'] );
+			$this->handle_background( ".guten-icon-box.{$this->element_id}:hover .guten-icon-box-wrapper", $this->attrs['containerBackgroundHover'] );
 		}
 
 		if ( isset( $this->attrs['containerBorder'] ) ) {
-			$this->handle_border( 'containerBorder', ".{$this->element_id} .guten-icon-box-wrapper" );
+			$this->handle_border( 'containerBorder', ".guten-icon-box.{$this->element_id} .guten-icon-box-wrapper" );
 		}
 
 		if ( isset( $this->attrs['containerBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'selector'       => ".guten-icon-box.{$this->element_id} .guten-icon-box-wrapper",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -358,7 +358,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['containerBoxShadow'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'selector'       => ".guten-icon-box.{$this->element_id} .guten-icon-box-wrapper",
 					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
@@ -369,13 +369,13 @@ class Icon_Box extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['containerBorderHover'] ) ) {
-			$this->handle_border( 'containerBorderHover', ".{$this->element_id}:hover .guten-icon-box-wrapper" );
+			$this->handle_border( 'containerBorderHover', ".guten-icon-box.{$this->element_id}:hover .guten-icon-box-wrapper" );
 		}
 
 		if ( isset( $this->attrs['containerBorderHoverResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .guten-icon-box-wrapper",
+					'selector'       => ".guten-icon-box.{$this->element_id}:hover .guten-icon-box-wrapper",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -391,7 +391,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['containerBoxShadowHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .guten-icon-box-wrapper",
+					'selector'       => ".guten-icon-box.{$this->element_id}:hover .guten-icon-box-wrapper",
 					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
@@ -409,7 +409,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon i",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon i",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -422,7 +422,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconHoverColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon i",
+					'selector'       => ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-header .icon i",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -435,7 +435,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconBgColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
@@ -448,7 +448,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconHoverBgColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon",
+					'selector'       => ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
@@ -459,32 +459,32 @@ class Icon_Box extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['iconGradient'] ) ) {
-			$this->custom_handle_background( ".{$this->element_id} .icon-box.icon-box-header .icon .icon-style-gradient", $this->attrs['iconGradient'] );
+			$this->custom_handle_background( ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon .icon-style-gradient", $this->attrs['iconGradient'] );
 		}
 
 		if ( isset( $this->attrs['iconGradientHover'] ) ) {
-			$this->custom_handle_background( ".{$this->element_id}:hover .icon-box.icon-box-header .icon .icon-style-gradient", $this->attrs['iconGradientHover'] );
+			$this->custom_handle_background( ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-header .icon .icon-style-gradient", $this->attrs['iconGradientHover'] );
 		}
 
 		if ( isset( $this->attrs['iconBgGradient'] ) ) {
-			$this->custom_handle_background( ".{$this->element_id} .icon-box.icon-box-header .icon.bg-style-gradient", $this->attrs['iconBgGradient'] );
+			$this->custom_handle_background( ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon.bg-style-gradient", $this->attrs['iconBgGradient'] );
 		}
 
 		if ( isset( $this->attrs['iconBgGradientHover'] ) ) {
-			$this->custom_handle_background( ".{$this->element_id}:hover .icon-box.icon-box-header .icon.bg-style-gradient", $this->attrs['iconBgGradientHover'] );
+			$this->custom_handle_background( ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-header .icon.bg-style-gradient", $this->attrs['iconBgGradientHover'] );
 		}
 
 		if ( isset( $this->attrs['iconBorder'] ) && 'icon' === $this->attrs['iconType'] ) {
-			$this->handle_border( 'iconBorder', ".{$this->element_id} .icon-box.icon-box-header .icon" );
+			$this->handle_border( 'iconBorder', ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon" );
 		}
 		if ( isset( $this->attrs['iconBorder'] ) && 'image' === $this->attrs['iconType'] ) {
-			$this->handle_border( 'iconBorder', ".{$this->element_id} .icon-box.icon-box-header .icon" );
+			$this->handle_border( 'iconBorder', ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon" );
 		}
 
 		if ( isset( $this->attrs['iconBorderResponsive'] ) && 'icon' === $this->attrs['iconType'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -499,7 +499,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconBorderResponsive'] ) && 'image' === $this->attrs['iconType'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -515,7 +515,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconBoxShadow'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
@@ -526,16 +526,16 @@ class Icon_Box extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['iconBorderHover'] ) && 'icon' === $this->attrs['iconType'] ) {
-			$this->handle_border( 'iconBorderHover', ".{$this->element_id}:hover .icon-box.icon-box-header .icon" );
+			$this->handle_border( 'iconBorderHover', ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-header .icon" );
 		}
 		if ( isset( $this->attrs['iconBorderHover'] ) && 'image' === $this->attrs['iconType'] ) {
-			$this->handle_border( 'iconBorderHover', ".{$this->element_id}:hover .icon-box.icon-box-header .icon" );
+			$this->handle_border( 'iconBorderHover', ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-header .icon" );
 		}
 
 		if ( isset( $this->attrs['iconBorderHoverResponsive'] ) && 'icon' === $this->attrs['iconType'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon",
+					'selector'       => ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -550,7 +550,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconBorderHoverResponsive'] ) && 'image' === $this->attrs['iconType'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon",
+					'selector'       => ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -566,7 +566,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconBoxShadowHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon",
+					'selector'       => ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
@@ -579,7 +579,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconPadding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -592,7 +592,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconMargin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
@@ -605,7 +605,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconRotate'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return "transform: rotate({$value}deg);";
 					},
@@ -623,7 +623,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['titlePadding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .title",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-body .title",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -636,7 +636,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['titleMargin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .title",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-body .title",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
@@ -649,7 +649,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['titleColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .title",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-body .title",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -662,7 +662,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['titleHoverColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-body .title",
+					'selector'       => ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-body .title",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -675,7 +675,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['titleTypography'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .title",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-body .title",
 					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['titleTypography'],
 					'device_control' => false,
@@ -686,7 +686,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['descMargin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .icon-box-description",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-body .icon-box-description",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
@@ -699,7 +699,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['descColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .icon-box-description",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-body .icon-box-description",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -712,7 +712,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['descHoverColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-body .icon-box-description",
+					'selector'       => ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-body .icon-box-description",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -725,7 +725,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['descTypography'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .icon-box-description",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-body .icon-box-description",
 					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['descTypography'],
 					'device_control' => false,
@@ -736,7 +736,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['watermarkColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .hover-watermark i",
+					'selector'       => ".guten-icon-box.{$this->element_id} .hover-watermark i",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -749,7 +749,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['watermarkSize'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .hover-watermark i",
+					'selector'       => ".guten-icon-box.{$this->element_id} .hover-watermark i",
 					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
@@ -767,7 +767,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['badgeTextColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box-badge .badge-text",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -780,7 +780,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['badgePadding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box-badge .badge-text",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -793,7 +793,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['badgeMargin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box-badge .badge-text",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
@@ -806,7 +806,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['badgeRadius'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box-badge .badge-text",
 					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},
@@ -817,13 +817,13 @@ class Icon_Box extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['badgeBackground'] ) ) {
-			$this->handle_background( ".{$this->element_id} .icon-box-badge .badge-text", $this->attrs['badgeBackground'] );
+			$this->handle_background( ".guten-icon-box.{$this->element_id} .icon-box-badge .badge-text", $this->attrs['badgeBackground'] );
 		}
 
 		if ( isset( $this->attrs['badgeTypography'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box-badge .badge-text",
 					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['badgeTypography'],
 					'device_control' => false,
@@ -834,7 +834,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['badgeShadow'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box-badge .badge-text",
 					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
@@ -845,10 +845,10 @@ class Icon_Box extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['iconBoxOverlay'] ) ) {
-			$this->handle_background( ".{$this->element_id} .guten-icon-box-wrapper::before", $this->attrs['iconBoxOverlay'] );
+			$this->handle_background( ".guten-icon-box.{$this->element_id} .guten-icon-box-wrapper::before", $this->attrs['iconBoxOverlay'] );
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'selector'       => ".guten-icon-box.{$this->element_id} .guten-icon-box-wrapper",
 					'property'       => function () {
 						return 'overflow: hidden;';
 					},
@@ -859,10 +859,10 @@ class Icon_Box extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['iconBoxHoverOverlay'] ) ) {
-			$this->handle_background( ".{$this->element_id} .guten-icon-box-wrapper::before", $this->attrs['iconBoxHoverOverlay'] );
+			$this->handle_background( ".guten-icon-box.{$this->element_id} .guten-icon-box-wrapper::before", $this->attrs['iconBoxHoverOverlay'] );
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'selector'       => ".guten-icon-box.{$this->element_id} .guten-icon-box-wrapper",
 					'property'       => function () {
 						return 'overflow: hidden;';
 					},
@@ -875,7 +875,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['watermarkShow'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'selector'       => ".guten-icon-box.{$this->element_id} .guten-icon-box-wrapper",
 					'property'       => function () {
 						return 'overflow: hidden;';
 					},
