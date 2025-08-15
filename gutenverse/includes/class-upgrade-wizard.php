@@ -142,6 +142,8 @@ class Upgrade_Wizard {
 			'GutenverseWizard',
 			$this->wizard_config()
 		);
+
+		do_action( 'enqueue_script_in_wizard' );
 	}
 
 	/**

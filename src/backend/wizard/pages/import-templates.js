@@ -5,7 +5,7 @@ import { assignTemplates, fetchingDataImport, getDemo, importingPatterns, import
 import { ImporterModal } from '../components/importer-modal';
 import { DemoCard } from '../components/demo-card';
 
-export const ImportTemplates = ({ updateProgress }) => {
+export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
     const [templateList, setTemplateList] = useState([]);
     const [isImport, setisImport] = useState(false);
     const [fetch, setFetch] = useState(true);
@@ -275,7 +275,7 @@ export const ImportTemplates = ({ updateProgress }) => {
                 </svg>
                 {__('Back', 'gutenverse')}
             </div>
-            <div onClick={() => updateProgress('upgradePro', 3)} className="button-next">{__('Next', 'gutenverse')}</div>
+            <div onClick={() => emptyLicense ? updateProgress('upgradePro', 3) : updateProgress('done', 4)} className="button-next">{__('Next', 'gutenverse')}</div>
         </div>
     </div>;
 };

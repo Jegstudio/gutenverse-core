@@ -189,28 +189,17 @@ class Upgrader {
 		$flag             = get_option( $this->get_plugin_theme_select_name() );
 		$using_base_theme = apply_filters( 'gutenverse_companion_base_theme', false );
 		$needs_redirect   = get_transient( 'gutenverse_wizard_redirect' );
-
-		// add_filter( 'wp_redirect', function( $location, $status ) {
-		// 	if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
-		// 		$referer = $_SERVER['HTTP_REFERER'];
-
-		// 		if ( strpos( $referer, 'page=theme-wizard' ) !== false ) {
-		// 			if ( isset( $_SERVER['QUERY_STRING'] ) && 'action=gutenverse-onboarding-wizard' === $_SERVER['QUERY_STRING'] ) {
-
-		// 			} else {
-		// 				delete_option( $this->get_plugin_theme_select_name() );
-		// 			}
-		// 		}
-		// 	}
-		// 	return $location;
-		// }, 10, 2 );
 		if ( ! $flag && $needs_redirect && current_user_can( 'manage_options' ) && ! $using_base_theme ) {
 
-			// do_action( 'gutenverse_include_dashboard' );
 			add_option( $this->get_plugin_theme_select_name(), true );
 			delete_transient( 'gutenverse_wizard_redirect' );
 
-			wp_safe_redirect( admin_url( 'admin.php?action=gutenverse-onboarding-wizard' ) );
+			wp_safe_redirect(
+				wp_nonce_url(
+					admin_url( 'admin.php?action=gutenverse-onboarding-wizard' ),
+					'gutenverse_onboarding'
+				)
+			);
 			exit;
 		}
 	}

@@ -5,6 +5,7 @@ import { ImportTemplates } from '../pages/import-templates';
 import apiFetch from '@wordpress/api-fetch';
 import classnames from 'classnames';
 import { requirementCheck } from '../helper';
+import { applyFilters } from '@wordpress/hooks';
 
 const getInstalledThemes = (func) => {
     apiFetch({
@@ -389,10 +390,7 @@ const WizardPage = () => {
     const [clicked, setClicked] = useState(0);
     const [requirement, setRequirement] = useState(0);
     const gutenverseWizard = window.GutenverseWizard;
-
-    useEffect(() => {
-        console.log('window?.gprodata', window?.gprodata);
-    }, [clicked]);
+    const emptyLicense = applyFilters('gutenverse.panel.tab.pro.content', true);
 
     const updateProgress = (progress, inc) => {
         setProgress(progress);
@@ -419,7 +417,7 @@ const WizardPage = () => {
             case 'pluginAndTheme':
                 return <SelectBaseTheme updateProgress={updateProgress} action={action} setAction={setAction} gutenverseWizard={gutenverseWizard} setClicked={setClicked} requirement={requirement} />;
             case 'importTemplate':
-                return <ImportTemplates updateProgress={updateProgress} />;
+                return <ImportTemplates updateProgress={updateProgress} emptyLicense={emptyLicense} />;
             case 'upgradePro':
                 return <UpgradePro updateProgress={updateProgress} requirement={requirement}/>;
             case 'done':
@@ -457,15 +455,14 @@ const WizardPage = () => {
                     <p className="number">3</p>
                     <h3 className="progress-title">{__('Import Template', 'gutenverse')}</h3>
                 </div>}
-                <div className={`progress ${progress === 'upgradePro' ? 'active' : ''} ${progressCount >= 3 ? 'done' : ''}`}>
+                {emptyLicense && <div className={`progress ${progress === 'upgradePro' ? 'active' : ''} ${progressCount >= 3 ? 'done' : ''}`}>
                     <p className="number">{requirement ? '4' : '3'}</p>
                     <h3 className="progress-title">{__('Upgrade Your Site', 'gutenverse')}</h3>
-                </div>
+                </div>}
                 <div className={`progress ${progress === 'done' ? 'active' : ''} ${progressCount >= 4 ? 'done' : ''}`}>
-                    <p className="number">{requirement ? '5' : '4'}</p>
+                    <p className="number">{requirement && emptyLicense ? '5' : '4'}</p>
                     <h3 className="progress-title">{__('Finalizing', 'gutenverse')}</h3>
                 </div>
-                <button onClick={() => setClicked(prev => prev + 1)}>click</button>
             </div>
             <div className="wizard-body">
                 {content()}

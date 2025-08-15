@@ -51,7 +51,7 @@ const ButtonUpgradePro = (props) => {
     };
 
     const TheButton = () => {
-        if (isEmpty(window?.GutenverseWizard?.isProActive)) {
+        if (isEmpty(window?.gprodata)) {
             return button(text, 'crown', false);
         } else {
             return applyFilters('gutenverse.button.pro.banner',
