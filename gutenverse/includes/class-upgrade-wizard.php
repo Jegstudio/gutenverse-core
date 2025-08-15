@@ -268,7 +268,6 @@ class Upgrade_Wizard {
 	 */
 	public function onboard_wizard_page() {
 		$flag = get_option( 'gutenverse_theme_select_complete' );
-		$flag = null;
 		if ( $flag || ! current_user_can( 'manage_options' ) ) {
 			wp_die( 'You are not allowed to access this page.', 'Access Denied', array( 'response' => 403 ) );
 		}

@@ -310,7 +310,6 @@ class Api {
 				)
 			);
 		}
-		$fetch_time = null;
 		if ( null === $fetch_time || $fetch_time < $now ) {
 			/**Update demo data and fetch time */
 			$updated = $this->update_basetheme_data( $request );
