@@ -166,11 +166,25 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                             return category?.slug === block?.category;
                                         })
                                         .sort((first, second) => {
-                                            let firstPro = first?.pro ? 0 : 100;
-                                            let secondPro = second?.pro ? 0 : 100;
-                                            let stringCompare = first.title.localeCompare(second.title);
+                                            const tFirst = first?.title ?? '';
+                                            const tSecond = second?.title ?? '';
 
-                                            return firstPro - secondPro + stringCompare;
+                                            const hasNumFirst = /\d+$/.test(tFirst);
+                                            const hasNumSecond = /\d+$/.test(tSecond);
+
+                                            // check if tilte contain a number
+                                            if (hasNumFirst || hasNumSecond) {
+                                                return tFirst.localeCompare(tSecond, undefined, {
+                                                    numeric: true,
+                                                    sensitivity: 'base'
+                                                });
+                                            }
+
+                                            const firstPro = first?.pro ? 0 : 100;
+                                            const secondPro = second?.pro ? 0 : 100;
+                                            if (firstPro !== secondPro) return firstPro - secondPro;
+
+                                            return tFirst.localeCompare(tSecond);
                                         })
                                         .map((block) => {
                                             if (block?.parent) {
