@@ -309,6 +309,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix post block pagination’s active border
 * fix block preview in library
 * fix google map glitching when there is local anchor url
+* fix security issue. credit: Wordfence.
 
 = 3.1.0 =
 ##### New & Improvemenets

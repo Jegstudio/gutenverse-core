@@ -392,7 +392,8 @@
 	},
 	"supports": {
 		"className": false,
-		"html": false
+		"html": false,
+		"anchor": true
 	},
 	"keywords": [
 		"tabs",
