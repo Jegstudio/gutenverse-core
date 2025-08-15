@@ -203,7 +203,8 @@
 		"queryId"
 	],
 	"supports": {
-		"className": false
+		"className": false,
+		"anchor": true
 	},
 	"keywords": [
 		"archive",

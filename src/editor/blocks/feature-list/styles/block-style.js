@@ -290,6 +290,42 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     /**Panel Icon */
+    isNotEmpty(attributes['iconWrapperHorizontalAlignment']) && data.push({
+        'type': 'plain',
+        'id': 'iconWrapperHorizontalAlignment',
+        'responsive': false,
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon-wrapper .icon`,
+        'properties': [
+            {
+                'name': 'justify-content',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ]
+    });
+    isNotEmpty(attributes['iconWrapperVerticalAlignment']) && data.push({
+        'type': 'plain',
+        'id': 'iconWrapperVerticalAlignment',
+        'responsive': false,
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon-wrapper .icon`,
+        'properties': [
+            {
+                'name': 'align-items',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ]
+    });
     isNotEmpty(attributes['iconWrapperSize']) && data.push({
         'type': 'plain',
         'id': 'iconWrapperSize',

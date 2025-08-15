@@ -78,6 +78,7 @@ import IconTextMarque from './icon-text-marque.svg';
 import IconAdvanceTabs from './icon-advanced-tabs.svg';
 import IconAdvanceButton from './icon-advanced-button.svg';
 import IconImageMarquee from './icon-image-marquee.svg';
+import IconPostCarousel from './icon-post-carousel.svg';
 
 export const IconSearchResultTitleSVG = () => {
     return <IconSearchResultTitle />;
@@ -357,4 +358,8 @@ export const IconPortfolioGallerySVG = () => {
 
 export const IconChartSVG = () => {
     return <IconChart />;
+};
+
+export const IconPostCarouselSVG = () => {
+    return <IconPostCarousel />;
 };
