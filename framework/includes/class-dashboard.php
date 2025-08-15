@@ -38,6 +38,7 @@ class Dashboard {
 		add_action( 'admin_menu', array( $this, 'parent_menu' ) );
 		add_action( 'admin_menu', array( $this, 'child_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'enqueue_script_in_wizard', array( $this, 'enqueue_scripts' ) );
 
 		add_filter( 'admin_footer_text', '__return_empty_string', 11 );
 		add_filter( 'update_footer', '__return_empty_string', 11 );
@@ -81,7 +82,7 @@ class Dashboard {
 	public function enqueue_scripts( $hook ) {
 		global $current_screen;
 
-		if ( $current_screen->is_block_editor ) {
+		if ( isset( $current_screen ) && $current_screen->is_block_editor ) {
 			return;
 		}
 
