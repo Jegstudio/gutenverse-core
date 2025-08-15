@@ -1222,3 +1222,14 @@ if ( ! function_exists( 'gutenverse_upgrade_pro' ) ) {
 function gutenverse_truly_empty( &$value = '' ) {
 	return empty( $value ) && '0' !== $value && 0 !== $value;
 }
+
+if ( ! function_exists( 'gutenverse_pro_active' ) ) {
+	/**
+	 * Check if Gutenverse Pro plugin is Active.
+	 *
+	 * @return boolean
+	 */
+	function gutenverse_pro_active() {
+		return defined( 'GUTENVERSE_PRO_VERSION' );
+	}
+}
