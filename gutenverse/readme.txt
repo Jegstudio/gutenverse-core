@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 3.1.1
+Stable tag: 3.1.2-dev
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,6 +298,22 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.1.2 =
+##### Bug Fixes
+* fix social icon item border
+* fix fun fact fallback for previous version
+* fix advance heading text input
+* fix feature list custom icon alignment
+* fix chart block container
+* fix chart block tooltip overlap with title
+* fix chart block inline issue
+* fix chart block bart style
+* fix flexible wrapper width/height slider
+* fix gallery popup error
+* fix portfolio gallery border radius
+* fix portfolio gallery hover link and background hover
+* fix icon box preview frontend and editor
+
 = 3.1.1 =
 ##### New & Improvemenets
 * add default spacing  in paragraph block
@@ -309,6 +325,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix post block pagination’s active border
 * fix block preview in library
 * fix google map glitching when there is local anchor url
+* fix security issue. credit: Wordfence.
 
 = 3.1.0 =
 ##### New & Improvemenets

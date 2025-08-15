@@ -162,7 +162,8 @@
 		}
 	},
 	"supports": {
-		"className": false
+		"className": false,
+		"anchor": true
 	},
 	"keywords": [
 		"google",
