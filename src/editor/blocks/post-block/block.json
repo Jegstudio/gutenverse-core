@@ -641,11 +641,27 @@
 			},
 			"copyStyle": true
 		},
+		"paginationActiveBorder": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"paginationActiveBorderResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "paginationActiveBorder",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"paginationShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"paginationHoverShadow": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"paginationActiveShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
