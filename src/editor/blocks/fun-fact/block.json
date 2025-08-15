@@ -120,7 +120,11 @@
 		},
 		"number": {
 			"type": "string",
-			"default": "789"
+			"default": ""
+		},
+		"safeNumber": {
+			"type": "string",
+			"default": ""
 		},
 		"suffix": {
 			"type": "string",
@@ -352,7 +356,8 @@
 		}
 	},
 	"supports": {
-		"className": false
+		"className": false,
+		"anchor": true
 	},
 	"keywords": [
 		"fun",
