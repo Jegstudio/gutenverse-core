@@ -263,6 +263,9 @@
       "default": {}
     }
   },
+  "supports": {
+    "anchor": true
+  },
   "keywords": [
     "image"
   ]
