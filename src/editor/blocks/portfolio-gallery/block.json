@@ -165,6 +165,10 @@
 			"type": "object",
             "copyStyle" : true
 		},
+		"linkBackgroundHover":{
+			"type": "object",
+			"copyStyle" : true
+		},
 		"linkBorder":{
 			"type": "object",
             "copyStyle" : true
@@ -315,7 +319,8 @@
 		}
 	},
 	"supports": {
-		"className": false
+		"className": false,
+		"anchor": true
 	},
 	"keywords": [
 		"gallery",

@@ -250,56 +250,58 @@ const ChartBlock = compose(
             gutenverseRoot
         )}
         <div {...blockProps} >
-            {enableContent[deviceType] && <div className="chart-content content-card">
-                <RichTextComponent
-                    ref={titleRef}
-                    classNames={'chart-title'}
-                    tagName={titleTag}
-                    aria-label={__('Chart Title', 'gutenverse')}
-                    placeholder={__('Write title...', 'gutenverse')}
-                    onChange={value => setAttributes({ title: value })}
-                    multiline={false}
-                    setAttributes={setAttributes}
-                    attributes={attributes}
-                    clientId={clientId}
-                    contentAttribute={'title'}
-                    // panelDynamic={{ panel: 'setting', section: 3 }}
-                    // panelPosition={{ panel: 'style', section: 1 }}
-                    // setPanelState={setPanelState}
-                    // textChilds={'titleChilds'}
-                    // dynamicList={'titleDynamicList'}
-                    // isUseDinamic={true}
-                    // isUseHighlight={true}
-                    // parentHasLink={isGlobalLinkSet}
-                />
-                {'doughnut' !== chartType && 'none' !== chartContent ? insideChart : ''}
-                <RichTextComponent
-                    ref={descRef}
-                    classNames={'chart-description'}
-                    tagName={'p'}
-                    aria-label={__('Chart Description', 'gutenverse')}
-                    placeholder={__('Write description...', 'gutenverse')}
-                    onChange={value => setAttributes({ description: value })}
-                    multiline={false}
-                    setAttributes={setAttributes}
-                    attributes={attributes}
-                    clientId={clientId}
-                    contentAttribute={'description'}
-                    // panelDynamic={{ panel: 'setting', section: 3 }}
-                    // panelPosition={{ panel: 'style', section: 1 }}
-                    // setPanelState={setPanelState}
-                    // textChilds={'descriptionChilds'}
-                    // dynamicList={'descriptionDynamicList'}
-                    // isUseDinamic={true}
-                    // isUseHighlight={true}
-                    // parentHasLink={isGlobalLinkSet}
-                />
-            </div>}
-            <div className="chart-content content-chart">
-                <div className="chart-container">
-                    <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
+            <div className="guten-chart-wrapper">
+                {enableContent[deviceType] && <div className="chart-content content-card">
+                    <RichTextComponent
+                        ref={titleRef}
+                        classNames={'chart-title'}
+                        tagName={titleTag}
+                        aria-label={__('Chart Title', 'gutenverse')}
+                        placeholder={__('Write title...', 'gutenverse')}
+                        onChange={value => setAttributes({ title: value })}
+                        multiline={false}
+                        setAttributes={setAttributes}
+                        attributes={attributes}
+                        clientId={clientId}
+                        contentAttribute={'title'}
+                        // panelDynamic={{ panel: 'setting', section: 3 }}
+                        // panelPosition={{ panel: 'style', section: 1 }}
+                        // setPanelState={setPanelState}
+                        // textChilds={'titleChilds'}
+                        // dynamicList={'titleDynamicList'}
+                        // isUseDinamic={true}
+                        // isUseHighlight={true}
+                        // parentHasLink={isGlobalLinkSet}
+                    />
+                    {'doughnut' !== chartType && 'none' !== chartContent ? insideChart : ''}
+                    <RichTextComponent
+                        ref={descRef}
+                        classNames={'chart-description'}
+                        tagName={'p'}
+                        aria-label={__('Chart Description', 'gutenverse')}
+                        placeholder={__('Write description...', 'gutenverse')}
+                        onChange={value => setAttributes({ description: value })}
+                        multiline={false}
+                        setAttributes={setAttributes}
+                        attributes={attributes}
+                        clientId={clientId}
+                        contentAttribute={'description'}
+                        // panelDynamic={{ panel: 'setting', section: 3 }}
+                        // panelPosition={{ panel: 'style', section: 1 }}
+                        // setPanelState={setPanelState}
+                        // textChilds={'descriptionChilds'}
+                        // dynamicList={'descriptionDynamicList'}
+                        // isUseDinamic={true}
+                        // isUseHighlight={true}
+                        // parentHasLink={isGlobalLinkSet}
+                    />
+                </div>}
+                <div className="chart-content content-chart">
+                    <div className="chart-container">
+                        <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
+                    </div>
+                    {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
                 </div>
-                {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
             </div>
         </div>
     </>;

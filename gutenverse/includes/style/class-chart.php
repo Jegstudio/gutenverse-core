@@ -56,6 +56,45 @@ class Chart extends Style_Abstract {
 	 * Generate style base on attribute.
 	 */
 	public function generate() {
+		if ( isset( $this->attrs['contentOrder'] ) ) {
+			$orders = $this->attrs['contentOrder'];
+			$orders  = explode( ',', $orders );
+
+			if ( 3 !== count( $orders ) ) {
+				$orders = array( 1, 2, 3 );
+			}
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .chart-content .chart-title",
+					'property'       => function ( $value ) use ( $orders ) {
+						return "order: {$orders[0]};";
+					},
+					'value'          => $this->attrs['contentOrder'],
+					'device_control' => false,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .chart-content .chart-inside",
+					'property'       => function ( $value ) use ( $orders ) {
+						return "order: {$orders[1]};";
+					},
+					'value'          => $this->attrs['contentOrder'],
+					'device_control' => false,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .chart-content .chart-description",
+					'property'       => function ( $value ) use ( $orders ) {
+						return "order: {$orders[2]};";
+					},
+					'value'          => $this->attrs['contentOrder'],
+					'device_control' => false,
+				)
+			);
+		}
 		if ( isset( $this->attrs['enableContentParsed'] ) ) {
 			$this->inject_style(
 				array(
@@ -72,7 +111,7 @@ class Chart extends Style_Abstract {
 		if ( isset( $this->attrs['contentType'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}, .{$this->element_id}.Mobile-noFlip, .{$this->element_id}.Desktop-noFlip, .{$this->element_id}.Tablet-noFlip",
+					'selector'       => ".{$this->element_id} .guten-chart-wrapper, .{$this->element_id}.Mobile-noFlip .guten-chart-wrapper, .{$this->element_id}.Desktop-noFlip .guten-chart-wrapper, .{$this->element_id}.Tablet-noFlip .guten-chart-wrapper",
 					'property'       => function ( $value ) {
 						return "flex-direction: {$value};";
 					},

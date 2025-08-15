@@ -4,7 +4,7 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
-import { flipClasses } from './edit';
+import { flipClasses } from '../../edit';
 
 const save = compose(
     withMouseMoveEffectScript
@@ -71,26 +71,24 @@ const save = compose(
 
     return (
         <div {...useBlockProps.save({ className })} >
-            <div className="guten-chart-wrapper">
-                <div className="chart-content content-card">
-                    <RichText.Content
-                        className={'chart-title'}
-                        value={title}
-                        tagName={titleTag}
-                    />
-                    {'doughnut' !== chartType && 'none' !== chartContent ? insideChart : ''}
-                    <RichText.Content
-                        className={'chart-description'}
-                        value={description}
-                        tagName={'p'}
-                    />
+            <div className="chart-content content-card">
+                <RichText.Content
+                    className={'chart-title'}
+                    value={title}
+                    tagName={titleTag}
+                />
+                {'doughnut' !== chartType && 'none' !== chartContent ? insideChart : ''}
+                <RichText.Content
+                    className={'chart-description'}
+                    value={description}
+                    tagName={'p'}
+                />
+            </div>
+            <div className='chart-content content-chart'>
+                <div className='chart-container' data-chart={data}>
+                    <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
                 </div>
-                <div className="chart-content content-chart">
-                    <div className="chart-container" data-chart={data}>
-                        <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
-                    </div>
-                    {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
-                </div>
+                {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
             </div>
         </div>
     );

@@ -8,7 +8,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['contentType']) && data.push({
         'type': 'plain',
         'id': 'contentType',
-        'selector': `.${elementId}, .${elementId}.Mobile-noFlip, .${elementId}.Desktop-noFlip, .${elementId}.Tablet-noFlip`,
+        'selector': `.${elementId} .guten-chart-wrapper, .${elementId}.Mobile-noFlip .guten-chart-wrapper, .${elementId}.Desktop-noFlip .guten-chart-wrapper, .${elementId}.Tablet-noFlip .guten-chart-wrapper`,
         'properties': [
             {
                 'name': 'flex-direction',
@@ -17,6 +17,53 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'responsive': true,
     });
+
+    if (isNotEmpty(attributes['contentOrder'])) {
+        let orders = attributes['contentOrder'].split(',');
+
+        if(orders.length !== 3) {
+            orders = [1,2,3];
+        }
+
+        data.push(
+            {
+                'type': 'plain',
+                'id': 'contentOrder',
+                'selector': `.${elementId} .chart-content .chart-title`,
+                'properties': [
+                    {
+                        'name': 'order',
+                        'valueType': 'static',
+                        'staticValue': `${orders[0]}`,
+                    }
+                ],
+            },
+            {
+                'type': 'plain',
+                'id': 'contentOrder',
+                'selector': `.${elementId} .chart-content .chart-inside`,
+                'properties': [
+                    {
+                        'name': 'order',
+                        'valueType': 'static',
+                        'staticValue': `${orders[1]}`,
+                    }
+                ],
+            },
+            {
+                'type': 'plain',
+                'id': 'contentOrder',
+                'selector': `.${elementId} .chart-content .chart-description`,
+                'properties': [
+                    {
+                        'name': 'order',
+                        'valueType': 'static',
+                        'staticValue': `${orders[2]}`,
+                    }
+                ],
+            },
+        );
+    }
 
     //panel card
     isNotEmpty(attributes['cardBackground']) && data.push({
