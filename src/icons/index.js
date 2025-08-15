@@ -48,6 +48,7 @@ import IconFont from './icon/icon-font.svg';
 import IconDownload from './icon/icon-download.svg';
 import IconAddFont from './icon/icon-add-font.svg';
 import IconFlexibleWrapper from './icon/icon-flexible-wrapper.svg';
+import IconSectionSlider from './icon/icon-section-slider.svg';
 
 /* Block */
 import IconColumn from './icon/icon-column.svg';
@@ -445,4 +446,9 @@ export const IconLoadingSVG = () => {
     return <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8.69737 1V2.89873M8.69737 12.962V16M3.76316 8.40506H1M16 8.40506H14.8158M13.7951 13.3092L13.2368 12.7722M13.9586 3.40439L12.8421 4.47848M3.10914 13.7811L5.34211 11.6329M3.27264 3.2471L4.94737 4.85823" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>;
+}
+
+
+export const IconSectionSliderSVG = () => {
+    return <IconSectionSlider />;
 };
