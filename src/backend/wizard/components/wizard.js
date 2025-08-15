@@ -55,7 +55,7 @@ const ImportLoading = (props) => {
     </div>;
 };
 
-const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, setClicked, requirement }) => {
+const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, setClicked, requirement, emptyLicense }) => {
     const { plugins, installNonce, ajaxurl, gutenverseImgDir, ImgDir } = gutenverseWizard;
     const [installing, setInstalling] = useState({ show: true, message: 'Preparing...', progress: '1/4' });
     const [reloadingSlug, setReloadingSlug] = useState(null);
@@ -222,7 +222,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                         </svg>
                         {__('Back', 'gutenverse')}
                     </div> */}
-                    <div onClick={() => requirement ? updateProgress('importTemplate', 2) : updateProgress('upgradePro', 3)} className="button-next">{__('Next', 'gutenverse')}</div>
+                    <div onClick={() => requirement ? updateProgress('importTemplate', 2) : ( emptyLicense ? updateProgress('upgradePro', 3) : updateProgress('done', 4) )} className="button-next">{__('Next', 'gutenverse')}</div>
                 </Fragment>;
         }
     };
@@ -415,7 +415,7 @@ const WizardPage = () => {
 
         switch (progress) {
             case 'pluginAndTheme':
-                return <SelectBaseTheme updateProgress={updateProgress} action={action} setAction={setAction} gutenverseWizard={gutenverseWizard} setClicked={setClicked} requirement={requirement} />;
+                return <SelectBaseTheme updateProgress={updateProgress} action={action} setAction={setAction} gutenverseWizard={gutenverseWizard} setClicked={setClicked} requirement={requirement} emptyLicense={emptyLicense} />;
             case 'importTemplate':
                 return <ImportTemplates updateProgress={updateProgress} emptyLicense={emptyLicense} />;
             case 'upgradePro':
@@ -460,7 +460,7 @@ const WizardPage = () => {
                     <h3 className="progress-title">{__('Upgrade Your Site', 'gutenverse')}</h3>
                 </div>}
                 <div className={`progress ${progress === 'done' ? 'active' : ''} ${progressCount >= 4 ? 'done' : ''}`}>
-                    <p className="number">{requirement && emptyLicense ? '5' : '4'}</p>
+                    <p className="number">{requirement && emptyLicense ? '5' : (requirement || emptyLicense ? '4' : '3')}</p>
                     <h3 className="progress-title">{__('Finalizing', 'gutenverse')}</h3>
                 </div>
             </div>
