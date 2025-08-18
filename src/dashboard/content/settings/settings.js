@@ -49,6 +49,14 @@ const SettingsBody = ({ settings, ...props }) => {
                 props
             );
             break;
+        case 'performance':
+            body = applyFilters(
+                'gutenverse.setting-pro-performance',
+                body,
+                settings,
+                props
+            );
+            break;
         default:
             break;
     }
@@ -86,6 +94,10 @@ const Settings = (props) => {
             },
             ['custom-font']: {
                 title : __('Custom Font', '--gctd--'),
+                pro   : true,
+            },
+            ['performance']: {
+                title : __('Performance', '--gctd--'),
                 pro   : true,
             },
         }
