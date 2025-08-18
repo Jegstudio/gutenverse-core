@@ -58,6 +58,14 @@ const SettingsBody = ({ settings, ...props }) => {
                 props
             );
             break;
+        case 'performance':
+            body = applyFilters(
+                'gutenverse.setting-pro-performance',
+                body,
+                settings,
+                props
+            );
+            break;
         default:
             break;
     }
@@ -86,6 +94,7 @@ const Settings = (props) => {
     const subSettings = query.get('sub-menu') ? query.get('sub-menu') : '';
     props = { ...props, settings, subSettings };
     const pluginTabs = getPluginTabs(props.settingValues);
+
     return <DashboardContent>
         <PopupPro
             active={popupActive}

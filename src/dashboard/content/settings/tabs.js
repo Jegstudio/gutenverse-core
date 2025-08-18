@@ -34,7 +34,7 @@ export const getPluginTabs = (settingValues) => {
     return Object.fromEntries(
         Object.entries(pluginTabs).filter(([key]) => activePlugins.includes('gutenverse-' + key))
     );
-}
+};
 
 export const generalTabs = {
     editor: {
@@ -57,6 +57,10 @@ export const generalTabs = {
         title: __('Custom Font', '--gctd--'),
         pro: true,
     },
+    ['performance']: {
+        title: __('Performance', '--gctd--'),
+        pro: true,
+    },
 };
 
 const setitngTitle = {
@@ -71,7 +75,7 @@ const setitngTitle = {
     additional_features: __('Gutenverse News Additional Features', '--gctd--'),
     view_counter: __('View Counter Settings', '--gctd--'),
     paywall: __('Paywall Settings', '--gctd--'),
-
+    performance: __('Performance Settings', '--gctd--'),
 };
 
 export const getSettingTitle = (key) => {

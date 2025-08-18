@@ -174,6 +174,26 @@ class Frontend_Toolbar {
 						)
 					);
 				}
+				$admin_bar->add_node(
+					array(
+						'id'     => 'gutenverse-notification',
+						'title'  => 'Gutenverse Notification',
+						'parent' => 'top-secondary',
+						'meta'   => array(
+							'target' => '_blank',
+							'title'  => 'Gutenverse  notification list',
+						),
+					)
+				);
+
+				$admin_bar->add_node(
+					array(
+						'id'     => 'my-custom-sub-item-2',
+						'title'  => '<strong>Bold Text Item</strong>',
+						'href'   => 'https://wordpress.org',
+						'parent' => 'gutenverse-notification',
+					)
+				);
 			}
 		}
 

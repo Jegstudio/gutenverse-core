@@ -73,6 +73,8 @@ export { default as LockedFluidBackground } from './controls/locked/locked-fluid
 export { default as LockedConditionControl } from './controls/locked/locked-condition-control';
 export { default as LockedProPanel } from './controls/locked/locked-pro-panel';
 export { default as LockedDynamicContentControl } from './controls/locked/locked-dynamic-content-control';
+export { default as LockedHeaderFilterControl } from './controls/locked/locked-header-filter-control';
+
 
 export { default as ControlDevices } from './controls/part/control-devices';
 export { default as ControlHeadingSimple } from './controls/part/control-heading-simple';

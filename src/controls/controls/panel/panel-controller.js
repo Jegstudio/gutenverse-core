@@ -164,7 +164,8 @@ const PanelController = ({ ...props }) => {
                     }).map((panel, index) => {
                         const panelBody = classnames('gutenverse-panel', {
                             [`panel-${panel.id}`]: undefined !== panel.id,
-                            pro: panel.pro
+                            pro: panel.pro,
+                            deprecated: panel.deprecated
                         });
                         return <PanelBody
                             scrollAfterOpen={false}
@@ -185,7 +186,8 @@ const PanelController = ({ ...props }) => {
                 {tabPanel.length === 0 && panelList().map((panel, index) => {
                     const panelBody = classnames('gutenverse-panel', {
                         [`panel-${panel.id}`]: undefined !== panel.id,
-                        pro: panel.pro
+                        pro: panel.pro,
+                        deprecated: panel.deprecated
                     });
 
                     return <PanelBody
