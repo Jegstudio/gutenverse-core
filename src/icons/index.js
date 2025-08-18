@@ -69,6 +69,7 @@ import IconSettingsCustomFont from './icon/settings-custom-font.svg';
 import IconSettingsTemplate from './icon/settings-template.svg';
 import IconSettingsNews from './icon/settings-news.svg';
 import IconSettingsForm from './icon/settings-form.svg';
+import IconPerformance from './icon/settings-performance.svg';
 
 export const LogoGutenverseSquareSVG = ({fill = 'none', height='128', width='128'}) => {
     return <svg fill={fill} height={height} viewBox="0 0 128 128" width={width} xmlns="http://www.w3.org/2000/svg">
@@ -441,7 +442,7 @@ export const getSettingsIcon = () => {
         template: <IconSettingsTemplate />,
         ['font-icon']: <IconSettingsFontIcon />,
         ['custom-font']: <IconSettingsCustomFont />,
-        performance: <IconSettingsEditor />,
+        performance: <IconPerformance />,
         news: <IconSettingsNews />,
         form: <IconSettingsForm />,
     };
