@@ -153,7 +153,6 @@ class Upgrade_Wizard {
 	 */
 	public function wizard_config() {
 		$config                 = array();
-		$config['imageContoh']  = GUTENVERSE_URL . '/assets/img/cuma-untuk-test.png';
 		$config['dashboard']    = admin_url( 'admin.php?page=gutenverse' );
 		$config['ajaxurl']      = admin_url( 'admin-ajax.php' );
 		$config['installNonce'] = wp_create_nonce( 'updates' );

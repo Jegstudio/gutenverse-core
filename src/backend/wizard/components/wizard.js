@@ -344,6 +344,9 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                 } } className={`button-install ${requirement ? 'complete' : ''}`}>
                     {__(requirement ? 'Unibiz Installed' : 'Install Unibiz Theme', 'gutenverse')}
                 </div>
+                <p className="notice-install">
+                    {__('By clicking “Install Unibiz Theme” you consent to installing and activating the Gutenverse Companion plugin.', 'gutenverse')}
+                </p>
             </div>
         </div>
         <div className="wizard-footer">
