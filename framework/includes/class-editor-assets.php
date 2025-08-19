@@ -178,13 +178,6 @@ class Editor_Assets {
 		);
 
 		wp_enqueue_style(
-			'gutenverse-roboto-font',
-			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/fonts/roboto/roboto.css',
-			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
-		);
-
-		wp_enqueue_style(
 			'gutenverse-poppins-font',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/fonts/poppins/poppins.css',
 			array(),
