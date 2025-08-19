@@ -174,24 +174,20 @@ class Frontend_Toolbar {
 						)
 					);
 				}
+
 				$admin_bar->add_node(
 					array(
-						'id'     => 'gutenverse-notification',
-						'title'  => 'Gutenverse Notification',
+						'id'     => 'gutenverse-adminbar-notification',
+						'title'  => '<span class="gutenverse-adminbar-notifications">' . '<div class="notifications-icon"><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-notifications.svg' ) . '"/></div>' . esc_html__( 'Gutenverse Notifications', '--gctd--' ) . '</span>',
 						'parent' => 'top-secondary',
-						'meta'   => array(
-							'target' => '_blank',
-							'title'  => 'Gutenverse  notification list',
-						),
 					)
 				);
 
 				$admin_bar->add_node(
 					array(
-						'id'     => 'my-custom-sub-item-2',
-						'title'  => '<strong>Bold Text Item</strong>',
-						'href'   => 'https://wordpress.org',
-						'parent' => 'gutenverse-notification',
+						'id'     => 'gutenverse-notification-list',
+						'title'  => '<div id="gutenverse-notification-list"></div>',
+						'parent' => 'gutenverse-adminbar-notification',
 					)
 				);
 			}

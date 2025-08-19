@@ -151,6 +151,23 @@ class Dashboard {
 			);
 		}
 
+		// @since 3.2.0
+		wp_enqueue_script(
+			'gutenverse-core-notifications',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/notifications.js',
+			$include,
+			GUTENVERSE_FRAMEWORK_VERSION,
+			true
+		);
+
+		// @since 3.2.0
+		wp_enqueue_style(
+			'gutenverse-core-notifications',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/notifications.css',
+			null,
+			GUTENVERSE_FRAMEWORK_VERSION
+		);
+
 		do_action( 'gutenverse_include_dashboard' );
 	}
 

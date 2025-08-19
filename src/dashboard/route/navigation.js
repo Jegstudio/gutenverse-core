@@ -1,11 +1,69 @@
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { createPortal } from '@wordpress/element';
 import { Link } from 'gutenverse-core/router';
 import { __ } from '@wordpress/i18n';
-import { IconCrownBannerSVG, LogoFullColor31SVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, IconNoticeBellSVG, LogoFullColor31SVG } from 'gutenverse-core/icons';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
-import { ButtonUpgradePro } from 'gutenverse-core/components';
+import { ButtonUpgradePro, CheckSquare } from 'gutenverse-core/components';
+
+// @since v3.2.0
+const NotificationList = ({ readNotifications, setReadNotifications, notifTotal, setNotifTotal, notificationList }) => {
+    let content = <p className="notification-empty">{__('There is no Notifications', '--gctd--')}</p>;
+
+    if (!isEmpty(notificationList)) {
+        content = notificationList.map(notification => {
+            const {
+                id,
+                show,
+                content
+            } = notification;
+
+            if (show) {
+                const isNew = !readNotifications.includes(id);
+
+                const markAsRead = () => {
+                    if (isNew) {
+                        setReadNotifications([
+                            ...readNotifications,
+                            id
+                        ]);
+                        setNotifTotal(notifTotal - 1);
+                    }
+                };
+
+                return <div key={id} className="gutenverse-notification-wrapper" onMouseEnter={markAsRead}>
+                    {isNew && <span className="notification-new"></span>}
+                    {content}
+                </div>;
+            }
+        });
+    }
+
+    const markAllRead = () => {
+        const ids = [];
+        notificationList.map(({ id, show }) => {
+            if (show && !readNotifications.includes(id)) ids.push(id);
+        });
+        setReadNotifications([
+            ...readNotifications,
+            ...ids
+        ]);
+        setNotifTotal(0);
+    };
+
+    return <>
+        <div className="notification-title">
+            <h3>{__('Notification Center', '--gctd--')}</h3>
+            <div className="mark-read" onClick={markAllRead}>
+                <CheckSquare size={16} />
+            </div>
+        </div>
+        <div className="notification-list">
+            {content}
+        </div>
+    </>;
+};
 
 const Navigation = ({ location }) => {
     const {
@@ -17,10 +75,25 @@ const Navigation = ({ location }) => {
         showThemeList
     } = window['GutenverseDashboard'];
 
+    const localStorageKey = 'gutenverse_read_notifications';
+    const [readNotifications, setReadNotifications] = useState(JSON.parse(localStorage.getItem(localStorageKey)) || []);
     const [injectLocation, setInjectLocation] = useState(null);
+    const [showNotifications, setShowNotification] = useState(false);
+    const [notifTotal, setNotifTotal] = useState(0);
+    const notificationRef = useRef();
     const { pathname, search } = location;
     const query = new URLSearchParams(search);
     const path = query.get('path') ? query.get('path') : '';
+
+    useEffect(() => {
+        localStorage.setItem(localStorageKey, JSON.stringify(readNotifications));
+    }, [readNotifications]);
+
+    const notificationList = applyFilters(
+        'gutenverse.notification.list',
+        [],
+        null
+    );
 
     const menus = applyFilters(
         'gutenverse.dashboard.route.navigation',
@@ -87,7 +160,27 @@ const Navigation = ({ location }) => {
         Array.from(list).forEach(item => {
             item.remove();
         });
+
+        let total = notifTotal;
+        notificationList.map(({id, show}) => {
+            if (show && !readNotifications.includes(id)) total++;
+        });
+        setNotifTotal(total);
     }, []);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+                setShowNotification(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [notificationRef]);
 
     setTimeout(() => {
         let injectLocation = document.querySelector('#toplevel_page_gutenverse .wp-submenu');
@@ -160,7 +253,21 @@ const Navigation = ({ location }) => {
 
                     return null;
                 })}
-                <ButtonUpgradePro location="dashboard-navigation" isBanner={true} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboardnav&utm_client_site=${url}&utm_client_theme=${activeTheme}`}/>
+            </div>
+            <div className="header-right">
+                <div id="gutenverse-dashboard-notifications" onClick={() => setShowNotification(!showNotifications)}>
+                    <IconNoticeBellSVG />
+                    {notifTotal > 0 && <div className="notification-total">{notifTotal}</div>}
+                </div>
+                {showNotifications && <div className="dashboard-notifications" ref={notificationRef}>
+                    <NotificationList
+                        readNotifications={readNotifications}
+                        setReadNotifications={setReadNotifications}
+                        notifTotal={notifTotal}
+                        setNotifTotal={setNotifTotal}
+                        notificationList={notificationList} />
+                </div>}
+                <ButtonUpgradePro location="dashboard-navigation" isBanner={true} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboardnav&utm_client_site=${url}&utm_client_theme=${activeTheme}`} />
             </div>
         </div>
         {injectLocation && createPortal(navigationButton, injectLocation)}

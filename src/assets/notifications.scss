@@ -1,0 +1,198 @@
+#wpadminbar {
+	.gutenverse-adminbar-notifications {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+
+		.notifications-icon {
+			width: 20px;
+			height: 20px;
+			border-radius: 50px;
+			background-color: white;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+
+			.notification-total {
+				position: absolute;
+				top: -6px;
+				right: -6px;
+				background-color: #cf2f33;
+				color: white;
+				font-size: 9px;
+				width: 15px;
+				height: 15px;
+				border-radius: 50px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+		}
+	}
+
+	#wp-admin-bar-gutenverse-notification-default,
+	#wp-admin-bar-gutenverse-adminbar-notification-default {
+		padding: 0;
+	}
+
+	#wp-admin-bar-gutenverse-notification-list {
+		.ab-item {
+			height: auto !important;
+			width: 400px;
+			padding: 0;
+			white-space: normal;
+
+			#gutenverse-notification-list * {
+				box-sizing: border-box;
+			}
+
+			.notification-title {
+				border-bottom: 1px solid #ffffff22;
+				color: #fff;
+				padding: 16px 20px;
+				margin: 0;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				h3 {
+					font-family: Roboto, serif;
+					color: #fff;
+					font-size: 14px;
+					font-weight: 400;
+					line-height: 1em;
+					margin: 0;
+				}
+
+				.mark-read {
+					cursor: pointer;
+					display: flex;
+				}
+			}
+
+			.notification-list {
+				padding: 12px 8px 12px 12px;
+				margin: 4px;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px;
+				max-height: 720px;
+				overflow-y: scroll;
+
+				.notification-empty {
+					font-size: 11px;
+					color: #c3c4c6;
+					line-height: 1.2em;
+					text-align: center;
+					width: 100%;
+				}
+
+				&::-webkit-scrollbar {
+					width: 4px;
+				}
+
+				&::-webkit-scrollbar-track {
+					background: transparent;
+					border-radius: 10px;
+				}
+
+				&::-webkit-scrollbar-thumb {
+					background-color: #ffffff33;
+					border-radius: 10px;
+				}
+
+				.gutenverse-notification-wrapper {
+					position: relative;
+
+					.notification-new {
+						position: absolute !important;
+						top: 0;
+						right: 0;
+						display: flex;
+
+						&::before {
+							content: "";
+							background: #cf2f33;
+							width: 6px;
+							height: 6px;
+							border-radius: 50px;
+							position: absolute;
+							top: 10px;
+							right: 10px;
+						}
+					}
+				}
+
+				.gutenverse-notification {
+					display: flex;
+					width: 368px;
+					border: 1px solid #ffffff22;
+					background-color: #1b2023;
+					border-radius: 5px;
+					padding: 12px;
+					flex-wrap: wrap;
+
+					.gutenverse-notification-icon {
+						width: 38px;
+
+						.warning {
+							border: 2px solid #ffb200;
+							border-radius: 200px;
+							width: 28px;
+							height: 28px;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+						}
+					}
+
+					.gutenverse-notification-inner {
+						width: calc(100% - 38px);
+
+						h3,
+						p {
+							color: white;
+							line-height: 1.4em;
+							font-family: Roboto, serif;
+						}
+
+						h3 {
+							font-size: 13px;
+							font-weight: 500;
+							margin-bottom: 6px;
+						}
+
+						p {
+							font-size: 11px;
+							color: #c3c4c6;
+						}
+					}
+
+					.gutenverse-notification-action {
+						display: flex;
+						margin-top: 10px;
+					}
+
+					.guten-button {
+						cursor: pointer;
+						font-family: Roboto, serif;
+						font-size: 11px;
+						display: flex;
+						border-radius: 5px;
+						height: auto;
+						padding: 10px 12px;
+						text-decoration: none;
+						line-height: 1em;
+
+						&.guten-primary {
+							background-color: #3b57f7;
+							color: white;
+						}
+					}
+				}
+			}
+		}
+	}
+}
