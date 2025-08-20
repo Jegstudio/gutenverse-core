@@ -111,7 +111,7 @@ addFilter(
 
         const notice = {
             id: 'gutenverse-notice-wp-59',
-            show: noticeActions['gutenverse-notice-wp-59']?.notCompatible,
+            show: noticeActions['gutenverse-notice-wp-59']?.show,
             content: <div className="gutenverse-notification">
                 <div className="gutenverse-notification-icon">
                     <IconNoticeWarningSVG />
@@ -134,11 +134,11 @@ addFilter(
     'gutenverse.notification.list',
     'gutenverse/notiication/list',
     (list) => {
-        const { mismatch, assetURL, noticeActions } = window['GutenverseDashboard'];
+        const { assetURL, noticeActions } = window['GutenverseDashboard'];
 
         const notice = {
             id: 'gutenverse-notice-mismatch-version',
-            show: mismatch,
+            show: noticeActions['gutenverse-notice-mismatch-version']?.show,
             content: <div className="gutenverse-notification">
                 <div className="gutenverse-notification-icon">
                     <img src={`${assetURL}/icon/icon-notice-gutenverse.svg`} />
@@ -147,7 +147,7 @@ addFilter(
                     <h3>{__('Gutenverse Upgrade Notice!', '--gctd--')}</h3>
                     <p>{__('We have noticed that the versions of your Gutenverse plugins do not match. We recommend updating Gutenverse to ensure seamless compatibility and functionality of the plugins.', '--gctd--')}</p>
                     <div className="gutenverse-notification-action">
-                        <a className="guten-button guten-primary" href={noticeActions?.pluginPage}>{__('Go to plugin page', '--gctd--')}</a>
+                        <a className="guten-button guten-primary" href={noticeActions['gutenverse-notice-mismatch-version']?.actionUrl}>{__('Go to plugin page', '--gctd--')}</a>
                     </div>
                 </div>
             </div>

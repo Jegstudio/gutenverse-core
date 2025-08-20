@@ -205,11 +205,11 @@ class Dashboard {
 		$config['activePlugins']    = $this->get_active_plugins();
 		$config['noticeActions']    = array(
 			'gutenverse-notice-wp-59'            => array(
-				'notCompatible' => ! gutenverse_compatible_check(),
+				'show' => true, // ! gutenverse_compatible_check(),
 			),
 			'gutenverse-notice-mismatch-version' => array(
-				'mismatch'   => get_option( (new Upgrader())->get_framework_init_option_name() ),
-				'pluginPage' => esc_url( admin_url( 'plugins.php' ) ),
+				'show'      => true, // get_option( ( new Upgrader() )->get_framework_init_option_name() ),
+				'actionUrl' => esc_url( admin_url( 'plugins.php' ) ),
 			),
 		);
 
