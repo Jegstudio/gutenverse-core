@@ -9,6 +9,9 @@
 
 namespace Gutenverse\Framework;
 
+use Automatic_Upgrader_Skin;
+use Theme_Upgrader;
+use WP_Error;
 use WP_Query;
 
 /**
@@ -323,6 +326,16 @@ class Api {
 			)
 		);
 
+		register_rest_route(
+			self::ENDPOINT,
+			'library/install-activate-theme',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'install_and_activate_theme_by_slug' ),
+				'permission_callback' => 'gutenverse_permission_check_author',
+			)
+		);
+
 		/** ----------------------------------------------------------------
 		 * Frontend/Global Routes
 		 */
@@ -347,6 +360,67 @@ class Api {
 		);
 	}
 
+	/**
+	 * Fetch Data
+	 *
+	 * @param object $request .
+	 *
+	 * @return WP_Rest
+	 */
+	public function install_and_activate_theme_by_slug( $request ) {
+		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+		require_once ABSPATH . 'wp-admin/includes/theme.php';
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/plugin.php'; // for is_plugin_active() if needed
+		require_once ABSPATH . 'wp-includes/theme.php';
+
+		$slug = sanitize_text_field( $request->get_param( 'slug' ) );
+		if ( empty( $slug ) ) {
+			return new WP_Error( 'no_slug', 'Theme slug is required', array( 'status' => 400 ) );
+		}
+
+		// Check if already installed
+		$installed_themes = wp_get_themes();
+		if ( isset( $installed_themes[ $slug ] ) ) {
+			switch_theme( $slug );
+			return array(
+				'success' => true,
+				'message' => 'Theme already installed and activated',
+				'slug'    => $slug,
+			);
+		}
+
+		// Get theme info from WP.org
+		$api = themes_api(
+			'theme_information',
+			array(
+				'slug'   => $slug,
+				'fields' => array( 'sections' => false ),
+			)
+		);
+		if ( is_wp_error( $api ) ) {
+			return new WP_Error( 'theme_api_failed', $api->get_error_message(), array( 'status' => 400 ) );
+		}
+
+		// Install theme
+		$skin     = new Automatic_Upgrader_Skin();
+		$upgrader = new Theme_Upgrader( $skin );
+
+		$result = $upgrader->install( $api->download_link );
+		if ( is_wp_error( $result ) || ! $result ) {
+			return new WP_Error( 'install_failed', 'Theme installation failed', array( 'status' => 500 ) );
+		}
+
+		// Activate theme
+		$theme_stylesheet = $slug;
+		switch_theme( $theme_stylesheet );
+
+		return array(
+			'success' => true,
+			'message' => 'Theme installed and activated successfully',
+			'slug'    => $slug,
+		);
+	}
 	/**
 	 * Fetch Data
 	 *

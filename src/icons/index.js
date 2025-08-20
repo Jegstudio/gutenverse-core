@@ -437,6 +437,34 @@ export const IconWarningDeprecatedSVG = () => {
     return <IconWarningDeprecated />;
 };
 
+export const IconLibraryThemeListSVG = ({ fill = '#3B57F7' }) => {
+    return <svg width="16" height="17" viewBox="0 0 16 17" fill={fill} xmlns="http://www.w3.org/2000/svg">
+        <rect y="0.5" width="16" height="16" rx="8" fill={fill} />
+        <g clipPath="url(#clip0_23478_11282)">
+            <path d="M7.01758 11.8896L4.03027 8.62241L4.88362 7.68911L7.01819 10.0217L7.01758 10.0224L12.1383 4.42188L12.9916 5.35518L7.87093 10.9563L7.01819 11.889L7.01758 11.8896Z" fill="white" />
+        </g>
+        <defs>
+            <clipPath id="clip0_23478_11282">
+                <rect x="4" y="4.5" width="8.93333" height="8.93333" rx="4.46667" fill="white" />
+            </clipPath>
+        </defs>
+    </svg>;
+};
+
+export const IconArrowRightSVG = ({ fill = '#00223D' }) => {
+    return <svg width="16" height="9" viewBox="0 0 16 9" fill={fill} xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 5.1C0.668629 5.1 0.4 4.83137 0.4 4.5C0.4 4.16863 0.668629 3.9 1 3.9V4.5L1 5.1ZM15.4243 4.07574C15.6586 4.31005 15.6586 4.68995 15.4243 4.92426L11.6059 8.74264C11.3716 8.97696 10.9917 8.97696 10.7574 8.74264C10.523 8.50833 10.523 8.12843 10.7574 7.89411L14.1515 4.5L10.7574 1.10589C10.523 0.871573 10.523 0.491674 10.7574 0.257359C10.9917 0.0230446 11.3716 0.0230446 11.6059 0.257359L15.4243 4.07574ZM1 4.5V3.9L15 3.9V4.5V5.1L1 5.1L1 4.5Z" fill={fill} />
+    </svg>;
+
+};
+
+export const IconLoadingSVG = () => {
+    return <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.69737 1V2.89873M8.69737 12.962V16M3.76316 8.40506H1M16 8.40506H14.8158M13.7951 13.3092L13.2368 12.7722M13.9586 3.40439L12.8421 4.47848M3.10914 13.7811L5.34211 11.6329M3.27264 3.2471L4.94737 4.85823" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>;
+}
+
+
 export const IconSectionSliderSVG = () => {
     return <IconSectionSlider />;
 };

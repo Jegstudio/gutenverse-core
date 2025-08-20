@@ -8,6 +8,7 @@ import FavoriteContent from './favorite-content';
 import { useState, useEffect } from '@wordpress/element';
 import { Snackbar } from '@wordpress/components';
 import { IconInfoGraySVG } from 'gutenverse-core/icons';
+import ThemesContent from './themes-content';
 
 const LibraryModal = props => {
     const {
@@ -146,6 +147,9 @@ const LibraryContent = (props) => {
             break;
         case 'section':
             template = <SectionContent {...props} />;
+            break;
+        case 'themes':
+            template = <ThemesContent {...props} />;
             break;
         default:
             template = <LayoutContent {...props}/>;
