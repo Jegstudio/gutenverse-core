@@ -205,12 +205,17 @@ class Dashboard {
 		$config['showThemeList']    = apply_filters( 'gutenverse_show_theme_list', true );
 		$config['activePlugins']    = $this->get_active_plugins();
 		$config['noticeActions']    = array(
-			'gutenverse-notice-wp-59'            => array(
-				'show' => true, // ! gutenverse_compatible_check(),
+			'gutenverse-core-notice-wp-59'             => array(
+				'show' => ! gutenverse_compatible_check(),
 			),
-			'gutenverse-notice-mismatch-version' => array(
-				'show'      => true, // get_option( ( new Upgrader() )->get_framework_init_option_name() ),
+			'gutenverse-core-notice-mismatch-version'  => array(
+				'show'      => get_option( ( new Upgrader() )->get_framework_init_option_name() ),
 				'actionUrl' => esc_url( admin_url( 'plugins.php' ) ),
+			),
+			'gutenverse-core-compatibility-notice-2-0' => array(
+				'show'        => defined( 'GUTENVERSE_VERSION' ) && version_compare( GUTENVERSE_VERSION, '1.9.9', '<=' ) && ! get_option( 'gutenverse_compatibility_notice_flag' ),
+				'plugin_list' => apply_filters( 'gutenverse_companion_plugin_list', array() ),
+				'action_url'  => admin_url( 'plugins.php' ),
 			),
 		);
 

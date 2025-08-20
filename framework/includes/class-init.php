@@ -141,8 +141,6 @@ class Init {
 	public function init_hook() {
 		// actions.
 		add_action( 'admin_notices', array( $this, 'notice_unibiz' ) );
-		// add_action( 'admin_notices', array( $this, 'gutenverse_notices' ) );
-		add_action( 'admin_notices', array( $this, 'notice_install_plugin' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'notice_install_plugin_script' ) );
 		add_action( 'rest_api_init', array( $this, 'init_api' ) );
 		add_action( 'activated_plugin', array( $this, 'flush_rewrite_rules' ) );
@@ -163,23 +161,6 @@ class Init {
 		$this->register_menu_position();
 		$this->import_mechanism();
 	}
-
-	/**
-	 * Gutenverse Notice
-	 */
-	// public function gutenverse_notices() {
-	// $notices = array();
-	// $notices = apply_filters( 'gutenverse_notices', $notices );
-	// usort(
-	// $notices,
-	// function ( $a, $b ) {
-	// return $a['priority'] <=> $b['priority']; // ascending
-	// }
-	// );
-	// for ($i=0; $i < 2; $i++) {
-	// # code...
-	// }
-	// }
 
 	/**
 	 * Hide doing_wp_cron query argument in url
@@ -725,34 +706,6 @@ class Init {
 		}
 
 		return $defaults;
-	}
-	/**
-	 * Show notification to install Gutenverse Plugin.
-	 */
-	public function notice_install_plugin() {
-		// skip if compatible.
-		if ( gutenverse_compatible_check() ) {
-			return;
-		}
-
-		$screen = get_current_screen();
-		if ( isset( $screen->parent_file ) && 'plugins.php' === $screen->parent_file && 'update' === $screen->id ) {
-			return;
-		}
-
-		if ( 'true' === get_user_meta( get_current_user_id(), 'gutenverse_install_notice', true ) ) {
-			return;
-		}
-		?>
-		<div class="notice is-dismissible install-gutenverse-plugin-notice">
-			<div class="gutenverse-notice-inner">
-				<div class="gutenverse-notice-content">
-					<h3><?php esc_html_e( 'WordPress 5.9 required for Gutenverse.', '--gctd--' ); ?></h3>
-					<p><?php esc_html_e( 'You are currently using lower version of WordPress, we recommend to update to WordPress 5.9 or higher. Or if you want to keep using lower version of WordPress, please install the latest version of Gutenberg', '--gctd--' ); ?></p>					
-				</div>
-			</div>
-		</div>
-		<?php
 	}
 
 	/**

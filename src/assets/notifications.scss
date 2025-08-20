@@ -1,4 +1,17 @@
+@import "./notices/gutenverse-2-0-compatibility.scss";
+
 #wpadminbar {
+	.gutenverse-notification-icon {
+		svg > *{
+			height: 24px;
+			width: 24px;
+		}
+	}
+	.gutenverse-notification-inner{
+		strong{
+			font-size: inherit !important;
+		}
+	}
 	.gutenverse-adminbar-notifications {
 		cursor: pointer;
 		display: flex;

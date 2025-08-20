@@ -432,8 +432,6 @@ class Api {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
 
-		$this->update_library_data();
-
 		$upload_dir       = wp_upload_dir();
 		$upload_base_path = $upload_dir['basedir'];
 
