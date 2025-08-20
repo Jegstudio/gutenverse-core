@@ -161,28 +161,3 @@ addFilter(
         ];
     }
 );
-
-addFilter(
-    'gutenverse.notification.list',
-    'gutenverse/notiication/list',
-    (list) => {
-        const notice = {
-            id: 'gutenverse-notice-wp-59xxx',
-            show: true,
-            content: <div className="gutenverse-notification">
-                <div className="gutenverse-notification-icon">
-                    <IconNoticeWarningSVG />
-                </div>
-                <div className="gutenverse-notification-inner">
-                    <h3>{__('WordPress 5.9 required for Gutenverse.', '--gctd--')}</h3>
-                    <p>{__('You are currently using lower version of WordPress, we recommend to update to WordPress 5.9 or higher. Or if you want to keep using lower version of WordPress, please install the latest version of Gutenberg', '--gctd--')}</p>
-                </div>
-            </div>
-        };
-
-        return [
-            ...list,
-            notice
-        ];
-    }
-);
