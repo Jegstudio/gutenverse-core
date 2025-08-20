@@ -9,17 +9,14 @@ import { ButtonUpgradePro, CheckSquare } from 'gutenverse-core/components';
 
 // @since v3.2.0
 const NotificationList = ({ readNotifications, setReadNotifications, notifTotal, setNotifTotal, notificationList }) => {
-    let content = <p className="notification-empty">{__('There is no Notifications', '--gctd--')}</p>;
+    let content = [];
 
     if (!isEmpty(notificationList)) {
-        content = notificationList.map(notification => {
-            const {
-                id,
-                show,
-                content
-            } = notification;
+        content = notificationList
+            .filter(notification => notification.show)
+            .map(notification => {
+                const { id, content } = notification;
 
-            if (show) {
                 const isNew = !readNotifications.includes(id);
 
                 const markAsRead = () => {
@@ -36,8 +33,7 @@ const NotificationList = ({ readNotifications, setReadNotifications, notifTotal,
                     {isNew && <span className="notification-new"></span>}
                     {content}
                 </div>;
-            }
-        });
+            });
     }
 
     const markAllRead = () => {
@@ -60,7 +56,7 @@ const NotificationList = ({ readNotifications, setReadNotifications, notifTotal,
             </div>
         </div>
         <div className="notification-list">
-            {content}
+            {!isEmpty(content) ? content : <p className="notification-empty">{__('There is no Notifications', '--gctd--')}</p>}
         </div>
     </>;
 };
@@ -162,7 +158,7 @@ const Navigation = ({ location }) => {
         });
 
         let total = notifTotal;
-        notificationList.map(({id, show}) => {
+        notificationList.map(({ id, show }) => {
             if (show && !readNotifications.includes(id)) total++;
         });
         setNotifTotal(total);
