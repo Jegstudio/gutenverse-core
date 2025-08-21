@@ -8,28 +8,12 @@ const {
 } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
 export const getPluginTabs = (settingValues) => {
-    const pluginTabs = {
+    const pluginTabs = applyFilters('gutenverse.settings.menu.plugin', {
         'form': {
             title: __('Form', 'gutenverse'),
             pro: false,
         },
-        'news': {
-            title: __('Gutenverse News', 'gutenverse'),
-            pro: false,
-            subMenu: applyFilters('gutenverse.news.settings.submenu', [
-                {
-                    id: 'block_settings',
-                    title: 'Global Block Settings'
-                },
-                {
-                    id: 'additional_features',
-                    title: 'Addiitonal Features',
-                    pro: true,
-                    withAccess: true
-                }
-            ], settingValues)
-        },
-    };
+    }, settingValues);
 
     return Object.fromEntries(
         Object.entries(pluginTabs).filter(([key]) => activePlugins.includes('gutenverse-' + key))
