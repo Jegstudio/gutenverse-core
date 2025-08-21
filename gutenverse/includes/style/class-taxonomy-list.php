@@ -141,7 +141,7 @@ class Taxonomy_List extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item",
 						'property'       => function ( $value ) {
-							$point = $value['point'] / 2;
+							$point = (float) $value['point'] / 2;
 							$unit  = $value['unit'];
 							return "padding: {$point}{$unit} 0;";
 						},
@@ -154,7 +154,7 @@ class Taxonomy_List extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item",
 						'property'       => function ( $value ) {
-							$point = $value['point'] / 2;
+							$point = (float) $value['point'] / 2;
 							$unit  = $value['unit'];
 							return "padding: 0 {$point}{$unit};";
 						},
