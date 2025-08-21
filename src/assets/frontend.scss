@@ -28,22 +28,6 @@
 @import "../blocks/wrapper/styles/style";
 
 
-// Default margins
-body h1,
-body h2,
-body h3,
-body h4,
-body h5,
-body h6 {
-    margin: 0.5em 0 1em;
-}
-
-body blockquote,
-body p,
-body q {
-	margin: 0 0 1em;
-}
-
 // Set element default position relative (this is required so element with Z Index could work properly)
 .guten-element {
 	position: relative;
