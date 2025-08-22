@@ -152,11 +152,13 @@ class Dashboard {
 			);
 		}
 
+		$notifications = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/notifications.asset.php' )['dependencies'];
+
 		// @since 3.2.0
 		wp_enqueue_script(
 			'gutenverse-core-notifications',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/notifications.js',
-			$include,
+			$notifications,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
