@@ -101,25 +101,25 @@ class Dashboard {
 			}
 		}
 
-		$config['noticeActions'] = array_merge(
-			$config['noticeActions'],
-			array(
-				'gutenverse-notice-banner'       => array(
-					'show' => Banner::can_render_notice(),
-				),
-				'gutenverse-upgrade-notice'      => array(
-					'show'       => $flag && ! $done && ( ! $font || ! $form ),
-					'action_url' => admin_url( 'admin.php?action=gutenverse-upgrade-wizard' ),
-				),
-				'gutenverse-page-content-notice' => array(
-					'show'       => $upgrader->check_old_theme( $theme ) && $flag_content,
-					'action_url' => admin_url( 'themes.php' ),
-					'theme_name' => $theme->name,
-				),
-				'gutenverse-form-entries-notice' => array(
-					'show' => ! $plugin_requirement['gutenverse-form']['active'],
-				),
-			)
+		$config['noticeActions'] = ! empty( $config['noticeActions'] ) ? $config['noticeActions'] : array();
+
+		$config['noticeActions']['gutenverse-notice-banner'] = array(
+			'show' => Banner::can_render_notice(),
+		);
+
+		$config['noticeActions']['gutenverse-upgrade-notice'] = array(
+			'show'       => $flag && ! $done && ( ! $font || ! $form ),
+			'action_url' => admin_url( 'admin.php?action=gutenverse-upgrade-wizard' ),
+		);
+
+		$config['noticeActions']['gutenverse-page-content-notice'] = array(
+			'show'       => $upgrader->check_old_theme( $theme ) && $flag_content,
+			'action_url' => admin_url( 'themes.php' ),
+			'theme_name' => $theme->name,
+		);
+
+		$config['noticeActions']['gutenverse-form-entries-notice'] = array(
+			'show' => ! $plugin_requirement['gutenverse-form']['active'],
 		);
 
 		return $config;
