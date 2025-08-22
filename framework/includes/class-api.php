@@ -1466,7 +1466,7 @@ class Api {
 	public function update_global_additional_settings( $request ) {
 		$post_id         = (int) $request->get_param( 'id' );
 		$setting_type    = sanitize_text_field( $request->get_param( 'type' ) );
-		$setting_content = sanitize_text_field( $request->get_param( 'content' ) );
+		$setting_content = $request->get_param( 'content' );
 
 		switch ( $setting_type ) {
 			case 'custom_css':

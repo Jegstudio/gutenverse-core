@@ -116,10 +116,7 @@ class Frontend_Toolbar {
 	 */
 	public function add_toolbar( $admin_bar ) {
 		if ( is_user_logged_in() ) {
-			$user  = wp_get_current_user();
-			$roles = (array) $user->roles;
-
-			if ( in_array( 'administrator', $roles, true ) || in_array( 'editor', $roles, true ) ) {
+			if ( current_user_can( 'update_plugins' ) ) {
 
 				$title = '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-logo-dashboard.svg' ) . '"/>' . esc_html__( 'Gutenverse', '--gctd--' ) . '</span>';
 
@@ -175,21 +172,23 @@ class Frontend_Toolbar {
 					);
 				}
 
-				$admin_bar->add_node(
-					array(
-						'id'     => 'gutenverse-adminbar-notification',
-						'title'  => '<span class="gutenverse-adminbar-notifications">' . '<div class="notifications-icon"><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-notifications.svg' ) . '"/></div>' . esc_html__( 'Gutenverse Notifications', '--gctd--' ) . '</span>',
-						'parent' => 'top-secondary',
-					)
-				);
+				if ( is_admin() ) {
+					$admin_bar->add_node(
+						array(
+							'id'     => 'gutenverse-adminbar-notification',
+							'title'  => '<span class="gutenverse-adminbar-notifications">' . '<div class="notifications-icon"><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-notifications.svg' ) . '"/></div>' . esc_html__( 'Gutenverse Notifications', '--gctd--' ) . '</span>',
+							'parent' => 'top-secondary',
+						)
+					);
 
-				$admin_bar->add_node(
-					array(
-						'id'     => 'gutenverse-notification-list',
-						'title'  => '<div id="gutenverse-notification-list"></div>',
-						'parent' => 'gutenverse-adminbar-notification',
-					)
-				);
+					$admin_bar->add_node(
+						array(
+							'id'     => 'gutenverse-notification-list',
+							'title'  => '<div id="gutenverse-notification-list"></div>',
+							'parent' => 'gutenverse-adminbar-notification',
+						)
+					);
+				}
 			}
 		}
 
