@@ -55,7 +55,7 @@ const LayoutContent = (props) => {
 const LayoutContentList = ({ libraryData, modalData, content, setContent, setSingleId, setSlug, burger }) => {
     const data = modalData.layoutContentData;
     const [categories, setCategories] = useState([]);
-    const [license, setLicense] = useState([]);
+    const [license, setLicense] = useState(null);
     const [status, setStatus] = useState('');
     const [scroller, setScroller] = useState(null);
     const scrollerRef = useRef();

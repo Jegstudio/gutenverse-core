@@ -66,7 +66,7 @@ const SectionContentWrapper = (props) => {
     const { modalData, closeImporter, setExporting, exporting, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger, setLibraryError, setSingleId, setSingleData, selectItem, setSelectItem } = props;
     const { layoutContentData: data } = modalData;
     const [categories, setCategories] = useState({});
-    const [license, setLicense] = useState([]);
+    const [license, setLicense] = useState(null);
     const [status, setStatus] = useState('');
     const [content, setContent] = useState({});
     const [scroller, setScroller] = useState(null);
