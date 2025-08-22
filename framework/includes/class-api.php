@@ -1482,6 +1482,8 @@ class Api {
 			default:
 				break;
 		}
+
+		return true;
 	}
 
 	/**
