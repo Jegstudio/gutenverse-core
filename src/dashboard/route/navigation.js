@@ -12,8 +12,14 @@ const NotificationList = ({ readNotifications, setReadNotifications, notifTotal,
     let content = [];
 
     if (!isEmpty(notificationList)) {
-        content = notificationList
-            .filter(notification => notification.show)
+        const uniqueNotifications = [
+            ...new Map(
+                notificationList
+                    .filter(notification => notification.show)
+                    .map(n => [n.id, n]) // key = id, value = notification
+            ).values()
+        ];
+        content = uniqueNotifications
             .map(notification => {
                 const { id, content } = notification;
 
