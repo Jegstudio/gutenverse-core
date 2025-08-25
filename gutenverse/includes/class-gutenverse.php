@@ -191,74 +191,6 @@ class Gutenverse {
 	}
 
 	/**
-	 * Plugin Update Notice.
-	 *
-	 * @param string $plugin_name String Plugin Name.
-	 * @param string $notice_header String Header For Notice.
-	 * @param string $notice_description String Description For Notice.
-	 * @param string $notice_action String Action Text For Notice.
-	 * @param string $notice_action_2 String Action Text For Notice.
-	 */
-	public function plugin_update_notice( $plugin_name, $notice_header, $notice_description, $notice_action, $notice_action_2 ) {
-
-		?>
-		<style>
-			.gutenverse-upgrade-notice.version-missmatch .notice-logo {
-				background: #ffe2e2;
-				border-left-color: #ff0909;
-			}
-		</style>
-		<div class="notice gutenverse-upgrade-notice page-content-upgrade version-missmatch">
-				<div class="notice-logo">
-					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M10 0C4.47754 0 0 4.47915 0 10C0 15.5241 4.47754 20 10 20C15.5225 20 20 15.5241 20 10C20 4.47915 15.5225 0 10 0ZM10 4.43548C10.9353 4.43548 11.6935 5.19371 11.6935 6.12903C11.6935 7.06435 10.9353 7.82258 10 7.82258C9.06468 7.82258 8.30645 7.06435 8.30645 6.12903C8.30645 5.19371 9.06468 4.43548 10 4.43548ZM12.2581 14.6774C12.2581 14.9446 12.0414 15.1613 11.7742 15.1613H8.22581C7.95859 15.1613 7.74194 14.9446 7.74194 14.6774V13.7097C7.74194 13.4425 7.95859 13.2258 8.22581 13.2258H8.70968V10.6452H8.22581C7.95859 10.6452 7.74194 10.4285 7.74194 10.1613V9.19355C7.74194 8.92633 7.95859 8.70968 8.22581 8.70968H10.8065C11.0737 8.70968 11.2903 8.92633 11.2903 9.19355V13.2258H11.7742C12.0414 13.2258 12.2581 13.4425 12.2581 13.7097V14.6774Z" fill="#ff0909"/>
-					</svg>
-				</div>
-				<div class="notice-content">
-					<h2>
-					<?php
-					printf(
-						esc_html( $notice_header ),
-						esc_html( $plugin_name )
-					);
-					?>
-					</h2>
-					<p>
-						<?php
-						printf(
-							esc_html( $notice_description ),
-							esc_html( $plugin_name )
-						);
-						?>
-					</p>				
-					<p>
-						<?php
-						printf(
-							'%s <strong>%s %s</strong> %s',
-							esc_html( $notice_action ),
-							esc_html__( 'Please update', 'gutenverse' ),
-							esc_html( $plugin_name ),
-							esc_html( $notice_action_2 )
-						);
-						?>
-					</p>
-					<div class="gutenverse-upgrade-action">
-					<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>">
-						<?php
-							printf(
-								// translators: %s is plugin name.
-								esc_html__( 'Update %s Plugin', 'gutenverse' ),
-								esc_html( $plugin_name )
-							);
-						?>
-						</a>						
-					</div>
-				</div>
-			</div>
-			<?php
-	}
-
-	/**
 	 * Plugin Meta Link
 	 *
 	 * @param array  $links  Initial list of links.
@@ -433,7 +365,6 @@ class Gutenverse {
 		foreach ( $checks as $plugin ) {
 			if ( isset( $plugins[ $plugin ] ) ) {
 				$form = $plugins[ $plugin ];
-
 				$plugin_name      = '';
 				$required_version = '1.0.0';
 				$plugin_arr       = explode( '/', $plugin );
@@ -443,7 +374,6 @@ class Gutenverse {
 					case 'gutenverse-form/gutenverse-form.php':
 						$required_version = '2.0.0';
 						$plugin_name      = 'Gutenverse Form';
-
 						break;
 					case 'gutenverse-news/gutenverse-news.php':
 						$required_version = '1.0.0';
@@ -459,10 +389,11 @@ class Gutenverse {
 					$notices[ 'gutenverse-update-' . $plugin_slug . '-notice' ] = array(
 						'show'               => true,
 						'notice_header'      => "Update {$plugin_name} Plugin!",
-						'notice_description' => "We notice that you haven\'t update %s plugin to version {$required_version} or above but, currently using Gutenverse version 3.0.0 or above.",
+						'notice_description' => "We notice that you haven't update {$plugin_name} plugin to version {$required_version} or above but, currently using Gutenverse version 3.0.0 or above.",
 						'notice_action'      => 'You might see issue on the Editor. ',
 						'notice_action_2'    => 'to ensure smooth editing experience!',
 						'action_url'         => admin_url( 'plugins.php' ),
+						'plugin_name'        => $plugin_name,
 					);
 				}
 			}
