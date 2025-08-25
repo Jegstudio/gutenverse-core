@@ -172,8 +172,8 @@ class Gutenverse {
 			// Change priority to 9 to prevent gutenverse form crash at version 1.0.0.
 			add_action( 'plugins_loaded', array( $this, 'plugin_loaded' ), 9 );
 			add_action( 'plugins_loaded', array( $this, 'framework_loaded' ), 99 );
-			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
 		}
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
 		register_activation_hook( GUTENVERSE_FILE, array( $this, 'set_activation_transient' ) );
 	}
 
@@ -216,12 +216,12 @@ class Gutenverse {
 				</div>
 				<div class="notice-content">
 					<h2>
-						<?php
-						printf(
-							esc_html( $notice_header ),
-							esc_html( $plugin_name )
-						);
-						?>
+					<?php
+					printf(
+						esc_html( $notice_header ),
+						esc_html( $plugin_name )
+					);
+					?>
 					</h2>
 					<p>
 						<?php
@@ -244,18 +244,18 @@ class Gutenverse {
 					</p>
 					<div class="gutenverse-upgrade-action">
 					<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>">
-							<?php
-								printf(
-									// translators: %s is plugin name.
-									esc_html__( 'Update %s Plugin', 'gutenverse' ),
-									esc_html( $plugin_name )
-								);
-							?>
+						<?php
+							printf(
+								// translators: %s is plugin name.
+								esc_html__( 'Update %s Plugin', 'gutenverse' ),
+								esc_html( $plugin_name )
+							);
+						?>
 						</a>						
 					</div>
 				</div>
 			</div>
-		<?php
+			<?php
 	}
 
 	/**
@@ -299,6 +299,27 @@ class Gutenverse {
 	}
 
 	/**
+	 * Get Framework version from file.
+	 *
+	 * @param string $file file path of the file that has the data framework.
+	 */
+	public function get_framework_version_from_file( $file ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		WP_Filesystem();
+		global $wp_filesystem;
+
+		if ( $wp_filesystem->exists( $file ) ) {
+
+			$content = $wp_filesystem->get_contents( $file );
+			if ( preg_match( "/define\(\s*'GUTENVERSE_FRAMEWORK_VERSION'\s*,\s*'([^']+)'\s*\)/", $content, $matches ) ) {
+				$version = $matches[1];
+				return $version;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Register Framework.
 	 */
 	public function register_framework() {
@@ -308,53 +329,53 @@ class Gutenverse {
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
-
+		$bootstrap_path         = '/lib/framework/bootstrap.php';
+		$self_bootstrap_path    = WP_PLUGIN_DIR . '/gutenverse' . $bootstrap_path;
+		$self_framework_version = $this->get_framework_version_from_file( $self_bootstrap_path );
+		if ( ! $self_framework_version ) {
+			$self_framework_version = '1.0.0';
+		}
 		$plugins = get_plugins();
 		$checks  = array(
-			'gutenverse-form/gutenverse-form.php',
-			'gutenverse-news/gutenverse-news.php',
-			'gutenverse-pro/gutenverse-pro.php',
+			'gutenverse-form' => array(
+				'plugin' => 'gutenverse-form/gutenverse-form.php',
+			),
+			'gutenverse-news' => array(
+				'plugin' => 'gutenverse-news/gutenverse-news.php',
+			),
 		);
 
-		$instance = $this;
-
-		if ( ! $instance->is_plugin_updated( 'gutenverse-form/gutenverse-form.php', '2.0.0' ) || ! is_plugin_active( 'gutenverse-form/gutenverse-form.php' ) ) {
-			foreach ( $checks as $plugin ) {
-				if ( isset( $plugins[ $plugin ] ) ) {
-					$form = $plugins[ $plugin ];
-
-					$plugin_name = '';
-					switch ( $plugin ) {
-						case 'gutenverse-form/gutenverse-form.php':
-							$plugin_name = 'Gutenverse Form';
-							break;
-						case 'gutenverse-news/gutenverse-news.php':
-							$plugin_name = 'Gutenverse News';
-							break;
-						case 'gutenverse-pro/gutenverse-pro.php':
-							$plugin_name = 'Gutenverse Pro';
-							break;
+		$is_using_other_framework = false;
+		$arr_equal_ver            = array();
+		foreach ( $checks as $key => $plugin ) {
+			if ( isset( $plugins[ $plugin['plugin'] ] ) ) {
+				if ( is_plugin_active( $plugin['plugin'] ) ) {
+					$plugin_bootstrap_path     = WP_PLUGIN_DIR . '/' . $key . '/' . $bootstrap_path;
+					$plugin_framework_version  = $this->get_framework_version_from_file( $plugin_bootstrap_path );
+					$compare_framework_version = version_compare( $self_framework_version, $plugin_framework_version, '<' );
+					if ( $compare_framework_version ) {
+						$is_using_other_framework = true;
+						break;
 					}
 
-					if ( version_compare( $form['Version'], '1.0.0', '<' ) && is_plugin_active( $plugin ) ) {
-						add_action(
-							'admin_notices',
-							function () use ( $instance, $plugin_name ) {
-								// translators: %s is plugin name.
-								$notice_header = 'Update %s Plugin!';
-								// translators: %s is plugin name.
-								$notice_description = 'We notice that you are using old version of %s plugin and will cause Gutenverse plugin crashed. ';
-								$notice_action      = 'We currently disabled Gutenverse plugin.';
-								$notice_action_2    = 'to prevent your site from crashing.';
-								$instance->plugin_update_notice( $plugin_name, $notice_header, $notice_description, $notice_action, $notice_action_2 );
-							}
-						);
-						return false;
+					$compare_equal_framework_version = version_compare( $self_framework_version, $plugin_framework_version, '=' );
+					if ( $compare_equal_framework_version ) {
+						array_push( $arr_equal_ver, $key );
 					}
 				}
 			}
 		}
+		if ( ! $is_using_other_framework && ! empty( $arr_equal_ver ) ) {
+			$arr_equal_ver[] = 'gutenverse';
+			sort( $arr_equal_ver );
+			if ( GUTENVERSE !== $arr_equal_ver[0] ) {
+				$is_using_other_framework = true;
+			}
+		}
 
+		if ( $is_using_other_framework ) {
+			return false;
+		}
 		$framework_file    = GUTENVERSE_DIR . 'lib/framework/bootstrap.php';
 		$framework_version = $init->get_framework_version( $framework_file );
 		$init->register_version( GUTENVERSE, $framework_version );
@@ -398,14 +419,16 @@ class Gutenverse {
 			'gutenverse-pro/gutenverse-pro.php',
 		);
 
-		$instance = $this;
-
+		$notices = array();
 		foreach ( $checks as $plugin ) {
 			if ( isset( $plugins[ $plugin ] ) ) {
 				$form = $plugins[ $plugin ];
 
 				$plugin_name      = '';
 				$required_version = '1.0.0';
+				$plugin_arr       = explode( '/', $plugin );
+				$plugin_slug      = $plugin_arr[0];
+
 				switch ( $plugin ) {
 					case 'gutenverse-form/gutenverse-form.php':
 						$required_version = '2.0.0';
@@ -423,21 +446,27 @@ class Gutenverse {
 				}
 
 				if ( version_compare( $form['Version'], $required_version, '<' ) && is_plugin_active( $plugin ) ) {
-					add_action(
-						'admin_notices',
-						function () use ( $instance, $plugin_name, $required_version ) {
-							// translators: %s is plugin name.
-							$notice_header = 'Update %s Plugin!';
-							// translators: %s is plugin name.
-							$notice_description = "We notice that you haven't update %s plugin to version {$required_version} or above but, currently using Gutenverse version 3.0.0 or above.";
-							$notice_action      = 'You might see issue on the Editor. ';
-							$notice_action_2    = 'to ensure smooth editing experience!';
-							$instance->plugin_update_notice( $plugin_name, $notice_header, $notice_description, $notice_action, $notice_action_2 );
-						}
+					$notices[ 'gutenverse-update-' . $plugin_slug . '-notice' ] = array(
+						'show'               => true,
+						'notice_header'      => "Update {$plugin_name} Plugin!",
+						'notice_description' => "We notice that you haven\'t update %s plugin to version {$required_version} or above but, currently using Gutenverse version 3.0.0 or above.",
+						'notice_action'      => 'You might see issue on the Editor. ',
+						'notice_action_2'    => 'to ensure smooth editing experience!',
+						'action_url'         => admin_url( 'plugins.php' ),
 					);
 				}
 			}
 		}
+
+		add_filter(
+			'gutenverse_dashboard_config',
+			function ( $config ) use ( $notices ) {
+				$config['noticeActions'] = ! empty( $config['noticeActions'] ) ? $config['noticeActions'] : array();
+				$merging_notices         = array_merge( $config['noticeActions'], $notices );
+				$config['noticeActions'] = $merging_notices;
+				return $config;
+			}
+		);
 
 		$this->load_textdomain();
 		$this->init_instance();
