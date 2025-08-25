@@ -329,6 +329,7 @@ class Gutenverse {
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
+		/**Get self framework version */
 		$bootstrap_path         = '/lib/framework/bootstrap.php';
 		$self_bootstrap_path    = WP_PLUGIN_DIR . '/gutenverse' . $bootstrap_path;
 		$self_framework_version = $this->get_framework_version_from_file( $self_bootstrap_path );
@@ -347,17 +348,20 @@ class Gutenverse {
 
 		$is_using_other_framework = false;
 		$arr_equal_ver            = array();
+
+		/**Compare self framework version with other plugin framework version*/
 		foreach ( $checks as $key => $plugin ) {
 			if ( isset( $plugins[ $plugin['plugin'] ] ) ) {
 				if ( is_plugin_active( $plugin['plugin'] ) ) {
 					$plugin_bootstrap_path     = WP_PLUGIN_DIR . '/' . $key . '/' . $bootstrap_path;
 					$plugin_framework_version  = $this->get_framework_version_from_file( $plugin_bootstrap_path );
 					$compare_framework_version = version_compare( $self_framework_version, $plugin_framework_version, '<' );
+					/**If there a bigger version framework then self then stop looping */
 					if ( $compare_framework_version ) {
 						$is_using_other_framework = true;
 						break;
 					}
-
+					/**If there a equal version framework then self then add plugin name to arr_equal_var */
 					$compare_equal_framework_version = version_compare( $self_framework_version, $plugin_framework_version, '=' );
 					if ( $compare_equal_framework_version ) {
 						array_push( $arr_equal_ver, $key );
@@ -365,14 +369,20 @@ class Gutenverse {
 				}
 			}
 		}
+
+		/**If loop done and there is no plugin that has bigger framework version then check arr_equal_var */
 		if ( ! $is_using_other_framework && ! empty( $arr_equal_ver ) ) {
+			/**add self plugin then sort */
 			$arr_equal_ver[] = 'gutenverse';
 			sort( $arr_equal_ver );
+
+			/**Check if the first value is self plugin or not, if not then it will not load framework from this plugin */
 			if ( GUTENVERSE !== $arr_equal_ver[0] ) {
 				$is_using_other_framework = true;
 			}
 		}
 
+		/**Check if framework is loaded from this plugin or not */
 		if ( $is_using_other_framework ) {
 			return false;
 		}
