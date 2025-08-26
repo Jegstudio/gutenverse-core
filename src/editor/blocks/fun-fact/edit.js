@@ -35,6 +35,7 @@ const FunFactBlock = compose(
         supper,
         showSupper,
         number,
+        safeNumber,
         duration,
         titleTag: TitleTag,
         hoverBottom,
@@ -62,38 +63,44 @@ const FunFactBlock = compose(
         if (elementRef.current) {
             const numberElement = elementRef.current.querySelector('.number');
 
-            const isValidNumber = /^-?\d+(\.\d+)?$/.test(number);
-            if (!isValidNumber) {
-                console.warn('[FunFact] Invalid number input (potentially unsafe):', number);
-                numberElement.textContent = 'Invalid number';
-                return;
-            }
-
+            let used = number ? number : safeNumber;
             let formatter = null;
-            if(numberFormat === 'comma') {
-                formatter = new Intl.NumberFormat('en-US', {
-                    maximumFractionDigits: 0
-                });
-            }else if(numberFormat === 'point') {
-                formatter = new Intl.NumberFormat('id-ID', {
-                    maximumFractionDigits: 0
-                });
-            }
 
-            const parsedNumber = parseFloat(number);
+            // fallback for old block
+            if (safeNumber) {
+                const formatComma = safeNumber.replaceAll( ',', '.' );
+                const isValidNumber = /^-?\d+(\.\d+)?$/.test(formatComma);
+                if (!isValidNumber) {
+                    console.warn('[FunFact] Invalid number input (potentially unsafe):', formatComma);
+                    numberElement.textContent = 'Invalid number';
+                    return;
+                }
+
+                if(numberFormat === 'comma') {
+                    formatter = new Intl.NumberFormat('en-US', {
+                        maximumFractionDigits: 0
+                    });
+                }else if(numberFormat === 'point') {
+                    formatter = new Intl.NumberFormat('id-ID', {
+                        maximumFractionDigits: 0
+                    });
+                }
+
+                used = `${Math.round(parseFloat(formatComma))} `;
+            }
 
             numberElement.textContent = '0';
 
             anime({
                 targets: numberElement,
-                innerHTML: Math.round(parsedNumber),
+                innerHTML: used,
                 easing: 'easeInOutQuart',
                 round: 1,
                 duration,
-                update: function(anim) {
+                update: formatter && safeNumber ? function(anim) {
                     const val = parseInt(anim.animations[0].currentValue);
-                    numberElement.textContent = formatter && !isNaN(val) ? `${formatter.format( val )} ` : anim.animations[0].currentValue;
-                }
+                    numberElement.textContent = !isNaN(val) ? `${formatter.format( val )} ` : `${anim.animations[0].currentValue} `;
+                } : null
             });
         }
 
@@ -101,7 +108,7 @@ const FunFactBlock = compose(
             const numberElement = elementRef.current?.querySelector('.number');
             if (numberElement) anime.remove(numberElement);
         };
-    }, [number, duration, numberFormat]);
+    }, [safeNumber, duration, numberFormat]);
 
     useEffect(() => {
         if (elementRef) {

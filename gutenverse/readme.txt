@@ -298,6 +298,22 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.1.2 =
+##### Bug Fixes
+* fix social icon item border
+* fix fun fact fallback for previous version
+* fix advance heading text input
+* fix feature list custom icon alignment
+* fix chart block container
+* fix chart block tooltip overlap with title
+* fix chart block inline issue
+* fix chart block bart style
+* fix flexible wrapper width/height slider
+* fix gallery popup error
+* fix portfolio gallery border radius
+* fix portfolio gallery hover link and background hover
+* fix icon box preview frontend and editor
+
 = 3.1.1 =
 ##### New & Improvemenets
 * add default spacing  in paragraph block

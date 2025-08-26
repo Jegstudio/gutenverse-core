@@ -77,11 +77,11 @@
       "type": "object",
       "copyStyle": true
     },
-		"backgroundTransition": {
-			"type": "object",
-			"copyStyle": true,
-			"default": {}
-		},
+    "backgroundTransition": {
+      "type": "object",
+      "copyStyle": true,
+      "default": {}
+    },
     "border": {
       "type": "object",
       "copyStyle": true
@@ -188,8 +188,9 @@
       "copyStyle": true
     },
     "condition": {
-        "type": "object",
-        "default": {}
+      "type": "object",
+      "default": {},
+      "anchor": true
     }
   },
   "keywords": [

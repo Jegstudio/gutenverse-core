@@ -183,5 +183,38 @@ export const contentPanel = (props) => {
                 },
             ],
         },
+        {
+            id: 'contentOrder',
+            show: enableContent && enableContent[deviceType],
+            label: __('Content Order', 'gutenverse'),
+            component: SelectControl,
+            allowDeviceControl: false,
+            options: [
+                {
+                    label: __('Title - Number - Description'),
+                    value: '1,2,3'
+                },
+                {
+                    label: __('Title - Description - Number'),
+                    value: '1,3,2'
+                },
+                {
+                    label: __('Number - Title - Description'),
+                    value: '2,1,3'
+                },
+                {
+                    label: __('Number - Description - Title'),
+                    value: '3,1,2'
+                },
+                {
+                    label: __('Description - Title - Number'),
+                    value: '2,3,1'
+                },
+                {
+                    label: __('Description - Number - Title'),
+                    value: '3,2,1'
+                },
+            ],
+        },
     ];
 };
