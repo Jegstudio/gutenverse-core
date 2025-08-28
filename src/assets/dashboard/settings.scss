@@ -173,7 +173,7 @@
                     .tab-item {
                         &.active {
                             svg {
-                                path {
+                                path:first-of-type{
                                     fill: var(--gutenverse-dashboard-primary);
                                 }
                             }
