@@ -4,11 +4,7 @@
  * Description: Collection of easy to use and customizable blocks for WordPress Block Editor. Build a great website using block provided with Gutenverse.
  * Plugin URI: https://gutenverse.com/
  * Author: Jegstudio
-<<<<<<< HEAD
- * Version: 3.1.2
-=======
  * Version: 3.2.0
->>>>>>> dev/library-phase-1
  * Author URI: https://jegtheme.com/
  * License: GPLv3
  * Text Domain: gutenverse
