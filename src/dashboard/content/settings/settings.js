@@ -8,8 +8,8 @@ import TemplateSetting from './src/settings/template-setting';
 import FontIconSetting from './src/settings/font-icon-setting';
 import { DashboardBody, DashboardContent, PopupPro, PopupInstallPlugin } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
-import { getSettingsIcon } from 'gutenverse-core/icons';
 import { generalTabs, getPluginTabs, getSettingTitle } from './tabs';
+import { getSettingsIcon, IconPerformance, IconSettingsCustomFont, IconSettingsEditor, IconSettingsFontIcon, IconSettingsForm, IconSettingsFrontend, IconSettingsNews, IconSettingsTemplate } from 'gutenverse-core/icons';
 
 const SettingsBody = ({ settings, ...props }) => {
     let body = '';
@@ -140,7 +140,8 @@ const Settings = (props) => {
 };
 
 const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, tabs, subSettings, extraClasses }) => {
-    const icons = getSettingsIcon();
+    const icons = getSettingsIcon('#99A2A9');
+    const iconsActive = getSettingsIcon('#3B57F7');
     if (Object.keys(tabs).length === 0) {
         return '';
     }
@@ -150,6 +151,7 @@ const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, t
         {Object.keys(tabs).map(key => {
             const item = tabs[key].title;
             const icon = icons[key] ? icons[key] : '';
+            const iconActive = iconsActive[key] ? iconsActive[key] : '';
             const param = 'subMenu' in tabs[key] ? `?page=${page}&path=${path}&settings=${key}&sub-menu=${tabs[key].subMenu[0].id}` : `?page=${page}&path=${path}&settings=${key}`;
             const classes = classnames('tab-item', {
                 active: key === settings,
@@ -168,7 +170,7 @@ const SettingLists = ({ label, path, page, pathname, setPopupActive, settings, t
                         pro={tabs[key].pro}
                         setActive={() => setPopupActive(true)}
                     >
-                        {icon}
+                        {key === settings ? iconActive : icon}
                         {item}
                     </Link>
                 </div>

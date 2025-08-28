@@ -154,31 +154,11 @@
                         width: 24px;
                         height: 24px;
                     }
-
-                    .tab-item {
-                        &.active {
-                            svg {
-                                rect {
-                                    fill: var(--gutenverse-dashboard-primary);
-                                }
-                            }
-                        }
-                    }
                 }
 
                 &.general {
                     padding-bottom: 24px;
                     border-bottom: 1px solid #E3E4E6;
-
-                    .tab-item {
-                        &.active {
-                            svg {
-                                path:first-of-type{
-                                    fill: var(--gutenverse-dashboard-primary);
-                                }
-                            }
-                        }
-                    }
 
                 }
 
