@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import { Default, u } from 'gutenverse-core-frontend';
 import { Chart} from 'chart.js/auto';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 class GutenverseChart extends Default {
     /* public */
