@@ -18,6 +18,7 @@ const PRO_STATE_DEFAULT = [
         icon: <IconSectionSliderSVG />,
         pro: true,
         locked: true,
+        tier: 'professional',
     },
 ];
 
@@ -46,17 +47,34 @@ const getList = (state = []) => {
 
     const lockedBlocks = applyFilters('gutenverse.blocklist.locked', PRO_STATE_DEFAULT);
 
-    lockedBlocks.map(lockedBlock => {
-        let exist = false;
+    lockedBlocks.forEach(lockedBlock => {
+        const existingBlock = blockList.find(block => block.name === lockedBlock.name);
 
-        blockList.map(block => {
-            if (block.name === lockedBlock.name) {
-                exist = true;
-            }
-        });
-
-        if (!exist) {
-            lockedList.push(lockedBlock);
+        if (existingBlock) {
+            // Merge without overwriting blockList data
+            Object.keys(lockedBlock).forEach(key => {
+                if (Array.isArray(lockedBlock[key]) && Array.isArray(existingBlock[key])) {
+                    // Merge arrays without duplicates (keep blockList priority)
+                    existingBlock[key] = [
+                        ...existingBlock[key],
+                        ...lockedBlock[key].filter(item => !existingBlock[key].includes(item))
+                    ];
+                } else if (typeof lockedBlock[key] === 'object' && lockedBlock[key] !== null) {
+                    // Merge objects shallowly without overwriting existing values
+                    existingBlock[key] = {
+                        ...lockedBlock[key],
+                        ...existingBlock[key]  // blockList priority
+                    };
+                } else {
+                    // Only add if it doesn’t exist yet in blockList
+                    if (existingBlock[key] === undefined || existingBlock[key] === null) {
+                        existingBlock[key] = lockedBlock[key];
+                    }
+                }
+            });
+        } else {
+            // If it doesn't exist, just push it
+            blockList.push(lockedBlock);
         }
     });
 
