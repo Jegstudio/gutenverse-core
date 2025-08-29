@@ -20,7 +20,7 @@ const DefaultLayout = ({
 
     const ButtonPro = applyFilters(
         'gutenverse.pro-panel-button',
-        () => isEmpty(window?.gprodata) && <a className="gutenverse-button-available-pro" href={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} target="_blank" rel="noreferrer"> {__('Available in Pro Version', '--gctd--')} <IconCrownBannerSVG /> </a>
+        () => isEmpty(window?.gprodata) && <a className="gutenverse-button-available-pro" href={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} target="_blank" rel="noreferrer"> {__('Upgrade To Pro', '--gctd--')} <IconCrownBannerSVG /> </a>
     );
     return <>
         <h2 className="title">{title}</h2>
