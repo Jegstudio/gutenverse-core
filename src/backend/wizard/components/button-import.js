@@ -1,8 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { applyFilters, hasFilter } from '@wordpress/hooks';
-import { useEffect } from '@wordpress/element';
+import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
-import { licenseCheck } from '../helper';
 
 export const ButtonImport = (props) => {
     const { template } = props;
@@ -29,7 +27,6 @@ const ButtonUpgradePro = (props) => {
     const {
         text = __('Upgrade To PRO', 'gutenverse'),
         link = null,
-        template
     } = props;
 
     const { upgradeProUrl, adminUrl, api } = window['GutenverseConfig'] || window['GutenverseWizard'] || {};
@@ -64,7 +61,7 @@ const ButtonUpgradePro = (props) => {
     return <TheButton />;
 };
 
-const CompanionButton = ({ demoUsed, key, templateList, template, setAdditional, setModal, importTemplates, setSwitchModal, setSelectedTemplate }) => {
+const CompanionButton = ({ demoUsed, template, setModal, setSelectedTemplate }) => {
 
     return <div
         className={`button-import-page ${(template?.status?.using_template ? 'imported' : 'import')}`}

@@ -201,7 +201,7 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
         const {list} = props;
         return <>
             <div className="template-list">
-                {!isEmpty(list) ? list?.map((template, key) => {
+                {!isEmpty(list) ? list?.map((template) => {
                     return <DemoCard
                         key={template?.id}
                         template={template}

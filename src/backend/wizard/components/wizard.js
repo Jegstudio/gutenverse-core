@@ -56,7 +56,7 @@ const ImportLoading = (props) => {
 };
 
 const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, setClicked, requirement, emptyLicense }) => {
-    const { plugins, installNonce, ajaxurl, gutenverseImgDir, ImgDir } = gutenverseWizard;
+    const { plugins, installNonce, ajaxurl, ImgDir } = gutenverseWizard;
     const [installing, setInstalling] = useState({ show: true, message: 'Preparing...', progress: '1/4' });
     const [reloadingSlug, setReloadingSlug] = useState(null);
     const [themeData, setThemeData] = useState(() => {
@@ -162,7 +162,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                 const plugin = plugins[index];
 
                 if (!plugin?.installed) {
-                    wp?.apiFetch({
+                    apiFetch({
                         path: 'wp/v2/plugins',
                         method: 'POST',
                         data: {
@@ -176,7 +176,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                         console.error('Error during installing plugin: ' + err);
                     });
                 } else if (!plugin?.active) {
-                    wp?.apiFetch({
+                    apiFetch({
                         path: `wp/v2/plugins/plugin?plugin=${plugin?.slug}/${plugin?.slug}`,
                         method: 'POST',
                         data: {

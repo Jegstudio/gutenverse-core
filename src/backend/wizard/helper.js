@@ -88,8 +88,8 @@ export const formatArray = (arr) => {
 
 
 export const removingPrevious = (template, active) => {
-    return new Promise((resolve, reject) => {
-        wp?.apiFetch({
+    return new Promise((resolve) => {
+        apiFetch({
             path: 'gutenverse-companion/v1/demo/remove',
             method: 'POST',
             data: applyFilters(
@@ -111,7 +111,7 @@ export const removingPrevious = (template, active) => {
 };
 
 export const installingPlugins = (template, setImporterStatus) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
 
         const { plugin_list: installedPlugin } = window['GutenverseWizard'];
         const pluginsList = [
@@ -145,7 +145,7 @@ export const installingPlugins = (template, setImporterStatus) => {
 
                     // Not installed
                     if (!plugin.installed) {
-                        wp.apiFetch({
+                        apiFetch({
                             path: 'wp/v2/plugins',
                             method: 'POST',
                             data: {
@@ -163,7 +163,7 @@ export const installingPlugins = (template, setImporterStatus) => {
 
                         // Installed but not active
                     } else if (!plugin.active) {
-                        wp.apiFetch({
+                        apiFetch({
                             path: `wp/v2/plugins/plugin?plugin=${plugin.slug}/${plugin.slug}`,
                             method: 'POST',
                             data: { status: 'active' }
@@ -171,7 +171,7 @@ export const installingPlugins = (template, setImporterStatus) => {
                             .then(() => {
                                 setTimeout(() => installPlugins(index + 1), 1500);
                             })
-                            .catch(err => {
+                            .catch(() => {
                                 // reject(err); // ❌ Stop chain on failure
                                 setTimeout(() => installPlugins(index + 1), 1500);
                             });
@@ -190,8 +190,8 @@ export const installingPlugins = (template, setImporterStatus) => {
 };
 
 export const fetchingDataImport = (template, active) => {
-    return new Promise((resolve, reject) => {
-        wp?.apiFetch({
+    return new Promise((resolve) => {
+        apiFetch({
             path: 'gutenverse-companion/v1/demo/import',
             method: 'POST',
             data: applyFilters(
@@ -213,7 +213,7 @@ export const fetchingDataImport = (template, active) => {
 };
 
 export const importingPatterns = (template, misc, setImporterStatus) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         apiFetch({
             path: addQueryArgs('gutenverse-companion/v1/pattern/get'),
             method: 'POST',
@@ -339,7 +339,7 @@ export const importingPattern = (patterns, installed, template, misc, setImporte
 };
 
 export const assignTemplates = (installed, template) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         apiFetch({
             path: 'gutenverse-companion/v1/demo/assign',
             method: 'POST',
@@ -359,7 +359,7 @@ export const assignTemplates = (installed, template) => {
 };
 
 export const importPages = (installed, template, misc) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         apiFetch({
             path: 'gutenverse-companion/v1/demo/pages',
             method: 'POST',
@@ -380,7 +380,7 @@ export const importPages = (installed, template, misc) => {
 };
 
 export const importMenus = (template, misc) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         apiFetch({
             path: 'gutenverse-companion/v1/import/menus',
             method: 'POST',
