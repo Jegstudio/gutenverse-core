@@ -320,7 +320,10 @@ body {
         max-width: 1200px;
         margin-top: 56px;
         display: flex;
-        overflow: hidden;
+
+        &.import-template {
+            border: none;
+        }
 
         .theme-install {
             display: flex;
@@ -330,12 +333,13 @@ body {
             position: relative;
             width: 100%;
             height: 725px;
+            overflow: hidden;
 
             .content-wrapper {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: flex-start;
-                align-items:flex-start;
+                align-items: flex-start;
                 position: relative;
                 width: inherit;
                 height: inherit;
@@ -399,7 +403,7 @@ body {
                         letter-spacing: 0.36px;
                         vertical-align: middle;
                         color: white;
-                        
+
                         &:hover {
                             transform: scale(0.94);
                             color: rgba(255, 255, 255, 0.75);
@@ -413,7 +417,7 @@ body {
                             background: linear-gradient(91.52deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%);
                             border-radius: 10px;
                             -webkit-mask:
-                                linear-gradient(#fff 0 0) content-box, 
+                                linear-gradient(#fff 0 0) content-box,
                                 linear-gradient(#fff 0 0);
                             -webkit-mask-composite: xor;
                             mask-composite: exclude;
@@ -719,7 +723,8 @@ body {
                 align-items: center;
                 height: 48px;
 
-                a, p {
+                a,
+                p {
                     font-family: "Inter", sans-serif;
                     color: rgba(255, 255, 255, 1);
                     line-height: 1.7;
@@ -780,6 +785,10 @@ body {
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
+        border-top: solid 1px #e3e4e6;
+        border-left: solid 1px #e3e4e6;
+        border-right: solid 1px #e3e4e6;
+        border-radius: 20px 20px 0 0;
 
         .content-title {
             margin: 0;
@@ -857,12 +866,13 @@ body {
     .template-list {
         padding: 50px 40px 40px;
         gap: 30px;
-        max-height: 1100px;
         overflow-y: auto;
         margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
         position: relative;
+        border-left: solid 1px #e3e4e6;
+        border-right: solid 1px #e3e4e6;
 
         &.uncomplete {
             max-height: 600px;
@@ -898,13 +908,48 @@ body {
             position: relative;
             overflow: hidden;
 
+            &.loading {
+                background: #c0c0c082;
+
+                .no-image {
+                    background: linear-gradient(90deg, transparent, #c0c0c082, transparent);
+                    animation: loading-skeleton-keyframes-wave 1s linear .5s infinite;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .template-page-desc {
+                    display: block;
+
+                    .loading-title {
+                        width: 80%;
+                        height: 20px;
+                        border-radius: 20px;
+                        background: #c0c0c082;
+                        overflow: hidden;
+                    }
+
+                    .loading-buttons {
+                        margin-top: 10px;
+                        width: 50%;
+                        height: 20px;
+                        border-radius: 20px;
+                        background: #c0c0c082;
+                        overflow: hidden;
+                    }
+
+                    .loading-skeleton {
+                        background: linear-gradient(90deg, transparent, #c0c0c082, transparent);
+                        transform: translateX(-100%);
+                        animation: loading-skeleton-keyframes-wave 1s linear .5s infinite;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+
             &:hover {
                 border: 1px solid rgba(59, 87, 247, 1);
-
-                .button-view-demo {
-                    border: 1px solid rgba(59, 87, 247, 1) !important;
-                    color: rgba(59, 87, 247, 1);
-                }
 
                 .template-thumbnail {
                     .thumbnail-overlay {
@@ -920,8 +965,6 @@ body {
 
             .template-thumbnail {
                 position: relative;
-
-
 
                 .thumbnail-overlay {
                     position: absolute;
@@ -1094,8 +1137,8 @@ body {
                         transition: all 0.3s ease;
 
                         &:hover {
-                           transform: scale(0.94);
-                           color: rgba(255, 255, 255, 0.75);
+                            transform: scale(0.94);
+                            color: rgba(255, 255, 255, 0.75);
                         }
 
                         &.imported {
@@ -1127,19 +1170,35 @@ body {
                         text-align: center;
                         transition: background-color 0.3s ease, color 0.3s ease,
                             border 0.3s ease;
+
+                        &:hover {
+                            border: 1px solid rgba(59, 87, 247, 1) !important;
+                            color: rgba(59, 87, 247, 1);
+                        }
                     }
                 }
             }
         }
     }
 
+    .template-footer{
+        position: sticky;
+        bottom: 0;
+        padding-bottom: 20px;
+        background-color: #f0f0f1;
+        border: none;
+        z-index: 99;
+    }
+
     .template-actions {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        border-top: solid 1px #e3e4e6;
+        border: solid 1px #e3e4e6;
         padding: 20px 50px;
         gap: 20px;
+        border-radius: 0px 0px 20px 20px;
+        background: white;
 
         .button-skip {
             cursor: pointer;

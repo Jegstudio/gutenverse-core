@@ -222,7 +222,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                         </svg>
                         {__('Back', 'gutenverse')}
                     </div> */}
-                    <div onClick={() => requirement ? updateProgress('importTemplate', 2) : ( emptyLicense ? updateProgress('upgradePro', 3) : updateProgress('done', 4) )} className="button-next">{__('Next', 'gutenverse')}</div>
+                    <div onClick={() => requirement ? updateProgress('importTemplate', 2) : (emptyLicense ? updateProgress('upgradePro', 3) : updateProgress('done', 4))} className="button-next">{__('Next', 'gutenverse')}</div>
                 </Fragment>;
         }
     };
@@ -230,10 +230,10 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
     const themeAction = (step, slug) => {
         setAction('loading');
         switch (step) {
-            case 1 :
+            case 1:
                 installTheme(slug);
                 break;
-            case 2 :
+            case 2:
             default:
                 activateTheme(slug);
                 break;
@@ -275,14 +275,14 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                                                     onInstall();
                                                     setReloadingSlug(theme?.slug);
                                                     setClicked(prev => prev + 1);
-                                                } } className="button-install">{__('Activate Theme', 'gutenverse')}</div>
+                                                }} className="button-install">{__('Activate Theme', 'gutenverse')}</div>
                                                 :
                                                 <div onClick={() => {
                                                     themeAction(1, theme?.slug);
                                                     onInstall();
                                                     setReloadingSlug(theme?.slug);
                                                     setClicked(prev => prev + 1);
-                                                } } className="button-install">{__('Install Theme', 'gutenverse')}</div>
+                                                }} className="button-install">{__('Install Theme', 'gutenverse')}</div>
                                     }
                                 </div>
                                 <a href={'#'} target="_blank" rel="noreferrer" className="demo theme-button">
@@ -293,22 +293,22 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                 </div>;
             })}
         </div>
-        :  <div className="requirment-list loading">
+        : <div className="requirment-list loading">
             <div className="loader-template"></div>
         </div>;
 
     const checkIcon =
-    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect y="0.5" width="16" height="16" rx="8" fill="#5C51F3"/>
-        <g clipPath="url(#clip0_23261_18564)">
-            <path d="M7.27452 12.1399L4.36523 8.95802L5.19629 8.04909L7.27511 10.3208L7.27452 10.3214L12.2615 4.86719L13.0925 5.77612L8.10558 11.231L7.27511 12.1393L7.27452 12.1399Z" fill="white"/>
-        </g>
-        <defs>
-            <clipPath id="clip0_23261_18564">
-                <rect x="4.33545" y="4.94922" width="8.70001" height="8.70001" rx="4.35001" fill="white"/>
-            </clipPath>
-        </defs>
-    </svg>;
+        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect y="0.5" width="16" height="16" rx="8" fill="#5C51F3" />
+            <g clipPath="url(#clip0_23261_18564)">
+                <path d="M7.27452 12.1399L4.36523 8.95802L5.19629 8.04909L7.27511 10.3208L7.27452 10.3214L12.2615 4.86719L13.0925 5.77612L8.10558 11.231L7.27511 12.1393L7.27452 12.1399Z" fill="white" />
+            </g>
+            <defs>
+                <clipPath id="clip0_23261_18564">
+                    <rect x="4.33545" y="4.94922" width="8.70001" height="8.70001" rx="4.35001" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>;
 
     return <div className="theme-install">
         <div className="content-wrapper">
@@ -341,7 +341,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                     onInstall();
                     setReloadingSlug('unibiz');
                     setClicked(prev => prev + 1);
-                } } className={`button-install ${requirement ? 'complete' : ''}`}>
+                }} className={`button-install ${requirement ? 'complete' : ''}`}>
                     {__(requirement ? 'Unibiz Installed' : 'Install Unibiz Theme', 'gutenverse')}
                 </div>
                 <p className="notice-install">
@@ -355,7 +355,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
     </div>;
 };
 
-const GettingStarted = ({updateProgress, gutenverseImgDir}) => {
+const GettingStarted = ({ updateProgress, gutenverseImgDir }) => {
     return <div className="getting-started">
         <img className="bg-image-wizard" src={gutenverseImgDir + '/wizard-bg-welcome.png'} />
         <div className="content-top">
@@ -414,7 +414,7 @@ const WizardPage = () => {
             gutenverseImgDir,
             ImgDir
         } = window['GutenverseWizard'];
-        const {adminUrl} =  window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+        const { adminUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
         switch (progress) {
             case 'pluginAndTheme':
@@ -422,7 +422,7 @@ const WizardPage = () => {
             case 'importTemplate':
                 return <ImportTemplates updateProgress={updateProgress} emptyLicense={emptyLicense} />;
             case 'upgradePro':
-                return <UpgradePro updateProgress={updateProgress} requirement={requirement}/>;
+                return <UpgradePro updateProgress={updateProgress} requirement={requirement} />;
             case 'done':
 
                 return <div className="finalizing">
@@ -467,7 +467,7 @@ const WizardPage = () => {
                     <h3 className="progress-title">{__('Finalizing', 'gutenverse')}</h3>
                 </div>
             </div>
-            <div className="wizard-body">
+            <div className={`wizard-body ${progress.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()}`}>
                 {content()}
             </div>
         </div>
