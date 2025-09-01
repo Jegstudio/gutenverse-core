@@ -271,15 +271,18 @@ class Init {
 			}
 
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .button-wrapper .button-install{
-				width: 142;
-				height: 36;
+				width: 142px;
+				height: 36px;
 				border-radius: 8px;
-				padding: 10px 16px;
+				padding: 5px 16px;
 				background: radial-gradient(103.69% 112% at 51.27% 100%, #4992FF 0%, #7722FF 100%);
 				border: 1px solid #9760FF;
 				color: white;
 				cursor: pointer;
 				transition: transform .3s ease;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 			}
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .button-wrapper .button-install svg {
 				animation: infinite rotate 2s linear;
@@ -520,7 +523,7 @@ class Init {
 					const pluginsList = [
 						{ name: 'Gutenverse Companion', slug: 'gutenverse-companion', version: '', url: '' },
 					];
-					const installBtn = document.querySelector('.button-install');
+					const installBtn = document.querySelector('.gutenverse-unibiz-notice .button-install');
 					if (installBtn) {
 						installBtn.innerHTML = `<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M8.69737 1V2.89873M8.69737 12.962V16M3.76316 8.40506H1M16 8.40506H14.8158M13.7951 13.3092L13.2368 12.7722M13.9586 3.40439L12.8421 4.47848M3.10914 13.7811L5.34211 11.6329M3.27264 3.2471L4.94737 4.85823" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
