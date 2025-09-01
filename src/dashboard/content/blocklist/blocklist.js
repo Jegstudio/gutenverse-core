@@ -2,17 +2,20 @@ import { __ } from '@wordpress/i18n';
 import { useRef, useState } from '@wordpress/element';
 import { ControlCheckbox, ControlCheckboxPro } from 'gutenverse-core/backend';
 import { select } from '@wordpress/data';
-import { DashboardBody, DashboardContent, DashboardHeader, PopupPro } from '../../components';
+import { DashboardBody, DashboardContent, DashboardHeader, PopupInsufficientTier, PopupPro } from '../../components';
 import { applyFilters } from '@wordpress/hooks';
 
 const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettingValues }) => {
     const [popupActive, setPopupActive] = useState(false);
+    const [popupInsufficientTier, setPopupInsufficientTier] = useState(false);
+    const [insufficientTierDesc, setInsufficientTierDesc] = useState('');
     const { imgDir } = window['GutenverseDashboard'];
     const { active_blocks = {} } = settingValues;
     const { blockCategories } = window['GutenverseSettings'];
     const controlRef = useRef();
     const blocks = select('gutenverse/blocklist').getList();
     const blocksHasChild = [];
+
     blocks.map((block) => {
         if (!(block?.name in active_blocks) && !block?.parent) {
             active_blocks[block.name] = true;
@@ -110,6 +113,11 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                 setActive={setPopupActive}
                 description={<>{__('Upgrade ', '--gctd--')}<span>{__(' Gutenverse PRO ', '--gctd--')}</span>{__(' version to ', '--gctd--')}<br />{__(' unlock these premium blocks', '--gctd--')}</>}
             />
+            <PopupInsufficientTier
+                active={popupInsufficientTier}
+                setActive={setPopupInsufficientTier}
+                description={insufficientTierDesc}
+            />
             <DashboardHeader>
                 <div className="header-control">
                     <h2>{__('All Blocks', '--gctd--')}</h2>
@@ -204,7 +212,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                                         <div className="block-control" ref={controlRef}>
                                                             <ControlCheckboxPro />
                                                         </div>
-                                                    </div>, { block, active_blocks, controlRef, ControlCheckbox, updateValue });
+                                                    </div>, { block, active_blocks, controlRef, ControlCheckbox, updateValue, setPopupInsufficientTier, setInsufficientTierDesc });
                                                 return <BlockPro key={block.name} />;
                                             }
 
