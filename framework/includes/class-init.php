@@ -174,6 +174,9 @@ class Init {
 		ob_start();
 		?>
 		<style>
+			.update-php .wrap{
+				max-width: 100% !important;
+			}
 			.gutenverse-unibiz-notice{
 				background : url(<?php echo esc_html( $image_dir ) . '/unibiz-bg-banner-gradient.png'; ?>);
 				background-position: center;
@@ -505,6 +508,7 @@ class Init {
 					});
 				});
 			}
+
 			(function($) {
 				const { domainURL } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
 
