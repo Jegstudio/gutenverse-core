@@ -9,12 +9,18 @@ import { getEditSiteHeader, signal } from 'gutenverse-core/editor-helper';
 import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
 import EditorModePlugin from '../editor-mode/editor-mode';
+import { applyFilters } from '@wordpress/hooks';
 
 const { activeTheme } = window['GutenverseConfig'] || {};
 
-const initLibraryState = {
-    active: 'layout',
+let initLibraryState = {
+    active: 'themes',
     tabs: [
+        {
+            id: 'themes',
+            icon: <IconBlocksSVG />,
+            label: __('Themes', '--gctd--'),
+        },
         {
             id: 'layout',
             icon: <IconLayoutsSVG />,
@@ -33,13 +39,8 @@ const initLibraryState = {
     ],
 };
 
-if (activeTheme !== 'unibiz') {
-    initLibraryState.active = 'themes';
-    initLibraryState.tabs.unshift({
-        id: 'themes',
-        icon: <IconBlocksSVG />,
-        label: __('Themes', '--gctd--'),
-    });
+if (activeTheme === 'unibiz') {
+    initLibraryState.active = 'layout';
 }
 
 const initLayoutState = {
@@ -134,6 +135,7 @@ const Library = (props) => {
                 'installedPlugin': plugins,
             });
 
+            initLibraryState = applyFilters('gutenverse.library.states', initLibraryState);
             dispatch('gutenverse/library').initialModalData({
                 'libraryData': initLibraryState,
                 'layoutContentData': initLayoutState

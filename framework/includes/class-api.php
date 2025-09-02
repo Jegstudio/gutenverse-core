@@ -524,7 +524,6 @@ class Api {
 
 		foreach ( $data as $key => $value ) {
 			$content = $this->get_json_data( $key );
-
 			if ( 'layout-data' === $key ) {
 				$content = $this->inject_layout_like( $content );
 			}
@@ -617,8 +616,10 @@ class Api {
 	 */
 	public function inject_layout_like( $data ) {
 		$liked = Meta_Option::instance()->get_option( 'liked_layout' );
-		foreach ( $data as $key => $item ) {
-			$data[ $key ]['like'] = ! empty( $liked ) ? in_array( $item['data']['slug'], $liked, true ) : false;
+		if ( ! empty( $data ) ) {
+			foreach ( $data as $key => $item ) {
+				$data[ $key ]['like'] = ! empty( $liked ) ? in_array( $item['data']['slug'], $liked, true ) : false;
+			}
 		}
 
 		return $data;
@@ -1737,6 +1738,7 @@ class Api {
 				$url
 			)
 		);
+		
 		if ( is_wp_error( $response ) ) {
 			return false;
 		}

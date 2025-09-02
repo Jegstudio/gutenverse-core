@@ -450,6 +450,16 @@ class Dashboard {
 				null,
 				3
 			);
+		} else {
+			add_submenu_page(
+				self::TYPE,
+				esc_html__( 'Themes', '--gctd--' ),
+				esc_html__( 'Themes', '--gctd--' ),
+				'manage_options',
+				admin_url() . '/admin.php?page=gutenverse-companion-dashboard&path=demo',
+				null,
+				3
+			);
 		}
 
 		add_submenu_page(

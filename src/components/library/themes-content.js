@@ -1,15 +1,13 @@
-import { useEffect, useState, useRef } from '@wordpress/element';
-import PluginInstallMode from './plugin-install-mode';
-import { useSelect, dispatch, withSelect } from '@wordpress/data';
+import { useState } from '@wordpress/element';
+import { withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { IconArrowRightSVG, IconDownloadSVG, IconLibraryThemeListSVG, IconLoadingSVG } from 'gutenverse-core/icons';
-import apiFetch from '@wordpress/api-fetch';
+import { IconLibraryThemeListSVG, IconLoadingSVG } from 'gutenverse-core/icons';
 import { installAndActivateTheme, installingPlugins } from 'gutenverse-core/helper';
 
-const ThemesContent = (props) => {
+const ThemesContent = () => {
     const { imgDir, proDemoUrl, domainURL } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
     const [buttonText, setButtonText] = useState(__('Install Unibiz Theme', 'gutenverse'));
-    const activateTheme = (slug) => {
+    const activateTheme = () => {
         setButtonText(<IconLoadingSVG />);
         const themeSlug = 'unibiz'; // change this to your theme slug
         const pluginsList = [
