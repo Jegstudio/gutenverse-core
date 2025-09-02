@@ -171,8 +171,10 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
                                 return [...nonUpdatedItems, ...updatedItems];
                             });
                             setTotalPage(response?.total_page);
-                            setFetch(false);
                         }
+                    }).catch(() => {}).finally(() => {
+                        setFetch(false);
+                        setTemplateList((prev) => prev.filter(item => item !== 'initial'));
                     });
             }, 500);
 
@@ -185,6 +187,7 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
                 if (totalPage > page) {
                     setTimeout(() => {
                         setPage((prev) => prev + 1);
+                        setTemplateList((prev) => [...prev, 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial']);
                     }, 500);
                 }
             }
@@ -236,9 +239,6 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
                 </div>}
             </div>
             <div ref={loader}></div>
-            {
-                fetch && <div className="loader-template"></div>
-            }
         </>;
     };
 
