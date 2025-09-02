@@ -4,17 +4,21 @@ import GlobalVariableColor from './global-variable-color';
 import GlobalVariableFont from './global-variable-font';
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
+import { useEffect } from '@wordpress/element';
 
 const GlobalStyleContent = (props) => {
-    let { stage } = props;
+    let { stage, setStage } = props;
     const params = new URLSearchParams(window.location.search);
 
-    const global = params.get('gutenverse-state-global');
-    const openGlobal = params.get('gutenverse-global-sidebar');
+    useEffect(() => {
+        const global = params.get('gutenverse-state-global');
+        const openGlobal = params.get('gutenverse-global-sidebar');
 
-    if (openGlobal === 'open' && global) {
-        stage = global;
-    }
+        if (openGlobal === 'open' && global) {
+            setStage(global);
+        }
+    }, []);
+
     switch (stage) {
         case 'color':
             return <GlobalVariableColor {...props} stage={stage} />;
