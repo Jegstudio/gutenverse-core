@@ -16,6 +16,10 @@ class GutenverseFunFact extends Default {
         const safeNumber = targetElement.data('safe');
         const duration = targetElement.data('duration');
         const numberFormat = targetElement.data('number-format');
+        const attributes = targetElement.data('attributes');
+        const parsedAttr = JSON.parse(attributes);
+
+        const { numberRightSpace } = parsedAttr;
 
         let formatter = null;
         let used = number ? number : safeNumber;
@@ -36,7 +40,10 @@ class GutenverseFunFact extends Default {
                     maximumFractionDigits: 0
                 });
             }
-            used = `${Math.round(parseFloat(formatComma))} `;
+            used = Math.round(parseFloat(formatComma));
+        }
+        if (!numberRightSpace) {
+            used = `${used} `;
         }
         const numberAnimation = anime({
             targets: targetElement.first(),
@@ -47,7 +54,7 @@ class GutenverseFunFact extends Default {
             autoplay: false,
             update: (formatter && safeNumber) ? function(anim) {
                 const val = parseInt(anim.animations[0].currentValue);
-                targetElement.first().innerHTML = !isNaN(val) ? `${formatter.format( val )} ` : `${anim.animations[0].currentValue} `;
+                targetElement.first().innerHTML = !isNaN(val) ? formatter.format( val ) : anim.animations[0].currentValue;
             } : null
         });
 
