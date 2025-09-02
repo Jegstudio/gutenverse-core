@@ -71,24 +71,26 @@ const save = compose(
 
     return (
         <div {...useBlockProps.save({ className })} >
-            <div className="chart-content content-card">
-                <RichText.Content
-                    className={'chart-title'}
-                    value={title}
-                    tagName={titleTag}
-                />
-                {'doughnut' !== chartType && 'none' !== chartContent ? insideChart : ''}
-                <RichText.Content
-                    className={'chart-description'}
-                    value={description}
-                    tagName={'p'}
-                />
-            </div>
-            <div className='chart-content content-chart'>
-                <div className='chart-container' data-chart={data}>
-                    <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
+            <div className="guten-chart-wrapper">
+                <div className="chart-content content-card">
+                    <RichText.Content
+                        className={'chart-title'}
+                        value={title}
+                        tagName={titleTag}
+                    />
+                    {'doughnut' !== chartType && 'none' !== chartContent ? insideChart : ''}
+                    <RichText.Content
+                        className={'chart-description'}
+                        value={description}
+                        tagName={'p'}
+                    />
                 </div>
-                {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
+                <div className="chart-content content-chart">
+                    <div className="chart-container" data-chart={data}>
+                        <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
+                    </div>
+                    {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
+                </div>
             </div>
         </div>
     );

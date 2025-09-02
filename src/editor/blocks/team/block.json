@@ -25,23 +25,23 @@
       "type": "string",
       "default": "center"
     },
-    "overlayProfilePosition":{
+    "overlayProfilePosition": {
       "type": "object"
     },
     "src": {
       "type": "object"
     },
-		"openDynamic": {
-			"type": "string"
-		},
+    "openDynamic": {
+      "type": "string"
+    },
     "dynamicTextContent": {
-			"type": "array",
-			"copyStyle" : true
-		},
-		"dynamicUrlContent": {
-			"type": "array",
-			"copyStyle" : true
-		},
+      "type": "array",
+      "copyStyle": true
+    },
+    "dynamicUrlContent": {
+      "type": "array",
+      "copyStyle": true
+    },
     "nameTag": {
       "type": "string",
       "default": "h3"
@@ -54,26 +54,26 @@
       "type": "string",
       "default": "John Doe"
     },
-    "nameChilds":{
-      "type" : "array",
-      "default" : []
+    "nameChilds": {
+      "type": "array",
+      "default": []
     },
     "nameDynamicList": {
-			"type": "array",
-			"default": []
-		},
+      "type": "array",
+      "default": []
+    },
     "job": {
       "type": "string",
       "default": "Designer"
     },
-    "jobChilds":{
-      "type" : "array",
-      "default" : []
+    "jobChilds": {
+      "type": "array",
+      "default": []
     },
     "jobDynamicList": {
-			"type": "array",
-			"default": []
-		},
+      "type": "array",
+      "default": []
+    },
     "showDesc": {
       "type": "boolean",
       "default": false
@@ -82,18 +82,22 @@
       "type": "string",
       "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget dignissim quam. Nam posuere velit vitae ultricies commodo."
     },
-    "descriptionChilds":{
-      "type" : "array",
-      "default" : []
+    "descriptionChilds": {
+      "type": "array",
+      "default": []
     },
     "descriptionDynamicList": {
-			"type": "array",
-			"default": []
-		},
+      "type": "array",
+      "default": []
+    },
     "dynamicAttributes": {
-			"type": "array",
-			"default": ["nameDynamicList", "jobDynamicList", "descriptionDynamicList"]
-		},
+      "type": "array",
+      "default": [
+        "nameDynamicList",
+        "jobDynamicList",
+        "descriptionDynamicList"
+      ]
+    },
     "phone": {
       "type": "string",
       "default": "+12 345 678 90"
@@ -198,11 +202,11 @@
       "default": {},
       "copyStyle": true
     },
-		"backgroundTransition": {
-			"type": "object",
-			"copyStyle": true,
-			"default": {}
-		},
+    "backgroundTransition": {
+      "type": "object",
+      "copyStyle": true,
+      "default": {}
+    },
     "border": {
       "type": "object",
       "default": {},
@@ -369,7 +373,7 @@
       "copyStyle": true
     },
     "hoverMargin": {
-      "type" : "object",
+      "type": "object",
       "copyStyle": true
     },
     "hoverBottom": {
@@ -472,109 +476,109 @@
       "copyStyle": true
     },
     "condition": {
-        "type": "object",
-        "default": {}
+      "type": "object",
+      "default": {}
     },
     "titleHorizontal": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
-    
     "titleVertical": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "titleOpacity": {
       "type": "string",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "titleHorizontalHover": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
-    
     "titleVerticalHover": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "titleOpacityHover": {
       "type": "string",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "descHorizontal": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "descVertical": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "descOpacity": {
       "type": "string",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "descHorizontalHover": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "descVerticalHover": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "descOpacityHover": {
       "type": "string",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "jobHorizontal": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "jobVertical": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "jobOpacity": {
       "type": "string",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "jobHorizontalHover": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "jobVerticalHover": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "jobOpacityHover": {
       "type": "string",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "socialHorizontal": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "socialVertical": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "socialOpacity": {
       "type": "string",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "socialHorizontalHover": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "socialVerticalHover": {
       "type": "object",
-      "copyStyle" : true
+      "copyStyle": true
     },
     "socialOpacityHover": {
       "type": "string",
-      "copyStyle" : true
+      "copyStyle": true
     }
   },
-  "supports": {},
+  "supports": {
+    "anchor": true
+  },
   "keywords": [
     "team",
     "member"

@@ -12,7 +12,7 @@ const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSear
     const [slides, setSlides] = useState(images);
 
     useState(() => {
-        setSlides([...slides.filter(slide => (((slide.id.toLowerCase()).includes(currentFilter.toLowerCase()) || currentFilter === 'All')) && ((slide.title.toLowerCase()).includes(currentSearch) || (slide.content.toLowerCase()).includes(currentSearch) || (slide.content.toLowerCase()).includes(currentSearch)))]);
+        setSlides([...slides.filter(slide => (((slide.id?.toLowerCase() ?? '').includes(currentFilter.toLowerCase()) || currentFilter === 'All')) && ((slide.title?.toLowerCase() ?? '').includes(currentSearch) || (slide.content?.toLowerCase() ?? '').includes(currentSearch) || (slide.content?.toLowerCase() ?? '').includes(currentSearch)))]);
     }, [currentFilter, currentSearch]);
 
     const toggleZoom = element => {

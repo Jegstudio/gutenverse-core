@@ -1,3 +1,8 @@
+@import "./notices/gutenverse-banner-notice.scss";
+@import "./notices/gutenverse-upgrade-notice.scss";
+@import "./notices/gutenverse-page-content-notice.scss";
+@import "./notices/gutenverse-form-entries-notice.scss";
+
 #gutenverse-dashboard {
     .gutenverse-300 {
         .upgrade-notice-head > div {

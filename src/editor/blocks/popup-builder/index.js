@@ -5,6 +5,7 @@ import metadata from './block.json';
 import example from './data/example';
 import { IconPopupBuilderSVG } from '../../../assets/icon/index';
 import saveV1 from './deprecated/v1/save';
+import saveV2 from './deprecated/v2/save';
 
 const { name, attributes } = metadata;
 
@@ -46,6 +47,37 @@ export const settings = {
                 ];
             },
             save: saveV1
+        },
+        {
+            attributes: {
+                ...attributes,
+                openWaitTime: {
+                    type: 'int',
+                    deprecated: true,
+                },
+                openScrollDistance: {
+                    type: 'int',
+                    deprecated: true,
+                },
+                openMaxClick: {
+                    type: 'int',
+                    deprecated: true,
+                },
+            },
+            migrate: (attributes) => {
+                const { openWaitTime, openScrollDistance, openMaxClick } = attributes;
+                const newAttributes = {
+                    ...attributes,
+                    openWaitTime: parseInt(openWaitTime),
+                    openScrollDistance: parseInt(openScrollDistance),
+                    openMaxClick: parseInt(openMaxClick)
+                };
+
+                return [
+                    newAttributes
+                ];
+            },
+            save: saveV2
         }
     ]
 };

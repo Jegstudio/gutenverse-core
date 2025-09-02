@@ -114,7 +114,8 @@ export const settingPanel = ({showSub}) => {
             id: 'subText',
             show: showSub && showSub !== 'none',
             label: __('Subtitle Text'),
-            component: TextControl
+            component: TextControl,
+            liveUpdate: true,
         },
         {
             id: 'showSub',

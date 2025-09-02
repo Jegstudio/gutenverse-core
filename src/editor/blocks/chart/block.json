@@ -354,10 +354,16 @@
     "condition": {
         "type": "object",
         "default": {}
-    }
+    },
+    "contentOrder": {
+			"type": "string",
+			"default": "1,2,3",
+			"copyStyle": true
+		}
   },
   "supports": {
-    "className": false
+    "className": false,
+		"anchor": true
   },
   "keywords": [
     "pie",
