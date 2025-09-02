@@ -23,14 +23,10 @@ const save = compose(
         openScrollDistance,
         openAnchor,
         openMaxClick,
-        openInterval,
         showCloseButton,
         closePosition,
         closePopupOverlay,
         hideAfterClosed,
-        exitAnimation,
-        exitAnimationDuration,
-        exitAnimationDelay,
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -50,10 +46,6 @@ const save = compose(
         'data-anchor': openAnchor,
         'data-max-click': isNaN(openMaxClick) ? undefined : openMaxClick,
         'data-close-overlay': closePopupOverlay,
-        'data-inactive-interval': openInterval ? JSON.stringify(openInterval) : undefined,
-        'data-exit-animation': exitAnimation,
-        'data-exit-duration': exitAnimationDuration,
-        'data-exit-delay': exitAnimationDelay,
     });
 
     return (

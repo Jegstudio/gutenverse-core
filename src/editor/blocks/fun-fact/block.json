@@ -124,6 +124,10 @@
 		},
 		"safeNumber": {
 			"type": "string",
+			"migrate": {
+				"attr": "number",
+				"type": "string"
+			},
 			"default": ""
 		},
 		"suffix": {

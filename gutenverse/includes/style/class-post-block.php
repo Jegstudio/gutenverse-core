@@ -919,6 +919,19 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['metaSizeIcon'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content .guten-post-meta i",
+					'property'       => function ( $value ) {
+						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['metaSizeIcon'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['metaAuthorTypography'] ) ) {
 			$this->inject_typography(
 				array(

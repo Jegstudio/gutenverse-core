@@ -216,6 +216,13 @@
 		"openMaxClick": {
 			"type": "integer"
 		},
+		"openInterval": {
+			"type": "object",
+			"default": {
+				"point": 5,
+				"unit": "m"
+			}
+		},
 		"transform": {
 			"type": "object",
 			"copyStyle": true
@@ -227,6 +234,18 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"exitAnimation": {
+			"type": "string",
+			"default": ""
+		},
+		"exitAnimationDuration": {
+			"type": "string",
+			"default": ""
+		},
+		"exitAnimationDelay": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {

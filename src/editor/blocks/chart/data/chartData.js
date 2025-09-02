@@ -252,6 +252,7 @@ export function getChartData(attributes, multiValue, canvas) {
                 },
             };
 
+        // possible for pro option
         case 'line' :
             return {
                 type: chartType,

@@ -47,7 +47,14 @@ const FunFactBlock = compose(
         iconPosition,
         contentDisplay,
         numberFormat = '',
+        numberRightSpace,
     } = attributes;
+
+    useEffect(() => {
+        if (number && !safeNumber) {
+            setAttributes({safeNumber: number});
+        }
+    }, []);
 
     const imageAltText = imageAlt || null;
     const elementRef = useRef(null);
@@ -86,10 +93,14 @@ const FunFactBlock = compose(
                     });
                 }
 
-                used = `${Math.round(parseFloat(formatComma))} `;
+                used = Math.round(parseFloat(formatComma));
             }
 
             numberElement.textContent = '0';
+
+            if (!numberRightSpace) {
+                used = `${used} `;
+            }
 
             anime({
                 targets: numberElement,
@@ -99,7 +110,7 @@ const FunFactBlock = compose(
                 duration,
                 update: formatter && safeNumber ? function(anim) {
                     const val = parseInt(anim.animations[0].currentValue);
-                    numberElement.textContent = !isNaN(val) ? `${formatter.format( val )} ` : `${anim.animations[0].currentValue} `;
+                    numberElement.textContent = !isNaN(val) ? formatter.format( val ) : anim.animations[0].currentValue;
                 } : null
             });
         }
