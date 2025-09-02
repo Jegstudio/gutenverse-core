@@ -49,9 +49,35 @@ export const settings = {
             save: saveV1
         },
         {
-            attributes,
-            supports,
-            save : saveV2,
+            attributes: {
+                ...attributes,
+                openWaitTime: {
+                    type: 'int',
+                    deprecated: true,
+                },
+                openScrollDistance: {
+                    type: 'int',
+                    deprecated: true,
+                },
+                openMaxClick: {
+                    type: 'int',
+                    deprecated: true,
+                },
+            },
+            migrate: (attributes) => {
+                const { openWaitTime, openScrollDistance, openMaxClick } = attributes;
+                const newAttributes = {
+                    ...attributes,
+                    openWaitTime: parseInt(openWaitTime),
+                    openScrollDistance: parseInt(openScrollDistance),
+                    openMaxClick: parseInt(openMaxClick)
+                };
+
+                return [
+                    newAttributes
+                ];
+            },
+            save: saveV2
         }
     ]
 };

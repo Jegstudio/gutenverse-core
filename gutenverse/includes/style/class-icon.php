@@ -75,7 +75,7 @@ class Icon extends Style_Abstract {
 		if ( isset( $this->attrs['iconSize'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} i",
+					'selector'       => ".{$this->element_id} .guten-icon-wrapper i",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'font-size' );
 					},

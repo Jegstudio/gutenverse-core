@@ -343,5 +343,44 @@ class Popup_Builder extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['exitAnimation'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-element .guten-popup .guten-popup-content.exit",
+					'property'       => function ( $value ) {
+						return "animation-name: {$value}; animation-direction: reverse; animation-delay: 0s;";
+					},
+					'value'          => $this->attrs['exitAnimation'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['exitAnimationDuration'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-element .guten-popup .guten-popup-content.exit",
+					'property'       => function ( $value ) {
+						return "animation-duration: {$value}ms;";
+					},
+					'value'          => $this->attrs['exitAnimationDuration'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['exitAnimationDelay'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-element .guten-popup .guten-popup-content.exit",
+					'property'       => function ( $value ) {
+						return "animation-delay: {$value}ms;";
+					},
+					'value'          => $this->attrs['exitAnimationDelay'],
+					'device_control' => false,
+				)
+			);
+		}
 	}
 }

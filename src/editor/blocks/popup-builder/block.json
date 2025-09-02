@@ -234,6 +234,18 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"exitAnimation": {
+			"type": "string",
+			"default": ""
+		},
+		"exitAnimationDuration": {
+			"type": "string",
+			"default": ""
+		},
+		"exitAnimationDelay": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {

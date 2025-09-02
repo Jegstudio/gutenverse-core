@@ -30,6 +30,9 @@ class GutenversePopupElement {
         this.contentClass = this.content.attr('class');
         this.playAnimation = playAnimation;
         this.getAnimationClass = getAnimationClass;
+        this.hasExitAnimation = this.element.data('exit-animation');
+        this.exitAnimationDuration = this.element.data('exit-duration');
+        this.exitAnimationDelay = this.element.data('exit-delay');
         this.shownOnce = localStorage.getItem(this.dontRepeatPopup);
         this._addCloseClick();
         this._addLoadEvent();
@@ -51,9 +54,13 @@ class GutenversePopupElement {
 
     _closePopup() {
         if (this.dontRepeatPopup !== null ) localStorage.setItem(this.dontRepeatPopup,true);
-        this.popup.removeClass('show');
-        this.popup.addClass('load');
-        this.content.attr('class', this.contentClass);
+        this.content.addClass('exit');
+        setTimeout(() => {
+            this.popup.removeClass('show');
+            this.content.removeClass('exit');
+            this.popup.addClass('load');
+            this.content.attr('class', this.contentClass);
+        }, (this.hasExitAnimation && (this.exitAnimationDuration || this.exitAnimationDelay)) ? (parseInt(this.exitAnimationDuration) || 0) + (parseInt(this.exitAnimationDelay) || 0) : 0);
     }
 
     _addCloseClick() {
