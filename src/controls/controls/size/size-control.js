@@ -106,12 +106,13 @@ const SizeControl = (props) => {
     } = props;
 
     const generateValue = (value) => {
-        const newValue = typeof value === 'string'? {} : value;
+        const newValue = (value && typeof value === 'object') ? { ...value } : {};
 
-        if (isNotEmpty(newValue.unit)) {
+        if (newValue.unit && isNotEmpty(newValue.unit)) {
             return newValue;
         }
-        if (defaultUnit == '') {
+
+        if (defaultUnit === '' ) {
             newValue.unit = Object.keys(units)[0];
             return newValue;
         }
@@ -147,7 +148,7 @@ const SizeControl = (props) => {
     },[value]);
 
     useEffect(() => {
-        setLocalValue(value);
+        setLocalValue(generateValue(value));
     }, [deviceType]);
 
     useEffect(() => {
@@ -155,7 +156,6 @@ const SizeControl = (props) => {
             isFirstRender.current = false;
             return;
         }
-
         onLocalChange(localValue);
 
         const debouncedHandler = debounce(() => {
@@ -182,9 +182,9 @@ const SizeControl = (props) => {
                     id={`${id}-range`}
                     type="range"
                     className="control-input-range"
-                    min={localValue.unit ? units[localValue.unit]?.min : null}
-                    max={localValue.unit ? units[localValue.unit]?.max : null}
-                    step={localValue.unit ? units[localValue.unit]?.step : null}
+                    min={localValue.unit ? units[localValue.unit]?.min : Object.keys(units)[0]?.min}
+                    max={localValue.unit ? units[localValue.unit]?.max : Object.keys(units)[0]?.max}
+                    step={localValue.unit ? units[localValue.unit]?.step : Object.keys(units)[0]?.step}
                     value={localValue.point ?? ''}
                     onChange={(e) => {
                         handleOnChange('point', e.target.value);
@@ -195,16 +195,16 @@ const SizeControl = (props) => {
                 <input
                     type="number"
                     className="control-input-number"
-                    min={localValue.unit ? units[localValue.unit]?.min : null}
-                    max={localValue.unit ? units[localValue.unit]?.max : null}
-                    step={localValue.unit ? units[localValue.unit]?.step : null}
+                    min={localValue.unit ? units[localValue.unit]?.min : Object.keys(units)[0]?.min}
+                    max={localValue.unit ? units[localValue.unit]?.max : Object.keys(units)[0]?.max}
+                    step={localValue.unit ? units[localValue.unit]?.step : Object.keys(units)[0]?.step}
                     value={localValue.point ?? ''}
                     onChange={(e) => handleOnChange('point', e.target.value)}
                 />
                 <UnitControl
                     activeUnit={localValue.unit}
                     units={units}
-                    changeUnit={(value) => handleOnChange('unit', value)}
+                    changeUnit={(val) => handleOnChange('unit', val)}
                 />
             </div>
         </div>
