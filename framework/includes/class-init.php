@@ -148,6 +148,7 @@ class Init {
 		add_action( 'customize_register', '__return_true' );
 		add_action( 'template_redirect', array( $this, 'remove_doing_wp_cron_param' ) );
 		add_action( 'wp_footer', array( $this, 'run_wp_cron_from_footer' ) );
+		add_action( 'wp_ajax_gutenverse_unibiz_dismiss_notice', array( $this, 'dismiss_notice' ) );
 
 		// filters.
 		add_filter( 'after_setup_theme', array( $this, 'init_settings' ) );
@@ -167,7 +168,10 @@ class Init {
 	 */
 	public function notice_unibiz() {
 		$current_theme = get_stylesheet();
-		if ( 'unibiz' === $current_theme ) {
+		if ( ! get_option( 'gutenverse_unibiz_notice' ) ) {
+			update_option( 'gutenverse_unibiz_notice', true );
+		}
+		if ( 'unibiz' === $current_theme || get_option( 'gutenverse_unibiz_notice_dismissed' ) ) {
 			return;
 		}
 		$image_dir = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
@@ -515,8 +519,13 @@ class Init {
 			(function($) {
 				const { domainURL } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
 
-				$('.gutenverse-unibiz-notice #gutenverse-unibiz-notice-close').on('click', function() {
-					$('.gutenverse-unibiz-notice').fadeOut();
+				jQuery(document).on('click', '#gutenverse-unibiz-notice-close', function() {
+					jQuery('.gutenverse-unibiz-notice').fadeOut();
+
+					jQuery.post(ajaxurl, {
+						action: 'gutenverse_unibiz_dismiss_notice',
+						_ajax_nonce: '<?php echo esc_js( wp_create_nonce( 'gutenverse_unibiz_dismiss' ) ); ?>'
+					});
 				});
 				$('.gutenverse-unibiz-notice .col-1 .button-wrapper .button-install').on('click', function() {
 					const themeSlug = 'unibiz'; // change this to your theme slug
@@ -551,6 +560,19 @@ class Init {
 		$data_html = ob_get_contents();
 		ob_end_clean();
 		echo $data_html;
+	}
+
+	/**
+	 * Dismiss Notice After closed.
+	 */
+	public function dismiss_notice() {
+		check_ajax_referer( 'gutenverse_unibiz_dismiss' );
+
+		if ( ! get_option( 'gutenverse_unibiz_notice_dismissed' ) ) {
+			update_option( 'gutenverse_unibiz_notice_dismissed', true );
+		}
+
+		wp_send_json_success();
 	}
 
 	/**
