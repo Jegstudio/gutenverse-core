@@ -4,11 +4,11 @@ import isEmpty from 'lodash/isEmpty';
 import { assignTemplates, fetchingDataImport, getDemo, importingPatterns, importMenus, importPages, installingPlugins, removingPrevious } from '../helper';
 import { ImporterModal } from '../components/importer-modal';
 import { DemoCard } from '../components/demo-card';
+import throttle from 'lodash/throttle';
 
 export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
     const [templateList, setTemplateList] = useState(['initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial']);
     const [isImport, setisImport] = useState(false);
-    const [fetch, setFetch] = useState(true);
     const [importerStep, setImporterStep] = useState([]);
     const [modal, setModal] = useState(false);
     const [modalContent, setModalContent] = useState('settings');
@@ -20,6 +20,45 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
     const loader = useRef();
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(null);
+    const [filter, setFilter] = useState({
+        proFilter: '',
+        categoryFilter: ''
+    });
+    const [search, setSearch] = useState('');
+    const [selectedFilter, setSelectedFilter] = useState('');
+    const [totalItem, setTotalItem] = useState(0);
+    const plans = [
+        {
+            value: '',
+            label: 'All Plans'
+        },
+        {
+            value: 'general',
+            label: 'Free'
+        },
+        {
+            value: 'basic',
+            label: 'Basic'
+        },
+        {
+            value: 'professional',
+            label: 'Professional'
+        },
+        {
+            value: 'agency',
+            label: 'Agency'
+        },
+        {
+            value: 'enterprise',
+            label: 'Enterprise'
+        },
+    ];
+    const [categories, setCategories] = useState([
+        {
+            name: 'All Categories',
+            slug: ''
+        }
+    ]);
 
     const updateTemplateStatus = (title) => {
         setTemplateList(prevTemplateList =>
@@ -128,77 +167,114 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
     }, [templateList]);
 
     useEffect(() => {
-        if ((page <= totalPage || !totalPage)) {
-            setFetch(true);
-            setTimeout(() => {
-                getDemo({
-                    page,
-                    filter: {
-                        search: '',
-                        proFilter: '',
-                        categoryFilter: ''
-                    }
-                })
-                    .then(response => {
-                        if (response?.demo_list) {
-                            response?.demo_list.forEach(el => {
-                                if (el?.status?.using_template) {
-                                    setDemoUsed(true);
-                                    setModalContent('confirmation');
-                                }
-                            });
-                            setTemplateList((prev) => {
-                                if (!prev || prev[0] === 'initial') {
-                                    return response?.demo_list;
-                                }
-                                const updatedItems = response?.demo_list.map(newItem => {
-                                    const existingIndex = prev.findIndex(item => item.demo_id === newItem.demo_id);
-                                    if (existingIndex !== -1) {
-                                        // Replace the existing item
-                                        const updatedPrev = [...prev];
-                                        updatedPrev[existingIndex] = newItem;
-                                        return updatedPrev[existingIndex];
-                                    }
-                                    return newItem;
-                                });
+        setTimeout(() => {
+            getDemo({
+                page,
+                filter: {
+                    search: search,
+                    ...filter
+                },
+                perpage: 12
+            })
+                .then(response => {
 
-                                // Remove duplicates in prev and add updated/new ones
-                                const nonUpdatedItems = prev.filter(
-                                    item => !response.demo_list.some(newItem => newItem.demo_id === item.demo_id)
-                                );
-
-                                // Final list: existing items that weren’t replaced + all new/updated items
-                                return [...nonUpdatedItems, ...updatedItems];
-                            });
-                            setTotalPage(response?.total_page);
+                    response?.demo_list.forEach(el => {
+                        if (el?.status?.using_template) {
+                            setDemoUsed(true);
+                            setModalContent('confirmation');
                         }
-                    }).catch(() => {}).finally(() => {
-                        setFetch(false);
-                        setTemplateList((prev) => prev.filter(item => item !== 'initial'));
                     });
-            }, 500);
+                    if (page === 1) {
+                        setTemplateList(response?.demo_list);
+                    } else {
+                        setTemplateList((prev) => {
+                            if (!prev || prev[0] === 'initial') {
+                                return response?.demo_list;
+                            }
+                            const updatedItems = response?.demo_list.map(newItem => {
+                                const existingIndex = prev.findIndex(item => item.demo_id === newItem.demo_id);
+                                if (existingIndex !== -1) {
+                                    // Replace the existing item
+                                    const updatedPrev = [...prev];
+                                    updatedPrev[existingIndex] = newItem;
+                                    return updatedPrev[existingIndex];
+                                }
+                                return newItem;
+                            });
 
-        }
-    }, [isImport, page]);
+                            // Remove duplicates in prev and add updated/new ones
+                            const nonUpdatedItems = prev.filter(
+                                item => !response.demo_list.some(newItem => newItem.demo_id === item.demo_id)
+                            );
+
+                            // Final list: existing items that weren’t replaced + all new/updated items
+                            return [...nonUpdatedItems, ...updatedItems];
+                        });
+                    }
+
+                    setCategories((prev) => {
+
+                        const newItems = response?.categories.filter(
+                            post => !prev.some(existing => existing.slug === post.slug)
+                        );
+                        return [...prev, ...newItems];
+                    });
+                    setTotalPage(response?.total_page);
+                    setTotalItem(response?.total_item);
+                }).catch(() => { }).finally(() => {
+                    setTemplateList((prev) => prev.filter(item => item !== 'initial'));
+                });
+        }, 500);
+    }, [isImport, page, filter, search]);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => {
+        const handleIntersect = throttle((entries) => {
+            const entry = entries[0];
             if (entry.isIntersecting) {
-                if (totalPage > page) {
-                    setTimeout(() => {
-                        setPage((prev) => prev + 1);
-                        setTemplateList((prev) => [...prev, 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial']);
-                    }, 500);
-                }
+                setPage(prevPage => {
+                    if (totalPage > prevPage) {
+                        const lengthInitial = totalItem - templateList.filter(item => item !== 'initial').length;
+                        const initialItem = lengthInitial < 12 ? lengthInitial : 12;
+
+                        const arrSkeleton = Array(initialItem).fill('initial');
+                        setTemplateList(prev => [...prev, ...arrSkeleton]);
+
+                        return prevPage + 1;
+                    }
+                    return prevPage;
+                });
             }
-        }, { threshold: 1, totalPage, page });
+        }, 800);
+
+        const observer = new IntersectionObserver(handleIntersect, { threshold: 1 });
 
         if (loader.current) observer.observe(loader.current);
 
         return () => {
             if (loader.current) observer.unobserve(loader.current);
+            observer.disconnect();
+            handleIntersect.cancel();
         };
-    }, [fetch]);
+    }, [loader, totalPage, totalItem, templateList]);
+
+    useEffect(() => {
+        setPage(1);
+        setTemplateList(['initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial']);
+    }, [filter]);
+
+    const handleSearch = (input) => {
+        setSearch(input);
+        setPage(1);
+        setTemplateList(['initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial']);
+    };
+
+    const handleOpened = (type) => {
+        if (type === selectedFilter) {
+            setSelectedFilter('');
+        } else {
+            setSelectedFilter(type);
+        }
+    };
 
     const TemplateContent = (props) => {
         const {list} = props;
@@ -254,7 +330,6 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
             setModal={setModal}
             close={() => {
                 setModal(false);
-                setFetch(false);
                 updateTemplateStatus(selectedTemplate.title);
             }}
             template={selectedTemplate}
@@ -266,6 +341,38 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
         <div className="template-title">
             <h1 className="content-title">{__('Choose Prebuilt Templates', 'gutenverse')}</h1>
             <p>{__('Discover a wide selection of themes, each carefully crafted to meet the unique needs of your website. Whether you\'re building a blog, portfolio, or business site.', 'gutenverse')}</p>
+        </div>
+        <div className="search-filter-wrapper">
+            <div className="filter-wrapper">
+                <div className={`plans-wrapper ${selectedFilter === 'plan' ? 'opened' : ''} ${filter.proFilter !== '' ? 'selected' : ''}`} onClick={() => handleOpened('plan')}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.625 11L2.375 4.125L5.8125 7.25L8 3.5L10.1875 7.25L13.625 4.125L12.375 11H3.625ZM12.375 12.875C12.375 13.25 12.125 13.5 11.75 13.5H4.25C3.875 13.5 3.625 13.25 3.625 12.875V12.25H12.375V12.875Z" fill={`${selectedFilter === 'plan' || filter.proFilter !== '' ? '#3b57f7' : '#00223D'}`} />
+                    </svg>
+                    {plans.find(el => el.value === filter.proFilter).label}
+                    <div className="dropdown-wrapper">
+                        {
+                            plans.map(el => <div key={el.value} className="dropdown-item" onClick={() => setFilter({ ...filter, proFilter: el.value })}>{el.label}</div>)
+                        }
+                    </div>
+                </div>
+                <div className={`category-wrapper ${selectedFilter === 'category' ? 'opened' : '' } ${filter.categoryFilter !== '' ? 'selected' : ''}`} onClick={() => handleOpened('category')}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.5 6.999C2.36739 6.999 2.24021 6.94632 2.14645 6.85255C2.05268 6.75879 2 6.63161 2 6.499V2.5C2 2.36739 2.05268 2.24021 2.14645 2.14645C2.24021 2.05268 2.36739 2 2.5 2H6.5C6.63261 2 6.75979 2.05268 6.85355 2.14645C6.94732 2.24021 7 2.36739 7 2.5V6.499C7 6.63161 6.94732 6.75879 6.85355 6.85255C6.75979 6.94632 6.63261 6.999 6.5 6.999H2.5ZM9.5 6.999C9.36739 6.999 9.24021 6.94632 9.14645 6.85255C9.05268 6.75879 9 6.63161 9 6.499V2.5C9 2.36739 9.05268 2.24021 9.14645 2.14645C9.24021 2.05268 9.36739 2 9.5 2H13.499C13.6316 2 13.7588 2.05268 13.8526 2.14645C13.9463 2.24021 13.999 2.36739 13.999 2.5V6.499C13.999 6.63161 13.9463 6.75879 13.8526 6.85255C13.7588 6.94632 13.6316 6.999 13.499 6.999H9.5ZM2.5 13.999C2.36739 13.999 2.24021 13.9463 2.14645 13.8526C2.05268 13.7588 2 13.6316 2 13.499V9.499C2 9.36639 2.05268 9.23921 2.14645 9.14545C2.24021 9.05168 2.36739 8.999 2.5 8.999H6.5C6.63261 8.999 6.75979 9.05168 6.85355 9.14545C6.94732 9.23921 7 9.36639 7 9.499V13.499C7 13.6316 6.94732 13.7588 6.85355 13.8526C6.75979 13.9463 6.63261 13.999 6.5 13.999H2.5ZM9.5 13.999C9.36739 13.999 9.24021 13.9463 9.14645 13.8526C9.05268 13.7588 9 13.6316 9 13.499V9.499C9 9.36639 9.05268 9.23921 9.14645 9.14545C9.24021 9.05168 9.36739 8.999 9.5 8.999H13.499C13.6316 8.999 13.7588 9.05168 13.8526 9.14545C13.9463 9.23921 13.999 9.36639 13.999 9.499V13.499C13.999 13.6316 13.9463 13.7588 13.8526 13.8526C13.7588 13.9463 13.6316 13.999 13.499 13.999H9.5Z" fill={`${selectedFilter === 'category' || filter.categoryFilter !== '' ? '#3b57f7' : '#00223D'}`} />
+                    </svg>
+                    {categories.find(el => el.slug === filter.categoryFilter).name}
+                    <div className="dropdown-wrapper">
+                        {
+                            categories.map(el => <div key={el.slug} className="dropdown-item" onClick={() => setFilter({ ...filter, categoryFilter: el.slug })}>{el.name}</div>)
+                        }
+                    </div>
+                </div>
+            </div>
+            <div className="search-input-wrapper">
+                <input type="text" name="search" className="search-form-field" value={search} onChange={e => handleSearch(e.target.value)} placeholder="Search demo..." />
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.79141 3.15435e-07C4.04195 0.000400896 3.30304 0.176619 2.63406 0.514491C1.96508 0.852363 1.3847 1.34246 0.939564 1.94541C0.494425 2.54835 0.196943 3.24731 0.0710301 3.98611C-0.0548833 4.72492 -0.00571694 5.48296 0.214578 6.19931C0.434872 6.91566 0.820151 7.57033 1.33945 8.11072C1.85874 8.65111 2.49757 9.06213 3.20459 9.31076C3.9116 9.55938 4.66709 9.63868 5.41032 9.54226C6.15355 9.44585 6.86379 9.17641 7.48397 8.75562L10.4448 11.7141C10.5271 11.8023 10.6262 11.8731 10.7364 11.9222C10.8466 11.9713 10.9656 11.9977 11.0862 11.9999C11.2068 12.002 11.3266 11.9798 11.4385 11.9346C11.5503 11.8894 11.652 11.8222 11.7373 11.7369C11.8226 11.6516 11.8898 11.55 11.935 11.4381C11.9802 11.3263 12.0024 11.2065 12.0002 11.0858C11.9981 10.9652 11.9717 10.8463 11.9226 10.7361C11.8735 10.6259 11.8027 10.5267 11.7145 10.4445L8.75599 7.4836C9.24544 6.76324 9.52927 5.9231 9.57699 5.05351C9.6247 4.18392 9.43448 3.31776 9.02678 2.54819C8.61908 1.77861 8.00932 1.13471 7.26307 0.685737C6.51682 0.23676 5.66231 -0.000315659 4.79141 3.15435e-07ZM1.79701 4.79104C1.79701 3.99687 2.11249 3.23524 2.67405 2.67368C3.23561 2.11212 3.99724 1.79664 4.79141 1.79664C5.58557 1.79664 6.34721 2.11212 6.90876 2.67368C7.47032 3.23524 7.7858 3.99687 7.7858 4.79104C7.7858 5.5852 7.47032 6.34684 6.90876 6.9084C6.34721 7.46995 5.58557 7.78543 4.79141 7.78543C3.99724 7.78543 3.23561 7.46995 2.67405 6.9084C2.11249 6.34684 1.79701 5.5852 1.79701 4.79104Z" fill="#99A2A9" />
+                </svg>
+            </div>
         </div>
         <TemplateContent list={templateList} />
         <div className="template-footer">

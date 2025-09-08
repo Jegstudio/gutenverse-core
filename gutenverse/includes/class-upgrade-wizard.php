@@ -192,7 +192,7 @@ class Upgrade_Wizard {
 		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
 
 		$response = Api::instance()->base_theme_get( '' );
-		if ( isset( $response ) ) {
+		if ( isset( $response ) && isset( $response->data['companion'] ) ) {
 			$data_list = $response->data['companion'];
 			$new_list  = array();
 
