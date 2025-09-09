@@ -18,7 +18,8 @@ const PRO_STATE_DEFAULT = [
         icon: <IconSectionSliderSVG />,
         pro: true,
         locked: true,
-        tier: 'professional',
+        tier: ['professional', 'personal'],
+        min_tier: 'professional'
     },
 ];
 
