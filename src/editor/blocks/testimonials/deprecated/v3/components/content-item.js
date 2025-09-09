@@ -12,7 +12,6 @@ const ContentItem = (data) => {
         rating,
         contentType,
         showQuote,
-        showClientImage,
         iconQuote,
         quoteOverride,
         contentPosition,
@@ -60,7 +59,7 @@ const ContentItem = (data) => {
                 return <div className="testimonial-slider hover-from-left testimonial-content" >
                     <div className="comment-bio">
                         <div className="profile-image">
-                            {showClientImage ? lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' } /> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : null}
+                            {lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' } /> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/>}
                         </div>
                         <ul className="rating-stars">{starRating}</ul>
                         <span className="profile-info">
@@ -82,7 +81,7 @@ const ContentItem = (data) => {
                     <div className="comment-bio">
                         <div className="bio-details">
                             <div className="profile-image">
-                                {showClientImage ? lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' } /> : null}
+                                {lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' } />}
                             </div>
                             <span className="profile-info">
                                 {contentRichText(name, 'strong', 'profile-name','name', index )}
@@ -102,7 +101,7 @@ const ContentItem = (data) => {
                     <div className="comment-bio">
                         <div className="bio-details">
                             <div className="profile-image">
-                                {showClientImage ? lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : null}
+                                {lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/>}
                             </div>
                         </div>
                     </div>
@@ -121,7 +120,7 @@ const ContentItem = (data) => {
                         <div className="bio-details">
                             {starPosition !== undefined && starPosition === 'above-image' && <ul className="rating-stars">{starRating}</ul>}
                             <div className="profile-image">
-                                {showClientImage ? lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : null}
+                                {lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/>}
                             </div>
                             {(starPosition === undefined || starPosition === 'below-image') && <ul className="rating-stars">{starRating}</ul>}
                             <span className="profile-info">
