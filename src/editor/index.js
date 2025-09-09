@@ -19,7 +19,7 @@ addFilter(
                 icon: <IconLottieSVG />,
                 pro: true,
                 locked: true,
-                tier: 'professional',
+                tier: ['professional', 'personal'],
             },
             {
                 name: 'gutenverse/mega-menu',
@@ -28,7 +28,7 @@ addFilter(
                 icon: <IconMegaMenuSVG />,
                 pro: true,
                 locked: true,
-                tier: 'professional',
+                tier: ['professional', 'personal'],
             },
             {
                 name: 'gutenverse/advance-button',
@@ -55,7 +55,7 @@ addFilter(
                 icon: <IconTextMarqueSVG />,
                 pro: true,
                 locked: true,
-                tier: 'professional',
+                tier: ['professional', 'personal'],
             },
             {
                 name: 'gutenverse/image-marque',
@@ -64,7 +64,7 @@ addFilter(
                 icon: <IconImageMarqueeSVG />,
                 pro: true,
                 locked: true,
-                tier: 'professional',
+                tier: ['professional', 'personal'],
             },
             {
                 name: 'gutenverse/post-carousel',
@@ -73,7 +73,7 @@ addFilter(
                 icon: <IconPostCarouselSVG />,
                 pro: true,
                 locked: true,
-                tier: 'professional',
+                tier: ['professional', 'personal'],
             },
             ...list,
         ];
