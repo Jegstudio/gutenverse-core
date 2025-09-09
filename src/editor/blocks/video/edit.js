@@ -18,6 +18,8 @@ import { AlertControl } from 'gutenverse-core/controls';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import { store as editorStore } from '@wordpress/editor';
+import { useSelect } from '@wordpress/data';
 
 const VideoContainer = ({ videoSrc, start, end, videoType, hideControls, playing, loop, muted, width, height }) => {
     const playerStyle = {};
@@ -107,6 +109,10 @@ const VideoBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const elementRef = useRef(null);
+    const renderingMode = useSelect(
+        (select) => select(editorStore).getRenderingMode(),
+        []
+    );
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
@@ -206,7 +212,7 @@ const VideoBlock = compose(
         </InspectorControls>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <figure {...blockProps}>
-            {!isEmpty(videoSrc) ? videoRender() : selectType()}
+            {!isEmpty(videoSrc) ? videoRender() : renderingMode === 'template-locked' ? null : selectType()}
             {!isEmpty(videoSrc) ? caption() : null}
         </figure>
     </>;

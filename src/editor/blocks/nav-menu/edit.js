@@ -16,6 +16,8 @@ import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import { store as editorStore } from '@wordpress/editor';
+import { useSelect } from '@wordpress/data';
 
 const NavMenuBlock = compose(
     withPartialRender,
@@ -50,6 +52,10 @@ const NavMenuBlock = compose(
     const elementRef = useRef();
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(true);
+    const renderingMode = useSelect(
+        (select) => select(editorStore).getRenderingMode(),
+        []
+    );
 
     const removeClick = () => {
         if (elementRef.current) {
@@ -172,7 +178,7 @@ const NavMenuBlock = compose(
         <div {...blockProps}>
             {menuId ? !loading ? <RawHTML key="html">
                 {response}
-            </RawHTML> : <NavSkeleton /> : <NavSkeletonNormal />}
+            </RawHTML> : <NavSkeleton /> : (renderingMode === 'template-locked' ? null : <NavSkeletonNormal />)}
         </div>
     </>;
 });
