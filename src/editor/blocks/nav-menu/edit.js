@@ -9,15 +9,13 @@ import { addQueryArgs } from '@wordpress/url';
 import { useRef } from '@wordpress/element';
 import { RawHTML } from '@wordpress/element';
 import GutenverseNavMenu from '../../../frontend/blocks/nav-menu';
-import { NavSkeleton, classnames, NavSkeletonNormal } from 'gutenverse-core/components';
+import { NavSkeleton, classnames } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
-import { store as editorStore } from '@wordpress/editor';
-import { useSelect } from '@wordpress/data';
 
 const NavMenuBlock = compose(
     withPartialRender,
@@ -52,10 +50,6 @@ const NavMenuBlock = compose(
     const elementRef = useRef();
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(true);
-    const renderingMode = useSelect(
-        (select) => select(editorStore).getRenderingMode(),
-        []
-    );
 
     const removeClick = () => {
         if (elementRef.current) {
@@ -176,9 +170,9 @@ const NavMenuBlock = compose(
         <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
-            {menuId ? !loading ? <RawHTML key="html">
+            {!loading && response ? <RawHTML key="html">
                 {response}
-            </RawHTML> : <NavSkeleton /> : (renderingMode === 'template-locked' ? null : <NavSkeletonNormal />)}
+            </RawHTML> : <NavSkeleton />}
         </div>
     </>;
 });

@@ -11,8 +11,6 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
-import { store as editorStore } from '@wordpress/editor';
-import { useSelect } from '@wordpress/data';
 
 const PopupBuilder = (props) => {
     const {
@@ -37,10 +35,6 @@ const PopupBuilder = (props) => {
     const elementRef = useRef();
     const containerRef = useRef();
     const deviceType = getDeviceType();
-    const renderingMode = useSelect(
-        (select) => select(editorStore).getRenderingMode(),
-        []
-    );
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
@@ -88,7 +82,7 @@ const PopupBuilder = (props) => {
         <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
-            <div className={`guten-popup-holder ${renderingMode === 'template-locked' ? 'hide' : ''}`} onClick={toggleShow}>
+            <div className="guten-popup-holder" onClick={toggleShow}>
                 <h1>{__('Popup Builder', 'gutenverse')}</h1>
                 <span>{__('This block doesn\'t render on frontend. Click to show popup.', 'gutenverse')}</span>
             </div>
