@@ -16,3 +16,17 @@
     background-color: hsla(0,0%,100%,.6);
     z-index: 30;
 }
+
+.guten-post-content.guten-element {
+    .components-disabled {
+        .guten-hide-desktop, .guten-hide-tablet, .guten-hide-mobile {
+            display: none;
+        }
+    }
+}
+
+.editor-styles-wrapper .is-editing-disabled {
+    .guten-hide-desktop, .guten-hide-tablet, .guten-hide-mobile {
+        display: none;
+    }
+}
