@@ -20,6 +20,7 @@ addFilter(
                 pro: true,
                 locked: true,
                 tier: ['professional', 'personal'],
+                min_tier: 'professional'
             },
             {
                 name: 'gutenverse/mega-menu',
@@ -29,6 +30,7 @@ addFilter(
                 pro: true,
                 locked: true,
                 tier: ['professional', 'personal'],
+                min_tier: 'professional'
             },
             {
                 name: 'gutenverse/advance-button',
@@ -37,7 +39,8 @@ addFilter(
                 icon: <IconAdvanceButtonSVG />,
                 pro: true,
                 locked: true,
-                tier: 'basic',
+                tier: ['basic', 'professional', 'personal'],
+                min_tier: 'basic'
             },
             {
                 name: 'gutenverse-pro/advance-tabs',
@@ -46,7 +49,8 @@ addFilter(
                 icon: <IconAdvanceTabsSVG />,
                 pro: true,
                 locked: true,
-                tier: 'basic',
+                tier: ['basic', 'professional', 'personal'],
+                min_tier: 'basic'
             },
             {
                 name: 'gutenverse/text-marque',
@@ -56,6 +60,7 @@ addFilter(
                 pro: true,
                 locked: true,
                 tier: ['professional', 'personal'],
+                min_tier: 'professional'
             },
             {
                 name: 'gutenverse/image-marque',
@@ -65,6 +70,7 @@ addFilter(
                 pro: true,
                 locked: true,
                 tier: ['professional', 'personal'],
+                min_tier: 'professional'
             },
             {
                 name: 'gutenverse/post-carousel',
@@ -74,6 +80,7 @@ addFilter(
                 pro: true,
                 locked: true,
                 tier: ['professional', 'personal'],
+                min_tier: 'professional'
             },
             ...list,
         ];
