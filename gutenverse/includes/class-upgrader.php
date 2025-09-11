@@ -187,7 +187,7 @@ class Upgrader {
 		$flag             = get_option( $this->get_plugin_theme_select_name() );
 		$using_base_theme = apply_filters( 'gutenverse_companion_base_theme', false );
 		$needs_redirect   = get_transient( 'gutenverse_wizard_redirect' );
-		if ( ! $flag && $needs_redirect && current_user_can( 'manage_options' ) && ! $using_base_theme ) {
+		if ( ( ! $flag || $needs_redirect ) && current_user_can( 'manage_options' ) && ! $using_base_theme ) {
 
 			add_option( $this->get_plugin_theme_select_name(), true );
 			delete_transient( 'gutenverse_wizard_redirect' );
