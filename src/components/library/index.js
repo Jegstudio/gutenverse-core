@@ -11,15 +11,18 @@ export { libraryStore } from 'gutenverse-core/store';
 import EditorModePlugin from '../editor-mode/editor-mode';
 import { applyFilters } from '@wordpress/hooks';
 
-const { activeTheme } = window['GutenverseConfig'] || {};
+const { activeTheme, plugins } = window['GutenverseConfig'] || {};
+const emptyLicense = applyFilters('gutenverse.panel.tab.pro.content', true);
+const companionActive = plugins['gutenverse-companion'].active;
 
 let initLibraryState = {
+    attributes: {emptyLicense, companionActive},
     active: 'themes',
     tabs: [
         {
             id: 'themes',
             icon: <IconBlocksSVG />,
-            label: __('Themes', '--gctd--'),
+            label: __(`${ (activeTheme === 'unibiz' && emptyLicense && companionActive) ? 'Prebuilt Sites' : 'Themes'}`, '--gctd--'),
         },
         {
             id: 'layout',
@@ -39,7 +42,7 @@ let initLibraryState = {
     ],
 };
 
-if (activeTheme === 'unibiz') {
+if (activeTheme === 'unibiz' && ( ! emptyLicense || ! companionActive )) {
     initLibraryState.active = 'layout';
 }
 

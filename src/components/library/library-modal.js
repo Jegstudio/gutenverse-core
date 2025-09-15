@@ -97,31 +97,47 @@ const LibraryModal = props => {
                     <div className="gutenverse-section-switcher">
                         {modalData.libraryData.tabs.map((type, index) => {
                             const active = type.id === modalData.libraryData.active ? 'active' : '';
+                            const {emptyLicense, companionActive} = modalData.libraryData.attributes;
+                            const flag = emptyLicense && companionActive;
 
                             return <>
                                 {
-                                    (activeTheme === 'unibiz' && type.id === 'themes') ? <a key={index}
-                                        className={`gutenverse-library-type ${active}`} href={`${adminUrl}admin.php?page=gutenverse-companion-dashboard&path=demo`} target="_blank" rel="noreferrer">
-                                        {type.icon}
-                                        <span>{type.label}</span>
-                                    </a> : <div
-                                        key={index}
-                                        className={`gutenverse-library-type ${active}`}
-                                        onClick={() => {
-                                            dispatch('gutenverse/library').setActiveLiblary(type.id);
-                                            dispatch('gutenverse/library').setCategories([]);
-                                            dispatch('gutenverse/library').setAuthor('');
-                                            dispatch('gutenverse/library').setLicense('');
-                                            dispatch('gutenverse/library').setStatus('');
-                                            dispatch('gutenverse/library').setPaging(1);
-                                        }}
-                                    >
-                                        {type.icon}
-                                        <span>{type.label}</span>
-                                    </div>
+                                    (activeTheme === 'unibiz' && type.id === 'themes') ?
+                                        flag ? <div key={index}
+                                            className={`gutenverse-library-type ${active}`}
+                                            onClick={() => {
+                                                dispatch('gutenverse/library').setActiveLiblary(type.id);
+                                                dispatch('gutenverse/library').setCategories([]);
+                                                dispatch('gutenverse/library').setAuthor('');
+                                                dispatch('gutenverse/library').setLicense('');
+                                                dispatch('gutenverse/library').setStatus('');
+                                                dispatch('gutenverse/library').setPaging(1);
+                                            }}
+                                        >
+                                            {type.icon}
+                                            <span>{type.label}</span>
+                                        </div> :
+                                            <a key={index}
+                                                className={`gutenverse-library-type ${active}`} href={`${adminUrl}admin.php?page=gutenverse-companion-dashboard&path=demo`} target="_blank" rel="noreferrer">
+                                                {type.icon}
+                                                <span>{type.label}</span>
+                                            </a>  : <div
+                                            key={index}
+                                            className={`gutenverse-library-type ${active}`}
+                                            onClick={() => {
+                                                dispatch('gutenverse/library').setActiveLiblary(type.id);
+                                                dispatch('gutenverse/library').setCategories([]);
+                                                dispatch('gutenverse/library').setAuthor('');
+                                                dispatch('gutenverse/library').setLicense('');
+                                                dispatch('gutenverse/library').setStatus('');
+                                                dispatch('gutenverse/library').setPaging(1);
+                                            }}
+                                        >
+                                            {type.icon}
+                                            <span>{type.label}</span>
+                                        </div>
                                 }
-
-                            </>
+                            </>;
                         })}
                     </div>
                     <div className="gutenverse-close-wrapper">
@@ -130,7 +146,7 @@ const LibraryModal = props => {
                         </div>
                     </div>
                 </div>
-                <div className={'gutenverse-library-body'}>
+                <div className={`gutenverse-library-body ${modalData.libraryData.active}`}>
                     <LibraryContent
                         modalData={modalData}
                         active={modalData.libraryData.active}
