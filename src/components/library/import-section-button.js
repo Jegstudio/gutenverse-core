@@ -18,7 +18,7 @@ import set from 'lodash/set';
 import { v4 } from 'uuid';
 
 const ImportSectionButton = props => {
-    const { 
+    const {
         data,
         closeImporter,
         importer,
@@ -36,7 +36,8 @@ const ImportSectionButton = props => {
         supportGlobalImport
     } = props;
 
-    const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
+    const { pro: isPro, licenseType, slug, customAPI = null, customArgs = {} } = data;
+
     const { userConfig, setUserConfig } = useGlobalStylesConfig();
     const customs = userConfig.settings.color && userConfig.settings.color.palette && userConfig.settings.color.palette.custom;
     const { addVariableFont } = dispatch('gutenverse/global-style');
@@ -260,7 +261,7 @@ const ImportSectionButton = props => {
     };
 
     const ProButton = () => {
-        return <ButtonUpgradePro licenseActiveButton={ImportButton()} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=librarysection&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} isBanner={true} location="card-pro" />;
+        return <ButtonUpgradePro licenseType={licenseType} licenseActiveButton={ImportButton()} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=librarysection&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} isBanner={true} location="card-pro" />;
     };
 
     const renderButton = () => {

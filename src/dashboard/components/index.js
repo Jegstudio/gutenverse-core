@@ -1,4 +1,6 @@
 export { default as PopupPro } from './popup-pro';
+export { default as PopupInstallPlugin } from './popup-install-plugin';
+export {default as PopupInsufficientTier} from './popup-insufficient-tier';
 
 
 export const DashboardContent = ({

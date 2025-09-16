@@ -14,7 +14,7 @@ import { store as editorStore } from '@wordpress/editor';
 import { ImportNotice } from './library-helper';
 
 const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setPluginInstallMode, setExporting, setLibraryError }) => {
-    const { isPro, slug, title, compatibleVersion, requirements, customAPI = null, customArgs = {} } = data;
+    const { isPro, licenseType, slug, title, compatibleVersion, requirements, customAPI = null, customArgs = {} } = data;
     const pluginRequirement = getPluginRequirementStatus({
         plugins: plugins.installedPlugin,
         requirements,
@@ -151,7 +151,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     };
 
     const ProButton = () => {
-        return <ButtonUpgradePro licenseActiveButton={ImportButton()} isBanner={true} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=librarylayout&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} location="card-pro" customStyles={{ padding: '12px 20px' }}/>;
+        return <ButtonUpgradePro licenseType={licenseType} licenseActiveButton={ImportButton()} isBanner={true} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=librarylayout&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} location="card-pro" customStyles={{ padding: '12px 20px' }}/>;
     };
 
     const renderButton = () => {

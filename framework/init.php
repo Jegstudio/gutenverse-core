@@ -198,8 +198,8 @@ if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 		 * @return bool
 		 */
 		public function check_compatibility() {
+
 			if ( defined( 'GUTENVERSE_VERSION' ) && version_compare( GUTENVERSE_VERSION, '1.9.9', '<=' ) ) {
-				add_action( 'admin_notices', array( $this, 'gutenverse_compatibility_notice' ) );
 				add_action( 'wp_ajax_gutenverse_compatibility_notice_close', array( $this, 'compatibility_notice_close' ) );
 				add_action( 'admin_enqueue_scripts', array( $this, 'gutenverse_compatibility_notice_script' ) );
 
@@ -227,50 +227,6 @@ if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 				GUTENVERSE_FRAMEWORK_VERSION,
 				true
 			);
-		}
-
-		/**
-		 * Show notification to update Gutenverse Plugin to version 2.0.
-		 */
-		public function gutenverse_compatibility_notice() {
-			if ( ! current_user_can( 'manage_options' ) ) {
-				return;
-			}
-
-			$plugin_list = apply_filters( 'gutenverse_companion_plugin_list', array() );
-
-			if ( ! get_option( 'gutenverse_compatibility_notice_flag' ) ) {
-				?>
-				<div class="notice gutenverse-upgrade-notice important page-content-upgrade">
-					<div class="notice-logo">
-						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M10 0C4.47754 0 0 4.47915 0 10C0 15.5241 4.47754 20 10 20C15.5225 20 20 15.5241 20 10C20 4.47915 15.5225 0 10 0ZM10 4.43548C10.9353 4.43548 11.6935 5.19371 11.6935 6.12903C11.6935 7.06435 10.9353 7.82258 10 7.82258C9.06468 7.82258 8.30645 7.06435 8.30645 6.12903C8.30645 5.19371 9.06468 4.43548 10 4.43548ZM12.2581 14.6774C12.2581 14.9446 12.0414 15.1613 11.7742 15.1613H8.22581C7.95859 15.1613 7.74194 14.9446 7.74194 14.6774V13.7097C7.74194 13.4425 7.95859 13.2258 8.22581 13.2258H8.70968V10.6452H8.22581C7.95859 10.6452 7.74194 10.4285 7.74194 10.1613V9.19355C7.74194 8.92633 7.95859 8.70968 8.22581 8.70968H10.8065C11.0737 8.70968 11.2903 8.92633 11.2903 9.19355V13.2258H11.7742C12.0414 13.2258 12.2581 13.4425 12.2581 13.7097V14.6774Z" fill="#ff0909"/>
-						</svg>
-					</div>
-					<div class="notice-content">
-						<h2><?php esc_html_e( 'Important Gutenverse Compatibility Notice!', '--gctd--' ); ?></h2>
-						<p>
-						<?php
-						esc_html_e( 'You are currently using lower version of Gutenverse plugin, we highly recommend to update to Gutenverse 2.0 or higher so you can continue using these plugins :', '--gctd--' );
-						?>
-						</p>
-						<ul class="plugin-list">
-						<?php
-						foreach ( $plugin_list as $plugin ) {
-							// translators: %s is plugin name in string format.
-							?>
-							<li><?php echo esc_html( sprintf( '%s', $plugin ) ); ?></li>
-							<?php
-						}
-						?>
-						</ul>
-						<div class="gutenverse-upgrade-action">
-							<a class='update-action' href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>"><strong><?php esc_html_e( 'Update Gutenverse Now!', '--gctd--' ); ?></strong></a>
-						</div>
-					</div>
-				</div>
-				<?php
-			}
 		}
 
 		/**

@@ -204,5 +204,11 @@ class Editor_Assets {
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
+		wp_enqueue_style(
+			'gutenverse-google-fonts-host-grostesk',
+			'https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap',
+			false,
+			1
+		);
 	}
 }

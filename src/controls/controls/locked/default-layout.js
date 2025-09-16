@@ -18,12 +18,9 @@ const DefaultLayout = ({
         proDemoUrl
     } = window['GutenverseConfig'];
 
-    const openLink = () => {
-        window.open(upgradeProUrl);
-    };
     const ButtonPro = applyFilters(
         'gutenverse.pro-panel-button',
-        () => isEmpty(window?.gprodata) && <a className="gutenverse-button-available-pro" href={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} target="_blank" rel="noreferrer"> {__('Available in Pro Version', '--gctd--')} <IconCrownBannerSVG /> </a>
+        () => isEmpty(window?.gprodata) && <a className="gutenverse-button-available-pro" href={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} target="_blank" rel="noreferrer"> {__('Upgrade To Pro', '--gctd--')} <IconCrownBannerSVG /> </a>
     );
     return <>
         <h2 className="title">{title}</h2>
@@ -34,10 +31,9 @@ const DefaultLayout = ({
             <span className="description">{description}</span>
         </div>
         <div>
-            <video autoPlay={isOpen} loop={isOpen}>
+            {img && <video autoPlay={isOpen} loop={isOpen}>
                 <source src={`${videoDir}/${img}`} type="video/mp4" />
-            </video>
-            {/* <img className="illustration" src={`${imgDir}/${img}`} /> */}
+            </video>}
         </div>
         <div className="more-details">
             <div className="more-detail">

@@ -24,6 +24,7 @@ class Frontend_Assets {
 	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ), 99 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_inline_style' ), 999 );
 		add_filter( 'gutenverse_global_css', array( $this, 'global_variable_css' ) );
 	}
 
@@ -106,8 +107,7 @@ class Frontend_Assets {
 		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseData', $this->gutenverse_data() );
 
 		do_action( 'gutenverse_include_frontend' );
-
-		wp_enqueue_style( 'gutenverse-frontend-style' );
+		wp_dequeue_style( 'gutenverse-frontend-style' );
 
 		wp_enqueue_style(
 			'gutenverse-frontend-icon',
@@ -124,6 +124,13 @@ class Frontend_Assets {
 				GUTENVERSE_FRAMEWORK_VERSION
 			);
 		}
+	}
+
+	/**
+	 * Frontend style
+	 */
+	public function frontend_inline_style() {
+		wp_enqueue_style( 'gutenverse-frontend-style' );
 	}
 
 	/**
