@@ -167,6 +167,7 @@ const PostContentBlock = compose(
     const {
         elementId,
         inheritLayout,
+        inheritDefaultStyle
     } = attributes;
 
     const { postId: contextPostId, postType: contextPostType } = context;
@@ -188,6 +189,7 @@ const PostContentBlock = compose(
             elementId,
             animationClass,
             displayClass,
+            'is-layout-constrained entry-content'
         ),
         ref: elementRef,
         onClick: () => {

@@ -11,7 +11,7 @@ export { metadata, name };
 
 export const settings = {
     icon: <IconAccordionSVG />,
-    example: example,
+    example,
     edit,
     save,
 };

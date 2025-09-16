@@ -77,7 +77,9 @@ const save = compose(
                 <div className={`content ${contentDisplay}`}>
                     <div className="number-wrapper">
                         <span className="prefix">{`${prefix}`}</span>
-                        <span className="number loaded" data-number-format={numberFormat} data-safe={safeNumber} data-number={number} data-duration={duration}></span>
+                        <span className="number loaded" data-number-format={numberFormat} data-safe={safeNumber} data-number={number} data-duration={duration} data-attributes={JSON.stringify({
+                            ...attributes
+                        })}></span>
                         <span className="suffix">{suffix}</span>
                         {showSupper && <sup className="super">{supper}</sup>}
                     </div>
