@@ -27,25 +27,27 @@
 @import "../blocks/column/styles/style";
 @import "../blocks/wrapper/styles/style";
 
+
 // Set element default position relative (this is required so element with Z Index could work properly)
 .guten-element {
-    position: relative;
-    text-shadow: 0 0 transparent;
+	position: relative;
+	text-shadow: 0 0 transparent;
 
-    * {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        transition: background-color 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s, color 0.3s, height 0.3s;
-    }
+	* {
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		transition: background-color 0.3s, border 0.3s, border-radius 0.3s,
+			box-shadow 0.3s, color 0.3s, height 0.3s;
+	}
 
-    img{
-        max-width: 100%;
-    }
+	img {
+		max-width: 100%;
+	}
 }
 
 .guten-data[class="guten-data"] {
-    width: 0 !important;
-    height: 0 !important;
+	width: 0 !important;
+	height: 0 !important;
 }
 
 // Hide block that has animation until animation is loaded
@@ -54,23 +56,23 @@
 .guten-element-hide[class*=" desktop-"],
 .guten-element-hide[class^="__desktop-"],
 .guten-element-hide[class*=" __desktop-"] {
-    visibility: hidden;
+	visibility: hidden;
 }
 
 @media (max-width: 780px) {
-    .guten-element-hide[class^="tablet-"],
-    .guten-element-hide[class*=" tablet-"],
-    .guten-element-hide[class^="__tablet-"],
-    .guten-element-hide[class*=" __tablet-"] {
-        visibility: hidden;
-    }
+	.guten-element-hide[class^="tablet-"],
+	.guten-element-hide[class*=" tablet-"],
+	.guten-element-hide[class^="__tablet-"],
+	.guten-element-hide[class*=" __tablet-"] {
+		visibility: hidden;
+	}
 }
 
 @media (max-width: 425px) {
-    .guten-element-hide[class^="mobile-"],
-    .guten-element-hide[class*=" mobile-"],
-    .guten-element-hide[class^="__mobile-"],
-    .guten-element-hide[class*=" __mobile-"] {
-        visibility: hidden;
-    }
+	.guten-element-hide[class^="mobile-"],
+	.guten-element-hide[class*=" mobile-"],
+	.guten-element-hide[class^="__mobile-"],
+	.guten-element-hide[class*=" __mobile-"] {
+		visibility: hidden;
+	}
 }

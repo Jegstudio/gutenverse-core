@@ -8,7 +8,8 @@ export const borderPanel = (props) => {
         elementId,
         switcher,
         setSwitcher,
-        selector
+        selector,
+        selectorHover,
     } = props;
 
     const device = getDeviceType();
@@ -79,7 +80,7 @@ export const borderPanel = (props) => {
                 {
                     'type': 'border',
                     'id': 'borderHover',
-                    'selector': selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+                    'selector': selectorHover ? selectorHover : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
                 }
             ],
             style: [
@@ -100,7 +101,7 @@ export const borderPanel = (props) => {
                 {
                     'type': 'borderResponsive',
                     'id': 'borderHoverResponsive',
-                    'selector': selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+                    'selector': selectorHover ? selectorHover : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
                 }
             ],
             style: [
@@ -151,7 +152,7 @@ export const borderPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+                    'selector': selectorHover ? selectorHover : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
                 }
             ],
             style: [
