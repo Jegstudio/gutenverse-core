@@ -284,5 +284,7 @@
 		"search",
 		"gutenverse"
 	],
-	"example": {}
+	"example": {
+		"elementId": "guten-preview-search"
+	}
 }

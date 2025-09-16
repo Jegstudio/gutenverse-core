@@ -12,7 +12,7 @@ export { metadata, name };
 
 export const settings = {
     icon: <IconGmapsSVG />,
-    example: example,
+    example,
     edit,
     save,
     deprecated: [

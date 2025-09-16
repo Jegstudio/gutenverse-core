@@ -22,6 +22,8 @@ const save = compose(
         linkIcon
     } = attributes;
 
+    const { gutenverseImgPlaceholder } = window['GutenverseConfig'];
+
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
 
@@ -59,7 +61,7 @@ const save = compose(
                 <div className="image-items">
                     {
                         images.map((el,index) => {
-                            return <div key={index} id={`portfolio-gallery-tab-${index}`} className={`image-item ${el.current ? 'current-item' : ''}`} style={{backgroundImage:`url(${getImageSrc(el.src)})`}}></div>
+                            return <div key={index} id={`portfolio-gallery-tab-${index}`} className={`image-item ${el.current ? 'current-item' : ''}`} style={{backgroundImage:`url(${getImageSrc(el.src, gutenverseImgPlaceholder)})`}}></div>;
                         })
                     }
                 </div>

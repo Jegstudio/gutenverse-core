@@ -13,7 +13,7 @@ export { metadata, name };
 
 export const settings = {
     icon: <IconPopupBuilderSVG />,
-    example: example,
+    example,
     edit,
     save,
     deprecated: [
