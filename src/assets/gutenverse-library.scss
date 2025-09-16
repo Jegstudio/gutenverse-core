@@ -1674,6 +1674,18 @@ $border: #eaeaea;
                     width: 100%;
                     height: fit-content;
                     transition: opacity 0.3s ease;
+
+                    .block-editor-block-preview__content {
+                        transform: scale(1) !important;
+                        aspect-ratio: unset !important;
+                    }
+
+                    iframe {
+                        transform: scale(0.8);
+                        transform-origin: 0px 0px;
+                        width: 125% !important;
+                        position: relative !important;
+                    }
                 }
 
                 .global-content {

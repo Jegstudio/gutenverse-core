@@ -234,7 +234,7 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
             });
 
             if (notExist) {
-                return result.slice(0, start) + `"typography": ${font.font}` + result.slice(end);
+                return result.slice(0, start) + `"typography": ${font?.font}` + result.slice(end);
             } else {
                 return result.slice(0, start) + updatedBlock + result.slice(end);
             }
@@ -248,7 +248,7 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
         (_, prefix, id, suffix) => {
             let notExist = false;
             let color = {};
-            const populateColor = globalVariables.colors?.custom.concat(globalVariables.colors.theme);
+            const populateColor = globalVariables.colors?.custom?.concat(globalVariables.colors.theme);
             const matchedColor = populateColor?.find(f => f?.slug?.toLowerCase() === id?.toLowerCase());
 
             if (!matchedColor) {
@@ -301,7 +301,14 @@ const extractTypographyBlocks = (content) => {
 const Content = (props) => {
     const { content } = props;
 
-    return <ReadOnlyContent
+    return content === null ? <>
+        <div className="single-previewer">
+            <LeftSkeleton />
+        </div>
+        <div className="single-wrapper">
+            <RightSkeleton />
+        </div>
+    </> : <ReadOnlyContent
         content={content}
     />;
 };
@@ -336,6 +343,9 @@ const ReadOnlyContent = ({ content }) => {
                         `;
                         styleTag.className = 'custom-preview-style';
                         iframeDoc.head.appendChild(styleTag);
+
+                        const container = iframeRef.current.querySelector('block-editor-block-preview__container');
+                        const rect = container.getBoundingClientRect();
                     };
                     iframe.addEventListener('load', onLoad);
 
