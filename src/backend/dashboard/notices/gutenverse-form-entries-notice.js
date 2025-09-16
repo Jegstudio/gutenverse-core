@@ -3,7 +3,7 @@ import { installingPlugins } from 'gutenverse-core/helper';
 import { useState } from '@wordpress/element';
 import { IconLoadingSVG } from 'gutenverse-core/icons';
 
-export const GutenverseFormEntriesNotice = ({ data }) => {
+export const GutenverseFormEntriesNotice = () => {
     const [textButton, setTextButton] = useState(__('Install & Activate Gutenverse Form!', 'gutenverse'));
     const pluginsList = [
         { name: 'Gutenverse Form', slug: 'gutenverse-form', version: '', url: '' },
