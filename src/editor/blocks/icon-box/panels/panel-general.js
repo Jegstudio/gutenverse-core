@@ -207,6 +207,16 @@ export const panelGeneral = (props) => {
             ],
         },
         {
+            id: 'showTitle',
+            label: __('Show Title', 'gutenverse'),
+            component: CheckboxControl
+        },
+        {
+            id: 'showDesc',
+            label: __('Show Description', 'gutenverse'),
+            component: CheckboxControl
+        },
+        {
             id: 'badgeShow',
             label: __('Show Badge', 'gutenverse'),
             component: CheckboxControl

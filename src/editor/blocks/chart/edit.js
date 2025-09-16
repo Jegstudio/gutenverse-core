@@ -61,25 +61,25 @@ const ChartBlock = compose(
     } = props;
 
     const {
-        elementId,
-        titleTag = 'h2',
-        icon,
         url,
         rel,
-        linkTarget,
-        enableContent,
-        chartContent,
-        tooltipDisplay,
-        legendDisplay,
-        chartItems,
-        chartType,
-        totalValue,
-        animationDuration,
-        contentType,
-        minValue,
+        icon,
         cutout,
+        minValue,
+        elementId,
+        chartType,
+        linkTarget,
+        chartItems,
+        totalValue,
+        contentType,
+        chartContent,
         barThickness,
+        legendDisplay,
+        enableContent,
+        tooltipDisplay,
+        titleTag = 'h2',
         cutoutBackground,
+        animationDuration,
         enableContentParsed
     } = attributes;
 
@@ -164,11 +164,24 @@ const ChartBlock = compose(
         if (tooltipPlugin) {
             tooltipPlugin.positioners.custom = customPositioner;
         }
+
         const data = getChartData(attributes, multiValue, canvasRef.current);
-        const generateChart = new Chart(canvasRef.current, data);
-        chartRef.current = generateChart;
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const generateChart = new Chart(canvasRef.current, data);
+                    chartRef.current = generateChart;
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        observer.observe(canvasRef.current);
 
         return () => {
+            observer.disconnect();
             if (chartRef.current) {
                 chartRef.current.destroy();
                 chartRef.current = null;
