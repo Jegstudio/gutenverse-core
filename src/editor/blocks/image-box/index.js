@@ -14,7 +14,7 @@ export { metadata, name };
 
 export const settings = {
     icon: <IconImageBoxSVG />,
-    example: example,
+    example,
     edit,
     save,
     deprecated: [

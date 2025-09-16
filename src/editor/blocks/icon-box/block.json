@@ -40,6 +40,11 @@
 			"selector": "a",
 			"attribute": "rel"
 		},
+		"showTitle":{
+			"type": "boolean",
+			"default": true,
+			"copyStyle": true
+		},
 		"title": {
 			"type": "string",
 			"default": "Icon Box"
@@ -51,6 +56,11 @@
 		"titleTag": {
 			"type": "string",
 			"default": "h2"
+		},
+		"showDesc":{
+			"type": "boolean",
+			"default": true,
+			"copyStyle": true
 		},
 		"description": {
 			"type": "string",
