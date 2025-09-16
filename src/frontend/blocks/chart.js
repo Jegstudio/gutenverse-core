@@ -10,7 +10,6 @@ class GutenverseChart extends Default {
             const dataElement = u(element).find('.chart-content.content-chart').find('.chart-container');
 
             if (dataElement.length) {
-
                 const rawData = dataElement.data('chart');
                 if (rawData) {
                     const parsedData = JSON.parse(rawData);
@@ -28,10 +27,15 @@ class GutenverseChart extends Default {
                         tooltipPlugin.positioners.custom = customPositioner;
                     }
 
+                    const numberElement = u(element).find('.chart-content .chart-inside span');
+
                     const observer = new IntersectionObserver((entries, obs) => {
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
                                 new Chart(canvas.nodes[0], chartData);
+
+                                this._animateNumber(numberElement, parsedData);
+
                                 obs.unobserve(entry.target);
                             }
                         });
@@ -40,9 +44,6 @@ class GutenverseChart extends Default {
                     });
 
                     observer.observe(canvas.nodes[0]);
-
-                    const numberElement = u(element).find('.chart-content .chart-inside span');
-                    this._animateNumber(numberElement, parsedData);
                 }
             }
         });
