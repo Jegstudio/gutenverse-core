@@ -9,6 +9,8 @@ import withGlobalVariable from './with-global-variable';
 import { signal } from 'gutenverse-core/editor-helper';
 import CardPro from '../pro/card-pro';
 import { PluginSidebar } from '@wordpress/editor';
+import { PluginSidebar as PluginSidebarOld} from '@wordpress/edit-post';
+import { isNotEmpty } from 'gutenverse-core/helper';
 
 const GlobalStyleSidebar = props => {
     const { variable, googleFont } = props;
@@ -26,7 +28,9 @@ const GlobalStyleSidebar = props => {
         setStage(stage);
     };
 
-    return <PluginSidebar
+    const Sidebar = isNotEmpty(PluginSidebar)? PluginSidebar : PluginSidebarOld;
+
+    return <Sidebar
         name="gutenverse-sidebar"
         title={<div className={'global-style-extended'}>{stage && <ArrowLeft size={20} className="back-button" onClick={() => setStage('')} />}<span>{'Global Style Extended'}</span></div>}
         icon={<div className={'gutenverse-icon'}>
@@ -45,7 +49,7 @@ const GlobalStyleSidebar = props => {
             }}
             />
         </PanelBody>
-    </PluginSidebar>;
+    </Sidebar>;
 };
 
 export default compose(
