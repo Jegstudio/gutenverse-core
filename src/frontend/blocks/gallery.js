@@ -30,7 +30,7 @@ class GutenverseGallery extends Default {
     _loadGallery({Shuffle, Swiper}) {
         const $this = this;
         $this._elements.map(element => {
-            const promiseImages = u(element).find('.gallery-item-wrap img').nodes.map((img) => 
+            const promiseImages = u(element).find('.gallery-item-wrap img').nodes.map((img) =>
                 new Promise((resolve, reject) => {
                     img.onload = () => {
                         if (img.complete && img.naturalHeight !== 0) {
@@ -95,7 +95,12 @@ class GutenverseGallery extends Default {
             }
         } else {
             const filterElement = thisElement.find('.guten-gallery-control.active');
-            filterText = filterElement.text().toLowerCase();
+            const isAll = filterElement.data('flag-all') ?? false;
+            if (isAll) {
+                filterText = 'all';
+            } else {
+                filterText = filterElement.text().toLowerCase();
+            }
         }
         const filterValue = filterText === 'all' ? '' : filterText;
         return {searchValue, filterValue};
@@ -233,7 +238,7 @@ class GutenverseGallery extends Default {
             };
 
             shuffle && shuffle.filter(item => isValid(item));
-        }
+        };
         thisElement.find('#guten-gallery-search-box-input').on('change keyup', e => onSearch(shuffle, elementClassNames));
         thisElement.find('.guten-gallery-control').on('click', e => {
             const control = u(e.target);

@@ -26,9 +26,13 @@ const PopupBuilder = (props) => {
         showCloseButton,
         closeIcon,
         closePosition,
+        exitAnimation,
+        exitAnimationDuration,
+        exitAnimationDelay
     } = attributes;
 
     const [show, setShow] = useState(false);
+    const [exit, setExit] = useState(false);
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -65,9 +69,15 @@ const PopupBuilder = (props) => {
         'data-close-overlay': closePopupOverlay
     });
 
-    const toggleShow = () => setShow(show => !show);
-    const hidePopup = () => setShow(false);
-    const overlayClicked = () => { closePopupOverlay ? setShow(false) : null; };
+    const toggleShow = () => setShow((show) => !show);
+    const hidePopup = () => {
+        setExit(true);
+        setTimeout(() => {
+            setExit(false);
+            setShow(false);
+        }, exitAnimation ? (parseInt(exitAnimationDuration) || 0) + (parseInt(exitAnimationDelay) || 0) || 1000 : 0);
+    };
+    const overlayClicked = () => { closePopupOverlay ? hidePopup() : null; };
 
     const hideClickContainer = (e) => {
         if (containerRef.current && !containerRef.current.contains(e.target)
@@ -104,7 +114,9 @@ const PopupBuilder = (props) => {
                 )}>
                     <div ref={containerRef} className={classnames(
                         'guten-popup-content',
-                        animationClass
+                        animationClass,
+                        exit ? 'exit' : '',
+                        !animationClass.animated && exitAnimation ? 'animated' : ''
                     )}>
                         {showCloseButton && closePosition === 'container' && <div className="guten-popup-close" onClick={hidePopup}>
                             <i className={closeIcon} />

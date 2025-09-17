@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import { Default, u } from 'gutenverse-core-frontend';
 import { Chart} from 'chart.js/auto';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 class GutenverseChart extends Default {
     /* public */
@@ -10,7 +10,6 @@ class GutenverseChart extends Default {
             const dataElement = u(element).find('.chart-content.content-chart').find('.chart-container');
 
             if (dataElement.length) {
-
                 const rawData = dataElement.data('chart');
                 if (rawData) {
                     const parsedData = JSON.parse(rawData);
@@ -28,10 +27,23 @@ class GutenverseChart extends Default {
                         tooltipPlugin.positioners.custom = customPositioner;
                     }
 
-                    new Chart(canvas.nodes[0], chartData);
-
                     const numberElement = u(element).find('.chart-content .chart-inside span');
-                    this._animateNumber(numberElement, parsedData);
+
+                    const observer = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                new Chart(canvas.nodes[0], chartData);
+
+                                this._animateNumber(numberElement, parsedData);
+
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    }, {
+                        threshold: 0.2
+                    });
+
+                    observer.observe(canvas.nodes[0]);
                 }
             }
         });

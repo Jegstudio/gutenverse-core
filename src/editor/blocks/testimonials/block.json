@@ -58,6 +58,10 @@
 			"type": "boolean",
 			"default": false
 		},
+		"showClientImage": {
+			"type": "boolean",
+			"default": true
+		},
 		"showRating": {
 			"type": "boolean",
 			"default": false

@@ -76,7 +76,9 @@ const IconBoxBlock = compose(
         separateButtonLink,
         lazyLoad,
         hoverWithParent,
-        parentSelector
+        parentSelector,
+        showTitle,
+        showDesc
     } = attributes;
 
     const {
@@ -262,46 +264,50 @@ const IconBoxBlock = compose(
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
                 {iconPosition !== 'bottom' && iconContent()}
                 <div className="icon-box icon-box-body">
-                    <RichTextComponent
-                        classNames={'title'}
-                        tagName={titleTag}
-                        aria-label={__('Icon Box Title', 'gutenverse')}
-                        placeholder={__('Write title...', 'gutenverse')}
-                        onChange={value => setAttributes({ title: value })}
-                        multiline={false}
-                        setAttributes={setAttributes}
-                        attributes={attributes}
-                        clientId={clientId}
-                        panelDynamic={{ panel: 'setting', section: 3 }}
-                        panelPosition={{ panel: 'style', section: 1 }}
-                        contentAttribute={'title'}
-                        setPanelState={setPanelState}
-                        textChilds={'titleChilds'}
-                        dynamicList={'titleDynamicList'}
-                        isUseDinamic={true}
-                        isUseHighlight={true}
-                        parentHasLink={isGlobalLinkSet}
-                    />
-                    <RichTextComponent
-                        classNames={'icon-box-description'}
-                        tagName={'p'}
-                        aria-label={__('Icon Box Description', 'gutenverse')}
-                        placeholder={__('Write description...', 'gutenverse')}
-                        onChange={value => setAttributes({ description: value })}
-                        multiline={false}
-                        setAttributes={setAttributes}
-                        attributes={attributes}
-                        clientId={clientId}
-                        panelDynamic={{ panel: 'setting', section: 3 }}
-                        panelPosition={{ panel: 'style', section: 1 }}
-                        contentAttribute={'description'}
-                        setPanelState={setPanelState}
-                        textChilds={'descriptionChilds'}
-                        dynamicList={'descriptionDynamicList'}
-                        isUseDinamic={true}
-                        isUseHighlight={true}
-                        parentHasLink={isGlobalLinkSet}
-                    />
+                    {
+                        showTitle && <RichTextComponent
+                            classNames={'title'}
+                            tagName={titleTag}
+                            aria-label={__('Icon Box Title', 'gutenverse')}
+                            placeholder={__('Write title...', 'gutenverse')}
+                            onChange={value => setAttributes({ title: value })}
+                            multiline={false}
+                            setAttributes={setAttributes}
+                            attributes={attributes}
+                            clientId={clientId}
+                            panelDynamic={{ panel: 'setting', section: 3 }}
+                            panelPosition={{ panel: 'style', section: 1 }}
+                            contentAttribute={'title'}
+                            setPanelState={setPanelState}
+                            textChilds={'titleChilds'}
+                            dynamicList={'titleDynamicList'}
+                            isUseDinamic={true}
+                            isUseHighlight={true}
+                            parentHasLink={isGlobalLinkSet}
+                        />
+                    }
+                    {
+                        showDesc && <RichTextComponent
+                            classNames={'icon-box-description'}
+                            tagName={'p'}
+                            aria-label={__('Icon Box Description', 'gutenverse')}
+                            placeholder={__('Write description...', 'gutenverse')}
+                            onChange={value => setAttributes({ description: value })}
+                            multiline={false}
+                            setAttributes={setAttributes}
+                            attributes={attributes}
+                            clientId={clientId}
+                            panelDynamic={{ panel: 'setting', section: 3 }}
+                            panelPosition={{ panel: 'style', section: 1 }}
+                            contentAttribute={'description'}
+                            setPanelState={setPanelState}
+                            textChilds={'descriptionChilds'}
+                            dynamicList={'descriptionDynamicList'}
+                            isUseDinamic={true}
+                            isUseHighlight={true}
+                            parentHasLink={isGlobalLinkSet}
+                        />
+                    }
                     <div {...innerBlockProps} />
                 </div>
                 {iconPosition === 'bottom' && iconContent()}
