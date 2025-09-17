@@ -302,7 +302,7 @@ const ModalContent = ({
         case 'settings':
             const importProcess = [
                 {
-                    label: 'Installed All Required Plugins',
+                    label: 'Installing All Required Plugins',
                     desc: 'Install and activate all required plugins to ensure this demo functions correctly.'
                 },
                 {
@@ -335,7 +335,7 @@ const ModalContent = ({
                     </div>
                     <div className="importer-step">
                         <div className="import-step-notice">
-                            <p>{__('Select the options below to import this demo:', 'gutenverse')}</p>
+                            <p>{__('Here’s what will be installed and imported:', 'gutenverse')}</p>
                         </div>
                         <div className="importer-inner-step">
                             {importProcess.map((process, key) => (
