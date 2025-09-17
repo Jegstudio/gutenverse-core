@@ -225,7 +225,7 @@ const ThemesContentUnibizCTA = () => {
 
 const ThemesContent = (props) => {
     const {modalData} = props;
-    const {emptyLicense, companionActive} = modalData.libraryData.attributes;
+    const {emptyLicense, companionActive} = modalData?.libraryData?.attributes || {};
     const { activeTheme, adminUrl } = window['GutenverseConfig'] || {};
     const flag = activeTheme === 'unibiz' && emptyLicense && companionActive;
 
