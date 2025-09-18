@@ -9,10 +9,21 @@ import { getEditSiteHeader, signal } from 'gutenverse-core/editor-helper';
 import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
 import EditorModePlugin from '../editor-mode/editor-mode';
+import { applyFilters } from '@wordpress/hooks';
 
-const initLibraryState = {
-    active: 'layout',
+const { activeTheme, plugins } = window['GutenverseConfig'] || {};
+const emptyLicense = applyFilters('gutenverse.panel.tab.pro.content', true);
+const companionActive = plugins['gutenverse-companion'].active;
+
+let initLibraryState = {
+    attributes: {emptyLicense, companionActive},
+    active: 'themes',
     tabs: [
+        {
+            id: 'themes',
+            icon: <IconBlocksSVG />,
+            label: __(`${ (activeTheme === 'unibiz' && emptyLicense && companionActive) ? 'Prebuilt Sites' : 'Themes'}`, '--gctd--'),
+        },
         {
             id: 'layout',
             icon: <IconLayoutsSVG />,
@@ -30,6 +41,10 @@ const initLibraryState = {
         },
     ],
 };
+
+if (activeTheme === 'unibiz' && ( ! emptyLicense || ! companionActive )) {
+    initLibraryState.active = 'layout';
+}
 
 const initLayoutState = {
     categories: [],
@@ -123,6 +138,7 @@ const Library = (props) => {
                 'installedPlugin': plugins,
             });
 
+            initLibraryState = applyFilters('gutenverse.library.states', initLibraryState);
             dispatch('gutenverse/library').initialModalData({
                 'libraryData': initLibraryState,
                 'layoutContentData': initLayoutState

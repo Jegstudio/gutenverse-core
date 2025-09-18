@@ -2,9 +2,7 @@ import { saveLayoutLikeState, saveSectionLikeState } from 'gutenverse-core/reque
 import isEmpty from 'lodash/isEmpty';
 import semver from 'semver';
 import { dispatch, useDispatch } from '@wordpress/data';
-import { IconInfoYellowSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
-import { Loader } from 'react-feather';
 import { store as editorStore } from '@wordpress/editor';
 import Notice from '../notice';
 
@@ -23,7 +21,7 @@ const layoutFilter = (layoutData, filter) => {
     }
     layoutData = layoutData.filter((layout) => {
         const { data, author: layoutAuthor, categories: layoutCategories, like: layoutLike } = layout;
-        const { name, pro, status } = data;
+        const { name, status } = data;
         const { name: authorName } = layoutAuthor;
         const dev = '--dev_mode--';
 
@@ -40,12 +38,20 @@ const layoutFilter = (layoutData, filter) => {
         }
 
         if (license) {
-            const proState = pro === '0' ? 'free' : 'pro';
+            // const proState = pro === '0' ? 'free' : 'pro';
 
-            if (proState !== license) {
+            // if (proState !== license) {
+            //     return false;
+            // }
+            const availablePlans = data?.available;
+
+            if (!Array.isArray(license) || !Array.isArray(availablePlans)) {
                 return false;
             }
+
+            return license.some(filterItem => availablePlans.includes(filterItem?.value));
         }
+
         if (!isEmpty(categories)) {
             let isTrue = true;
             Object.keys(parents).forEach(el => {
@@ -100,11 +106,12 @@ export const filterLayout = (layoutData, filter, perPage) => {
     const { paging } = filter;
     const data = layoutFilter(layoutData, filter).map((layout) => {
         const { id, name, data, like, author, customAPI, customArgs } = layout;
-        const { pro, slug, cover, demo, compatible_version: compatibleVersion, requirements } = data;
+        const { pro, tier, slug, cover, demo, compatible_version: compatibleVersion, requirements } = data;
 
         return {
             id,
             pro: pro === '1',
+            licenseType: tier,
             slug,
             title: name,
             cover,
@@ -231,7 +238,7 @@ const sectionFilter = (sectionData, filter) => {
 
     sectionData = sectionData.filter((section) => {
         const { data, author: sectionAuthor, categories: sectionCategories, like: sectionLike } = section;
-        const { pro, status } = data;
+        const { status } = data;
         const { name: authorName } = sectionAuthor;
         const dev = '--dev_mode--';
 
@@ -242,11 +249,18 @@ const sectionFilter = (sectionData, filter) => {
         }
 
         if (license) {
-            const proState = pro === '0' ? 'free' : 'pro';
+            // const proState = pro === '0' ? 'free' : 'pro';
 
-            if (proState !== license) {
+            // if (proState !== license) {
+            //     return false;
+            // }
+            const availablePlans = data?.available;
+
+            if (!Array.isArray(license) || !Array.isArray(availablePlans)) {
                 return false;
             }
+
+            return license.some(filterItem => availablePlans.includes(filterItem?.value));
         }
 
         if ('true' === dev) {
@@ -322,11 +336,12 @@ export const filterTheme = (themeData, filter, perPage) => {
 
     const data = themeFilter(themeData, filter).map((layout) => {
         const { id, name, data, author, customAPI, customArgs } = layout;
-        const { pro, slug, cover, host, demo, compatible_version: compatibleVersion, requirements, status } = data;
+        const { pro, tier, slug, cover, host, demo, compatible_version: compatibleVersion, requirements, status } = data;
 
         return {
             id,
             pro: pro === '1',
+            licenseType: tier,
             slug,
             title: name,
             cover,
@@ -407,12 +422,13 @@ export const filterSection = (sectionData, filter, perPage) => {
     const { paging } = filter;
     const data = sectionFilter(sectionData, filter).map((section) => {
         const { id, data, like, customAPI, customArgs, author, name: unfilteredName, categories } = section;
-        const { pro, slug, cover, compatible_version: compatibleVersion, requirements } = data;
+        const { pro, tier, slug, cover, compatible_version: compatibleVersion, requirements } = data;
         let name = unfilteredName;
         name = name.replace('PRO', '').replace('&#8211;', '').replace('Dark', '- Dark').replace('Free', '');
         return {
             id,
             pro: pro === '1',
+            licenseType: tier,
             categories,
             slug,
             cover,
@@ -441,7 +457,7 @@ export const likeSection = (slug, flag) => {
 };
 
 export const ImportNotice = (props) => {
-    const { resolve, blocks, setLibraryError, supportGlobalImport = false, processGlobalStyle = () => {} } = props;
+    const { resolve, blocks, setLibraryError, supportGlobalImport = false, processGlobalStyle = () => { } } = props;
     const { setRenderingMode } = useDispatch(editorStore);
     const { insertBlocks } = dispatch('core/block-editor');
 

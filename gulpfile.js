@@ -58,12 +58,23 @@ gulp.task('backend', function () {
         .pipe(gulp.dest('framework/assets/css/'));
 });
 
-gulp.task('build-process', gulp.parallel('editor', 'frontend', 'backend'));
+// @since 3.2.0
+gulp.task('notifications', function () {
+    return gulp
+        .src([path.resolve(__dirname, './src/assets/notifications.scss')])
+        .pipe(sass({ includePaths: ['node_modules', '../node_modules'] }))
+        .pipe(sass(sassOptions).on('error', sass.logError))
+        .pipe(concat('notifications.css'))
+        .pipe(postcss(postCSSOptions))
+        .pipe(gulp.dest('framework/assets/css/'));
+});
+
+gulp.task('build-process', gulp.parallel('editor', 'frontend', 'backend', 'notifications'));
 
 gulp.task('build', gulp.series('build-process'));
 
 const watchProcess = (basePath = '.') => {
-    gulp.watch([`${basePath}/src/**/*.scss`], gulp.parallel(['editor', 'frontend', 'backend']));
+    gulp.watch([`${basePath}/src/**/*.scss`], gulp.parallel(['editor', 'frontend', 'backend', 'notifications']));
 };
 
 gulp.task('use-dev-mode-js', function () {

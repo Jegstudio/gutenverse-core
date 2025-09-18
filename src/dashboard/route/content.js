@@ -15,6 +15,7 @@ import { fetchLibraryData } from 'gutenverse-core/requests';
 import Ecosystem from '../content/ecosystem/ecosystem';
 import Themelist from '../content/themelist/themelist';
 import isEmpty from 'lodash/isEmpty';
+import ThemesContent from '../../components/library/themes-content';
 
 const Content = ({ initialLibraryData, initialPluginData, location }) => {
     const { createInfoNotice, createErrorNotice } = useDispatch(noticesStore);
@@ -131,6 +132,9 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
                 break;
             case 'update-notice':
                 routePage = <UpdateNotice {...props} />;
+                break;
+            case 'themes' :
+                routePage = <ThemesContent {...props} />;
                 break;
             case 'system':
                 routePage = <SystemRequirement {...props} />;

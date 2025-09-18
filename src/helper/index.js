@@ -6,6 +6,7 @@ import { select } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { useSetting, useSettings, store as blockEditorStore } from '@wordpress/block-editor';
 import { store as editorStore } from '@wordpress/editor';
+import apiFetch from '@wordpress/api-fetch';
 
 export const isEqual = (item1, item2) => isEqualLodash(item1, item2);
 
@@ -811,3 +812,87 @@ export const versionCompare = (v1, v2, operator) => {
         case '>': case '<': return false;
     }
 };
+
+export const installingPlugins = (pluginsList) => {
+    return new Promise((resolve, reject) => {
+        const { plugins: installedPlugin } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+
+        const plugins = pluginsList.map(plgn => ({
+            name: plgn.name,
+            slug: plgn.slug,
+            version: plgn.version,
+            url: plgn.url,
+            installed: !!installedPlugin[plgn.slug],
+            active: !!installedPlugin[plgn.slug]?.active,
+        }));
+
+        setTimeout(() => {
+            const installPlugins = (index = 0) => {
+                if (index >= plugins.length) {
+                    resolve(); // ✅ Done
+                }
+
+                const plugin = plugins[index];
+                if (plugin) {
+
+                    // Not installed
+                    if (!plugin.installed) {
+                        apiFetch({
+                            path: 'wp/v2/plugins',
+                            method: 'POST',
+                            data: {
+                                slug: plugin.slug,
+                                status: 'active'
+                            }
+                        })
+                            .then(() => {
+                                setTimeout(() => installPlugins(index + 1), 1500);
+                            })
+                            .catch(err => {
+                                //reject(err); // ❌ Stop chain on failure
+                                setTimeout(() => installPlugins(index + 1), 1500);
+                            });
+
+                        // Installed but not active
+                    } else if (!plugin.active) {
+                        apiFetch({
+                            path: `wp/v2/plugins/plugin?plugin=${plugin.slug}/${plugin.slug}`,
+                            method: 'POST',
+                            data: { status: 'active' }
+                        })
+                            .then(() => {
+                                setTimeout(() => installPlugins(index + 1), 1500);
+                            })
+                            .catch(err => {
+                                // reject(err); // ❌ Stop chain on failure
+                                setTimeout(() => installPlugins(index + 1), 1500);
+                            });
+
+                        // Already installed & active
+                    } else {
+                        setTimeout(() => installPlugins(index + 1), 1500);
+                    }
+                }
+
+            };
+
+            installPlugins();
+        }, 500);
+    });
+};
+
+export const installAndActivateTheme = (slug) => {
+    return apiFetch({
+        path: 'gutenverse-client/v1/library/install-activate-theme',
+        method: 'POST',
+        data: {
+            slug: slug
+        }
+    }).then(response => response.json())
+        .then(data => {
+            return data;
+        })
+        .catch(err => {
+            console.error('Error:', err);
+        });
+}

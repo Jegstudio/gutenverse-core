@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef} from '@wordpress/element';
+import { useEffect, useState, useRef } from '@wordpress/element';
 import { sprintf, __ } from '@wordpress/i18n';
 import SingleLayoutContent from './single-layout-content';
 import PluginInstallMode from './plugin-install-mode';
@@ -6,7 +6,6 @@ import { withSelect, dispatch } from '@wordpress/data';
 import { filterLayout, filterCategories, likeLayout } from './library-helper';
 import SearchBar from './search-bar';
 import Select from 'react-select';
-import { Loader } from 'react-feather';
 import { customStyles } from './style';
 import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG } from 'gutenverse-core/icons';
 import Paging from './paging';
@@ -56,13 +55,11 @@ const LayoutContent = (props) => {
 const LayoutContentList = ({ libraryData, modalData, content, setContent, setSingleId, setSlug, burger }) => {
     const data = modalData.layoutContentData;
     const [categories, setCategories] = useState([]);
-    const [license, setLicense] = useState('');
+    const [license, setLicense] = useState(null);
     const [status, setStatus] = useState('');
     const [scroller, setScroller] = useState(null);
     const scrollerRef = useRef();
     const { keyword } = data;
-    const [authors, setAuthors] = useState([]);
-    const [author, setAuthor] = useState(null);
     useEffect(() => {
         setScroller(scrollerRef);
     }, [scrollerRef]);
@@ -84,13 +81,12 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     useEffect(() => {
         const { layoutData, layoutCategories } = libraryData;
         const categories = filterCategories(layoutData, layoutCategories, {
-            license: license?.value,
-            author: author?.value,
+            license: license,
             status: status?.value,
             keyword,
         }, 'layout');
         setCategories(categories);
-    }, [license, keyword, author]);
+    }, [license, keyword]);
     const dev = '--dev_mode--' === 'true';
 
     return <>
@@ -98,7 +94,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
             <SearchBar
                 placeholder={__('Search Layout', '--gctd--')}
                 onChange={keyword => {
-                    dispatch( 'gutenverse/library' ).setKeyword(keyword);
+                    dispatch('gutenverse/library').setKeyword(keyword);
                 }}
             />
             {<>
@@ -109,10 +105,6 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
                 <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
                 <SelectStatus status={status} setStatus={setStatus} />
             </>}
-            {authors.length > 1 && <>
-                <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
-                <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} />
-            </>}
             <h2 className="gutenverse-library-side-heading">
                 {__('Categories', '--gctd--')}
             </h2>
@@ -120,7 +112,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
             <h2 className="gutenverse-library-side-heading">
                 {__('Style', '--gctd--')}
             </h2>
-            <RenderCategories categories={categories} slug={'style'} data={data} type={'layout'}/>
+            <RenderCategories categories={categories} slug={'style'} data={data} type={'layout'} />
             <h2 className="gutenverse-library-side-heading">
                 {__('Color', '--gctd--')}
             </h2>
@@ -129,13 +121,13 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
         <div className="gutenverse-library-inner" ref={scrollerRef}>
             <BannerPro
                 subtitle={__('Welcome to Gutenverse Library', '--gctd--')}
-                title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br/>{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
+                title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br />{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
                 customStyles={{ paddingTop: '30px' }}
-                container = "library"
-                leftBannerImg = "library-graphic-library-left.png"
-                rightBannerImg = "library-graphic-library-right.png"
-                backgroundGradient = "library-bg-library.png"
-                link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=library&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}
+                container="library"
+                leftBannerImg="library-graphic-library-left.png"
+                rightBannerImg="library-graphic-library-right.png"
+                backgroundGradient="library-bg-library.png"
+                link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=library&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}
             />
             <LayoutContentData
                 current={content.current}
@@ -153,15 +145,21 @@ export const SelectLicense = ({ license, setLicense }) => {
     return <div className="gutenverse-library-select">
         <Select
             styles={customStyles}
-            isMulti={false}
+            isMulti={true}
             value={license}
             onChange={license => {
                 setLicense(license);
-                dispatch( 'gutenverse/library' ).setLicense(license.value);
+                dispatch('gutenverse/library').setLicense(license);
             }}
+            components={!isEmpty(license) ? {
+                DropdownIndicator: () => null,
+                IndicatorSeparator: () => null,
+            } : null}
             options={[
-                { value: '', label: __('All', '--gctd--') },
-                { value: 'pro', label: __('Pro', '--gctd--') },
+                { value: 'basic', label: __('Basic', '--gctd--') },
+                { value: 'professional', label: __('Professional', '--gctd--') },
+                { value: 'agency', label: __('Agency', '--gctd--') },
+                { value: 'Enterprise', label: __('Enterprise', '--gctd--') },
                 { value: 'free', label: __('Free', '--gctd--') },
             ]}
         />
@@ -176,7 +174,7 @@ export const SelectStatus = ({ status, setStatus }) => {
             value={status}
             onChange={status => {
                 setStatus(status);
-                dispatch( 'gutenverse/library' ).setStatus(status.value);
+                dispatch('gutenverse/library').setStatus(status.value);
             }}
             options={[
                 { value: '', label: __('All', '--gctd--') },
@@ -187,44 +185,23 @@ export const SelectStatus = ({ status, setStatus }) => {
     </div>;
 };
 
-export const SelectAuthor = ({ authors, author, setAuthor }) => {
-    return <div className="gutenverse-library-select">
-        <Select
-            styles={customStyles}
-            isMulti={false}
-            value={author}
-            onChange={data => {
-                setAuthor(data);
-                dispatch( 'gutenverse/library' ).setAuthor(data.value);
-            }}
-            options={[
-                { value: '', label: __('All', '--gctd--') },
-                ...authors.map(author => ({
-                    value: author,
-                    label: author
-                }))
-            ]}
-        />
-    </div>;
-};
-
-export const RenderCategories = ({ categories, data, showCount = true, categoryListClicked = false, slug, type }) => {
-    if( !isEmpty(categories) ){
-        const categoriesIndex = categories.findIndex(el => el.slug === slug );
+export const RenderCategories = ({ categories, data, showCount = true, slug }) => {
+    if (!isEmpty(categories)) {
+        const categoriesIndex = categories.findIndex(el => el.slug === slug);
         const childCategories = categories[categoriesIndex]?.childs;
         return categoriesIndex >= 0 && <ul className="gutenverse-sidebar-list">
             {Object.keys(childCategories).map(id => {
                 const category = childCategories[id];
                 return <li
-                    className={data.categories.some( el => el.id === category.id) ? 'active' : ''}
+                    className={data.categories.some(el => el.id === category.id) ? 'active' : ''}
                     key={category.id}
                     onClick={() => {
                         let categoryFilter = {
-                            id : category.id,
-                            parent : categories[categoriesIndex]?.id
-                        }
-                        dispatch( 'gutenverse/library' ).setCategories(categoryFilter);
-                        dispatch( 'gutenverse/library' ).setPaging(1);
+                            id: category.id,
+                            parent: categories[categoriesIndex]?.id
+                        };
+                        dispatch('gutenverse/library').setCategories(categoryFilter);
+                        dispatch('gutenverse/library').setPaging(1);
                     }}
                 >
                     <i className="checkblock" />
@@ -281,16 +258,16 @@ const LayoutItems = ({ data, setSingleId, setSlug }) => {
 };
 
 const LayoutSingleItem = ({ item, showSingleLayout }) => {
-    const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100 ;
+    const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100;
     const minHeight = paddingBottom === 0 ? '44px' : 'unset';
     const [isLoaded, setIsLoaded] = useState(false);
     return <div className="library-item layout" key={item.id}>
         <div className="library-item-content">
             <div className="library-item-holder" style={{
-                paddingBottom: `${paddingBottom}%`, minHeight: {minHeight}, background: isLoaded ? 'white' : '' , zIndex: isLoaded ? '5' : ''
+                paddingBottom: `${paddingBottom}%`, minHeight: { minHeight }, background: isLoaded ? 'white' : '', zIndex: isLoaded ? '5' : ''
             }} onClick={() => showSingleLayout(item.id, item.slug)}>
                 {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', '--gctd--')}</div>}
-                <img src={item.cover[0]} onLoad={() => setIsLoaded(true)}/>
+                <img src={item.cover[0]} onLoad={() => setIsLoaded(true)} />
             </div>
         </div>
         <div className="library-item-detail">
@@ -303,9 +280,9 @@ const LayoutSingleItem = ({ item, showSingleLayout }) => {
             </div>
             {item.like ?
                 <div className="library-like active" onClick={() => likeLayout(item.slug, false)}>
-                    <IconHeartFullSVG size={14}/>
+                    <IconHeartFullSVG size={14} />
                 </div> : <div className="library-like" onClick={() => likeLayout(item.slug, true)}>
-                    <IconLoveSVG size={16}/>
+                    <IconLoveSVG size={16} />
                 </div>
             }
         </div>

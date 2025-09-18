@@ -62,7 +62,7 @@ const SingleLayoutContent = (props) => {
         layoutData.map(layout => {
             if (layout.id === id) {
                 const { id, name, data, like, customAPI, customArgs, author } = layout;
-                const { pro, slug, demo, pages: layoutPages, compatible_version: compatibleVersion, requirements } = data;
+                const { pro, tier, slug, demo, pages: layoutPages, compatible_version: compatibleVersion, requirements } = data;
 
                 let pages = [];
 
@@ -85,6 +85,7 @@ const SingleLayoutContent = (props) => {
                     pages: pages,
                     demo: demo,
                     isPro: pro === '1',
+                    licenseType: tier,
                     slug: slug,
                     like,
                     compatibleVersion,

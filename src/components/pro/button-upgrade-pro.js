@@ -20,6 +20,7 @@ const ButtonUpgradePro = ({
     location = '',
     isBanner = false,
     licenseActiveButton = <></>,
+    licenseType = null,
 }) => {
     const { upgradeProUrl, adminUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const buttonClasses = classnames(
@@ -79,10 +80,13 @@ const ButtonUpgradePro = ({
                 return applyFilters('gutenverse.button.pro.banner',
                     button(__('Activate License', '--gctd--'), 'key', false, false),
                     button(__('Renew License', '--gctd--'), 'key', false, false),
-                    licenseActiveButton);
+                    licenseActiveButton,
+                    licenseType
+                );
             }
         }
     }, {location,isBanner});
+
     return <TheButton />;
 };
 

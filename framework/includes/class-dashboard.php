@@ -38,6 +38,7 @@ class Dashboard {
 		add_action( 'admin_menu', array( $this, 'parent_menu' ) );
 		add_action( 'admin_menu', array( $this, 'child_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'enqueue_script_in_wizard', array( $this, 'enqueue_scripts' ) );
 
 		add_filter( 'admin_footer_text', '__return_empty_string', 11 );
 		add_filter( 'update_footer', '__return_empty_string', 11 );
@@ -81,7 +82,7 @@ class Dashboard {
 	public function enqueue_scripts( $hook ) {
 		global $current_screen;
 
-		if ( $current_screen->is_block_editor ) {
+		if ( isset( $current_screen ) && $current_screen->is_block_editor ) {
 			return;
 		}
 
@@ -151,6 +152,25 @@ class Dashboard {
 			);
 		}
 
+		$notifications = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/notifications.asset.php' )['dependencies'];
+
+		// @since 3.2.0
+		wp_enqueue_script(
+			'gutenverse-core-notifications',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/notifications.js',
+			$notifications,
+			GUTENVERSE_FRAMEWORK_VERSION,
+			true
+		);
+
+		// @since 3.2.0
+		wp_enqueue_style(
+			'gutenverse-core-notifications',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/notifications.css',
+			null,
+			GUTENVERSE_FRAMEWORK_VERSION
+		);
+
 		do_action( 'gutenverse_include_dashboard' );
 	}
 
@@ -185,10 +205,44 @@ class Dashboard {
 		$config['eventBanner']      = gutenverse_get_event_banner();
 		$config['activeTheme']      = get_option( 'stylesheet' );
 		$config['showThemeList']    = apply_filters( 'gutenverse_show_theme_list', true );
+		$config['activePlugins']    = $this->get_active_plugins();
+		$config['noticeActions']    = array(
+			'gutenverse-core-notice-wp-59'             => array(
+				'show' => ! gutenverse_compatible_check(),
+			),
+			'gutenverse-core-notice-mismatch-version'  => array(
+				'show'      => get_option( ( new Upgrader() )->get_framework_init_option_name() ),
+				'actionUrl' => esc_url( admin_url( 'plugins.php' ) ),
+			),
+			'gutenverse-core-compatibility-notice-2-0' => array(
+				'show'        => defined( 'GUTENVERSE_VERSION' ) && version_compare( GUTENVERSE_VERSION, '1.9.9', '<=' ) && ! get_option( 'gutenverse_compatibility_notice_flag' ),
+				'plugin_list' => apply_filters( 'gutenverse_companion_plugin_list', array() ),
+				'action_url'  => admin_url( 'plugins.php' ),
+			),
+		);
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
+	/**
+	 * Get active plugin lists.
+	 *
+	 * @return array
+	 */
+	public function get_active_plugins() {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+		$active_plugins = get_option( 'active_plugins' );
+		$all_plugins    = get_plugins();
+		$plugin_lists   = array();
+		foreach ( $active_plugins as $plugin ) {
+			if ( isset( $all_plugins[ $plugin ] ) && isset( $all_plugins[ $plugin ]['TextDomain'] ) ) {
+				$plugin_lists[] = $all_plugins[ $plugin ]['TextDomain'];
+			}
+		}
 
+		return $plugin_lists;
+	}
 	/**
 	 * System Status.
 	 *
@@ -313,7 +367,7 @@ class Dashboard {
 		$upload_path = wp_upload_dir();
 
 		$config                    = array();
-		$config['settingsData']    = get_option( 'gutenverse-settings', array() );
+		$config['settingsData']    = apply_filters( 'gutenverse_settings_data', get_option( 'gutenverse-settings', array() ) );
 		$config['blockCategories'] = Init::instance()->blocks->gutenverse_categories();
 		$config['uploadPath']      = $upload_path['basedir'];
 		$config['renderSchedule']  = gmdate( 'Y-m-d H:i:s', wp_next_scheduled( 'gutenverse_cleanup_cached_style' ) );
@@ -341,6 +395,7 @@ class Dashboard {
 	 */
 	public function child_menu() {
 		$path            = admin_url( 'admin.php?page=gutenverse&path=' );
+		$active_theme    = get_option( 'stylesheet' );
 		$show_theme_list = apply_filters( 'gutenverse_show_theme_list', true );
 
 		add_submenu_page(
@@ -363,17 +418,17 @@ class Dashboard {
 			1
 		);
 
-		if ( $show_theme_list ) {
-			add_submenu_page(
-				self::TYPE,
-				esc_html__( 'Theme List', '--gctd--' ),
-				esc_html__( 'Theme List', '--gctd--' ),
-				'manage_options',
-				$path . 'theme-list',
-				null,
-				2
-			);
-		}
+		// if ( $show_theme_list ) {
+		// add_submenu_page(
+		// self::TYPE,
+		// esc_html__( 'Theme List', '--gctd--' ),
+		// esc_html__( 'Theme List', '--gctd--' ),
+		// 'manage_options',
+		// $path . 'theme-list',
+		// null,
+		// 2
+		// );
+		// }
 
 		add_submenu_page(
 			self::TYPE,
@@ -382,8 +437,30 @@ class Dashboard {
 			'manage_options',
 			$path . 'block-list',
 			null,
-			3
+			2
 		);
+
+		if ( 'unibiz' !== $active_theme ) {
+			add_submenu_page(
+				self::TYPE,
+				esc_html__( 'Themes', '--gctd--' ),
+				esc_html__( 'Themes', '--gctd--' ),
+				'manage_options',
+				$path . 'themes',
+				null,
+				3
+			);
+		} else {
+			add_submenu_page(
+				self::TYPE,
+				esc_html__( 'Themes', '--gctd--' ),
+				esc_html__( 'Themes', '--gctd--' ),
+				'manage_options',
+				admin_url() . '/admin.php?page=gutenverse-companion-dashboard&path=demo',
+				null,
+				3
+			);
+		}
 
 		add_submenu_page(
 			self::TYPE,

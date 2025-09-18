@@ -1,4 +1,4 @@
-import { withSelect, dispatch, useDispatch } from '@wordpress/data';
+import { withSelect, dispatch } from '@wordpress/data';
 import classnames from 'classnames';
 import { LogoFullColorSVG, IconCloseSVG, IconHamburgerSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
@@ -8,12 +8,12 @@ import FavoriteContent from './favorite-content';
 import { useState, useEffect } from '@wordpress/element';
 import { Snackbar } from '@wordpress/components';
 import { IconInfoGraySVG } from 'gutenverse-core/icons';
+import ThemesContent from './themes-content';
 
 const LibraryModal = props => {
     const {
         open,
         visible,
-        setOpen,
         setVisibility,
         setLibraryError,
         loading,
@@ -22,25 +22,25 @@ const LibraryModal = props => {
     } = props;
 
     const { importNotice } = importer;
+    const { activeTheme, plugins, adminUrl } = window['GutenverseConfig'] || {};
 
     const closeImporter = () => {
         setVisibility(false);
     };
     const [style, setStyle] = useState({
-        display : ''
+        display: ''
     });
     const handleBurger = () => {
         setBurger(!burger);
-        if(burger){
+        if (burger) {
             setStyle({
                 display: 'block !important'
             });
-        }else{
+        } else {
             setStyle({
                 display: 'none !important'
             });
         }
-
     };
 
     const SnackbarNotice = ({ message }) => {
@@ -67,7 +67,7 @@ const LibraryModal = props => {
                 onClick={handleDismiss}
             >
                 <Snackbar>
-                    <IconInfoGraySVG/>
+                    <IconInfoGraySVG />
                     <span>{__('Import Failed!', '--gctd--')}</span>
                     {message}
                 </Snackbar>
@@ -75,10 +75,11 @@ const LibraryModal = props => {
         );
     };
 
-    const [burger,setBurger] = useState(false);
+    const [burger, setBurger] = useState(false);
     const importerClass = classnames('gutenverse-library-wrapper', {
         'visible': visible
     });
+
     return (open && !loading) ? <>
         <div className={importerClass}>
             <div className={'gutenverse-library-overlay'} onClick={closeImporter} />
@@ -86,7 +87,7 @@ const LibraryModal = props => {
                 <div className={'gutenverse-library-header'}>
                     <div className="gutenverse-header-burger" onClick={handleBurger} >
                         {
-                            burger ? <IconCloseSVG  /> : <IconHamburgerSVG  size={16} />
+                            burger ? <IconCloseSVG /> : <IconHamburgerSVG size={16} />
                         }
                     </div>
                     <div className="gutenverse-header-logo">
@@ -96,24 +97,47 @@ const LibraryModal = props => {
                     <div className="gutenverse-section-switcher">
                         {modalData.libraryData.tabs.map((type, index) => {
                             const active = type.id === modalData.libraryData.active ? 'active' : '';
+                            const {emptyLicense, companionActive} = modalData.libraryData.attributes;
+                            const flag = emptyLicense && companionActive;
 
-                            return (
-                                <div
-                                    key={index}
-                                    className={`gutenverse-library-type ${active}`}
-                                    onClick={() =>{
-                                        dispatch( 'gutenverse/library' ).setActiveLiblary(type.id);
-                                        dispatch( 'gutenverse/library' ).setCategories([]);
-                                        dispatch( 'gutenverse/library' ).setAuthor('');
-                                        dispatch( 'gutenverse/library' ).setLicense('');
-                                        dispatch( 'gutenverse/library' ).setStatus('');
-                                        dispatch( 'gutenverse/library' ).setPaging(1);
-                                    }}
-                                >
-                                    {type.icon}
-                                    <span>{type.label}</span>
-                                </div>
-                            );
+                            return <>
+                                {
+                                    (activeTheme === 'unibiz' && type.id === 'themes') ?
+                                        flag ? <div key={index}
+                                            className={`gutenverse-library-type ${active}`}
+                                            onClick={() => {
+                                                dispatch('gutenverse/library').setActiveLiblary(type.id);
+                                                dispatch('gutenverse/library').setCategories([]);
+                                                dispatch('gutenverse/library').setAuthor('');
+                                                dispatch('gutenverse/library').setLicense('');
+                                                dispatch('gutenverse/library').setStatus('');
+                                                dispatch('gutenverse/library').setPaging(1);
+                                            }}
+                                        >
+                                            {type.icon}
+                                            <span>{type.label}</span>
+                                        </div> :
+                                            <a key={index}
+                                                className={`gutenverse-library-type ${active}`} href={`${adminUrl}admin.php?page=gutenverse-companion-dashboard&path=demo`} target="_blank" rel="noreferrer">
+                                                {type.icon}
+                                                <span>{type.label}</span>
+                                            </a>  : <div
+                                            key={index}
+                                            className={`gutenverse-library-type ${active}`}
+                                            onClick={() => {
+                                                dispatch('gutenverse/library').setActiveLiblary(type.id);
+                                                dispatch('gutenverse/library').setCategories([]);
+                                                dispatch('gutenverse/library').setAuthor('');
+                                                dispatch('gutenverse/library').setLicense('');
+                                                dispatch('gutenverse/library').setStatus('');
+                                                dispatch('gutenverse/library').setPaging(1);
+                                            }}
+                                        >
+                                            {type.icon}
+                                            <span>{type.label}</span>
+                                        </div>
+                                }
+                            </>;
                         })}
                     </div>
                     <div className="gutenverse-close-wrapper">
@@ -122,7 +146,7 @@ const LibraryModal = props => {
                         </div>
                     </div>
                 </div>
-                <div className={'gutenverse-library-body'}>
+                <div className={`gutenverse-library-body ${modalData.libraryData.active}`}>
                     <LibraryContent
                         modalData={modalData}
                         active={modalData.libraryData.active}
@@ -133,7 +157,7 @@ const LibraryModal = props => {
                 </div>
             </div>
         </div>
-        {importNotice && <SnackbarNotice message={importNotice}/>}
+        {importNotice && <SnackbarNotice message={importNotice} />}
     </> : false;
 };
 
@@ -142,13 +166,16 @@ const LibraryContent = (props) => {
     const { active } = props;
     switch (active) {
         case 'favorite':
-            template = <FavoriteContent {...props}  />;
+            template = <FavoriteContent {...props} />;
             break;
         case 'section':
             template = <SectionContent {...props} />;
             break;
+        case 'themes':
+            template = <ThemesContent {...props} />;
+            break;
         default:
-            template = <LayoutContent {...props}/>;
+            template = <LayoutContent {...props} />;
             break;
     }
 
