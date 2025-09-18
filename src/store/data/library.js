@@ -106,6 +106,12 @@ export const modalAction = {
             text
         };
     },
+    setLibraryThemeContent: (demoList) => {
+        return {
+            type: 'SET_LIBRARY_THEME_CONTENT',
+            demoList
+        };
+    },
 };
 
 export const libraryAction = {
@@ -166,12 +172,14 @@ export const modalReducer = (state = {}, action) => {
         case 'INIT_MODAL_DATA':
             const {
                 libraryData,
-                layoutContentData
+                layoutContentData,
+                themeContentData
             } = action;
 
             return {
                 libraryData,
-                layoutContentData
+                layoutContentData,
+                themeContentData
             };
         case 'SET_ACTIVE_LIBRARY':
             return {
@@ -270,6 +278,11 @@ export const modalReducer = (state = {}, action) => {
             return {
                 ...state,
                 importNotice: action.text
+            };
+        case 'SET_LIBRARY_THEME_CONTENT':
+            return {
+                ...state,
+                themeContentData: action.demoList
             };
         default:
             return state;

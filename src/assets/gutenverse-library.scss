@@ -2424,6 +2424,7 @@ $border: #eaeaea;
     .gutenverse-library-themes-content-footer {
         display: flex;
         justify-content: space-between;
+        box-sizing: content-box;
         position: sticky;
         bottom: 5px;
         padding: 10px 20px;

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
-import { withSelect } from '@wordpress/data';
+import { withSelect, dispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { applyFilters } from '@wordpress/hooks';
@@ -8,7 +8,7 @@ import { IconLibraryThemeListSVG, IconLoadingSVG } from 'gutenverse-core/icons';
 import { installAndActivateTheme, installingPlugins } from 'gutenverse-core/helper';
 
 const ThemesContentNoLicense = (props) => {
-    const {adminUrl} = props;
+    const {adminUrl, modalData} = props;
     const [demoList, setDemoList] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(null);
@@ -46,7 +46,7 @@ const ThemesContentNoLicense = (props) => {
             observer.disconnect();
             handleIntersect.cancel();
         };
-    }, [loader, totalPage, totalItem, templateList]);
+    }, [loader, totalPage, totalItem]);
 
     const getDemo = (param) => {
         return new Promise(resolve => {
@@ -63,6 +63,11 @@ const ThemesContentNoLicense = (props) => {
             })
                 .then((data) => {
                     const newData = data.demo_list;
+                    const contentData = modalData.themeContentData?.data || demoList;
+                    dispatch('gutenverse/library').initialModalData({
+                        ...modalData,
+                        themeContentData: {data: [...contentData, ...newData], totalDemo: data.total_item}
+                    });
                     setDemoList(prev => [...prev, ...newData]);
                     resolve(data);
                 })
@@ -75,6 +80,8 @@ const ThemesContentNoLicense = (props) => {
 
     useEffect(() => {
         let isMounted = true;
+        const themeData = modalData.themeContentData?.data;
+        const total = modalData.themeContentData?.totalDemo;
 
         const fetchData = async () => {
             setLoading(true);
@@ -95,7 +102,11 @@ const ThemesContentNoLicense = (props) => {
             }
         };
 
-        fetchData();
+        if (modalData.themeContentData && themeData?.length === total) {
+            setDemoList(themeData);
+        } else {
+            fetchData();
+        }
 
         return () => {
             isMounted = false;
@@ -230,7 +241,7 @@ const ThemesContent = (props) => {
     const flag = activeTheme === 'unibiz' && emptyLicense && companionActive;
 
     return flag ?
-        <ThemesContentNoLicense adminUrl={adminUrl} /> :
+        <ThemesContentNoLicense adminUrl={adminUrl} modalData={modalData} /> :
         <ThemesContentUnibizCTA /> ;
 };
 

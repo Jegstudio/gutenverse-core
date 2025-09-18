@@ -141,7 +141,7 @@ const Library = (props) => {
             initLibraryState = applyFilters('gutenverse.library.states', initLibraryState);
             dispatch('gutenverse/library').initialModalData({
                 'libraryData': initLibraryState,
-                'layoutContentData': initLayoutState
+                'layoutContentData': initLayoutState,
             });
         }
     }, [open]);
