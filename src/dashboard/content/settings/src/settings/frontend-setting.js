@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ControlSelect } from 'gutenverse-core/backend';
+import { ControlSelect, ControlCheckbox } from 'gutenverse-core/backend';
 import { AlertControl } from 'gutenverse-core/controls';
 
 const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData }) => {
@@ -12,7 +12,8 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData 
     } = window['GutenverseSettings'];
     const {
         render_mechanism = 'file',
-        old_render_deletion_schedule = 'daily'
+        old_render_deletion_schedule = 'daily',
+        remove_template_part_margin = true,
     } = frontend_settings;
 
     const updateValue = (id, value) => {
@@ -31,7 +32,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData 
                 description={__('Pick Render Mechanism the System should implement when rendering frontend style', '--gctd--')}
                 value={render_mechanism}
                 updateValue={updateValue}
-                options = {[
+                options={[
                     {
                         label: __('File', '--gctd--'),
                         value: 'file'
@@ -42,13 +43,13 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData 
                     },
                 ]}
             />
-            { render_mechanism === 'file' && <ControlSelect
+            {render_mechanism === 'file' && <ControlSelect
                 id={'old_render_deletion_schedule'}
                 title={__('Old File Deletion Schedule', '--gctd--')}
                 description={__(`Set how long should the system store old css file for frontend style. This process need wp cron to be working. Next Schedule : ${renderSchedule}`, '--gctd--')}
                 value={old_render_deletion_schedule}
                 updateValue={updateValue}
-                options = {[
+                options={[
                     {
                         label: __('Every 5 Minutes', '--gctd--'),
                         value: 'every_five_minutes',
@@ -75,6 +76,16 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData 
                     },
                 ]}
             />}
+        </div>
+        <div className="template-tab-body" style={{ paddingTop: '30px' }}>
+            <h2>{__('Remove Default Browser/WordPress Styles', '--gctd--')}</h2>
+            <ControlCheckbox
+                id={'remove_template_part_margin'}
+                title={__('Remove Template Parts Margin', '--gctd--')}
+                description={__('This will remove margin styling added to template parts from WordPress by default.', '--gctd--')}
+                value={remove_template_part_margin}
+                updateValue={updateValue}
+            />
         </div>
         <div className="actions">
             {saving ? <div className="gutenverse-button">
