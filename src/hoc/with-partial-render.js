@@ -7,7 +7,7 @@ const BlockLoading = ({
 }) => {
     const blockHeight = window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_block_height ? window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_block_height + 'px' : '150px';
 
-    return <div className="gutenverse-block-loading" ref={renderRef} style={{ height: blockHeight }}></div>;
+    return <div className="gutenverse-block-loading" ref={renderRef} style={{ height: blockHeight, flex: 1 }}></div>;
 };
 
 const checkIfAlwaysRendered = (clientId) => {
