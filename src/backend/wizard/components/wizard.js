@@ -320,22 +320,24 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                 <h1 className="content-title">{__('Supercharge Gutenverse With ', 'gutenverse')}
                     <span>{__('Unibiz Theme!', 'gutenverse')}</span>
                 </h1>
-                <p className="content-list">
-                    {checkIcon}
-                    {__('50+ Stunning Demo Sites', 'gutenverse')}
-                </p>
-                <p className="content-list">
-                    {checkIcon}
-                    {__('One-Click Full Site Import', 'gutenverse')}
-                </p>
-                <p className="content-list">
-                    {checkIcon}
-                    {__('2x Faster Site Performance', 'gutenverse')}
-                </p>
-                <p className="content-list">
-                    {checkIcon}
-                    {__('Experience a Next-Level FSE Theme', 'gutenverse')}
-                </p>
+                <ul className="content-list-container">
+                    <li className="content-list">
+                        {checkIcon}
+                        {__('50+ Stunning Demo Sites', 'gutenverse')}
+                    </li>
+                    <li className="content-list">
+                        {checkIcon}
+                        {__('One-Click Full Site Import', 'gutenverse')}
+                    </li>
+                    <li className="content-list">
+                        {checkIcon}
+                        {__('2x Faster Site Performance', 'gutenverse')}
+                    </li>
+                    <li className="content-list">
+                        {checkIcon}
+                        {__('Experience a Next-Level FSE Theme', 'gutenverse')}
+                    </li>
+                </ul>
                 <div onClick={() => {
                     themeAction(1, 'unibiz');
                     onInstall();
@@ -356,8 +358,10 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
 };
 
 const GettingStarted = ({ updateProgress, gutenverseImgDir }) => {
-    return <div className="getting-started">
-        <img className="bg-image-wizard" src={gutenverseImgDir + '/wizard-bg-welcome.png'} />
+    return <div
+        className="getting-started"
+        style={{ backgroundImage: `url(${gutenverseImgDir}/wizard-bg-welcome.png)` }}
+    >
         <div className="content-top">
             <p className="welcome">{__('WELCOME', 'gutenverse')}</p>
             <h3 className="content-title">
@@ -367,7 +371,6 @@ const GettingStarted = ({ updateProgress, gutenverseImgDir }) => {
             <p className="content-desc">
                 {__('Thank you for choosing Gutenverse. Follow these simple steps of easy setup wizard & enjoy your Full Site Editing experience now!', 'gutenverse')}
             </p>
-            <div onClick={() => updateProgress('pluginAndTheme', 1)} className="button-next">{__('Proceed to Next Step', 'gutenverse')}</div>
         </div>
         <img className="wizard-image item-1" src={gutenverseImgDir + '/wizard-mockup-welcome.png'} />
         <img className="wizard-image item-2" src={gutenverseImgDir + '/wizard-blink-blue.png'} />
@@ -382,6 +385,11 @@ const GettingStarted = ({ updateProgress, gutenverseImgDir }) => {
             >
                 {__('Find out what we collect.', 'gutenverse')}
             </a>
+        </div>
+        <div className="wizard-footer">
+            <Fragment>
+                <div onClick={() => updateProgress('pluginAndTheme', 1)} className="button-next">{__('Next', 'gutenverse')}</div>
+            </Fragment>
         </div>
     </div>;
 };

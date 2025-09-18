@@ -193,10 +193,7 @@ class Upgrader {
 			delete_transient( 'gutenverse_wizard_redirect' );
 
 			wp_safe_redirect(
-				wp_nonce_url(
-					admin_url( 'admin.php?action=gutenverse-onboarding-wizard' ),
-					'gutenverse_onboarding'
-				)
+				admin_url( 'admin.php?action=gutenverse-onboarding-wizard' )
 			);
 			exit;
 		}
