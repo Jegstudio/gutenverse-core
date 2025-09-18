@@ -6,9 +6,8 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
         gutenverseImgDir
     } = window['GutenverseWizard'];
 
-    return <div className="upgrade-pro-wrapper">
+    return <div className="upgrade-pro-wrapper"  style={{ backgroundImage: `url(${gutenverseImgDir}/bg-upgrade-wizard.png)` }}>
         <div className="upgrade-pro-content">
-            <img className="background" src={gutenverseImgDir + '/bg-upgrade-wizard.png'} />
             <h3 className="content-title">
                 {__('Unlock Limitless Possibilities with ', 'gutenverse')}
                 <span className="gradient-text">{__('Gutenverse PRO', 'gutenverse')}</span>

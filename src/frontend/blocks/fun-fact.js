@@ -19,7 +19,7 @@ class GutenverseFunFact extends Default {
         const attributes = targetElement.data('attributes');
         const parsedAttr = JSON.parse(attributes);
 
-        const { numberRightSpace } = parsedAttr;
+        const { numberRightSpace = 0 } = parsedAttr || {};
 
         let formatter = null;
         let used = number ? number : safeNumber;
