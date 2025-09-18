@@ -1,6 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { ButtonImport } from './button-import';
 import { formatArray } from '../helper';
+import { useState } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 
 export const DemoCard = ({
     template,
@@ -9,9 +11,27 @@ export const DemoCard = ({
     importTemplates,
     setSelectedTemplate,
     demoUsed,
-    setModal
+    setModal,
+    setModalContent,
 }) => {
-    return <div className={`template-page ${ template?.cover ? '' : 'loading' }`} key={key}>
+    const [loading, setLoading] = useState(false);
+    const handleImport = (demo) => {
+        apiFetch({
+            path: 'gutenverse-companion/v1/check/library-down',
+            method: 'GET',
+        }).then(() => {
+            setSelectedTemplate(demo);
+            setModal(true);
+        }).catch(() => {
+            alert(__('Library Server Down. Please try again later.', 'gutenverse-companion'));
+            setModalContent(prev => {
+                return prev;
+            });
+            setModal(false);
+            return;
+        }).finally(() => setLoading(false));
+    }
+    return <div className={`template-page ${template?.cover ? '' : 'loading'}`} key={key}>
         {template.pro && <div className="pro-flag">{__('PRO', 'gutenverse')}</div>}
         <div className="template-thumbnail">
             {template?.cover ? <img src={template?.cover} /> : <div className="no-image"></div>}
@@ -25,18 +45,26 @@ export const DemoCard = ({
         </div>
         <div className="template-page-desc">
             {
-                template?.cover ? <>
+                template?.cover && template?.demo_id ? <>
                     <h3>{template?.title}</h3>
                     <div className="buttons">
-                        <ButtonImport
-                            elementKey={key}
-                            templateList={templateList}
-                            template={template}
-                            importTemplates={importTemplates}
-                            setSelectedTemplate={setSelectedTemplate}
-                            demoUsed={demoUsed}
-                            setModal={setModal}
-                        />
+                        {
+                            loading ? <div className="loading-button">
+                                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.69737 1V2.89873M8.69737 12.962V16M3.76316 8.40506H1M16 8.40506H14.8158M13.7951 13.3092L13.2368 12.7722M13.9586 3.40439L12.8421 4.47848M3.10914 13.7811L5.34211 11.6329M3.27264 3.2471L4.94737 4.85823" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </div> : <ButtonImport
+                                elementKey={key}
+                                templateList={templateList}
+                                template={template}
+                                importTemplates={importTemplates}
+                                setSelectedTemplate={setSelectedTemplate}
+                                demoUsed={demoUsed}
+                                setModal={setModal}
+                                setLoading={setLoading}
+                                handleImport={() => handleImport(template)}
+                            />
+                        }
                         <div className="button-view-demo" onClick={() => window.open(template?.demo, '_blank')}>{__('View Demo', 'gutenverse')}</div>
                     </div>
                 </> : <>
