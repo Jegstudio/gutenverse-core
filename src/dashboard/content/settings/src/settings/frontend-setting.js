@@ -12,7 +12,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData 
     } = window['GutenverseSettings'];
     const {
         render_mechanism = 'file',
-        old_render_deletion_schedule = 'daily' 
+        old_render_deletion_schedule = 'daily'
     } = frontend_settings;
 
     const updateValue = (id, value) => {
@@ -25,7 +25,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData 
             <AlertControl>
                 <span>{__('Please Refresh the Page After Saving Your Settings', '--gctd--')}</span>
             </AlertControl>
-            <ControlSelect 
+            <ControlSelect
                 id={'render_mechanism'}
                 title={__('Render Mechanism', '--gctd--')}
                 description={__('Pick Render Mechanism the System should implement when rendering frontend style', '--gctd--')}
@@ -42,7 +42,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData 
                     },
                 ]}
             />
-            { render_mechanism === 'file' && <ControlSelect 
+            { render_mechanism === 'file' && <ControlSelect
                 id={'old_render_deletion_schedule'}
                 title={__('Old File Deletion Schedule', '--gctd--')}
                 description={__(`Set how long should the system store old css file for frontend style. This process need wp cron to be working. Next Schedule : ${renderSchedule}`, '--gctd--')}
