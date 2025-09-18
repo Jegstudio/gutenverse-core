@@ -335,7 +335,6 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
             template={selectedTemplate}
             templateList={templateList}
             importTemplates={importTemplates}
-            setSelectedTemplate={setSelectedTemplate}
             content={modalContent}
         />}
         <div className="template-title">

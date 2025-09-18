@@ -249,6 +249,32 @@ body {
     width: 100%;
     background-color: #f0f0f1;
     overflow-y: auto;
+
+    .loading-button {
+        background-color: #99a2a9;
+        cursor: not-allowed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 12px 15px;
+        width: 75%;
+        border-radius: 5px;
+
+        svg {
+            animation: infinite rotate 2s linear;
+        }
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
 }
 
 .theme-wizard {

@@ -14,7 +14,6 @@ export const ImporterModal = ({
     close = () => { },
     template = {},
     templateList = [],
-    setSelectedTemplate = () => { },
     content,
     updateTemplateStatus,
     setModal,
@@ -96,7 +95,6 @@ export const ImporterModal = ({
                 setStatus={setStatus}
                 template={template}
                 templateList={templateList}
-                setSelectedTemplate={setSelectedTemplate}
                 close={close}
                 additional={additional}
                 handleCheckboxChange={handleCheckboxChange}
@@ -176,7 +174,7 @@ const ModalContent = ({
             ];
         }
         setImporterStep(importStep);
-        importTemplates(template, templateList.find(template => template?.status?.using_template), importStep, additional);
+        importTemplates(selectedTemplate, templateList.find(template => template?.status?.using_template), importStep, additional);
     };
     const handleDone = () => {
         updateTemplateStatus(template?.title);
@@ -392,7 +390,7 @@ const ModalContent = ({
                     </div>
                     <div className="importer-step">
                         <div className="import-step-notice">
-                            <p>{__('Select the options below to import this demo:', 'gutenverse')}</p>
+                            <p>{__('Here’s what will be installed and imported:', 'gutenverse')}</p>
                         </div>
                         <div className="importer-inner-step">
                             {confirmationWarning.map((process, key) => (

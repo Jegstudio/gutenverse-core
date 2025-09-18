@@ -61,13 +61,13 @@ const ButtonUpgradePro = (props) => {
     return <TheButton />;
 };
 
-const CompanionButton = ({ demoUsed, template, setModal, setSelectedTemplate }) => {
+const CompanionButton = ({ demoUsed, template, handleImport, setLoading }) => {
 
     return <div
         className={`button-import-page ${(template?.status?.using_template ? 'imported' : 'import')}`}
         onClick={() => {
-            setModal(true);
-            setSelectedTemplate(template);
+            setLoading(true);
+            handleImport();
         }}
     >
         {demoUsed
