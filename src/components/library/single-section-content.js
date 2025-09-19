@@ -179,11 +179,11 @@ const SingleSectionContent = (props) => {
                                                         content={contentNormal}
                                                     />
                                                 </div>
-                                                <div ref={globalRef} className={`${layoutClassNames} global-content`}>
+                                                {(supportGlobalImport && contentGlobal) && <div ref={globalRef} className={`${layoutClassNames} global-content`}>
                                                     <Content
                                                         content={contentGlobal}
                                                     />
-                                                </div>
+                                                </div>}
                                             </>
                                         ) : (
                                             <FullSkeleton />
