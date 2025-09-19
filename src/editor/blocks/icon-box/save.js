@@ -59,7 +59,9 @@ const save = compose(
         badgePosition,
         iconBoxOverlayDirection = 'left',
         lazyLoad,
-        hasInnerBlocks
+        hasInnerBlocks,
+        showTitle,
+        showDesc
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -102,14 +104,14 @@ const save = compose(
             {
                 (title || description) && <div className="icon-box icon-box-body">
                     {
-                        title && title !== '' && <RichText.Content
+                        showTitle && title && title !== '' && <RichText.Content
                             className={'title'}
                             value={title}
                             tagName={titleTag}
                         />
                     }
                     {
-                        description && description !== '' && <RichText.Content
+                        showDesc && description && description !== '' && <RichText.Content
                             className="icon-box-description"
                             value={description}
                             tagName="p"

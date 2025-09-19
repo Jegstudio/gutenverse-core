@@ -12,7 +12,7 @@ export { metadata, name };
 
 export const settings = {
     icon: <IconImageSVG />,
-    example: example,
+    example,
     edit,
     save,
     deprecated: [

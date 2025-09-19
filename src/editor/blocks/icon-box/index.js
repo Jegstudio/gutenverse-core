@@ -15,12 +15,12 @@ export { metadata, name };
 
 export const settings = {
     icon: <IconBoxSVG />,
-    example: example,
+    example,
     edit,
     save,
     providesContext: {
         'hoverWithParent': 'hoverWithParent',
-        'parentSelector' : 'parentSelector'
+        'parentSelector': 'parentSelector'
     },
     deprecated: [
         {

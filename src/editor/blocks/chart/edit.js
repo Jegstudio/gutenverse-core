@@ -93,6 +93,7 @@ const ChartBlock = compose(
     const chartRef = useRef();
     const titleRef = useRef();
     const descRef = useRef();
+    const canvasRef = useRef();
     // const panelState = {
     //     panel: 'setting',
     //     section: 2,
@@ -150,19 +151,9 @@ const ChartBlock = compose(
     }, [enableContent]);
 
     useEffect(() => {
-        //return jika ada double elementId
-        const checkElement = document.querySelectorAll(`.${elementId}`);
-        if (checkElement.length > 1) return;
-
-        const iframe = document.querySelector('iframe[name="editor-canvas"]');
-        let iframecanvas;
-        if (iframe) {
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            iframecanvas = iframeDoc.getElementById(`chart-canvas-${elementId}`);
+        if (!canvasRef.current) {
+            return;
         }
-
-        const canvas = document.getElementById(`chart-canvas-${elementId}`) || iframecanvas;
-        if (!canvas) return;
 
         const customPositioner = (elements, eventPosition) => ({
             x: eventPosition.x,
@@ -174,11 +165,11 @@ const ChartBlock = compose(
             tooltipPlugin.positioners.custom = customPositioner;
         }
 
-        const data = getChartData(attributes, multiValue, canvas);
+        const data = getChartData(attributes, multiValue, canvasRef.current);
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const generateChart = new Chart(canvas, data);
+                    const generateChart = new Chart(canvasRef.current, data);
                     chartRef.current = generateChart;
                     obs.unobserve(entry.target);
                 }
@@ -187,7 +178,7 @@ const ChartBlock = compose(
             threshold: 0.2
         });
 
-        observer.observe(canvas);
+        observer.observe(canvasRef.current);
 
         return () => {
             observer.disconnect();
@@ -309,7 +300,7 @@ const ChartBlock = compose(
                 </div>}
                 <div className="chart-content content-chart">
                     <div className="chart-container">
-                        <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
+                        <canvas ref={canvasRef} id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
                     </div>
                     {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
                 </div>

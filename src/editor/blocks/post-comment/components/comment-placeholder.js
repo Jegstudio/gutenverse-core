@@ -11,7 +11,7 @@ const CommentPlaceholder = (props) => {
     } = props;
 
     return <>
-        <div><span>Below is an example view of the post comment if user is not logged in.</span></div>
+        <div className="guten-comment-example-warning"><span>Below is an example view of the post comment if user is not logged in.</span></div>
         {enableCommentTitle && <div className="guten-post-comment-title comment-title">
             <p className="title-text">
                 {enableCommentCount && <span className="comment-count">1</span>}
@@ -81,7 +81,7 @@ const CommentPlaceholder = (props) => {
                         </span>
                     </p>
                     <p className="logged-in-as">
-                        Logged in as admin. <a href="#" onClick={e => e.preventDefault()}>Edit your profile</a>. <a href="#" onClick={e => e.preventDefault()}>Log out?</a> 
+                        Logged in as admin. <a href="#" onClick={e => e.preventDefault()}>Edit your profile</a>. <a href="#" onClick={e => e.preventDefault()}>Log out?</a>
                         <span className="required-field-message">Required fields are marked <span className="required">*</span></span>
                     </p>
                     <p className="comment-form-comment">

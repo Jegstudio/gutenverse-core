@@ -29,6 +29,7 @@ const save = compose(
         'guten-search',
         animationClass,
         displayClass,
+        'guten-icon'
     );
 
     return (
