@@ -102,6 +102,30 @@ class Frontend_Assets {
 	 * Frontend Script
 	 */
 	public function frontend_scripts() {
+		wp_enqueue_style( 'gutenverse-remove-default-style', get_stylesheet_uri() );
+
+		$settings = get_option( 'gutenverse-settings' );
+		$default  = '';
+
+		if ( ! isset( $settings['frontend_settings']['remove_template_part_margin'] ) || $settings['frontend_settings']['remove_template_part_margin'] ) {
+			$default = '
+				.wp-block-template-part {
+					margin-block-start: 0;
+					margin-block-end: 0;
+				}
+			';
+		}
+
+		$enqueue_default = apply_filters(
+			'gutenverse_remove_default_style',
+			$default,
+			$settings
+		);
+
+		if ( ! empty( $enqueue_default ) ) {
+			wp_add_inline_style( 'gutenverse-remove-default-style', $enqueue_default );
+		}
+
 		wp_enqueue_script( 'gutenverse-frontend-event' );
 
 		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseData', $this->gutenverse_data() );

@@ -14,6 +14,13 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	 * @return mixed
 	 */
 	function gutenverse_get_event_banner() {
+		$data = get_transient( 'gutenverse_banner_cache' );
+		if ( $data ) {
+			if ( ! $data->banner || ! $data->bannerLibrary || ! $data->url || ! $data->expired ) {
+				return null;
+			}
+			return $data;
+		}
 		$response = wp_remote_request(
 			GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-banner/v1/bannerdata',
 			array(
@@ -29,6 +36,7 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 		if ( ! $data->banner || ! $data->bannerLibrary || ! $data->url || ! $data->expired ) {
 			return null;
 		}
+		set_transient( 'gutenverse_banner_cache', $data, 3 * HOUR_IN_SECONDS );
 		return $data;
 	}
 }

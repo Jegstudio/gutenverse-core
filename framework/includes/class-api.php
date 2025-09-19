@@ -618,7 +618,9 @@ class Api {
 		$liked = Meta_Option::instance()->get_option( 'liked_layout' );
 		if ( ! empty( $data ) ) {
 			foreach ( $data as $key => $item ) {
-				$data[ $key ]['like'] = ! empty( $liked ) ? in_array( $item['data']['slug'], $liked, true ) : false;
+				if ( is_array( $data[ $key ] ) ) {
+					$data[ $key ]['like'] = ! empty( $liked ) ? in_array( $item['data']['slug'], $liked, true ) : false;
+				}
 			}
 		}
 
@@ -636,7 +638,9 @@ class Api {
 		$liked = Meta_Option::instance()->get_option( 'liked_section' );
 
 		foreach ( $data as $key => $item ) {
-			$data[ $key ]['like'] = ! empty( $liked ) ? in_array( $item['data']['slug'], $liked, true ) : false;
+			if ( is_array( $data[ $key ] ) ) {
+				$data[ $key ]['like'] = ! empty( $liked ) ? in_array( $item['data']['slug'], $liked, true ) : false;
+			}
 		}
 
 		return $data;

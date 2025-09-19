@@ -10,6 +10,7 @@ const MaskControl = (props) => {
     const {
         value = {},
         onValueChange,
+        onLocalChange
     } = props;
 
     const {
@@ -80,6 +81,7 @@ const MaskControl = (props) => {
                     value={value.scale}
                     allowDeviceControl={true}
                     onValueChange={scale => onValueChange({ ...value, scale })}
+                    onLocalChange={scale => onLocalChange({ ...value, scale })}
                     units={{
                         px: {
                             text: 'px',
@@ -171,12 +173,14 @@ const MaskControl = (props) => {
                         value={value.xposition}
                         allowDeviceControl={true}
                         onValueChange={xposition => onValueChange({ ...value, xposition })}
+                        onLocalChange={xposition => onLocalChange({ ...value, xposition })}
                     />
                     <SizeControl
                         label={__('Y Position', '--gctd--')}
                         value={value.yposition}
                         allowDeviceControl={true}
                         onValueChange={yposition => onValueChange({ ...value, yposition })}
+                        onLocalChange={yposition => onLocalChange({ ...value, yposition })}
                     />
                 </>
             }

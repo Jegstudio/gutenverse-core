@@ -82,10 +82,6 @@ class Dashboard {
 	public function enqueue_scripts( $hook ) {
 		global $current_screen;
 
-		if ( isset( $current_screen ) && $current_screen->is_block_editor ) {
-			return;
-		}
-
 		wp_enqueue_style(
 			'gutenverse-core-dashboard-icons',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/dashboard-icon.css',
@@ -99,6 +95,18 @@ class Dashboard {
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
+
+		// @since 3.2.0
+		wp_enqueue_style(
+			'gutenverse-core-notifications',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/notifications.css',
+			null,
+			GUTENVERSE_FRAMEWORK_VERSION
+		);
+
+		if ( isset( $current_screen ) && $current_screen->is_block_editor ) {
+			return;
+		}
 
 		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/core.asset.php' )['dependencies'];
 
@@ -161,14 +169,6 @@ class Dashboard {
 			$notifications,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
-		);
-
-		// @since 3.2.0
-		wp_enqueue_style(
-			'gutenverse-core-notifications',
-			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/notifications.css',
-			null,
-			GUTENVERSE_FRAMEWORK_VERSION
 		);
 
 		do_action( 'gutenverse_include_dashboard' );

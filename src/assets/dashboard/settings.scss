@@ -418,6 +418,45 @@
                 .gutenverse-button {
                     border-radius: 5px !important;
                 }
+
+                .gutenverse-control- {
+                    /** Alert **/
+                    &alert {
+                        .control-body {
+                            display: flex;
+                            padding: 12px;
+                            background-color: #f9f9ff;
+                            align-items: center;
+                            border: 1px solid #e3e4e6;
+                            border-radius: 5px;
+                            margin: 0;
+
+                            .control-icon,
+                            .control-alert {
+                            width: auto;
+                            }
+
+                            .control-icon {
+                                margin: 6px 12px 0 0;
+                            }
+                        }
+
+                        &.warning .control-body {
+                            background-color: rgba(#f0c419, 0.2);
+                            border: 1px solid #c1c1c1;
+                        }
+
+                        &.success .control-body {
+                            background-color: rgba(#4bd37b, 0.2);
+                            border: 1px solid #31a267;
+                        }
+
+                        &.danger .control-body {
+                            background-color: rgba(#f45e5e, 0.2);
+                            border: 1px solid #a9a4a9;
+                        }
+                    }
+                }
             }
         }
     }

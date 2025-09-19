@@ -9,7 +9,7 @@ import FontIconSetting from './src/settings/font-icon-setting';
 import { DashboardBody, DashboardContent, PopupPro, PopupInstallPlugin } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
 import { generalTabs, getPluginTabs, getSettingTitle } from './tabs';
-import { getSettingsIcon, IconPerformance, IconSettingsCustomFont, IconSettingsEditor, IconSettingsFontIcon, IconSettingsForm, IconSettingsFrontend, IconSettingsNews, IconSettingsTemplate } from 'gutenverse-core/icons';
+import { getSettingsIcon } from 'gutenverse-core/icons';
 
 const SettingsBody = ({ settings, ...props }) => {
     let body = '';
