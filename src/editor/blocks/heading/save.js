@@ -30,7 +30,7 @@ const save = compose(
 
     const TagName = 'h' + type;
     const className = classnames(
-        'guten-elements',
+        'guten-element',
         elementId,
         animationClass,
         displayClass,
