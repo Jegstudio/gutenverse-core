@@ -171,8 +171,7 @@ class Init {
 		if ( ! get_option( 'gutenverse_unibiz_notice' ) ) {
 			update_option( 'gutenverse_unibiz_notice', true );
 		}
-		if ( 'unibiz' === $current_theme || get_option( 'gutenverse_unibiz_notice_dismissed' ) ) {
-			update_option( 'gutenverse_unibiz_notice_dismissed', true );
+		if ( 'unibiz' === $current_theme || get_option( 'gutenverse_unibiz_notice_dismissed' ) || ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 		$image_dir = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
