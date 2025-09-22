@@ -13,7 +13,7 @@ import { applyFilters } from '@wordpress/hooks';
 
 const { activeTheme, plugins } = window['GutenverseConfig'] || {};
 const emptyLicense = applyFilters('gutenverse.panel.tab.pro.content', true);
-const companionActive = plugins['gutenverse-companion'].active;
+const companionActive = plugins['gutenverse-companion']?.active;
 
 let initLibraryState = {
     attributes: {emptyLicense, companionActive},
