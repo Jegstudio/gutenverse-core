@@ -2,14 +2,26 @@ import { __ } from '@wordpress/i18n';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import { useEffect, useRef } from '@wordpress/element';
 import { ChevronLeftSVG, ChevronRightSVG, IconEngageResultSVG, IconLimitlessDesignSVG, IconStarSVG, IconWorkFasterSVG } from '../icons';
+import { Check } from 'react-feather';
 
 export const UpgradePro = ({ updateProgress, requirement }) => {
     const splideRef = useRef();
     const barsFill = useRef([]);
     const bars = useRef([]);
+    const images = useRef([]);
     const {
         gutenverseImgDir,
     } = window['GutenverseWizard'];
+
+    const animations = {
+        slideInUp: 'slide-up',
+        slideInLeft: 'slide-left',
+        slideInRight: 'slide-right',
+        slideInDown: 'slide-down',
+        scaleIn: 'scale-in',
+        rotateCw: 'rotate-cw',
+        rotateCcw: 'rotate-ccw'
+    };
 
     useEffect(() => {
         if (splideRef.current) {
@@ -18,10 +30,34 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
 
             barsFill.current = document.querySelectorAll('.slider-wrapper .progress-bar-fill');
             bars.current = document.querySelectorAll('.slider-wrapper .progress-bar');
+            images.current = document.querySelectorAll('.slider-wrapper img.positioned');
 
             if (bars.current[0]) {
                 bars.current[0].classList.add('is-done');
             }
+
+
+            splideInstance.on('moved', () => {
+                Object.entries(animations).forEach(([key, value]) => {
+                    const currentImg = document.querySelectorAll('.slider-wrapper li.is-active .' + key);
+                    currentImg.forEach(el => {
+                        el.classList.remove(key);
+                        el.classList.add(value);
+                    });
+
+                    const prevImg = document.querySelectorAll('.slider-wrapper li.is-prev .' + value);
+                    prevImg.forEach(el => {
+                        el.classList.remove(value);
+                        el.classList.add(key);
+                    });
+
+                    const nextImg = document.querySelectorAll('.slider-wrapper li.is-next .' + value);
+                    nextImg.forEach(el => {
+                        el.classList.remove(value);
+                        el.classList.add(key);
+                    });
+                });
+            });
 
             splideInstance.on('autoplay:playing', (rate) => {
                 const index = splideInstance.index;
@@ -80,97 +116,207 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                     gap: '1rem',
                     autoplay: true,
                     interval: 5000,
-                    pagination: false,
+                    pagination: false
                 }}>
                 <SplideTrack>
                     <SplideSlide>
                         <div className="upgrade-pro-content">
-                            <img className="background" src={gutenverseImgDir + '/bg-upgrade-wizard.png'} />
-                            <h3 className="content-title">
-                                {__('Unlock Limitless Possibilities with ', 'gutenverse')}
-                                <span className="gradient-text">{__('Gutenverse PRO', 'gutenverse')}</span>
-                            </h3>
-                            <p className="content-desc">
-                                {__('Empowering you to build a website that truly stands out with advanced features and seamless integration.', 'gutenverse')}
-                            </p>
-                            <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
-                                <div className="button-content-wrapper">
-                                    <span>{__('Upgrade To PRO', 'gutenverse')}</span>
-                                    <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
-                                    </svg>
+                            <div className="content-left">
+                                <h3 className="content-title">
+                                    {__('Work Smarter, Build Faster', 'gutenverse')}
+                                </h3>
+                                <p className="content-desc">
+                                    {__('Boost your productivity with powerful tools designed to speed up website creation.', 'gutenverse')}
+                                </p>
+                                <ul className="content-list">
+                                    <li>
+                                        <div className="circle"><Check size={12} /></div>
+                                        <span>{__('1000+ Templates Library.', 'gutenverse')}</span>
+                                    </li>
+                                    <li>
+                                        <div className="circle"><Check size={12} /></div>
+                                        <span>{__('50+ Prebuilt Sites.', 'gutenverse')}</span>
+                                    </li>
+                                    <li>
+                                        <div className="circle"><Check size={12} /></div>
+                                        <span>{__('100+ Advanced Blocks.', 'gutenverse')}</span>
+                                    </li>
+                                    <li>
+                                        <div className="circle"><Check size={12} /></div>
+                                        <span>{__('1000+ Icons Selector.', 'gutenverse')}</span>
+                                    </li>
+                                </ul>
+                                <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
+                                    <div className="button-content-wrapper">
+                                        <span>{__('Upgrade To PRO', 'gutenverse')}</span>
+                                        <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
-                            <img className="upgrade-image" src={gutenverseImgDir + '/upgrade-content.png'} />
+                            <div className="content-right">
+                                <img className="background" src={gutenverseImgDir + '/wizard-background-circle.png'} />
+                                <img className="positioned rotateCw slideInUp" src={gutenverseImgDir + '/work-faster-arrow-white.png'} style={{ width: '70px', bottom: '40%', left: '50px', transform: 'rotate(-90deg)', zIndex: '9' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mockup-advanced-blocks.png'} style={{ width: '100px', right: '0', bottom: '20%', zIndex: '99', animationDelay: '0.2s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-monify.png'} style={{ width: '80px', left: '100px', top: '25%', animationDelay: '0.4s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-aventra.png'} style={{ width: '80px', right: '40px', top: '30%', animationDelay: '0.5s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-mentori.png'} style={{ width: '80px', right: '25px', top: '55%', animationDelay: '0.6s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-laptop-wizard.png'} style={{ width: '350px', top: '55%', zIndex: '5' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mokcup-template-library.png'} style={{ width: '100px', left: '70px', top: '35%', animationDelay: '0.2s' }} />
+                            </div>
                         </div>
                     </SplideSlide>
                     <SplideSlide>
                         <div className="upgrade-pro-content">
-                            <img className="background" src={gutenverseImgDir + '/bg-upgrade-wizard.png'} />
-                            <h3 className="content-title">
-                                {__('Unlock Limitless Possibilities with ', 'gutenverse')}
-                                <span className="gradient-text">{__('Gutenverse PRO', 'gutenverse')}</span>
-                            </h3>
-                            <p className="content-desc">
-                                {__('Empowering you to build a website that truly stands out with advanced features and seamless integration.', 'gutenverse')}
-                            </p>
-                            <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
-                                <div className="button-content-wrapper">
-                                    <span>{__('Upgrade To PRO', 'gutenverse')}</span>
-                                    <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
-                                    </svg>
+                            <div className="content-left">
+                                <h3 className="content-title">
+                                    {__('Design Without Limits', 'gutenverse')}
+                                </h3>
+                                <p className="content-desc">
+                                    {__('Unlock unlimited creative possibilities and craft a truly stunning website experience.', 'gutenverse')}
+                                </p>
+                                <div className="column">
+                                    <ul className="content-list">
+                                        <li>
+                                            <div className="circle"><Check size={12} /></div>
+                                            <span>{__('Advanced Animation Effects.', 'gutenverse')}</span>
+                                        </li>
+                                        <li>
+                                            <div className="circle"><Check size={12} /></div>
+                                            <span>{__('Transform.', 'gutenverse')}</span>
+                                        </li>
+                                        <li>
+                                            <div className="circle"><Check size={12} /></div>
+                                            <span>{__('Text Clip.', 'gutenverse')}</span>
+                                        </li>
+                                        <li>
+                                            <div className="circle"><Check size={12} /></div>
+                                            <span>{__('Highlight Styles.', 'gutenverse')}</span>
+                                        </li>
+                                    </ul>
+                                    <ul className="content-list">
+                                        <li>
+                                            <div className="circle"><Check size={12} /></div>
+                                            <span>{__('Animated Shape Dividers.', 'gutenverse')}</span>
+                                        </li>
+                                        <li>
+                                            <div className="circle"><Check size={12} /></div>
+                                            <span>{__('Mouse Move Effect.', 'gutenverse')}</span>
+                                        </li>
+                                        <li>
+                                            <div className="circle"><Check size={12} /></div>
+                                            <span>{__('Fluid Background.', 'gutenverse')}</span>
+                                        </li>
+                                        <li>
+                                            <div className="circle"><Check size={12} /></div>
+                                            <span>{__('Background Effects.', 'gutenverse')}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
+                                    <div className="button-content-wrapper">
+                                        <span>{__('Upgrade To PRO', 'gutenverse')}</span>
+                                        <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
-                            <img className="upgrade-image" src={gutenverseImgDir + '/upgrade-content.png'} />
+                            <div className="content-right">
+                                <img className="background" src={gutenverseImgDir + '/wizard-background-circle.png'} />
+                                <img className="positioned rotateCw slideInUp" src={gutenverseImgDir + '/limitless-design-mockup-arrow-animation.png'} style={{ width: '70px', bottom: '40%', left: '20px', zIndex: '9' }} />
+                                <img className="positioned slideInRight" src={gutenverseImgDir + '/limitless-design-mockup-animation-star.png'} style={{ width: '150px', bottom: '0', right: '-18%', zIndex: '9' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/limitless-design-mockup-animation-wizard.png'} style={{ width: '220px', top: '50%', left: '20%' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/limitless-design-mockup-blink.png'} style={{ width: '20px', bottom: '15%', right: '160px', animationDelay: '0.1s' }} />
+                                <img className="positioned slideInRight" src={gutenverseImgDir + '/limitless-design-mockup-fade-animation.png'} style={{ width: '100px', top: '30%', right: '0' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/limitless-design-mockup-icon-animation.png'} style={{ width: '30px', top: '30%', left: '50px' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/limitless-design-mockup-icon-star.png'} style={{ width: '30px', top: '20%', left: '100px', animationDelay: '0.2s' }} />
+                                <img className="positioned slideInLeft" src={gutenverseImgDir + '/limitless-design-mockup-move-animation.png'} style={{ width: '100px', bottom: '10%', left: '100px', animationDelay: '0.2s' }} />
+                            </div>
                         </div>
                     </SplideSlide>
                     <SplideSlide>
                         <div className="upgrade-pro-content">
-                            <img className="background" src={gutenverseImgDir + '/bg-upgrade-wizard.png'} />
-                            <h3 className="content-title">
-                                {__('Unlock Limitless Possibilities with ', 'gutenverse')}
-                                <span className="gradient-text">{__('Gutenverse PRO', 'gutenverse')}</span>
-                            </h3>
-                            <p className="content-desc">
-                                {__('Empowering you to build a website that truly stands out with advanced features and seamless integration.', 'gutenverse')}
-                            </p>
-                            <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
-                                <div className="button-content-wrapper">
-                                    <span>{__('Upgrade To PRO', 'gutenverse')}</span>
-                                    <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
-                                    </svg>
+                            <div className="content-left">
+                                <h3 className="content-title">
+                                    {__('Engage Visitors, Drive Results', 'gutenverse')}
+                                </h3>
+                                <p className="content-desc">
+                                    {__('Turn your website into a lead-generation machine and keep your audience engaged.', 'gutenverse')}
+                                </p>
+                                <ul className="content-list">
+                                    <li>
+                                        <div className="circle"><Check size={12} /></div>
+                                        <span>{__('Gutenverse Form.', 'gutenverse')}</span>
+                                    </li>
+                                    <li>
+                                        <div className="circle"><Check size={12} /></div>
+                                        <span>{__('Gutenverse Popup.', 'gutenverse')}</span>
+                                    </li>
+                                    <li>
+                                        <div className="circle"><Check size={12} /></div>
+                                        <span>{__('Gutenverse News.', 'gutenverse')}</span>
+                                    </li>
+                                </ul>
+                                <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
+                                    <div className="button-content-wrapper">
+                                        <span>{__('Upgrade To PRO', 'gutenverse')}</span>
+                                        <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
-                            <img className="upgrade-image" src={gutenverseImgDir + '/upgrade-content.png'} />
+                            <div className="content-right">
+                                <img className="background" src={gutenverseImgDir + '/wizard-background-circle.png'} />
+                                <img className="positioned" src={gutenverseImgDir + '/work-faster-arrow-white.png'} style={{ width: '100px' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mockup-advanced-blocks.png'} style={{ width: '100px', right: '0', bottom: '20%', zIndex: '99', animationDelay: '0.2s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-monify.png'} style={{ width: '80px', left: '100px', top: '20%', animationDelay: '0.4s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-aventra.png'} style={{ width: '80px', right: '40px', top: '25%', animationDelay: '0.5s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-mentori.png'} style={{ width: '80px', right: '25px', top: '50%', animationDelay: '0.6s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-laptop-wizard.png'} style={{ width: '350px', top: '50%', zIndex: '5' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mokcup-template-library.png'} style={{ width: '100px', left: '70px', top: '30%', animationDelay: '0.2s' }} />
+                            </div>
                         </div>
                     </SplideSlide>
                     <SplideSlide>
                         <div className="upgrade-pro-content">
-                            <img className="background" src={gutenverseImgDir + '/bg-upgrade-wizard.png'} />
-                            <h3 className="content-title">
-                                {__('Unlock Limitless Possibilities with ', 'gutenverse')}
-                                <span className="gradient-text">{__('Gutenverse PRO', 'gutenverse')}</span>
-                            </h3>
-                            <p className="content-desc">
-                                {__('Empowering you to build a website that truly stands out with advanced features and seamless integration.', 'gutenverse')}
-                            </p>
-                            <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
-                                <div className="button-content-wrapper">
-                                    <span>{__('Upgrade To PRO', 'gutenverse')}</span>
-                                    <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
-                                    </svg>
+                            <div className="content-left">
+                                <h3 className="content-title">
+                                    {__('Why Upgrade to PRO?', 'gutenverse')}
+                                </h3>
+                                <p className="content-desc">
+                                    {__('With Gutenverse PRO, you\'re not just unlocking extra features—you\'re unlocking freedom. Freedom to design faster. Freedom to be more creative. Freedom to engage your audience at a whole new level.', 'gutenverse')}
+                                </p>
+                                <p className="content-desc bold">
+                                    {__('Ready to take your website to the next stage?', 'gutenverse')}
+                                </p>
+                                <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
+                                    <div className="button-content-wrapper">
+                                        <span>{__('Upgrade To PRO', 'gutenverse')}</span>
+                                        <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
-                            <img className="upgrade-image" src={gutenverseImgDir + '/upgrade-content.png'} />
+                            <div className="content-right">
+                                <img className="background" src={gutenverseImgDir + '/wizard-background-circle.png'} />
+                                <img className="positioned" src={gutenverseImgDir + '/work-faster-arrow-white.png'} style={{ width: '100px' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mockup-advanced-blocks.png'} style={{ width: '100px', right: '0', bottom: '20%', zIndex: '99', animationDelay: '0.2s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-monify.png'} style={{ width: '80px', left: '100px', top: '20%', animationDelay: '0.4s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-aventra.png'} style={{ width: '80px', right: '40px', top: '25%', animationDelay: '0.5s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-mentori.png'} style={{ width: '80px', right: '25px', top: '50%', animationDelay: '0.6s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-laptop-wizard.png'} style={{ width: '350px', top: '50%', zIndex: '5' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mokcup-template-library.png'} style={{ width: '100px', left: '70px', top: '30%', animationDelay: '0.2s' }} />
+                            </div>
                         </div>
                     </SplideSlide>
                 </SplideTrack>
                 <div className="splide__arrows">
-                    <button className="splide__arrow splide__arrow--prev"><ChevronLeftSVG/></button>
-                    <button className="splide__arrow splide__arrow--next"><ChevronRightSVG/></button>
+                    <button className="splide__arrow splide__arrow--prev"><ChevronLeftSVG /></button>
+                    <button className="splide__arrow splide__arrow--next"><ChevronRightSVG /></button>
                 </div>
                 <div className="progress-bars">
                     <div className="progress-bar">
