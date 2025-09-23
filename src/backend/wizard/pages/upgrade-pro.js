@@ -1,14 +1,16 @@
 import { __ } from '@wordpress/i18n';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
-import { useEffect, useRef } from '@wordpress/element';
-import { ChevronLeftSVG, ChevronRightSVG, IconEngageResultSVG, IconLimitlessDesignSVG, IconStarSVG, IconWorkFasterSVG } from '../icons';
+import { useEffect, useRef, useState } from '@wordpress/element';
+import { ChevronLeftSVG, ChevronRightSVG, IconEngageResultSVG, IconLimitlessDesignSVG, IconPauseSVG, IconPlaySVG, IconStarSVG, IconWorkFasterSVG } from '../icons';
 import { Check } from 'react-feather';
 
 export const UpgradePro = ({ updateProgress, requirement }) => {
+    const [playing, setPlaying] = useState(true);
     const splideRef = useRef();
     const barsFill = useRef([]);
     const bars = useRef([]);
     const images = useRef([]);
+    const pause = useRef([]);
     const {
         gutenverseImgDir,
     } = window['GutenverseWizard'];
@@ -23,6 +25,20 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
         rotateCcw: 'rotate-ccw'
     };
 
+    const togglePause = () => {
+        const autoplay = splideRef?.current?.splide?.Components?.Autoplay;
+
+        if (!autoplay) return;
+
+        if (autoplay.isPaused()) {
+            autoplay.play();
+            setPlaying(true);
+        } else {
+            autoplay.pause();
+            setPlaying(false);
+        }
+    };
+
     useEffect(() => {
         if (splideRef.current) {
             const splideInstance = splideRef.current.splide;
@@ -31,6 +47,7 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
             barsFill.current = document.querySelectorAll('.slider-wrapper .progress-bar-fill');
             bars.current = document.querySelectorAll('.slider-wrapper .progress-bar');
             images.current = document.querySelectorAll('.slider-wrapper img.positioned');
+            pause.current = document.querySelectorAll('.slider-wrapper .splide-autoplay-controls .splide-toggle-div');
 
             if (bars.current[0]) {
                 bars.current[0].classList.add('is-done');
@@ -79,7 +96,6 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
             });
 
             splideInstance.on('move', (newIndex, prevIndex) => {
-                // Logic to update the fill bar width on slide change
                 if (barsFill.current[prevIndex]) {
                     if (newIndex < prevIndex) {
                         barsFill.current[prevIndex].style.width = '0%';
@@ -95,9 +111,9 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                     bars.current[newIndex].classList.add('is-done');
                 }
 
-                if (newIndex < totalSlides && splideInstance.Components.Autoplay.isPaused()) {
-                    splideInstance.Components.Autoplay.play();
-                }
+                // if (newIndex < totalSlides && splideInstance.Components.Autoplay.isPaused()) {
+                //     splideInstance.Components.Autoplay.play();
+                // }
             });
 
             return () => {
@@ -121,7 +137,9 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                     gap: '1rem',
                     autoplay: true,
                     interval: 5000,
-                    pagination: false
+                    pagination: false,
+                    pauseOnHover: false,
+                    pauseOnFocus: false,
                 }}>
                 <SplideTrack>
                     <SplideSlide>
@@ -313,6 +331,11 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                         </div>
                     </SplideSlide>
                 </SplideTrack>
+                <div className="splide-autoplay-controls">
+                    <div className="splide-toggle-div" onClick={togglePause}>
+                        {playing ? <IconPauseSVG /> : <IconPlaySVG />}
+                    </div>
+                </div>
                 <div className="splide__arrows">
                     <button className="splide__arrow splide__arrow--prev"><ChevronLeftSVG /></button>
                     <button className="splide__arrow splide__arrow--next"><ChevronRightSVG /></button>

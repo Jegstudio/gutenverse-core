@@ -1806,6 +1806,18 @@ body {
         padding: 80px 80px 60px;
         margin: 0 auto;
         width: fit-content;
+        position: relative;
+
+        .splide-autoplay-controls .splide-toggle-div {
+            cursor: pointer;
+            padding: 10px;
+            position: absolute;
+            right: 28px;
+            top: 400px;
+            background-color: #00000022;
+            border-radius: 100px;
+            line-height: 0;
+        }
     }
 
     .upgrade-pro-actions {
