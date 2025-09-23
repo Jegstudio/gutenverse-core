@@ -111,9 +111,10 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                     bars.current[newIndex].classList.add('is-done');
                 }
 
-                // if (newIndex < totalSlides && splideInstance.Components.Autoplay.isPaused()) {
-                //     splideInstance.Components.Autoplay.play();
-                // }
+                if (newIndex < totalSlides && splideInstance.Components.Autoplay.isPaused()) {
+                    splideInstance.Components.Autoplay.play();
+                    setPlaying(true);
+                }
             });
 
             return () => {
@@ -188,6 +189,11 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                 <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mokcup-template-library.png'} style={{ width: '90px', top: '130px', left: '30px', animationDelay: '0.2s' }} />
                                 <img className="positioned rotateCw slideInUp" src={gutenverseImgDir + '/work-faster-arrow-white.png'} style={{ width: '60px', top: '200px', left: '60px', transform: 'rotate(-90deg)', zIndex: '9' }} />
                             </div>
+                            <div className="splide-autoplay-controls">
+                                <div className="splide-toggle-div" onClick={togglePause}>
+                                    {playing ? <IconPauseSVG /> : <IconPlaySVG />}
+                                </div>
+                            </div>
                         </div>
                     </SplideSlide>
                     <SplideSlide>
@@ -257,6 +263,11 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                 <img className="positioned slideInLeft" src={gutenverseImgDir + '/limitless-design-mockup-move-animation.png'} style={{ width: '80px', top: '295px', left: '85px', animationDelay: '0.2s' }} />
                                 <img className="positioned slideInRight" src={gutenverseImgDir + '/limitless-design-mockup-animation-star.png'} style={{ width: '150px', top: '295px', right: '-65px', zIndex: '9' }} />
                             </div>
+                            <div className="splide-autoplay-controls">
+                                <div className="splide-toggle-div" onClick={togglePause}>
+                                    {playing ? <IconPauseSVG /> : <IconPlaySVG />}
+                                </div>
+                            </div>
                         </div>
                     </SplideSlide>
                     <SplideSlide>
@@ -297,6 +308,11 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                 <img className="positioned scaleIn" src={gutenverseImgDir + '/engage-result-mockup-gutenverse-popup.png'} style={{ width: '170px', top: '175px', left: '15px', zIndex: '99', animationDelay: '0.2s' }} />
                                 <img className="positioned scaleIn" src={gutenverseImgDir + '/engage-result-mockup-gutenverse-news.png'} style={{ width: '170px', top: '230px', right: '15px', zIndex: '99', animationDelay: '0.4s' }} />
                             </div>
+                            <div className="splide-autoplay-controls">
+                                <div className="splide-toggle-div" onClick={togglePause}>
+                                    {playing ? <IconPauseSVG /> : <IconPlaySVG />}
+                                </div>
+                            </div>
                         </div>
                     </SplideSlide>
                     <SplideSlide>
@@ -328,14 +344,14 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                 <img className="positioned scaleIn" src={gutenverseImgDir + '/upgrade-pro-mockup-icon-megamenu.png'} style={{ width: '50px', top: '90px', right: '40px', animationDelay: '0.3s' }} />
                                 <img className="positioned scaleIn" src={gutenverseImgDir + '/upgrade-pro-mockup-icon-text-marquee.png'} style={{ width: '50px', top: '100px', left: '30px', animationDelay: '0.2s' }} />
                             </div>
+                            <div className="splide-autoplay-controls">
+                                <div className="splide-toggle-div" onClick={togglePause}>
+                                    {playing ? <IconPauseSVG /> : <IconPlaySVG />}
+                                </div>
+                            </div>
                         </div>
                     </SplideSlide>
                 </SplideTrack>
-                <div className="splide-autoplay-controls">
-                    <div className="splide-toggle-div" onClick={togglePause}>
-                        {playing ? <IconPauseSVG /> : <IconPlaySVG />}
-                    </div>
-                </div>
                 <div className="splide__arrows">
                     <button className="splide__arrow splide__arrow--prev"><ChevronLeftSVG /></button>
                     <button className="splide__arrow splide__arrow--next"><ChevronRightSVG /></button>
