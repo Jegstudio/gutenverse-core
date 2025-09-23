@@ -2215,7 +2215,7 @@ body {
                         display: flex;
                         align-items: center;
 
-                        &.done {
+                        &.done, &.current {
                             >div {
                                 color: #011627;
                             }
@@ -2224,6 +2224,11 @@ body {
                         >div {
                             text-align: left;
                             margin-right: 10px;
+                            color: rgba(153, 162, 169, 1);
+                            font-weight: 500;
+                            font-family: "Inter", sans-serif;
+                            font-size: 14px;
+                            line-height: 20px;
 
                             .option-label {
                                 font-family: "Inter", sans-serif;
@@ -2297,6 +2302,7 @@ body {
             .footer-info {
                 display: flex;
                 justify-content: space-between;
+                width: 100%;
 
                 span {
                     font-family: "Inter", sans-serif;
