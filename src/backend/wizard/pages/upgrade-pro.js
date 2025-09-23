@@ -13,6 +13,7 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
     const pause = useRef([]);
     const {
         gutenverseImgDir,
+        upgradeProUrl
     } = window['GutenverseWizard'];
 
     const animations = {
@@ -170,7 +171,7 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                         <span>{__('1000+ Icons Selector.', 'gutenverse')}</span>
                                     </li>
                                 </ul>
-                                <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
+                                <div className="upgrade-pro-button" onClick={() => window.open(upgradeProUrl, '_blank')}>
                                     <div className="button-content-wrapper">
                                         <span>{__('Upgrade To PRO', 'gutenverse')}</span>
                                         <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
@@ -243,7 +244,7 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
+                                <div className="upgrade-pro-button" onClick={() => window.open(upgradeProUrl, '_blank')}>
                                     <div className="button-content-wrapper">
                                         <span>{__('Upgrade To PRO', 'gutenverse')}</span>
                                         <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
@@ -293,7 +294,7 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                         <span>{__('Gutenverse News.', 'gutenverse')}</span>
                                     </li>
                                 </ul>
-                                <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
+                                <div className="upgrade-pro-button" onClick={() => window.open(upgradeProUrl, '_blank')}>
                                     <div className="button-content-wrapper">
                                         <span>{__('Upgrade To PRO', 'gutenverse')}</span>
                                         <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
@@ -327,7 +328,7 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                 <p className="content-desc bold">
                                     {__('Ready to take your website to the next stage?', 'gutenverse')}
                                 </p>
-                                <div className="upgrade-pro-button" onClick={() => window.open('https://gutenverse.com/pro', '_blank')}>
+                                <div className="upgrade-pro-button" onClick={() => window.open(upgradeProUrl, '_blank')}>
                                     <div className="button-content-wrapper">
                                         <span>{__('Upgrade To PRO', 'gutenverse')}</span>
                                         <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
