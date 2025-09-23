@@ -162,13 +162,16 @@ const ThemesContentNoLicense = (props) => {
 };
 
 const ThemesContentUnibizCTA = () => {
-    const { imgDir, proDemoUrl, domainURL } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
+    const { imgDir, proDemoUrl, domainURL, clientUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
+    const test = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
     const [buttonText, setButtonText] = useState(__('Install Unibiz Theme', 'gutenverse'));
+    console.log(test);
     const activateTheme = () => {
         setButtonText(<IconLoadingSVG />);
         const themeSlug = 'unibiz'; // change this to your theme slug
+        const base = (domainURL ?? clientUrl).replace(/\/$/, '');
         const pluginsList = [
-            { name: 'Gutenverse Companion', slug: 'gutenverse-companion', version: '', url: '' },
+            { name: 'Gutenverse Companion', slug: 'gutenverse-companion', version: '2.0.0', url: '' },
         ];
 
         // Step 1: Install + Activate Theme
@@ -180,7 +183,7 @@ const ThemesContentUnibizCTA = () => {
             })
             .then(() => {
                 console.log('All plugins installed and activated!');
-                window.location.replace(`${domainURL}/wp-admin/admin.php?page=gutenverse-companion-dashboard&path=demo`);
+                window.location.replace(`${base}/wp-admin/admin.php?page=gutenverse-companion-dashboard&path=demo`);
             })
             .catch(err => {
                 console.error('Installation failed:', err);

@@ -443,10 +443,40 @@ class Init {
 			<img class="unibiz-gutenverse-badge" src="<?php echo esc_html( $image_dir ) . '/unibiz-gutenverse-badge.png'; ?>"  alt="image gutenverse badge"/>
 		</div>
 		<script>
+			const versionCompare = (v1, v2, operator) => {
+				const a = v1.split('.').map(Number);
+				const b = v2.split('.').map(Number);
+				const len = Math.max(a.length, b.length);
+
+				for (let i = 0; i < len; i++) {
+					const num1 = a[i] || 0;
+					const num2 = b[i] || 0;
+					if (num1 > num2) {
+						switch (operator) {
+							case '>': case '>=': case '!=': return true;
+							case '<': case '<=': case '==': return false;
+						}
+					}
+					if (num1 < num2) {
+						switch (operator) {
+							case '<': case '<=': case '!=': return true;
+							case '>': case '>=': case '==': return false;
+						}
+					}
+				}
+
+				// If equal so far
+				switch (operator) {
+					case '==': case '>=': case '<=': return true;
+					case '!=': return false;
+					case '>': case '<': return false;
+				}
+			};
 			const installingPlugins = (pluginsList) => {
 				return new Promise((resolve, reject) => {
 					const { plugins: installedPlugin } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 					const plugins = pluginsList.map(plgn => ({
+						needUpdate: installedPlugin[plgn.slug] ? versionCompare(plgn.version, installedPlugin[plgn.slug]?.version , '>') : false,
 						name: plgn.name,
 						slug: plgn.slug,
 						version: plgn.version,
@@ -465,7 +495,30 @@ class Init {
 
 							if (plugin) {
 								// Not installed
-								if (!plugin.installed) {
+								if (plugin.needUpdate) {
+									wp.apiFetch({
+										path: `wp/v2/plugins/plugin?plugin=${plugin.slug}/${plugin.slug}`,
+										method: 'PUT',
+										data: {
+											status: 'inactive'
+										}
+									}).then (() => {
+										wp.apiFetch({
+											path: `wp/v2/plugins/plugin?plugin=${plugin.slug}/${plugin.slug}`,
+											method: 'DELETE'
+										});
+									}).then(() => {
+										wp.apiFetch({
+											path: 'wp/v2/plugins',
+											method: 'POST',
+											data: {
+												slug: plugin.slug,
+												status: 'active'
+											}
+										}).then(()=> setTimeout(() => installPlugins(index + 1), 1500)
+										).catch((err) => console.log(err));
+									});
+								} else if (!plugin.installed) {
 									wp.apiFetch({
 										path: 'wp/v2/plugins',
 										method: 'POST',
@@ -530,7 +583,7 @@ class Init {
 				$('.gutenverse-unibiz-notice .col-1 .button-wrapper .button-install').on('click', function() {
 					const themeSlug = 'unibiz'; // change this to your theme slug
 					const pluginsList = [
-						{ name: 'Gutenverse Companion', slug: 'gutenverse-companion', version: '', url: '' },
+						{ name: 'Gutenverse Companion', slug: 'gutenverse-companion', version: '2.0.0', url: '' },
 					];
 					const installBtn = document.querySelector('.gutenverse-unibiz-notice .button-install');
 					if (installBtn) {

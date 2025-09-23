@@ -818,6 +818,7 @@ export const installingPlugins = (pluginsList) => {
         const { plugins: installedPlugin } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
         const plugins = pluginsList.map(plgn => ({
+            needUpdate: installedPlugin[plgn.slug] ? versionCompare(plgn.version, installedPlugin[plgn.slug]?.version , '>') : false,
             name: plgn.name,
             slug: plgn.slug,
             version: plgn.version,
@@ -834,9 +835,36 @@ export const installingPlugins = (pluginsList) => {
 
                 const plugin = plugins[index];
                 if (plugin) {
-
-                    // Not installed
-                    if (!plugin.installed) {
+                    if (plugin.needUpdate) {
+                        apiFetch({
+                            path: `wp/v2/plugins/plugin?plugin=${plugin.slug}/${plugin.slug}`,
+                            method: 'PUT',
+                            data: {
+                                status: 'inactive'
+                            }
+                        }).then (() => {
+                            apiFetch({
+                                path: `wp/v2/plugins/plugin?plugin=${plugin.slug}/${plugin.slug}`,
+                                method: 'DELETE'
+                            });
+                        }).then(() => {
+                            apiFetch({
+                                path: 'wp/v2/plugins',
+                                method: 'POST',
+                                data: {
+                                    slug: plugin.slug,
+                                    status: 'active'
+                                }
+                            })
+                                .then(() => {
+                                    setTimeout(() => installPlugins(index + 1), 1500);
+                                })
+                                .catch(err => {
+                                    //reject(err); // ❌ Stop chain on failure
+                                    setTimeout(() => installPlugins(index + 1), 1500);
+                                });
+                        });
+                    } else if (!plugin.installed) {
                         apiFetch({
                             path: 'wp/v2/plugins',
                             method: 'POST',
