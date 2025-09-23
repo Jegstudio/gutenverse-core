@@ -36,8 +36,7 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                 bars.current[0].classList.add('is-done');
             }
 
-
-            splideInstance.on('moved', () => {
+            const runAnimation = () => {
                 Object.entries(animations).forEach(([key, value]) => {
                     const currentImg = document.querySelectorAll('.slider-wrapper li.is-active .' + key);
                     currentImg.forEach(el => {
@@ -57,6 +56,12 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                         el.classList.add(key);
                     });
                 });
+            };
+
+            runAnimation();
+
+            splideInstance.on('moved', () => {
+                runAnimation();
             });
 
             splideInstance.on('autoplay:playing', (rate) => {
@@ -157,13 +162,13 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                             </div>
                             <div className="content-right">
                                 <img className="background" src={gutenverseImgDir + '/wizard-background-circle.png'} />
-                                <img className="positioned rotateCw slideInUp" src={gutenverseImgDir + '/work-faster-arrow-white.png'} style={{ width: '70px', bottom: '40%', left: '50px', transform: 'rotate(-90deg)', zIndex: '9' }} />
-                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mockup-advanced-blocks.png'} style={{ width: '100px', right: '0', bottom: '20%', zIndex: '99', animationDelay: '0.2s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-monify.png'} style={{ width: '80px', left: '100px', top: '25%', animationDelay: '0.4s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-aventra.png'} style={{ width: '80px', right: '40px', top: '30%', animationDelay: '0.5s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-mentori.png'} style={{ width: '80px', right: '25px', top: '55%', animationDelay: '0.6s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-laptop-wizard.png'} style={{ width: '350px', top: '55%', zIndex: '5' }} />
-                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mokcup-template-library.png'} style={{ width: '100px', left: '70px', top: '35%', animationDelay: '0.2s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-laptop-wizard.png'} style={{ width: '320px', top: '240px', left: '25px', zIndex: '5' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-monify.png'} style={{ width: '70px', top: '116px', left: '110px', animationDelay: '0.4s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-aventra.png'} style={{ width: '70px', top: '145px', right: '40px', animationDelay: '0.5s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-mentori.png'} style={{ width: '70px', top: '230px', right: '30px', animationDelay: '0.6s' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mockup-advanced-blocks.png'} style={{ width: '90px', top: '250px', right: '40px', zIndex: '99', animationDelay: '0.2s' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mokcup-template-library.png'} style={{ width: '90px', top: '130px', left: '30px', animationDelay: '0.2s' }} />
+                                <img className="positioned rotateCw slideInUp" src={gutenverseImgDir + '/work-faster-arrow-white.png'} style={{ width: '60px', top: '200px', left: '60px', transform: 'rotate(-90deg)', zIndex: '9' }} />
                             </div>
                         </div>
                     </SplideSlide>
@@ -225,14 +230,14 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                             </div>
                             <div className="content-right">
                                 <img className="background" src={gutenverseImgDir + '/wizard-background-circle.png'} />
-                                <img className="positioned rotateCw slideInUp" src={gutenverseImgDir + '/limitless-design-mockup-arrow-animation.png'} style={{ width: '70px', bottom: '40%', left: '20px', zIndex: '9' }} />
-                                <img className="positioned slideInRight" src={gutenverseImgDir + '/limitless-design-mockup-animation-star.png'} style={{ width: '150px', bottom: '0', right: '-18%', zIndex: '9' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/limitless-design-mockup-animation-wizard.png'} style={{ width: '220px', top: '50%', left: '20%' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/limitless-design-mockup-blink.png'} style={{ width: '20px', bottom: '15%', right: '160px', animationDelay: '0.1s' }} />
-                                <img className="positioned slideInRight" src={gutenverseImgDir + '/limitless-design-mockup-fade-animation.png'} style={{ width: '100px', top: '30%', right: '0' }} />
-                                <img className="positioned scaleIn" src={gutenverseImgDir + '/limitless-design-mockup-icon-animation.png'} style={{ width: '30px', top: '30%', left: '50px' }} />
-                                <img className="positioned scaleIn" src={gutenverseImgDir + '/limitless-design-mockup-icon-star.png'} style={{ width: '30px', top: '20%', left: '100px', animationDelay: '0.2s' }} />
-                                <img className="positioned slideInLeft" src={gutenverseImgDir + '/limitless-design-mockup-move-animation.png'} style={{ width: '100px', bottom: '10%', left: '100px', animationDelay: '0.2s' }} />
+                                <img className="positioned rotateCw slideInUp" src={gutenverseImgDir + '/limitless-design-mockup-arrow-animation.png'} style={{ width: '50px', top: '190px', left: '35px', zIndex: '9' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/limitless-design-mockup-animation-wizard.png'} style={{ width: '200px', top: '205px', left: '90px' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/limitless-design-mockup-blink.png'} style={{ width: '20px', top: '330px', right: '160px', animationDelay: '0.1s' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/limitless-design-mockup-icon-animation.png'} style={{ width: '25px', top: '100px', left: '50px' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/limitless-design-mockup-icon-star.png'} style={{ width: '25px', top: '60px', left: '100px', animationDelay: '0.2s' }} />
+                                <img className="positioned slideInRight" src={gutenverseImgDir + '/limitless-design-mockup-fade-animation.png'} style={{ width: '80px', top: '130px', right: '10px' }} />
+                                <img className="positioned slideInLeft" src={gutenverseImgDir + '/limitless-design-mockup-move-animation.png'} style={{ width: '80px', top: '295px', left: '85px', animationDelay: '0.2s' }} />
+                                <img className="positioned slideInRight" src={gutenverseImgDir + '/limitless-design-mockup-animation-star.png'} style={{ width: '150px', top: '295px', right: '-65px', zIndex: '9' }} />
                             </div>
                         </div>
                     </SplideSlide>
@@ -270,13 +275,9 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                             </div>
                             <div className="content-right">
                                 <img className="background" src={gutenverseImgDir + '/wizard-background-circle.png'} />
-                                <img className="positioned" src={gutenverseImgDir + '/work-faster-arrow-white.png'} style={{ width: '100px' }} />
-                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mockup-advanced-blocks.png'} style={{ width: '100px', right: '0', bottom: '20%', zIndex: '99', animationDelay: '0.2s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-monify.png'} style={{ width: '80px', left: '100px', top: '20%', animationDelay: '0.4s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-aventra.png'} style={{ width: '80px', right: '40px', top: '25%', animationDelay: '0.5s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-mentori.png'} style={{ width: '80px', right: '25px', top: '50%', animationDelay: '0.6s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-laptop-wizard.png'} style={{ width: '350px', top: '50%', zIndex: '5' }} />
-                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mokcup-template-library.png'} style={{ width: '100px', left: '70px', top: '30%', animationDelay: '0.2s' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/engage-result-mockup-gutenverse-form.png'} style={{ width: '170px', top: '40px', left: '110px', zIndex: '99' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/engage-result-mockup-gutenverse-popup.png'} style={{ width: '170px', top: '175px', left: '15px', zIndex: '99', animationDelay: '0.2s' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/engage-result-mockup-gutenverse-news.png'} style={{ width: '170px', top: '230px', right: '15px', zIndex: '99', animationDelay: '0.4s' }} />
                             </div>
                         </div>
                     </SplideSlide>
@@ -303,13 +304,11 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                             </div>
                             <div className="content-right">
                                 <img className="background" src={gutenverseImgDir + '/wizard-background-circle.png'} />
-                                <img className="positioned" src={gutenverseImgDir + '/work-faster-arrow-white.png'} style={{ width: '100px' }} />
-                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mockup-advanced-blocks.png'} style={{ width: '100px', right: '0', bottom: '20%', zIndex: '99', animationDelay: '0.2s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-monify.png'} style={{ width: '80px', left: '100px', top: '20%', animationDelay: '0.4s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-aventra.png'} style={{ width: '80px', right: '40px', top: '25%', animationDelay: '0.5s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-demo-mentori.png'} style={{ width: '80px', right: '25px', top: '50%', animationDelay: '0.6s' }} />
-                                <img className="positioned slideInUp" src={gutenverseImgDir + '/work-faster-mockup-laptop-wizard.png'} style={{ width: '350px', top: '50%', zIndex: '5' }} />
-                                <img className="positioned scaleIn" src={gutenverseImgDir + '/work-faster-mokcup-template-library.png'} style={{ width: '100px', left: '70px', top: '30%', animationDelay: '0.2s' }} />
+                                <img className="positioned slideInUp" src={gutenverseImgDir + '/upgrade-pro-mockup-frame-pro.png'} style={{ width: '300px', top: '230px', left: '40px', zIndex: '2' }} />
+                                <img className="positioned slideInRight" src={gutenverseImgDir + '/upgrade-pro-mockup-cube-gutenverse.png'} style={{ width: '160px', top: '250px', right: '-70px', zIndex: '99', animationDelay: '0.1s' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/upgrade-pro-mockup-icon-lottie.png'} style={{ width: '50px', top: '280px', left: '30px', animationDelay: '0.4s' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/upgrade-pro-mockup-icon-megamenu.png'} style={{ width: '50px', top: '90px', right: '40px', animationDelay: '0.3s' }} />
+                                <img className="positioned scaleIn" src={gutenverseImgDir + '/upgrade-pro-mockup-icon-text-marquee.png'} style={{ width: '50px', top: '100px', left: '30px', animationDelay: '0.2s' }} />
                             </div>
                         </div>
                     </SplideSlide>

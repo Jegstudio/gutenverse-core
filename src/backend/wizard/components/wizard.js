@@ -395,7 +395,7 @@ const GettingStarted = ({ updateProgress, gutenverseImgDir }) => {
 };
 
 const WizardPage = () => {
-    const [progress, setProgress] = useState('upgradePro');
+    const [progress, setProgress] = useState('startWizard');
     const [progressCount, setProgressCount] = useState(0);
     const [action, setAction] = useState('install');
     const [clicked, setClicked] = useState(0);

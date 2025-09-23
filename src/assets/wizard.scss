@@ -1485,11 +1485,11 @@ body {
 
         @keyframes scaleIn {
             from {
-                transform: translate(-50%, -50%) scale(0.2);
+                transform: scale(0.2);
                 opacity: 0;
             }
             to {
-                transform: translate(-50%, -50%) scale(1);
+                transform: scale(1);
                 opacity: 1;
             }
         }
@@ -1524,11 +1524,11 @@ body {
 
         .content-left {
             padding: 60px 30px 0 50px;
-            width: calc(54% - 80px);
+            width: calc(55% - 80px);
         }
 
         .content-right {
-            width: 46%;
+            width: 45%;
             position: relative;
 
             img {
