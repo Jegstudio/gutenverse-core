@@ -182,6 +182,7 @@ class Upgrade_Wizard {
 					'1x' => 'https://ps.w.org/gutenverse-companion/assets/icon-128x128.png?rev=3162415',
 				),
 				'download_url' => '',
+				'version' => '2.0.0',
 			),
 		);
 
