@@ -142,6 +142,7 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                     pagination: false,
                     pauseOnHover: false,
                     pauseOnFocus: false,
+                    resetProgress: false,
                 }}>
                 <SplideTrack>
                     <SplideSlide>
