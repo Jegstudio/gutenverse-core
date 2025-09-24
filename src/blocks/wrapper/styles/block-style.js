@@ -14,7 +14,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['displayType']) && data.push({
         'type': 'plain',
         'id': 'displayType',
-        'selector': `.editor-styles-wrapper .is-root-container .block-editor-inner-blocks .block-editor-block-list__layout .${elementId}.guten-element.guten-wrap-helper`,
+        'selector': `.editor-styles-wrapper .is-root-container .block-editor-inner-blocks .block-editor-block-list__layout .${elementId}.guten-element.guten-wrap-helper, .editor-styles-wrapper .is-root-container .${elementId}.guten-element.guten-wrap-helper`,
         'properties': [
             {
                 'name': 'display',
@@ -93,7 +93,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'verticalAlign',
         'responsive': true,
-        'selector': `.${elementId}.guten-element`,
+        'selector': `.${elementId}.guten-element, .${elementId}.guten-element .guten-inner-wrap>.block-editor-inner-blocks>.block-editor-block-list__layout`,
         'properties': [
             {
                 'name': 'align-content',
