@@ -138,12 +138,12 @@ const Library = (props) => {
                 'installedPlugin': plugins,
             });
 
-            initLibraryState = applyFilters('gutenverse.library.states', initLibraryState);
-            dispatch('gutenverse/library').initialModalData({
-                'libraryData': initLibraryState,
-                'layoutContentData': initLayoutState,
-            });
             setTimeout(() => {
+                initLibraryState = applyFilters('gutenverse.library.states', initLibraryState);
+                dispatch('gutenverse/library').initialModalData({
+                    'libraryData': initLibraryState,
+                    'layoutContentData': initLayoutState,
+                });
             }, 500);
         }
     }, [open]);
