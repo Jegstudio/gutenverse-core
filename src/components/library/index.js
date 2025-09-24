@@ -143,6 +143,8 @@ const Library = (props) => {
                 'libraryData': initLibraryState,
                 'layoutContentData': initLayoutState,
             });
+            setTimeout(() => {
+            }, 500);
         }
     }, [open]);
 
