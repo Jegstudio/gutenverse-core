@@ -191,6 +191,7 @@ class Upgrader {
 
 			add_option( $this->get_plugin_theme_select_name(), true );
 			delete_transient( 'gutenverse_wizard_redirect' );
+			update_option( 'gutenverse-companion_wizard_init_done', 'yes' );
 
 			wp_safe_redirect(
 				admin_url( 'admin.php?action=gutenverse-onboarding-wizard' )

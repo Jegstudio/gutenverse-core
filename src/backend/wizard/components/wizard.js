@@ -392,8 +392,8 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                 <div onClick={() => {
                     themeAction(1, 'unibiz');
                     setReloadingSlug('unibiz');
-                }} className={`button-install ${requirement ? 'complete' : ''}`}>
-                    {__(requirement ? 'Unibiz Installed' : 'Install Unibiz Theme', 'gutenverse')}
+                }} className={`button-install ${requirement ? 'complete' : 'loading' === action ? 'proccessing' : ''}`}>
+                    {__(requirement ? 'Unibiz Installed' : 'loading' === action ? installing?.message : 'Install Unibiz Theme', 'gutenverse')}
                 </div>
                 <p className="notice-install">
                     {__('By clicking “Install Unibiz Theme” you consent to installing and activating the Gutenverse Companion plugin.', 'gutenverse')}
@@ -465,7 +465,6 @@ const WizardPage = () => {
                 });
         }, 200);
     }, [clicked]);
-    console.log(clicked);
 
     const content = () => {
         const {
