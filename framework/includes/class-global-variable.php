@@ -101,7 +101,10 @@ class Global_Variable {
 				$google_fonts = array();
 				$fonts_config = $config['globalVariable']['fonts'];
 				$fonts_option = get_option( $this->font_option );
-				$fonts        = array_merge( $fonts_config, $fonts_option );
+				$fonts        = $fonts_config;
+				if ( $fonts_option ) {
+					$fonts = array_merge( $fonts_config, $fonts_option );
+				}
 
 				foreach ( $fonts as $font ) {
 					$the_font = $font['font'];
