@@ -99,7 +99,10 @@ class Global_Variable {
 			$config = apply_filters( 'gutenverse_block_config', array() );
 			if ( isset( $config['globalVariable']['fonts'] ) ) {
 				$google_fonts = array();
-				$fonts        = $config['globalVariable']['fonts'];
+				$fonts_config = $config['globalVariable']['fonts'];
+				$fonts_option = get_option( $this->font_option );
+				$fonts        = array_merge( $fonts_config, $fonts_option );
+
 				foreach ( $fonts as $font ) {
 					$the_font = $font['font'];
 					if ( ! empty( $the_font ) ) {
