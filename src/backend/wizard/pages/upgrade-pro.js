@@ -211,7 +211,7 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                     <ul className="content-list">
                                         <li>
                                             <div className="circle"><Check size={12} /></div>
-                                            <span>{__('Advanced Animation Effects.', 'gutenverse')}</span>
+                                            <span>{__('Advanced', 'gutenverse')} <br /> <span>{__('Animation Effects.', 'gutenverse')}</span> </span>
                                         </li>
                                         <li>
                                             <div className="circle"><Check size={12} /></div>
@@ -229,7 +229,7 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                     <ul className="content-list">
                                         <li>
                                             <div className="circle"><Check size={12} /></div>
-                                            <span>{__('Animated Shape Dividers.', 'gutenverse')}</span>
+                                            <span>{__('Animated', 'gutenverse')} <br /> <span>{__('Shape Dividers.', 'gutenverse')}</span> </span>
                                         </li>
                                         <li>
                                             <div className="circle"><Check size={12} /></div>
@@ -336,6 +336,18 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                             <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
                                         </svg>
                                     </div>
+                                </div>
+                                <div className="flexible-container-arrow" >
+                                    <svg width="75" height="66" viewBox="0 0 81 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.14771 51.5482C55.9057 58.3778 90.3609 32.8459 66.1666 10.5624" stroke="url(#paint0_linear_24721_12165)" strokeWidth="1.5" strokeLinecap="round"/>
+                                        <path d="M9.61444 48.8749L6.32684 51.5726L8.69361 55.3227" stroke="#3B57F7" strokeWidth="1.5" strokeLinecap="round"/>
+                                        <defs>
+                                            <linearGradient id="paint0_linear_24721_12165" x1="30.6503" y1="51.7548" x2="43.9983" y2="4.05337" gradientUnits="userSpaceOnUse">
+                                                <stop stopColor="#3B57F7"/>
+                                                <stop offset="1" stopColor="#3B57F7" stopOpacity="0"/>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
                                 </div>
                             </div>
                             <div className="content-right">

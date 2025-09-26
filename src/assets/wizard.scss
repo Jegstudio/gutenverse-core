@@ -325,7 +325,7 @@ body {
             }
 
             &.done {
-                border-bottom: 3px solid #3B57F7;
+                border-bottom: 4px solid #3B57F7;
             }
 
             &.active {
@@ -352,6 +352,10 @@ body {
             border: none;
         }
 
+        &.upgrade-pro {
+            border-bottom: none;
+        }
+
         .theme-install {
             display: flex;
             flex-wrap: wrap;
@@ -359,7 +363,7 @@ body {
             align-items: center;
             position: relative;
             width: 100%;
-            height: 725px;
+            height: 721px;
             overflow: hidden;
             border-radius: inherit;
 
@@ -375,7 +379,7 @@ body {
                 .text-content {
                     z-index: 3;
                     margin-left: 64px;
-                    margin-top: 86px;
+                    margin-top: 75px;
                     max-width: 545px;
 
                     .content-title {
@@ -427,10 +431,9 @@ body {
                         border: 2px 1px 1px 1px solid white;
                         position: relative;
                         border-radius: 10px;
-                        background: linear-gradient(91.52deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%);
+                        background: radial-gradient(103.69% 112% at 51.27% 100%, #4992FF 0%, #7722FF 100%);
                         cursor: pointer;
                         transition: all 0.3s ease;
-
                         font-family: 'Host Grotesk', sans-serif;
                         font-weight: 600;
                         font-size: 18px;
@@ -449,7 +452,7 @@ body {
                             position: absolute;
                             inset: 0;
                             padding: 2px 1px 1px 1px;
-                            background: linear-gradient(91.52deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%);
+                            background: linear-gradient(180deg, #9760FF 0%, rgba(255, 255, 255, 0.1) 100%);
                             border-radius: 10px;
                             -webkit-mask:
                                 linear-gradient(#fff 0 0) content-box,
@@ -470,7 +473,7 @@ body {
                     }
 
                     .notice-install {
-                        font-family: "Roboto", sans-serif;
+                        font-family: "Host Grotesk", sans-serif;
                         font-weight: 400;
                         font-size: 14px;
                         line-height: 20px;
@@ -569,7 +572,7 @@ body {
                     gap: 9px;
                     padding: 12px 32px;
                     border-radius: 5px;
-                    background-color: #3B57F7;
+                    background-color: rgba(59, 87, 247, 1);
                     font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: 500;
@@ -579,7 +582,7 @@ body {
                     transition: background-color 0.3s ease, color 0.3s ease;
 
                     &:hover {
-                        background-color: #3B57F7;
+                        background-color: rgba(36, 53, 236, 1);
                     }
                 }
             }
@@ -629,7 +632,7 @@ body {
                     vertical-align: middle;
 
                     .gradient-text {
-                        background: linear-gradient(89.55deg, #E948FF 40.61%, #466AFF 68.55%, #63D2F6 91.41%);
+                        background: linear-gradient(89.55deg,#e948ff 3.61%,#466aff 47.55%,#63d2f6 91.41%);
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                         background-clip: text;
@@ -720,15 +723,18 @@ body {
                 }
 
                 a.consent-notice-link {
-                    font-weight: 600;
+                    font-weight: 500;
                     font-size: 14px;
                     letter-spacing: 0;
                     text-align: center;
                     vertical-align: middle;
                     text-decoration: underline;
                     text-decoration-style: solid;
-                    text-decoration-offset: 0;
                     text-decoration-thickness: 1px;
+
+                    &:hover {
+                        opacity: 0.6;
+                    }
                 }
             }
 
@@ -747,7 +753,7 @@ body {
 
                 &.item-2 {
                     height: 21.8px;
-                    right: 257px;
+                    right: 245px;
                     top: 95px;
                     width: 20px;
                 }
@@ -765,7 +771,7 @@ body {
             bottom: 0;
             right: 0;
             width: 100%;
-            padding: 22px 50px;
+            padding: 20px 40px;
             box-sizing: border-box;
             background-color: #ffff;
             border-radius: 0 0 20px 20px;
@@ -1444,7 +1450,7 @@ body {
         // flex-direction: column;
         position: relative;
         background: #fff;
-        border-radius: 18px;
+        border-radius: 10px;
         border: 1px solid #e3e4e6;
         height: 100%;
         box-sizing: border-box;
@@ -1523,8 +1529,8 @@ body {
         }
 
         .content-left {
-            padding: 60px 30px 0 50px;
-            width: calc(55% - 80px);
+            padding: 60px 50px 0 50px;
+            width: calc(55% - 100px);
         }
 
         .content-right {
@@ -1580,16 +1586,23 @@ body {
             left: 0;
             height: 100%;
         }
+        
+        .flexible-container-arrow {
+            width: fit-content;
+            position: absolute;
+            left: 278px;
+            top: 254px;
+        }
 
         .upgrade-pro-button {
             z-index: 10;
             position: relative;
             cursor: pointer;
-            background: linear-gradient(180deg, #7722FF 0%, #4992FF 100%);
+            background: radial-gradient(103.69% 112% at 51.27% 100%, #4992FF 0%, #7722FF 100%);
             transition: all 0.5s ease;
             border-radius: 10px;
             overflow: hidden;
-            margin: 24px 0 0;
+            margin: 32px 0 0;
             width: fit-content;
 
             &::before.disable {
@@ -1604,6 +1617,22 @@ body {
                     linear-gradient(#000 0 0) content-box,
                     linear-gradient(#000 0 0);
                 mask-composite: exclude;
+            }
+
+
+            &::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                padding: 2px 1px 1px 1px;
+                background: linear-gradient(180deg, #9760FF 0%, rgba(255, 255, 255, 0.1) 100%);
+                border-radius: 10px;
+                -webkit-mask:
+                    linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                z-index: 3;
             }
 
 
@@ -1663,11 +1692,11 @@ body {
             z-index: 1;
             max-width: 400px;
             font-family: 'Inter', sans-serif;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 400;
             line-height: 1.4;
             letter-spacing: normal;
-            color: #6e7e8c;
+            color: hsla(207, 100%, 12%, 0.6);
             vertical-align: middle;
             margin: 14px 0 0;
 
@@ -1687,7 +1716,7 @@ body {
         }
 
         .content-list {
-            margin-top: 20px;
+            margin-top: 16px;
             padding-left: 0;
 
             li {
@@ -1702,13 +1731,13 @@ body {
                 font-weight: 400;
                 line-height: 1.4;
                 letter-spacing: normal;
-                color: #6e7e8c;
+                color: hsla(207, 100%, 12%, 0.6);
                 vertical-align: middle;
                 list-style: none;
                 flex-wrap: wrap;
 
                 &:not(:first-child) {
-                    margin: 10px 0 0;
+                    margin: 8px 0 0;
                 }
 
                 .circle {
@@ -1740,12 +1769,14 @@ body {
     }
 
     .upgrade-footer{
-        position: sticky;
+        // position: sticky;
         bottom: 0;
         padding-bottom: 20px;
         background-color: #f0f0f1;
         border: none;
         z-index: 99;
+        width: calc(100% + 2px);
+        margin-left: -1px;
     }
 
     .upgrade-actions {
@@ -1753,7 +1784,8 @@ body {
         align-items: center;
         justify-content: flex-end;
         border: solid 1px #e3e4e6;
-        padding: 20px 50px;
+
+        padding: 20px 40px;
         gap: 20px;
         border-radius: 0px 0px 20px 20px;
         background: white;
@@ -1803,7 +1835,7 @@ body {
     }
 
     .slider-wrapper {
-        padding: 80px 80px 60px;
+        padding: 52px 80px;
         margin: 0 auto;
         width: fit-content;
         position: relative;
@@ -1814,7 +1846,7 @@ body {
             position: absolute;
             right: 15px;
             bottom: 10px;
-            background-color: #00000022;
+            background: rgba(255, 255, 255, 0.16);
             border-radius: 100px;
             line-height: 0;
         }
@@ -1895,11 +1927,12 @@ body {
                 align-items: center;
                 justify-content: space-between;
                 width: 100%;
+                margin-top: -5px;
 
                 span {
-                    font-family: Inter, serif;
+                    font-family: "Inter", sans-serif;
                     font-size: 12px;
-                    font-weight: normal;
+                    font-weight: 400;
                     font-stretch: normal;
                     font-style: normal;
                     line-height: 1.33;
@@ -2605,9 +2638,9 @@ body {
                     overflow: hidden;
 
                     .content-title {
-                        font-family: "Inter", sans-serif;
+                        font-family: 'Host Grotesk', sans-serif;
                         font-size: 20px;
-                        font-weight: 600;
+                        font-weight: 500;
                         font-stretch: normal;
                         font-style: normal;
                         line-height: normal;

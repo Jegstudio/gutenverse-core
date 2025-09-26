@@ -150,6 +150,12 @@
 }
 .splide__arrow:disabled {
 	background: #DBE7FF;
+
+	svg {
+		path {
+			stroke: #00223D;
+		}
+	}
 }
 .splide__arrow:focus-visible {
 	outline: 3px solid #933aff;
@@ -225,8 +231,11 @@
 			justify-content: center;
 			gap: 10px;
 			color: #00223d55;
-			font-size: 12px;
+			font-size: 14px;
+			font-weight: 500;
 			align-items: center;
+			margin-bottom: 20px;
+			margin-top: 0;
 
 			svg {
 				size: 22px;

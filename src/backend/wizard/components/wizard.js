@@ -323,6 +323,10 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                 <ul className="content-list-container">
                     <li className="content-list">
                         {checkIcon}
+                        {__('The Official Theme for Gutenverse', 'gutenverse')}
+                    </li>
+                    <li className="content-list">
+                        {checkIcon}
                         {__('50+ Stunning Demo Sites', 'gutenverse')}
                     </li>
                     <li className="content-list">
