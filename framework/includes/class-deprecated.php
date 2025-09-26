@@ -25,8 +25,8 @@ class Deprecated {
 
 		// Filter.
 		if ( ! apply_filters( 'gutenverse_themes_override_mechanism', false ) ) {
-			add_filter( 'pre_get_block_templates', array( $this, 'get_block_template' ), null, 3 );
-			add_filter( 'get_block_file_template', array( $this, 'get_block_file_template' ), null, 5 );
+			add_filter( 'pre_get_block_templates', array( $this, 'get_block_template' ), 10, 3 );
+			add_filter( 'get_block_file_template', array( $this, 'get_block_file_template' ), 10, 5 );
 		}
 	}
 
@@ -60,7 +60,7 @@ class Deprecated {
 		$parts = explode( '//', $id, 2 );
 		if ( count( $parts ) < 2 ) {
 			/** This filter is documented in wp-includes/block-template-utils.php */
-			return apply_filters( 'get_block_file_template', null, $id, $template_type );
+			return $block_template;
 		}
 		list( $theme, $slug ) = $parts;
 
@@ -224,7 +224,8 @@ class Deprecated {
 
 		foreach ( $themes as $theme_slug => $theme_dir ) {
 			$template_base_paths  = get_block_theme_folders( $theme_slug );
-			$theme_template_files = _get_block_templates_paths( $theme_dir . '/' . $template_base_paths[ $template_type ] );
+			$theme_template_dir   = apply_filters( 'gutenverse_stylesheet_directory', $theme_dir ) . '/' . $template_base_paths[ $template_type ];
+			$theme_template_files = _get_block_templates_paths( $theme_template_dir );
 
 			foreach ( $theme_template_files as $template_file ) {
 				$template_base_path = $template_base_paths[ $template_type ];
@@ -236,7 +237,10 @@ class Deprecated {
 					-5
 				);
 
-				if ( ! gutenverse_child_template( $template_base_paths[ $template_type ], $template_slug ) ) {
+				if (
+					! gutenverse_child_template( $template_base_paths[ $template_type ], $template_slug )
+					&& apply_filters( 'gutenverse_themes_override_mechanism', false )
+				) {
 					$template_file = apply_filters( 'gutenverse_template_path', $template_file, $theme_slug, $template_slug );
 				}
 
@@ -256,8 +260,10 @@ class Deprecated {
 				}
 			}
 		}
-
-		return apply_filters( 'gutenverse_themes_template', $template_files, $template_type );
+		if ( apply_filters( 'gutenverse_themes_override_mechanism', false ) ) {
+			return apply_filters( 'gutenverse_themes_template', $template_files, $template_type );
+		}
+		return $template_files;
 	}
 
 	/**
@@ -280,14 +286,24 @@ class Deprecated {
 			get_stylesheet() => get_stylesheet_directory(),
 			get_template()   => get_template_directory(),
 		);
+
 		foreach ( $themes as $theme_slug => $theme_dir ) {
 			$template_base_paths = get_block_theme_folders( $theme_slug );
-			$file_path           = $theme_dir . '/' . $template_base_paths[ $template_type ] . '/' . $slug . '.html';
+			$file_path           = '/' . $template_base_paths[ $template_type ] . '/' . $slug . '.html';
+			$theme_dir_after     = apply_filters( 'gutenverse_stylesheet_directory', $theme_dir );
 
-			if ( ! gutenverse_child_template( $template_base_paths[ $template_type ], $slug ) ) {
-				$file_path = apply_filters( 'gutenverse_template_path', $file_path, $theme_slug, $slug );
+			if ( file_exists( $theme_dir_after . $file_path ) ) {
+				$file_path = $theme_dir_after . $file_path;
+			} else {
+				$file_path = $theme_dir . $file_path;
 			}
 
+			if (
+				! gutenverse_child_template( $template_base_paths[ $template_type ], $slug )
+				&& apply_filters( 'gutenverse_themes_override_mechanism', false )
+			) {
+				$file_path = apply_filters( 'gutenverse_template_path', $file_path, $theme_slug, $slug );
+			}
 			if ( file_exists( $file_path ) ) {
 				$new_template_item = array(
 					'slug'  => $slug,
@@ -295,6 +311,8 @@ class Deprecated {
 					'theme' => $theme_slug,
 					'type'  => $template_type,
 				);
+
+				$new_template_item = apply_filters( 'gutenverse_templete_file', $new_template_item );
 
 				if ( 'wp_template_part' === $template_type ) {
 					return _add_block_template_part_area_info( $new_template_item );
