@@ -35,6 +35,7 @@ const FunFactBlock = compose(
         supper,
         showSupper,
         number,
+        safeNumber,
         duration,
         titleTag: TitleTag,
         hoverBottom,
@@ -45,7 +46,15 @@ const FunFactBlock = compose(
         lazyLoad,
         iconPosition,
         contentDisplay,
+        numberFormat = '',
+        numberRightSpace,
     } = attributes;
+
+    useEffect(() => {
+        if (number && !safeNumber) {
+            setAttributes({safeNumber: number});
+        }
+    }, []);
 
     const imageAltText = imageAlt || null;
     const elementRef = useRef(null);
@@ -59,17 +68,58 @@ const FunFactBlock = compose(
 
     useEffect(() => {
         if (elementRef.current) {
-            elementRef.current.querySelector('.number').innerHTML = 0;
+            const numberElement = elementRef.current.querySelector('.number');
+
+            let used = number ? number : safeNumber;
+            let formatter = null;
+
+            // fallback for old block
+            if (safeNumber) {
+                const formatComma = safeNumber.replaceAll( ',', '.' );
+                const isValidNumber = /^-?\d+(\.\d+)?$/.test(formatComma);
+                if (!isValidNumber) {
+                    console.warn('[FunFact] Invalid number input (potentially unsafe):', formatComma);
+                    numberElement.textContent = 'Invalid number';
+                    return;
+                }
+
+                if(numberFormat === 'comma') {
+                    formatter = new Intl.NumberFormat('en-US', {
+                        maximumFractionDigits: 0
+                    });
+                }else if(numberFormat === 'point') {
+                    formatter = new Intl.NumberFormat('id-ID', {
+                        maximumFractionDigits: 0
+                    });
+                }
+
+                used = Math.round(parseFloat(formatComma));
+            }
+
+            numberElement.textContent = '0';
+
+            if (!numberRightSpace) {
+                used = `${used} `;
+            }
+
             anime({
-                targets: elementRef.current.querySelector('.number'),
-                innerHTML: number,
+                targets: numberElement,
+                innerHTML: used,
                 easing: 'easeInOutQuart',
                 round: 1,
                 duration,
+                update: formatter && safeNumber ? function(anim) {
+                    const val = parseInt(anim.animations[0].currentValue);
+                    numberElement.textContent = !isNaN(val) ? formatter.format( val ) : anim.animations[0].currentValue;
+                } : null
             });
         }
-        return () => anime.remove(elementRef.current?.querySelector('.number'));
-    }, [number, duration]);
+
+        return () => {
+            const numberElement = elementRef.current?.querySelector('.number');
+            if (numberElement) anime.remove(numberElement);
+        };
+    }, [safeNumber, duration, numberFormat]);
 
     useEffect(() => {
         if (elementRef) {

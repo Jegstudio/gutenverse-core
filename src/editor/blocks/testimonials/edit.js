@@ -40,6 +40,7 @@ const TestimonialsBlock = compose(
         quoteOverride,
         contentPosition,
         showRating,
+        showClientImage,
         iconRatingHalf,
         iconRatingFull,
         starPosition,
@@ -87,6 +88,7 @@ const TestimonialsBlock = compose(
                             quoteOverride={quoteOverride}
                             contentPosition={contentPosition}
                             showRating={showRating}
+                            showClientImage={showClientImage}
                             iconRatingFull={iconRatingFull}
                             iconRatingHalf={iconRatingHalf}
                             starPosition={starPosition}

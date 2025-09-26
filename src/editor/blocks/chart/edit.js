@@ -61,25 +61,25 @@ const ChartBlock = compose(
     } = props;
 
     const {
-        elementId,
-        titleTag = 'h2',
-        icon,
         url,
         rel,
-        linkTarget,
-        enableContent,
-        chartContent,
-        tooltipDisplay,
-        legendDisplay,
-        chartItems,
-        chartType,
-        totalValue,
-        animationDuration,
-        contentType,
-        minValue,
+        icon,
         cutout,
+        minValue,
+        elementId,
+        chartType,
+        linkTarget,
+        chartItems,
+        totalValue,
+        contentType,
+        chartContent,
         barThickness,
+        legendDisplay,
+        enableContent,
+        tooltipDisplay,
+        titleTag = 'h2',
         cutoutBackground,
+        animationDuration,
         enableContentParsed
     } = attributes;
 
@@ -93,6 +93,7 @@ const ChartBlock = compose(
     const chartRef = useRef();
     const titleRef = useRef();
     const descRef = useRef();
+    const canvasRef = useRef();
     // const panelState = {
     //     panel: 'setting',
     //     section: 2,
@@ -150,19 +151,9 @@ const ChartBlock = compose(
     }, [enableContent]);
 
     useEffect(() => {
-        //return jika ada double elementId
-        const checkElement = document.querySelectorAll(`.${elementId}`);
-        if (checkElement.length > 1) return;
-
-        const iframe = document.querySelector('iframe[name="editor-canvas"]');
-        let iframecanvas;
-        if (iframe) {
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            iframecanvas = iframeDoc.getElementById(`chart-canvas-${elementId}`);
+        if (!canvasRef.current) {
+            return;
         }
-
-        const canvas = document.getElementById(`chart-canvas-${elementId}`) || iframecanvas;
-        if (!canvas) return;
 
         const customPositioner = (elements, eventPosition) => ({
             x: eventPosition.x,
@@ -174,12 +165,23 @@ const ChartBlock = compose(
             tooltipPlugin.positioners.custom = customPositioner;
         }
 
-        const data = getChartData(attributes, multiValue, canvas);
+        const data = getChartData(attributes, multiValue, canvasRef.current);
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const generateChart = new Chart(canvasRef.current, data);
+                    chartRef.current = generateChart;
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
 
-        const generateChart = new Chart(canvas, data);
-        chartRef.current = generateChart;
+        observer.observe(canvasRef.current);
 
         return () => {
+            observer.disconnect();
             if (chartRef.current) {
                 chartRef.current.destroy();
                 chartRef.current = null;
@@ -250,56 +252,58 @@ const ChartBlock = compose(
             gutenverseRoot
         )}
         <div {...blockProps} >
-            {enableContent[deviceType] && <div className="chart-content content-card">
-                <RichTextComponent
-                    ref={titleRef}
-                    classNames={'chart-title'}
-                    tagName={titleTag}
-                    aria-label={__('Chart Title', 'gutenverse')}
-                    placeholder={__('Write title...', 'gutenverse')}
-                    onChange={value => setAttributes({ title: value })}
-                    multiline={false}
-                    setAttributes={setAttributes}
-                    attributes={attributes}
-                    clientId={clientId}
-                    contentAttribute={'title'}
-                    // panelDynamic={{ panel: 'setting', section: 3 }}
-                    // panelPosition={{ panel: 'style', section: 1 }}
-                    // setPanelState={setPanelState}
-                    // textChilds={'titleChilds'}
-                    // dynamicList={'titleDynamicList'}
-                    // isUseDinamic={true}
-                    // isUseHighlight={true}
-                    // parentHasLink={isGlobalLinkSet}
-                />
-                {'doughnut' !== chartType && 'none' !== chartContent ? insideChart : ''}
-                <RichTextComponent
-                    ref={descRef}
-                    classNames={'chart-description'}
-                    tagName={'p'}
-                    aria-label={__('Chart Description', 'gutenverse')}
-                    placeholder={__('Write description...', 'gutenverse')}
-                    onChange={value => setAttributes({ description: value })}
-                    multiline={false}
-                    setAttributes={setAttributes}
-                    attributes={attributes}
-                    clientId={clientId}
-                    contentAttribute={'description'}
-                    // panelDynamic={{ panel: 'setting', section: 3 }}
-                    // panelPosition={{ panel: 'style', section: 1 }}
-                    // setPanelState={setPanelState}
-                    // textChilds={'descriptionChilds'}
-                    // dynamicList={'descriptionDynamicList'}
-                    // isUseDinamic={true}
-                    // isUseHighlight={true}
-                    // parentHasLink={isGlobalLinkSet}
-                />
-            </div>}
-            <div className="chart-content content-chart">
-                <div className="chart-container">
-                    <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
+            <div className="guten-chart-wrapper">
+                {enableContent[deviceType] && <div className="chart-content content-card">
+                    <RichTextComponent
+                        ref={titleRef}
+                        classNames={'chart-title'}
+                        tagName={titleTag}
+                        aria-label={__('Chart Title', 'gutenverse')}
+                        placeholder={__('Write title...', 'gutenverse')}
+                        onChange={value => setAttributes({ title: value })}
+                        multiline={false}
+                        setAttributes={setAttributes}
+                        attributes={attributes}
+                        clientId={clientId}
+                        contentAttribute={'title'}
+                        // panelDynamic={{ panel: 'setting', section: 3 }}
+                        // panelPosition={{ panel: 'style', section: 1 }}
+                        // setPanelState={setPanelState}
+                        // textChilds={'titleChilds'}
+                        // dynamicList={'titleDynamicList'}
+                        // isUseDinamic={true}
+                        // isUseHighlight={true}
+                        // parentHasLink={isGlobalLinkSet}
+                    />
+                    {'doughnut' !== chartType && 'none' !== chartContent ? insideChart : ''}
+                    <RichTextComponent
+                        ref={descRef}
+                        classNames={'chart-description'}
+                        tagName={'p'}
+                        aria-label={__('Chart Description', 'gutenverse')}
+                        placeholder={__('Write description...', 'gutenverse')}
+                        onChange={value => setAttributes({ description: value })}
+                        multiline={false}
+                        setAttributes={setAttributes}
+                        attributes={attributes}
+                        clientId={clientId}
+                        contentAttribute={'description'}
+                        // panelDynamic={{ panel: 'setting', section: 3 }}
+                        // panelPosition={{ panel: 'style', section: 1 }}
+                        // setPanelState={setPanelState}
+                        // textChilds={'descriptionChilds'}
+                        // dynamicList={'descriptionDynamicList'}
+                        // isUseDinamic={true}
+                        // isUseHighlight={true}
+                        // parentHasLink={isGlobalLinkSet}
+                    />
+                </div>}
+                <div className="chart-content content-chart">
+                    <div className="chart-container">
+                        <canvas ref={canvasRef} id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
+                    </div>
+                    {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
                 </div>
-                {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
             </div>
         </div>
     </>;

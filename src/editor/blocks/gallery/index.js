@@ -13,7 +13,7 @@ const { name, attributes } = metadata;
 export { metadata, name };
 export const settings = {
     icon: <IconGallerySVG />,
-    example: example,
+    example,
     edit,
     save,
     deprecated: [

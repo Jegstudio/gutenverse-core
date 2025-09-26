@@ -105,7 +105,11 @@ const PostBlockBlock = compose(
             u(elementRef.current)
                 .find('.guten-block-loadmore')
                 .on('click', () => {
-                    setPostLoaded(postLoaded + parseInt(paginationNumberPost));
+                    u(elementRef.current).find('.guten-block-loadmore').html(`<span data-load="Load More" data-loading="Loading...">${paginationLoadingText}</span>`);
+                    setTimeout(() => {
+                        setPostLoaded(postLoaded + parseInt(paginationNumberPost));
+                        u(elementRef.current).find('.guten-block-loadmore').html(`<span data-load="Load More" data-loading="Loading...">${paginationLoadmoreText}</span>`);
+                    }, 500);
                 });
             u(elementRef.current)
                 .find('.btn-pagination.next:not(.disabled)')
@@ -131,90 +135,91 @@ const PostBlockBlock = compose(
     }, [response]);
 
     useEffect(() => {
-        if (isOnEditor()) {
-            setLoading(true);
-            elementId &&
-                apiFetch({
-                    path: addQueryArgs(
-                        '/wp/v2/block-renderer/gutenverse/post-block',
-                        {
-                            context: 'edit',
-                            attributes: {
-                                elementId,
-                                inheritQuery,
-                                postType,
-                                contentOrder,
-                                postOffset,
-                                numberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost :
-                                    parseInt(postLoaded) === parseInt(numberPost)
-                                        ? numberPost
-                                        : postLoaded,
-                                breakpoint,
-                                includePost,
-                                excludePost,
-                                includeCategory,
-                                excludeCategory,
-                                includeAuthor,
-                                includeTag,
-                                excludeTag,
-                                sortBy,
-                                htmlTag,
-                                categoryEnabled,
-                                categoryPosition,
-                                excerptEnabled,
-                                excerptLength,
-                                excerptMore,
-                                readmoreEnabled,
-                                readmoreIcon,
-                                readmoreIconPosition,
-                                readmoreText,
-                                commentEnabled,
-                                commentIcon,
-                                commentIconPosition,
-                                metaEnabled,
-                                metaAuthorEnabled,
-                                metaAuthorByText,
-                                metaAuthorIcon,
-                                metaAuthorIconPosition,
-                                metaDateEnabled,
-                                metaDateType,
-                                metaDateFormat,
-                                metaDateFormatCustom,
-                                metaDateIcon,
-                                metaDateIconPosition,
-                                postblockType,
-                                paginationMode,
-                                paginationLoadmoreText,
-                                paginationLoadingText,
-                                paginationNumberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost : paginationNumberPost,
-                                paginationScrollLimit,
-                                paginationIcon,
-                                paginationIconPosition,
-                                paginationPrevNextText,
-                                paginationPrevText,
-                                paginationNextText,
-                                paginationPrevIcon,
-                                paginationNextIcon,
-                                editParam: {
-                                    page
-                                }
+        setLoading(true)
+        setTimeout(() => {
+            if (isOnEditor()) {
+                elementId &&
+                    apiFetch({
+                        path: addQueryArgs(
+                            '/wp/v2/block-renderer/gutenverse/post-block',
+                            {
+                                context: 'edit',
+                                attributes: {
+                                    elementId,
+                                    inheritQuery,
+                                    postType,
+                                    contentOrder,
+                                    postOffset,
+                                    numberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost :
+                                        parseInt(postLoaded) === parseInt(numberPost)
+                                            ? numberPost
+                                            : postLoaded,
+                                    breakpoint,
+                                    includePost,
+                                    excludePost,
+                                    includeCategory,
+                                    excludeCategory,
+                                    includeAuthor,
+                                    includeTag,
+                                    excludeTag,
+                                    sortBy,
+                                    htmlTag,
+                                    categoryEnabled,
+                                    categoryPosition,
+                                    excerptEnabled,
+                                    excerptLength,
+                                    excerptMore,
+                                    readmoreEnabled,
+                                    readmoreIcon,
+                                    readmoreIconPosition,
+                                    readmoreText,
+                                    commentEnabled,
+                                    commentIcon,
+                                    commentIconPosition,
+                                    metaEnabled,
+                                    metaAuthorEnabled,
+                                    metaAuthorByText,
+                                    metaAuthorIcon,
+                                    metaAuthorIconPosition,
+                                    metaDateEnabled,
+                                    metaDateType,
+                                    metaDateFormat,
+                                    metaDateFormatCustom,
+                                    metaDateIcon,
+                                    metaDateIconPosition,
+                                    postblockType,
+                                    paginationMode,
+                                    paginationLoadmoreText,
+                                    paginationLoadingText,
+                                    paginationNumberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost : paginationNumberPost,
+                                    paginationScrollLimit,
+                                    paginationIcon,
+                                    paginationIconPosition,
+                                    paginationPrevNextText,
+                                    paginationPrevText,
+                                    paginationNextText,
+                                    paginationPrevIcon,
+                                    paginationNextIcon,
+                                    editParam: {
+                                        page
+                                    }
+                                },
                             },
-                        },
-                    ),
-                })
-                    .then((data) => {
-                        setResponse(data.rendered);
+                        ),
                     })
-                    .catch(() => {
-                        setResponse('<span>Error</span>');
-                    })
-                    .finally(() => setLoading(false));
-        } else {
-            let articles = '';
-            for (let i = 0; i < numberPost; i++) {
+                        .then((data) => {
+                            setResponse(data.rendered);
+                        })
+                        .catch(() => {
+                            setResponse('<span>Error</span>');
+                        })
 
-                const meta = metaEnabled ?
-                    `<div class="guten-post-meta">
+            } else {
+                let articles = '';
+                for (let i = 0; i < numberPost; i++) {
+
+                    const meta = metaEnabled ?
+                        `<div class="guten-post-meta">
                         ${metaAuthorEnabled ? `<div class="guten-meta-author icon-position-before">${metaAuthorIconPosition === 'before' ? `<i aria-hidden="true"
                                 class="${metaAuthorIcon}"></i>` : ''}<span class="by">${metaAuthorByText}</span> <a href="javascript:void(0);">gutenverse</a>${metaAuthorIconPosition === 'before' ? '' : `<i aria-hidden="true"
                                 class="${metaAuthorIcon}"></i>`}
@@ -225,8 +230,8 @@ const PostBlockBlock = compose(
                         </div>` : ''}
                     </div>` : '';
 
-                const metaBottom = readmoreEnabled || commentEnabled ?
-                    `<div class="guten-post-meta-bottom">
+                    const metaBottom = readmoreEnabled || commentEnabled ?
+                        `<div class="guten-post-meta-bottom">
                         ${readmoreEnabled ? `<div class="guten-meta-readmore icon-position-after">
                             <a href="javascript:void(0);"
                                 ${readmoreIconPosition === 'before' ? 'class="guten-readmore"><i aria-hidden="true" class="fas fa-arrow-right"></i>Read More</a>' : 'class="guten-readmore">Read More<i aria-hidden="true" class="fas fa-arrow-right"></i></a>'}
@@ -238,18 +243,18 @@ const PostBlockBlock = compose(
                         </div>` : ''}
                     </div>` : '';
 
-                const excerpt = excerptEnabled ? `<div class="guten-post-excerpt">
+                    const excerpt = excerptEnabled ? `<div class="guten-post-excerpt">
                                         <p>${dummyText(10, 20)}${excerptMore ? excerptMore : '...'}</p>
                                     </div>` : '';
 
-                const category = categoryEnabled ?
-                    `<div class="guten-post-category ">
+                    const category = categoryEnabled ?
+                        `<div class="guten-post-category ">
                         <span>
                             <a href="javascript:void(0);" class="category-category">category</a>
                         </span>
                     </div>` : '';
 
-                articles += `<article
+                    articles += `<article
                                 class="guten-post post-${i} post type-post status-publish format-standard has-post-thumbnail hentry category-category tag-tag">
                                 <div class="guten-thumb"><a href="javascript:void(0);">
                                         <div class="thumbnail-container ">
@@ -271,22 +276,22 @@ const PostBlockBlock = compose(
                                     ${metaBottom}
                                 </div>
                             </article>`;
-            }
+                }
 
-            let pagination = '';
-            switch (paginationMode) {
-                default:
-                    pagination = '';
-                    break;
-                case 'loadmore':
-                    pagination =
-                        `<div class="guten-block-pagination guten-align">
+                let pagination = '';
+                switch (paginationMode) {
+                    default:
+                        pagination = '';
+                        break;
+                    case 'loadmore':
+                        pagination =
+                            `<div class="guten-block-pagination guten-align">
                         <div class="guten-block-loadmore icon-position-before"><span data-load="Load More" data-loading="Loading..."> ${paginationLoadmoreText}</span></div>
                     </div>`;
-                    break;
-                case 'prevnext':
-                    pagination =
-                        `<div class="guten_block_nav additional_class" data-page="1">
+                        break;
+                    case 'prevnext':
+                        pagination =
+                            `<div class="guten_block_nav additional_class" data-page="1">
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination prev disabled" title="Prev">
                             <i class="${paginationPrevIcon}"></i> ${paginationPrevNextText ? paginationPrevText : ''}
                         </a>
@@ -294,10 +299,10 @@ const PostBlockBlock = compose(
                             ${paginationPrevNextText ? paginationNextText : ''}  <i class="${paginationNextIcon}"></i>
                         </a>
                     </div>`;
-                    break;
-                case 'number':
-                    pagination =
-                        `<div class="guten_block_nav" data-page="4">
+                        break;
+                    case 'number':
+                        pagination =
+                            `<div class="guten_block_nav" data-page="4">
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination prev" title="Prev">
                             <i class="${paginationPrevIcon}"></i> ${paginationPrevNextText ? paginationPrevText : ''}
                         </a>
@@ -312,20 +317,21 @@ const PostBlockBlock = compose(
                             ${paginationPrevNextText ? paginationNextText : ''}  <i class="${paginationNextIcon}"></i>
                         </a>
                     </div>`;
-                    break;
-            }
-            setResponse(`<div class="gutenverse guten-postblock postblock-${postblockType} guten-pagination-prevnext break-point-tablet post-element ${elementId}"
-                data-id="${elementId}">
-                <div class="guten-block-container">
-                    <div class="guten-posts guten-ajax-flag">
-                        ${articles}
+                        break;
+                }
+                setResponse(`<div class="gutenverse guten-postblock postblock-${postblockType} guten-pagination-prevnext break-point-tablet post-element ${elementId}"
+                    data-id="${elementId}">
+                    <div class="guten-block-container">
+                        <div class="guten-posts guten-ajax-flag">
+                            ${articles}
+                        </div>
                     </div>
-                </div>
-                ${pagination}
-            </div>`);
+                    ${pagination}
+                </div>`);
+            }
             setLoading(false);
-        }
 
+        }, 500);
     }, [
         elementId,
         contentOrder,
@@ -403,7 +409,7 @@ const PostBlockBlock = compose(
     };
     return (
         <>
-            <CopyElementToolbar {...props}/>
+            <CopyElementToolbar {...props} />
             <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
             <div {...blockProps}>
                 {!loading ? (

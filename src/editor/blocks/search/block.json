@@ -277,11 +277,14 @@
 		}
 	},
 	"supports": {
-		"className": false
+		"className": false,
+		"anchor": true
 	},
 	"keywords": [
 		"search",
 		"gutenverse"
 	],
-	"example": {}
+	"example": {
+		"elementId": "guten-preview-search"
+	}
 }

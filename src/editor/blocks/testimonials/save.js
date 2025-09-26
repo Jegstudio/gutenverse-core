@@ -27,6 +27,7 @@ const save = compose(
         showNav,
         showArrow,
         showQuote,
+        showClientImage,
         iconQuote,
         quoteOverride,
         contentPosition,
@@ -47,7 +48,7 @@ const save = compose(
         `style-${contentType}`,
         'quote-override',
     );
-    
+
     return (
         <div {...useBlockProps.save({ className })}>
             <div className="testimonials-list">
@@ -61,6 +62,7 @@ const save = compose(
                                 quoteOverride={quoteOverride}
                                 contentPosition={contentPosition}
                                 showRating={showRating}
+                                showClientImage={showClientImage}
                                 iconRatingFull={iconRatingFull}
                                 iconRatingHalf={iconRatingHalf}
                                 starPosition={starPosition}

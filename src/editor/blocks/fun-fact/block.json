@@ -120,11 +120,23 @@
 		},
 		"number": {
 			"type": "string",
-			"default": "789"
+			"default": ""
+		},
+		"safeNumber": {
+			"type": "string",
+			"migrate": {
+				"attr": "number",
+				"type": "string"
+			},
+			"default": ""
 		},
 		"suffix": {
 			"type": "string",
 			"default": "M"
+		},
+		"numberFormat": {
+			"type": "string",
+			"default": ""
 		},
 		"title": {
 			"type": "string",
@@ -348,7 +360,8 @@
 		}
 	},
 	"supports": {
-		"className": false
+		"className": false,
+		"anchor": true
 	},
 	"keywords": [
 		"fun",

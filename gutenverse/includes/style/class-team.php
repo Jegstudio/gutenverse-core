@@ -283,8 +283,15 @@ class Team extends Style_Abstract {
 		if ( isset( $this->attrs['jobColorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .profile-sub, #{$this->element_id}:hover .profile-sub, .{$this->element_id}:hover .profile-box .profile-card.card-overlay .profile-body .profile-sub,
-						.{$this->element_id}:hover .profile-sub> a, #{$this->element_id}:hover .profile-sub> a, .{$this->element_id}:hover .profile-box .profile-card.card-overlay .profile-body .profile-sub> a",
+					'selector'       => "
+					.{$this->element_id}:hover .profile-sub, 
+					#{$this->element_id}:hover .profile-sub, 
+					.{$this->element_id}:hover .profile-box .profile-card.card-overlay .profile-body .profile-sub,
+					.{$this->element_id}:hover .profile-box .profile-card.card-title-social-horizontal .profile-body .profile-sub,
+					.{$this->element_id}:hover .profile-sub> a, 
+					#{$this->element_id}:hover .profile-sub> a, 
+					.{$this->element_id}:hover .profile-box .profile-card.card-overlay .profile-body .profile-sub> a,
+					.{$this->element_id}:hover .profile-box .profile-card.card-title-social-horizontal .profile-body .profile-sub> a",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},

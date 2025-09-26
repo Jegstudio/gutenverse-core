@@ -25,10 +25,25 @@ class Upgrade_Wizard {
 	public static $action = 'gutenverse-upgrade-wizard';
 
 	/**
+	 * Hold API Variable Instance.
+	 *
+	 * @var Api
+	 */
+	public $api;
+
+	/**
+	 * Onboard Action Slug
+	 *
+	 * @var string
+	 */
+	public static $onboard = 'gutenverse-onboarding-wizard';
+
+	/**
 	 * Upgrade_Wizard constructor.
 	 */
 	public function __construct() {
 		add_action( 'admin_action_' . self::$action, array( $this, 'wizard_page' ) );
+		add_action( 'admin_action_' . self::$onboard, array( $this, 'onboard_wizard_page' ) );
 	}
 
 	/**
@@ -60,23 +75,23 @@ class Upgrade_Wizard {
 	 */
 	public function render_wizard() {
 		?>
-<!DOCTYPE html>
-<html <?php language_attributes(); ?>>
-<head>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title><?php esc_html_e( 'Gutenverse Upgrade Wizard', 'gutenverse' ); ?></title>
-		<?php wp_head(); ?>
-</head>
-<body>
-<div id="gutenverse-wizard"></div>
-		<?php
-		wp_footer();
-		/** This action is documented in wp-admin/admin-footer.php */
-		do_action( 'admin_print_footer_scripts' );
-		?>
-</body>
-</html>
+			<!DOCTYPE html>
+			<html <?php language_attributes(); ?>>
+			<head>
+				<meta charset="utf-8"/>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+				<title><?php esc_html_e( 'Gutenverse Upgrade Wizard', 'gutenverse' ); ?></title>
+					<?php wp_head(); ?>
+			</head>
+			<body>
+			<div id="gutenverse-wizard"></div>
+					<?php
+					wp_footer();
+					/** This action is documented in wp-admin/admin-footer.php */
+					do_action( 'admin_print_footer_scripts' );
+					?>
+			</body>
+			</html>
 		<?php
 	}
 
@@ -127,6 +142,8 @@ class Upgrade_Wizard {
 			'GutenverseWizard',
 			$this->wizard_config()
 		);
+
+		do_action( 'enqueue_script_in_wizard' );
 	}
 
 	/**
@@ -135,14 +152,93 @@ class Upgrade_Wizard {
 	 * @return array
 	 */
 	public function wizard_config() {
-		$config              = array();
-		$config['dashboard'] = admin_url( 'admin.php?page=gutenverse' );
-		$config['status']    = array(
+		$config                 = array();
+		$config['dashboard']    = admin_url( 'admin.php?page=gutenverse' );
+		$config['ajaxurl']      = admin_url( 'admin-ajax.php' );
+		$config['installNonce'] = wp_create_nonce( 'updates' );
+		$config['theme_slug']   = apply_filters( 'gutenverse_companion_base_theme', false ) ? wp_get_theme()->get_template() : 'show-case';
+		$config['status']       = array(
 			'form' => ! is_plugin_active( 'gutenverse-form/gutenverse-form.php' ),
 			'icon' => ! Init::instance()->assets->is_font_icon_exists(),
 		);
 
+		$active_plugins = get_option( 'active_plugins' );
+		$plugins        = array();
+
+		foreach ( $active_plugins as $active ) {
+			$plugins[] = explode( '/', $active )[0];
+		}
+
+		$config['plugins_url'] = plugins_url();
+		$config['plugin_list'] = self::list_plugin();
+		$config['plugins']     = array(
+			array(
+				'slug'         => 'gutenverse-companion',
+				'title'        => 'Gutenverse Companion',
+				'short_desc'   => '',
+				'active'       => in_array( 'gutenverse-companion', $plugins, true ),
+				'installed'    => $this->is_installed( 'gutenverse-companion' ),
+				'icons'        => array(
+					'1x' => 'https://ps.w.org/gutenverse-companion/assets/icon-128x128.png?rev=3162415',
+				),
+				'download_url' => '',
+			),
+		);
+
+		$config['isProActive']      = defined( 'GUTENVERSE_PRO_VERSION' );
+		$config['adminUrl']         = admin_url();
+		$config['gutenverseImgDir'] = GUTENVERSE_URL . '/assets/img';
+		$config['ImgDir']           = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
+		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
+
+		$response = Api::instance()->base_theme_get( '' );
+		if ( isset( $response ) && isset( $response->data['companion'] ) ) {
+			$data_list = $response->data['companion'];
+			$new_list  = array();
+
+			foreach ( $data_list as $data ) {
+				$slug     = $data['slug'];
+				$new_data = $data;
+
+				$is_active    = wp_get_theme()->get_stylesheet() === $slug;
+				$is_installed = wp_get_theme( $slug )->exists();
+
+				$new_data['active']    = $is_active;
+				$new_data['installed'] = $is_installed;
+
+				$new_list[] = $new_data;
+			}
+			$config['themeData'] = $new_list;
+		} else {
+			$config['themeData'] = null;
+		}
 		return $config;
+	}
+
+	/**
+	 * Get List Of Installed Plugin.
+	 *
+	 * @return array
+	 */
+	public static function list_plugin() {
+		$plugins = array();
+		$active  = array();
+
+		foreach ( get_option( 'active_plugins' ) as  $plugin ) {
+			$active[] = explode( '/', $plugin )[0];
+		}
+
+		foreach ( get_plugins() as $key => $plugin ) {
+			$slug             = explode( '/', $key )[0];
+			$data             = array();
+			$data['active']   = in_array( $slug, $active, true );
+			$data['version']  = $plugin['Version'];
+			$data['name']     = $plugin['Name'];
+			$data['path']     = str_replace( '.php', '', $key );
+			$plugins[ $slug ] = $data;
+		}
+
+		return $plugins;
 	}
 
 	/**
@@ -162,5 +258,71 @@ class Upgrade_Wizard {
 			array(),
 			GUTENVERSE_VERSION
 		);
+	}
+
+	/**
+	 * Wizard Page.
+	 *
+	 * @throws \Exception Throw exception.
+	 */
+	public function onboard_wizard_page() {
+		try {
+
+			if ( ! current_user_can( 'install_plugins' ) ) {
+				throw new \Exception( 'Access denied', 403 );
+			}
+
+			header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
+			$this->set_hook();
+			$this->render_onboard_wizard();
+			exit();
+		} catch ( \Exception $e ) {
+			echo wp_kses( $e->getMessage(), wp_kses_allowed_html() );
+		}
+	}
+
+	/**
+	 * Render Onboard Wizard.
+	 */
+	public function render_onboard_wizard() {
+		?>
+			<!DOCTYPE html>
+			<html <?php language_attributes(); ?>>
+			<head>
+				<meta charset="utf-8"/>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+				<title><?php esc_html_e( 'Welcome to Gutenverse', 'gutenverse' ); ?></title>
+					<?php wp_head(); ?>
+			</head>
+			<body>
+			<div id="gutenverse-onboard-wizard"></div>
+					<?php
+					wp_footer();
+					/** This action is documented in wp-admin/admin-footer.php */
+					do_action( 'admin_print_footer_scripts' );
+					?>
+			</body>
+			</html>
+		<?php
+	}
+
+	/**
+	 * Check if plugin is installed.
+	 *
+	 * @param string $plugin_slug plugin slug.
+	 *
+	 * @return boolean
+	 */
+	public function is_installed( $plugin_slug ) {
+		$all_plugins = get_plugins();
+		foreach ( $all_plugins as $plugin_file => $plugin_data ) {
+			$plugin_dir = dirname( $plugin_file );
+
+			if ( $plugin_dir === $plugin_slug ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

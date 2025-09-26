@@ -90,6 +90,11 @@ export const panelContent = ({ showQuote, contentType }) => {
             component: CheckboxControl,
         },
         {
+            id: 'showClientImage',
+            label: __('Show Client Image', 'gutenverse'),
+            component: CheckboxControl,
+        },
+        {
             id: 'iconQuote',
             show: showQuote,
             label: __('Quote Icon', 'gutenverse'),

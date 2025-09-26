@@ -9,7 +9,7 @@ import { addQueryArgs } from '@wordpress/url';
 import { useRef } from '@wordpress/element';
 import { RawHTML } from '@wordpress/element';
 import GutenverseNavMenu from '../../../frontend/blocks/nav-menu';
-import { NavSkeleton, classnames, NavSkeletonNormal } from 'gutenverse-core/components';
+import { NavSkeleton, classnames } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
@@ -170,9 +170,9 @@ const NavMenuBlock = compose(
         <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
-            {menuId ? !loading ? <RawHTML key="html">
+            {!loading && response ? <RawHTML key="html">
                 {response}
-            </RawHTML> : <NavSkeleton /> : <NavSkeletonNormal />}
+            </RawHTML> : <NavSkeleton />}
         </div>
     </>;
 });

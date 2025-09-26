@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 3.1.0
+Stable tag: 3.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,6 +298,54 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.2.0 =
+##### New & Improvemenets
+* add toggle avatar (image) to testimonials block
+* add notification center for Gutenverse notices
+* add Custom Page CSS & JS
+* add new library option when Companion theme is installed
+* add wizard setup for Companion theme
+* add inactive timer to open popup
+* add more options for Advanced Tabs block
+
+##### Bug Fixes
+* fix frontend inline style
+* fix post meta block icon size
+* fix popup exit/close animation
+* fix issue with Taxonomy List block option causing error
+* fix Post Block pagination when value is empty
+* fix Chart block to load on view instead of page load
+* fix Fun Fact block recovery issue
+
+= 3.1.2 =
+##### Bug Fixes
+* fix social icon item border
+* fix fun fact fallback for previous version
+* fix advance heading text input
+* fix feature list custom icon alignment
+* fix chart block container
+* fix chart block tooltip overlap with title
+* fix chart block inline issue
+* fix chart block bart style
+* fix flexible wrapper width/height slider
+* fix gallery popup error
+* fix portfolio gallery border radius
+* fix portfolio gallery hover link and background hover
+* fix icon box preview frontend and editor
+
+= 3.1.1 =
+##### New & Improvemenets
+* add default spacing  in paragraph block
+
+##### Bug Fixes
+* fix funfact input with number can now includes decimal numbers
+* fix post terms styling is inconsistent on frontend and backend
+* fix advance heading input 
+* fix post block pagination’s active border
+* fix block preview in library
+* fix google map glitching when there is local anchor url
+* fix security issue. credit: Wordfence.
+
 = 3.1.0 =
 ##### New & Improvemenets
 * improve progress bar block styles

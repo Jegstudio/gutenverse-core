@@ -101,7 +101,8 @@
 	"supports": {
 		"className": false,
 		"html": false,
-		"innerBlocks": true
+		"innerBlocks": true,
+		"anchor": true
 	},
 	"keywords": [
 		"tabs",

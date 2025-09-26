@@ -5,6 +5,7 @@ import metadata from './block.json';
 import example from './data/example';
 import saveV1 from './deprecated/v1/save';
 import saveV2 from './deprecated/v2/save';
+import saveV3 from './deprecated/v3/save';
 import { IconTestimonialSVG } from '../../../assets/icon/index';
 
 const { name, attributes } = metadata;
@@ -24,6 +25,10 @@ export const settings = {
         {
             attributes,
             save: saveV2
+        },
+        {
+            attributes,
+            save: saveV3
         },
     ]
 };

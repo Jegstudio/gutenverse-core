@@ -58,6 +58,10 @@
 			"type": "boolean",
 			"default": false
 		},
+		"showClientImage": {
+			"type": "boolean",
+			"default": true
+		},
 		"showRating": {
 			"type": "boolean",
 			"default": false
@@ -588,7 +592,8 @@
 		}
 	},
 	"supports": {
-		"className": false
+		"className": false,
+		"anchor": true
 	},
 	"keywords": [
 		"testimonial",
