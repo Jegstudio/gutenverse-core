@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ImageRadioControl, SizeControl, RangeControl, SelectControl, CheckboxControl } from 'gutenverse-core/controls';
+import { ImageRadioControl, SizeControl, RangeControl, SelectControl, CheckboxControl, TextControl, NumberControl } from 'gutenverse-core/controls';
 import { applyFilters } from '@wordpress/hooks';
 
 export const popupPanel = (props) => {
@@ -7,6 +7,7 @@ export const popupPanel = (props) => {
         elementId,
         position,
         openTrigger,
+        popupType
     } = props;
     const {
         gutenverseImgDir
@@ -15,6 +16,92 @@ export const popupPanel = (props) => {
     return applyFilters(
         'gutenverse.popup-builder.options',
         [{
+            id: 'popupType',
+            label: __('Popup Type', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: 'Default',
+                    value: 'default'
+                },
+                {
+                    label: 'Video',
+                    value: 'youtube'
+                },
+            ],
+        },
+        {
+            id: 'popupVideoSrc',
+            show: popupType === 'youtube',
+            label: __('Video URL', 'gutenverse'),
+            description: __('Currently supported External URL Types are : YouTube & Media File', 'gutenverse'),
+            component: TextControl
+        },
+        {
+            id: 'popupVideoStart',
+            show: popupType === 'youtube',
+            label: __('Video Start', 'gutenverse'),
+            description: __('in Seconds. For example 1:30 minutes will be 90', 'gutenverse'),
+            component: NumberControl
+        },
+        {
+            id: 'popupVideoEnd',
+            show: popupType === 'youtube',
+            label: __('Video End', 'gutenverse'),
+            description: __('in Seconds. For example 1:30 minutes will be 90', 'gutenverse'),
+            component: NumberControl
+        },
+        {
+            id: 'popupVideoHideControls',
+            show: popupType === 'youtube',
+            label: __('Hide Control', 'gutenverse'),
+            component: CheckboxControl
+        },
+        {
+            id: 'popupVideoLoop',
+            show: popupType === 'youtube',
+            label: __('Loop', 'gutenverse'),
+            component: CheckboxControl
+        },
+        {
+            id: 'popupVideoMuted',
+            show: popupType === 'youtube',
+            label: __('Muted', 'gutenverse'),
+            component: CheckboxControl
+        },
+        {
+            id: 'popupVideoPlayOn',
+            show: popupType === 'youtube',
+            label: __('Play Video On', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: 'Video Click',
+                    value: 'click'
+                },
+                {
+                    label: 'First Pop',
+                    value: 'first'
+                },
+                {
+                    label: 'Every Pop',
+                    value: 'every'
+                },
+            ],
+        },
+        {
+            id: 'popupVideoPauseOnClose',
+            show: popupType === 'youtube',
+            label: __('Pause Video On Close', 'gutenverse'),
+            component: CheckboxControl
+        },
+        {
+            id: 'popupVideoResetOnClose',
+            show: popupType === 'youtube',
+            label: __('Reset Video On Close', 'gutenverse'),
+            component: CheckboxControl
+        },
+        {
             id: 'hideAfterClosed',
             label: __('Don\'t Repeat Pop-Up', 'gutenverse'),
             description: __('Hide Pop-up After Shown Once '),

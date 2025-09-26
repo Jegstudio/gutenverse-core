@@ -11,6 +11,7 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import PopupVideoContent from './components/popup-video';
 
 const PopupBuilder = (props) => {
     const {
@@ -28,17 +29,26 @@ const PopupBuilder = (props) => {
         closePosition,
         exitAnimation,
         exitAnimationDuration,
-        exitAnimationDelay
+        exitAnimationDelay,
+        popupType,
+        popupVideoPlayOn,
+        popupVideoStart,
+        popupVideoPauseOnClose,
+        popupVideoResetOnClose
     } = attributes;
 
     const [show, setShow] = useState(false);
     const [exit, setExit] = useState(false);
+    const [playing, setPlaying] = useState(false);
+    const [firstPlaying, setFirstPlaying] = useState(true);
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const elementRef = useRef();
     const containerRef = useRef();
     const deviceType = getDeviceType();
+
+    const videoRef = useRef();
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
@@ -69,12 +79,29 @@ const PopupBuilder = (props) => {
         'data-close-overlay': closePopupOverlay
     });
 
-    const toggleShow = () => setShow((show) => !show);
+    const toggleShow = () => {
+        setShow((show) => !show);
+        if (popupVideoResetOnClose && videoRef.current) {
+            videoRef.current.seekTo(popupVideoStart);
+        }
+        if (popupVideoPlayOn === 'first' && !firstPlaying) {
+            return;
+        }
+        if (popupVideoPlayOn === 'first' || popupVideoPlayOn === 'every') {
+            setPlaying(true);
+            if (popupVideoPlayOn === 'first') {
+                setFirstPlaying(false);
+            }
+        }
+    };
     const hidePopup = () => {
         setExit(true);
         setTimeout(() => {
             setExit(false);
             setShow(false);
+            if (popupVideoPauseOnClose) {
+                setPlaying(false);
+            }
         }, exitAnimation ? (parseInt(exitAnimationDuration) || 0) + (parseInt(exitAnimationDelay) || 0) || 1000 : 0);
     };
     const overlayClicked = () => { closePopupOverlay ? hidePopup() : null; };
@@ -85,6 +112,15 @@ const PopupBuilder = (props) => {
             && !(e.target.closest('.components-popover'))
             && !(e.target.closest('.interface-interface-skeleton__sidebar'))) {
             overlayClicked();
+        }
+    };
+
+    const renderContent = () => {
+        switch(popupType) {
+            case 'youtube':
+                return <PopupVideoContent playing={playing} setPlaying={setPlaying} attributes={attributes} videoRef={videoRef} />;
+            default:
+                return <div {...innerBlocksProps} />;
         }
     };
 
@@ -121,7 +157,7 @@ const PopupBuilder = (props) => {
                         {showCloseButton && closePosition === 'container' && <div className="guten-popup-close" onClick={hidePopup}>
                             <i className={closeIcon} />
                         </div>}
-                        <div {...innerBlocksProps} />
+                        {renderContent()}
                     </div>
                 </div>
             </div>}
