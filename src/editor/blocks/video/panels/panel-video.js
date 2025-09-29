@@ -32,7 +32,8 @@ export const videoPanel = (props) => {
             show: videoType !== undefined,
             label: __('Video URL', 'gutenverse'),
             description: videoType === 'externalLink' ? __('Currently supported External URL Types are : YouTube, Twitch, Vimeo, and DailyMotion', 'gutenverse') : null,
-            component: TextControl
+            component: TextControl,
+            liveUpdate: true,
         },
         {
             id: 'start',

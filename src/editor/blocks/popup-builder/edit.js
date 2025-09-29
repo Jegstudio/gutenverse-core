@@ -2,8 +2,8 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
 import { useState } from '@wordpress/element';
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-import { classnames } from 'gutenverse-core/components';
+import { RichText, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { Button, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
@@ -16,6 +16,7 @@ import PopupVideoContent from './components/popup-video';
 const PopupBuilder = (props) => {
     const {
         attributes,
+        setAttributes,
         clientId
     } = props;
     const {
@@ -34,13 +35,15 @@ const PopupBuilder = (props) => {
         popupVideoPlayOn,
         popupVideoStart,
         popupVideoPauseOnClose,
-        popupVideoResetOnClose
+        popupVideoResetOnClose,
+        popupVideoSrc,
     } = attributes;
 
     const [show, setShow] = useState(false);
     const [exit, setExit] = useState(false);
     const [playing, setPlaying] = useState(false);
     const [firstPlaying, setFirstPlaying] = useState(true);
+    const [videoSrc, setVideoSrc] = useState(popupVideoSrc);
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -115,10 +118,27 @@ const PopupBuilder = (props) => {
         }
     };
 
+    const selectVideoSrc = () => {
+        return <div className="guten-video">
+            <div className="video-url-wrapper">
+                <RichText
+                    className={'video-url'}
+                    tagName={'span'}
+                    aria-label={__('Video URL', 'gutenverse')}
+                    placeholder={__('Type/Paste Video URL Here', 'gutenverse')}
+                    value={videoSrc}
+                    onChange={setVideoSrc}
+                    withoutInteractiveFormatting
+                />
+                <Button isPrimary onClick={() => setAttributes({ popupVideoSrc: videoSrc })}>{__('Render Video')}</Button>
+            </div>
+        </div>;
+    };
+
     const renderContent = () => {
         switch(popupType) {
             case 'youtube':
-                return <PopupVideoContent playing={playing} setPlaying={setPlaying} attributes={attributes} videoRef={videoRef} />;
+                return popupVideoSrc ? <PopupVideoContent playing={playing} setPlaying={setPlaying} attributes={attributes} videoRef={videoRef} /> : selectVideoSrc();
             default:
                 return <div {...innerBlocksProps} />;
         }

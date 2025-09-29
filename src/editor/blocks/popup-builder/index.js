@@ -104,6 +104,16 @@ export const settings = {
                     openScrollDistance: parseInt(openScrollDistance),
                     openMaxClick: parseInt(openMaxClick),
                     rebuild,
+                    popupType: 'default',
+                    popupVideoSrc: '',
+                    popupVideoStart: 0,
+                    popupVideoEnd: 0,
+                    popupVideoHideControls: false,
+                    popupVideoPauseOnClose: false,
+                    popupVideoResetOnClose: false,
+                    popupVideoMuted: false,
+                    popupVideoLoop:false,
+                    popupVideoPlayOn: 'click'
                 };
 
                 return [

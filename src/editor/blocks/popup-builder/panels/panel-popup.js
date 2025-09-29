@@ -35,6 +35,7 @@ export const popupPanel = (props) => {
             show: popupType === 'youtube',
             label: __('Video URL', 'gutenverse'),
             description: __('Currently supported External URL Types are : YouTube & Media File', 'gutenverse'),
+            liveUpdate: true,
             component: TextControl
         },
         {
