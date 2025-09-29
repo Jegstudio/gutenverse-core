@@ -132,6 +132,13 @@
             }
         }
     }
+    .fa-classic, .fa-regular, .fa-solid, .far, .fas {
+        font-family: "Font Awesome 6 Free" !important;
+    }
+
+    .fa-solid, .fas {
+        font-weight: 900 !important;
+    }
 }
 
 @media screen and (max-width: 780px) {
@@ -313,12 +320,4 @@
             }
         }
     }
-}
-
-.fa-classic, .fa-regular, .fa-solid, .far, .fas {
-    font-family: "Font Awesome 6 Free" !important;
-}
-
-.fa-solid, .fas {
-    font-weight: 900 !important;
 }
