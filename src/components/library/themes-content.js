@@ -163,9 +163,7 @@ const ThemesContentNoLicense = (props) => {
 
 const ThemesContentUnibizCTA = () => {
     const { imgDir, proDemoUrl, domainURL, clientUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
-    const test = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
     const [buttonText, setButtonText] = useState(__('Install Unibiz Theme', 'gutenverse'));
-    console.log(test);
     const activateTheme = () => {
         setButtonText(<IconLoadingSVG />);
         const themeSlug = 'unibiz'; // change this to your theme slug
