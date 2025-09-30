@@ -23,20 +23,14 @@ const save = compose(
         openScrollDistance,
         openAnchor,
         openMaxClick,
+        openInterval,
         showCloseButton,
         closePosition,
         closePopupOverlay,
         hideAfterClosed,
-        popupType,
-        popupVideoSrc,
-        popupVideoPlayOn,
-        popupVideoStart,
-        popupVideoEnd,
-        popupVideoPauseOnClose,
-        popupVideoResetOnClose,
-        popupVideoHideControls,
-        popupVideoMuted,
-        popupVideoLoop
+        exitAnimation,
+        exitAnimationDuration,
+        exitAnimationDelay,
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -56,55 +50,11 @@ const save = compose(
         'data-anchor': openAnchor,
         'data-max-click': isNaN(openMaxClick) ? undefined : openMaxClick,
         'data-close-overlay': closePopupOverlay,
-        'data-video-pause-onclose': popupVideoPauseOnClose,
-        'data-video-reset-onclose': popupVideoResetOnClose,
-        'data-video-play-on': popupVideoPlayOn,
-        'data-video-start': popupVideoStart,
+        'data-inactive-interval': openInterval ? JSON.stringify(openInterval) : undefined,
+        'data-exit-animation': exitAnimation,
+        'data-exit-duration': exitAnimationDuration,
+        'data-exit-delay': exitAnimationDelay,
     });
-
-    const renderContent = () => {
-        switch(popupType) {
-            case 'youtube':
-                const className = classnames(
-                    'guten-element',
-                    'guten-video',
-                    elementId,
-                );
-                const style = {};
-                const config = {
-                    youtube: {
-                        playerVars: {
-                            start: popupVideoStart,
-                            end: popupVideoEnd,
-                        }
-                    }
-                };
-
-                const dataProperties = JSON.stringify({
-                    url: popupVideoSrc,
-                    class: 'guten-video-background',
-                    width: '100%',
-                    height: '500px',
-                    playing: false,
-                    muted: popupVideoMuted,
-                    loop: popupVideoLoop,
-                    controls: !popupVideoHideControls,
-                    playsinline: true,
-                    style,
-                    config
-                });
-
-                return <div className="guten-popup-video-container">
-                    <figure {...useBlockProps.save({ className })}>
-                        {popupVideoSrc ? <div className="guten-video-wrapper" data-property={dataProperties}></div> : null}
-                    </figure>
-                </div>;
-            default:
-                return <div className="guten-popup-container">
-                    <InnerBlocks.Content />
-                </div>;
-        }
-    };
 
     return (
         <div {...blockProps}>
@@ -138,7 +88,9 @@ const save = compose(
                                 <i className={closeIcon}></i>
                             </div>
                         )}
-                        {renderContent()}
+                        <div className="guten-popup-container">
+                            <InnerBlocks.Content />
+                        </div>
                     </div>
                 </div>
             </div>

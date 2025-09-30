@@ -31,10 +31,57 @@ class GutenversePopupElement {
         this.playAnimation = playAnimation;
         this.getAnimationClass = getAnimationClass;
         this.shownOnce = localStorage.getItem(this.dontRepeatPopup);
+        this.videoContainer = this.element.find('.guten-popup-video-container');
         this._addCloseClick();
         this._addLoadEvent();
         if ( this.dontRepeatPopup === null || this.dontRepeatPopup === undefined ){
             localStorage.removeItem(localStorage.getItem('data-hide'));
+        }
+        if (this.videoContainer) {
+            const container = this.videoContainer;
+            this.videoPlayOn = this.element.data('video-play-on');
+            this.videoPauseOnClose = this.element.data('video-pause-onclose');
+            this.videoResetOnClose = this.element.data('video-reset-onclose');
+            this.videoStart = this.element.data('video-start');
+            let player = null;
+            setTimeout(() => {
+                const iframe = container?.find('iframe')?.first();
+                if (!iframe) {
+                    player = container?.find('video')?.first();
+                    return;
+                }
+
+                const iframeId = iframe?.id;
+                const iframeSrc = iframe?.src.toLowerCase();
+
+                if (window.YT && (iframeSrc.includes('youtube.com') || iframeSrc.includes('youtube.be'))) {
+                    player = window.YT.get(iframeId);
+                }
+            }, 500);
+            this.player = () => ({
+                playVideo: () => {
+                    if (player) {
+                        player.playVideo ? player.playVideo() : null;
+                        player.play ? player.play() : null;
+
+                    }
+                },
+                pauseVideo: () => {
+                    if (player) {
+                        player.pauseVideo ? player.pauseVideo() : null;
+                        player.pause ? player.pause() : null;
+                    }
+                },
+                seekTo: (timestamp) => {
+                    if (player) {
+                        player.seekTo ? player.seekTo(timestamp) : null;
+                        if (player.currentTime && player.play) {
+                            player.currentTime = timestamp;
+                            player.play();
+                        }
+                    }
+                },
+            });
         }
     }
 
@@ -47,6 +94,21 @@ class GutenversePopupElement {
         this.playAnimation(this.element.find('.guten-popup-content'));
         this.popup.addClass('show');
         this.playAnimation(this.content);
+        if (this.videoContainer) {
+            if (this.videoResetOnClose === 'true') {
+                this.player()?.seekTo(this.videoStart ? this.videoStart : 0);
+            }
+            if (this.videoPlayOn === 'first' && this.firstPlaying) {
+                return;
+            }
+            if ((this.videoPlayOn === 'first' || this.videoPlayOn === 'every')) {
+                this.player()?.playVideo();
+                if (this.videoPlayOn === 'first') {
+                    this.firstPlaying = true;
+                }
+            }
+        }
+
     }
 
     _closePopup() {
@@ -54,6 +116,9 @@ class GutenversePopupElement {
         this.popup.removeClass('show');
         this.popup.addClass('load');
         this.content.attr('class', this.contentClass);
+        if (this.videoPauseOnClose === 'true') {
+            this.player()?.pauseVideo();
+        }
     }
 
     _addCloseClick() {

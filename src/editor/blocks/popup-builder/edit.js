@@ -2,8 +2,8 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
 import { useState } from '@wordpress/element';
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-import { classnames } from 'gutenverse-core/components';
+import { RichText, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { Button, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
@@ -11,10 +11,12 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import PopupVideoContent from './components/popup-video';
 
 const PopupBuilder = (props) => {
     const {
         attributes,
+        setAttributes,
         clientId
     } = props;
     const {
@@ -26,15 +28,26 @@ const PopupBuilder = (props) => {
         showCloseButton,
         closeIcon,
         closePosition,
+        popupType,
+        popupVideoPlayOn,
+        popupVideoStart,
+        popupVideoPauseOnClose,
+        popupVideoResetOnClose,
+        popupVideoSrc,
+
     } = attributes;
 
     const [show, setShow] = useState(false);
+    const [playing, setPlaying] = useState(false);
+    const [firstPlaying, setFirstPlaying] = useState(true);
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const elementRef = useRef();
     const containerRef = useRef();
     const deviceType = getDeviceType();
+
+    const videoRef = useRef();
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
@@ -65,9 +78,31 @@ const PopupBuilder = (props) => {
         'data-close-overlay': closePopupOverlay
     });
 
-    const toggleShow = () => setShow(show => !show);
-    const hidePopup = () => setShow(false);
-    const overlayClicked = () => { closePopupOverlay ? setShow(false) : null; };
+    const toggleShow = () => {
+        setShow((show) => !show);
+        if (popupVideoResetOnClose && videoRef.current) {
+            videoRef.current.seekTo(popupVideoStart);
+        }
+        if (popupVideoPlayOn === 'first' && !firstPlaying) {
+            return;
+        }
+        if (popupVideoPlayOn === 'first' || popupVideoPlayOn === 'every') {
+            setPlaying(true);
+            if (popupVideoPlayOn === 'first') {
+                setFirstPlaying(false);
+            }
+        }
+    };
+    const hidePopup = () => {
+        setTimeout(() => {
+            setShow(false);
+            if (popupVideoPauseOnClose) {
+                setPlaying(false);
+            }
+        });
+    };
+
+    const overlayClicked = () => { closePopupOverlay ? hidePopup() : null; };
 
     const hideClickContainer = (e) => {
         if (containerRef.current && !containerRef.current.contains(e.target)
@@ -77,6 +112,34 @@ const PopupBuilder = (props) => {
             overlayClicked();
         }
     };
+
+    const selectVideoSrc = () => {
+        return <div className="guten-video">
+            <div className="video-url-wrapper">
+                <RichText
+                    className={'video-url'}
+                    tagName={'span'}
+                    aria-label={__('Video URL', 'gutenverse')}
+                    placeholder={__('Type/Paste Video URL Here', 'gutenverse')}
+                    value={videoSrc}
+                    onChange={setVideoSrc}
+                    withoutInteractiveFormatting
+                />
+                <Button isPrimary onClick={() => setAttributes({ popupVideoSrc: videoSrc })}>{__('Render Video')}</Button>
+            </div>
+        </div>;
+    };
+
+
+    const renderContent = () => {
+        switch(popupType) {
+            case 'youtube':
+                return popupVideoSrc ? <PopupVideoContent playing={playing} setPlaying={setPlaying} attributes={attributes} videoRef={videoRef} /> : selectVideoSrc();
+            default:
+                return <div {...innerBlocksProps} />;
+        }
+    };
+
 
     return <>
         <CopyElementToolbar {...props}/>
@@ -109,7 +172,7 @@ const PopupBuilder = (props) => {
                         {showCloseButton && closePosition === 'container' && <div className="guten-popup-close" onClick={hidePopup}>
                             <i className={closeIcon} />
                         </div>}
-                        <div {...innerBlocksProps} />
+                        {renderContent()}
                     </div>
                 </div>
             </div>}

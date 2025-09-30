@@ -227,6 +227,38 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+				"popupType": {
+			"type": "string",
+			"default": "default"
+		},
+		"popupVideoSrc": {
+			"type": "string"
+		},
+		"popupVideoStart": {
+			"type": "integer"
+		},
+		"popupVideoEnd": {
+			"type": "integer"
+		},
+		"popupVideoHideControls": {
+			"type": "boolean"
+		},
+		"popupVideoPauseOnClose": {
+			"type": "boolean"
+		},
+		"popupVideoResetOnClose": {
+			"type": "boolean"
+		},
+		"popupVideoMuted": {
+			"type": "boolean"
+		},
+		"popupVideoLoop": {
+			"type": "boolean"
+		},
+		"popupVideoPlayOn": {
+			"type": "string",
+			"default": "click"
 		}
 	},
 	"supports": {
