@@ -11,6 +11,7 @@ import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 import TextAnimatedComponent from './components/text-animated-component';
 import TextHighlightedComponent from './components/text-highlighted-component';
+import TextTypingComponent from './components/complex-animation-components/text-typing-compnent';
 
 const AnimatedTextBlock = compose(
     withPartialRender,
@@ -60,6 +61,10 @@ const AnimatedTextBlock = compose(
     const loadAnimatedComponent = () => {
         if (textType == 'highlighted') {
             return <TextHighlightedComponent {...animationProps} />;
+        }
+
+        if (style === 'typing') {
+            return <TextTypingComponent {...animationProps} />;
         }
 
         return <TextAnimatedComponent {...animationProps}/>;

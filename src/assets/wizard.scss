@@ -462,7 +462,7 @@ body {
                             z-index: 3;
                         }
 
-                        &.complete {
+                        &.complete, &.proccessing {
                             background: rgba(153, 162, 169, 1);
                             pointer-events: none;
 
@@ -632,7 +632,7 @@ body {
                     vertical-align: middle;
 
                     .gradient-text {
-                        background: linear-gradient(89.55deg,#e948ff 3.61%,#466aff 47.55%,#63d2f6 91.41%);
+                        background: linear-gradient(89deg, #E948FF 7.15%, #466AFF 43.44%, #42A9FF 83.41%);
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                         background-clip: text;
@@ -1676,7 +1676,7 @@ body {
             margin: 0;
 
             .gradient-text {
-                background: linear-gradient(89.55deg, #E948FF 40.61%, #466AFF 68.55%, #63D2F6 91.41%);
+                background: linear-gradient(89deg, #E948FF 7.15%, #466AFF 43.44%, #42A9FF 83.41%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -2248,7 +2248,7 @@ body {
                         display: flex;
                         align-items: center;
 
-                        &.done {
+                        &.done, &.current {
                             >div {
                                 color: #011627;
                             }
@@ -2257,10 +2257,15 @@ body {
                         >div {
                             text-align: left;
                             margin-right: 10px;
+                            color: rgba(153, 162, 169, 1);
+                            font-weight: 500;
+                            font-family: "Inter", sans-serif;
+                            font-size: 14px;
+                            line-height: 20px;
 
                             .option-label {
                                 font-family: "Inter", sans-serif;
-                                font-weight: 500;
+                                font-weight: bold;
                                 font-size: 14px;
                                 line-height: 20px;
                                 letter-spacing: 0%;
@@ -2330,6 +2335,7 @@ body {
             .footer-info {
                 display: flex;
                 justify-content: space-between;
+                width: 100%;
 
                 span {
                     font-family: "Inter", sans-serif;
@@ -2580,12 +2586,7 @@ body {
                             margin: 0;
 
                             .gradient-text {
-                                background: linear-gradient(93deg,
-                                        #f045ff -14%,
-                                        #4569ff 51%,
-                                        #68e4f4 106%),
-                                    linear-gradient(to right, #3f3bf7, #68e4f4),
-                                    linear-gradient(to bottom, #fff3, #fff3);
+                                background: linear-gradient(89deg, #E948FF 7.15%, #466AFF 43.44%, #42A9FF 83.41%);
                                 -webkit-background-clip: text;
                                 -webkit-text-fill-color: transparent;
                                 background-clip: text;
@@ -2810,12 +2811,7 @@ body {
                     margin-top: 170px;
 
                     .gradient-text {
-                        background: linear-gradient(93deg,
-                                #f045ff -14%,
-                                #4569ff 51%,
-                                #68e4f4 106%),
-                            linear-gradient(to right, #3f3bf7, #68e4f4),
-                            linear-gradient(to bottom, #fff3, #fff3);
+                        background: linear-gradient(89deg, #E948FF 7.15%, #466AFF 43.44%, #42A9FF 83.41%);
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                         background-clip: text;

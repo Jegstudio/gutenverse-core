@@ -21,7 +21,7 @@ const textStylePop = (props) => {
         delay: (el, i) => 70 * i
     });
 
-    if (loop || (isRotationType && !stopRotating())) {
+    if (loop || (isRotationType && !stopRotating)) {
         animationRef.current.add({ //display
             targets: targetRef.current,
             delay: displayDuration
