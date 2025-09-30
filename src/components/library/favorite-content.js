@@ -57,14 +57,14 @@ const FavoriteContent = props => {
     const updateCategoryList = () => {
         const { layoutData, layoutCategories } = library;
         let categories = filterCategories(layoutData, layoutCategories, {
-            license: license.value,
+            license: license?.value,
             like: true,
             status: status?.value,
         }, 'layout');
         setLayoutCategories(categories);
         const { sectionData, sectionCategories } = library;
         categories = filterCategories(sectionData, sectionCategories, {
-            license: license.value,
+            license: license?.value,
             like: true,
             status: status?.value,
         }, 'section');
