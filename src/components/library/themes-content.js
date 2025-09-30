@@ -201,26 +201,32 @@ const ThemesContentUnibizCTA = () => {
                         <div className="title-wrapper">
                             <h2 className="title">{__('Supercharge Gutenverse', 'gutenverse')}</h2>
                             <h2 className="title">{__('With', 'gutenverse')} <span className="highlight-title">{__('Unibiz Theme!', 'gutenverse')}</span></h2>
-                            <div className="list-row">
-                                <IconLibraryThemeListSVG />
-                                <span className="list-text">{__('50+ Stunning Demo Sites', 'gutenverse')}</span>
-                            </div>
-                            <div className="list-row">
-                                <IconLibraryThemeListSVG />
-                                <span className="list-text">{__('One-Click Full Site Import', 'gutenverse')}</span>
-                            </div>
-                            <div className="list-row">
-                                <IconLibraryThemeListSVG />
-                                <span className="list-text">{__('Exclusive Template Library', 'gutenverse')}</span>
-                            </div>
-                            <div className="list-row">
-                                <IconLibraryThemeListSVG />
-                                <span className="list-text">{__('2x Faster Site Performance', 'gutenverse')}</span>
-                            </div>
-                            <div className="list-row">
-                                <IconLibraryThemeListSVG />
-                                <span className="list-text">{__('Experience a Next-Level FSE Theme', 'gutenverse')}</span>
-                            </div>
+                            <ul className="list-row-container">
+                                <li className="list-row">
+                                    <IconLibraryThemeListSVG />
+                                    <span className="list-text">{__('The Official Theme for Gutenverse', 'gutenverse')}</span>
+                                </li>
+                                <li className="list-row">
+                                    <IconLibraryThemeListSVG />
+                                    <span className="list-text">{__('50+ Stunning Demo Sites', 'gutenverse')}</span>
+                                </li>
+                                <li className="list-row">
+                                    <IconLibraryThemeListSVG />
+                                    <span className="list-text">{__('One-Click Full Site Import', 'gutenverse')}</span>
+                                </li>
+                                <li className="list-row">
+                                    <IconLibraryThemeListSVG />
+                                    <span className="list-text">{__('Exclusive Template Library', 'gutenverse')}</span>
+                                </li>
+                                <li className="list-row">
+                                    <IconLibraryThemeListSVG />
+                                    <span className="list-text">{__('2x Faster Site Performance', 'gutenverse')}</span>
+                                </li>
+                                <li className="list-row">
+                                    <IconLibraryThemeListSVG />
+                                    <span className="list-text">{__('Experience a Next-Level FSE Theme', 'gutenverse')}</span>
+                                </li>
+                            </ul>
                             <div className="action-wrapper">
                                 <div className="button-install-theme" onClick={activateTheme}>{buttonText}</div>
                                 <a className="button-learn-more" href={`${proDemoUrl}/unibiz/`} target="_blank" rel="noreferrer">{__('Learn More', 'gutenverse')}</a>
