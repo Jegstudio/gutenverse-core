@@ -69,6 +69,7 @@
 		"react-datepicker": "^4.25.0",
 		"react-feather": "^2.0.10",
 		"shufflejs": "^6.1.1",
-		"swiper": "https://gitpkg.vercel.app/Jegstudio/swiper-for-gutenverse/11.1.8?main"
+		"swiper": "https://gitpkg.vercel.app/Jegstudio/swiper-for-gutenverse/11.1.8?main",
+		"typed.js": "^2.1.0"
 	}
 }
