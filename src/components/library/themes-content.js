@@ -193,8 +193,7 @@ const ThemesContentUnibizCTA = () => {
     };
     return <>
         <div id="gutenverse-library-themes-content-wrapper">
-            <div className="banner-wrapper">
-                <img className="background-banner" src={`${imgDir}/wizard-bg-cta-companion.png`} alt="background" />
+            <div className="banner-wrapper" style={{ backgroundImage: `url(${imgDir}/wizard-bg-cta-companion.png` }}>
                 <div className="banner-content">
                     <div className="banner-glitter" style={{ backgroundImage: `url(${imgDir}/wizard-bg-confetti-unibiz.png)` }}></div>
                     <div className="col-1">
@@ -231,11 +230,12 @@ const ThemesContentUnibizCTA = () => {
                                 <div className="button-install-theme" onClick={activateTheme}>{buttonText}</div>
                                 <a className="button-learn-more" href={`${proDemoUrl}/unibiz/`} target="_blank" rel="noreferrer">{__('Learn More', 'gutenverse')}</a>
                             </div>
-                            <p className="notice-text">{__('By clicking “Install Unibiz Theme” I agree to install & activate Gutenverse Companion plugin.', 'gutenverse')}</p>
+                            <p className="notice-text">{__('By clicking “Install Unibiz Theme” you consent to installing and activating the Gutenverse Companion plugin.', 'gutenverse')}</p>
                         </div>
                     </div>
                     <div className="col-2" style={{ backgroundImage: `url(${imgDir}/wizard-bg-list-demo.png)` }}>
-                        <img className="mockup-demo-image" src={`${imgDir}/wizard-mockup-demo-companion-with-shadow.png`} alt="computer" />
+                        <img className="mockup-demo-image" src={`${imgDir}/wizard-mockup-demo-companion.png`} alt="computer" />
+                        <div className="mockup-demo-image layout"></div>
                     </div>
                 </div>
             </div>

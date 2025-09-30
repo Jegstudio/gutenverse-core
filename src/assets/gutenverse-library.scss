@@ -2122,9 +2122,10 @@ $border: #eaeaea;
     .banner-wrapper {
         position: relative;
         height: 660px;
-        margin: 10px;
+        margin: 20px;
         overflow: hidden;
         border-radius: 5px;
+        background-size: cover;
 
         @media screen and (max-width: 700px) {
             .list-demo-image {
@@ -2177,17 +2178,22 @@ $border: #eaeaea;
 
                 .title-wrapper {
                     padding: 40px;
+
+                    .list-row-container {
+                        margin: 0px;
+                    }
                 }
 
                 .notice-text {
-                    font-family: Roboto;
+                    font-family: "Roboto", sans-serif;
                     font-weight: 400;
                     font-size: 12px;
                     color: #00223D99;
+                    max-width: 327px;
                 }
 
                 .title {
-                    font-family: Host Grotesk;
+                    font-family: "Host Grotesk", sans-serif;
                     font-weight: 700;
                     font-size: 40px;
                     background: linear-gradient(93.32deg, #00223D 0.65%, #371C73 68.04%);
@@ -2205,24 +2211,26 @@ $border: #eaeaea;
                     }
 
                     &:last-of-type {
-                        margin-bottom: 25px;
+                        margin-bottom: 24px;
                     }
                 }
 
                 .list-row {
                     display: flex;
-                    gap: 5px;
+                    gap: 10px;
                     align-items: center;
                     font-family: "Roboto", sans-serif;
                     font-weight: 400;
                     font-size: 18px;
                     color: #00223D99;
+                    line-height: normal;
+                    margin-bottom: 12px;
                 }
 
                 .action-wrapper {
                     display: flex;
                     gap: 20px;
-                    margin-top: 25px;
+                    margin-top: 32px;
                     margin-bottom : 15px;
 
                     .button-install-theme {
@@ -2279,7 +2287,22 @@ $border: #eaeaea;
             }
 
             .mockup-demo-image {
+                position: absolute;
+                right: 20px;
+                top: 143px;
                 width: 80%;
+                width: 495px;
+                z-index: 2;
+
+                &.layout {
+                    border-radius: 10px;
+                    box-shadow: 0 0 40px #b3edf4;
+                    height: 231px;
+                    right: 100px;
+                    top: 207px;
+                    width: 335px;
+                    z-index: 1;
+                }
             }
         }
 
@@ -2312,6 +2335,34 @@ $border: #eaeaea;
 
         to {
             transform: rotate(360deg);
+        }
+    }
+
+    @media screen and (min-width: 1875px) {
+        .banner-wrapper {
+            height: 696px;
+
+            .banner-content {
+
+                .col-2 {
+                    background-size: contain;
+                    background-position-x: 125px;
+                    height: calc(100% + 10px);
+                }
+
+                .mockup-demo-image {
+                    right: 20px;
+                    top: 160px;
+                    width: 510px;
+
+                    &.layout {
+                        height: 238px;
+                        right: 102px;
+                        top: 226px;
+                        width: 345px;
+                    }
+                }
+            }
         }
     }
 }
