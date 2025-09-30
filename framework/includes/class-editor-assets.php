@@ -37,6 +37,30 @@ class Editor_Assets {
 	 * Register Javascript Script
 	 */
 	public function register_script() {
+		wp_enqueue_style( 'gutenverse-remove-default-style', get_stylesheet_uri() );
+
+		$settings = get_option( 'gutenverse-settings' );
+		$default  = '';
+
+		if ( ! isset( $settings['frontend_settings']['remove_template_part_margin'] ) || $settings['frontend_settings']['remove_template_part_margin'] ) {
+			$default = '
+				.wp-block-template-part {
+					margin-block-start: 0!important;
+					margin-block-end: 0!important;
+				}
+			';
+		}
+
+		$enqueue_default = apply_filters(
+			'gutenverse_remove_default_style',
+			$default,
+			$settings
+		);
+
+		if ( ! empty( $enqueue_default ) ) {
+			wp_add_inline_style( 'gutenverse-remove-default-style', $enqueue_default );
+		}
+
 		// Register & Enqueue Style.
 		wp_enqueue_style(
 			'gutenverse-editor-style',
