@@ -309,7 +309,7 @@ class Init {
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .button-wrapper .unibiz-arrow{
 				position: absolute;
 				top: -35px;
-				right: -92px;
+				right: -128px;
 				width: 100px;
 			}
 
