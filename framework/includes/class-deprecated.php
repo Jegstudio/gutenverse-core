@@ -60,7 +60,7 @@ class Deprecated {
 		$parts = explode( '//', $id, 2 );
 		if ( count( $parts ) < 2 ) {
 			/** This filter is documented in wp-includes/block-template-utils.php */
-			return $block_template;
+			return apply_filters( 'get_block_file_template', null, $id, $template_type );
 		}
 		list( $theme, $slug ) = $parts;
 
@@ -153,7 +153,6 @@ class Deprecated {
 
 		if ( ! isset( $query['wp_id'] ) ) {
 			$template_files = $this->get_block_templates_files( $template_type );
-
 			foreach ( $template_files as $template_file ) {
 				$template = _build_block_template_result_from_file( $template_file, $template_type );
 
@@ -224,8 +223,7 @@ class Deprecated {
 
 		foreach ( $themes as $theme_slug => $theme_dir ) {
 			$template_base_paths  = get_block_theme_folders( $theme_slug );
-			$theme_template_dir   = apply_filters( 'gutenverse_stylesheet_directory', $theme_dir ) . '/' . $template_base_paths[ $template_type ];
-			$theme_template_files = _get_block_templates_paths( $theme_template_dir );
+			$theme_template_files = _get_block_templates_paths( $theme_dir . '/' . $template_base_paths[ $template_type ] );
 
 			foreach ( $theme_template_files as $template_file ) {
 				$template_base_path = $template_base_paths[ $template_type ];
@@ -239,7 +237,6 @@ class Deprecated {
 
 				if (
 					! gutenverse_child_template( $template_base_paths[ $template_type ], $template_slug )
-					&& apply_filters( 'gutenverse_themes_override_mechanism', false )
 				) {
 					$template_file = apply_filters( 'gutenverse_template_path', $template_file, $theme_slug, $template_slug );
 				}
@@ -260,10 +257,7 @@ class Deprecated {
 				}
 			}
 		}
-		if ( apply_filters( 'gutenverse_themes_override_mechanism', false ) ) {
-			return apply_filters( 'gutenverse_themes_template', $template_files, $template_type );
-		}
-		return $template_files;
+		return apply_filters( 'gutenverse_themes_template', $template_files, $template_type );
 	}
 
 	/**
@@ -300,7 +294,6 @@ class Deprecated {
 
 			if (
 				! gutenverse_child_template( $template_base_paths[ $template_type ], $slug )
-				&& apply_filters( 'gutenverse_themes_override_mechanism', false )
 			) {
 				$file_path = apply_filters( 'gutenverse_template_path', $file_path, $theme_slug, $slug );
 			}

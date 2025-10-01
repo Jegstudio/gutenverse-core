@@ -35,9 +35,8 @@ class Theme_Helper {
 		add_filter( 'get_block_file_template', array( $this, 'remove_filter_change_directory' ), null );
 
 		add_filter( 'wp_theme_json_data_theme', array( $this, 'additional_custom_templates' ) );
-		if ( apply_filters( 'gutenverse_themes_override_mechanism', false ) ) {
-			add_filter( 'get_block_template', array( $this, 'get_block_template' ), null, 3 );
-		}
+		add_filter( 'get_block_template', array( $this, 'get_block_template' ), null, 3 );
+
 		add_filter( 'validate_current_theme', '__return_false' );
 
 		// Action.
