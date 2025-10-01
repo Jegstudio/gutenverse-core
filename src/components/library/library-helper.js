@@ -262,6 +262,7 @@ const sectionFilter = (sectionData, filter) => {
             // }
             licenseCheck = (() => {
                 const availablePlans = data?.available;
+
                 if (!Array.isArray(license) || !Array.isArray(availablePlans)) {
                     return false;
                 }
@@ -299,7 +300,6 @@ const sectionFilter = (sectionData, filter) => {
 
         return licenseCheck && devCheck && categoriesCheck && authorCheck && likeCheck;
     });
-
     return sectionData;
 };
 

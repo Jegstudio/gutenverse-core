@@ -31,7 +31,7 @@ const SingleSectionContent = (props) => {
     const [dataToImport, setDataToImport] = useState(singleData);
     const [unavailableGlobalFonts, setUnavailableGlobalFonts] = useState([]);
     const [unavailableGlobalColors, setUnavailableGlobalColors] = useState([]);
-    const {supportGlobalImport} =  window['GutenverseConfig'] || window['GutenverseData'] || {};
+    const { supportGlobalImport } = window['GutenverseConfig'] || window['GutenverseData'] || {};
     // const supportGlobalImport = true; //untuk testing
 
     const normalRef = useRef(null);
@@ -152,7 +152,7 @@ const SingleSectionContent = (props) => {
                             <ImportSectionButton
                                 data={singleData}
                                 closeImporter={closeImporter}
-                                setShowOverlay={() => {}}
+                                setShowOverlay={() => { }}
                                 setExporting={setExporting}
                                 setSelectItem={setSelectItem}
                                 setLibraryError={setLibraryError}
@@ -216,34 +216,11 @@ const SingleSectionContent = (props) => {
 
 const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, setUnavailableGlobalColors) => {
     const globalVariables = getGlobalVariable();
+    let unavailableColors = [];
 
-    let unavailableFonts=[];
-    let unavailableColors=[];
-    const updatedTypography = extractTypographyBlocks(content).reduceRight((result, { start, end, block }) => {
-        if (block.includes('"type":"variable"')) {
-            let notExist = false;
-            let font = {};
-            const updatedBlock = block.replace(/"id"\s*:\s*"([^"]+)"/, (_, id) => {
-                const matchedFont = globalVariables.fonts.find(f => f.id === id?.toLowerCase());
-                if(!matchedFont) {
-                    font = global.font.find(f => f.slug?.toLowerCase() === id?.toLowerCase());
-                    unavailableFonts.push({id : id, font: font});
-                    notExist = true;
-                }
-                return `"id":"${id?.toLowerCase()}"`;
-            });
+    const { updatedContent, nonExistedFont } = extractTypographyBlocks(content, global.font, globalVariables.fonts);
 
-            if (notExist) {
-                return result.slice(0, start) + `"typography": ${font?.font}` + result.slice(end);
-            } else {
-                return result.slice(0, start) + updatedBlock + result.slice(end);
-            }
-        }
-
-        return result;
-    }, content);
-
-    const updatedColor = updatedTypography.replace(
+    const updatedColor = updatedContent.replace(
         /({"type":"variable","id":")([^"]+)("})/g,
         (_, prefix, id, suffix) => {
             let notExist = false;
@@ -253,7 +230,7 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
 
             if (!matchedColor) {
                 color = global.color.find(c => c.slug?.toLowerCase() === id?.toLowerCase());
-                unavailableColors.push({id : id, color: color});
+                unavailableColors.push({ id: id, color: color });
                 notExist = true;
             }
 
@@ -265,37 +242,31 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
         }
     );
 
-    setUnavailableGlobalFonts(unavailableFonts);
+    setUnavailableGlobalFonts(nonExistedFont);
     setUnavailableGlobalColors(unavailableColors);
 
     return updatedColor;
 };
 
-const extractTypographyBlocks = (content) => {
-    const matches = [];
-    let index = 0;
+const extractTypographyBlocks = (content, importedFonts, globalFonts) => {
+    const seen = new Set();
 
-    while ((index = content?.indexOf('"typography":{', index)) !== -1) {
-        let start = index + '"typography":'.length;
-        let braceCount = 0;
-        let end = start;
+    const nonExisted = importedFonts
+        .filter(item1 => !globalFonts.some(item2 => item2.id === item1.slug)) // filter non-existing
+        .filter(item => {
+            if (seen.has(item.slug)) return false; // skip duplicates
+            seen.add(item.slug);
+            return true;
+        });
+    nonExisted.forEach(font => {
+        // Build a real regex (with global flag)
+        const fontRegex = new RegExp(`"type":"variable","id":"${font.slug}",`, 'g');
 
-        if (!Number.isNaN(content[start]) && content[start] === '{') {
-            do {
-                const char = content[end];
-                if (char === '{') braceCount++;
-                else if (char === '}') braceCount--;
-                end++;
-            } while (braceCount > 0 && end < content.length);
+        // Replace all occurrences with empty string
+        content = content.replace(fontRegex, '');
+    });
 
-            const block = content.slice(index, end);
-            matches.push({ start: index, end, block });
-        }
-
-        index = end;
-    }
-
-    return matches;
+    return { updatedContent: content, nonExistedFont: nonExisted };
 };
 
 const Content = (props) => {

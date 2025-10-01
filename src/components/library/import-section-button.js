@@ -87,15 +87,14 @@ const ImportSectionButton = props => {
 
         //import global Font
         let fontCount = 0;
+
         for (const font of unavailableGlobalFonts) {
             fontCount++;
             setExporting(prev => ({ ...prev, message: `Importing Global Color ${fontCount} of ${unavailableGlobalFonts.length + 1}`, progress: '3/4' }));
-            const fontData = font.font;
-
             addVariableFont({
-                id: font?.id.toLowerCase(),
-                name: fontData?.name,
-                font: JSON.parse(fontData?.font)
+                id: font?.slug,
+                name: font?.name,
+                font: JSON.parse(font?.font),
             });
         }
     };
@@ -103,28 +102,11 @@ const ImportSectionButton = props => {
     const insertBlocksTemplate = (data, supportGlobalImport) => {
         return new Promise((resolve) => {
             const { insertBlocks } = dispatch('core/block-editor');
-            const { contents, images, contents_global, global } = data;
+            const { contents, images, contents_global } = data;
 
             let patterns;
             if ('global' === dataToImport) {
-                const updatedTypography = extractTypographyBlocks(contents_global).reduceRight((result, { start, end, block }) => {
-                    if (block.includes('"type":"variable"')) {
-                        const updatedBlock = block.replace(/"id"\s*:\s*"([^"]+)"/, (_, id) => {
-                            return `"id":"${id.toLowerCase()}"`;
-                        });
-
-                        return result.slice(0, start) + updatedBlock + result.slice(end);
-                    }
-
-                    return result;
-                }, contents_global);
-
-                const updatedColor = updatedTypography.replace(
-                    /({"type":"variable","id":")([^"]+)("})/g,
-                    (_, prefix, id, suffix) => `${prefix}${id.toLowerCase()}${suffix}`
-                );
-
-                patterns = injectImagesToContent(updatedColor, images);
+                patterns = injectImagesToContent(contents_global, images);
             } else {
                 patterns = injectImagesToContent(contents, images);
             }
