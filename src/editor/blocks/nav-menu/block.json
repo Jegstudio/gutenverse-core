@@ -293,6 +293,10 @@
       "type": "object",
       "copyStyle": true
     },
+    "hamburgerAriaLabel": {
+      "type": "string",
+      "copyStyle": true
+    },
     "hamburgerAlignment": {
       "type": "object",
       "default": {
@@ -354,6 +358,10 @@
         "attr": "hamburgerBorderHover",
         "type": "border"
       },
+      "copyStyle": true
+    },
+    "closeAriaLabel": {
+      "type": "string",
       "copyStyle": true
     },
     "closeWidth": {

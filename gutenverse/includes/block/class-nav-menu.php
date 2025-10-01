@@ -25,23 +25,25 @@ class Nav_Menu extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $remove_link = false ) {
-		$element_id        = $this->get_element_id();
-		$menu_breakpoint   = esc_attr( $this->attributes['breakpoint'] );
-		$mobile_menu_icon  = esc_attr( $this->attributes['mobileIcon'] );
-		$mobile_close_icon = esc_attr( $this->attributes['mobileCloseIcon'] );
-		$enable_overlay    = esc_attr( $this->attributes['mobileEnableOverlay'] );
-		$mobile_logo       = isset( $this->attributes['mobileMenuLogo'] ) ? $this->attributes['mobileMenuLogo'] : null;
-		$mobile_logo_image = $this->render_image( $mobile_logo );
-		$submenu_click     = $this->attributes['mobileSubmenuClick'] ? 'submenu-click-title' : 'submenu-click-icon';
-		$closeon_click     = $this->attributes['mobileCloseOnClick'];
-		$item_indicator    = esc_attr( $this->attributes['submenuItemIndicator'] );
-		$menu_link         = esc_attr( $this->attributes['mobileMenuLink'] );
-		$menu_url          = 'home' === $menu_link ? home_url() : esc_url( $this->attributes['mobileMenuURL'] );
-		$mobile_close_icon = esc_attr( $this->attributes['mobileCloseIcon'] );
-		$custom_classes    = $this->get_custom_classes();
-		$display_classes   = $this->set_display_classes();
-		$animation_class   = $this->set_animation_classes();
-		$menu              = gutenverse_get_menu( $this->attributes['menuId'] );
+		$element_id           = $this->get_element_id();
+		$menu_breakpoint      = esc_attr( $this->attributes['breakpoint'] );
+		$mobile_menu_icon     = esc_attr( $this->attributes['mobileIcon'] );
+		$mobile_close_icon    = esc_attr( $this->attributes['mobileCloseIcon'] );
+		$enable_overlay       = esc_attr( $this->attributes['mobileEnableOverlay'] );
+		$mobile_logo          = isset( $this->attributes['mobileMenuLogo'] ) ? $this->attributes['mobileMenuLogo'] : null;
+		$mobile_logo_image    = $this->render_image( $mobile_logo );
+		$submenu_click        = $this->attributes['mobileSubmenuClick'] ? 'submenu-click-title' : 'submenu-click-icon';
+		$closeon_click        = $this->attributes['mobileCloseOnClick'];
+		$item_indicator       = esc_attr( $this->attributes['submenuItemIndicator'] );
+		$menu_link            = esc_attr( $this->attributes['mobileMenuLink'] );
+		$menu_url             = 'home' === $menu_link ? home_url() : esc_url( $this->attributes['mobileMenuURL'] );
+		$mobile_close_icon    = esc_attr( $this->attributes['mobileCloseIcon'] );
+		$custom_classes       = $this->get_custom_classes();
+		$display_classes      = $this->set_display_classes();
+		$animation_class      = $this->set_animation_classes();
+		$menu                 = gutenverse_get_menu( $this->attributes['menuId'] );
+		$close_aria_label     = isset( $this->attributes['closeAriaLabel'] ) ? esc_attr( $this->attributes['closeAriaLabel'] ) : false;
+		$hamburger_aria_label = isset( $this->attributes['hamburgerAriaLabel'] ) ? esc_attr( $this->attributes['hamburgerAriaLabel'] ) : false;
 
 		if ( $remove_link ) {
 			$menu = str_replace( 'href', 'href="javascript:void(0);" data-href', $menu );
@@ -54,7 +56,7 @@ class Nav_Menu extends Block_Abstract {
 
 		return '<div id="' . $element_id . '" class="guten-element guten-nav-menu nav-menu break-point-' . $menu_breakpoint . ' ' . $submenu_click . $display_classes . $animation_class . $custom_classes . '" data-item-indicator="' . $item_indicator . '" data-close-on-click="' . $closeon_click . '">
 			<div class="gutenverse-hamburger-wrapper">
-				<button class="gutenverse-hamburger-menu">
+				<button class="gutenverse-hamburger-menu" aria-label=' . $hamburger_aria_label . '>
 					<i aria-hidden="true" class="' . $mobile_menu_icon . '"></i>
 				</button>
 			</div>
@@ -65,7 +67,7 @@ class Nav_Menu extends Block_Abstract {
 						<div class="gutenverse-nav-site-title">
 							<a href="' . $menu_url . '" class="gutenverse-nav-logo">' . $mobile_logo_image . '</a>
 						</div>
-						<button class="gutenverse-close-menu"><i aria-hidden="true" class="' . $mobile_close_icon . '"></i></button>
+						<button class="gutenverse-close-menu" aria-label=' . $close_aria_label . '><i aria-hidden="true" class="' . $mobile_close_icon . '"></i></button>
 					</div>
 				</div>
 			</div>
