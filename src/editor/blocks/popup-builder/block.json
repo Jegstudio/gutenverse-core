@@ -256,6 +256,12 @@
 		"popupVideoLoop": {
 			"type": "boolean"
 		},
+		"videoContainerBorder": {
+			"type": "object"
+		},
+		"videoContainerBorderResponsive": {
+			"type": "object"
+		},
 		"popupVideoPlayOn": {
 			"type": "string",
 			"default": "click"
