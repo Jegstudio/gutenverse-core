@@ -360,7 +360,6 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
             </defs>
         </svg>;
 
-    console.log(installing);
     return <div className="theme-install">
         <div className="content-wrapper">
             <img className="image bg-image-wizard-cta" src={ImgDir + '/wizard-bg-cta-companion.png'} />
