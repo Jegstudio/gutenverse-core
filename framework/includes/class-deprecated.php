@@ -284,13 +284,6 @@ class Deprecated {
 		foreach ( $themes as $theme_slug => $theme_dir ) {
 			$template_base_paths = get_block_theme_folders( $theme_slug );
 			$file_path           = '/' . $template_base_paths[ $template_type ] . '/' . $slug . '.html';
-			$theme_dir_after     = apply_filters( 'gutenverse_stylesheet_directory', $theme_dir );
-
-			if ( file_exists( $theme_dir_after . $file_path ) ) {
-				$file_path = $theme_dir_after . $file_path;
-			} else {
-				$file_path = $theme_dir . $file_path;
-			}
 
 			if (
 				! gutenverse_child_template( $template_base_paths[ $template_type ], $slug )
