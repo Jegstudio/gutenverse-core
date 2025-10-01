@@ -20,7 +20,7 @@ const textStyleDrop = (props) => {
         delay: (el, i) => 45 * (i+1)
     });
 
-    if (loop || (isRotationType && !stopRotating())) {
+    if (loop || (isRotationType && !stopRotating)) {
         animationRef.current.add({
             targets: targetRef.current,
             opacity: 0,

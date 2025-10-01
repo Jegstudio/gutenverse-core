@@ -55,8 +55,38 @@ const ImportLoading = (props) => {
     </div>;
 };
 
+const versionCompare = (v1, v2, operator) => {
+    const a = v1.split('.').map(Number);
+    const b = v2.split('.').map(Number);
+    const len = Math.max(a.length, b.length);
+
+    for (let i = 0; i < len; i++) {
+        const num1 = a[i] || 0;
+        const num2 = b[i] || 0;
+        if (num1 > num2) {
+            switch (operator) {
+                case '>': case '>=': case '!=': return true;
+                case '<': case '<=': case '==': return false;
+            }
+        }
+        if (num1 < num2) {
+            switch (operator) {
+                case '<': case '<=': case '!=': return true;
+                case '>': case '>=': case '==': return false;
+            }
+        }
+    }
+
+    // If equal so far
+    switch (operator) {
+        case '==': case '>=': case '<=': return true;
+        case '!=': return false;
+        case '>': case '<': return false;
+    }
+};
+
 const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, setClicked, requirement, emptyLicense }) => {
-    const { plugins, installNonce, ajaxurl, ImgDir } = gutenverseWizard;
+    const { plugins, installNonce, ajaxurl, ImgDir, plugin_list } = gutenverseWizard;
     const [installing, setInstalling] = useState({ show: true, message: 'Preparing...', progress: '1/4' });
     const [reloadingSlug, setReloadingSlug] = useState(null);
     const [themeData, setThemeData] = useState(() => {
@@ -76,7 +106,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
     }, []);
 
     const activateTheme = (slug) => {
-        setInstalling({ show: true, message: 'Activating Theme...', progress: '3/4' });
+        setInstalling({ show: true, message: 'Activating Theme...', progress: '2/4' });
         apiFetch({
             path: 'gutenverse-client/v1/themes/activate',
             method: 'POST',
@@ -90,7 +120,6 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                 console.error('Error during theme activation');
                 setAction('done');
                 setReloadingSlug(null);
-                setClicked(prev => prev + 1);
             })
             .finally(() => {
                 getInstalledThemes((themes) => {
@@ -108,10 +137,9 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
 
                     setThemeData(updatedThemeData);
                     window.GutenverseWizard.theme_slug = slug;
-                    setInstalling({ show: true, message: 'Installing Complete', progress: '4/4' });
-                    setAction('done');
+                    setInstalling({ show: true, message: 'Installing Theme Complete', progress: '2/4' });
                     setReloadingSlug(null);
-                    setClicked(prev => prev + 1);
+                    onInstall();
                 });
             });
     };
@@ -123,7 +151,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
             formData.append('slug', slug);
             formData.append('action', 'install-theme');
             formData.append('_ajax_nonce', installNonce);
-            setInstalling({ show: true, message: 'Installing Theme...', progress: '2/4' });
+            setInstalling({ show: true, message: 'Installing Theme...', progress: '1/4' });
 
             response = fetch(ajaxurl, {
                 method: 'POST',
@@ -134,14 +162,13 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                 .then(value => {
                     if (value !== false) {
                         getInstalledThemes(() => {
-                            setInstalling({ show: true, message: 'Theme Installed.', progress: '2/4' });
+                            setInstalling({ show: true, message: 'Theme Installed.', progress: '1/4' });
                         });
                         activateTheme(slug);
                     } else {
                         setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
                         console.error('Error during theme installation');
                         setAction('done');
-                        setClicked(prev => prev + 1);
                         setReloadingSlug(null);
                     }
                 })
@@ -149,19 +176,45 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                     setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
                     console.error('Error during theme installation: ' + err);
                     setAction('done');
-                    setClicked(prev => prev + 1);
                     setReloadingSlug(null);
                 });
         }, 1500);
     };
 
     const installPlugins = (index = 0) => {
+        setInstalling({ show: true, message: 'Installing Plugins...', progress: '3/4' });
         if (plugins && index < plugins.length) {
             setTimeout(() => {
-                setInstalling({ show: true, message: 'Installing Plugins...', progress: '2/4' });
-                const plugin = plugins[index];
-
-                if (!plugin?.installed) {
+                setInstalling({ show: true, message: `Installing Plugins(${index + 1})`, progress: '3/4' });
+                const plugin = {...plugins[index], needUpdate: plugins[index].installed ? versionCompare(plugins[index].version, plugin_list[plugins[index].slug]?.version, '>') : false };
+                if (plugin.needUpdate) {
+                    apiFetch({
+                        path: `wp/v2/plugins/plugin?plugin=${plugin.slug}/${plugin.slug}`,
+                        method: 'PUT',
+                        data: {
+                            status: 'inactive'
+                        }
+                    }).then(() => {
+                        return apiFetch({
+                            path: `wp/v2/plugins/plugin?plugin=${plugin.slug}/${plugin.slug}`,
+                            method: 'DELETE'
+                        });
+                    }).then(() => {
+                        return apiFetch({
+                            path: 'wp/v2/plugins',
+                            method: 'POST',
+                            data: {
+                                slug: plugin.slug,
+                                status: 'active'
+                            }
+                        });
+                    }).then(() => {
+                        installPlugins(index + 1);
+                    }).catch((err) => {
+                        setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
+                        console.error('Error during installing plugin:', err);
+                    });
+                } else if (!plugin?.installed) {
                     apiFetch({
                         path: 'wp/v2/plugins',
                         method: 'POST',
@@ -192,13 +245,12 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                 } else {
                     installPlugins(index + 1);
                 }
-            }, 1500);
+            }, 500);
         } else {
-            setInstalling({ show: true, message: 'Installing Complete', progress: '4/4' });
-            setTimeout(() => {
-                setAction('done');
-                setReloadingSlug(null);
-            }, 1500);
+            setClicked(prev => prev + 1);
+            setInstalling({ show: true, message: 'Installing Plugin Complete', progress: '4/4' });
+            setAction('done');
+            setReloadingSlug(null);
         }
 
     };
@@ -274,14 +326,12 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                                                     themeAction(2, theme?.slug);
                                                     onInstall();
                                                     setReloadingSlug(theme?.slug);
-                                                    setClicked(prev => prev + 1);
                                                 }} className="button-install">{__('Activate Theme', 'gutenverse')}</div>
                                                 :
                                                 <div onClick={() => {
                                                     themeAction(1, theme?.slug);
                                                     onInstall();
                                                     setReloadingSlug(theme?.slug);
-                                                    setClicked(prev => prev + 1);
                                                 }} className="button-install">{__('Install Theme', 'gutenverse')}</div>
                                     }
                                 </div>
@@ -310,6 +360,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
             </defs>
         </svg>;
 
+    console.log(installing);
     return <div className="theme-install">
         <div className="content-wrapper">
             <img className="image bg-image-wizard-cta" src={ImgDir + '/wizard-bg-cta-companion.png'} />
@@ -321,6 +372,10 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                     <span>{__('Unibiz Theme!', 'gutenverse')}</span>
                 </h1>
                 <ul className="content-list-container">
+                    <li className="content-list">
+                        {checkIcon}
+                        {__('The Official Theme for Gutenverse', 'gutenverse')}
+                    </li>
                     <li className="content-list">
                         {checkIcon}
                         {__('50+ Stunning Demo Sites', 'gutenverse')}
@@ -340,11 +395,9 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                 </ul>
                 <div onClick={() => {
                     themeAction(1, 'unibiz');
-                    onInstall();
                     setReloadingSlug('unibiz');
-                    setClicked(prev => prev + 1);
-                }} className={`button-install ${requirement ? 'complete' : ''}`}>
-                    {__(requirement ? 'Unibiz Installed' : 'Install Unibiz Theme', 'gutenverse')}
+                }} className={`button-install ${requirement ? 'complete' : 'loading' === action ? 'proccessing' : ''}`}>
+                    {__(requirement ? 'Unibiz Installed' : 'loading' === action ? installing?.message : 'Install Unibiz Theme', 'gutenverse')}
                 </div>
                 <p className="notice-install">
                     {__('By clicking “Install Unibiz Theme” you consent to installing and activating the Gutenverse Companion plugin.', 'gutenverse')}
