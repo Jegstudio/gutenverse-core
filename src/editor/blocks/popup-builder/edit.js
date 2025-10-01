@@ -40,6 +40,7 @@ const PopupBuilder = (props) => {
     const [show, setShow] = useState(false);
     const [playing, setPlaying] = useState(false);
     const [firstPlaying, setFirstPlaying] = useState(true);
+    const [videoSrc, setVideoSrc] = useState(popupVideoSrc);
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
