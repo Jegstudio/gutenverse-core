@@ -1,5 +1,5 @@
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import ReactPlayer from 'react-player';
+import { ReactPlayer } from 'gutenverse-core/components';
 
 const SectionVideoContainer = ({ attributes }) => {
     const { background = {} } = attributes;
@@ -43,7 +43,6 @@ const SectionVideoContainer = ({ attributes }) => {
     if (type !== 'video' || !videoLink) {
         return null;
     }
-
     return (
         <ReactPlayer
             className="guten-video-bg-wrapper"
