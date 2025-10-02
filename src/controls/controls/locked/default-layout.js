@@ -25,10 +25,10 @@ const DefaultLayout = ({
     return <>
         <h2 className="title">{title}</h2>
         <div>
-            <ButtonPro/>
+            <span className="description">{description}</span>
         </div>
         <div>
-            <span className="description">{description}</span>
+            <ButtonPro/>
         </div>
         <div>
             {img && <video autoPlay={isOpen} loop={isOpen}>

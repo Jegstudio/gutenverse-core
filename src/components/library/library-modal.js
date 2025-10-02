@@ -9,6 +9,8 @@ import { useState, useEffect } from '@wordpress/element';
 import { Snackbar } from '@wordpress/components';
 import { IconInfoGraySVG } from 'gutenverse-core/icons';
 import ThemesContent from './themes-content';
+import apiFetch from '@wordpress/api-fetch';
+import { applyFilters } from '@wordpress/hooks';
 
 const LibraryModal = props => {
     const {
@@ -23,6 +25,14 @@ const LibraryModal = props => {
 
     const { importNotice } = importer;
     const { activeTheme, plugins, adminUrl } = window['GutenverseConfig'] || {};
+    const [page, setPage] = useState(1);
+    const [demoList, setDemoList] = useState([]);
+
+    let isStale = false;
+
+    if ( 'themes' !== modalData.libraryData?.active ) {
+        isStale = true;
+    }
 
     const closeImporter = () => {
         setVisibility(false);
@@ -41,6 +51,45 @@ const LibraryModal = props => {
                 display: 'none !important'
             });
         }
+    };
+
+    const getDemo = (param) => {
+        return new Promise(resolve => {
+            apiFetch({
+                path: 'gutenverse-companion/v1/demo/get',
+                method: 'POST',
+                data: applyFilters(
+                    'gutenverse.library.import.parameter',
+                    {
+                        theme_slug: 'unibiz',
+                        ...param
+                    }
+                )
+            })
+                .then((data) => {
+                    if (isStale) return resolve([]);
+
+                    const newData = data.demo_list;
+                    const contentData = modalData.themeContentData?.data || demoList;
+                    const existingIds = new Set(contentData.map(item => item.demo_id));
+                    const filteredNewData = newData.filter(item => !existingIds.has(item.demo_id));
+
+                    dispatch('gutenverse/library').initialModalData({
+                        ...modalData,
+                        themeContentData: {
+                            data: [...contentData, ...filteredNewData],
+                            totalDemo: data.total_item,
+                            currentPage: page
+                        }
+                    });
+                    setDemoList(() => [...contentData, ...filteredNewData]);
+                    resolve(data);
+                })
+                .catch((e) => {
+                    if (!isStale) alert(e.message);
+                    resolve([]);
+                });
+        });
     };
 
     const SnackbarNotice = ({ message }) => {
@@ -149,10 +198,15 @@ const LibraryModal = props => {
                 <div className={`gutenverse-library-body ${modalData.libraryData.active}`}>
                     <LibraryContent
                         modalData={modalData}
+                        setPage={setPage}
+                        page={page}
                         active={modalData.libraryData.active}
                         closeImporter={closeImporter}
                         burger={burger}
                         setLibraryError={setLibraryError}
+                        getDemo={getDemo}
+                        demoList={demoList}
+                        setDemoList={setDemoList}
                     />
                 </div>
             </div>

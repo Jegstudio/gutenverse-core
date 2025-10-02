@@ -2461,7 +2461,7 @@
           align-items: center;
           gap: 8px;
           background: #3b57f7;
-          border-radius: 50px;
+          border-radius: 5px !important;
           color: #fff;
           cursor: pointer;
           font-size: 12px;
@@ -2469,6 +2469,20 @@
           font-family: "Roboto", serif;
           line-height: 18px;
           padding: 8px 16px;
+          transition: all .3s ease;
+
+          &.activate {
+            margin-bottom: 30px;
+          }
+
+          &:hover {
+            transform: scale( .94 );
+            color: rgba(255, 255, 255, 0.75);
+
+            svg {
+              opacity: .75;
+            }
+          }
         }
 
         .description {
@@ -2479,7 +2493,11 @@
           line-height: 18px;
           display: flex;
           align-items: center;
-          margin: 16px 0;
+          margin: 16px 0 30px;
+        }
+
+        .gutenverse-button-available-pro {
+          margin: 0 0 24px;
         }
 
         .illustration {
@@ -2510,6 +2528,33 @@
             padding-bottom: 2px;
             border-bottom: 1px solid #3b57f7;
             color: #011627;
+          }
+        }
+
+        .header-content-locked {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          margin-bottom: 24px;
+
+          h4.title {
+            font-family: "Roboto", sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            line-height: 140%;
+            vertical-align: middle;
+            text-transform: uppercase;
+            margin: 0 0 8px;
+          }
+
+          p.description {
+            font-family: "Roboto", sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 140%;
+            vertical-align: middle;
+            margin: 0;
+            max-width: 200px;
           }
         }
 

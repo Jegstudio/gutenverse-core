@@ -1,16 +1,12 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
-import { withSelect, dispatch } from '@wordpress/data';
+import { withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import apiFetch from '@wordpress/api-fetch';
-import { applyFilters } from '@wordpress/hooks';
 import throttle from 'lodash/throttle';
 import { IconLibraryThemeListSVG, IconLoadingSVG } from 'gutenverse-core/icons';
 import { installAndActivateTheme, installingPlugins } from 'gutenverse-core/helper';
 
 const ThemesContentNoLicense = (props) => {
-    const {adminUrl, modalData} = props;
-    const [demoList, setDemoList] = useState([]);
-    const [page, setPage] = useState(1);
+    const {adminUrl, modalData, page, setPage, getDemo, demoList, setDemoList} = props;
     const [totalPage, setTotalPage] = useState(null);
     const [loading, setLoading] = useState(false);
     const [totalItem, setTotalItem] = useState(0);
@@ -48,39 +44,10 @@ const ThemesContentNoLicense = (props) => {
         };
     }, [loader, totalPage, totalItem]);
 
-    const getDemo = (param) => {
-        return new Promise(resolve => {
-            apiFetch({
-                path: 'gutenverse-companion/v1/demo/get',
-                method: 'POST',
-                data: applyFilters(
-                    'gutenverse.library.import.parameter',
-                    {
-                        theme_slug: 'unibiz',
-                        ...param
-                    }
-                )
-            })
-                .then((data) => {
-                    const newData = data.demo_list;
-                    const contentData = modalData.themeContentData?.data || demoList;
-                    dispatch('gutenverse/library').initialModalData({
-                        ...modalData,
-                        themeContentData: {data: [...contentData, ...newData], totalDemo: data.total_item}
-                    });
-                    setDemoList(prev => [...prev, ...newData]);
-                    resolve(data);
-                })
-                .catch((e) => {
-                    alert(e.message);
-                    resolve([]);
-                });
-        });
-    };
-
     useEffect(() => {
         let isMounted = true;
         const themeData = modalData.themeContentData?.data;
+        const currentPage = modalData.themeContentData?.currentPage;
         const total = modalData.themeContentData?.totalDemo;
 
         const fetchData = async () => {
@@ -102,7 +69,7 @@ const ThemesContentNoLicense = (props) => {
             }
         };
 
-        if (modalData.themeContentData && themeData?.length === total) {
+        if (modalData.themeContentData && ( themeData?.length >= total || currentPage >= page )) {
             setDemoList(themeData);
         } else {
             fetchData();
@@ -111,7 +78,7 @@ const ThemesContentNoLicense = (props) => {
         return () => {
             isMounted = false;
         };
-    }, [templateList]);
+    }, [templateList, page]);
 
     return <div id="gutenverse-library-themes-content-wrapper" className="no-license">
         <div className="gutenverse-library-themes-content-body">
@@ -122,7 +89,7 @@ const ThemesContentNoLicense = (props) => {
             </p>
             <div className="library-themes-demo-container">
                 {
-                    ( demoList.length > 0 || !loading ) ?
+                    ( demoList.length > 0 ) &&
                         demoList?.map((demo) => {
                             return <div key={demo.demo_id} className="library-themes-demo-card">
                                 <div className="library-themes-demo-card-image" style={{ backgroundImage: `url(${demo.cover})` }} >
@@ -132,14 +99,15 @@ const ThemesContentNoLicense = (props) => {
                                     <span>{demo.title}</span>
                                 </div>
                             </div>;
-                        }) :
-                        demoSkeleton.map((demo, index) => {
-                            return <div key={index} className="library-themes-demo-card">
-                                <div className="library-themes-demo-card-image layout" />
-                                <div className="library-themes-demo-card-footer" />
-                            </div>;
                         })
                 }
+                {
+                    loading && demoSkeleton.map((demo, index) => {
+                        return <div key={index} className="library-themes-demo-card">
+                            <div className="library-themes-demo-card-image layout" />
+                            <div className="library-themes-demo-card-footer" />
+                        </div>;
+                    })}
             </div>
         </div>
         <div ref={loader}></div>
@@ -242,13 +210,21 @@ const ThemesContentUnibizCTA = () => {
 }
 
 const ThemesContent = (props) => {
-    const {modalData} = props;
+    const {modalData, setPage, getDemo, page, demoList, setDemoList} = props;
     const {emptyLicense, companionActive} = modalData?.libraryData?.attributes || {};
     const { activeTheme, adminUrl } = window['GutenverseConfig'] || {};
     const flag = activeTheme === 'unibiz' && emptyLicense && companionActive;
 
     return flag ?
-        <ThemesContentNoLicense adminUrl={adminUrl} modalData={modalData} /> :
+        <ThemesContentNoLicense
+            adminUrl={adminUrl}
+            modalData={modalData}
+            setPage={setPage}
+            getDemo={getDemo}
+            page={page}
+            demoList={demoList}
+            setDemoList={setDemoList}
+        /> :
         <ThemesContentUnibizCTA /> ;
 };
 
