@@ -107,6 +107,7 @@ const PopupBuilder = (props) => {
             }
         }, exitAnimation ? (parseInt(exitAnimationDuration) || 0) + (parseInt(exitAnimationDelay) || 0) || 1000 : 0);
     };
+
     const overlayClicked = () => { closePopupOverlay ? hidePopup() : null; };
 
     const hideClickContainer = (e) => {

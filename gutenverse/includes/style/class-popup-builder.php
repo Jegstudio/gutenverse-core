@@ -382,5 +382,25 @@ class Popup_Builder extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['videoContainerBorder'] ) ) {
+			$this->handle_border( 'videoContainerBorder', ".{$this->element_id} .guten-popup .guten-popup-content .guten-popup-video-container" );
+		}
+
+		if ( isset( $this->attrs['videoContainerBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-content .guten-popup-video-container",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['videoContainerBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
 	}
 }
