@@ -31,13 +31,6 @@ class Style_Cache {
 	protected $font_cache_name;
 
 	/**
-	 * Option Settings
-	 *
-	 * @var string
-	 */
-	protected static $options;
-
-	/**
 	 * Init constructor.
 	 */
 	public function __construct() {
@@ -56,8 +49,6 @@ class Style_Cache {
 		add_filter( 'gutenverse_bypass_generate_style', array( $this, 'bypass_generate_css' ), null, 3 );
 		add_filter( 'gutenverse_global_fonts', array( $this, 'global_fonts' ), null, 2 );
 		add_filter( 'gutenverse_render_generated_style', array( $this, 'render_style' ), null, 4 );
-
-		self::$options = get_option( 'gutenverse-settings' );
 	}
 
 	/**
@@ -66,8 +57,10 @@ class Style_Cache {
 	 * @return string
 	 */
 	public function render_mechanism() {
-		if ( isset( self::$options['frontend_settings']['render_mechanism'] ) ) {
-			$render_mechanism = self::$options['frontend_settings']['render_mechanism'];
+		$options = get_option( 'gutenverse-settings' );
+
+		if ( isset( $options['frontend_settings']['render_mechanism'] ) ) {
+			$render_mechanism = $options['frontend_settings']['render_mechanism'];
 			if ( ! empty( $render_mechanism ) ) {
 				return $render_mechanism;
 			}
@@ -193,10 +186,12 @@ class Style_Cache {
 	 * Schedule Delete Cron.
 	 */
 	public function schedule_cleanup_cron() {
+		$options = get_option( 'gutenverse-settings' );
+
 		if ( ! wp_next_scheduled( 'gutenverse_cleanup_cached_style' ) ) {
 			$midnight = strtotime( 'tomorrow 00:00:00' );
-			if ( isset( self::$options['frontend_settings']['render_mechanism'] ) && 'file' === self::$options['frontend_settings']['render_mechanism'] ) {
-				wp_schedule_event( $midnight, isset( self::$options['frontend_settings']['old_render_deletion_schedule'] ) ? self::$options['frontend_settings']['old_render_deletion_schedule'] : 'daily', 'gutenverse_cleanup_cached_style' );
+			if ( isset( $options['frontend_settings']['render_mechanism'] ) && 'file' === $options['frontend_settings']['render_mechanism'] ) {
+				wp_schedule_event( $midnight, isset( $options['frontend_settings']['old_render_deletion_schedule'] ) ? $options['frontend_settings']['old_render_deletion_schedule'] : 'daily', 'gutenverse_cleanup_cached_style' );
 			} else {
 				$this->cleanup_cached_style();
 			}
