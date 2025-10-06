@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "gutenverse-core/src/assets/mixin";
 @import "gutenverse-core/src/assets/variables";
 @import "gutenverse-core/src/assets/wp-fix";
@@ -621,7 +622,6 @@ body {
                     z-index: 1;
                     margin: 20px auto 0;
                     max-width: 700px;
-                    font-family: 'Inter', sans-serif;
                     font-size: 48px;
                     font-weight: 700;
                     line-height: 1.1;
@@ -649,7 +649,6 @@ body {
                     max-width: 478px;
 
                     &.welcome {
-                        font-family: "Inter", sans-serif;
                         font-weight: 500;
                         font-size: 14px;
                         font-style: Medium;
@@ -661,7 +660,6 @@ body {
                     }
 
                     &.content-desc {
-                        font-family: "Inter", sans-serif;
                         font-weight: 400;
                         font-size: 14px;
                         line-height: 140%;
@@ -1443,6 +1441,10 @@ body {
     background-size: cover;
     border-radius: inherit;
     background: linear-gradient(to bottom, transparent -250%, white 100%), linear-gradient(to right, #C3E9FF, #CFB9FF);
+    
+    * {
+        font-family: "Host Grotesk", sans-serif;
+    }
 
     .upgrade-pro-content {
         display: flex;
@@ -1666,7 +1668,6 @@ body {
             position: relative;
             z-index: 1;
             max-width: 700px;
-            font-family: 'Inter', sans-serif;
             font-size: 24px;
             font-weight: 500;
             line-height: 1.1;
@@ -1691,7 +1692,6 @@ body {
             position: relative;
             z-index: 1;
             max-width: 400px;
-            font-family: 'Inter', sans-serif;
             font-size: 16px;
             font-weight: 400;
             line-height: 1.4;
@@ -1726,7 +1726,6 @@ body {
                 position: relative;
                 z-index: 1;
                 max-width: 400px;
-                font-family: 'Inter', sans-serif;
                 font-size: 15px;
                 font-weight: 400;
                 line-height: 1.4;
@@ -1741,7 +1740,7 @@ body {
                 }
 
                 .circle {
-                    background-color: #933aff;
+                    background-color: #3b57f7;
                     border-radius: 100px;
                     width: 18px;
                     height: 18px;
@@ -1792,7 +1791,6 @@ body {
 
         .button-skip {
             cursor: pointer;
-            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 400;
             text-align: center;
@@ -1801,7 +1799,6 @@ body {
 
         .button-back {
             cursor: pointer;
-            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             justify-content: center;
@@ -1821,7 +1818,6 @@ body {
             border-radius: 5px;
             border: solid 1px #3B57F7;
             background-color: #fff;
-            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             text-align: center;
@@ -1866,7 +1862,6 @@ body {
 
         .button-back {
             cursor: pointer;
-            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             justify-content: center;
@@ -1886,7 +1881,6 @@ body {
             border-radius: 5px;
             border: solid 1px #3B57F7;
             background-color: #fff;
-            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             text-align: center;
