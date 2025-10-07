@@ -2,6 +2,7 @@
 import { __ } from '@wordpress/i18n';
 import AsyncSelect from 'react-select/async';
 import { v4 as uuidv4 } from 'uuid';
+import { useState,useEffect } from '@wordpress/element';
 
 const SelectSearchControl = (props) => {
     let uuid = uuidv4();
@@ -16,8 +17,14 @@ const SelectSearchControl = (props) => {
         className = 'select-search',
         classNamePrefix = 'async-select',
         isMulti = false,
-        noOptionsMessage = () => __('Not Found', 'gutenverse')
+        cacheOptions = true,
+        defaultOptions= true,
+        noOptionsMessage = () => __('Type to start searching...', '--gctd--')
     } = props;
+
+    const handleUpdate = (value) => {
+        onChange(id, value)
+    }
 
     return (
         <>
@@ -40,7 +47,9 @@ const SelectSearchControl = (props) => {
                             })
                         }}
                         value={value}
-                        onChange={onChange}
+                        onChange={handleUpdate}
+                        cacheOptions={cacheOptions}
+                        defaultOptions={defaultOptions}
                         loadOptions={input => onSearch(input, values)} />
                 </label>
                 {description !== '' && <span className="control-description">
