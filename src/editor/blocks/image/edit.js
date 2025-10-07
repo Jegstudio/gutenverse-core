@@ -256,7 +256,7 @@ const ImageBlock = compose(
                 panelIsClicked={panelIsClicked}
                 setPanelIsClicked={setPanelIsClicked}
             />,
-            props,
+            {...props, setPanelState},
             imagePanelState
         );
     };
