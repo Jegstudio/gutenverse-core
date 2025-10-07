@@ -21,8 +21,8 @@ const SelectSearchControl = (props) => {
 
     return (
         <>
-            <div className="control-wrapper control-number">
-                <label className="control-title" htmlFor={`${id}-number-${uuid}`}>
+            <div className="control-wrapper control-search-select">
+                <label className="control-title" htmlFor={`${id}-search-select-${uuid}`}>
                     {title}
                     <AsyncSelect
                         id={id}
