@@ -2,8 +2,9 @@ import { __ } from '@wordpress/i18n';
 import { useRef, useState } from '@wordpress/element';
 import { ControlCheckbox, ControlCheckboxPro } from 'gutenverse-core/backend';
 import { select } from '@wordpress/data';
-import { DashboardBody, DashboardContent, DashboardHeader, PopupInsufficientTier, PopupPro } from '../../components';
+import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
 import { applyFilters } from '@wordpress/hooks';
+import { PopupInsufficientTier, PopupPro } from 'gutenverse-core/components';
 
 const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettingValues }) => {
     const [popupActive, setPopupActive] = useState(false);

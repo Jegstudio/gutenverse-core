@@ -40,6 +40,9 @@ export { default as BannerPro } from './pro/banner-pro';
 export { default as ButtonUpgradePro } from './pro/button-upgrade-pro';
 export { default as CardBannerPro } from './pro/card-banner-pro';
 export { default as CardPro } from './pro/card-pro';
+export { default as PopupPro } from './pro/popup-pro';
+export { default as PopupInstallPlugin } from './pro/popup-install-plugin';
+export { default as PopupInsufficientTier } from './pro/popup-insufficient-tier';
 
 
 //export dependency
@@ -56,3 +59,4 @@ export * from '@wordpress/block-editor';
 export * from '@wordpress/components';
 export * from 'react-datepicker';
 export { default as AsyncSelect } from 'react-select/async';
+

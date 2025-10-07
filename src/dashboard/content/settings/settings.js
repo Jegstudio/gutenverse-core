@@ -6,10 +6,11 @@ import { applyFilters } from '@wordpress/hooks';
 import EditorSetting from './src/settings/editor-setting';
 import TemplateSetting from './src/settings/template-setting';
 import FontIconSetting from './src/settings/font-icon-setting';
-import { DashboardBody, DashboardContent, PopupPro, PopupInstallPlugin } from '../../components';
+import { DashboardBody, DashboardContent } from '../../components';
 import FrontEndSetting from './src/settings/frontend-setting';
 import { generalTabs, getPluginTabs, getSettingTitle } from './tabs';
 import { getSettingsIcon } from 'gutenverse-core/icons';
+import { PopupInstallPlugin, PopupPro } from 'gutenverse-core/components';
 
 const SettingsBody = ({ settings, ...props }) => {
     let body = '';
