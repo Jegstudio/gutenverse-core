@@ -276,7 +276,11 @@ class Dashboard {
 		$status['count_tag']        = wp_count_terms( 'post_tag' );
 
 		/** Server Environment */
-		$remote     = wp_remote_get( home_url() );
+		$remote = get_transient( 'gutenverse_wp_remote_get_status_cache' );
+		if ( ! $remote ) {
+			$remote = wp_remote_get( home_url() );
+			set_transient( 'gutenverse_wp_remote_get_status_cache', $remote, 30 * MINUTE_IN_SECONDS );
+		}
 		$gd_support = array();
 
 		if ( function_exists( 'gd_info' ) ) {
