@@ -168,8 +168,8 @@ export const stylePanel = (props) => {
                     step: 1
                 },
             },
-            liveStyle: [
-                authorAvatar && {
+            liveStyle: authorAvatar ? [
+                {
                     'type': 'unitPoint',
                     'id': 'size',
                     'responsive': true,
@@ -181,7 +181,7 @@ export const stylePanel = (props) => {
                     ],
                     'selector': `.${elementId} img`,
                 }
-            ],
+            ] : [],
         },
         {
             id: 'avatarGap',
@@ -193,8 +193,8 @@ export const stylePanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            liveStyle: [
-                authorAvatar && {
+            liveStyle: authorAvatar ? [
+                {
                     'type': 'plain',
                     'id': 'avatarGap',
                     'responsive': true,
@@ -212,7 +212,7 @@ export const stylePanel = (props) => {
                     ],
                     'selector': `.${elementId} img`,
                 }
-            ],
+            ] : [],
         },
         {
             id: 'opacity',
@@ -223,8 +223,8 @@ export const stylePanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            liveStyle: [
-                authorAvatar && {
+            liveStyle: authorAvatar ? [
+                {
                     'type': 'plain',
                     'id': 'opacity',
                     'responsive': true,
@@ -242,7 +242,7 @@ export const stylePanel = (props) => {
                     ],
                     'selector': `.${elementId} img`,
                 }
-            ],
+            ] : [],
         },
         {
             id: 'rotate',
@@ -254,8 +254,8 @@ export const stylePanel = (props) => {
             min: 0,
             max: 360,
             step: 1,
-            liveStyle: [
-                authorAvatar && {
+            liveStyle: authorAvatar ? [
+                {
                     'type': 'plain',
                     'id': 'rotate',
                     'responsive': true,
@@ -273,20 +273,20 @@ export const stylePanel = (props) => {
                     ],
                     'selector': `.${elementId} img`,
                 }
-            ],
+            ] : [],
         },
         {
             id: 'authorBorder',
             show: authorAvatar && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
-                authorAvatar && {
+            liveStyle: authorAvatar ? [
+                {
                     'type': 'border',
                     'id': 'authorBorder',
                     'selector': `.${elementId} img`,
                 }
-            ],
+            ] : [],
         },
         {
             id: 'authorBorderResponsive',
@@ -294,21 +294,21 @@ export const stylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
-                authorAvatar && {
+            liveStyle: authorAvatar ? [
+                {
                     'type': 'borderResponsive',
                     'id': 'authorBorderResponsive',
                     'selector': `.${elementId} img`,
                 }
-            ],
+            ] : [],
         },
         {
             id: 'authorBoxShadow',
             show: authorAvatar,
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
-                authorAvatar && {
+            liveStyle: authorAvatar ? [
+                {
                     'type': 'boxShadow',
                     'id': 'authorBoxShadow',
                     'properties': [
@@ -319,7 +319,7 @@ export const stylePanel = (props) => {
                     ],
                     'selector': `.${elementId} img`,
                 }
-            ],
+            ] : [],
         }
     ];
 };
