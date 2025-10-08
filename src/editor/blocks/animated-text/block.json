@@ -325,6 +325,9 @@
 		"className": false,
 		"anchor": true
 	},
+	"viewScript": [
+		"gutenverse-frontend-animated-text-script"
+	],
 	"keywords": [
 		"heading",
 		"animated",

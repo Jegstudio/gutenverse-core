@@ -43,5 +43,23 @@ class Frontend_Assets {
 			array( 'fontawesome-gutenverse', 'gutenverse-iconlist' ),
 			GUTENVERSE_VERSION
 		);
+
+		$blocks = array(
+			'animated-text',
+			'fun-fact',
+		);
+
+		foreach ( $blocks as $block ) {
+			$include   = ( include GUTENVERSE_DIR . '/lib/dependencies/' . $block . '.asset.php' )['dependencies'];
+			$include[] = 'gutenverse-frontend-event';
+
+			wp_enqueue_script(
+				'gutenverse-frontend-' . $block . ' -script',
+				GUTENVERSE_URL . '/assets/js/' . $block . '.js',
+				$include,
+				GUTENVERSE_VERSION,
+				true
+			);
+		}
 	}
 }

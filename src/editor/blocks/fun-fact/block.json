@@ -359,6 +359,9 @@
 			"default": {}
 		}
 	},
+	"viewScript": [
+		"gutenverse-frontend-fun-fact-script"
+	],
 	"supports": {
 		"className": false,
 		"anchor": true
