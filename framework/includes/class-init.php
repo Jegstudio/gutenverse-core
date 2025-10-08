@@ -192,6 +192,8 @@ class Init {
 				position: absolute;
 				bottom: 0;
 				right: 0;
+				width: 121px;
+				margin: 0 15px 15px 0;
 			}
 			.notice.gutenverse-unibiz-notice{
 				border: none;
@@ -227,7 +229,7 @@ class Init {
 			}
 
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .title{
-				font-family: Host Grotesk;
+				font-family: "Host Grotesk", sans-serif;
 				font-weight: 700;
 				font-size: 24px;
 				line-height: 1.14;
@@ -235,6 +237,7 @@ class Init {
 				background-clip: text;
 				-webkit-background-clip: text;
 				-webkit-text-fill-color: transparent;
+				margin-bottom: 12px;
 			}
 
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .title .highlight-title{
@@ -244,29 +247,32 @@ class Init {
 				-webkit-text-fill-color: transparent;
 			}
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .description{
-				font-family: Host Grotesk;
+				font-family: "Host Grotesk", sans-serif;
 				font-weight: 400;
 				font-size: 14px;
 				color: #00223D99;
+				margin: 0 0 12px 0;
 			}
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .feature-wrapper{
 				display: flex;
 				gap: 10px;
 				text-wrap: nowrap;
 				align-items: center;
+				margin: 0 0 24px 0;
 			}
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .feature-wrapper .feature-item{
 				display: flex;
-				gap: 5px;
+				gap: 6px;
 				align-items: center;
-				font-family: Host Grotesk;
-				font-weight: 500;
+				font-family: "Host Grotesk", sans-serif;
+				font-weight: 400;
 				font-size: 12px;
 				color: #5C51F3;
 				border-radius: 24px;
 				padding: 3px 10px 3px 5px;
 				background: #FFFFFF;
-				border: 1px solid #5C51F34D
+				border: 1px solid #5C51F34D;
+				margin-bottom: 0;
 			}
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .button-wrapper{
 				display: flex;
@@ -275,10 +281,8 @@ class Init {
 			}
 
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .button-wrapper .button-install{
-				width: 142px;
-				height: 36px;
 				border-radius: 8px;
-				padding: 5px 16px;
+				padding: 10px 16px;
 				background: radial-gradient(103.69% 112% at 51.27% 100%, #4992FF 0%, #7722FF 100%);
 				border: 1px solid #9760FF;
 				color: white;
@@ -287,6 +291,11 @@ class Init {
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				font-family: "Roboto", sans-serif;
+				font-weight: 500;
+				font-size: 12px;
+				line-height: 130%;
+				vertical-align: middle;
 			}
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .button-wrapper .button-install svg {
 				animation: infinite rotate 2s linear;
@@ -299,8 +308,9 @@ class Init {
 			}
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .button-wrapper .unibiz-arrow{
 				position: absolute;
-				top: -55px;
-				right: -130px;
+				top: -35px;
+				right: -128px;
+				width: 100px;
 			}
 
 			.gutenverse-unibiz-notice .content-wrapper .col-2{

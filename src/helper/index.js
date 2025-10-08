@@ -224,7 +224,7 @@ export const replaceString = (string, begin, end, replace) => {
 };
 
 export const getDevice = () => {
-    const deviceWidth = window.screen.width;
+    const deviceWidth = window.innerWidth;
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
 
     if (deviceWidth > tabletBreakpoint) {

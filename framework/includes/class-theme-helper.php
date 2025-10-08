@@ -36,6 +36,7 @@ class Theme_Helper {
 
 		add_filter( 'wp_theme_json_data_theme', array( $this, 'additional_custom_templates' ) );
 		add_filter( 'get_block_template', array( $this, 'get_block_template' ), null, 3 );
+
 		add_filter( 'validate_current_theme', '__return_false' );
 
 		// Action.

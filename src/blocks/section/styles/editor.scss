@@ -255,7 +255,11 @@ body {
     &:hover {
       cursor: pointer;
       transform: scale(0.94);
-      opacity: 0.6 !important;
+      color: rgb(255, 255, 255, 0.7);
+
+      svg {
+        opacity: .7;
+      }
     }
   }
 
@@ -265,6 +269,7 @@ body {
     .no-license-image-wrapper {
       display: flex;
       justify-content: center;
+      margin-top: 24px;
 
       .no-license-image {
         max-width: 154px;
@@ -272,7 +277,7 @@ body {
     }
 
     .no-license-title {
-      margin-top: 20px;
+      margin: 18px 0 6px;
       text-align: center;
       font-family: "Roboto", serif;
       font-size: 16px;

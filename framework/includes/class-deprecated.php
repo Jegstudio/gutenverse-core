@@ -25,8 +25,8 @@ class Deprecated {
 
 		// Filter.
 		if ( ! apply_filters( 'gutenverse_themes_override_mechanism', false ) ) {
-			add_filter( 'pre_get_block_templates', array( $this, 'get_block_template' ), null, 3 );
-			add_filter( 'get_block_file_template', array( $this, 'get_block_file_template' ), null, 5 );
+			add_filter( 'pre_get_block_templates', array( $this, 'get_block_template' ), 10, 3 );
+			add_filter( 'get_block_file_template', array( $this, 'get_block_file_template' ), 10, 5 );
 		}
 	}
 
@@ -153,7 +153,6 @@ class Deprecated {
 
 		if ( ! isset( $query['wp_id'] ) ) {
 			$template_files = $this->get_block_templates_files( $template_type );
-
 			foreach ( $template_files as $template_file ) {
 				$template = _build_block_template_result_from_file( $template_file, $template_type );
 
@@ -236,7 +235,9 @@ class Deprecated {
 					-5
 				);
 
-				if ( ! gutenverse_child_template( $template_base_paths[ $template_type ], $template_slug ) ) {
+				if (
+					! gutenverse_child_template( $template_base_paths[ $template_type ], $template_slug )
+				) {
 					$template_file = apply_filters( 'gutenverse_template_path', $template_file, $theme_slug, $template_slug );
 				}
 
@@ -256,7 +257,6 @@ class Deprecated {
 				}
 			}
 		}
-
 		return apply_filters( 'gutenverse_themes_template', $template_files, $template_type );
 	}
 
@@ -280,14 +280,16 @@ class Deprecated {
 			get_stylesheet() => get_stylesheet_directory(),
 			get_template()   => get_template_directory(),
 		);
+
 		foreach ( $themes as $theme_slug => $theme_dir ) {
 			$template_base_paths = get_block_theme_folders( $theme_slug );
-			$file_path           = $theme_dir . '/' . $template_base_paths[ $template_type ] . '/' . $slug . '.html';
+			$file_path           = '/' . $template_base_paths[ $template_type ] . '/' . $slug . '.html';
 
-			if ( ! gutenverse_child_template( $template_base_paths[ $template_type ], $slug ) ) {
+			if (
+				! gutenverse_child_template( $template_base_paths[ $template_type ], $slug )
+			) {
 				$file_path = apply_filters( 'gutenverse_template_path', $file_path, $theme_slug, $slug );
 			}
-
 			if ( file_exists( $file_path ) ) {
 				$new_template_item = array(
 					'slug'  => $slug,
@@ -295,6 +297,8 @@ class Deprecated {
 					'theme' => $theme_slug,
 					'type'  => $template_type,
 				);
+
+				$new_template_item = apply_filters( 'gutenverse_templete_file', $new_template_item );
 
 				if ( 'wp_template_part' === $template_type ) {
 					return _add_block_template_part_area_info( $new_template_item );

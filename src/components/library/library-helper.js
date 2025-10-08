@@ -25,16 +25,19 @@ const layoutFilter = (layoutData, filter) => {
         const { name: authorName } = layoutAuthor;
         const dev = '--dev_mode--';
 
+        let licenseCheck = true;
+        let keywordCheck = true;
+        let likeCheck = true;
+        let categoriesCheck = true;
+        let devCheck = true;
+        let authorCheck = true;
+
         if (like) {
-            if (false === layoutLike) {
-                return false;
-            }
+            likeCheck = layoutLike;
         }
 
         if (keyword) {
-            if (!name.toLowerCase().includes(keyword.toLowerCase())) {
-                return false;
-            }
+            keywordCheck = name.toLowerCase().includes(keyword.toLowerCase());
         }
 
         if (license) {
@@ -43,42 +46,43 @@ const layoutFilter = (layoutData, filter) => {
             // if (proState !== license) {
             //     return false;
             // }
-            const availablePlans = data?.available;
-
-            if (!Array.isArray(license) || !Array.isArray(availablePlans)) {
-                return false;
-            }
-
-            return license.some(filterItem => availablePlans.includes(filterItem?.value));
+            licenseCheck = (() => {
+                const availablePlans = data?.available;
+                if (!Array.isArray(license) || !Array.isArray(availablePlans)) {
+                    return false;
+                }
+                if (availablePlans.length === 1) {
+                    if (availablePlans[0] === '') {
+                        return true;
+                    }
+                }
+                return license.some(filterItem => availablePlans.includes(filterItem?.value));
+            })();
         }
 
         if (!isEmpty(categories)) {
-            let isTrue = true;
-            Object.keys(parents).forEach(el => {
-                if (!layoutCategories.some(category => parents[el].includes(category.id.toString()))) {
-                    isTrue = false;
-                }
-            });
-            if (!isTrue) {
-                return false;
-            }
+            categoriesCheck = (() => {
+                let isTrue = false;
+                Object.keys(parents).forEach(el => {
+                    if (layoutCategories.some(category => parents[el].includes(category.id.toString()))) {
+                        isTrue = true;
+                    }
+                });
+                return isTrue;
+            })();
         }
 
         if ('true' === dev) {
             if (postStatus) {
-                if (postStatus !== status) {
-                    return false;
-                }
+                devCheck = postStatus !== status;
             }
         }
 
         if (author) {
-            if (authorName !== author) {
-                return false;
-            }
+            authorCheck = authorName !== author;
         }
 
-        return true;
+        return licenseCheck && keywordCheck && likeCheck && categoriesCheck && authorCheck && devCheck;
     });
     return layoutData;
 };
@@ -107,7 +111,6 @@ export const filterLayout = (layoutData, filter, perPage) => {
     const data = layoutFilter(layoutData, filter).map((layout) => {
         const { id, name, data, like, author, customAPI, customArgs } = layout;
         const { pro, tier, slug, cover, demo, compatible_version: compatibleVersion, requirements } = data;
-
         return {
             id,
             pro: pro === '1',
@@ -242,56 +245,61 @@ const sectionFilter = (sectionData, filter) => {
         const { name: authorName } = sectionAuthor;
         const dev = '--dev_mode--';
 
-        if (like) {
-            if (false === sectionLike) {
-                return false;
-            }
-        }
+        let licenseCheck = true;
+        let devCheck = true;
+        let categoriesCheck = true;
+        let authorCheck = true;
+        let likeCheck = true;
 
+        if (like) {
+            likeCheck = sectionLike;
+        }
         if (license) {
             // const proState = pro === '0' ? 'free' : 'pro';
 
             // if (proState !== license) {
             //     return false;
             // }
-            const availablePlans = data?.available;
+            licenseCheck = (() => {
+                const availablePlans = data?.available;
 
-            if (!Array.isArray(license) || !Array.isArray(availablePlans)) {
-                return false;
-            }
-
-            return license.some(filterItem => availablePlans.includes(filterItem?.value));
+                if (!Array.isArray(license) || !Array.isArray(availablePlans)) {
+                    return false;
+                }
+                if (availablePlans.length === 1) {
+                    if (availablePlans[0] === '') {
+                        return true;
+                    }
+                }
+                return license.some(filterItem => availablePlans.includes(filterItem?.value));
+            })();
         }
 
         if ('true' === dev) {
             if (postStatus) {
-                if (postStatus !== status) {
-                    return false;
-                }
+                devCheck = postStatus === status;
             }
         }
 
         if (!isEmpty(categories)) {
-            let isTrue = true;
-            Object.keys(parents).forEach(el => {
-                if (!sectionCategories.some(category => parents[el].includes(category.id.toString()))) {
-                    isTrue = false;
-                }
-            });
-            if (!isTrue) {
-                return false;
-            }
+            categoriesCheck = (() => {
+                let isTrue = 0;
+                const keys = Object.keys(parents);
+                keys.forEach(el => {
+                    if (sectionCategories.some(category => parents[el].includes(category.id.toString()))) {
+                        isTrue++;
+                    }
+                });
+                return isTrue === keys.length;
+            })();
         }
 
         if (author) {
-            if (authorName !== author) {
-                return false;
-            }
+            authorCheck = authorName === author;
         }
 
-        return true;
+        return licenseCheck && devCheck && categoriesCheck && authorCheck && likeCheck;
     });
-
     return sectionData;
 };
 

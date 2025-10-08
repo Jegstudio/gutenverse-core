@@ -64,11 +64,17 @@
     gap: 6px;
     border-radius: 5px;
     background: linear-gradient(90deg, #E32D64 0%, #FB398A 100%);
+
+    svg {
+        transition: all .5s ease;
+    }
 }
 
 .button-upgrade-pro-banner:hover,
 .button-upgrade-plan-banner:hover {
     transform: scale(0.94);
+    color: rgb(255, 255, 255, .7) !important;
+
     svg {
         opacity: 0.75;
     }
@@ -98,6 +104,13 @@
 
 .button-upgrade-plan-banner:hover {
     color: white;
+}
+
+.divider-upgrade-plan {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(221, 221, 221, 1);
+    margin: 24px 0 8px;
 }
 
 .event-banner-wrapper{

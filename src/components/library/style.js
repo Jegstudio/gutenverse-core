@@ -8,6 +8,7 @@ export const customStyles = {
     },
     placeholder: () => {
         return {
+            color: 'rgba(153, 162, 169, 1)',
             borderColor: '#F0F0F3'
         };
     },
