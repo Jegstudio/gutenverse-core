@@ -180,6 +180,8 @@ class Dashboard {
 	 * @return array
 	 */
 	public function gutenverse_dashboard_config() {
+		global $pagenow;
+
 		$config = array();
 
 		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
@@ -194,7 +196,6 @@ class Dashboard {
 		$config['community']        = 'https://www.facebook.com/groups/gutenversecommunity/';
 		$config['themelist']        = admin_url( 'admin.php?page=gutenverse&path=theme-list' );
 		$config['homeSlug']         = 'gutenverse';
-		$config['system']           = $this->system_status();
 		$config['plugins']          = Editor_Assets::list_plugin();
 		$config['pluginVersions']   = array();
 		$config['fontIconExists']   = Init::instance()->assets->is_font_icon_exists();
@@ -220,6 +221,10 @@ class Dashboard {
 				'action_url'  => admin_url( 'plugins.php' ),
 			),
 		);
+
+		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'gutenverse' === $_GET['page'] ) {
+			$config['system'] = $this->system_status();
+		}
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
