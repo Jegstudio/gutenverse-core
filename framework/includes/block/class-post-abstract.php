@@ -753,7 +753,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			if ( $page > 2 ) {
 				$output .= '<a href="#" class="btn-pagination" data-page="1">1</a> ';
 				if ( $page > 3 ) {
-					$output .= '<span>...</span>  ';
+					$output .= '<span class="pagination-elipsis">...</span>  ';
 				}
 			}
 
@@ -769,7 +769,7 @@ abstract class Post_Abstract extends Block_Abstract {
 
 			if ( $page < $total - 1 ) {
 				if ( $page < $total - 2 ) {
-					$output .= '<span>...</span>  ';
+					$output .= '<span class="pagination-elipsis">...</span>  ';
 				}
 				$output .= '<a href="#" class="btn-pagination" data-page="' . $total . '">' . $total . '</a> ';
 			}

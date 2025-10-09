@@ -247,6 +247,10 @@ section.guten-section {
     overflow: clip;
   }
 
+  .guten-background-overlay {
+    transition: all .3s ease;
+  }
+
   @media (min-width: 781px) {
     &.guten-section-height-full {
       height: 100vh;
