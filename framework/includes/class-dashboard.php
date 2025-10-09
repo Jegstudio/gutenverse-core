@@ -286,8 +286,8 @@ class Dashboard {
 			$remote = wp_remote_get( home_url() );
 			set_transient( 'gutenverse_wp_remote_get_status_cache', $remote, 30 * MINUTE_IN_SECONDS );
 		}
-		$gd_support = array();
 
+		$gd_support = array();
 		if ( function_exists( 'gd_info' ) ) {
 			foreach ( gd_info() as $key => $value ) {
 				$gd_support[ $key ] = $value;

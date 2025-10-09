@@ -152,7 +152,7 @@ const Navigation = ({ location }) => {
                 name: <span>{__('Upgrade to PRO', '--gctd--')}<IconCrownBannerSVG /></span>,
                 slug: homeSlug,
                 upgrade: true,
-                link: `https://gutenverse.com/pro?utm_source=gutenverse&utm_medium=adminmenu&utm_client_site=${url}&utm_client_theme=${activeTheme}`,
+                link: `https://gutenverse.com/pricing?utm_source=gutenverse&utm_medium=adminmenu&utm_client_site=${url}&utm_client_theme=${activeTheme}`,
                 priority: 9999,
                 external: true,
             },

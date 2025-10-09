@@ -27,7 +27,7 @@ defined( 'GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL' ) || define( 'GUTENVERSE_FRAME
 defined( 'GUTENVERSE_FRAMEWORK_THEMES_URL' ) || define( 'GUTENVERSE_FRAMEWORK_THEMES_URL', GUTENVERSE_FRAMEWORK_SERVER_URL . 'themes' );
 
 // Pro Path.
-defined( 'GUTENVERSE_UPGRADE_URL' ) || define( 'GUTENVERSE_UPGRADE_URL', 'https://gutenverse.com/pro' );
+defined( 'GUTENVERSE_UPGRADE_URL' ) || define( 'GUTENVERSE_UPGRADE_URL', 'https://gutenverse.com/pricing' );
 defined( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL' ) || define( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL', 'https://pro.gutenverse.com/invite' );
 
 
