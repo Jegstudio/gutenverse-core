@@ -882,3 +882,127 @@
         } 
     }
 }
+#gutenverse-dashboard, .gutenverse-drawer-body{
+    .popup-pro {
+		background: rgba(0, 0, 0, 0.8);
+		bottom: 0;
+		left: 0;
+		position: fixed;
+		right: 0;
+		top: 0;
+		z-index: 999999;
+
+		.popup-content {
+			background: #fff;
+			border-radius: 10px;
+			box-sizing: border-box;
+			display: flex;
+			flex-wrap: wrap;
+			height: auto;
+			justify-content: center;
+			padding: 41px 50px 44px;
+			position: absolute;
+			width: 460px;
+			transform: translate(-50%, -50%);
+			left: 50%;
+			top: 50%;
+
+			.close {
+				cursor: pointer;
+				position: absolute;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				top: 13px;
+				right: 13px;
+				width: 15px;
+				height: 15px;
+				color: rgba(255, 255, 255, 0.7);
+			}
+
+			.popup-image-background {
+				position: absolute;
+				border-radius: inherit;
+				left: 0;
+				top: 0;
+				height: 100%;
+				width: 100%;
+				object-fit: cover;
+			}
+
+			.popup-image-cube {
+				position: absolute;
+				height: auto;
+				left: 226px;
+				top: -2px;
+				width: 220px;
+			}
+
+			.popup-image-element1 {
+				position: absolute;
+				width: 45px;
+				height: 45px;
+				top: 12px;
+				left: 42px;
+			}
+
+			.popup-image-element2 {
+				height: 45px;
+				position: absolute;
+				right: 55px;
+				top: 42.5px;
+				width: 45px;
+			}
+
+			.popup-image-element3 {
+				height: 50px;
+				position: absolute;
+				left: 48px;
+				top: 132.5px;
+				width: 50px;
+			}
+
+			.popup-image-mockup {
+				width: 70%;
+				margin-bottom: 29px;
+				padding-right: 23px;
+				z-index: 0;
+			}
+
+			.popup-image-arrow {
+				display: none;
+			}
+
+			.content {
+				z-index: 1;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+
+			.details {
+				color: #011627;
+				text-align: center;
+				font-family: Roboto, serif;
+				font-size: 22px;
+				font-style: normal;
+				font-weight: 600;
+				line-height: 130%;
+				margin: 0 auto 20px;
+
+				span {
+					background: linear-gradient(
+							92deg,
+							#f045ff -12.88%,
+							#4569ff 51.2%,
+							#68e4f4 105.74%
+						),
+						rgba(255, 255, 255, 0.2);
+					background-clip: text;
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+				}
+			}
+		}
+	}
+}

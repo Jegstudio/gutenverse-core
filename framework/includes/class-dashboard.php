@@ -180,6 +180,8 @@ class Dashboard {
 	 * @return array
 	 */
 	public function gutenverse_dashboard_config() {
+		global $pagenow;
+
 		$config = array();
 
 		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
@@ -194,7 +196,6 @@ class Dashboard {
 		$config['community']        = 'https://www.facebook.com/groups/gutenversecommunity/';
 		$config['themelist']        = admin_url( 'admin.php?page=gutenverse&path=theme-list' );
 		$config['homeSlug']         = 'gutenverse';
-		$config['system']           = $this->system_status();
 		$config['plugins']          = Editor_Assets::list_plugin();
 		$config['pluginVersions']   = array();
 		$config['fontIconExists']   = Init::instance()->assets->is_font_icon_exists();
@@ -220,6 +221,10 @@ class Dashboard {
 				'action_url'  => admin_url( 'plugins.php' ),
 			),
 		);
+
+		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'gutenverse' === $_GET['page'] ) {
+			$config['system'] = $this->system_status();
+		}
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
@@ -276,9 +281,13 @@ class Dashboard {
 		$status['count_tag']        = wp_count_terms( 'post_tag' );
 
 		/** Server Environment */
-		$remote     = wp_remote_get( home_url() );
-		$gd_support = array();
+		$remote = get_transient( 'gutenverse_wp_remote_get_status_cache' );
+		if ( ! $remote ) {
+			$remote = wp_remote_get( home_url() );
+			set_transient( 'gutenverse_wp_remote_get_status_cache', $remote, 30 * MINUTE_IN_SECONDS );
+		}
 
+		$gd_support = array();
 		if ( function_exists( 'gd_info' ) ) {
 			foreach ( gd_info() as $key => $value ) {
 				$gd_support[ $key ] = $value;
