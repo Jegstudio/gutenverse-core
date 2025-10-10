@@ -240,27 +240,6 @@ const ImageBlock = compose(
         }
     }, [elementRef]);
 
-    const ImageToolbar = () => {
-        return applyFilters('gutenverse.button.url-toolbar',
-            <URLToolbar
-                url={url}
-                setAttributes={setAttributes}
-                isSelected={isSelected}
-                opensInNewTab={linkTarget === '_blank'}
-                onToggleOpenInNewTab={onToggleOpenInNewTab}
-                anchorRef={blockProps.ref}
-                usingDynamic={true}
-                setPanelState={setPanelState}
-                panelState={imagePanelState}
-                title="Item Link"
-                panelIsClicked={panelIsClicked}
-                setPanelIsClicked={setPanelIsClicked}
-            />,
-            {...props, setPanelState},
-            imagePanelState
-        );
-    };
-
     return <>
         <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
@@ -274,7 +253,24 @@ const ImageBlock = compose(
                         onClick={open}
                     />}
                 </ImagePicker>
-                <ImageToolbar />
+                {applyFilters('gutenverse.button.url-toolbar',
+                    <URLToolbar
+                        url={url}
+                        setAttributes={setAttributes}
+                        isSelected={isSelected}
+                        opensInNewTab={linkTarget === '_blank'}
+                        onToggleOpenInNewTab={onToggleOpenInNewTab}
+                        anchorRef={blockProps.ref}
+                        usingDynamic={true}
+                        setPanelState={setPanelState}
+                        panelState={imagePanelState}
+                        title="Item Link"
+                        panelIsClicked={panelIsClicked}
+                        setPanelIsClicked={setPanelIsClicked}
+                    />,
+                    {...props, setPanelState},
+                    imagePanelState
+                )}
             </ToolbarGroup>
         </BlockControls>}
         {rootBlock && rootBlock.name === 'gutenverse/client-logo' ? <div id={elementId}>{blockElement}</div> : blockElement}
