@@ -595,8 +595,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"testimonial",
-		"review"
-	]
+	"keywords": ["testimonial", "review", "feedback"]
 }

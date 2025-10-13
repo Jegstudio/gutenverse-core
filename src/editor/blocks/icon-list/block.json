@@ -181,7 +181,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"spaceDivider":{
+		"spaceDivider": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -214,8 +214,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"icon",
-		"list"
-	]
+	"keywords": ["icon", "list", "image", "symbol", "logo", "texts"]
 }

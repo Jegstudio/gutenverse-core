@@ -165,10 +165,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"google",
-		"map",
-		"direction",
-		"path"
-	]
+	"keywords": ["google", "map", "direction", "path", "place", "location"]
 }

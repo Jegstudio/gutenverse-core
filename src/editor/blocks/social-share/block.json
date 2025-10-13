@@ -244,9 +244,7 @@
 			"attributes": {
 				"orientation": "horizontal"
 			},
-			"scope": [
-				"transform"
-			]
+			"scope": ["transform"]
 		},
 		{
 			"name": "social-share-vertical",
@@ -255,16 +253,11 @@
 			"attributes": {
 				"orientation": "vertical"
 			},
-			"scope": [
-				"transform"
-			]
+			"scope": ["transform"]
 		}
 	],
 	"supports": {
 		"className": false
 	},
-	"keywords": [
-		"social",
-		"share"
-	]
+	"keywords": ["social", "share", "link"]
 }

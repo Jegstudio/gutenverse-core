@@ -4,9 +4,7 @@
 	"title": "Accordion Item",
 	"description": "Create content inside an accordion element.",
 	"category": "gutenverse-element",
-	"parent": [
-		"gutenverse/accordions"
-	],
+	"parent": ["gutenverse/accordions"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -17,7 +15,7 @@
 			"selector": ".accordion-heading .accordion-text",
 			"default": ""
 		},
-		"titleChilds":{
+		"titleChilds": {
 			"type": "array",
 			"default": []
 		},
@@ -43,11 +41,11 @@
 		},
 		"dynamicTextContent": {
 			"type": "array",
-			"copyStyle" : true
+			"copyStyle": true
 		},
 		"dynamicUrlContent": {
 			"type": "array",
-			"copyStyle" : true
+			"copyStyle": true
 		},
 		"iconPosition": {
 			"type": "string",
@@ -104,9 +102,5 @@
 		"innerBlocks": true,
 		"anchor": true
 	},
-	"keywords": [
-		"tabs",
-		"accordion",
-		"gutenverse"
-	]
+	"keywords": ["tabs", "accordions", "dropdown", "expand", "panels"]
 }

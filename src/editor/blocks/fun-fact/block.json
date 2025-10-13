@@ -21,16 +21,16 @@
 			"type": "object",
 			"copyStyle": true,
 			"default": {
-				"Desktop":"top"
+				"Desktop": "top"
 			}
 		},
 		"topIconContent": {
-			"type":"boolean",
-			"default":true
+			"type": "boolean",
+			"default": true
 		},
 		"bottomIconContent": {
-			"type":"boolean",
-			"default":false
+			"type": "boolean",
+			"default": false
 		},
 		"contentDisplay": {
 			"type": "string",
@@ -106,7 +106,7 @@
 			"type": "integer",
 			"default": 150
 		},
-		"imageSizeResponsive":{
+		"imageSizeResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "imageSizeResponsive",
@@ -350,7 +350,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"lazyLoad":{
+		"lazyLoad": {
 			"type": "boolean",
 			"copyStyle": true
 		},
@@ -363,10 +363,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"fun",
-		"fact",
-		"count",
-		"number"
-	]
+	"keywords": ["fun", "fact", "count", "number", "stats", "statistic", "data", "info"]
 }

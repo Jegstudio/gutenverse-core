@@ -32,7 +32,7 @@
 			"default": {}
 		},
 		"isDynamic": {
-			"type" : "boolean",
+			"type": "boolean",
 			"default": false
 		},
 		"linkTarget": {
@@ -288,17 +288,17 @@
 			"type": "string",
 			"copyStyle": true
 		},
-        "condition": {
+		"condition": {
 			"type": "object",
 			"default": {}
 		},
-		"hoverWithParent":{
-			"type":"boolean",
+		"hoverWithParent": {
+			"type": "boolean",
 			"default": false,
 			"copyStyle": true
 		},
-		"parentSelector":{
-			"type":"string",
+		"parentSelector": {
+			"type": "string",
 			"copyStyle": true
 		},
 		"iconLineHeight": {
@@ -310,5 +310,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["button", "url", "action"]
+	"keywords": ["button", "url", "action", "click", "link"]
 }

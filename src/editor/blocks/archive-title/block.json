@@ -134,7 +134,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		
+
 		"animation": {
 			"type": "object",
 			"default": {},
@@ -192,22 +192,15 @@
 			"type": "object",
 			"copyStyle": true
 		},
-        "condition": {
+		"condition": {
 			"type": "object",
 			"default": {}
 		}
 	},
-	"usesContext": [
-		"archiveId",
-		"archiveType",
-		"queryId"
-	],
+	"usesContext": ["archiveId", "archiveType", "queryId"],
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"archive",
-		"title"
-	]
+	"keywords": ["single", "category", "term", "archive", "title", "texts"]
 }
