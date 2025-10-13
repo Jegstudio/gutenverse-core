@@ -2,7 +2,6 @@
 import { __ } from '@wordpress/i18n';
 import AsyncSelect from 'react-select/async';
 import { v4 as uuidv4 } from 'uuid';
-import { useState,useEffect } from '@wordpress/element';
 
 const SelectSearchControl = (props) => {
     let uuid = uuidv4();
