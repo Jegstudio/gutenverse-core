@@ -1255,6 +1255,6 @@ if ( ! function_exists( 'gutenverse_get_current_url' ) ) {
 		$host   = $_SERVER['HTTP_HOST'];
 		$uri    = $_SERVER['REQUEST_URI'];
 
-		return esc_url( "{$scheme}://{$host}{$uri}" );
+		return "{$scheme}://{$host}{$uri}";
 	}
 }
