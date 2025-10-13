@@ -147,3 +147,5 @@ const selected = u('.guten-nav-menu');
 if (selected) {
     new GutenverseNavMenu(selected);
 }
+
+export default GutenverseNavMenu;
