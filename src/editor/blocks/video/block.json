@@ -197,11 +197,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"video",
-		"youtube",
-		"twitch",
-		"vimeo",
-		"dailymotion"
-	]
+	"keywords": ["video", "youtube", "twitch", "vimeo", "dailymotion", "watch"]
 }

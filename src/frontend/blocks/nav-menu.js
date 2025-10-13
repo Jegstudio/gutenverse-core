@@ -19,6 +19,7 @@ class GutenverseNavMenu extends Default {
             menuDropdown: wrapper.find('li.menu-item-has-children > a'),
             singleMenu: wrapper.find('li.menu-item:not(.menu-item-has-children)'),
             overlay: wrapper.find('.guten-nav-overlay'),
+            hasChildren: wrapper.find('li.menu-item-has-children'),
         };
         this.__handleAnchor(element);
         this._firstLoad(item);
@@ -42,7 +43,25 @@ class GutenverseNavMenu extends Default {
         });
     }
 
+    _handleSubMenuOverflow(element) {
+        const item = element;
+        const rect = item.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        const leftVal = window.getComputedStyle(item).left;
+
+        if (rect.right > viewportWidth){
+            if (leftVal === '0px') {
+                u(item).attr('style', 'left: -120%;');
+                return;
+            }
+            u(item).attr('style', 'left: auto; right: 100%;');
+        }
+    }
+
     _toggleMenu(item) {
+        item.hasChildren.map((item) => {
+            this._handleSubMenuOverflow(u(item).find('.sub-menu').first());
+        });
         item.openToggle.off('click').on('click', function () {
             if (item.container.hasClass('active')) {
                 item.container.removeClass('active');

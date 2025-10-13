@@ -289,8 +289,5 @@
 	"supports": {
 		"className": false
 	},
-	"keywords": [
-		"popup",
-		"builder"
-	]
+	"keywords": ["popup", "builder"]
 }

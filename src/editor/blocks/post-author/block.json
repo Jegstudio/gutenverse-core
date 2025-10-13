@@ -224,17 +224,10 @@
 			"default": {}
 		}
 	},
-	"usesContext": [
-		"postId",
-		"postType",
-		"queryId"
-	],
+	"usesContext": ["postId", "postType", "queryId"],
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"post",
-		"author"
-	]
+	"keywords": ["single", "post", "author"]
 }

@@ -1,155 +1,155 @@
 {
-  "apiVersion": 2,
-  "name": "gutenverse/chart",
-  "class_callback": "\\Gutenverse\\Block\\Chart",
-  "title": "Chart",
-  "description": "Create a Chart to showcase your site acheivement.",
-  "category": "gutenverse-element",
-  "allowCopyStyle": true,
-  "attributes": {
-    "elementId": {
-      "type": "string"
-    },
-    "icon": {
+	"apiVersion": 2,
+	"name": "gutenverse/chart",
+	"class_callback": "\\Gutenverse\\Block\\Chart",
+	"title": "Chart",
+	"description": "Create a Chart to showcase your site acheivement.",
+	"category": "gutenverse-element",
+	"allowCopyStyle": true,
+	"attributes": {
+		"elementId": {
+			"type": "string"
+		},
+		"icon": {
 			"type": "string",
 			"default": "fas fa-chart-pie"
 		},
-    "indicatorIconSize": {
+		"indicatorIconSize": {
 			"type": "object",
 			"copyStyle": true
 		},
-    "url": {
+		"url": {
 			"type": "string"
 		},
-    "chartContent": {
-      "type": "string",
-      "default": "percentage",
-      "copyStyle": true
-    },
-    "chartType": {
-      "type": "string",
-      "default": "doughnut",
-      "copyStyle": true
-    },
-    "tooltipDisplay" : {
-      "type": "boolean",
-      "default": false,
-      "copyStyle": true
-    },
-    "legendDisplay": {
-      "type": "boolean",
-      "default": false
-    },
-    "chartItems": {
+		"chartContent": {
+			"type": "string",
+			"default": "percentage",
+			"copyStyle": true
+		},
+		"chartType": {
+			"type": "string",
+			"default": "doughnut",
+			"copyStyle": true
+		},
+		"tooltipDisplay": {
+			"type": "boolean",
+			"default": false,
+			"copyStyle": true
+		},
+		"legendDisplay": {
+			"type": "boolean",
+			"default": false
+		},
+		"chartItems": {
 			"type": "array",
 			"default": [
 				{
 					"label": "Data 1",
 					"value": "80",
-          "backgroundColor": {
-            "r": 1,
-            "g": 134,
-            "b": 255,
-            "a": 1
-          },
-          "colorGradientOne": {
-            "r": 4,
-            "g": 161,
-            "b": 247,
-            "a": 1
-          },
-          "colorGradientTwo": {
-            "r": 147,
-            "g": 0,
-            "b": 247,
-            "a": 1
-          },
-          "gradientDirection": "topBottom",
-          "gradientPosition": 200,
-          "barThickness" : 100,
-          "borderColor": {
-            "r": 255,
-            "g": 255,
-            "b": 255,
-            "a": 1
-          },
-          "borderWidth": "0"
-        }
+					"backgroundColor": {
+						"r": 1,
+						"g": 134,
+						"b": 255,
+						"a": 1
+					},
+					"colorGradientOne": {
+						"r": 4,
+						"g": 161,
+						"b": 247,
+						"a": 1
+					},
+					"colorGradientTwo": {
+						"r": 147,
+						"g": 0,
+						"b": 247,
+						"a": 1
+					},
+					"gradientDirection": "topBottom",
+					"gradientPosition": 200,
+					"barThickness": 100,
+					"borderColor": {
+						"r": 255,
+						"g": 255,
+						"b": 255,
+						"a": 1
+					},
+					"borderWidth": "0"
+				}
 			]
 		},
-    "totalValue": {
+		"totalValue": {
 			"type": "string",
 			"default": 500
 		},
-    "minValue": {
+		"minValue": {
 			"type": "string",
 			"default": 0
 		},
-    "animationDuration": {
+		"animationDuration": {
 			"type": "string",
 			"default": 3600
 		},
-    "enableContent": {
-      "type": "object",
-      "default": {
-        "Desktop": false
-      }
-    },
-    "enableContentParsed": {
-      "type": "object",
-      "default": {
-        "Desktop": false
-      }
-    },
-    "contentType": {
-      "type": "object",
-      "copyStyle": true,
-      "default": {
-        "Desktop": "row"
-      }
-    },
-    "cutout": {
+		"enableContent": {
 			"type": "object",
 			"default": {
-        "Desktop": "90",
-        "Tablet": "90",
-        "Mobile": "90"
-      }
+				"Desktop": false
+			}
 		},
-    "barThickness": {
+		"enableContentParsed": {
+			"type": "object",
+			"default": {
+				"Desktop": false
+			}
+		},
+		"contentType": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {
+				"Desktop": "row"
+			}
+		},
+		"cutout": {
+			"type": "object",
+			"default": {
+				"Desktop": "90",
+				"Tablet": "90",
+				"Mobile": "90"
+			}
+		},
+		"barThickness": {
 			"type": "string",
 			"default": "50"
 		},
-    "chartSize": {
-			"type" : "object",
-      "default": {
-        "Desktop": 250
-      },
+		"chartSize": {
+			"type": "object",
+			"default": {
+				"Desktop": 250
+			},
 			"copyStyle": true
 		},
-    
-    "chartContainerSize": {
-			"type" : "object",
-      "default": {
-        "Desktop": 100
-      },
+
+		"chartContainerSize": {
+			"type": "object",
+			"default": {
+				"Desktop": 100
+			},
 			"copyStyle": true
 		},
-    "cutoutBackground": {
-      "type": "object",
-      "default": {
-        "r": 211,
-        "g": 211,
-        "b": 211,
-        "a": 1
-      },
-      "copyStyle": true
-    },
-    "chartContentAlign": {
-      "type": "object",
+		"cutoutBackground": {
+			"type": "object",
+			"default": {
+				"r": 211,
+				"g": 211,
+				"b": 211,
+				"a": 1
+			},
 			"copyStyle": true
-    },
-    "indicatorTypography": {
+		},
+		"chartContentAlign": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"indicatorTypography": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -157,11 +157,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-    "cardBackground": {
+		"cardBackground": {
 			"type": "object",
 			"copyStyle": true
 		},
-    "paddingCard": {
+		"paddingCard": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -169,15 +169,15 @@
 			"type": "object",
 			"copyStyle": true
 		},
-    "cardBoxShadow": {
+		"cardBoxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
-    "cardTitleAlign": {
+		"cardTitleAlign": {
 			"type": "object",
 			"copyStyle": true
 		},
-    "cardTitleTypography": {
+		"cardTitleTypography": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -190,15 +190,15 @@
 			"default": {},
 			"copyStyle": true
 		},
-    "marginCardTitle": {
+		"marginCardTitle": {
 			"type": "object",
 			"copyStyle": true
 		},
-    "cardDescriptionAlign": {
+		"cardDescriptionAlign": {
 			"type": "object",
 			"copyStyle": true
 		},
-    "cardDescriptionTypography": {
+		"cardDescriptionTypography": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -211,23 +211,23 @@
 			"default": {},
 			"copyStyle": true
 		},
-    "marginCardDescription": {
+		"marginCardDescription": {
 			"type": "object",
 			"copyStyle": true
 		},
-    "rel": {
+		"rel": {
 			"type": "string",
 			"source": "attribute",
 			"selector": "a",
 			"attribute": "rel"
 		},
-    "linkTarget": {
+		"linkTarget": {
 			"type": "string",
 			"source": "attribute",
 			"selector": "a",
 			"attribute": "target"
 		},
-    "title": {
+		"title": {
 			"type": "string",
 			"default": "Chart Title"
 		},
@@ -239,134 +239,131 @@
 			"type": "string",
 			"default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 		},
-    "background": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "backgroundHover": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "border": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "borderResponsive": {
-      "type": "object",
-      "migrate": {
-        "attr": "border",
-        "type": "border"
-      },
-      "copyStyle": true
-    },
-    "boxShadow": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "borderHover": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "borderHoverResponsive": {
-      "type": "object",
-      "migrate": {
-        "attr": "borderHover",
-        "type": "border"
-      },
-      "copyStyle": true
-    },
-    "boxShadowHover": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "margin": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "padding": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "zIndex": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "animation": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "hideDesktop": {
-      "type": "boolean",
-      "copyStyle": true
-    },
-    "hideTablet": {
-      "type": "boolean",
-      "copyStyle": true
-    },
-    "hideMobile": {
-      "type": "boolean",
-      "copyStyle": true
-    },
-    "positioningType": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "positioningWidth": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "positioningAlign": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "positioningLocation": {
-      "type": "string",
-      "copyStyle": true
-    },
-    "positioningLeft": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "positioningRight": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "positioningTop": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "positioningBottom": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "transform": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "mouseMoveEffect": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "mask": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "condition": {
-        "type": "object",
-        "default": {}
-    },
-    "contentOrder": {
+		"background": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"backgroundHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"border": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "border",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
+		"boxShadow": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderHoverResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
+		"boxShadowHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"margin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"padding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"zIndex": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"animation": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"hideDesktop": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideTablet": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideMobile": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"positioningType": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningWidth": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningAlign": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningLocation": {
+			"type": "string",
+			"copyStyle": true
+		},
+		"positioningLeft": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningRight": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningTop": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningBottom": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"transform": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mask": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
+		},
+		"contentOrder": {
 			"type": "string",
 			"default": "1,2,3",
 			"copyStyle": true
 		}
-  },
-  "supports": {
-    "className": false,
+	},
+	"supports": {
+		"className": false,
 		"anchor": true
-  },
-  "keywords": [
-    "pie",
-    "chart"
-  ]
+	},
+	"keywords": ["pie", "chart", "stats", "statistic", "information", "data"]
 }

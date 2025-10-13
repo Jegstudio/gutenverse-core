@@ -186,17 +186,10 @@
 			"default": {}
 		}
 	},
-	"usesContext": [
-		"postId",
-		"postType",
-		"queryId"
-	],
+	"usesContext": ["postId", "postType", "queryId"],
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"post",
-		"excerpt"
-	]
+	"keywords": ["single", "post", "excerpt"]
 }

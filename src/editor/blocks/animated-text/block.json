@@ -36,38 +36,38 @@
 			"default": "Placeholder Text"
 		},
 		"rotationTexts": {
-			"type":"array",
-			"default":[
+			"type": "array",
+			"default": [
 				{
 					"rotationText": "Three"
 				},
 				{
-					"rotationText":"Two"
+					"rotationText": "Two"
 				},
 				{
-					"rotationText":"One"
+					"rotationText": "One"
 				}
 			]
 		},
 		"beforeTextAnimated": {
-			"type":"string",
-			"default":"Before "
+			"type": "string",
+			"default": "Before "
 		},
 		"afterTextAnimated": {
-			"type":"string",
-			"default":" After"
+			"type": "string",
+			"default": " After"
 		},
 		"displayDuration": {
-			"type":"string",
-			"default":"1000"
+			"type": "string",
+			"default": "1000"
 		},
 		"animationDuration": {
-			"type":"string",
-			"default":"600"
+			"type": "string",
+			"default": "600"
 		},
 		"transitionDuration": {
-			"type":"string",
-			"default":"500"
+			"type": "string",
+			"default": "500"
 		},
 		"splitByWord": {
 			"type": "boolean"
@@ -160,11 +160,11 @@
 			"default": {}
 		},
 		"highlightGradient": {
-			"type":"array"
+			"type": "array"
 		},
 		"highlightWidth": {
-			"type":"string",
-			"default":"10"
+			"type": "string",
+			"default": "10"
 		},
 		"highlightRoundedEdges": {
 			"type": "boolean",
@@ -298,40 +298,31 @@
 			"type": "object",
 			"copyStyle": true
 		},
-        "condition": {
+		"condition": {
 			"type": "object",
 			"default": {}
 		},
-        "color": {
-            "copyStyle": true,
-            "type": "object"
-        },
-        "textShadow": {
-            "copyStyle": true,
-            "default": {
-            },
-            "type": "object"
-        },
+		"color": {
+			"copyStyle": true,
+			"type": "object"
+		},
+		"textShadow": {
+			"copyStyle": true,
+			"default": {},
+			"type": "object"
+		},
 		"textStroke": {
-            "copyStyle": true,
-            "type": "object"
-        },
+			"copyStyle": true,
+			"type": "object"
+		},
 		"typography": {
-            "copyStyle": true,
-            "type": "object"
-        }
+			"copyStyle": true,
+			"type": "object"
+		}
 	},
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"viewScript": [
-		"gutenverse-frontend-animated-text-script"
-	],
-	"keywords": [
-		"heading",
-		"animated",
-		"animation",
-		"text"
-	]
+	"keywords": ["heading", "animated", "animation", "moving", "title", "texts"]
 }
