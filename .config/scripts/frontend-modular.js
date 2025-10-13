@@ -41,7 +41,7 @@ const getModularConfig = () => {
 
 const { entry, copyTasks, deleteTasks } = getModularConfig();
 
-const modularConfig = {
+const frontendModular = {
     mode: "development",
     devtool: "source-map",
     entry,
@@ -75,5 +75,5 @@ const modularConfig = {
 };
 
 module.exports = {
-    modularConfig,
+    frontendModular,
 };
