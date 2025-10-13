@@ -38,4 +38,8 @@ class GutenverseProgressBar extends Default {
     }
 }
 
-export default GutenverseProgressBar;
+const selected = u('.guten-progress-bar');
+
+if (selected) {
+    new GutenverseProgressBar(selected);
+}

@@ -68,4 +68,8 @@ class GutenverseClientLogo extends Default {
     }
 }
 
-export default GutenverseClientLogo;
+const selected = u('.guten-client-logo');
+
+if (selected) {
+    new GutenverseClientLogo(selected);
+}

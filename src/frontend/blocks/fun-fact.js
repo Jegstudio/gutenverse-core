@@ -61,4 +61,9 @@ class GutenverseFunFact extends Default {
         this.playOnScreen(element, [numberAnimation]);
     }
 }
-export default GutenverseFunFact;
+
+const selected = u('.guten-fun-fact');
+
+if (selected) {
+    new GutenverseFunFact(selected);
+}

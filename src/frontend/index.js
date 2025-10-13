@@ -25,26 +25,7 @@ import { u } from 'gutenverse-core-frontend';
 // import GutenverseMaps from './blocks/google-maps';
 
 // let gutenClasses = {
-//     ['tabs']: GutenverseTabs,
-//     ['accordions']: GutenverseAccordion,
 //     ['video-wrapper']: GutenverseVideo,
-//     ['team']: GutenverseTeam,
-//     ['progress-bar']: GutenverseProgressBar,
-//     ['fun-fact']: GutenverseFunFact,
-//     ['nav-menu']: GutenverseNavMenu,
-//     ['testimonials']: GutenverseTestimonials,
-//     ['client-logo']: GutenverseClientLogo,
-//     ['gallery']: GutenverseGallery,
-//     ['animated-text']: GutenverseAnimatedText,
-//     ['post-block']: GutenversePostblock,
-//     ['post-list']: GutenversePostlist,
-//     ['popup-builder']: GutenversePopupBuilder,
-//     ['search']: GutenverseSearch,
-//     ['countdown']: GutenverseCountdown,
-//     ['post-comment']: GutenversePostComment,
-//     ['portfolio-gallery']: GutenversePortfolioGallery,
-//     ['chart']: GutenverseChart,
-//     ['maps']: GutenverseMaps
 // };
 
 // //gutenverse-form functionality

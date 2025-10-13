@@ -69,4 +69,8 @@ class GutenverseTestimonials extends Default {
     }
 }
 
-export default GutenverseTestimonials;
+const selected = u('.guten-testimonials');
+
+if (selected) {
+    new GutenverseTestimonials(selected);
+}

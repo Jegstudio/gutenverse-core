@@ -101,4 +101,8 @@ class GutenverseCountdown extends Default {
 
 }
 
-export default GutenverseCountdown;
+const selected = u('.guten-countdown');
+
+if (selected) {
+    new GutenverseCountdown(selected);
+}

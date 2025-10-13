@@ -4,7 +4,6 @@ import { Default, u } from 'gutenverse-core-frontend';
 class GutenverseFunFact extends Default {
     /* public */
     init() {
-        console.log('FUN FACT SCRIPT LOADED');
         this._elements.map(element => {
             this._addAnimation(element);
         });

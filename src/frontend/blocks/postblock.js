@@ -298,4 +298,8 @@ class GutenversePostblock extends Default {
     }
 }
 
-export default GutenversePostblock;
+const selected = u('.guten-post-block');
+
+if (selected) {
+    new GutenversePostblock(selected);
+}

@@ -45,17 +45,34 @@ class Frontend_Assets {
 		);
 
 		$blocks = array(
+			'accordion',
 			'animated-text',
+			'chart',
+			'client-logo',
+			'countdown',
 			'fun-fact',
+			'gallery',
+			'google-maps',
+			'nav-menu',
+			'popup-builder',
+			'portfolio-gallery',
+			'post-comment',
+			'postblock',
+			'postlist',
+			'progress-bar',
+			'search',
+			'tab',
+			'team',
+			'testimonials',
 		);
 
 		foreach ( $blocks as $block ) {
-			$include   = ( include GUTENVERSE_DIR . '/lib/dependencies/' . $block . '.asset.php' )['dependencies'];
+			$include   = ( include GUTENVERSE_DIR . '/lib/dependencies/frontend/' . $block . '.asset.php' )['dependencies'];
 			$include[] = 'gutenverse-frontend-event';
 
-			wp_enqueue_script(
-				'gutenverse-frontend-' . $block . ' -script',
-				GUTENVERSE_URL . '/assets/js/' . $block . '.js',
+			wp_register_script(
+				'gutenverse-frontend-' . $block . '-script',
+				GUTENVERSE_URL . '/assets/js/frontend/' . $block . '.js',
 				$include,
 				GUTENVERSE_VERSION,
 				true

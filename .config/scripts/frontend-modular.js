@@ -7,7 +7,7 @@ const { stats, plugins } = require("gutenverse-core/.config/config");
 const { externals, coreFrontendExternals } = require("gutenverse-core/.config/externals");
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
-const modularDir = path.resolve(__dirname, "../../src/frontend/modular/");
+const modularDir = path.resolve(__dirname, "../../src/frontend/blocks/");
 
 const getModularConfig = () => {
     const files = fs.readdirSync(modularDir).filter(file => file.endsWith('.js'));
@@ -23,16 +23,16 @@ const getModularConfig = () => {
             import: path.join(modularDir, file),
         };
 
-        deleteTasks.push(`./gutenverse/assets/js/${name}.js*`);
-        deleteTasks.push(`./gutenverse/lib/dependencies/${name}.asset.php`);
+        deleteTasks.push(`./gutenverse/assets/js/frontend/${name}.js*`);
+        deleteTasks.push(`./gutenverse/lib/dependencies/frontend/${name}.asset.php`);
 
         copyTasks.push({
             source: process.env.NODE_ENV === 'development' ? `./build/${name}.js*` : `./build/${name}.js`,
-            destination: "./gutenverse/assets/js/",
+            destination: "./gutenverse/assets/js/frontend/",
         });
         copyTasks.push({
             source: `./build/${name}.asset.php`,
-            destination: "./gutenverse/lib/dependencies/",
+            destination: "./gutenverse/lib/dependencies/frontend/",
         });
     });
 
@@ -65,10 +65,6 @@ const modularConfig = {
                 },
                 onEnd: {
                     copy: [
-                        {
-                            source: "./build/frontend.asset.php",
-                            destination: "./gutenverse/lib/dependencies/",
-                        },
                         ...copyTasks,
                     ],
                 },

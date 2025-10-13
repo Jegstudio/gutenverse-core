@@ -403,4 +403,9 @@ class GutenverseChart extends Default {
         }
     }
 }
-export default GutenverseChart;
+
+const selected = u('.guten-chart');
+
+if (selected) {
+    new GutenverseChart(selected);
+}

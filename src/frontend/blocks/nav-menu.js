@@ -61,12 +61,12 @@ class GutenverseNavMenu extends Default {
 
         item.closeToggle.on('click', function () {
             item.container.removeClass('active');
-            
+
             if (item.overlay.hasClass('active')) {
                 item.overlay.addClass('exiting');
             }
             item.overlay.removeClass('active');
-            
+
         });
 
         if (item.wrapper.hasClass('submenu-click-title')) {
@@ -116,10 +116,15 @@ class GutenverseNavMenu extends Default {
     __handleAnchor(element){
         let currentUrl = this.__normalizeUrl(window.location.href);
         this.__removingClass(element, currentUrl);
-        window.addEventListener('popstate', (event) => {
+        window.addEventListener('popstate', () => {
             currentUrl = this.__normalizeUrl(window.location.href);
             this.__removingClass(element, currentUrl);
         });
     }
 }
-export default GutenverseNavMenu;
+
+const selected = u('.guten-nav-menu');
+
+if (selected) {
+    new GutenverseNavMenu(selected);
+}
