@@ -59,7 +59,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     const [status, setStatus] = useState('');
     const [scroller, setScroller] = useState(null);
     const scrollerRef = useRef();
-    const { keyword } = data;
+    const { keyword } = data ?? {};
     useEffect(() => {
         setScroller(scrollerRef);
     }, [scrollerRef]);
@@ -193,7 +193,7 @@ export const RenderCategories = ({ categories, data, showCount = true, slug }) =
             {Object.keys(childCategories).map(id => {
                 const category = childCategories[id];
                 return <li
-                    className={data.categories.some(el => el.id === category.id) ? 'active' : ''}
+                    className={data?.categories?.some(el => el.id === category.id) ? 'active' : ''}
                     key={category.id}
                     onClick={() => {
                         let categoryFilter = {

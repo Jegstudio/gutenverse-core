@@ -7,7 +7,7 @@ import { store as editorStore } from '@wordpress/editor';
 import Notice from '../notice';
 
 const layoutFilter = (layoutData, filter) => {
-    let { keyword, license, categories, author, like, status: postStatus } = filter;
+    let { keyword, license, categories, author, like, status: postStatus } = filter ?? {};
     let parents = {};
 
     if (categories) {
@@ -19,7 +19,7 @@ const layoutFilter = (layoutData, filter) => {
             }
         });
     }
-    layoutData = layoutData.filter((layout) => {
+    layoutData = layoutData?.filter((layout) => {
         const { data, author: layoutAuthor, categories: layoutCategories, like: layoutLike } = layout;
         const { name, status } = data;
         const { name: authorName } = layoutAuthor;
@@ -107,7 +107,7 @@ const dataPaging = (data, paging, perPage) => {
 };
 
 export const filterLayout = (layoutData, filter, perPage) => {
-    const { paging } = filter;
+    const { paging } = filter ?? {};
     const data = layoutFilter(layoutData, filter).map((layout) => {
         const { id, name, data, like, author, customAPI, customArgs } = layout;
         const { pro, tier, slug, cover, demo, compatible_version: compatibleVersion, requirements } = data;
@@ -226,7 +226,7 @@ const categoryCount = (layouts, categoryId) => {
 };
 
 const sectionFilter = (sectionData, filter) => {
-    let { license, categories, author, like, status: postStatus } = filter;
+    let { license, categories, author, like, status: postStatus } = filter ?? {};
     let parents = {};
 
     if (categories) {
@@ -304,7 +304,7 @@ const sectionFilter = (sectionData, filter) => {
 };
 
 const themeFilter = (themeData, filter) => {
-    const { keyword, license, status: postStatus } = filter;
+    const { keyword, license, status: postStatus } = filter ?? {};
 
     themeData = themeData.filter((layout) => {
         const { data } = layout;
@@ -340,7 +340,7 @@ const themeFilter = (themeData, filter) => {
 };
 
 export const filterTheme = (themeData, filter, perPage) => {
-    const { paging } = filter;
+    const { paging } = filter ?? {};
 
     const data = themeFilter(themeData, filter).map((layout) => {
         const { id, name, data, author, customAPI, customArgs } = layout;
@@ -427,7 +427,7 @@ export const likeLayout = (slug, flag) => {
 };
 
 export const filterSection = (sectionData, filter, perPage) => {
-    const { paging } = filter;
+    const { paging } = filter ?? {};
     const data = sectionFilter(sectionData, filter).map((section) => {
         const { id, data, like, customAPI, customArgs, author, name: unfilteredName, categories } = section;
         const { pro, tier, slug, cover, compatible_version: compatibleVersion, requirements } = data;
