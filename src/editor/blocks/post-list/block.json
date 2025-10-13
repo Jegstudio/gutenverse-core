@@ -606,8 +606,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"post",
-		"list"
-	]
+	"keywords": ["post", "list"]
 }

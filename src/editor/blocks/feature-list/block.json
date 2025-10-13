@@ -305,8 +305,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"feature",
-		"list"
-	]
+	"keywords": ["feature", "list", "texts"]
 }

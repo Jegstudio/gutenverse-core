@@ -68,7 +68,7 @@
 			},
 			"copyStyle": true
 		},
-		
+
 		"imageBoxShadow": {
 			"type": "object",
 			"copyStyle": true
@@ -194,18 +194,10 @@
 			"default": {}
 		}
 	},
-	"usesContext": [
-		"postId",
-		"postType",
-		"queryId"
-	],
+	"usesContext": ["postId", "postType", "queryId"],
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"post",
-		"featured",
-		"image"
-	]
+	"keywords": ["single", "post", "featured", "image"]
 }
