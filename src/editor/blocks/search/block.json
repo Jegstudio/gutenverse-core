@@ -4,6 +4,7 @@
 	"title": "Search",
 	"description": "Gutenverse Search",
 	"category": "gutenverse-element",
+	"viewScript": ["gutenverse-frontend-search-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

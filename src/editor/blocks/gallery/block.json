@@ -5,6 +5,7 @@
 	"description": "Showcase your images in grid or masonry layout, with a popup and zoom option.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-gallery-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

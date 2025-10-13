@@ -5,6 +5,7 @@
 	"description": "Showcase your clients, sponsors, or a list of images on your website.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-client-logo-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

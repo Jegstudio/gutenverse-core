@@ -6,6 +6,7 @@
 	"description": "Show a list of posts of your choice.",
 	"category": "gutenverse-post",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-postlist-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

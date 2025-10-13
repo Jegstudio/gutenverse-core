@@ -5,6 +5,7 @@
 	"description": "Create a countdown block",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-countdown-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

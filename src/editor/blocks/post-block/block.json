@@ -6,6 +6,7 @@
 	"description": "Showcase a block of posts of your choice.",
 	"category": "gutenverse-post",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-postblock-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

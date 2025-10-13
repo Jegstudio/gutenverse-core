@@ -5,6 +5,7 @@
 	"description": "Create an interesting fact about your website or something you achieved.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-fun-fact-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -359,9 +360,6 @@
 			"default": {}
 		}
 	},
-	"viewScript": [
-		"gutenverse-frontend-fun-fact-script"
-	],
 	"supports": {
 		"className": false,
 		"anchor": true

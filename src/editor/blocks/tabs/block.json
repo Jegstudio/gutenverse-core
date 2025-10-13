@@ -5,6 +5,7 @@
 	"description": "Create content inside a tab block.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-tab-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

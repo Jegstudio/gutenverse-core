@@ -6,6 +6,7 @@
 	"description": "Show comment section of a single post.",
 	"category": "gutenverse-post",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-post-comment-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

@@ -5,6 +5,7 @@
 	"description": "Create text with beautiful animation flow.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-animated-text-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

@@ -5,6 +5,7 @@
 	"description": "Build Popup using gutenverse popup builder.",
 	"category": "gutenverse-structure",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-popup-builder-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

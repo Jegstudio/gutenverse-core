@@ -5,6 +5,7 @@
 	"description": "Showcase your client's or people's testimonals.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-testimonials-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

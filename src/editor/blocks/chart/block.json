@@ -6,6 +6,7 @@
 	"description": "Create a Chart to showcase your site acheivement.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-chart-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

@@ -5,6 +5,7 @@
 	"description": "Show your team details.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-team-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

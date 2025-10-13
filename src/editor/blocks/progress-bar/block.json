@@ -5,6 +5,7 @@
 	"description": "Create a progress bar of your achivement or something you want to share.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-progress-bar-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
