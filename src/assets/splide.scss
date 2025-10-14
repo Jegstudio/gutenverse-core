@@ -144,6 +144,7 @@
 	transform: translateY(-50%);
 	width: 36px;
 	z-index: 1;
+	transition: all .3s ease;
 }
 .splide__arrow:hover:not(:disabled) {
 	opacity: 0.9;
@@ -154,6 +155,15 @@
 	svg {
 		path {
 			stroke: #00223D;
+		}
+	}
+}
+.splide__arrow:hover:disabled {
+	background: #00223D;
+	
+	svg {
+		path {
+			stroke: #fff;
 		}
 	}
 }
