@@ -1,5 +1,6 @@
 .guten-wrap-helper {
     display: flex;
+    margin-top: 0;
 
     &:before {
         content: "";
@@ -11,6 +12,10 @@
         transition: all .6s;
         border-radius: inherit;
     }
+}
+
+.guten-background-overlay {
+    transition: all .5s ease;
 }
 
 .guten-inner-wrap{

@@ -10,20 +10,20 @@
 			"type": "string"
 		},
 		"mouseMoveEffect": {
-		  "type": "object",
-		  "copyStyle": true
+			"type": "object",
+			"copyStyle": true
 		},
 		"hideDesktop": {
-		  "type": "boolean",
-		  "copyStyle": true
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"hideTablet": {
-		  "type": "boolean",
-		  "copyStyle": true
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"hideMobile": {
-		  "type": "boolean",
-		  "copyStyle": true
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"displayType": {
 			"type": "string",
@@ -219,7 +219,7 @@
 			"type": "object",
 			"default": {}
 		},
-		"innerWrapWidth":{
+		"innerWrapWidth": {
 			"type": "object",
 			"copyStyle": true,
 			"default": {
@@ -231,8 +231,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"wrapper",
-		"container"
-	]
+	"keywords": ["wrapper", "container", "structure"]
 }

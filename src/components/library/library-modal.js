@@ -144,9 +144,9 @@ const LibraryModal = props => {
                     </div>
 
                     <div className="gutenverse-section-switcher">
-                        {modalData.libraryData.tabs.map((type, index) => {
-                            const active = type.id === modalData.libraryData.active ? 'active' : '';
-                            const {emptyLicense, companionActive} = modalData.libraryData.attributes;
+                        {modalData.libraryData?.tabs.map((type, index) => {
+                            const active = type.id === modalData.libraryData?.active ? 'active' : '';
+                            const {emptyLicense, companionActive} = modalData.libraryData?.attributes;
                             const flag = emptyLicense && companionActive;
 
                             return <>
@@ -195,12 +195,12 @@ const LibraryModal = props => {
                         </div>
                     </div>
                 </div>
-                <div className={`gutenverse-library-body ${modalData.libraryData.active}`}>
+                <div className={`gutenverse-library-body ${modalData.libraryData?.active}`}>
                     <LibraryContent
                         modalData={modalData}
                         setPage={setPage}
                         page={page}
-                        active={modalData.libraryData.active}
+                        active={modalData.libraryData?.active}
                         closeImporter={closeImporter}
                         burger={burger}
                         setLibraryError={setLibraryError}
