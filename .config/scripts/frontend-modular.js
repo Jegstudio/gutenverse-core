@@ -30,6 +30,7 @@ const getModularConfig = () => {
             source: process.env.NODE_ENV === 'development' ? `./build/${name}.js*` : `./build/${name}.js`,
             destination: "./gutenverse/assets/js/frontend/",
         });
+
         copyTasks.push({
             source: `./build/${name}.asset.php`,
             destination: "./gutenverse/lib/dependencies/frontend/",
@@ -64,9 +65,7 @@ const frontendModular = {
                     delete: deleteTasks
                 },
                 onEnd: {
-                    copy: [
-                        ...copyTasks,
-                    ],
+                    copy: copyTasks,
                 },
             },
             runTasksInSeries: true,
