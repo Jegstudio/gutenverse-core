@@ -994,12 +994,13 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        transition: transform 0.3s ease;
+                        transition: transform 0.3s ease, color 0.3s ease;
 
                         svg {
                             animation: infinite rotate 2s linear;
                         }
                         &:hover{
+                            color: hsla(0, 0%, 100%, .75);
                             transform: scale(0.94);
                         }
                     }
@@ -1013,11 +1014,11 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
                         display: flex;
                         align-items: center;
                         gap: 5px;
-                        transition: transform 0.3s ease;
+                        transition: color 0.3s ease;
                         text-decoration: none;
 
                         &:hover{
-                            transform: scale(0.94);
+                            color: #3B57F7;
                         }
                     }
                 }

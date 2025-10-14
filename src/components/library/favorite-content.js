@@ -198,7 +198,7 @@ const FavoriteContent = props => {
             <div className="gutenverse-library-inner" ref={scrollerRef}>
                 <BannerPro
                     subtitle={__('Welcome to Gutenverse Library', '--gctd--')}
-                    title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br />{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
+                    title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Layouts ', '--gctd--')}</span><br />{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
                     customStyles={{ paddingTop: '30px' }}
                     container="library"
                     leftBannerImg="library-graphic-library-left.png"

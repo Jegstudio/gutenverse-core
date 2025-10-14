@@ -287,7 +287,7 @@ class Init {
 				border: 1px solid #9760FF;
 				color: white;
 				cursor: pointer;
-				transition: transform .3s ease;
+				transition: transform .3s ease, color .3s ease;
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -301,6 +301,7 @@ class Init {
 				animation: infinite rotate 2s linear;
 			}
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .button-wrapper .button-install:hover{
+				color: hsla(0, 0%, 100%, .75);
 				transform: scale(.93);
 			}
 			.gutenverse-unibiz-notice .content-wrapper .col-1 .button-wrapper .arrow-wrapper{
