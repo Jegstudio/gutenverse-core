@@ -35,6 +35,13 @@ class Style_Generator {
 	protected $font_variables = array();
 
 	/**
+	 * Script Loader
+	 *
+	 * @var object
+	 */
+	protected $script_loader;
+
+	/**
 	 * Init constructor.
 	 * priority change to 10 and embed font after style generator with priority 11.
 	 * to fix font not loaded in frontend for section that imported from libary.
@@ -45,6 +52,8 @@ class Style_Generator {
 		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 31 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'widget_style_generator' ) );
 		add_action( 'gutenverse_include_frontend', array( $this, 'embeed_font_generator' ), 50 );
+
+		$this->script_loader = Script_Loader::instance();
 	}
 
 	/**
@@ -269,6 +278,9 @@ class Style_Generator {
 	public function loop_blocks( $blocks, &$style ) {
 		foreach ( $blocks as $block ) {
 			$this->generate_block_style( $block, $style );
+
+			$this->script_loader->check_attributes( $block['attrs'] );
+
 			if ( 'core/template-part' === $block['blockName'] ) {
 				$parts = $this->get_template_part_content( $block['attrs'] );
 				$parts = parse_blocks( $parts );
@@ -301,6 +313,8 @@ class Style_Generator {
 			}
 			do_action_ref_array( 'gutenverse_loop_blocks', array( $block, &$style, $this ) );
 		}
+
+		// gutenverse_jlog( $this->script_loader->get_script_handles() );
 	}
 
 	/**

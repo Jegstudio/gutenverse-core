@@ -9,7 +9,7 @@ export * from '@wordpress/url';
 
 // Internal.
 export * from './helper/fetch';
-export * from './blocks/index';
+// export * from './blocks/index';
 export * from './scroll';
 
 // Frontend Script.
