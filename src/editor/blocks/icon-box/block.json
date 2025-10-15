@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/icon-box",
 	"title": "Icon Box",
 	"description": "Add an information section with icon box.",

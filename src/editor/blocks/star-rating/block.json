@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/star-rating",
 	"title": "Star Rating",
 	"description": "Showcase ratings of anything you want to share.",

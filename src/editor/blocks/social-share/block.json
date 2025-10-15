@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/social-share",
 	"title": "Social Share",
 	"description": "Allow your visitor to share the current page",

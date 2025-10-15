@@ -65,7 +65,7 @@ export const DemoCard = ({
                                 handleImport={() => handleImport(template)}
                             />
                         }
-                        <div className="button-view-demo" onClick={() => window.open(template?.demo, '_blank')}>{__('View Demo', 'gutenverse')}</div>
+                        <div className="button-view-demo" onClick={() => window.open(template?.remote_url, '_blank')}>{__('View Demo', 'gutenverse')}</div>
                     </div>
                 </> : <>
                     <div className="loading-title">

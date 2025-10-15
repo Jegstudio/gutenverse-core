@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/gallery",
 	"title": "Gallery",
 	"description": "Showcase your images in grid or masonry layout, with a popup and zoom option.",

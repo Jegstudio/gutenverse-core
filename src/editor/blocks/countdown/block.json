@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/countdown",
 	"title": "Countdown",
 	"description": "Create a countdown block",
