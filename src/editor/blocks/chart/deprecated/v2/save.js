@@ -1,10 +1,10 @@
 import { classnames } from 'gutenverse-core/components';
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { RichText } from '@wordpress/block-editor';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
-import { flipClasses } from './edit';
+import { flipClasses } from '../../edit';
 
 const save = compose(
     withMouseMoveEffectScript
@@ -59,19 +59,18 @@ const save = compose(
         barThickness,
         cutoutBackground,
         multiValue,
-        elementId
-    });
+    })
 
     const insideChart = <div className={`chart-inside type-${chartType}`}>
-        {
-            'percentage' === chartContent || 'number' === chartContent ?
-                <span >{multiValue || 'number' === chartContent ? '0' : '0%'}</span>
+        { 
+            'percentage' === chartContent || 'number' === chartContent ? 
+                <span >{multiValue || 'number' === chartContent ? '0' : '0%'}</span> 
                 : <i className={icon}/>
         }
     </div>;
 
     return (
-        <div {...useBlockProps.save({ className })} >
+        <div className={className} >
             <div className="guten-chart-wrapper">
                 <div className="chart-content content-card">
                     <RichText.Content
@@ -88,7 +87,7 @@ const save = compose(
                 </div>
                 <div className="chart-content content-chart">
                     <div className="chart-container" data-chart={data}>
-                        <div id={`chart-${elementId}`} style={{boxSizing:'border-box', height: '250px', width: '250px'}}></div>
+                        <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
                     </div>
                     {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
                 </div>

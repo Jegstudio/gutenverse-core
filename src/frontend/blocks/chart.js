@@ -1,52 +1,218 @@
-import anime from 'animejs';
 import { Default, u } from 'gutenverse-core-frontend';
-import { Chart} from 'chart.js/auto';
+// import {
+//     Chart,
+//     Tooltip,
+//     DoughnutController,
+//     ArcElement,
+//     LineController,
+//     LineElement,
+//     LinearScale,
+//     BarController,
+//     BarElement,
+//     Legend,
+//     CategoryScale,
+// } from 'chart.js';
 import isEmpty from 'lodash/isEmpty';
+import {
+    // Core DOM selection & data binding
+    select,
+    selectAll,
+
+    // Scales & colors
+    scaleLinear,
+    scaleBand,
+    scaleOrdinal,
+    schemeCategory10,
+
+    // Shape generators
+    arc,
+    pie,
+
+    // Transitions / animation
+    transition,
+    easeCubicOut,
+    interpolate,
+
+    // Axes (for bar chart)
+    axisBottom,
+    axisLeft,
+
+    // Gradient & defs utilities (optional manual SVG)
+    create,
+} from 'd3';
 
 class GutenverseChart extends Default {
     /* public */
     init() {
-        this._elements.map(element => {
-            const dataElement = u(element).find('.chart-content.content-chart').find('.chart-container');
+        this._elements.each(element => {
+            const dataElement = u(element).find('.chart-content.content-chart .chart-container');
 
-            if (dataElement.length) {
-                const rawData = dataElement.data('chart');
-                if (rawData) {
-                    const parsedData = JSON.parse(rawData);
-                    const canvas = u(dataElement).find('canvas');
-                    if (!canvas.nodes[0]) return;
-                    const chartData = this._getChartData(parsedData, canvas.nodes[0]);
+            if (!dataElement.length) return;
 
-                    const customPositioner = (elements, eventPosition) => ({
-                        x: eventPosition.x,
-                        y: eventPosition.y,
-                    });
+            const rawData = dataElement.data('chart');
+            if (!rawData) return;
 
-                    const tooltipPlugin = Chart.registry.getPlugin('tooltip');
-                    if (tooltipPlugin) {
-                        tooltipPlugin.positioners.custom = customPositioner;
-                    }
-
-                    const numberElement = u(element).find('.chart-content .chart-inside span');
-
-                    const observer = new IntersectionObserver((entries, obs) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                new Chart(canvas.nodes[0], chartData);
-
-                                this._animateNumber(numberElement, parsedData);
-
-                                obs.unobserve(entry.target);
-                            }
-                        });
-                    }, {
-                        threshold: 0.2
-                    });
-
-                    observer.observe(canvas.nodes[0]);
-                }
+            let parsedData;
+            try {
+                parsedData = JSON.parse(rawData);
+            } catch (e) {
+                console.error('Invalid chart data:', rawData, e);
+                return;
             }
+
+            const { elementId } = parsedData;
+            const chartElement = u(dataElement).find(`#chart-${elementId}`);
+            if (!chartElement.nodes[0]) return;
+
+            const numberElement = u(element).find('.chart-content .chart-inside span');
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        try {
+                            this._generateChart(parsedData, chartElement.nodes[0]);
+                            if (numberElement.length) {
+                                this._animateNumber(numberElement, parsedData);
+                            }
+                        } catch (err) {
+                            console.error('Chart rendering failed:', err);
+                        } finally {
+                            obs.unobserve(entry.target);
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '100px'
+            });
+
+            observer.observe(chartElement.nodes[0]);
         });
+    }
+
+    _generateChart(chartData, element) {
+        const {
+            chartContent,
+            tooltipDisplay,
+            legendDisplay,
+            chartItems,
+            chartType,
+            minValue,
+            totalValue,
+            animationDuration,
+            cutout,
+            barThickness,
+            cutoutBackground,
+            multiValue,
+            elementId
+        } = chartData;
+        console.log(chartItems, cutout);
+
+        const chartId = `#chart-${elementId}`;
+        const device = this._getDeviceType();
+        const width = 200;
+        const height = 200;
+        const radius = Math.min(width, height) / 2;
+
+        const data = chartItems;
+
+        // const color = scaleOrdinal(schemeCategory10);
+
+        const svg = select(`${chartId}`)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', `translate(${width / 2}, ${height / 2})`);
+
+        const pieGenerator = pie()
+            .sort(null)
+            .value(d => d.value);
+
+        const arcGenerator = arc()
+            .innerRadius(radius * 0.6)
+            .outerRadius(radius - 10);
+
+        const arcs = svg.selectAll('path')
+            .data(pieGenerator(data))
+            .enter()
+            .append('path')
+            .attr('d', d => {
+                const borderWidth = d.data.borderWidth || 0;
+                const radius = Math.min(width, height) / 2;
+                const innerRadius = radius * 0.6;
+                const outerRadius = radius;
+
+                const adjustedArc = arc()
+                    .innerRadius(innerRadius)
+                    .outerRadius(outerRadius - borderWidth / 2);
+                return adjustedArc(d);
+            })
+            .attr('fill', d => this._theColor(d.data.backgroundColor))
+            .style('stroke', d => this._theColor(d.data.borderColor))
+            .style('stroke-width', d => d.data.borderWidth || 0)
+            .style('stroke-linejoin', 'round');
+
+        // === Animate on load ===
+        arcs.transition()
+            .delay((d, i) => i * 150)
+            .duration(800)
+            .attrTween('d', function (d) {
+                const i = interpolate({ startAngle: 0, endAngle: 0 }, d);
+                return function (t) {
+                    return arcGenerator(i(t));
+                };
+            });
+
+        // === Tooltip ===
+        const tooltip = select(`${chartId}`)
+            .append('div')
+            .style('position', 'absolute')
+            .style('padding', '4px 8px')
+            .style('background', 'rgba(0,0,0,0.7)')
+            .style('color', '#fff')
+            .style('font-size', '12px')
+            .style('border-radius', '4px')
+            .style('pointer-events', 'none')
+            .style('opacity', 0);
+
+        // === Hover interactions ===
+        arcs.on('mouseover', function (event, d) {
+            select(this)
+                .transition()
+                .duration(200)
+                .attr('transform', 'scale(1.05)');
+
+            tooltip
+                .style('opacity', 1)
+                .html(`<strong>${d.data.label}</strong>: ${d.data.value}`)
+                .style('left', event.offsetX + 'px')
+                .style('top', event.offsetY - 30 + 'px');
+        })
+            .on('mousemove', function (event) {
+                tooltip
+                    .style('left', event.offsetX + 'px')
+                    .style('top', event.offsetY - 30 + 'px');
+            })
+            .on('mouseout', function () {
+                select(this)
+                    .transition()
+                    .duration(200)
+                    .attr('transform', 'scale(1)');
+
+                tooltip.style('opacity', 0);
+            });
+
+        // Labels (optional)
+        svg.selectAll('text')
+            .data(pieGenerator(data))
+            .enter()
+            .append('text')
+            .text(d => d.data.label)
+            .attr('transform', d => `translate(${arcGenerator.centroid(d)})`)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '10px')
+            .attr('fill', '#333');
     }
 
     _animateNumber(element, data) {
@@ -58,14 +224,48 @@ class GutenverseChart extends Default {
             multiValue
         } = data;
 
-        anime({
-            targets: element.nodes[0],
-            innerHTML: multiValue || 'number' === chartContent ? [0, totalValue] : [0, chartItems[0].value],
-            duration: animationDuration,
-            easing: 'cubicBezier(.02, .01, .47, 1)',
-            round: 1,
-        });
+        const el = element.nodes ? element.nodes[0] : element;
+        const endValue = multiValue || chartContent === 'number'
+            ? totalValue
+            : chartItems[0].value;
 
+        const startValue = 0;
+        const duration = animationDuration || 1000;
+        const startTime = performance.now();
+
+        function cubicBezierEase(t) {
+            return t < 0.5
+                ? 4 * t * t * t
+                : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        const isPercentage =
+            (endValue > 0 && endValue <= 1) ||
+            (el && el.innerHTML?.toLowerCase().includes('%'));
+
+        const finalEndValue = endValue <= 1 ? endValue * 100 : endValue;
+
+        function animate(time) {
+            const elapsed = time - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = cubicBezierEase(progress);
+
+            const currentValue = startValue + (finalEndValue - startValue) * easedProgress;
+
+            // 🧩 format number
+            let displayValue;
+            if (isPercentage) {
+                displayValue = Math.round(currentValue) + '%';
+            } else {
+                displayValue = Math.round(currentValue);
+            }
+
+            el.innerHTML = displayValue;
+
+            if (progress < 1) requestAnimationFrame(animate);
+        }
+
+        el && requestAnimationFrame(animate);
     }
 
     _theColor (color) {
