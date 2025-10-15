@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/tab",
 	"title": "Tab Item",
 	"description": "Create content inside a tab element",

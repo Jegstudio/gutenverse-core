@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/fun-fact",
 	"title": "Fun Fact",
 	"description": "Create an interesting fact about your website or something you achieved.",

@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/search-result-title",
 	"class_callback": "\\Gutenverse\\Block\\Search_Result_Title",
 	"title": "Search Result Title",

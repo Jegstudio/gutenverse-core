@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/tabs",
 	"title": "Tabs",
 	"description": "Create content inside a tab block.",
