@@ -241,8 +241,19 @@
     }
 
     .banner-image-blink.library {
-        right: 30.6%;
+        right: 33.6%;
         top: 23.8%;
+    }
+
+    @media screen and (max-width: 1440px) {
+        .banner-image-blink.library {
+            right: 28.6%;
+            top: 20.8%;
+        }
+        .banner-image-arrow.library {
+            right: 34%;
+            top: 63%;
+        }
     }
 
     .buttons {
