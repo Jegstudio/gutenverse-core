@@ -9,17 +9,11 @@ export * from '@wordpress/url';
 
 // Internal.
 export * from './helper/fetch';
-// export * from './blocks/index';
+export * from './blocks/index';
 export * from './scroll';
 
 // Frontend Script.
-export { default as GutenverseVideo } from './blocks/video';
-
-// Export Pro Utility
-// export { renderAdanim as renderAnimation } from '../animation';
-// export { shapeDividerLoader } from '../data/shape-divider-animated';
-// export { renderBorderRadius, renderFilter } from '../animation/options/advance-animation/image/render';
-// export { renderColor, renderSize, renderWidth } from '../animation/options/advance-animation/divider/render';
+// export { default as GutenverseVideo } from './blocks/video';
 
 // dependency Expose
-export { default as Choices } from 'choices.js';
+// export { default as Choices } from 'choices.js';

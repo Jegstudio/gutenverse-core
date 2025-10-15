@@ -1,9 +1,9 @@
-import { Default, u } from 'gutenverse-core-frontend';
+import { Default } from '../blocks/default';
+import u from 'umbrellajs';
 
 class GutenverseFeaturedBg extends Default {
     /* public */
     init() {
-        console.log('FEATURED IMAGE RUNNING!');
         const elements = this._elements;
         if (elements.length > 0) {
             this.useFeaturedImage(elements);

@@ -1,9 +1,10 @@
-import { Default, u, load } from 'gutenverse-core-frontend';
+import { Default } from '../blocks/default';
+import u from 'umbrellajs';
+import { load } from 'load-script';
 
 class GutenverseVideo extends Default {
     /* public */
     init() {
-        console.log('LOAD VIDEO BACKGROUND!');
         const elements = this._elements;
         const { framework_asset: path, framework_version } = window.GutenverseFrontendConfig;
         if (elements.length > 0) {

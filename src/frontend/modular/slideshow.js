@@ -1,8 +1,8 @@
-import { Default, u } from 'gutenverse-core-frontend';
+import { Default } from '../blocks/default';
+import u from 'umbrellajs';
 
 class GutenverseSlideshow extends Default {
     init() {
-        console.log('BACKGROUND SLIDESHOW RUNNING!');
         this._elements.map(element => {
             this.startSlideshow(element);
         });
@@ -19,7 +19,7 @@ class GutenverseSlideshow extends Default {
         }
 
         const background = u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value') ? JSON.parse(u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value')) : {};
-        const {slideImage = {}, infiniteLoop, displayDuration} = background;
+        const {slideImage = {}, infiniteLoop} = background;
 
         if (slideImage?.length < 1 || undefined === slideImage?.length) return;
 
