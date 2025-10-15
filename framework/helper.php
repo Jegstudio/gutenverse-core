@@ -575,6 +575,29 @@ if ( ! function_exists( 'gutenverse_css_path' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_js_path' ) ) {
+	/**
+	 * Get Gutenverse CSS Path.
+	 * 
+	 * @since 3.3.0-dev
+	 *
+	 * @param string $file File name.
+	 *
+	 * @return string
+	 */
+	function gutenverse_js_path( $file = '' ) {
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
+		$custom_dir  = $upload_path . '/gutenverse/js';
+
+		if ( '' === $file ) {
+			return $custom_dir . $file;
+		} else {
+			return $custom_dir . '/' . $file;
+		}
+	}
+}
+
 if ( ! function_exists( 'gutenverse_remove_protocol' ) ) {
 	/**
 	 * Get Gutenverse CSS Path.

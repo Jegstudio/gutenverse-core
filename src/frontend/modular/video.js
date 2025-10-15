@@ -1,6 +1,6 @@
 import { Default } from '../blocks/default';
 import u from 'umbrellajs';
-import { load } from 'load-script';
+import load from 'load-script';
 
 class GutenverseVideo extends Default {
     /* public */

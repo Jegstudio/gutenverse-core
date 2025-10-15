@@ -72,18 +72,22 @@ class Init {
 	public $meta_option;
 
 	/**
-	 * Hold instance of style generator
+	 * Hold instance of frontend generator
 	 *
-	 * @var Style_Generator
+	 * @since 3.3.0-dev: renamed from style_generator to frontend_generator
+	 *
+	 * @var Frontend_Generator
 	 */
-	public $style_generator;
+	public $frontend_generator;
 
 	/**
-	 * Style Cache
+	 * Frontend Cache
 	 *
-	 * @var Style_Cache
+	 * @since 3.3.0-dev: renamed from style_cache to frontend_cache
+	 *
+	 * @var Frontend_Cache
 	 */
-	public $style_cache;
+	public $frontend_cache;
 
 	/**
 	 * Hold instance of global variable
@@ -678,12 +682,20 @@ class Init {
 		$this->blocks           = new Blocks();
 		$this->frontend_assets  = new Frontend_Assets();
 		$this->editor_assets    = new Editor_Assets();
-		$this->style_cache      = new Style_Cache();
-		$this->style_generator  = new Style_Generator();
 		$this->frontend_toolbar = new Frontend_Toolbar();
 		$this->global_variable  = new Global_Variable();
 		$this->upgrader         = new Upgrader();
 		$this->meta_option      = Meta_Option::instance();
+
+		/**
+		 * Load the renamed variables and add fallback for old variables, in case there is function still using them
+		 *
+		 * @since 3.3.0
+		 */
+		$this->frontend_cache     = new Frontend_Cache();
+		$this->frontend_generator = new Frontend_Generator();
+		$this->style_cache        = $this->frontend_cache;
+		$this->style_generator    = $this->frontend_generator;
 
 		// Deprecated Function.
 		new Deprecated();
