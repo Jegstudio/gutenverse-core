@@ -22,7 +22,6 @@ use Gutenverse\Framework\Style\Section;
  * 		- Add few functions to load scripts conditionally: 
  * 				- check_attributes
  * 				- add_script
- * 				- get_script_handles
  * 				- load_modular_script
  *
  * @package gutenverse-framework
@@ -610,17 +609,6 @@ class Frontend_Generator {
 	}
 
 	/**
-	 * Get Script List
-	 * 
-	 * @since 3.3.0-dev
-	 *
-	 * @return array .
-	 */
-	public function get_script_handles() {
-		return array_values( array_unique( $this->script_list ) );
-	}
-
-	/**
 	 * Load the scripts
 	 * 
 	 * @since 3.3.0-dev
@@ -658,8 +646,10 @@ class Frontend_Generator {
 			true
 		);
 
-		$required_handles = $this->get_script_handles();
-		$required_handles = apply_filters( 'gutenverse_modular_script_handles', $required_handles );
+		$required_handles = apply_filters( 'gutenverse_modular_script_handles', $this->script_list );
+
+		// remove duplicates
+		$required_handles = array_values( array_unique( $this->script_list ) );
 
 		if ( ! empty( $required_handles ) ) {
 			foreach ( $required_handles as $handle ) {
