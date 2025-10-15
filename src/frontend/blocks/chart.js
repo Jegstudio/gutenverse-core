@@ -27,11 +27,13 @@ import {
     // Shape generators
     arc,
     pie,
+    max,
 
     // Transitions / animation
     transition,
     easeCubicOut,
     interpolate,
+    interpolateNumber,
 
     // Axes (for bar chart)
     axisBottom,
@@ -106,24 +108,64 @@ class GutenverseChart extends Default {
             multiValue,
             elementId
         } = chartData;
-        console.log(chartItems, cutout);
+        console.log(chartData, chartType);
 
         const chartId = `#chart-${elementId}`;
         const device = this._getDeviceType();
         const width = 200;
         const height = 200;
         const radius = Math.min(width, height) / 2;
-
         const data = chartItems;
 
-        // const color = scaleOrdinal(schemeCategory10);
-
-        const svg = select(`${chartId}`)
+        const svg = select(chartId)
             .append('svg')
             .attr('width', width)
             .attr('height', height)
             .append('g')
             .attr('transform', `translate(${width / 2}, ${height / 2})`);
+
+        // === Chart Type ===
+        if (chartType === 'doughnut') {
+            this._drawDonutChart(svg, data, radius, chartId, animationDuration);
+        } else if (chartType === 'bar') {
+            this._drawBarChart(svg, data, width, height);
+        }
+
+        // === Tooltip ===
+        if (tooltipDisplay) {
+            this._appendTooltip(chartId);
+        }
+    }
+
+    // ========== MODULES ==========
+
+    // --- Gradient Generator ---
+    _appendGradientDefs(svg, data) {
+        const defs = svg.append('defs');
+
+        data.forEach((d, i) => {
+            if (d.colorMode !== 'gradient') return; // Only create if gradient
+
+            const gradient = defs.append('linearGradient')
+                .attr('id', `gradient-${i}`)
+                .attr('x1', '0%')
+                .attr('y1', '0%')
+                .attr('x2', '100%')
+                .attr('y2', '100%');
+
+            gradient.append('stop')
+                .attr('offset', '0%')
+                .attr('stop-color', this._theColor(d.colorGradientOne));
+
+            gradient.append('stop')
+                .attr('offset', '100%')
+                .attr('stop-color', this._theColor(d.colorGradientTwo));
+        });
+    }
+
+    _drawDonutChart(svg, data, radius, chartId, animationDuration = 800) {
+    // Append gradient defs if needed
+        this._appendGradientDefs(svg, data);
 
         const pieGenerator = pie()
             .sort(null)
@@ -139,24 +181,24 @@ class GutenverseChart extends Default {
             .append('path')
             .attr('d', d => {
                 const borderWidth = d.data.borderWidth || 0;
-                const radius = Math.min(width, height) / 2;
-                const innerRadius = radius * 0.6;
-                const outerRadius = radius;
-
                 const adjustedArc = arc()
-                    .innerRadius(innerRadius)
-                    .outerRadius(outerRadius - borderWidth / 2);
+                    .innerRadius(radius * 0.6)
+                    .outerRadius(radius - borderWidth);
                 return adjustedArc(d);
             })
-            .attr('fill', d => this._theColor(d.data.backgroundColor))
+            .attr('fill', (d, i) =>
+                d.data.colorMode === 'gradient'
+                    ? `url(#gradient-${i})`
+                    : this._theColor(d.data.backgroundColor)
+            )
             .style('stroke', d => this._theColor(d.data.borderColor))
             .style('stroke-width', d => d.data.borderWidth || 0)
             .style('stroke-linejoin', 'round');
 
-        // === Animate on load ===
+        // Animate
         arcs.transition()
             .delay((d, i) => i * 150)
-            .duration(800)
+            .duration(animationDuration)
             .attrTween('d', function (d) {
                 const i = interpolate({ startAngle: 0, endAngle: 0 }, d);
                 return function (t) {
@@ -164,8 +206,117 @@ class GutenverseChart extends Default {
                 };
             });
 
-        // === Tooltip ===
-        const tooltip = select(`${chartId}`)
+        // Labels
+        const labelArc = arc()
+            .innerRadius(radius * 0.7)
+            .outerRadius(radius * 0.7);
+
+        svg.selectAll('text')
+            .data(pieGenerator(data))
+            .enter()
+            .append('text')
+            .text(d => d.data.label)
+            .attr('transform', d => `translate(${labelArc.centroid(d)})`)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '10px')
+            .attr('fill', '#333');
+    }
+
+    _getMaxvalue(data) {
+        return Math.max(...data.map(d => d.value));
+    }
+
+    _drawBarChart(svg, data, width, height, animationDuration = 800) {
+        this._appendGradientDefs(svg, data);
+
+        const margin = { top: 20, right: 20, bottom: 40, left: 40 };
+        const chartWidth = width - margin.left - margin.right;
+        const chartHeight = height - margin.top - margin.bottom;
+
+        const chartGroup = svg.append('g')
+            .attr('transform', `translate(${margin.left - width / 2}, ${margin.top - height / 2})`);
+
+        // === Scales ===
+        const x = scaleBand()
+            .domain(data.map(d => d.label))
+            .range([0, chartWidth])
+            .padding(0.2);
+
+        const y = scaleLinear()
+            .domain([0, this._getMaxvalue(data)])
+            .nice()
+            .range([chartHeight, 0]);
+
+        // === Axes ===
+        chartGroup.append('g')
+            .attr('transform', `translate(0, ${chartHeight})`)
+            .call(axisBottom(x))
+            .selectAll('text')
+            .attr('font-size', '10px')
+            .attr('fill', '#333');
+
+        chartGroup.append('g')
+            .call(axisLeft(y).ticks(5))
+            .selectAll('text')
+            .attr('font-size', '10px')
+            .attr('fill', '#333');
+
+        // === Bars ===
+        const bars = chartGroup.selectAll('rect')
+            .data(data)
+            .enter()
+            .append('rect')
+            .attr('x', d => x(d.label))
+            .attr('width', x.bandwidth())
+            // Start from the bottom line
+            .attr('y', d => y(d.value))
+            .attr('height', 0)
+            .attr('fill', (d, i) =>
+                d.colorMode === 'gradient'
+                    ? `url(#gradient-${i})`
+                    : this._theColor(d.backgroundColor)
+            )
+            .style('stroke', d => this._theColor(d.borderColor))
+            .style('stroke-width', d => d.borderWidth || 0)
+            .style('stroke-linejoin', 'round');
+
+        // === Animate Only the Height ===
+        bars.transition()
+            .ease(easeCubicOut)
+            .delay((d, i) => i * 120)
+            .duration(animationDuration)
+            .attr('y', d => y(d.value))
+            .attr('height', d => chartHeight - y(d.value));
+
+        // === Value Labels on Top ===
+        const labels = chartGroup.selectAll('.bar-label')
+            .data(data)
+            .enter()
+            .append('text')
+            .attr('class', 'bar-label')
+            .attr('x', d => x(d.label) + x.bandwidth() / 2)
+            .attr('y', chartHeight) // start at bottom
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '10px')
+            .attr('fill', '#333')
+            .text(''); // empty until animated
+
+        labels.transition()
+            .ease(easeCubicOut)
+            .delay((d, i) => i * 120 + 100)
+            .duration(animationDuration)
+            .attr('y', d => y(d.value) - 5)
+            .tween('text', function (d) {
+                const i = interpolateNumber(0, d.value);
+                return function (t) {
+                    select(this).text(Math.round(i(t)));
+                };
+            });
+    }
+
+    // --- Tooltip Module ---
+    _appendTooltip(chartId) {
+        const tooltip = select(chartId)
             .append('div')
             .style('position', 'absolute')
             .style('padding', '4px 8px')
@@ -176,43 +327,8 @@ class GutenverseChart extends Default {
             .style('pointer-events', 'none')
             .style('opacity', 0);
 
-        // === Hover interactions ===
-        arcs.on('mouseover', function (event, d) {
-            select(this)
-                .transition()
-                .duration(200)
-                .attr('transform', 'scale(1.05)');
-
-            tooltip
-                .style('opacity', 1)
-                .html(`<strong>${d.data.label}</strong>: ${d.data.value}`)
-                .style('left', event.offsetX + 'px')
-                .style('top', event.offsetY - 30 + 'px');
-        })
-            .on('mousemove', function (event) {
-                tooltip
-                    .style('left', event.offsetX + 'px')
-                    .style('top', event.offsetY - 30 + 'px');
-            })
-            .on('mouseout', function () {
-                select(this)
-                    .transition()
-                    .duration(200)
-                    .attr('transform', 'scale(1)');
-
-                tooltip.style('opacity', 0);
-            });
-
-        // Labels (optional)
-        svg.selectAll('text')
-            .data(pieGenerator(data))
-            .enter()
-            .append('text')
-            .text(d => d.data.label)
-            .attr('transform', d => `translate(${arcGenerator.centroid(d)})`)
-            .attr('text-anchor', 'middle')
-            .attr('font-size', '10px')
-            .attr('fill', '#333');
+        // You can bind hover logic outside or here depending on your architecture
+        return tooltip;
     }
 
     _animateNumber(element, data) {
