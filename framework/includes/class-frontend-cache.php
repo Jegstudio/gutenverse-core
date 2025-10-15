@@ -11,10 +11,10 @@ namespace Gutenverse\Framework;
 
 /**
  * Class Frontend Cache.
- * 
+ *
  * @since 3.3.0-dev:
- * 		- Class renamed from Style_Cache to Frontend_Cache
- * 		- Add function get_path_by_type to load different path
+ *      - Class renamed from Style_Cache to Frontend_Cache
+ *      - Add function get_path_by_type to load different path
  *
  * @package gutenverse-framework
  */
@@ -47,7 +47,7 @@ class Frontend_Cache {
 		// Perlu Test Schedule.
 		add_action( 'wp_loaded', array( $this, 'schedule_cleanup_cron' ) );
 		add_action( 'gutenverse_cleanup_cached_style', array( $this, 'cleanup_cached_style' ) );
-		add_action( 'switch_theme', array( $this, 'delete_generated_css_switch_theme' ) );
+		add_action( 'switch_theme', array( $this, 'delete_generated_files_when_switch_theme' ) );
 		add_filter( 'cron_schedules', array( $this, 'add_custom_intervals' ) );
 
 		// Reset Generator ID when this hook triggered.
@@ -202,12 +202,16 @@ class Frontend_Cache {
 	}
 
 	/**
-	 * Delete Generated CSS when Switching Theme
+	 * Delete Generated CSS & JSON when Switching Theme
 	 */
-	public function delete_generated_css_switch_theme() {
+	public function delete_generated_files_when_switch_theme() {
 		delete_option( self::$option_name );
-		$path = gutenverse_css_path();
-		$this->delete_file( $path );
+
+		$css_path = gutenverse_css_path();
+		$this->delete_file( $css_path );
+
+		$js_path = gutenverse_js_path();
+		$this->delete_file( $js_path );
 	}
 
 	/**
@@ -293,10 +297,13 @@ class Frontend_Cache {
 	 * Clean up cache style.
 	 */
 	public function cleanup_cached_style() {
-		$path     = gutenverse_css_path();
 		$cache_id = $this->get_style_cache_id();
 
-		$this->delete_file( $path, $cache_id );
+		$css_path = gutenverse_css_path();
+		$this->delete_file( $css_path, $cache_id );
+
+		$js_path = gutenverse_js_path();
+		$this->delete_file( $js_path, $cache_id );
 	}
 
 	/**
@@ -392,7 +399,7 @@ class Frontend_Cache {
 
 	/**
 	 * Create File.
-	 * 
+	 *
 	 * @since 3.3.0-dev: add this function to load different path
 	 *
 	 * @param string $type File type.
@@ -401,7 +408,7 @@ class Frontend_Cache {
 	 * @return bool
 	 */
 	protected function get_path_by_type( $type, $filename = '' ) {
-		switch ($type) {
+		switch ( $type ) {
 			case 'js':
 				return gutenverse_js_path( $filename );
 			case 'css':
@@ -413,7 +420,7 @@ class Frontend_Cache {
 
 	/**
 	 * Create File.
-	 * 
+	 *
 	 * @since 3.3.0-dev: add $type to load different path
 	 *
 	 * @param string $filename File name with extension.
@@ -467,7 +474,7 @@ class Frontend_Cache {
 
 	/**
 	 * Check if file exist.
-	 * 
+	 *
 	 * @since 3.3.0-dev: add $type to load different path
 	 *
 	 * @param string $filename File name.
