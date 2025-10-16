@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/icon-box",
 	"title": "Icon Box",
 	"description": "Add an information section with icon box.",
@@ -21,7 +21,7 @@
 			"default": {}
 		},
 		"isDynamic": {
-			"type" : "boolean",
+			"type": "boolean",
 			"default": false
 		},
 		"separateButtonLink": {
@@ -40,7 +40,7 @@
 			"selector": "a",
 			"attribute": "rel"
 		},
-		"showTitle":{
+		"showTitle": {
 			"type": "boolean",
 			"default": true,
 			"copyStyle": true
@@ -49,7 +49,7 @@
 			"type": "string",
 			"default": "Icon Box"
 		},
-		"titleChilds":{
+		"titleChilds": {
 			"type": "array",
 			"default": []
 		},
@@ -57,7 +57,7 @@
 			"type": "string",
 			"default": "h2"
 		},
-		"showDesc":{
+		"showDesc": {
 			"type": "boolean",
 			"default": true,
 			"copyStyle": true
@@ -66,7 +66,7 @@
 			"type": "string",
 			"default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 		},
-		"descriptionChilds":{
+		"descriptionChilds": {
 			"type": "array",
 			"default": []
 		},
@@ -84,7 +84,11 @@
 		},
 		"dynamicAttributes": {
 			"type": "array",
-			"default": ["titleDynamicList", "descriptionDynamicList", "badgeDynamicList"]
+			"default": [
+				"titleDynamicList",
+				"descriptionDynamicList",
+				"badgeDynamicList"
+			]
 		},
 		"hasGlobalLink": {
 			"type": "boolean",
@@ -95,11 +99,11 @@
 		},
 		"dynamicTextContent": {
 			"type": "array",
-			"copyStyle" : true
+			"copyStyle": true
 		},
 		"dynamicUrlContent": {
 			"type": "array",
-			"copyStyle" : true
+			"copyStyle": true
 		},
 		"badgeShow": {
 			"type": "boolean",
@@ -111,7 +115,7 @@
 			"default": "BADGE",
 			"copyStyle": true
 		},
-		"badgeChilds":{
+		"badgeChilds": {
 			"type": "array",
 			"default": []
 		},
@@ -166,11 +170,11 @@
 			"copyStyle": true
 		},
 		"imageHeightResponsive": {
-			"type" : "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"imageWidthResponsive": {
-			"type" : "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"image": {
@@ -180,7 +184,7 @@
 			"type": "string"
 		},
 		"imageFit": {
-			"type" : "string"
+			"type": "string"
 		},
 		"link": {
 			"type": "string"
@@ -531,33 +535,30 @@
 			"copyStyle": true
 		},
 		"lazyLoad": {
-			"type" : "boolean",
+			"type": "boolean",
 			"copyStyle": true
 		},
 		"condition": {
 			"type": "object",
 			"default": {}
 		},
-		"hoverWithParent":{
+		"hoverWithParent": {
 			"type": "boolean",
 			"default": false,
 			"copyStyle": true
 		},
-		"parentSelector":{
-			"type":"string",
+		"parentSelector": {
+			"type": "string",
 			"copyStyle": true
 		},
 		"hasInnerBlocks": {
-            "type": "boolean",
-            "default": false
-        }
+			"type": "boolean",
+			"default": false
+		}
 	},
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"icon",
-		"box"
-	]
+	"keywords": ["icon", "box", "image", "symbol", "logo"]
 }

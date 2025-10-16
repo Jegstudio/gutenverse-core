@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/post-list",
 	"class_callback": "\\Gutenverse\\Block\\Post_List",
 	"title": "Post List",
@@ -606,8 +606,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"post",
-		"list"
-	]
+	"keywords": ["post", "list"]
 }

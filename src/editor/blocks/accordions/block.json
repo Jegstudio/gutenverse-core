@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/accordions",
 	"title": "Accordions",
 	"description": "A vertically stacked list of expandable/collapsable item.",
@@ -44,7 +44,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"titleAlign":{
+		"titleAlign": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -395,8 +395,5 @@
 		"html": false,
 		"anchor": true
 	},
-	"keywords": [
-		"tabs",
-		"accordion"
-	]
+	"keywords": ["tabs", "accordions", "dropdown", "expand", "panels"]
 }

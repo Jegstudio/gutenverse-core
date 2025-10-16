@@ -273,7 +273,7 @@ const ImageBlock = compose(
                 )}
             </ToolbarGroup>
         </BlockControls>}
-        {rootBlock && rootBlock.name === 'gutenverse/client-logo' ? <div id={elementId}>{blockElement}</div> : blockElement}
+        {rootBlock && rootBlock.name === 'gutenverse/logo-slider' ? <div id={elementId}>{blockElement}</div> : blockElement}
     </>;
 });
 

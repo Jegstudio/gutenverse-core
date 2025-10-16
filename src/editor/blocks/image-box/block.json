@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/image-box",
 	"title": "Image Box",
 	"description": "Add an information section with image box.",
@@ -14,7 +14,7 @@
 			"copyStyle": true
 		},
 		"includeButton": {
-			"type" : "boolean",
+			"type": "boolean",
 			"default": true
 		},
 		"url": {
@@ -25,16 +25,16 @@
 			"default": {}
 		},
 		"isDynamic": {
-			"type" : "boolean",
+			"type": "boolean",
 			"default": false
 		},
 		"dynamicTextContent": {
 			"type": "array",
-			"copyStyle" : true
+			"copyStyle": true
 		},
 		"dynamicUrlContent": {
 			"type": "array",
-			"copyStyle" : true
+			"copyStyle": true
 		},
 		"separateButtonLink": {
 			"type": "boolean",
@@ -59,9 +59,9 @@
 			"type": "string",
 			"default": "Image Box Heading"
 		},
-		"titleChilds":{
-			"type" : "array",
-			"default" : []
+		"titleChilds": {
+			"type": "array",
+			"default": []
 		},
 		"titleDynamicList": {
 			"type": "array",
@@ -71,9 +71,9 @@
 			"type": "string",
 			"default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.​"
 		},
-		"descriptionChilds":{
-			"type" : "array",
-			"default" : []
+		"descriptionChilds": {
+			"type": "array",
+			"default": []
 		},
 		"descriptionDynamicList": {
 			"type": "array",
@@ -395,11 +395,11 @@
 			"copyStyle": true
 		},
 		"lazyLoad": {
-			"type" : "boolean",
+			"type": "boolean",
 			"copyStyle": true
 		},
 		"ariaLabel": {
-			"type" : "string",
+			"type": "string",
 			"copyStyle": true
 		},
 		"condition": {
@@ -411,9 +411,9 @@
 			"copyStyle": true
 		},
 		"hasInnerBlocks": {
-            "type": "boolean",
-            "default": false
-        },
+			"type": "boolean",
+			"default": false
+		},
 		"buttonUrl": {
 			"type": "string",
 			"copyStyle": true
@@ -423,8 +423,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"image",
-		"box"
-	]
+	"keywords": ["image", "box", "symbol", "logo"]
 }

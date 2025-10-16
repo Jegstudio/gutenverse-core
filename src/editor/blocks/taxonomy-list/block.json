@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/taxonomy-list",
 	"title": "Taxonomy List",
 	"description": "Create a list of categories",
@@ -10,40 +10,40 @@
 		"elementId": {
 			"type": "string"
 		},
-		"qty":{
+		"qty": {
 			"type": "integer",
 			"default": 3
 		},
-		"includedCategory":{
+		"includedCategory": {
 			"type": "array",
 			"default": []
 		},
-		"sortType":{
+		"sortType": {
 			"type": "string",
 			"default": "ASC"
 		},
-		"sortBy":{
+		"sortBy": {
 			"type": "string",
 			"default": "count"
 		},
-		"hideEmpty":{
+		"hideEmpty": {
 			"type": "boolean",
 			"default": false
 		},
 		"taxonomyType": {
 			"type": "object",
 			"default": {
-				"label" : "Categories",
-				"value" : "category"
+				"label": "Categories",
+				"value": "category"
 			}
 		},
-		"showIcon":{
+		"showIcon": {
 			"type": "boolean",
 			"default": false
 		},
-		"icon":{
+		"icon": {
 			"type": "string",
-      		"default": "fab fa-wordpress"
+			"default": "fab fa-wordpress"
 		},
 		"iconColor": {
 			"type": "object",
@@ -73,39 +73,39 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"contentAlignment":{
+		"contentAlignment": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"contentSpacing":{
+		"contentSpacing": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"layout":{
+		"layout": {
 			"type": "string",
-      		"default": "column",
-			"copyStyle" : true
+			"default": "column",
+			"copyStyle": true
 		},
-		"showDivider":{
-			"type" : "boolean",
+		"showDivider": {
+			"type": "boolean",
 			"default": false,
 			"copyStyle": true
 		},
-		"colorDivider" :{
-			"type" : "object",
+		"colorDivider": {
+			"type": "object",
 			"copyStyle": true
 		},
-		"typeDivider":{
+		"typeDivider": {
 			"type": "string",
-      		"default": "solid",
-			"copyStyle" : true
-		},
-		"widthDivider":{
-			"type" : "object",
+			"default": "solid",
 			"copyStyle": true
 		},
-		"sizeDivider":{
-			"type" : "object",
+		"widthDivider": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"sizeDivider": {
+			"type": "object",
 			"copyStyle": true
 		},
 		"mouseMoveEffect": {
@@ -227,8 +227,5 @@
 	"supports": {
 		"className": false
 	},
-	"keywords": [
-		"categories",
-		"list"
-	]
+	"keywords": ["categories", "terms", "tags", "list"]
 }

@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/post-block",
 	"class_callback": "\\Gutenverse\\Block\\Post_Block",
 	"title": "Post Block",
@@ -34,7 +34,7 @@
 			"type": "object",
 			"default": {}
 		},
-		"excludeCurrentPost":{
+		"excludeCurrentPost": {
 			"type": "boolean",
 			"default": false
 		},
@@ -329,8 +329,8 @@
 		"categoryVerticalAlign": {
 			"type": "object",
 			"default": {
-                "Desktop": "end"
-            },
+				"Desktop": "end"
+			},
 			"copyStyle": true
 		},
 		"categoryColor": {
@@ -425,11 +425,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"readmoreWidth":{
+		"readmoreWidth": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"readmoreAlign":{
+		"readmoreAlign": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -673,7 +673,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"paginationDisabledShadow":{
+		"paginationDisabledShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -821,34 +821,31 @@
 			"type": "object",
 			"default": {}
 		},
-		"contentOrder":{
-			"type":"array",
+		"contentOrder": {
+			"type": "array",
 			"default": [
-                {
-                    "label": "Title",
-                    "value": "title"
-                },
-                {
-                    "label": "Meta",
-                    "value": "meta"
-                },
-                {
-                    "label": "Excerpt",
-                    "value": "excerpt"
-                },
-                {
-                    "label": "Read More",
-                    "value": "read"
-                }
-            ]
+				{
+					"label": "Title",
+					"value": "title"
+				},
+				{
+					"label": "Meta",
+					"value": "meta"
+				},
+				{
+					"label": "Excerpt",
+					"value": "excerpt"
+				},
+				{
+					"label": "Read More",
+					"value": "read"
+				}
+			]
 		}
 	},
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"post",
-		"block"
-	]
+	"keywords": ["post", "block"]
 }

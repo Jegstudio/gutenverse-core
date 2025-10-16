@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/logo-slider",
 	"title": "Logo Slider",
 	"description": "Showcase your clients, sponsors, or a list of images on your website.",
@@ -399,11 +399,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"logoBackgroundNormal":{
+		"logoBackgroundNormal": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"logoBackgroundHover":{
+		"logoBackgroundHover": {
 			"type": "object",
 			"copyStyle": true
 		}
@@ -412,8 +412,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"logo",
-		"slider"
-	]
+	"keywords": ["logo", "slider", "image"]
 }
