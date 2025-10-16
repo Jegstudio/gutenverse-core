@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/image",
 	"title": "Image",
 	"description": "Edit, crop, and showcase your image.",
