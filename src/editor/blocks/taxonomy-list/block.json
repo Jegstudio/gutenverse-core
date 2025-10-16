@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/taxonomy-list",
 	"title": "Taxonomy List",
 	"description": "Create a list of categories",

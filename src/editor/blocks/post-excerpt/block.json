@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/post-excerpt",
 	"class_callback": "\\Gutenverse\\Block\\Post_Excerpt",
 	"title": "Post Excerpt",

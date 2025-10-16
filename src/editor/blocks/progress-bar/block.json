@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/progress-bar",
 	"title": "Progress Bar",
 	"description": "Create a progress bar of your achivement or something you want to share.",
