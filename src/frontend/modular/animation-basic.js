@@ -59,7 +59,7 @@ class GutenverseAnimationBasic extends Default {
     }
 }
 
-const selected = u('.guten-background-slideshow');
+const selected = u('.guten-element');
 
 if (selected) {
     new GutenverseAnimationBasic(selected);
