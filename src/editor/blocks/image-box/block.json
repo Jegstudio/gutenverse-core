@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/image-box",
 	"title": "Image Box",
 	"description": "Add an information section with image box.",

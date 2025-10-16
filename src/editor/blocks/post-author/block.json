@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/post-author",
 	"class_callback": "\\Gutenverse\\Block\\Post_Author",
 	"title": "Post Author",

@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/icon-list-item",
 	"title": "Icon List Item",
 	"description": "Show an icon list.",

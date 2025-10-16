@@ -1,5 +1,5 @@
 {
-  "apiVersion": 2,
+  "apiVersion": 3,
   "name": "gutenverse/form-input-multiselect",
   "title": "Multi Select",
   "description": "Gutenverse Input Multi Select",

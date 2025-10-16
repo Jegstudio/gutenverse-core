@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/animated-text",
 	"title": "Animated Text",
 	"description": "Create text with beautiful animation flow.",

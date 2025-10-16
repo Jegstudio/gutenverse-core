@@ -8,7 +8,7 @@ import metadata from './block.json';
 import { IconFunFactSVG } from '../../../assets/icon/index';
 import example from './data/example';
 
-const { name, attributes } = metadata;
+const { name, attributes, supports } = metadata;
 
 export { metadata, name };
 
@@ -19,24 +19,8 @@ export const settings = {
     save,
     deprecated: [
         {
-            attributes: {
-                ...attributes,
-                number: {
-                    type: 'string',
-                    deprecated: true,
-                },
-            },
-            migrate: (attributes) => {
-                const { number } = attributes;
-                const newAttributes = {
-                    ...attributes,
-                    safeNumber: number,
-                };
-
-                return [
-                    newAttributes
-                ];
-            },
+            attributes,
+            supports,
             save: saveV3,
         },
         {

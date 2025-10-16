@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/post-comment",
 	"class_callback": "\\Gutenverse\\Block\\Post_Comment",
 	"title": "Post Comment",
