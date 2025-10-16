@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/section",
 	"title": "Section",
 	"description": "Add a section to wrap several blocks or column.",
