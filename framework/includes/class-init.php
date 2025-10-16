@@ -90,6 +90,16 @@ class Init {
 	public $frontend_cache;
 
 	/**
+	 * Old frontend generator kept for backward compatibility
+	 */
+	public $style_generator;
+
+	/**
+	 * Old frontend cache kept for backward compatibility
+	 */
+	public $style_cache;
+
+	/**
 	 * Hold instance of global variable
 	 *
 	 * @var Global_Variable
