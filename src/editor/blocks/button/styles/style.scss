@@ -2,6 +2,12 @@
     display: flex;
     width: 100%;
     height: fit-content;
+
+    .guten-button {
+        transition: all .3s;
+        -webkit-transition: all .3s;
+        -o-transition: all .3s;
+    }
 }
 
 .guten-button {
