@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 
 export const ButtonImport = (props) => {
     const { template } = props;
-    if ( !template.pro || !template?.status?.need_upgrade) {
+    if ( !template.pro ) {
         return <CompanionButton {...props} />;
     } else {
         return <ButtonUpgradePro {...props} />;
@@ -27,6 +27,7 @@ const ButtonUpgradePro = (props) => {
     const {
         text = __('Upgrade To PRO', 'gutenverse'),
         link = null,
+        template
     } = props;
 
     const { upgradeProUrl, adminUrl, api } = window['GutenverseConfig'] || window['GutenverseWizard'] || {};
@@ -54,7 +55,9 @@ const ButtonUpgradePro = (props) => {
             return applyFilters('gutenverse.button.pro.banner',
                 button(__('Activate License', 'gutenverse'), 'key', false),
                 button(__('Renew License', 'gutenverse'), 'key', false),
-                button(__('Upgrade License', 'gutenverse'), 'key', false, true)
+                <CompanionButton {...props} />,
+                button(__('Upgrade License', 'gutenverse'), 'key', false, true),
+                template?.status?.required_tier
             );
         }
     };

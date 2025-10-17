@@ -151,6 +151,7 @@
 }
 .splide__arrow:disabled {
 	background: #DBE7FF;
+	cursor: auto;
 
 	svg {
 		path {
@@ -158,15 +159,15 @@
 		}
 	}
 }
-.splide__arrow:hover:disabled {
-	background: #00223D;
+// .splide__arrow:hover:disabled {
+// 	background: #00223D;
 	
-	svg {
-		path {
-			stroke: #fff;
-		}
-	}
-}
+// 	svg {
+// 		path {
+// 			stroke: #fff;
+// 		}
+// 	}
+// }
 .splide__arrow:focus-visible {
 	outline: 3px solid #3b57f7;
 	outline-offset: 3px;
