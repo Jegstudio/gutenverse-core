@@ -80,19 +80,19 @@ class GutenverseCountdown extends Default {
                     }
                 }
             }
-            if (day) {
+            if (day != null) {
                 const dayHTML = days.find('.countdown-value');
                 dayHTML.html(day);
             }
-            if (hour) {
+            if (hour != null) {
                 const hourHTML = hours.find('.countdown-value');
                 hourHTML.html(hour);
             }
-            if (minute) {
+            if (minute != null) {
                 const minuteHTML = minutes.find('.countdown-value');
                 minuteHTML.html(minute);
             }
-            if (second) {
+            if (second != null) {
                 const secondHTML = seconds.find('.countdown-value');
                 secondHTML.html(second);
             }
