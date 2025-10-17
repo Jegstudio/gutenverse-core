@@ -105,7 +105,7 @@ const ImportSectionButton = props => {
             const { contents, images, contents_global } = data;
 
             let patterns;
-            if ('global' === dataToImport) {
+            if ('global' === dataToImport && contents_global) {
                 patterns = injectImagesToContent(contents_global, images);
             } else {
                 patterns = injectImagesToContent(contents, images);
