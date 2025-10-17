@@ -32,6 +32,7 @@ import {
     // Transitions / animation
     transition,
     easeCubicOut,
+    easeCubic,
     interpolate,
     interpolateNumber,
 
@@ -128,7 +129,7 @@ class GutenverseChart extends Default {
         if (chartType === 'doughnut') {
             this._drawDonutChart(svg, data, radius, chartId, animationDuration);
         } else if (chartType === 'bar') {
-            this._drawBarChart(svg, data, width, height);
+            this._drawBarChart({svg, data, width, height, animationDuration, barThickness});
         }
 
         // === Tooltip ===
@@ -198,6 +199,7 @@ class GutenverseChart extends Default {
         // Animate
         arcs.transition()
             .delay((d, i) => i * 150)
+            .ease(easeCubic)
             .duration(animationDuration)
             .attrTween('d', function (d) {
                 const i = interpolate({ startAngle: 0, endAngle: 0 }, d);
@@ -226,7 +228,18 @@ class GutenverseChart extends Default {
         return Math.max(...data.map(d => d.value));
     }
 
-    _drawBarChart(svg, data, width, height, animationDuration = 800) {
+    _drawBarChart(props) {
+        const {
+            svg,
+            data,
+            width,
+            height,
+            animationDuration = 800,
+            barThickness,
+            enableGrid = true
+        } = props;
+        console.log(props);
+
         this._appendGradientDefs(svg, data);
 
         const margin = { top: 20, right: 20, bottom: 40, left: 40 };
@@ -261,15 +274,60 @@ class GutenverseChart extends Default {
             .attr('font-size', '10px')
             .attr('fill', '#333');
 
+        if (enableGrid) {
+            // === Horizontal Grid Lines ===
+            chartGroup.append('g')
+                .attr('class', 'grid-lines-y')
+                .selectAll('line')
+                .data(y.ticks(5).filter(d => d !== 0)) // exclude y=0 baseline
+                .enter()
+                .append('line')
+                .attr('x1', 1)
+                .attr('x2', (chartWidth - 1))
+                .attr('y1', d => y(d))
+                .attr('y2', d => y(d))
+                .attr('stroke', '#e0e0e0')
+                .attr('stroke-width', 1);
+
+            // === Vertical Grid Lines (Between Bars) ===
+            const xDomain = x.domain();
+            const xPositions = [];
+
+            for (let i = 0; i < xDomain.length - 1; i++) {
+                // Center of current bar
+                const currentCenter = x(xDomain[i]) + x.bandwidth() / 2;
+                // Center of next bar
+                const nextCenter = x(xDomain[i + 1]) + x.bandwidth() / 2;
+                // Middle point between two bar centers
+                const mid = currentCenter + (nextCenter - currentCenter) / 2;
+                xPositions.push(mid);
+            }
+
+            const verticalGrid = chartGroup.append('g').attr('class', 'grid-lines-x');
+
+            verticalGrid.selectAll('line')
+                .data(xPositions)
+                .enter()
+                .append('line')
+                .attr('x1', d => d)
+                .attr('x2', d => d)
+                .attr('y1', 0)
+                .attr('y2', chartHeight)
+                .attr('stroke', '#f0f0f0')
+                .attr('stroke-width', 1)
+                .attr('stroke-dasharray', '2,2');
+        }
+
         // === Bars ===
         const bars = chartGroup.selectAll('rect')
             .data(data)
             .enter()
             .append('rect')
-            .attr('x', d => x(d.label))
-            .attr('width', x.bandwidth())
+            .attr('x', d => x(d.label) + (x.bandwidth() - barThickness) / 2)
+            .attr('width', `${barThickness}px`)
             // Start from the bottom line
-            .attr('y', d => y(d.value))
+            .attr('y', 0)
+            .attr('transform', `scale(1, -1) translate(0, ${-chartHeight})`)
             .attr('height', 0)
             .attr('fill', (d, i) =>
                 d.colorMode === 'gradient'
@@ -282,10 +340,9 @@ class GutenverseChart extends Default {
 
         // === Animate Only the Height ===
         bars.transition()
-            .ease(easeCubicOut)
+            .ease(easeCubic)
             .delay((d, i) => i * 120)
             .duration(animationDuration)
-            .attr('y', d => y(d.value))
             .attr('height', d => chartHeight - y(d.value));
 
         // === Value Labels on Top ===
@@ -295,17 +352,22 @@ class GutenverseChart extends Default {
             .append('text')
             .attr('class', 'bar-label')
             .attr('x', d => x(d.label) + x.bandwidth() / 2)
-            .attr('y', chartHeight) // start at bottom
+            .attr('y', chartHeight - 5) // start at bottom
             .attr('text-anchor', 'middle')
             .attr('font-size', '10px')
             .attr('fill', '#333')
             .text(''); // empty until animated
 
+        // === Animate Labels (start slightly later) ===
+        console.log({animationDuration});
         labels.transition()
-            .ease(easeCubicOut)
-            .delay((d, i) => i * 120 + 100)
-            .duration(animationDuration)
-            .attr('y', d => y(d.value) - 5)
+            .ease(easeCubic)
+            .delay((d, i) => i * 120)
+            .duration(parseInt(animationDuration) + 700)
+            .attr('y', d => {
+                console.log(d.value);
+                return y(d.value) - 5;
+            })
             .tween('text', function (d) {
                 const i = interpolateNumber(0, d.value);
                 return function (t) {
