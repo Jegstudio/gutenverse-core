@@ -23,7 +23,10 @@ const PanelTabPro = ({ activeTab }) => {
                 return applyFilters('gutenverse.button.pro.banner',
                     <a href={adminUrl + 'admin.php?page=gutenverse&path=license'} target="_blank" rel="noreferrer" className="guten-pro-bottom-button"> {__('Activate License', 'gutenverse-pro')} <IconKeySVG fill={'white'} transform={'translate(0,4)'}/></a>,
                     <a href={adminUrl + 'admin.php?page=gutenverse&path=license'} target="_blank" rel="noreferrer" className="guten-pro-bottom-button"> {__('Renew License', 'gutenverse-pro')} <IconKeySVG fill={'white'} transform={'translate(0,4)'}/></a>,
-                    <></>);
+                    <></>,
+                    null,
+                    []
+                );
             }
         } 
     }, {location,isBanner : true});
