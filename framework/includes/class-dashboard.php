@@ -200,7 +200,7 @@ class Dashboard {
 		$config['pluginVersions']   = array();
 		$config['fontIconExists']   = Init::instance()->assets->is_font_icon_exists();
 		$config['themesUrl']        = GUTENVERSE_FRAMEWORK_THEMES_URL;
-		$config['proDemoUrl']       = untrailingslashit( GUTENVERSE_FRAMEWORK_LIBRARY_URL ) ;
+		$config['proDemoUrl']       = untrailingslashit( GUTENVERSE_FRAMEWORK_LIBRARY_URL );
 		$config['adminUrl']         = admin_url();
 		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
 		$config['requireProUpdate'] = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
