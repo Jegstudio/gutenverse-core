@@ -31,6 +31,7 @@ const SingleSectionContent = (props) => {
     const [dataToImport, setDataToImport] = useState(singleData);
     const [unavailableGlobalFonts, setUnavailableGlobalFonts] = useState([]);
     const [unavailableGlobalColors, setUnavailableGlobalColors] = useState([]);
+    const [hasGlobaContent, setHasGlobalContent] = useState(true);
     const { supportGlobalImport } = window['GutenverseConfig'] || window['GutenverseData'] || {};
     // const supportGlobalImport = true; //untuk testing
 
@@ -97,6 +98,7 @@ const SingleSectionContent = (props) => {
                     setContentGlobal(updatedContentGlobal);
                 } else {
                     setContentGlobal(updatedNormalContentImage);
+                    setHasGlobalContent(false);
                 }
 
                 setContentNormal(updatedNormalContentImage);
@@ -126,7 +128,7 @@ const SingleSectionContent = (props) => {
                             </span>
                         </div>
                         <div className="single-previewer-control">
-                            {supportGlobalImport && <div className="previewer-options-container">
+                            {(supportGlobalImport && hasGlobaContent) && <div className="previewer-options-container">
                                 <label className={selectedOption === 'default' ? 'selected' : ''}>
                                     <input
                                         type="radio"
@@ -225,7 +227,8 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
         (_, prefix, id, suffix) => {
             let notExist = false;
             let color = {};
-            const populateColor = globalVariables.colors?.custom?.concat(globalVariables.colors.theme);
+            const customGlobalColor = globalVariables.colors?.custom || [];
+            const populateColor = customGlobalColor?.concat(globalVariables.colors.theme);
             const matchedColor = populateColor?.find(f => f?.slug?.toLowerCase() === id?.toLowerCase());
 
             if (!matchedColor) {
@@ -314,9 +317,6 @@ const ReadOnlyContent = ({ content }) => {
                         `;
                         styleTag.className = 'custom-preview-style';
                         iframeDoc.head.appendChild(styleTag);
-
-                        const container = iframeRef.current.querySelector('block-editor-block-preview__container');
-                        const rect = container.getBoundingClientRect();
                     };
                     iframe.addEventListener('load', onLoad);
 
