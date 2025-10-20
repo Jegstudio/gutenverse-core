@@ -226,6 +226,11 @@ class Dashboard {
 		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'gutenverse' === $_GET['page'] ) {
 			$config['system'] = $this->system_status();
 		}
+		if ( in_array( 'gutenverse-companion/gutenverse-companion.php', $config['activePlugins'], true ) ) {
+			$config['companionActive'] = true;
+		} else {
+			$config['companionActive'] = false;
+		}
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}

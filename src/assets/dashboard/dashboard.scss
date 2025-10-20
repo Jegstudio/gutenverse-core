@@ -1087,3 +1087,229 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
         }
     }
 }
+
+.update-php {
+    .wrap {
+        max-width: 100% !important;
+    }
+}
+
+.gutenverse-unibiz-notice {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+    &.notice {
+        border: none;
+        padding: 0;
+    }
+
+    .unibiz-gutenverse-badge {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 121px;
+        margin: 0 15px 15px 0;
+    }
+
+    .content-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        overflow: hidden;
+        position: relative;
+
+        .close-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 5;
+
+            &:hover {
+                transform: scale(0.93);
+            }
+        }
+
+        .col-1 {
+            width: 50%;
+            position: relative;
+            z-index: 3;
+
+            .content {
+                margin: 40px 0 40px 60px;
+            }
+
+            .title {
+                font-family: 'Host Grotesk', sans-serif;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 1.14;
+                background: linear-gradient(93.32deg, #00223d 0.65%, #371c73 68.04%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: 12px;
+
+                .highlight-title {
+                    background: linear-gradient(84.2deg, #7032ff 15.94%, #4b8eff 97.2%);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+            }
+
+            .description {
+                font-family: 'Host Grotesk', sans-serif;
+                font-weight: 400;
+                font-size: 14px;
+                color: #00223d99;
+                margin: 0 0 12px 0;
+            }
+
+            .feature-wrapper {
+                display: flex;
+                gap: 10px;
+                text-wrap: nowrap;
+                align-items: center;
+                margin-bottom: 24px;
+
+                .feature-item {
+                    display: flex;
+                    gap: 6px;
+                    align-items: center;
+                    font-family: 'Host Grotesk', sans-serif;
+                    font-weight: 400;
+                    font-size: 12px;
+                    color: #5c51f3;
+                    border-radius: 24px;
+                    padding: 3px 10px 3px 5px;
+                    background: #fff;
+                    border: 1px solid #5c51f34d;
+                    margin-bottom: 0;
+                }
+            }
+
+            .button-wrapper {
+                display: flex;
+                align-items: center;
+                margin-top: 20px;
+
+                .button-install {
+                    border-radius: 8px;
+                    padding: 10px 16px;
+                    background: radial-gradient(103.69% 112% at 51.27% 100%, #4992ff 0%, #7722ff 100%);
+                    border: 1px solid #9760ff;
+                    color: white;
+                    cursor: pointer;
+                    transition: transform 0.3s ease, color 0.3s ease;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-family: 'Roboto', sans-serif;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 130%;
+                    vertical-align: middle;
+
+                    svg {
+                        animation: infinite rotate 2s linear;
+                    }
+
+                    &:hover {
+                        color: hsla(0, 0%, 100%, 0.75);
+                        transform: scale(0.93);
+                    }
+                }
+
+                .arrow-wrapper {
+                    position: relative;
+
+                    .unibiz-arrow {
+                        position: absolute;
+                        top: -35px;
+                        right: -128px;
+                        width: 100px;
+                    }
+                }
+            }
+        }
+
+        .col-2 {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            .unibiz-wave {
+                position: absolute;
+                right: 0;
+            }
+
+            .mockup-wrapper {
+                display: flex;
+                justify-content: center;
+                position: relative;
+
+                .unibiz-mockup {
+                    z-index: 2;
+                    max-width: 550px;
+                }
+
+                .unibiz-confetti {
+                    z-index: 2;
+                    position: absolute;
+                    top: -10px;
+                    bottom: 0;
+                    height: 110%;
+                }
+
+                .unibiz-wave {
+                    z-index: 2;
+                    position: absolute;
+                    top: -200%;
+                    right: -70%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .gutenverse-unibiz-notice {
+        .content-wrapper {
+            .col-2 {
+                position: relative;
+                width: 100%;
+                display: flex;
+                justify-content: end;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .gutenverse-unibiz-notice {
+        .content-wrapper {
+            .col-1 {
+                width: 100%;
+            }
+
+            .col-2 {
+                display: none;
+            }
+        }
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+} 

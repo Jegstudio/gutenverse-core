@@ -151,7 +151,7 @@ const LibraryModal = props => {
 
                             return <>
                                 {
-                                    (activeTheme === 'unibiz' && type.id === 'themes') ?
+                                    (activeTheme === 'unibiz' && type.id === 'themes') && companionActive ?
                                         flag ? <div key={index}
                                             className={`gutenverse-library-type ${active}`}
                                             onClick={() => {
