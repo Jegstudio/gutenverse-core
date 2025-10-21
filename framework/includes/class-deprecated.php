@@ -224,7 +224,6 @@ class Deprecated {
 		foreach ( $themes as $theme_slug => $theme_dir ) {
 			$template_base_paths  = get_block_theme_folders( $theme_slug );
 			$theme_template_files = _get_block_templates_paths( $theme_dir . '/' . $template_base_paths[ $template_type ] );
-
 			foreach ( $theme_template_files as $template_file ) {
 				$template_base_path = $template_base_paths[ $template_type ];
 				$template_slug      = substr(
@@ -235,9 +234,7 @@ class Deprecated {
 					-5
 				);
 
-				if (
-					! gutenverse_child_template( $template_base_paths[ $template_type ], $template_slug )
-				) {
+				if ( ! gutenverse_child_template( $template_base_paths[ $template_type ], $template_slug ) ) {
 					$template_file = apply_filters( 'gutenverse_template_path', $template_file, $theme_slug, $template_slug );
 				}
 
@@ -283,7 +280,7 @@ class Deprecated {
 
 		foreach ( $themes as $theme_slug => $theme_dir ) {
 			$template_base_paths = get_block_theme_folders( $theme_slug );
-			$file_path           = '/' . $template_base_paths[ $template_type ] . '/' . $slug . '.html';
+			$file_path           = $theme_dir . '/' . $template_base_paths[ $template_type ] . '/' . $slug . '.html';
 
 			if (
 				! gutenverse_child_template( $template_base_paths[ $template_type ], $slug )
