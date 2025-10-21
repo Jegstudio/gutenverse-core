@@ -476,11 +476,11 @@ body {
                     .notice-install {
                         font-family: "Roboto", sans-serif;
                         font-weight: 400;
-                        font-size: 14px;
+                        font-size: 12px;
                         line-height: 20px;
                         color: rgba(0, 34, 61, 0.6);
                         margin-top: 24px;
-                        padding-right: 178px;
+                        padding-right: 120px;
                     }
                 }
 
@@ -838,17 +838,23 @@ body {
         border-radius: 20px 20px 0 0;
 
         .content-title {
+            color: #1d2327;
+            font-size: 1.65rem;
+            font-family: "Inter", sans-serif;
+            font-weight: 600;
             margin: 0;
             width: 100%;
             text-align: center;
         }
 
         p {
-            width: 620px;
             margin: 20px auto 0;
             text-align: center;
-            color: #40505d;
             line-height: 1.4em;
+            color: #4F6474;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            max-width: 530px;
         }
 
         .button-import-all {
@@ -2239,7 +2245,7 @@ body {
             }
 
             .importer-step {
-                .import-step-notice {
+                .import-step-notice p {
                     font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: normal;

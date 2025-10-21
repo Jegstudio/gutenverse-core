@@ -117,7 +117,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
             .then(() => { })
             .catch(() => {
                 setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
-                console.error('Error during theme activation');
+                console.error('Error during theme activation');// eslint-disable-line
                 setAction('done');
                 setReloadingSlug(null);
             })
@@ -167,14 +167,14 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                         activateTheme(slug);
                     } else {
                         setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
-                        console.error('Error during theme installation');
+                        console.error('Error during theme installation');// eslint-disable-line
                         setAction('done');
                         setReloadingSlug(null);
                     }
                 })
                 .catch(err => {
                     setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
-                    console.error('Error during theme installation: ' + err);
+                    console.error('Error during theme installation: ' + err);// eslint-disable-line
                     setAction('done');
                     setReloadingSlug(null);
                 });
@@ -212,7 +212,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                         installPlugins(index + 1);
                     }).catch((err) => {
                         setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
-                        console.error('Error during installing plugin:', err);
+                        console.error('Error during installing plugin:', err);// eslint-disable-line
                     });
                 } else if (!plugin?.installed) {
                     apiFetch({
@@ -226,7 +226,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                         installPlugins(index + 1);
                     }).catch((err) => {
                         setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
-                        console.error('Error during installing plugin: ' + err);
+                        console.error('Error during installing plugin: ' + err);// eslint-disable-line
                     });
                 } else if (!plugin?.active) {
                     apiFetch({
@@ -239,7 +239,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                         installPlugins(index + 1);
                     }).catch((err) => {
                         setInstalling({ show: true, message: 'Installing Failed', progress: '4/4' });
-                        console.error('Error during plugin activation: ' + err);
+                        console.error('Error during plugin activation: ' + err);// eslint-disable-line
                         installPlugins(index);
                     });
                 } else {
@@ -389,7 +389,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                     </li>
                     <li className="content-list">
                         {checkIcon}
-                        {__('Experience a Next-Level FSE Theme', 'gutenverse')}
+                        {__('Experience True Full Site Editing', 'gutenverse')}
                     </li>
                 </ul>
                 <div onClick={() => {
@@ -399,7 +399,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                     {__(requirement ? 'Unibiz Installed' : 'loading' === action ? installing?.message : 'Install Unibiz Theme', 'gutenverse')}
                 </div>
                 <p className="notice-install">
-                    {__('By clicking “Install Unibiz Theme” you consent to installing and activating the Gutenverse Companion plugin.', 'gutenverse')}
+                    {__('By clicking "Install Unibiz Theme," we\'ll also install and activate the required Gutenverse Companion plugin to ensure everything works smoothly.', 'gutenverse')}
                 </p>
             </div>
         </div>
@@ -421,13 +421,13 @@ const GettingStarted = ({ updateProgress, gutenverseImgDir }) => {
                 <span className="gradient-text">{__('Gutenverse', 'gutenverse')}</span>
             </h3>
             <p className="content-desc">
-                {__('Thank you for choosing Gutenverse. Follow these simple steps of easy setup wizard & enjoy your Full Site Editing experience now!', 'gutenverse')}
+                {__('Thank you for choosing Gutenverse. Follow our quick setup wizard to start your Full Site Editing experience right now.', 'gutenverse')}
             </p>
         </div>
         <img className="wizard-image item-1" src={gutenverseImgDir + '/wizard-mockup-welcome.png'} />
         <img className="wizard-image item-2" src={gutenverseImgDir + '/wizard-blink-blue.png'} />
         <div className="content-bottom">
-            <p className="consent-notice">{__('By proceeding, you grant permission for this plugin to collect your information. ', 'gutenverse')}</p>
+            <p className="consent-notice">{__('By proceeding, you agree to our Privacy Policy and permit this plugin to collect your data as outlined within.', 'gutenverse')}</p>
             <a
                 className="consent-notice-link"
                 href="https://gutenverse.com/privacy-policy/"
@@ -435,7 +435,7 @@ const GettingStarted = ({ updateProgress, gutenverseImgDir }) => {
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {__('Find out what we collect.', 'gutenverse')}
+                {__('Read our Privacy Policy.', 'gutenverse')}
             </a>
         </div>
         <div className="wizard-footer">
