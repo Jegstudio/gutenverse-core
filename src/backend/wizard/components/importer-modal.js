@@ -308,6 +308,10 @@ const ModalContent = ({
                     desc: 'All demo pages and content will be imported to match the demo layout.'
                 },
                 {
+                    label: 'Import Global Styles',
+                    desc: 'The global styles for this demo will be imported to match the demo layout.'
+                },
+                {
                     label: 'Import Menu',
                     desc: 'Demo navigation menu will be automatically created and assigned.'
                 }
