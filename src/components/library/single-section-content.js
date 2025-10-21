@@ -32,7 +32,7 @@ const SingleSectionContent = (props) => {
     const [unavailableGlobalFonts, setUnavailableGlobalFonts] = useState([]);
     const [unavailableGlobalColors, setUnavailableGlobalColors] = useState([]);
     const { supportGlobalImport } = window['GutenverseConfig'] || window['GutenverseData'] || {};
-    // const supportGlobalImport = true; //untuk testing
+    // const supportGlobalImport = true; //for testing
 
     const normalRef = useRef(null);
     const globalRef = useRef(null);
@@ -95,8 +95,6 @@ const SingleSectionContent = (props) => {
                     });
                     const updatedContentGlobal = handleGlobalStyleContent(updatedGlobalContentImage, data.global, setUnavailableGlobalFonts, setUnavailableGlobalColors);
                     setContentGlobal(updatedContentGlobal);
-                } else {
-                    setContentGlobal(updatedNormalContentImage);
                 }
 
                 setContentNormal(updatedNormalContentImage);
@@ -126,7 +124,7 @@ const SingleSectionContent = (props) => {
                             </span>
                         </div>
                         <div className="single-previewer-control">
-                            {supportGlobalImport && <div className="previewer-options-container">
+                            {(supportGlobalImport && contentGlobal !== null) &&  <div className="previewer-options-container">
                                 <label className={selectedOption === 'default' ? 'selected' : ''}>
                                     <input
                                         type="radio"
@@ -179,7 +177,7 @@ const SingleSectionContent = (props) => {
                                                         content={contentNormal}
                                                     />
                                                 </div>
-                                                {(supportGlobalImport && contentGlobal) && <div ref={globalRef} className={`${layoutClassNames} global-content`}>
+                                                {(supportGlobalImport && contentGlobal !== null) && <div ref={globalRef} className={`${layoutClassNames} global-content`}>
                                                     <Content
                                                         content={contentGlobal}
                                                     />
@@ -225,7 +223,7 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
         (_, prefix, id, suffix) => {
             let notExist = false;
             let color = {};
-            const populateColor = globalVariables.colors?.custom?.concat(globalVariables.colors.theme);
+            const populateColor = (globalVariables.colors?.custom ?? []).concat(globalVariables.colors?.theme ?? []);
             const matchedColor = populateColor?.find(f => f?.slug?.toLowerCase() === id?.toLowerCase());
 
             if (!matchedColor) {
@@ -315,8 +313,8 @@ const ReadOnlyContent = ({ content }) => {
                         styleTag.className = 'custom-preview-style';
                         iframeDoc.head.appendChild(styleTag);
 
-                        const container = iframeRef.current.querySelector('block-editor-block-preview__container');
-                        const rect = container.getBoundingClientRect();
+                        // const container = iframeRef.current.querySelector('block-editor-block-preview__container');
+                        // const rect = container.getBoundingClientRect();
                     };
                     iframe.addEventListener('load', onLoad);
 
