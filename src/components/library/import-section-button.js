@@ -134,17 +134,47 @@ const ImportSectionButton = props => {
                         const value = obj[key];
 
                         if (key === 'typography' && value?.id) {
-                            // ✅ find matching font by ID
                             const matchedFont = globalVariables.fonts.find(item => item.id === value.id);
+                            console.log({value, matchedFont: matchedFont.font});
 
                             if (matchedFont) {
+                                const {
+                                    decoration,
+                                    font = {},
+                                    lineHeight = {},
+                                    size = {},
+                                    spacing = {},
+                                    style,
+                                    transform,
+                                    weight,
+                                } = matchedFont.font;
+
                                 Object.assign(value, {
                                     ...value,
-                                    ...matchedFont.font,
+                                    decoration,
+                                    font,
+                                    lineHeight,
+                                    size,
+                                    spacing,
+                                    style,
+                                    transform,
+                                    weight,
                                 });
+
+                                for (const key in value) {
+                                    const val = value[key];
+                                    if (
+                                        val === undefined ||
+                                        val === null ||
+                                        (typeof val === 'object' && Object.keys(val).length === 0) ||
+                                        (typeof val === 'string' && val.trim() === '')
+                                    ) {
+                                        delete value[key];
+                                    }
+                                }
                             }
                         } else if (typeof value === 'object' && value !== null) {
-                            traverse(value); // recursive call
+                            traverse(value);
                         }
                     }
                 }
