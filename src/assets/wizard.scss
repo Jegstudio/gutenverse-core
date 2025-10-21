@@ -990,8 +990,9 @@ body {
             position: relative;
 
             input {
-                width: 383px;
+                width: 344px;
                 border-radius: 8px;
+                box-sizing: border-box;
                 justify-content: space-between;
                 padding-top: 10px;
                 padding-right: 16px;
