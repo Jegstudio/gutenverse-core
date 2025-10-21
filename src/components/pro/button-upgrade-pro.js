@@ -81,6 +81,7 @@ const ButtonUpgradePro = ({
                     button(__('Activate License', '--gctd--'), 'key', false, false),
                     button(__('Renew License', '--gctd--'), 'key', false, false),
                     licenseActiveButton,
+                    null,
                     licenseType
                 );
             }
