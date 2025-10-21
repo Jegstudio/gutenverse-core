@@ -209,7 +209,7 @@ $border: #eaeaea;
 
         .library-items-wrapper {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 
             .library-like {
                 cursor: pointer;
@@ -1522,6 +1522,10 @@ $border: #eaeaea;
     padding: 20px 24px 24px;
     flex-direction: column;
     gap: 20px;
+
+    .back-button {
+        cursor: pointer;
+    }
 
     .back-button,
     .single-previewer-toolbar {
