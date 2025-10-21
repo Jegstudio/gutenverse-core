@@ -16,6 +16,7 @@ import { signal } from 'gutenverse-core/editor-helper';
 import cloneDeep from 'lodash/cloneDeep';
 import set from 'lodash/set';
 import { v4 } from 'uuid';
+import { getGlobalVariable } from '../../styling/styling/global-style/index';
 
 const ImportSectionButton = props => {
     const {
@@ -37,6 +38,7 @@ const ImportSectionButton = props => {
     } = props;
 
     const { pro: isPro, licenseType, slug, customAPI = null, customArgs = {} } = data;
+    const globalVariables = getGlobalVariable();
 
     const { userConfig, setUserConfig } = useGlobalStylesConfig();
     const customs = userConfig.settings.color && userConfig.settings.color.palette && userConfig.settings.color.palette.custom;
@@ -90,7 +92,7 @@ const ImportSectionButton = props => {
 
         for (const font of unavailableGlobalFonts) {
             fontCount++;
-            setExporting(prev => ({ ...prev, message: `Importing Global Color ${fontCount} of ${unavailableGlobalFonts.length + 1}`, progress: '3/4' }));
+            setExporting(prev => ({ ...prev, message: `Importing Global Font ${fontCount} of ${unavailableGlobalFonts.length + 1}`, progress: '3/4' }));
             addVariableFont({
                 id: font?.slug,
                 name: font?.name,
@@ -102,7 +104,8 @@ const ImportSectionButton = props => {
     const insertBlocksTemplate = (data, supportGlobalImport) => {
         return new Promise((resolve) => {
             const { insertBlocks } = dispatch('core/block-editor');
-            const { contents, images, contents_global } = data;
+            const { contents, images, contents_global, global } = data;
+            // console.log({data});
 
             let patterns;
             if ('global' === dataToImport && contents_global) {
@@ -115,13 +118,39 @@ const ImportSectionButton = props => {
 
             //handle elementId on section import
             const newBlocks = blocks.map(block => {
-                const blocksString = JSON.stringify(block).replace(/class=\\"[^"]*\\"/g, 'class=\\"\\"');
-                const removeClassName = blocksString.replace(/"className":"[^"]*"/g,  '"className":""');
-                const contentWithNewId = removeClassName.replace(/"elementId":"guten-[^"]+"/g, () => {
-                    const newId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-                    return `"elementId":"${newId}"`;
-                });
-                return JSON.parse(contentWithNewId);
+                const blocksString = JSON.stringify(block)
+                    .replace(/class=\\"[^"]*\\"/g, 'class=\\"\\"')
+                    .replace(/"className":"[^"]*"/g, '"className":""')
+                    .replace(/"elementId":"guten-[^"]+"/g, () => {
+                        const newId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+                        return `"elementId":"${newId}"`;
+                    });
+
+                const newBlock = JSON.parse(blocksString);
+
+                // Recursive traversal to find and update typography
+                function traverse(obj) {
+                    for (const key in obj) {
+                        const value = obj[key];
+
+                        if (key === 'typography' && value?.id) {
+                            // ✅ find matching font by ID
+                            const matchedFont = globalVariables.fonts.find(item => item.id === value.id);
+
+                            if (matchedFont) {
+                                Object.assign(value, {
+                                    ...value,
+                                    ...matchedFont.font,
+                                });
+                            }
+                        } else if (typeof value === 'object' && value !== null) {
+                            traverse(value); // recursive call
+                        }
+                    }
+                }
+
+                traverse(newBlock);
+                return newBlock;
             });
 
             const renderingMode = select(editorStore).getRenderingMode();
