@@ -31,7 +31,6 @@ const ImportSectionButton = props => {
         setSingleData,
         singleData,
         dataToImport,
-        extractTypographyBlocks,
         unavailableGlobalFonts,
         unavailableGlobalColors,
         supportGlobalImport
@@ -104,8 +103,7 @@ const ImportSectionButton = props => {
     const insertBlocksTemplate = (data, supportGlobalImport) => {
         return new Promise((resolve) => {
             const { insertBlocks } = dispatch('core/block-editor');
-            const { contents, images, contents_global, global } = data;
-            // console.log({data});
+            const { contents, images, contents_global } = data;
 
             let patterns;
             if ('global' === dataToImport && contents_global) {
@@ -135,7 +133,6 @@ const ImportSectionButton = props => {
 
                         if (key === 'typography' && value?.id) {
                             const matchedFont = globalVariables.fonts.find(item => item.id === value.id);
-                            console.log({value, matchedFont: matchedFont.font});
 
                             if (matchedFont) {
                                 const {
