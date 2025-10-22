@@ -141,7 +141,6 @@ class Editor_Assets {
 		$config['clientUrl']           = get_site_url();
 		$config['activeTheme']         = get_option( 'stylesheet' );
 		$config['supportGlobalImport'] = $this->check_theme_support_global();
-		$config['showThemeList']       = apply_filters( 'gutenverse_show_theme_list', true );
 
 		if ( defined( 'GUTENVERSE' ) ) {
 			$config['oldImagePlaceholder'] = plugins_url( GUTENVERSE ) . '/assets/img/img-placeholder.jpg';

@@ -9,11 +9,21 @@
 #wp-admin-bar-gutenverse-pro span {
     display: flex;
 }
-
+ 
+#wp-admin-bar-gutenverse > div:first-child,
+#wp-admin-bar-gutenverse > div:first-child:hover,
 #wp-admin-bar-gutenverse-pro a,
 #wp-admin-bar-gutenverse-pro:hover a {
     background: #3B57F7!important;
     color: white!important;
+}
+
+#wp-admin-bar-gutenverse-default {
+    padding-top: 0 !important; 
+}
+
+#wp-admin-bar-gutenverse-pro a {
+    height: 32px !important;
 }
 
 #wp-admin-bar-gutenverse span img,

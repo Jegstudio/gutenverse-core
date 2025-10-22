@@ -14,7 +14,6 @@ import { compose } from '@wordpress/compose';
 import { fetchLibraryData } from 'gutenverse-core/requests';
 import Ecosystem from '../content/ecosystem/ecosystem';
 import Themelist from '../content/themelist/themelist';
-import isEmpty from 'lodash/isEmpty';
 import ThemesContent from '../../components/library/themes-content';
 
 const Content = ({ initialLibraryData, initialPluginData, location }) => {
@@ -23,8 +22,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
     const page = query.get('page');
     let path = query.get('path');
     const {
-        homeSlug,
-        showThemeList
+        homeSlug
     } = window['GutenverseDashboard'];
     const {
         settingsData
@@ -116,10 +114,6 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
     };
 
     if (homeSlug === page) {
-        if (path === 'theme-list' && isEmpty( showThemeList )) {
-            path = 'dashboard'; // force fallback to dashboard
-        }
-
         switch (path) {
             case 'theme-list':
                 routePage = <Themelist {...props} />;

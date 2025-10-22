@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo, useRef } from '@wordpress/element';
 import classnames from 'classnames';
 import { RecursionProvider, BlockPreview } from '@wordpress/block-editor';
 import { IconEmpty2SVG, IconArrowLeftSVG } from 'gutenverse-core/icons';
-import { LeftSkeleton, RightSkeleton, FullSkeleton } from 'gutenverse-core/components';
+import { LeftSkeleton, RightSkeleton, FullSkeleton, Skeleton } from 'gutenverse-core/components';
 import { importSingleSectionContent } from 'gutenverse-core/requests';
 import { getGlobalVariable } from '../../styling/styling/global-style/index';
 import ImportSectionButton from './import-section-button';
@@ -126,7 +126,7 @@ const SingleSectionContent = (props) => {
                             </span>
                         </div>
                         <div className="single-previewer-control">
-                            {(supportGlobalImport && contentGlobal !== null) &&  <div className="previewer-options-container">
+                            {(supportGlobalImport && contentGlobal !== null) && <div className="previewer-options-container">
                                 <label className={selectedOption === 'default' ? 'selected' : ''}>
                                     <input
                                         type="radio"
@@ -274,10 +274,9 @@ const Content = (props) => {
 
     return content === null ? <>
         <div className="single-previewer">
-            <LeftSkeleton />
-        </div>
-        <div className="single-wrapper">
-            <RightSkeleton />
+            <div style={{ padding: '10px', width: '100%', boxSizing: 'border-box' }}>
+                <Skeleton variant="rect" height={'1000px'} borderRadius={2} />
+            </div>
         </div>
     </> : <ReadOnlyContent
         content={content}
@@ -296,6 +295,9 @@ const ReadOnlyContent = ({ content }) => {
             if (iframeRef.current) {
                 const iframe = iframeRef.current.querySelector('iframe');
                 if (iframe) {
+                    // Get the element
+                    const container = document.querySelector('.single-previewer-container');
+                    const height = container.getBoundingClientRect().height;
                     const onLoad = () => {
                         const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
                         if (!iframeDoc) return;
@@ -310,10 +312,23 @@ const ReadOnlyContent = ({ content }) => {
                                 display: none;
                             }
 
+                            .guten-popup-builder  {
+                                min-height: ${height * 100 / 80}px;
+                                display: block;
+                            }
+
+                            .guten-popup-holder {
+                                display: none !important;
+                            }
+
+                            .guten-popup:not(.show) {
+                                display: block !important;
+                            }
+
                             /* You can add more custom styles here */
                         `;
                         styleTag.className = 'custom-preview-style';
-                        iframeDoc.head.appendChild(styleTag);
+                        iframeDoc.body.appendChild(styleTag);
 
                         // const container = iframeRef.current.querySelector('block-editor-block-preview__container');
                         // const rect = container.getBoundingClientRect();
