@@ -278,13 +278,13 @@ const ImportSectionButton = props => {
 
     const ImportButton = () => {
         return !singleData ? (
-            <div className="section-button import-section">
-                <div className="section-button-inner" onClick={() => {
-                    setSingleId(data.id);
-                    setSingleData(data);
-                }}>
+            <div className="section-button import-section" onClick={() => {
+                setSingleId(data.id);
+                setSingleData(data);
+            }}>
+                <div className="section-button-inner">
                     <span>{__('Preview Section', '--gctd--')}</span>
-                    <IconEyeSVG width={12.8} height= {12.8} />
+                    <IconEyeSVG width={12.8} height={12.8} />
                 </div>
             </div>
         ) : (
