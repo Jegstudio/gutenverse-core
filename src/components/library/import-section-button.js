@@ -117,7 +117,13 @@ const ImportSectionButton = props => {
             //handle elementId on section import
             const newBlocks = blocks.map(block => {
                 const blocksString = JSON.stringify(block)
-                    .replace(/class=\\"[^"]*\\"/g, 'class=\\"\\"')
+                    .replace(/class=\\"([^"]*)\\"/g, (match, classes) => {
+                        const keep = classes
+                            .split(/\s+/)
+                            .filter(className => className === 'guten-text-highlight')
+                            .join(' ');
+                        return keep ? `class=\\"${keep}\\"` : 'class=\\"\\"';
+                    })
                     .replace(/"className":"[^"]*"/g, '"className":""')
                     .replace(/"elementId":"guten-[^"]+"/g, () => {
                         const newId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
