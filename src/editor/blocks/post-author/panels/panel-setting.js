@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, SelectControl, TextControl, IconRadioControl   } from 'gutenverse-core/controls';
+import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
 
 export const settingPanel = (props) => {
     const {
@@ -82,6 +83,34 @@ export const settingPanel = (props) => {
             ],
         },
         {
+            id: 'alignment',
+            label: __('Alignment', 'gutenverse'),
+            component: IconRadioControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: __('Align Left', 'gutenverse'),
+                    value: 'flex-start',
+                    icon: <AlignLeft />,
+                },
+                {
+                    label: __('Align Center', 'gutenverse'),
+                    value: 'center',
+                    icon: <AlignCenter />,
+                },
+                {
+                    label: __('Align Right', 'gutenverse'),
+                    value: 'flex-end',
+                    icon: <AlignRight />,
+                },
+                {
+                    label: __('Align Right', 'gutenverse'),
+                    value: 'space-between',
+                    icon: <AlignJustify />,
+                },
+            ],
+        },
+        {
             id: 'authorAvatar',
             label: __('Show Avatar', 'gutenverse'),
             component: CheckboxControl,
@@ -89,6 +118,11 @@ export const settingPanel = (props) => {
         {
             id: 'authorLink',
             label: __('Make Author a Link', 'gutenverse'),
+            component: CheckboxControl,
+        },
+        {
+            id: 'authorBio',
+            label: __('Show Biography', 'gutenverse'),
             component: CheckboxControl,
         },
         {
