@@ -112,12 +112,6 @@ const Navigation = ({ location }) => {
                 path: 'ecosystem',
                 priority: 1
             },
-            // !isEmpty(showThemeList) && {
-            //     name: __('Theme List', '--gctd--'),
-            //     slug: homeSlug,
-            //     path: 'theme-list',
-            //     priority: 2
-            // },
             {
                 name: __('Blocks', '--gctd--'),
                 slug: homeSlug,

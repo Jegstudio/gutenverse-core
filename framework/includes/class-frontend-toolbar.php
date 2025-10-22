@@ -127,6 +127,22 @@ class Frontend_Toolbar {
 					)
 				);
 
+				$site_url     = get_site_url();
+				$active_theme = get_option( 'stylesheet' );
+				if ( ! defined( 'GUTENVERSE_PRO' ) ) {
+					$admin_bar->add_menu(
+						array(
+							'id'     => 'gutenverse-pro',
+							'parent' => 'gutenverse',
+							'title'  => '<span class="gutenverse-pro-right">' . esc_html__( 'Upgrade to PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
+							'href'   => gutenverse_upgrade_pro() . '/?utm_source=gutenverse&utm_medium=admintopbar&utm_client_site=' . $site_url . '&utm_client_theme=' . $active_theme,
+							'meta'   => array(
+								'target' => '_blank',
+							),
+						)
+					);
+				}
+
 				if ( ! is_admin() ) {
 					if ( current_theme_supports( 'block-templates' ) && $this->is_block_template ) {
 						$block_template = resolve_block_template(
@@ -157,20 +173,6 @@ class Frontend_Toolbar {
 						'href'   => admin_url( 'admin.php?page=' . Dashboard::TYPE ),
 					)
 				);
-				$site_url     = get_site_url();
-				$active_theme = get_option( 'stylesheet' );
-				if ( ! defined( 'GUTENVERSE_PRO' ) ) {
-					$admin_bar->add_menu(
-						array(
-							'id'    => 'gutenverse-pro',
-							'title' => '<span class="gutenverse-pro-right">' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
-							'href'  => gutenverse_upgrade_pro() . '/?utm_source=gutenverse&utm_medium=admintopbar&utm_client_site=' . $site_url . '&utm_client_theme=' . $active_theme,
-							'meta'  => array(
-								'target' => '_blank',
-							),
-						)
-					);
-				}
 
 				if ( is_admin() ) {
 					$admin_bar->add_node(
@@ -202,8 +204,6 @@ class Frontend_Toolbar {
 	 * @param string        $root Parent.
 	 */
 	public function setting_toolbar( $admin_bar, $root = 'gutenverse' ) {
-		$show_theme_list = apply_filters( 'gutenverse_show_theme_list', true );
-
 		$admin_bar->add_menu(
 			array(
 				'id'     => 'dashboard',
@@ -212,17 +212,6 @@ class Frontend_Toolbar {
 				'href'   => admin_url( 'admin.php?page=' . Dashboard::TYPE ),
 			)
 		);
-
-		if ( $show_theme_list ) {
-			$admin_bar->add_menu(
-				array(
-					'id'     => 'theme-list',
-					'parent' => $root,
-					'title'  => esc_html__( 'Theme List', '--gctd--' ),
-					'href'   => admin_url( 'admin.php?page=gutenverse&path=theme-list' ),
-				)
-			);
-		}
 
 		$admin_bar->add_menu(
 			array(
