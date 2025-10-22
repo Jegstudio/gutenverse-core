@@ -161,7 +161,7 @@ class Post_Author extends Style_Abstract {
 				array(
 					'selector'       => "{$selector}",
 					'property'       => function ( $value ) {
-						return "margin-top: {$value}px";
+						return "margin-top: {$value}px;";
 					},
 					'value'          => $this->attrs['biographyMargintop'],
 					'device_control' => true,
