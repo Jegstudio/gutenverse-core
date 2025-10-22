@@ -95,6 +95,8 @@ const SingleSectionContent = (props) => {
                     });
                     const updatedContentGlobal = handleGlobalStyleContent(updatedGlobalContentImage, data.global, setUnavailableGlobalFonts, setUnavailableGlobalColors);
                     setContentGlobal(updatedContentGlobal);
+                } else {
+                    setContentGlobal(updatedNormalContentImage);
                 }
 
                 setContentNormal(updatedNormalContentImage);
