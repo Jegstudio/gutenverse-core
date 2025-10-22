@@ -174,7 +174,6 @@ class Theme_Helper {
 	public function change_stylesheet_directory( $stylesheet_dir ) {
 		$check_stylesheet = get_stylesheet();
 		$check_template   = get_template();
-
 		if ( $check_stylesheet === $check_template ) {
 			$stylesheet_dir = apply_filters( 'gutenverse_stylesheet_directory', $stylesheet_dir );
 		}
