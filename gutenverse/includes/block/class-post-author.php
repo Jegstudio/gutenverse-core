@@ -147,7 +147,7 @@ class Post_Author extends Block_Abstract {
 		$component  = '<div class="right-content">';
 		$component .= "<{$html_tag} class={$class_name}>{$author_name}</{$html_tag}>";
 		if ( $author_bio ) {
-			$component .= '<span class="author-bio">' . get_the_author_meta( 'description', $post->post_author ) . '</span>';
+			$component .= '<span class="author-bio">' . esc_html( get_the_author_meta( 'description', $post->post_author ) ) . '</span>';
 		}
 		$component .= '</div>';
 
