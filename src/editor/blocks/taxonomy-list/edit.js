@@ -43,6 +43,7 @@ const IconListBlock = compose(
 
     const [loading, setLoading] = useState(true);
     const [response, setResponse] = useState(null);
+    const [safeResponse, setSafeResponse] = useState('');
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -83,19 +84,19 @@ const IconListBlock = compose(
         } else {
             setResponse(`<div class="taxonomy-list-wrapper">
                     <div class="taxonomy-list-item">
-						<a href="#">
+						<a href="javascript:void(0)">
 							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
 							<div class="taxonomy-list-content">${dummyText(5, 10)}</div>
 						</a>
 					</div>
                     <div class="taxonomy-list-item">
-						<a href="#">
+						<a href="javascript:void(0)">
 							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
 							<div class="taxonomy-list-content">${dummyText(5, 10)}</div>
 						</a>
 					</div>
                     <div class="taxonomy-list-item">
-						<a href="#">
+						<a href="javascript:void(0)">
 							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
 							<div class="taxonomy-list-content">${dummyText(5, 10)}</div>
 						</a>
@@ -116,6 +117,19 @@ const IconListBlock = compose(
         taxonomyType
     ]);
 
+    useEffect(() => {
+        if (!response) return;
+
+        const temp = document.createElement('div');
+        temp.innerHTML = response;
+
+        temp.querySelectorAll('a').forEach(link => {
+            link.setAttribute('href', 'javascript:void(0)');
+        });
+
+        setSafeResponse(temp.innerHTML);
+    }, [response]);
+
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
@@ -124,7 +138,7 @@ const IconListBlock = compose(
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             {!loading ? <RawHTML key="html" className="guten-raw-wrapper">
-                {response}
+                {safeResponse}
             </RawHTML> : <PostListSkeleton />}
         </div>
     </>;
