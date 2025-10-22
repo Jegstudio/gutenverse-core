@@ -643,9 +643,12 @@ abstract class Style_Interface {
 	 */
 	public function handle_unit_point( $value, $property, $important = false ) {
 		if ( isset( $value['unit'] ) && isset( $value['point'] ) && '' !== $value['point'] ) {
-			$point = $value['point'];
-			$unit  = $value['unit'];
-			$imp   = $important ? '!important' : '';
+			$point = $value['point'] ?? null;
+			if ( ! is_numeric( $point ) ) {
+				return '';
+			}
+			$unit = $value['unit'] ?? 'px';
+			$imp  = $important ? '!important' : '';
 
 			return "{$property}: {$point}{$unit}{$imp};";
 		}
