@@ -164,6 +164,41 @@ class Taxonomy_List extends Style_Abstract {
 				);
 			}
 		}
+
+		if ( isset( $this->attrs['itemWidth'] ) ) {
+			if ( 'row' === $this->attrs['layout'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item",
+						'property'       => function ( $value ) {
+							if ( 'custom' !== $value ) {
+								return "width: {$value};";
+							}
+						},
+						'value'          => $this->attrs['itemWidth'],
+						'device_control' => true,
+					)
+				);
+			}
+		}
+
+		if ( isset( $this->attrs['customItemWidth'] ) ) {
+			if ( 'row' === $this->attrs['layout'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item",
+						'property'       => function ( $value, $device ) {
+							if ( 'custom' === $this->attrs['itemWidth'][$device] ) {
+								return $this->handle_unit_point( $value, 'width' );
+							}
+						},
+						'value'          => $this->attrs['customItemWidth'],
+						'device_control' => true,
+					)
+				);
+			}
+		}
+
 		if ( isset( $this->attrs['contentTypography'] ) ) {
 			$this->inject_typography(
 				array(

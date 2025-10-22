@@ -1,6 +1,10 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const contentStyle = (elementId, attributes, data) => {
+
+    const deviceType = getDeviceType();
+
     isNotEmpty(attributes['contentAlignment']) && data.push({
         'type': 'plain',
         'id': 'contentAlignment',
@@ -31,6 +35,32 @@ const contentStyle = (elementId, attributes, data) => {
                 }
             }
         ],
+    });
+
+    isNotEmpty(attributes['itemWidth']) && isNotEmpty(attributes['itemWidth'][deviceType]) && attributes['itemWidth'][deviceType] !== 'custom' && attributes['layout'] === 'row' && data.push({
+        'type': 'plain',
+        'id': 'itemWidth',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'direct',
+            }
+        ],
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+    });
+
+    isNotEmpty(attributes['customItemWidth']) && isNotEmpty(attributes['itemWidth']) && isNotEmpty(attributes['itemWidth'][deviceType]) && attributes['itemWidth'][deviceType] === 'custom' && attributes['layout'] === 'row' && data.push({
+        'type': 'unitPoint',
+        'id': 'customItemWidth',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType' : 'direct'
+            }
+        ],
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
     });
 
     isNotEmpty(attributes['contentTypography']) && data.push({

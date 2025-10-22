@@ -81,6 +81,18 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"customItemWidth": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"itemWidth": {
+			"type": "object",
+
+			"default": {
+				"Desktop": "fit-content"
+			},
+			"copyStyle": true
+		},
 		"layout": {
 			"type": "string",
 			"default": "column",
