@@ -228,7 +228,7 @@ const LibraryContent = (props) => {
         case 'themes':
             template = <ThemesContent {...props} />;
             break;
-        default:
+        case 'layout':
             template = <LayoutContent {...props} />;
             break;
     }
