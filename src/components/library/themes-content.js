@@ -129,13 +129,15 @@ const ThemesContentNoLicense = (props) => {
     </div >;
 };
 
-const ThemesContentUnibizCTA = () => {
-    const { imgDir, proDemoUrl, domainURL, clientUrl, companionActive } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
+const ThemesContentUnibizCTA = (props) => {
+    const { imgDir, proDemoUrl, domainURL, clientUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
+    const { companionActive } = props;
     const [buttonText, setButtonText] = useState(__('Install Unibiz Theme', '--gctd--'));
     const [buttonTextCompanion, setButtonTextCompanion] = useState(__('Install Gutenverse Companion', '--gctd--'));
     const pluginsList = [
         { name: 'Gutenverse Companion', slug: 'gutenverse-companion', version: '2.0.0', url: '' },
     ];
+
     const activateTheme = () => {
         setButtonText(<IconLoadingSVG />);
         const themeSlug = 'unibiz'; // change this to your theme slug
@@ -161,11 +163,15 @@ const ThemesContentUnibizCTA = () => {
 
     const installPlugin = () => {
         setButtonTextCompanion(<IconLoadingSVG />);
+
         installingPlugins(pluginsList)
             .then(() => {
                 setButtonTextCompanion(__('Install Gutenverse Companion', '--gctd--'));
+                window.location.replace('/wp-admin/admin.php?page=gutenverse');
             });
     };
+
+    console.log(companionActive);
 
     return companionActive ?
         <div id="gutenverse-library-themes-content-wrapper">
@@ -258,7 +264,9 @@ const ThemesContent = (props) => {
             demoList={demoList}
             setDemoList={setDemoList}
         /> :
-        <ThemesContentUnibizCTA /> ;
+        <ThemesContentUnibizCTA
+            companionActive={companionActive}
+        /> ;
 };
 
 export default withSelect(select => {

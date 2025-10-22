@@ -225,7 +225,7 @@ class Dashboard {
 		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'gutenverse' === $_GET['page'] ) {
 			$config['system'] = $this->system_status();
 		}
-		if ( in_array( 'gutenverse-companion/gutenverse-companion.php', $config['activePlugins'], true ) ) {
+		if ( in_array( 'gutenverse-companion/gutenverse-companion.php', $config['activePlugins'], true ) || in_array( 'gutenverse-companion', $config['activePlugins'], true ) ) {
 			$config['companionActive'] = true;
 		} else {
 			$config['companionActive'] = false;
@@ -411,7 +411,7 @@ class Dashboard {
 		$path            = admin_url( 'admin.php?page=gutenverse&path=' );
 		$active_theme    = get_option( 'stylesheet' );
 		$companion       = $this->get_active_plugins();
-		$companion       = in_array( 'gutenverse-companion/gutenverse-companion.php', $companion, true );
+		$companion       = in_array( 'gutenverse-companion/gutenverse-companion.php', $companion, true ) || in_array( 'gutenverse-companion', $companion, true );
 
 		add_submenu_page(
 			self::TYPE,
