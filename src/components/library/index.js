@@ -19,11 +19,18 @@ let initLibraryState = {
     attributes: {emptyLicense, companionActive},
     active: 'themes',
     tabs: [
-        {
-            id: 'themes',
-            icon: <IconBlocksSVG />,
-            label: __(`${ (activeTheme === 'unibiz' && emptyLicense && companionActive) ? 'Prebuilt Sites' : 'Themes'}`, '--gctd--'),
-        },
+        ...(companionActive ? [
+            {
+                id: 'themes',
+                icon: <IconBlocksSVG />,
+                label: __(
+                    (activeTheme === 'unibiz' && emptyLicense)
+                        ? 'Prebuilt Sites'
+                        : 'Themes',
+                    '--gctd--'
+                ),
+            },
+        ] : []),
         {
             id: 'layout',
             icon: <IconLayoutsSVG />,

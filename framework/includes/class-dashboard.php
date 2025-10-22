@@ -412,6 +412,8 @@ class Dashboard {
 		$path            = admin_url( 'admin.php?page=gutenverse&path=' );
 		$active_theme    = get_option( 'stylesheet' );
 		$show_theme_list = apply_filters( 'gutenverse_show_theme_list', true );
+		$companion       = $this->get_active_plugins();
+		$companion       = in_array( 'gutenverse-companion/gutenverse-companion.php', $companion, true );
 
 		add_submenu_page(
 			self::TYPE,
@@ -455,7 +457,7 @@ class Dashboard {
 			2
 		);
 
-		if ( 'unibiz' !== $active_theme ) {
+		if ( 'unibiz' !== $active_theme || !$companion ) {
 			add_submenu_page(
 				self::TYPE,
 				esc_html__( 'Themes', '--gctd--' ),
@@ -465,7 +467,7 @@ class Dashboard {
 				null,
 				3
 			);
-		} else {
+		} else if ( !$companion ) {
 			add_submenu_page(
 				self::TYPE,
 				esc_html__( 'Themes', '--gctd--' ),

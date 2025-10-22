@@ -1103,6 +1103,7 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
     &.notice {
         border: none;
         padding: 0;
+        border-radius: 5px;
     }
 
     .unibiz-gutenverse-badge {
@@ -1111,6 +1112,7 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
         right: 0;
         width: 121px;
         margin: 0 15px 15px 0;
+        z-index: 2;
     }
 
     .content-wrapper {
@@ -1119,22 +1121,11 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
         display: flex;
         overflow: hidden;
         position: relative;
-
-        .close-button {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            z-index: 5;
-
-            &:hover {
-                transform: scale(0.93);
-            }
-        }
+        background-color: unset !important;
+        margin-top: 50px !important;
 
         .col-1 {
-            width: 50%;
+            width: 80%;
             position: relative;
             z-index: 3;
 
@@ -1255,22 +1246,24 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
 
                 .unibiz-mockup {
                     z-index: 2;
-                    max-width: 550px;
+                    max-width: 525px;
+                    margin-right: -55px;
                 }
 
                 .unibiz-confetti {
-                    z-index: 2;
-                    position: absolute;
-                    top: -10px;
                     bottom: 0;
-                    height: 110%;
+                    height: 120%;
+                    position: absolute;
+                    top: -25px;
+                    right: 5px;
+                    z-index: 3;
                 }
 
                 .unibiz-wave {
                     z-index: 2;
                     position: absolute;
-                    top: -200%;
-                    right: -70%;
+                    top: -215%;
+                    right: -104%;
                 }
             }
         }

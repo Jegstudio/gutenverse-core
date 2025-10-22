@@ -131,7 +131,7 @@ const ThemesContentNoLicense = (props) => {
 
 const ThemesContentUnibizCTA = () => {
     const { imgDir, proDemoUrl, domainURL, clientUrl, companionActive } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
-    const [buttonText, setButtonText] = useState(__('Install Unibiz Theme', 'gutenverse'));
+    const [buttonText, setButtonText] = useState(__('Install Unibiz Theme', '--gctd--'));
     const activateTheme = () => {
         setButtonText(<IconLoadingSVG />);
         const themeSlug = 'unibiz'; // change this to your theme slug
@@ -154,7 +154,7 @@ const ThemesContentUnibizCTA = () => {
             .catch(err => {
                 console.error('Installation failed:', err);
                 alert('Something went wrong during installation.');
-                setButtonText(__('Install Unibiz Theme', 'gutenverse'));
+                setButtonText(__('Install Unibiz Theme', '--gctd--'));
             });
     };
     return companionActive ?
@@ -164,39 +164,39 @@ const ThemesContentUnibizCTA = () => {
                     <div className="banner-glitter" style={{ backgroundImage: `url(${imgDir}/wizard-bg-confetti-unibiz.png)` }}></div>
                     <div className="col-1">
                         <div className="title-wrapper">
-                            <h2 className="title">{__('Supercharge Gutenverse', 'gutenverse')}</h2>
-                            <h2 className="title">{__('With', 'gutenverse')} <span className="highlight-title">{__('Unibiz Theme!', 'gutenverse')}</span></h2>
+                            <h2 className="title">{__('Supercharge Gutenverse', '--gctd--')}</h2>
+                            <h2 className="title">{__('With', '--gctd--')} <span className="highlight-title">{__('Unibiz Theme!', '--gctd--')}</span></h2>
                             <ul className="list-row-container">
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('The Official Theme for Gutenverse', 'gutenverse')}</span>
+                                    <span className="list-text">{__('The Official Theme for Gutenverse', '--gctd--')}</span>
                                 </li>
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('50+ Stunning Demo Sites', 'gutenverse')}</span>
+                                    <span className="list-text">{__('50+ Stunning Demo Sites', '--gctd--')}</span>
                                 </li>
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('One-Click Full Site Import', 'gutenverse')}</span>
+                                    <span className="list-text">{__('One-Click Full Site Import', '--gctd--')}</span>
                                 </li>
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('Exclusive Template Library', 'gutenverse')}</span>
+                                    <span className="list-text">{__('Exclusive Template Library', '--gctd--')}</span>
                                 </li>
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('2x Faster Site Performance', 'gutenverse')}</span>
+                                    <span className="list-text">{__('2x Faster Site Performance', '--gctd--')}</span>
                                 </li>
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('Experience a Next-Level FSE Theme', 'gutenverse')}</span>
+                                    <span className="list-text">{__('Experience a Next-Level FSE Theme', '--gctd--')}</span>
                                 </li>
                             </ul>
                             <div className="action-wrapper">
                                 <div className="button-install-theme" onClick={activateTheme}>{buttonText}</div>
-                                <a className="button-learn-more" href={`${proDemoUrl}/unibiz/`} target="_blank" rel="noreferrer">{__('Learn More', 'gutenverse')}</a>
+                                <a className="button-learn-more" href={`${proDemoUrl}/unibiz/`} target="_blank" rel="noreferrer">{__('Learn More', '--gctd--')}</a>
                             </div>
-                            <p className="notice-text">{__('By clicking “Install Unibiz Theme” you consent to installing and activating the Gutenverse Companion plugin.', 'gutenverse')}</p>
+                            <p className="notice-text">{__('By clicking “Install Unibiz Theme” you consent to installing and activating the Gutenverse Companion plugin.', '--gctd--')}</p>
                         </div>
                     </div>
                     <div className="col-2" style={{ backgroundImage: `url(${imgDir}/wizard-bg-list-demo.png)` }}>
@@ -208,65 +208,12 @@ const ThemesContentUnibizCTA = () => {
         </div > :
         <div className="notice gutenverse-unibiz-notice" style={{ backgroundImage: `url(${imgDir}/unibiz-bg-banner-gradient.png)` }} >
             <div className="content-wrapper">
-                <div className="close-button" id="gutenverse-unibiz-notice-close">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <foreignObject x="-3" y="-3" width="20" height="20"><div xmlns="http://www.w3.org/1999/xhtml" style={{backdropFilter:'blur(1.5px)', clipPath:'url(#bgblur_0_23210_9188_clip_path)', height:'100%', width:'100%'}}></div></foreignObject><g data-figma-bg-blur-radius="3">
-                            <rect width="14" height="14" rx="2" fill="#4F389C" fillOpacity="0.3"/>
-                            <path d="M9 5L5 9M5 5L9 9" stroke="white" strokeWidth="0.8" strokeLinecap="round"/>
-                        </g>
-                        <defs>
-                            <clipPath id="bgblur_0_23210_9188_clip_path" transform="translate(3 3)"><rect width="14" height="14" rx="2"/>
-                            </clipPath></defs>
-                    </svg>
-
-                </div>
                 <div className="col-1">
                     <div className="content">
-                        <h3 className="title"><span className="highlight-title"></span></h3>
-                        <p className="description"></p>
-                        <ul className="feature-wrapper">
-                            <li className="feature-item">
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="14" height="14" rx="7" fill="#5C51F3"/>
-                                    <g clipPath="url(#clip0_23210_9163)">
-                                        <path d="M6.36496 10.1879L3.81934 7.40369L4.54651 6.60838L6.36548 8.5961L6.36496 8.59666L10.7285 3.82422L11.4557 4.61953L7.09214 9.39254L6.36548 10.1873L6.36496 10.1879Z" fill="white"/>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_23210_9163">
-                                            <rect x="3.79297" y="3.89453" width="7.61251" height="7.61251" rx="3.80625" fill="white"/>
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            </li>
-                            <li className="feature-item">
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="14" height="14" rx="7" fill="#5C51F3"/>
-                                    <g clipPath="url(#clip0_23210_9163)">
-                                        <path d="M6.36496 10.1879L3.81934 7.40369L4.54651 6.60838L6.36548 8.5961L6.36496 8.59666L10.7285 3.82422L11.4557 4.61953L7.09214 9.39254L6.36548 10.1873L6.36496 10.1879Z" fill="white"/>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_23210_9163">
-                                            <rect x="3.79297" y="3.89453" width="7.61251" height="7.61251" rx="3.80625" fill="white"/>
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            </li>
-                            <li className="feature-item">
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="14" height="14" rx="7" fill="#5C51F3"/>
-                                    <g clipPath="url(#clip0_23210_9163)">
-                                        <path d="M6.36496 10.1879L3.81934 7.40369L4.54651 6.60838L6.36548 8.5961L6.36496 8.59666L10.7285 3.82422L11.4557 4.61953L7.09214 9.39254L6.36548 10.1873L6.36496 10.1879Z" fill="white"/>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_23210_9163">
-                                            <rect x="3.79297" y="3.89453" width="7.61251" height="7.61251" rx="3.80625" fill="white"/>
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            </li>
-                        </ul>
+                        <h3 className="title">{__('Unlock The Power of', '--gctd--')}<span className="highlight-title">{__(' Unibiz Theme!', '--gctd--')}</span></h3>
+                        <p className="description">{__('Install the Gutenverse Companion plugin to access 50+ professionally designed demo templates and easily create a fast, powerful, and stunning website that fits your every need.', '--gctd--')}</p>
                         <div className="button-wrapper">
-                            <div className="button-install"></div>
+                            <div className="button-install">Install Gutenverse Companion</div>
                             <div className="arrow-wrapper">
                                 <img className="unibiz-arrow" src={`${imgDir}/unibiz-arrow.png`} alt="image arrow unibiz"/>
                             </div>

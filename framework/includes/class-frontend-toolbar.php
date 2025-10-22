@@ -213,16 +213,16 @@ class Frontend_Toolbar {
 			)
 		);
 
-		if ( $show_theme_list ) {
-			$admin_bar->add_menu(
-				array(
-					'id'     => 'theme-list',
-					'parent' => $root,
-					'title'  => esc_html__( 'Theme List', '--gctd--' ),
-					'href'   => admin_url( 'admin.php?page=gutenverse&path=theme-list' ),
-				)
-			);
-		}
+		// if ( $show_theme_list ) {
+		// 	$admin_bar->add_menu(
+		// 		array(
+		// 			'id'     => 'theme-list',
+		// 			'parent' => $root,
+		// 			'title'  => esc_html__( 'Theme List', '--gctd--' ),
+		// 			'href'   => admin_url( 'admin.php?page=gutenverse&path=theme-list' ),
+		// 		)
+		// 	);
+		// }
 
 		$admin_bar->add_menu(
 			array(
