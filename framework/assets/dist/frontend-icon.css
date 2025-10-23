@@ -1,5 +1,6 @@
-#wp-admin-bar-gutenverse-default {
-    padding-top: 0 !important; 
+#wp-admin-bar-gutenverse-pro {
+    margin-bottom: -5px;
+    margin-top: 5px;
 }
 
 #wp-admin-bar-gutenverse-pro a {
@@ -11,8 +12,6 @@
     display: flex;
 }
 
-#wp-admin-bar-gutenverse > div:first-child,
-#wp-admin-bar-gutenverse > div:first-child:hover,
 #wp-admin-bar-gutenverse-pro a,
 #wp-admin-bar-gutenverse-pro:hover a {
     background: #3B57F7!important;
