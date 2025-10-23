@@ -372,6 +372,54 @@ class Init {
 					transform: rotate(360deg);
 				}
 			}
+			@media only screen and (max-width: 1024px) {
+				.gutenverse-unibiz-notice .content-wrapper .col-1 .content{
+					margin: 48px 0px 48px 40px;
+				}
+			}
+			@media only screen and (max-width: 767px) {
+				.gutenverse-unibiz-notice .unibiz-gutenverse-badge {
+					width: 72px;
+					margin: 0 6px 6px 0;
+				}
+				.gutenverse-unibiz-notice .content-wrapper .col-1 .button-wrapper .unibiz-arrow {
+					width: 52px;
+					top: -25px;
+					right: -70px;
+					transform: rotate(-11.05deg);
+				}
+				.gutenverse-unibiz-notice .content-wrapper .col-1 .content{
+					margin: 15px 0px 20px 20px;
+				}
+				.gutenverse-unibiz-notice .content-wrapper .col-1 .title {
+					font-size: 16px;
+					max-width: 200px;
+					line-height: 115%;
+					
+				}
+				.gutenverse-unibiz-notice .content-wrapper .col-1 .description {
+					font-size: 10px;
+					max-width: 250px;
+				}
+				.gutenverse-unibiz-notice .content-wrapper .col-1 .feature-wrapper {
+					flex-wrap: wrap;
+					margin-bottom: 20px;
+					.feature-item {
+						font-size: 8px;
+						font-weight: 500;
+						line-height: 100%;
+
+						svg {
+							height: 10px !important;
+							width: 10px !important;
+						}
+					}
+				}
+				.gutenverse-unibiz-notice .content-wrapper .col-1 .button-wrapper .button-install {
+					padding: 8px 12px;
+					font-size: 8px;
+				}
+			}
 		</style>
 		<div class="notice gutenverse-unibiz-notice">
 			<div class="content-wrapper">
