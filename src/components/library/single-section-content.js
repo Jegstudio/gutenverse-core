@@ -367,7 +367,12 @@ const ReadOnlyContent = ({ content }) => {
 
     return (
         <div ref={iframeRef}>
-            <BlockPreview blocks={blocks} />
+            <BlockPreview
+                blocks={blocks}
+                additionalStyles={[
+                    {css: 'body .is-root-container { display: flex; justify-content: center; flex-direction: column; }'}
+                ]}
+            />
         </div>
     );
 };
