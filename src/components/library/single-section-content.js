@@ -302,6 +302,22 @@ const ReadOnlyContent = ({ content }) => {
 
                         const styleTag = iframeDoc.createElement('style');
                         styleTag.innerHTML = `
+                            :root{
+                                --size: 48px;
+                                --light: #ffffff;
+                                --dark:  #dcdcdcff;
+                            }
+
+                            .is-root-container {
+                                background-color: var(--light);
+                                background-image:
+                                    linear-gradient(45deg, var(--dark) 25%, transparent 25%, transparent 75%, var(--dark) 75%),
+                                    linear-gradient(45deg, var(--dark) 25%, transparent 25%, transparent 75%, var(--dark) 75%);
+                                background-size: calc(var(--size) * 2) calc(var(--size) * 2);
+                                background-position: 0 0, calc(var(--size)) calc(var(--size));
+                                background-repeat: repeat;
+                            }
+
                             .input-warning {
                                 display: none;
                             }
@@ -310,6 +326,7 @@ const ReadOnlyContent = ({ content }) => {
                                 display: none;
                             }
 
+                            .is-root-container,
                             .guten-popup-builder  {
                                 min-height: ${height * 100 / 80}px;
                                 display: block;
