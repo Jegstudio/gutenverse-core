@@ -569,3 +569,13 @@ body.gutenverse_page_gutenverse-settings .notice:not(.gutenverse-notice):not(.th
         }
     }
 }
+
+@media only screen and (max-width: 1024px) {
+    .dashboard-content {
+        .setting-tabs {
+            .settings-tab-header {
+                min-width: 170px;
+            }
+        }
+    }
+}
