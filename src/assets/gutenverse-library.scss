@@ -1694,9 +1694,9 @@ $border: #eaeaea;
                     }
 
                     iframe {
-                        transform: scale(0.8);
+                        // transform: scale(0.8);
                         transform-origin: 0px 0px;
-                        width: 125% !important;
+                        width: 100% !important;
                         position: relative !important;
                     }
                 }
