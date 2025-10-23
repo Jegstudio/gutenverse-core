@@ -81,6 +81,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"contentSpacingHorizontal": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"customItemWidth": {
 			"type": "object",
 			"copyStyle": true

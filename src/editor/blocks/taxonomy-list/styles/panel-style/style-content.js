@@ -18,19 +18,40 @@ const contentStyle = (elementId, attributes, data) => {
         ],
     });
 
+    // Vertical
     isNotEmpty(attributes['contentSpacing']) && data.push({
         'type': 'unitPoint',
         'id': 'contentSpacing',
         'responsive': true,
-        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+        'selector': `.${elementId} .taxonomy-list-wrapper`,
         'properties': [
             {
-                'name': 'padding',
+                'name': 'row-gap',
                 'valueType': 'pattern',
-                'pattern' : attributes['layout'] === 'column' ? 'calc({value}/2) 0' : '0 calc({value}/2)',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ],
+    });
+
+    // Horizontal
+    isNotEmpty(attributes['contentSpacingHorizontal']) && attributes['layout'] !== 'column' && data.push({
+        'type': 'unitPoint',
+        'id': 'contentSpacingHorizontal',
+        'responsive': true,
+        'selector': `.${elementId} .taxonomy-list-wrapper`,
+        'properties': [
+            {
+                'name': 'column-gap',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -57,7 +78,7 @@ const contentStyle = (elementId, attributes, data) => {
         'properties': [
             {
                 'name': 'width',
-                'valueType' : 'direct'
+                'valueType': 'direct'
             }
         ],
         'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
@@ -73,10 +94,10 @@ const contentStyle = (elementId, attributes, data) => {
         'type': 'color',
         'id': 'contentColor',
         'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a`,
-        'properties' : [
+        'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct'
+                'name': 'color',
+                'valueType': 'direct'
             }
         ]
     });
@@ -85,10 +106,10 @@ const contentStyle = (elementId, attributes, data) => {
         'type': 'color',
         'id': 'contentColorHover',
         'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a:hover`,
-        'properties' : [
+        'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct'
+                'name': 'color',
+                'valueType': 'direct'
             }
         ]
     });

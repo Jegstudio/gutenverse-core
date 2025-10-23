@@ -69,7 +69,7 @@ export const contentStylePanel = (props) => {
         },
         {
             id: 'contentSpacing',
-            label: __('Content Spacing', 'gutenverse'),
+            label: __('Content Spacing Vertical', 'gutenverse'),
             component: SizeControl,
             allowDeviceControl: true,
             liveStyle: [
@@ -77,12 +77,39 @@ export const contentStylePanel = (props) => {
                     'type': 'unitPoint',
                     'id': 'contentSpacing',
                     'responsive': true,
-                    'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+                    'selector': `.${elementId} .taxonomy-list-wrapper`,
                     'properties': [
                         {
-                            'name': 'padding',
+                            'name': 'row-gap',
                             'valueType': 'pattern',
-                            'pattern': layout === 'column' ? 'calc({value}/2) 0' : '0 calc({value}/2)',
+                            'pattern': '{value}',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                }
+            ]
+        },
+        {
+            id: 'contentSpacingHorizontal',
+            show: layout !== 'column',
+            label: __('Content Spacing Horizontal', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'unitPoint',
+                    'id': 'contentSpacingHorizontal',
+                    'responsive': true,
+                    'selector': `.${elementId} .taxonomy-list-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'column-gap',
+                            'valueType': 'pattern',
+                            'pattern':'{value}',
                             'patternValues': {
                                 'value': {
                                     'type': 'direct'
