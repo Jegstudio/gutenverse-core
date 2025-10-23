@@ -129,16 +129,19 @@ const ThemesContentNoLicense = (props) => {
     </div >;
 };
 
-const ThemesContentUnibizCTA = () => {
-    const { imgDir, proDemoUrl, domainURL, clientUrl, companionActive } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
+const ThemesContentUnibizCTA = (props) => {
+    const { imgDir, proDemoUrl, domainURL, clientUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
+    const { companionActive } = props;
     const [buttonText, setButtonText] = useState(__('Install Unibiz Theme', '--gctd--'));
+    const [buttonTextCompanion, setButtonTextCompanion] = useState(__('Install Gutenverse Companion', '--gctd--'));
+    const pluginsList = [
+        { name: 'Gutenverse Companion', slug: 'gutenverse-companion', version: '2.0.0', url: '' },
+    ];
+
     const activateTheme = () => {
         setButtonText(<IconLoadingSVG />);
         const themeSlug = 'unibiz'; // change this to your theme slug
         const base = (domainURL ?? clientUrl).replace(/\/$/, '');
-        const pluginsList = [
-            { name: 'Gutenverse Companion', slug: 'gutenverse-companion', version: '2.0.0', url: '' },
-        ];
 
         // Step 1: Install + Activate Theme
         installAndActivateTheme(themeSlug)
@@ -157,6 +160,19 @@ const ThemesContentUnibizCTA = () => {
                 setButtonText(__('Install Unibiz Theme', '--gctd--'));
             });
     };
+
+    const installPlugin = () => {
+        setButtonTextCompanion(<IconLoadingSVG />);
+
+        installingPlugins(pluginsList)
+            .then(() => {
+                setButtonTextCompanion(__('Install Gutenverse Companion', '--gctd--'));
+                window.location.replace('/wp-admin/admin.php?page=gutenverse');
+            });
+    };
+
+    console.log(companionActive);
+
     return companionActive ?
         <div id="gutenverse-library-themes-content-wrapper">
             <div className="banner-wrapper" style={{ backgroundImage: `url(${imgDir}/wizard-bg-cta-companion.png` }}>
@@ -213,7 +229,7 @@ const ThemesContentUnibizCTA = () => {
                         <h3 className="title">{__('Unlock The Power of', '--gctd--')}<span className="highlight-title">{__(' Unibiz Theme!', '--gctd--')}</span></h3>
                         <p className="description">{__('Install the Gutenverse Companion plugin to access 50+ professionally designed demo templates and easily create a fast, powerful, and stunning website that fits your every need.', '--gctd--')}</p>
                         <div className="button-wrapper">
-                            <div className="button-install">Install Gutenverse Companion</div>
+                            <div className="button-install" onClick={installPlugin}>{buttonTextCompanion}</div>
                             <div className="arrow-wrapper">
                                 <img className="unibiz-arrow" src={`${imgDir}/unibiz-arrow.png`} alt="image arrow unibiz"/>
                             </div>
@@ -248,7 +264,9 @@ const ThemesContent = (props) => {
             demoList={demoList}
             setDemoList={setDemoList}
         /> :
-        <ThemesContentUnibizCTA /> ;
+        <ThemesContentUnibizCTA
+            companionActive={companionActive}
+        /> ;
 };
 
 export default withSelect(select => {
