@@ -115,3 +115,4 @@ export { textStrokePanel } from './panels/panel-text-stroke';
 
 // Export General Style for block style
 export { backgroundStyle } from './panel-styles/style-backround';
+export { defaultStyle } from './panel-styles/style-default';
