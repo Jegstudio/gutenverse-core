@@ -240,7 +240,7 @@ const IconBoxBlock = compose(
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
-                    props,
+                    {...props, setPanelState},
                     iconBoxPanelState
                 )}
                 <ToolbarButton

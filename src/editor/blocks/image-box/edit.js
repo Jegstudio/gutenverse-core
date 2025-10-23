@@ -336,7 +336,7 @@ const ImageBoxBlock = compose(
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
-                    props,
+                    {...props, setPanelState},
                     imageBoxPanelState
                 )}
                 <ImageBoxPicker {...props}>

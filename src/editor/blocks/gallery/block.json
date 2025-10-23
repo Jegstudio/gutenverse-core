@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/gallery",
 	"title": "Gallery",
 	"description": "Showcase your images in grid or masonry layout, with a popup and zoom option.",
@@ -124,7 +124,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"selectionIconPadding":{
+		"selectionIconPadding": {
 			"type": "string",
 			"copyStyle": true,
 			"default": "all"
@@ -318,7 +318,7 @@
 			},
 			"copyStyle": true
 		},
-		"selectionPriceRatingPadding":{
+		"selectionPriceRatingPadding": {
 			"type": "string",
 			"copyStyle": true,
 			"default": "all"
@@ -351,35 +351,35 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"pricePositioningLeft":{
+		"pricePositioningLeft": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"pricePositioningRight":{
+		"pricePositioningRight": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"pricePositioningTop":{
+		"pricePositioningTop": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"pricePositioningBottom":{
+		"pricePositioningBottom": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"ratingPositioningLeft":{
+		"ratingPositioningLeft": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"ratingPositioningRight":{
+		"ratingPositioningRight": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"ratingPositioningTop":{
+		"ratingPositioningTop": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"ratingPositioningBottom":{
+		"ratingPositioningBottom": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -828,7 +828,7 @@
 			"type": "object",
 			"default": {}
 		},
-		"iconWrapperMargin":{
+		"iconWrapperMargin": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -928,9 +928,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"gallery",
-		"image",
-		"carousel"
-	]
+	"keywords": ["gallery", "images", "carousel", "grid", "showcase"]
 }

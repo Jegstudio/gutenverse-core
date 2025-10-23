@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/video",
 	"title": "Video",
 	"description": "Embed a video you want to share.",
@@ -197,11 +197,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"video",
-		"youtube",
-		"twitch",
-		"vimeo",
-		"dailymotion"
-	]
+	"keywords": ["video", "youtube", "twitch", "vimeo", "dailymotion", "watch"]
 }

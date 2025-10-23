@@ -1,11 +1,9 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/icon-list-item",
 	"title": "Icon List Item",
 	"description": "Show an icon list.",
-	"parent": [
-		"gutenverse/icon-list"
-	],
+	"parent": ["gutenverse/icon-list"],
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
 	"attributes": {
@@ -23,16 +21,16 @@
 			"default": {}
 		},
 		"isDynamic": {
-			"type" : "boolean",
+			"type": "boolean",
 			"default": false
 		},
 		"dynamicTextContent": {
 			"type": "array",
-			"copyStyle" : true
+			"copyStyle": true
 		},
 		"dynamicUrlContent": {
 			"type": "array",
-			"copyStyle" : true
+			"copyStyle": true
 		},
 		"hasGlobalLink": {
 			"type": "boolean",
@@ -79,9 +77,9 @@
 			"selector": "span",
 			"default": "List item"
 		},
-		"textChilds":{
-			"type":"array",
-			"default":[]
+		"textChilds": {
+			"type": "array",
+			"default": []
 		},
 		"margin": {
 			"type": "object",
@@ -116,5 +114,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": []
+	"keywords": ["icon", "list", "image", "symbol", "logo", "texts"]
 }

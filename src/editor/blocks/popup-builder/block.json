@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/popup-builder",
 	"title": "Popup Builder",
 	"description": "Build Popup using gutenverse popup builder.",
@@ -246,13 +246,48 @@
 		"exitAnimationDelay": {
 			"type": "string",
 			"default": ""
+		},
+		"popupType": {
+			"type": "string",
+			"default": "default"
+		},
+		"popupVideoSrc": {
+			"type": "string"
+		},
+		"popupVideoStart": {
+			"type": "integer"
+		},
+		"popupVideoEnd": {
+			"type": "integer"
+		},
+		"popupVideoHideControls": {
+			"type": "boolean"
+		},
+		"popupVideoPauseOnClose": {
+			"type": "boolean"
+		},
+		"popupVideoResetOnClose": {
+			"type": "boolean"
+		},
+		"popupVideoMuted": {
+			"type": "boolean"
+		},
+		"popupVideoLoop": {
+			"type": "boolean"
+		},
+		"videoContainerBorder": {
+			"type": "object"
+		},
+		"videoContainerBorderResponsive": {
+			"type": "object"
+		},
+		"popupVideoPlayOn": {
+			"type": "string",
+			"default": "click"
 		}
 	},
 	"supports": {
 		"className": false
 	},
-	"keywords": [
-		"popup",
-		"builder"
-	]
+	"keywords": ["popup", "builder"]
 }

@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/buttons",
 	"title": "Multi Buttons",
 	"description": "Add a collection of beautiful and interactive action buttons.",
@@ -157,9 +157,7 @@
 			"attributes": {
 				"orientation": "horizontal"
 			},
-			"scope": [
-				"transform"
-			]
+			"scope": ["transform"]
 		},
 		{
 			"name": "buttons-vertical",
@@ -168,18 +166,12 @@
 			"attributes": {
 				"orientation": "vertical"
 			},
-			"scope": [
-				"transform"
-			]
+			"scope": ["transform"]
 		}
 	],
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"button",
-		"link",
-		"action"
-	]
+	"keywords": ["multiple", "buttons", "url", "action", "click", "link"]
 }

@@ -17,7 +17,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination, .${elementId} .guten-postblock .guten_block_nav .pagination-elipsis`,
     });
 
     isNotEmpty(attributes['paginationPadding']) && data.push({

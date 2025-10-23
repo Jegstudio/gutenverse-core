@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "gutenverse-core/src/assets/mixin";
 @import "gutenverse-core/src/assets/variables";
 @import "gutenverse-core/src/assets/wp-fix";
@@ -300,7 +301,7 @@ body {
             width: 33.33%;
             height: 80px;
             gap: 12px;
-            border-bottom: 3px solid #e3e4e6;
+            border-bottom: 4px solid #e3e4e6;
 
             .number {
                 background-color: white;
@@ -383,8 +384,8 @@ body {
                     max-width: 545px;
 
                     .content-title {
-                        font-family: "Inter", sans-serif;
-                        font-weight: 700;
+                        font-family: "Host Grotesk", sans-serif;
+                        font-weight: 600;
                         font-style: Bold;
                         font-size: 45px;
                         line-height: 115%;
@@ -415,7 +416,7 @@ body {
                             display: flex;
                             align-items: center;
                             color: rgba(0, 34, 61, 0.6);
-                            margin: 0 0 12px 0;
+                            margin: 0 0 8px 0;
 
                             svg {
                                 margin-right: 12px;
@@ -473,12 +474,13 @@ body {
                     }
 
                     .notice-install {
-                        font-family: "Host Grotesk", sans-serif;
+                        font-family: "Roboto", sans-serif;
                         font-weight: 400;
-                        font-size: 14px;
+                        font-size: 12px;
                         line-height: 20px;
                         color: rgba(0, 34, 61, 0.6);
                         margin-top: 24px;
+                        padding-right: 120px;
                     }
                 }
 
@@ -621,7 +623,6 @@ body {
                     z-index: 1;
                     margin: 20px auto 0;
                     max-width: 700px;
-                    font-family: 'Inter', sans-serif;
                     font-size: 48px;
                     font-weight: 700;
                     line-height: 1.1;
@@ -649,7 +650,6 @@ body {
                     max-width: 478px;
 
                     &.welcome {
-                        font-family: "Inter", sans-serif;
                         font-weight: 500;
                         font-size: 14px;
                         font-style: Medium;
@@ -661,7 +661,6 @@ body {
                     }
 
                     &.content-desc {
-                        font-family: "Inter", sans-serif;
                         font-weight: 400;
                         font-size: 14px;
                         line-height: 140%;
@@ -731,6 +730,7 @@ body {
                     text-decoration: underline;
                     text-decoration-style: solid;
                     text-decoration-thickness: 1px;
+                    transition: opacity 0.3s ease;
 
                     &:hover {
                         opacity: 0.6;
@@ -812,6 +812,7 @@ body {
                 font-weight: 500;
                 text-align: center;
                 color: #3B57F7;
+                transition: background 0.3s ease, color 0.3s ease;
 
                 &:hover {
                     background: #3B57F7;
@@ -837,17 +838,23 @@ body {
         border-radius: 20px 20px 0 0;
 
         .content-title {
+            color: #1d2327;
+            font-size: 1.65rem;
+            font-family: "Inter", sans-serif;
+            font-weight: 600;
             margin: 0;
             width: 100%;
             text-align: center;
         }
 
         p {
-            width: 620px;
             margin: 20px auto 0;
             text-align: center;
-            color: #40505d;
             line-height: 1.4em;
+            color: #4F6474;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            max-width: 530px;
         }
 
         .button-import-all {
@@ -983,8 +990,9 @@ body {
             position: relative;
 
             input {
-                width: 383px;
+                width: 344px;
                 border-radius: 8px;
+                box-sizing: border-box;
                 justify-content: space-between;
                 padding-top: 10px;
                 padding-right: 16px;
@@ -1373,6 +1381,11 @@ body {
             display: flex;
             gap: 8px;
             align-items: center;
+            transition: color .3s ease;
+
+            &:hover {
+                color: #3b57f7;
+            }
         }
 
         .button-next {
@@ -1390,6 +1403,7 @@ body {
             font-weight: 500;
             text-align: center;
             color: #3B57F7;
+            transition: background 0.3s ease, color 0.3s ease;
 
             &:hover {
                 background: #3B57F7;
@@ -1443,6 +1457,10 @@ body {
     background-size: cover;
     border-radius: inherit;
     background: linear-gradient(to bottom, transparent -250%, white 100%), linear-gradient(to right, #C3E9FF, #CFB9FF);
+    
+    * {
+        font-family: "Host Grotesk", sans-serif;
+    }
 
     .upgrade-pro-content {
         display: flex;
@@ -1529,8 +1547,11 @@ body {
         }
 
         .content-left {
-            padding: 60px 50px 0 50px;
+            padding: 0 50px 0 50px;
             width: calc(55% - 100px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .content-right {
@@ -1666,7 +1687,6 @@ body {
             position: relative;
             z-index: 1;
             max-width: 700px;
-            font-family: 'Inter', sans-serif;
             font-size: 24px;
             font-weight: 500;
             line-height: 1.1;
@@ -1691,7 +1711,6 @@ body {
             position: relative;
             z-index: 1;
             max-width: 400px;
-            font-family: 'Inter', sans-serif;
             font-size: 16px;
             font-weight: 400;
             line-height: 1.4;
@@ -1726,8 +1745,7 @@ body {
                 position: relative;
                 z-index: 1;
                 max-width: 400px;
-                font-family: 'Inter', sans-serif;
-                font-size: 15px;
+                font-size: 16px;
                 font-weight: 400;
                 line-height: 1.4;
                 letter-spacing: normal;
@@ -1741,7 +1759,7 @@ body {
                 }
 
                 .circle {
-                    background-color: #933aff;
+                    background-color: #3b57f7;
                     border-radius: 100px;
                     width: 18px;
                     height: 18px;
@@ -1792,7 +1810,6 @@ body {
 
         .button-skip {
             cursor: pointer;
-            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 400;
             text-align: center;
@@ -1801,7 +1818,6 @@ body {
 
         .button-back {
             cursor: pointer;
-            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             justify-content: center;
@@ -1809,6 +1825,11 @@ body {
             display: flex;
             gap: 8px;
             align-items: center;
+            transition: color .3s ease;
+
+            &:hover {
+                color: #3b57f7;
+            }
         }
 
         .button-next {
@@ -1821,11 +1842,11 @@ body {
             border-radius: 5px;
             border: solid 1px #3B57F7;
             background-color: #fff;
-            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             text-align: center;
             color: #3B57F7;
+            transition: background 0.3s ease, color 0.3s ease;
 
             &:hover {
                 background: #3B57F7;
@@ -1849,6 +1870,7 @@ body {
             background: rgba(255, 255, 255, 0.16);
             border-radius: 100px;
             line-height: 0;
+            outline: 0.5px solid rgba(255, 255, 255, 0.18);
         }
     }
 
@@ -1866,7 +1888,6 @@ body {
 
         .button-back {
             cursor: pointer;
-            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             justify-content: center;
@@ -1886,11 +1907,11 @@ body {
             border-radius: 5px;
             border: solid 1px #3B57F7;
             background-color: #fff;
-            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 500;
             text-align: center;
             color: #3B57F7;
+            transition: background 0.3s ease, color 0.3s ease;
 
             &:hover {
                 background: #3B57F7;
@@ -2225,7 +2246,7 @@ body {
             }
 
             .importer-step {
-                .import-step-notice {
+                .import-step-notice p {
                     font-family: "Inter", sans-serif;
                     font-size: 14px;
                     font-weight: normal;
@@ -2265,7 +2286,7 @@ body {
 
                             .option-label {
                                 font-family: "Inter", sans-serif;
-                                font-weight: bold;
+                                font-weight: 500;
                                 font-size: 14px;
                                 line-height: 20px;
                                 letter-spacing: 0%;
@@ -2319,7 +2340,7 @@ body {
                         svg {
                             margin-right: 8px;
                             min-width: 20px;
-                            margin-top: 4px;
+                            margin-top: 6px;
                         }
                     }
                 }

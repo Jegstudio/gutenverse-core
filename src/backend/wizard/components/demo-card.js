@@ -3,6 +3,7 @@ import { ButtonImport } from './button-import';
 import { formatArray } from '../helper';
 import { useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
+import { applyFilters } from '@wordpress/hooks';
 
 export const DemoCard = ({
     template,
@@ -35,12 +36,15 @@ export const DemoCard = ({
         {template.pro && <div className="pro-flag">{__('PRO', 'gutenverse')}</div>}
         <div className="template-thumbnail">
             {template?.cover ? <img src={template?.cover} /> : <div className="no-image"></div>}
-            {template?.status?.need_upgrade && <><div className="thumbnail-overlay"></div>
-                <div className="required-wrapper">
-                    <p className="required-title">Required License</p>
-                    <p className="required-tier">{formatArray(template?.status?.required_tier)}</p>
-                </div>
-            </>
+            {
+                template !== 'initial' && template?.status?.required_tier ? applyFilters('gutenverse-companion.demo-overlay', () => {
+                    return <><div className="thumbnail-overlay"></div>
+                        <div className="required-wrapper">
+                            <p className="required-title">Required License</p>
+                            <p className="required-tier">{formatArray(template?.status?.required_tier)}</p>
+                        </div>
+                    </>
+                }, () => <></>, template?.status?.required_tier) : <></>
             }
         </div>
         <div className="template-page-desc">
@@ -65,7 +69,7 @@ export const DemoCard = ({
                                 handleImport={() => handleImport(template)}
                             />
                         }
-                        <div className="button-view-demo" onClick={() => window.open(template?.demo, '_blank')}>{__('View Demo', 'gutenverse')}</div>
+                        <div className="button-view-demo" onClick={() => window.open(template?.remote_url, '_blank')}>{__('View Demo', 'gutenverse')}</div>
                     </div>
                 </> : <>
                     <div className="loading-title">

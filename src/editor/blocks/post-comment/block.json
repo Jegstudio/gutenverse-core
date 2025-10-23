@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/post-comment",
 	"class_callback": "\\Gutenverse\\Block\\Post_Comment",
 	"title": "Post Comment",
@@ -60,7 +60,8 @@
 		"enablePostTitle": {
 			"type": "boolean",
 			"default": true
-		},"enableCommentCount": {
+		},
+		"enableCommentCount": {
 			"type": "boolean",
 			"default": true
 		},
@@ -96,10 +97,10 @@
 			"type": "object",
 			"copyStyle": true,
 			"default": {
-				"a" : 1,
-				"r" : 255,
-				"g" : 0,
-				"b" : 0
+				"a": 1,
+				"r": 255,
+				"g": 0,
+				"b": 0
 			}
 		},
 		"marginHeading": {
@@ -144,33 +145,33 @@
 			"copyStyle": true
 		},
 		"typographyCommentTitle": {
-            "type": "object",
-            "copyStyle": true
-        },
-        "colorCommentTitle": {
-            "type": "object",
-            "copyStyle": true
-        },
-        "marginCommentTitle": {
-            "type": "object",
-            "copyStyle": true
-        },
+			"type": "object",
+			"copyStyle": true
+		},
+		"colorCommentTitle": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"marginCommentTitle": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"commentCountTypography": {
-            "type": "object",
-            "copyStyle": true
-        },
-        "commentCountColor": {
-            "type": "object",
-            "copyStyle": true
-        },
+			"type": "object",
+			"copyStyle": true
+		},
+		"commentCountColor": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"postTitleTypography": {
-            "type": "object",
-            "copyStyle": true
-        },
-        "postTitleColor": {
-            "type": "object",
-            "copyStyle": true
-        },
+			"type": "object",
+			"copyStyle": true
+		},
+		"postTitleColor": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"marginLink": {
 			"type": "object",
 			"copyStyle": true
@@ -456,7 +457,7 @@
 		"replyMargin": {
 			"type": "object",
 			"copyStyle": true,
-			"default" : {
+			"default": {
 				"Desktop": {
 					"unit": "px",
 					"dimension": {
@@ -509,16 +510,10 @@
 			"copyStyle": true
 		}
 	},
-	"usesContext": [
-		"postId",
-		"postType"
-	],
+	"usesContext": ["postId", "postType"],
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"post",
-		"comment"
-	]
+	"keywords": ["single", "post", "comment"]
 }

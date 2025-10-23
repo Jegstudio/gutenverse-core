@@ -173,7 +173,7 @@ const GalleryBlock = compose(
     }, [showedItems]);
 
     useEffect(() => {
-        if (elementRef.current) {
+        if (elementRef.current && elementId) {
             // Ensure images are loaded first, then observe changes
             const images = Array.from(elementRef.current.querySelectorAll('img'));
             waitForImages(images).then(observeResizeGalleryItems);
@@ -184,7 +184,7 @@ const GalleryBlock = compose(
             shuffleInstance.current = null;
             observerRef.current = null;
         };
-    }, [liveAttr]);
+    }, [liveAttr, elementId]);
 
     useEffect(() => {
         if (elementRef) {
