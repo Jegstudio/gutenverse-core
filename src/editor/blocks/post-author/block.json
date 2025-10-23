@@ -35,6 +35,10 @@
 		"authorLink": {
 			"type": "boolean"
 		},
+		"authorBio": {
+			"type": "boolean",
+			"default": false
+		},
 		"authorLinkTarget": {
 			"type": "boolean"
 		},
@@ -73,6 +77,29 @@
 			"type": "object",
 			"default": {},
 			"copyStyle": true
+		},
+		"biographyTypography": {
+			"type":"object",
+			"copyStyle":true
+		},
+		"biographyMargintop":{
+			"type":"object"
+		},
+		"biographyColor": {
+			"type": "object",
+			"copyStyle":true
+		},
+		"biographyTextShadow": {
+			"type":"object",
+			"copyStyle":true
+		},
+		"biographyColorHover": {
+			"type":"object",
+			"copyStyle":true
+		},
+		"biographyTextShadowHover": {
+			"type":"object",
+			"copyStyle":true
 		},
 		"size": {
 			"type": "object",
