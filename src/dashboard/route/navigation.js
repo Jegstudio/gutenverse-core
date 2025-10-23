@@ -74,7 +74,8 @@ const Navigation = ({ location }) => {
         upgradeProUrl,
         activeTheme,
         url,
-        adminUrl
+        adminUrl,
+        companionActive
     } = window['GutenverseDashboard'];
 
     const localStorageKey = 'gutenverse_read_notifications';
@@ -112,12 +113,6 @@ const Navigation = ({ location }) => {
                 path: 'ecosystem',
                 priority: 1
             },
-            // !isEmpty(showThemeList) && {
-            //     name: __('Theme List', '--gctd--'),
-            //     slug: homeSlug,
-            //     path: 'theme-list',
-            //     priority: 2
-            // },
             {
                 name: __('Blocks', '--gctd--'),
                 slug: homeSlug,
@@ -209,7 +204,7 @@ const Navigation = ({ location }) => {
                     param += menu.pathDetail;
                 }
 
-                if (menu?.path === 'themes' && activeTheme === 'unibiz') {
+                if (menu?.path === 'themes' && activeTheme === 'unibiz' && companionActive) {
                     return (<li key={menu.path}><a  className="navigation-item" href={`${adminUrl}admin.php?page=gutenverse-companion-dashboard&path=demo`}>
                         {menu.name}
                     </a></li>);
@@ -251,7 +246,7 @@ const Navigation = ({ location }) => {
                         if (menu.pathDetail) {
                             param += menu.pathDetail;
                         }
-                        if (menu?.path === 'themes' && activeTheme === 'unibiz') {
+                        if (menu?.path === 'themes' && activeTheme === 'unibiz' && companionActive) {
                             return (<a key={menu.path} className="navigation-item" href={`${adminUrl}admin.php?page=gutenverse-companion-dashboard&path=demo`}>
                                 {menu.name}
                             </a>);

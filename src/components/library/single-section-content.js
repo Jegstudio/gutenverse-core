@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo, useRef } from '@wordpress/element';
 import classnames from 'classnames';
 import { RecursionProvider, BlockPreview } from '@wordpress/block-editor';
 import { IconEmpty2SVG, IconArrowLeftSVG } from 'gutenverse-core/icons';
-import { LeftSkeleton, RightSkeleton, FullSkeleton } from 'gutenverse-core/components';
+import { LeftSkeleton, RightSkeleton, FullSkeleton, Skeleton } from 'gutenverse-core/components';
 import { importSingleSectionContent } from 'gutenverse-core/requests';
 import { getGlobalVariable } from '../../styling/styling/global-style/index';
 import ImportSectionButton from './import-section-button';
@@ -32,7 +32,7 @@ const SingleSectionContent = (props) => {
     const [unavailableGlobalFonts, setUnavailableGlobalFonts] = useState([]);
     const [unavailableGlobalColors, setUnavailableGlobalColors] = useState([]);
     const { supportGlobalImport } = window['GutenverseConfig'] || window['GutenverseData'] || {};
-    // const supportGlobalImport = true; //untuk testing
+    // const supportGlobalImport = true; //for testing
 
     const normalRef = useRef(null);
     const globalRef = useRef(null);
@@ -95,8 +95,6 @@ const SingleSectionContent = (props) => {
                     });
                     const updatedContentGlobal = handleGlobalStyleContent(updatedGlobalContentImage, data.global, setUnavailableGlobalFonts, setUnavailableGlobalColors);
                     setContentGlobal(updatedContentGlobal);
-                } else {
-                    setContentGlobal(updatedNormalContentImage);
                 }
 
                 setContentNormal(updatedNormalContentImage);
@@ -126,7 +124,7 @@ const SingleSectionContent = (props) => {
                             </span>
                         </div>
                         <div className="single-previewer-control">
-                            {supportGlobalImport && <div className="previewer-options-container">
+                            {(supportGlobalImport && contentGlobal !== null) && <div className="previewer-options-container">
                                 <label className={selectedOption === 'default' ? 'selected' : ''}>
                                     <input
                                         type="radio"
@@ -179,7 +177,7 @@ const SingleSectionContent = (props) => {
                                                         content={contentNormal}
                                                     />
                                                 </div>
-                                                {(supportGlobalImport && contentGlobal) && <div ref={globalRef} className={`${layoutClassNames} global-content`}>
+                                                {(supportGlobalImport && contentGlobal !== null) && <div ref={globalRef} className={`${layoutClassNames} global-content`}>
                                                     <Content
                                                         content={contentGlobal}
                                                     />
@@ -225,7 +223,7 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
         (_, prefix, id, suffix) => {
             let notExist = false;
             let color = {};
-            const populateColor = globalVariables.colors?.custom?.concat(globalVariables.colors.theme);
+            const populateColor = (globalVariables.colors?.custom ?? []).concat(globalVariables.colors?.theme ?? []);
             const matchedColor = populateColor?.find(f => f?.slug?.toLowerCase() === id?.toLowerCase());
 
             if (!matchedColor) {
@@ -274,10 +272,9 @@ const Content = (props) => {
 
     return content === null ? <>
         <div className="single-previewer">
-            <LeftSkeleton />
-        </div>
-        <div className="single-wrapper">
-            <RightSkeleton />
+            <div style={{ padding: '10px', width: '100%', boxSizing: 'border-box' }}>
+                <Skeleton variant="rect" height={'1000px'} borderRadius={2} />
+            </div>
         </div>
     </> : <ReadOnlyContent
         content={content}
@@ -296,12 +293,31 @@ const ReadOnlyContent = ({ content }) => {
             if (iframeRef.current) {
                 const iframe = iframeRef.current.querySelector('iframe');
                 if (iframe) {
+                    // Get the element
+                    const container = document.querySelector('.single-previewer-container');
+                    const height = container.getBoundingClientRect().height;
                     const onLoad = () => {
                         const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
                         if (!iframeDoc) return;
 
                         const styleTag = iframeDoc.createElement('style');
                         styleTag.innerHTML = `
+                            :root{
+                                --size: 48px;
+                                --light: #ffffff;
+                                --dark:  #dcdcdcff;
+                            }
+
+                            .is-root-container {
+                                background-color: var(--light);
+                                background-image:
+                                    linear-gradient(45deg, var(--dark) 25%, transparent 25%, transparent 75%, var(--dark) 75%),
+                                    linear-gradient(45deg, var(--dark) 25%, transparent 25%, transparent 75%, var(--dark) 75%);
+                                background-size: calc(var(--size) * 2) calc(var(--size) * 2);
+                                background-position: 0 0, calc(var(--size)) calc(var(--size));
+                                background-repeat: repeat;
+                            }
+
                             .input-warning {
                                 display: none;
                             }
@@ -310,13 +326,27 @@ const ReadOnlyContent = ({ content }) => {
                                 display: none;
                             }
 
+                            .is-root-container,
+                            .guten-popup-builder  {
+                                min-height: ${height * 100 / 80}px;
+                                display: block;
+                            }
+
+                            .guten-popup-holder {
+                                display: none !important;
+                            }
+
+                            .guten-popup:not(.show) {
+                                display: block !important;
+                            }
+
                             /* You can add more custom styles here */
                         `;
                         styleTag.className = 'custom-preview-style';
-                        iframeDoc.head.appendChild(styleTag);
+                        iframeDoc.body.appendChild(styleTag);
 
-                        const container = iframeRef.current.querySelector('block-editor-block-preview__container');
-                        const rect = container.getBoundingClientRect();
+                        // const container = iframeRef.current.querySelector('block-editor-block-preview__container');
+                        // const rect = container.getBoundingClientRect();
                     };
                     iframe.addEventListener('load', onLoad);
 

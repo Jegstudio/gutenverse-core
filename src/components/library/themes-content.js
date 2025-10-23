@@ -129,16 +129,19 @@ const ThemesContentNoLicense = (props) => {
     </div >;
 };
 
-const ThemesContentUnibizCTA = () => {
+const ThemesContentUnibizCTA = (props) => {
     const { imgDir, proDemoUrl, domainURL, clientUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
-    const [buttonText, setButtonText] = useState(__('Install Unibiz Theme', 'gutenverse'));
+    const { companionActive } = props;
+    const [buttonText, setButtonText] = useState(__('Install Unibiz Theme', '--gctd--'));
+    const [buttonTextCompanion, setButtonTextCompanion] = useState(__('Install Gutenverse Companion', '--gctd--'));
+    const pluginsList = [
+        { name: 'Gutenverse Companion', slug: 'gutenverse-companion', version: '2.0.0', url: '' },
+    ];
+
     const activateTheme = () => {
         setButtonText(<IconLoadingSVG />);
         const themeSlug = 'unibiz'; // change this to your theme slug
         const base = (domainURL ?? clientUrl).replace(/\/$/, '');
-        const pluginsList = [
-            { name: 'Gutenverse Companion', slug: 'gutenverse-companion', version: '2.0.0', url: '' },
-        ];
 
         // Step 1: Install + Activate Theme
         installAndActivateTheme(themeSlug)
@@ -154,49 +157,62 @@ const ThemesContentUnibizCTA = () => {
             .catch(err => {
                 console.error('Installation failed:', err);
                 alert('Something went wrong during installation.');
-                setButtonText(__('Install Unibiz Theme', 'gutenverse'));
+                setButtonText(__('Install Unibiz Theme', '--gctd--'));
             });
     };
-    return <>
+
+    const installPlugin = () => {
+        setButtonTextCompanion(<IconLoadingSVG />);
+
+        installingPlugins(pluginsList)
+            .then(() => {
+                setButtonTextCompanion(__('Install Gutenverse Companion', '--gctd--'));
+                window.location.replace('/wp-admin/admin.php?page=gutenverse');
+            });
+    };
+
+    console.log(companionActive);
+
+    return companionActive ?
         <div id="gutenverse-library-themes-content-wrapper">
             <div className="banner-wrapper" style={{ backgroundImage: `url(${imgDir}/wizard-bg-cta-companion.png` }}>
                 <div className="banner-content">
                     <div className="banner-glitter" style={{ backgroundImage: `url(${imgDir}/wizard-bg-confetti-unibiz.png)` }}></div>
                     <div className="col-1">
                         <div className="title-wrapper">
-                            <h2 className="title">{__('Supercharge Gutenverse', 'gutenverse')}</h2>
-                            <h2 className="title">{__('With', 'gutenverse')} <span className="highlight-title">{__('Unibiz Theme!', 'gutenverse')}</span></h2>
+                            <h2 className="title">{__('Supercharge Gutenverse', '--gctd--')}</h2>
+                            <h2 className="title">{__('With', '--gctd--')} <span className="highlight-title">{__('Unibiz Theme!', '--gctd--')}</span></h2>
                             <ul className="list-row-container">
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('The Official Theme for Gutenverse', 'gutenverse')}</span>
+                                    <span className="list-text">{__('The Official Theme for Gutenverse', '--gctd--')}</span>
                                 </li>
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('50+ Stunning Demo Sites', 'gutenverse')}</span>
+                                    <span className="list-text">{__('50+ Stunning Demo Sites', '--gctd--')}</span>
                                 </li>
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('One-Click Full Site Import', 'gutenverse')}</span>
+                                    <span className="list-text">{__('One-Click Full Site Import', '--gctd--')}</span>
                                 </li>
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('Exclusive Template Library', 'gutenverse')}</span>
+                                    <span className="list-text">{__('Exclusive Template Library', '--gctd--')}</span>
                                 </li>
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('2x Faster Site Performance', 'gutenverse')}</span>
+                                    <span className="list-text">{__('2x Faster Site Performance', '--gctd--')}</span>
                                 </li>
                                 <li className="list-row">
                                     <IconLibraryThemeListSVG />
-                                    <span className="list-text">{__('Experience a Next-Level FSE Theme', 'gutenverse')}</span>
+                                    <span className="list-text">{__('Experience a Next-Level FSE Theme', '--gctd--')}</span>
                                 </li>
                             </ul>
                             <div className="action-wrapper">
                                 <div className="button-install-theme" onClick={activateTheme}>{buttonText}</div>
-                                <a className="button-learn-more" href={`${proDemoUrl}/unibiz/`} target="_blank" rel="noreferrer">{__('Learn More', 'gutenverse')}</a>
+                                <a className="button-learn-more" href={`${proDemoUrl}/unibiz/`} target="_blank" rel="noreferrer">{__('Learn More', '--gctd--')}</a>
                             </div>
-                            <p className="notice-text">{__('By clicking “Install Unibiz Theme” you consent to installing and activating the Gutenverse Companion plugin.', 'gutenverse')}</p>
+                            <p className="notice-text">{__('By clicking “Install Unibiz Theme” you consent to installing and activating the Gutenverse Companion plugin.', '--gctd--')}</p>
                         </div>
                     </div>
                     <div className="col-2" style={{ backgroundImage: `url(${imgDir}/wizard-bg-list-demo.png)` }}>
@@ -205,9 +221,32 @@ const ThemesContentUnibizCTA = () => {
                     </div>
                 </div>
             </div>
-        </div >
-    </>;
-}
+        </div > :
+        <div className="notice gutenverse-unibiz-notice" style={{ backgroundImage: `url(${imgDir}/unibiz-bg-banner-gradient.png)` }} >
+            <div className="content-wrapper">
+                <div className="col-1">
+                    <div className="content">
+                        <h3 className="title">{__('Unlock The Power of', '--gctd--')}<span className="highlight-title">{__(' Unibiz Theme!', '--gctd--')}</span></h3>
+                        <p className="description">{__('Install the Gutenverse Companion plugin to access 50+ professionally designed demo templates and easily create a fast, powerful, and stunning website that fits your every need.', '--gctd--')}</p>
+                        <div className="button-wrapper">
+                            <div className="button-install" onClick={installPlugin}>{buttonTextCompanion}</div>
+                            <div className="arrow-wrapper">
+                                <img className="unibiz-arrow" src={`${imgDir}/unibiz-arrow.png`} alt="image arrow unibiz"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-2">
+                    <div className="mockup-wrapper">
+                        <img className="unibiz-wave" src={`${imgDir}/unibiz-bg-banner-circle-full.png`} alt="wave"/>
+                        <img className="unibiz-confetti" src={`${imgDir}/unibiz-confetti.png`} alt="image confetti"/>
+                        <img className="unibiz-mockup" src={`${imgDir}/unibiz-mockup.png`} alt="image mockup"/>
+                    </div>
+                </div>
+            </div>
+            <img className="unibiz-gutenverse-badge" src={`${imgDir}/unibiz-gutenverse-badge.png`} alt="image gutenverse badge"/>
+        </div>;
+};
 
 const ThemesContent = (props) => {
     const {modalData, setPage, getDemo, page, demoList, setDemoList} = props;
@@ -225,7 +264,9 @@ const ThemesContent = (props) => {
             demoList={demoList}
             setDemoList={setDemoList}
         /> :
-        <ThemesContentUnibizCTA /> ;
+        <ThemesContentUnibizCTA
+            companionActive={companionActive}
+        /> ;
 };
 
 export default withSelect(select => {

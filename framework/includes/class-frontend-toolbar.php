@@ -142,7 +142,7 @@ class Frontend_Toolbar {
 
 					$admin_bar->add_menu(
 						array(
-							'id'     => 'space',
+							'id'     => 'first-space',
 							'parent' => 'gutenverse',
 							'title'  => '',
 						)
@@ -157,20 +157,6 @@ class Frontend_Toolbar {
 						'href'   => admin_url( 'admin.php?page=' . Dashboard::TYPE ),
 					)
 				);
-				$site_url     = get_site_url();
-				$active_theme = get_option( 'stylesheet' );
-				if ( ! defined( 'GUTENVERSE_PRO' ) ) {
-					$admin_bar->add_menu(
-						array(
-							'id'    => 'gutenverse-pro',
-							'title' => '<span class="gutenverse-pro-right">' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
-							'href'  => gutenverse_upgrade_pro() . '/?utm_source=gutenverse&utm_medium=admintopbar&utm_client_site=' . $site_url . '&utm_client_theme=' . $active_theme,
-							'meta'  => array(
-								'target' => '_blank',
-							),
-						)
-					);
-				}
 
 				if ( is_admin() ) {
 					$admin_bar->add_node(
@@ -193,6 +179,30 @@ class Frontend_Toolbar {
 		}
 
 		$this->setting_toolbar( $admin_bar, 'backend' );
+		$this->pro_toolbar( $admin_bar );
+	}
+
+	/**
+	 * Pro Toolbar
+	 *
+	 * @param \WP_Admin_Bar $admin_bar Admin Bar Instance.
+	 */
+	public function pro_toolbar( $admin_bar ) {
+		$site_url     = get_site_url();
+		$active_theme = get_option( 'stylesheet' );
+		if ( ! defined( 'GUTENVERSE_PRO' ) ) {
+			$admin_bar->add_menu(
+				array(
+					'id'     => 'gutenverse-pro',
+					'parent' => 'gutenverse',
+					'title'  => '<span class="gutenverse-pro-right">' . esc_html__( 'Upgrade to PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
+					'href'   => gutenverse_upgrade_pro() . '/?utm_source=gutenverse&utm_medium=admintopbar&utm_client_site=' . $site_url . '&utm_client_theme=' . $active_theme,
+					'meta'   => array(
+						'target' => '_blank',
+					),
+				)
+			);
+		}
 	}
 
 	/**
@@ -202,8 +212,6 @@ class Frontend_Toolbar {
 	 * @param string        $root Parent.
 	 */
 	public function setting_toolbar( $admin_bar, $root = 'gutenverse' ) {
-		$show_theme_list = apply_filters( 'gutenverse_show_theme_list', true );
-
 		$admin_bar->add_menu(
 			array(
 				'id'     => 'dashboard',
@@ -212,17 +220,6 @@ class Frontend_Toolbar {
 				'href'   => admin_url( 'admin.php?page=' . Dashboard::TYPE ),
 			)
 		);
-
-		if ( $show_theme_list ) {
-			$admin_bar->add_menu(
-				array(
-					'id'     => 'theme-list',
-					'parent' => $root,
-					'title'  => esc_html__( 'Theme List', '--gctd--' ),
-					'href'   => admin_url( 'admin.php?page=gutenverse&path=theme-list' ),
-				)
-			);
-		}
 
 		$admin_bar->add_menu(
 			array(
@@ -272,6 +269,26 @@ class Frontend_Toolbar {
 
 		$admin_bar->add_menu(
 			array(
+				'id'     => 'second-space',
+				'parent' => 'gutenverse',
+				'title'  => '',
+			)
+		);
+
+		$admin_bar->add_menu(
+			array(
+				'id'     => 'rate',
+				'parent' => 'gutenverse',
+				'title'  => esc_html__( 'Rate Us ', '--gctd--' ) . '<span>★★★★★</span>',
+				'href'   => 'https://wordpress.org/support/plugin/gutenverse/reviews/#new-post',
+				'meta'   => array(
+					'target' => '_blank',
+				),
+			)
+		);
+
+		$admin_bar->add_menu(
+			array(
 				'id'     => 'gutenverse-template',
 				'parent' => 'gutenverse-site-editor',
 				'title'  => esc_html__( 'All Template', '--gctd--' ),
@@ -302,21 +319,9 @@ class Frontend_Toolbar {
 
 		$admin_bar->add_menu(
 			array(
-				'id'     => 'rate',
-				'parent' => 'gutenverse',
-				'title'  => esc_html__( 'Rate Us ★★★★★', '--gctd--' ),
-				'href'   => 'https://wordpress.org/support/plugin/gutenverse/reviews/#new-post',
-				'meta'   => array(
-					'target' => '_blank',
-				),
-			)
-		);
-
-		$admin_bar->add_menu(
-			array(
 				'id'     => 'help-documentation',
 				'parent' => 'gutenverse',
-				'title'  => esc_html__( 'Help/Documentation', '--gctd--' ),
+				'title'  => esc_html__( 'Documentation', '--gctd--' ),
 				'href'   => 'https://gutenverse.com/docs/',
 				'meta'   => array(
 					'target' => '_blank',
