@@ -1,4 +1,4 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useEffect, useState, useRef, useCallback } from '@wordpress/element';
 import isEmpty from 'lodash/isEmpty';
 import { assignTemplates, fetchingDataImport, getDemo, importingPatterns, importMenus, importPages, installingPlugins, removingPrevious } from '../helper';
@@ -107,7 +107,12 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
                     .replace(/^-+|-+$/g, ''));
             }
         });
-        setImporterNotice(`Importing “${template.title}” demo in progress...`);
+        setImporterNotice(
+            sprintf(
+                __('Importing "%s" demo in progress...', 'my-text-domain'),
+                `<strong>${template.title}</strong>` // Variable now contains the HTML tags
+            )
+        );
 
         let promise = Promise.resolve();
         steps.forEach((el, index) => {
