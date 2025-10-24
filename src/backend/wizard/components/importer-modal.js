@@ -259,7 +259,7 @@ const ModalContent = ({
                     </div>
                     <div className="importer-step">
                         <div className="import-step-notice">
-                            {importerNotice}
+                            <p>{importerNotice}</p>
                         </div>
                         <div className="importer-inner-step">
                             {importerStep.map((step, index) => {
