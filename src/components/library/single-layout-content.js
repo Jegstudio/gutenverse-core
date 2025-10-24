@@ -2,15 +2,12 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
 import { useEffect, useState, useRef } from '@wordpress/element';
 import classnames from 'classnames';
-import { getInstalledThemes } from 'gutenverse-core/requests';
 import { getPluginRequirementStatus, likeLayout } from './library-helper';
-import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG, IconArrowLeftSVG, IconCircleExclamationSVG, IconInfoYellowSVG, IconEyeSVG } from 'gutenverse-core/icons';
-import { InstallThemeStatusSkeleton, LeftSkeleton, RightSkeleton } from 'gutenverse-core/components';
+import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG, IconArrowLeftSVG, IconInfoYellowSVG, IconEyeSVG } from 'gutenverse-core/icons';
+import { LeftSkeleton, RightSkeleton } from 'gutenverse-core/components';
 import ImportLayout from './import-layout';
 import { Loader } from 'react-feather';
-import semver from 'semver';
 import { ExportNotice } from './library-helper';
-import isEmpty from 'lodash/isEmpty';
 
 const SingleLayoutContent = (props) => {
     const {
@@ -212,10 +209,12 @@ const SingleLayoutContent = (props) => {
 };
 
 const ThemeNotification = ({ requirementStatus, setPluginInstallMode }) => {
-    return <RequiredPluginNotification
-        requirementStatus={requirementStatus}
-        setPluginInstallMode={setPluginInstallMode}
-    />;
+    if (requirementStatus.length > 0) {
+        return <RequiredPluginNotification
+            requirementStatus={requirementStatus}
+            setPluginInstallMode={setPluginInstallMode}
+        />;
+    }
 };
 
 const RequiredPluginNotification = ({ requirementStatus, setPluginInstallMode }) => {
