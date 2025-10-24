@@ -1258,3 +1258,34 @@ if ( ! function_exists( 'gutenverse_get_current_url' ) ) {
 		return "{$scheme}://{$host}{$uri}";
 	}
 }
+
+if ( ! function_exists( 'gutenverse_home_url_multilang' ) ) {
+	/**
+	 * Method gutenverse_home_url_multilang
+	 *
+	 * @param string      $path path.
+	 * @param string|null $scheme scheme.
+	 *
+	 * @return string
+	 */
+	function gutenverse_home_url_multilang( $path = '', $scheme = null ) {
+		if ( function_exists( 'pll_current_language' ) ) {
+			if ( isset( $path[0] ) && '/' !== $path[0] ) {
+				$path = '/' . $path;
+			}
+
+			$polylang_setting = get_option( 'polylang', array() );
+			$default_lang     = $polylang_setting['default_lang'];
+			$current_lang     = pll_current_language();
+
+			if ( isset( $polylang_setting['hide_default'] ) && $polylang_setting['hide_default'] ) {
+				if ( $default_lang === $current_lang ) {
+					return home_url( $path, $scheme );
+				}
+			}
+
+			return home_url( $current_lang . $path, $scheme );
+		}
+		return home_url( $path, $scheme );
+	}
+}
