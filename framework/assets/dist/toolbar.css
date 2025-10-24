@@ -2,10 +2,18 @@
     color: #539c3a !important;
 }
 
+#wp-admin-bar-gutenverse .ab-empty-item {
+    cursor: pointer;
+}
+
 #wp-admin-bar-rate a {
     display: flex !important;
     align-items: center;
     gap: 7px;
+}
+
+#wp-admin-bar-gutenverse-site-editor.hover .ab-empty-item {
+    color: #72aee6;
 }
 
 #wp-admin-bar-rate a span {
