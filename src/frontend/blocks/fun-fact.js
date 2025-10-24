@@ -16,10 +16,7 @@ class GutenverseFunFact extends Default {
         const safeNumber = targetElement.data('safe');
         const duration = targetElement.data('duration');
         const numberFormat = targetElement.data('number-format');
-        const attributes = targetElement.data('attributes');
-        const parsedAttr = JSON.parse(attributes);
-
-        const { numberRightSpace = 0 } = parsedAttr || {};
+        const numberRightSpace = targetElement.data('number-spaces');
 
         let formatter = null;
         let used = number ? number : safeNumber;

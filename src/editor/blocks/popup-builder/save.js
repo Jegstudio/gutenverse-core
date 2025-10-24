@@ -31,6 +31,16 @@ const save = compose(
         exitAnimation,
         exitAnimationDuration,
         exitAnimationDelay,
+        popupType,
+        popupVideoSrc,
+        popupVideoPlayOn,
+        popupVideoStart,
+        popupVideoEnd,
+        popupVideoPauseOnClose,
+        popupVideoResetOnClose,
+        popupVideoHideControls,
+        popupVideoMuted,
+        popupVideoLoop
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -54,7 +64,55 @@ const save = compose(
         'data-exit-animation': exitAnimation,
         'data-exit-duration': exitAnimationDuration,
         'data-exit-delay': exitAnimationDelay,
+        'data-video-pause-onclose': popupVideoPauseOnClose,
+        'data-video-reset-onclose': popupVideoResetOnClose,
+        'data-video-play-on': popupVideoPlayOn,
+        'data-video-start': popupVideoStart,
     });
+
+    const renderContent = () => {
+        switch(popupType) {
+            case 'youtube':
+                const className = classnames(
+                    'guten-element',
+                    'guten-video',
+                    elementId,
+                );
+                const style = {};
+                const config = {
+                    youtube: {
+                        playerVars: {
+                            start: popupVideoStart,
+                            end: popupVideoEnd,
+                        }
+                    }
+                };
+
+                const dataProperties = JSON.stringify({
+                    url: popupVideoSrc,
+                    class: 'guten-video-background',
+                    width: '100%',
+                    height: '500px',
+                    playing: false,
+                    muted: popupVideoMuted,
+                    loop: popupVideoLoop,
+                    controls: !popupVideoHideControls,
+                    playsinline: true,
+                    style,
+                    config
+                });
+
+                return <div className="guten-popup-video-container">
+                    <figure {...useBlockProps.save({ className })}>
+                        {popupVideoSrc ? <div className="guten-video-wrapper" data-property={dataProperties}></div> : null}
+                    </figure>
+                </div>;
+            default:
+                return <div className="guten-popup-container">
+                    <InnerBlocks.Content />
+                </div>;
+        }
+    };
 
     return (
         <div {...blockProps}>
@@ -88,9 +146,7 @@ const save = compose(
                                 <i className={closeIcon}></i>
                             </div>
                         )}
-                        <div className="guten-popup-container">
-                            <InnerBlocks.Content />
-                        </div>
+                        {renderContent()}
                     </div>
                 </div>
             </div>

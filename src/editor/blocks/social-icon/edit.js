@@ -159,7 +159,7 @@ const SocialIcon = compose(
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
-                    props,
+                    {...props, setPanelState},
                     socialIconPanelState
                 )}
                 <ToolbarButton

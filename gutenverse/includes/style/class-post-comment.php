@@ -463,7 +463,14 @@ class Post_Comment extends Style_Abstract {
 		if ( isset( $this->attrs['marginLabel'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} label, .{$this->element_id} .comment-form-author label, .{$this->element_id} .comment-form-comment label, .{$this->element_id} .comment-form-email label, .{$this->element_id} .comment-form-url label",
+					'selector'       => "
+										.{$this->element_id} label,
+										.{$this->element_id} .comment-form-author label,
+										.{$this->element_id} .comment-form-comment label,
+										.{$this->element_id} .comment-form-email label,
+										.{$this->element_id} .comment-form-url label,
+										.{$this->element_id} .comment-form-cookies-consent input#wp-comment-cookies-consent
+										",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},

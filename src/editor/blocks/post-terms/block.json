@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/post-terms",
 	"class_callback": "\\Gutenverse\\Block\\Post_Terms",
 	"title": "Post Terms",
@@ -21,48 +21,48 @@
 			"type": "string",
 			"default": "No Content"
 		},
-		"contentType":{
-			"type":"string",
+		"contentType": {
+			"type": "string",
 			"default": "string",
 			"copyStyle": true
 		},
-		"inlineDisplay":{
+		"inlineDisplay": {
 			"type": "boolean",
 			"copyStyle": true
 		},
-		"contentGap":{
+		"contentGap": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"termAlignment":{
-			"type":"object",
-			"copyStyle": true
-		},
-		"termPadding":{
+		"termAlignment": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"termBackground":{
+		"termPadding": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"termBackgroundHover":{
+		"termBackground": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"termBorder":{
+		"termBackgroundHover": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"termBorderHover":{
+		"termBorder": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"termBoxShadow":{
+		"termBorderHover": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"termBoxShadowHover":{
+		"termBoxShadow": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"termBoxShadowHover": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -232,20 +232,10 @@
 			"default": {}
 		}
 	},
-	"usesContext": [
-		"postId",
-		"postType",
-		"queryId"
-	],
+	"usesContext": ["postId", "postType", "queryId"],
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"post",
-		"term",
-		"category",
-		"tag",
-		"taxonomy"
-	]
+	"keywords": ["single", "post", "term", "category", "tag", "taxonomy"]
 }

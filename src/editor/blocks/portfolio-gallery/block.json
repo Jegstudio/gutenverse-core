@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/portfolio-gallery",
 	"title": "Portfolio Gallery",
 	"description": "Showcase your portfolio in image tab gallery",
@@ -13,11 +13,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"column":{
+		"column": {
 			"type": "object",
 			"copyStyle": true,
 			"default": {
-				"Desktop" : 4
+				"Desktop": 4
 			}
 		},
 		"images": {
@@ -27,21 +27,21 @@
 					"id": "One",
 					"title": "One",
 					"subtitle": "Sub Title",
-					"current" : true,
+					"current": true,
 					"link": "#"
 				},
 				{
 					"id": "Two",
 					"title": "Two",
 					"subtitle": "Sub Title",
-					"current" : false,
+					"current": false,
 					"link": "#"
 				},
 				{
 					"id": "Three",
 					"title": "Three",
 					"subtitle": "Sub Title",
-					"current" : false,
+					"current": false,
 					"link": "#"
 				},
 				{
@@ -53,162 +53,162 @@
 				}
 			]
 		},
-        "behavior": {
-            "type" : "string",
-            "default" : "onhover",
-            "copyStyle" : true
-        },
-        "showLink": {
-            "type" : "boolean",
-            "default" : true,
-            "copyStyle" : true
-        },
+		"behavior": {
+			"type": "string",
+			"default": "onhover",
+			"copyStyle": true
+		},
+		"showLink": {
+			"type": "boolean",
+			"default": true,
+			"copyStyle": true
+		},
 		"reversePosition": {
-            "type" : "boolean",
-            "default" : false,
-            "copyStyle" : true
-        },
-		"linkText":{
-			"type" : "string",
-            "default" : "View More",
-            "copyStyle" : true
+			"type": "boolean",
+			"default": false,
+			"copyStyle": true
 		},
-		"linkIcon":{
-			"type" : "string",
-            "default" : "gtn gtn-right-arrow-light",
-            "copyStyle" : true
+		"linkText": {
+			"type": "string",
+			"default": "View More",
+			"copyStyle": true
 		},
-		"linkIconPosition":{
-			"type" : "string",
-            "default" : "right",
-            "copyStyle" : true
+		"linkIcon": {
+			"type": "string",
+			"default": "gtn gtn-right-arrow-light",
+			"copyStyle": true
 		},
-        "rowHeight":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "contentAlignment":{
-            "type" : "string",
-            "default" : "center",
-            "copyStyle" : true
-        },
-        "contentPadding":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "contentBackground":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "activeBackground":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "titleTypography":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "titleColor":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "titleColorHover":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "titleTextShadow":{
-            "type": "object",
+		"linkIconPosition": {
+			"type": "string",
+			"default": "right",
+			"copyStyle": true
+		},
+		"rowHeight": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentAlignment": {
+			"type": "string",
+			"default": "center",
+			"copyStyle": true
+		},
+		"contentPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentBackground": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"activeBackground": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"titleTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"titleColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"titleColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"titleTextShadow": {
+			"type": "object",
 			"default": {},
-            "copyStyle" : true
-        },
-        "titleTextShadowHover":{
-            "type": "object",
+			"copyStyle": true
+		},
+		"titleTextShadowHover": {
+			"type": "object",
 			"default": {},
-            "copyStyle" : true
-        },
-        "subTitleTypography":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "subTitleColor":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "subTitleColorHover":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "subTitleTextShadow":{
-            "type": "object",
+			"copyStyle": true
+		},
+		"subTitleTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"subTitleColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"subTitleColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"subTitleTextShadow": {
+			"type": "object",
 			"default": {},
-            "copyStyle" : true
-        },
-        "subTitleTextShadowHover":{
-            "type": "object",
+			"copyStyle": true
+		},
+		"subTitleTextShadowHover": {
+			"type": "object",
 			"default": {},
-            "copyStyle" : true
-        },
-        "linkAlignment":{
-            "type" : "string",
-            "default" : "center",
-            "copyStyle" : true
-        },
-        "linkPadding":{
-            "type": "object",
-            "copyStyle" : true
-        },
-		"linkMargin":{
-            "type": "object",
-            "copyStyle" : true
-        },
-		"linkBackground":{
-			"type": "object",
-            "copyStyle" : true
+			"copyStyle": true
 		},
-		"linkBackgroundHover":{
-			"type": "object",
-			"copyStyle" : true
+		"linkAlignment": {
+			"type": "string",
+			"default": "center",
+			"copyStyle": true
 		},
-		"linkBorder":{
+		"linkPadding": {
 			"type": "object",
-            "copyStyle" : true
+			"copyStyle": true
 		},
-        "linkTypography":{
-            "type": "object",
-            "copyStyle" : true
-        },
-		"linkIconSpace":{
+		"linkMargin": {
 			"type": "object",
-            "copyStyle" : true
+			"copyStyle": true
 		},
-		"linkIconSize":{
+		"linkBackground": {
 			"type": "object",
-            "copyStyle" : true
+			"copyStyle": true
 		},
-        "linkColor":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "linkColorHover":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "linkIconColor":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "linkIconColorHover":{
-            "type": "object",
-            "copyStyle" : true
-        },
-        "linkTextShadow":{
-            "type": "object",
-            "copyStyle" : true
-        },
-		"linkTextShadowHover":{
-            "type": "object",
-            "copyStyle" : true
-        },
+		"linkBackgroundHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkBorder": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkIconSpace": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkIconSize": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkIconColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkIconColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkTextShadow": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkTextShadowHover": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},
@@ -322,10 +322,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"gallery",
-		"image",
-		"tab",
-        "portofolio"
-	]
+	"keywords": ["gallery", "image", "tab", "portofolio"]
 }

@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/icon-list",
 	"title": "Icon List",
 	"description": "Create a list with icons",
@@ -181,7 +181,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"spaceDivider":{
+		"spaceDivider": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -214,8 +214,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"icon",
-		"list"
-	]
+	"keywords": ["icon", "list", "image", "symbol", "logo", "texts"]
 }

@@ -20,7 +20,7 @@ To help you get started, we’ve created a beautiful WordPress theme that works 
 
 [Explore The Gutenverse Theme Collection](https://gutenverse.com/theme-list/)
 
-Unlock all the features needed to create your website with [Gutenverse PRO](https://gutenverse.com/pro/).
+Unlock all the features needed to create your website with [Gutenverse PRO](https://gutenverse.com/pricing/).
   
 ## 🚀 Boost Productivity
 

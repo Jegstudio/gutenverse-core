@@ -1,5 +1,5 @@
 {
-    "apiVersion": 2,
+    "apiVersion": 3,
     "name": "gutenverse/form-input-submit",
     "title": "Submit Button",
     "description": "Create an interactive and beautiful action button.",

@@ -268,7 +268,7 @@ const ButtonBlock = compose(
         )}
         <BlockControls>
             <ToolbarGroup>
-                {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, props, buttonPanelState)}
+                {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, {...props, setPanelState}, buttonPanelState)}
                 {!allowLink && <ToolbarButton
                     name="link"
                     icon={link}

@@ -1,5 +1,5 @@
 {
-    "apiVersion": 2,
+    "apiVersion": 3,
     "name": "gutenverse/form-builder",
     "title": "Form Builder",
     "description": "Build a flexible form with many field choices.",

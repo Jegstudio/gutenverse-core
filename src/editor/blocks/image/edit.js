@@ -240,7 +240,7 @@ const ImageBlock = compose(
         }
     }, [elementRef]);
 
-    const ImageToolbar = () => {
+    const imageToolbar = () => {
         return applyFilters('gutenverse.button.url-toolbar',
             <URLToolbar
                 url={url}
@@ -256,15 +256,14 @@ const ImageBlock = compose(
                 panelIsClicked={panelIsClicked}
                 setPanelIsClicked={setPanelIsClicked}
             />,
-            props,
+            {...props, setPanelState},
             imagePanelState
         );
     };
-
     return <>
         <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
-        {imgSrc && <BlockControls>
+        <BlockControls>
             <ToolbarGroup>
                 <ImagePicker {...props}>
                     {({ open }) => <ToolbarButton
@@ -274,10 +273,10 @@ const ImageBlock = compose(
                         onClick={open}
                     />}
                 </ImagePicker>
-                <ImageToolbar />
+                {imageToolbar()}
             </ToolbarGroup>
-        </BlockControls>}
-        {rootBlock && rootBlock.name === 'gutenverse/client-logo' ? <div id={elementId}>{blockElement}</div> : blockElement}
+        </BlockControls>
+        {rootBlock && rootBlock.name === 'gutenverse/logo-slider' ? <div id={elementId}>{blockElement}</div> : blockElement}
     </>;
 });
 

@@ -8,6 +8,13 @@
     visibility: hidden;
     opacity: 0;
 
+    .guten-popup-video-container {
+        overflow-y: auto;
+        .guten-video {
+            margin: 0;
+        }
+    }
+
     ::-webkit-scrollbar {
         width: 0px;
     }

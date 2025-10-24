@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/search-result-title",
 	"class_callback": "\\Gutenverse\\Block\\Search_Result_Title",
 	"title": "Search Result Title",
@@ -18,7 +18,7 @@
 			"default": "h1"
 		},
 		"staticText": {
-			"type" : "string",
+			"type": "string",
 			"default": "Search Result For:"
 		},
 		"alignment": {
@@ -197,22 +197,15 @@
 			"type": "object",
 			"copyStyle": true
 		},
-        "condition": {
+		"condition": {
 			"type": "object",
 			"default": {}
 		}
 	},
-	"usesContext": [
-		"archiveId",
-		"archiveType",
-		"queryId"
-	],
+	"usesContext": ["archiveId", "archiveType", "queryId"],
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"archive",
-		"title"
-	]
+	"keywords": ["single", "archive", "title", "texts"]
 }
