@@ -42,7 +42,12 @@ const typographyLabelStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} label, .${elementId} .comment-form-author label, .${elementId} .comment-form-comment label, .${elementId} .comment-form-email label, .${elementId} .comment-form-url label`,
+        'selector': `
+                    .${elementId} label, .${elementId} .comment-form-author label,
+                    .${elementId} .comment-form-comment label,
+                    .${elementId} .comment-form-email label,
+                    .${elementId} .comment-form-url label,
+                    .${elementId} .comment-form-cookies-consent input#wp-comment-cookies-consent`,
     });
 
     return data;
