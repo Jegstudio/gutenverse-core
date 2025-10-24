@@ -19,7 +19,7 @@ class Editor_Assets {
 	 * Init constructor.
 	 */
 	public function __construct() {
-		add_filter( 'gutenverse_block_config', array( $this, 'block_config' ) );
+		add_filter( 'gutenverse_block_config', array( $this, 'block_config' ), 9 );
 		add_action( 'gutenverse_include_block', array( $this, 'enqueue_scripts' ) );
 	}
 

@@ -21,7 +21,7 @@ class Dashboard {
 	 * Init constructor.
 	 */
 	public function __construct() {
-		add_filter( 'gutenverse_dashboard_config', array( $this, 'dashboard_config' ) );
+		add_filter( 'gutenverse_dashboard_config', array( $this, 'dashboard_config' ), 9 );
 		add_filter( 'gutenverse_include_dashboard', array( $this, 'enqueue_scripts' ) );
 	}
 
