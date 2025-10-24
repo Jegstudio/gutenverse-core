@@ -109,8 +109,8 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
         });
         setImporterNotice(
             sprintf(
-                __('Importing "%s" demo in progress...', 'my-text-domain'),
-                `<strong>${template.title}</strong>` // Variable now contains the HTML tags
+                __('Importing "%s" demo in progress...', 'gutenverse'),
+                `<strong>${template.title}</strong>`
             )
         );
 
