@@ -318,20 +318,15 @@ const ReadOnlyContent = ({ content }) => {
                                 background-repeat: repeat;
                             }
 
-                            .input-warning {
-                                display: none;
-                            }
-
-                            .guten-hide-desktop {
-                                display: none;
-                            }
-
                             .is-root-container,
                             .guten-popup-builder  {
                                 min-height: ${height * 100 / 80}px;
                                 display: block;
                             }
 
+                            .input-warning,
+                            .guten-hide-desktop,
+                            .guten-hide-input,
                             .guten-popup-holder {
                                 display: none !important;
                             }
