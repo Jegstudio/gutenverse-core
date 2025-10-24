@@ -12,6 +12,10 @@
     gap: 7px;
 }
 
+#wp-admin-bar-gutenverse-site-editor.hover .ab-empty-item {
+    color: #72aee6;
+}
+
 #wp-admin-bar-rate a span {
     color: #f2df70 !important;
 }
