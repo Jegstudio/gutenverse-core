@@ -25,9 +25,9 @@ class Breadcrumb extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $post_id ) {
-		return '<nav>
+		return '<nav class="breadcrumb-nav">
 					<ul>'
-						. $this->render_breadcrumbs() .
+						. $this->render_breadcrumbs( $post_id ) .
 					'</ul>
 				</nav>';
 	}
@@ -54,7 +54,7 @@ class Breadcrumb extends Block_Abstract {
 							. $display_classes
 							. $animation_class
 							. $custom_classes
-							. ' guten-post-title guten-element">'
+							. ' guten-breadcrumb guten-element">'
 							. $this->render_content( $post_id ) .
 				'</div>';
 	}
@@ -64,10 +64,12 @@ class Breadcrumb extends Block_Abstract {
 	/**
 	 * Undocumented function
 	 *
+	 * @param string $id id.
+	 *
 	 * @return string
 	 */
-	private function render_breadcrumbs() {
-		$data        = $this->get_data();
+	private function render_breadcrumbs( $id ) {
+		$data        = $this->get_data( $id );
 		$component   = '';
 		$data_length = count( $data );
 
@@ -78,7 +80,7 @@ class Breadcrumb extends Block_Abstract {
 			if ( $is_not_last ) {
 				$component .= '
 				<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-					<a itemprop="item" href="' . $data[ $index ]['href'] . '">
+					<a itemprop="item" href="' . $data[ $index ]['url'] . '">
 						<span itemprop="name" class="breadcrumb-link">' . $data[ $index ]['name'] . '</span>
 					</a>
 				</li>
@@ -100,9 +102,58 @@ class Breadcrumb extends Block_Abstract {
 	/**
 	 * Undocumented function
 	 *
+	 * @param string $id id.
+	 *
 	 * @return array
 	 */
-	private function get_data() {
+	private function get_data( $id ) {
+		$front_page   = get_post( get_option( 'page_on_front' ) );
+		$initial_data = array(
+			$this->get_post_name_and_url( $front_page ),
+		);
+		if ( is_category() || is_tax() ) {
+			return $this->taxonomy_category_data( $initial_data );
+		}
 		return array();
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param array $initial_data initial data.
+	 *
+	 * @return array
+	 */
+	private function taxonomy_category_data( $initial_data ) {
+		$term        = get_queried_object();
+		$ancestors   = get_ancestors( $term->term_id, $term->taxonomy );
+		$hierarchy   = array_reverse( $ancestors );
+		$hierarchy[] = $term->term_id;
+
+		foreach ( $hierarchy as $id ) {
+			$term_parent    = get_term( $id, $term->taxonomy );
+			$initial_data[] = array(
+				'name' => $term_parent->name,
+				'url'  => get_term_link( $term_parent ),
+			);
+		}
+		return $initial_data;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param mixed $post post.
+	 *
+	 * @return array
+	 */
+	private function get_post_name_and_url( $post ) {
+		if ( is_null( $post ) ) {
+			return array();
+		}
+		return array(
+			'name' => get_the_title( $post ),
+			'url'  => get_permalink( $post ),
+		);
 	}
 }

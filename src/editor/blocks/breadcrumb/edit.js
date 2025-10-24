@@ -41,10 +41,10 @@ const BreadcrumbBlock = compose(
     });
 
     const breadcrumbs = [
-        { name: 'Home', url: '' },
-        { name: 'Category', url: '' },
-        { name: 'Child Category', url: '' },
-        { name: 'Post', url: '' },
+        { name: 'Home' },
+        { name: 'Category' },
+        { name: 'Child Category' },
+        { name: 'Post' },
     ];
 
     return <>
@@ -78,7 +78,7 @@ const BreadcrumbBlock = compose(
                         return <>
                             {notLast ?
                                 <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                                    <a itemProp="item" href={`${item.url}`} onClick={e => e.preventDefault()}>
+                                    <a itemProp="item" onClick={e => e.preventDefault()}>
                                         <span itemProp="name" className="breadcrumb-link">{`${item.name}`}</span>
                                     </a>
                                 </li> :
