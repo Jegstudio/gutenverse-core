@@ -6,7 +6,7 @@ export const HeaderV320 = () => {
 
     return (
         <div className="custom-notice-header">
-            <img src={`${assetURL}/img/upgrade-notice-3.2.0-bg-hero-notice.png`} />
+            <img src={`${assetURL}/img/upgrade-notice-3.2.0-bg-hero-notice.webp`} />
             <h3 className="upgrade-notice-title">
                 {__('Gutenverse', 'gutenverse')}
                 &nbsp;
@@ -54,7 +54,7 @@ export const ContentV320 = () => {
                     {__('Unibiz: The Official Theme for Gutenverse is here!', 'gutenverse')}
                 </h4>
                 <p>{__('Discover the official, beautifully designed theme that perfectly complements and unlocks the full potential of the Full Site Editing. It provides the foundational style and structure you need, ensuring a seamless, high-performance experience right out of the box.', 'gutenverse')}</p>
-                <img className="image-1" src={assetURL + '/img/upgrade-notice-3.2.0-graphic-theme-unibiz.png'}></img>
+                <img className="image-1" src={assetURL + '/img/upgrade-notice-3.2.0-graphic-theme-unibiz.webp'}></img>
 
                 <h4>
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,7 +74,7 @@ export const ContentV320 = () => {
                     {__('50+ Stunning Demo Sites with Once Click Full Import', 'gutenverse')}
                 </h4>
                 <p>{__('Jumpstart your web development with an expansive library of over 50+ professional, pre-designed demo websites. Use our powerful one-click import feature to instantly load an entire site, including all pages, content, and settings, saving you countless hours of setup time.', 'gutenverse')}</p>
-                <img className="image-1" src={assetURL + '/img/upgrade-notice-3.2.0-graphic-import-demo.png'}></img>
+                <img className="image-1" src={assetURL + '/img/upgrade-notice-3.2.0-graphic-import-demo.webp'}></img>
 
                 <h4>
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,7 +94,7 @@ export const ContentV320 = () => {
                     {__('2x Faster Site Performance', 'gutenverse')}
                 </h4>
                 <p>{__('Experience lightning-fast loading speeds, thanks to a deeply optimized and lightweight code structure. This theme is engineered for speed, delivering up to 2x faster site performance compared to standard themes.', 'gutenverse')}</p>
-                <img className="image-1" src={assetURL + '/img/upgrade-notice-3.2.0-graphic-faster-performance.png'}></img>
+                <img className="image-1" src={assetURL + '/img/upgrade-notice-3.2.0-graphic-faster-performance.webp'}></img>
             </div>
         </>
     );
