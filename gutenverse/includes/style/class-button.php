@@ -44,11 +44,11 @@ class Button extends Style_Abstract {
 				'background'  => null,
 				'border'      => null,
 				'positioning' => null,
-				'animation'   => ".{$this->element_id} .guten-button",
+				'animation'   => ".{$this->element_id}.guten-button-wrapper .guten-button",
 				'advance'     => null,
 				'transform'   => array(
-					'normal' => ".{$this->element_id} .guten-button",
-					'hover'  => ".{$this->element_id} .guten-button:hover",
+					'normal' => ".{$this->element_id}.guten-button-wrapper .guten-button",
+					'hover'  => ".{$this->element_id}.guten-button-wrapper .guten-button:hover",
 				),
 				'mask'        => ".{$this->element_id} .guten-button",
 			)
