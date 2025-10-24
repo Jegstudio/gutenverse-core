@@ -204,7 +204,7 @@ const Navigation = ({ location }) => {
                     param += menu.pathDetail;
                 }
 
-                if (menu?.path === 'themes' && activeTheme === 'unibiz' && companionActive) {
+                if (menu?.path === 'themes' && activeTheme === 'unibiz' && companionActive !== 'false') {
                     return (<li key={menu.path}><a  className="navigation-item" href={`${adminUrl}admin.php?page=gutenverse-companion-dashboard&path=demo`}>
                         {menu.name}
                     </a></li>);
@@ -246,7 +246,7 @@ const Navigation = ({ location }) => {
                         if (menu.pathDetail) {
                             param += menu.pathDetail;
                         }
-                        if (menu?.path === 'themes' && activeTheme === 'unibiz' && companionActive) {
+                        if (menu?.path === 'themes' && activeTheme === 'unibiz' && companionActive !== 'false') {
                             return (<a key={menu.path} className="navigation-item" href={`${adminUrl}admin.php?page=gutenverse-companion-dashboard&path=demo`}>
                                 {menu.name}
                             </a>);
