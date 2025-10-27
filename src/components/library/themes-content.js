@@ -249,8 +249,10 @@ const ThemesContentUnibizCTA = (props) => {
 const ThemesContent = (props) => {
     const {modalData, setPage, getDemo, page, demoList, setDemoList} = props;
     const {emptyLicense} = modalData?.libraryData?.attributes || {};
-    const { activeTheme, adminUrl, companionActive } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
-    const flag = activeTheme === 'unibiz' && emptyLicense && companionActive !== 'false' ;
+    const { activeTheme, adminUrl, plugins } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+
+    const companionActive = plugins['gutenverse-companion']?.active;
+    const flag = activeTheme === 'unibiz' && emptyLicense && (companionActive && companionActive !== 'false') ;
 
     return flag ?
         <ThemesContentNoLicense
