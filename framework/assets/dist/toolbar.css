@@ -2,10 +2,18 @@
     color: #539c3a !important;
 }
 
+#wp-admin-bar-gutenverse .ab-empty-item {
+    cursor: pointer;
+}
+
 #wp-admin-bar-rate a {
     display: flex !important;
     align-items: center;
     gap: 7px;
+}
+
+#wp-admin-bar-gutenverse-site-editor.hover .ab-empty-item {
+    color: #72aee6;
 }
 
 #wp-admin-bar-rate a span {
@@ -20,8 +28,8 @@
 }
 
 #wpadminbar #wp-admin-bar-gutenverse-pro {
-    margin-bottom: -5px;
-    margin-top: 5px;
+    margin-bottom: -6px;
+    margin-top: 6px;
 }
 
 #wp-admin-bar-gutenverse-pro a {
