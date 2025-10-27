@@ -615,13 +615,13 @@ $border: #eaeaea;
 	}
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1090px) {
 	#gutenverse-dashboard {
 		.navigation-wrapper {
 			column-gap: 0;
 			justify-content: space-between !important;
 			.navigation-items {
-				gap: 12px !important;
+				gap: 8px !important;
 				padding-right: 17px;
 
 				.navigation-item {
@@ -650,7 +650,7 @@ $border: #eaeaea;
 	}
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 800px) {
 	#gutenverse-dashboard {
 		.navigation-wrapper {
 			column-gap: 0;
@@ -680,7 +680,10 @@ $border: #eaeaea;
 				justify-content: start !important;
 				margin-bottom: 10px !important;
 			}
-			
+
+			.dashboard-notifications {
+				right: 0;
+			}
 		}
 	}
 }
