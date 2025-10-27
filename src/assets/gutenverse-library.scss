@@ -200,6 +200,8 @@ $border: #eaeaea;
         padding: 20px 10px 10px 10px;
         overflow: auto;
         box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
 
         .event-banner-wrapper {
             margin: 0px 10px;
@@ -207,7 +209,7 @@ $border: #eaeaea;
 
         .library-items-wrapper {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 
             .library-like {
                 cursor: pointer;
@@ -463,7 +465,7 @@ $border: #eaeaea;
                     &:hover {
                         .library-item-overlay {
                             opacity: 1 !important;
-
+                            cursor: pointer;
                         }
                     }
 
@@ -575,6 +577,7 @@ $border: #eaeaea;
     width: 100%;
     align-items: center;
     justify-content: center;
+    flex: 1;
 
     .empty-wrapper {
         display: flex;
@@ -929,6 +932,9 @@ $border: #eaeaea;
             border: 1px solid #f0f0f3;
             border-radius: 3px;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         span {
@@ -945,13 +951,13 @@ $border: #eaeaea;
 
             .checkblock:after {
                 content: "";
-                position: absolute;
+                // position: absolute;
                 width: 8px;
                 height: 8px;
                 background: $primary;
                 border-radius: 2px;
-                top: 3px;
-                left: 3px;
+                // top: 3px;
+                // left: 3px;
             }
         }
     }
@@ -1517,6 +1523,10 @@ $border: #eaeaea;
     flex-direction: column;
     gap: 20px;
 
+    .back-button {
+        cursor: pointer;
+    }
+
     .back-button,
     .single-previewer-toolbar {
         display: flex;
@@ -1684,9 +1694,9 @@ $border: #eaeaea;
                     }
 
                     iframe {
-                        transform: scale(0.8);
+                        // transform: scale(0.8);
                         transform-origin: 0px 0px;
-                        width: 125% !important;
+                        width: 100% !important;
                         position: relative !important;
                     }
                 }
@@ -2205,7 +2215,6 @@ $border: #eaeaea;
                     -webkit-background-clip: text;
                     color: transparent;
                     margin: 0 0 5px 0;
-                    line-height: 1em;
 
                     .highlight-title {
                         background: linear-gradient(84.36deg, #7032FF 15.93%, #4B8EFF 106.42%);
@@ -2252,13 +2261,14 @@ $border: #eaeaea;
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        transition: transform 0.3s ease;
+                        transition: transform 0.3s ease, color 0.3s ease;
 
                         svg {
                             animation: infinite rotate 2s linear;
                         }
                         &:hover{
                             transform: scale(0.94);
+                            color: hsla(0, 0%, 100%, .75);
                         }
                     }
 
@@ -2271,10 +2281,10 @@ $border: #eaeaea;
                         display: flex;
                         align-items: center;
                         gap: 5px;
-                        transition: transform 0.3s ease;
+                        transition: color 0.3s ease;
 
                         &:hover{
-                            transform: scale(0.94);
+                            color: #3B57F7;
                         }
                     }
                 }

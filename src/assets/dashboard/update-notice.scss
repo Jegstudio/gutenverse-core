@@ -82,18 +82,8 @@
 
     .upgrade-notice-body {
         font-family: "Roboto", serif;
-        margin-bottom: 140px;
+        margin-bottom: 100px;
         position: relative;
-
-        &::before {
-            border-bottom: 1px solid #e3e4e6;
-            content: "";
-            height: calc(100% + 60px);
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 1;
-        }
 
         >div {
             margin: 0 auto;

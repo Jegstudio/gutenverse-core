@@ -2,32 +2,53 @@
     color: #539c3a !important;
 }
 
-#wp-admin-bar-space .ab-item {
-    height: 4px !important;
-    margin: 5px 0 2px !important;
-    background: #4f4d4d;
-}
-
-#wp-admin-bar-support a {
-    color: #ff677d !important;
-}
-
-#wp-admin-bar-support a:hover {
-    color: #fb2444 !important;
+#wp-admin-bar-gutenverse .ab-empty-item {
+    cursor: pointer;
 }
 
 #wp-admin-bar-rate a {
-    color: #709bf2 !important;
+    display: flex !important;
+    align-items: center;
+    gap: 7px;
 }
 
-#wp-admin-bar-rate a:hover {
-    color: #1d5fe2 !important;
+#wp-admin-bar-gutenverse-site-editor.hover .ab-empty-item {
+    color: #72aee6;
 }
 
-#wp-admin-bar-help-documentation a {
+#wp-admin-bar-rate a span {
     color: #f2df70 !important;
 }
 
-#wp-admin-bar-help-documentation a:hover {
-    color: #e2b11d !important;
+#wp-admin-bar-first-space>div,
+#wp-admin-bar-second-space>div {
+    height: 1px !important;
+    margin: 5px 0 !important;
+    background: #555;
+}
+
+#wpadminbar #wp-admin-bar-gutenverse-pro {
+    margin-bottom: -6px;
+    margin-top: 6px;
+}
+
+#wp-admin-bar-gutenverse-pro a {
+    height: 34px !important;
+}
+
+#wp-admin-bar-gutenverse-license a,
+#wp-admin-bar-gutenverse-license:hover a {
+    height: 32px !important;
+    background: #3B57F7 !important;
+    padding: 0 10px !important;
+    color: #fff !important;
+}
+
+#wp-admin-bar-gutenverse-license a span {
+    display: flex;
+    justify-content: center;
+}
+
+#wp-admin-bar-gutenverse-license a span img {
+    margin-left: 8px;
 }

@@ -615,6 +615,76 @@ $border: #eaeaea;
 	}
 }
 
+@media only screen and (max-width: 1024px) {
+	#gutenverse-dashboard {
+		.navigation-wrapper {
+			column-gap: 0;
+			justify-content: space-between !important;
+			.navigation-items {
+				gap: 12px !important;
+				padding-right: 17px;
+
+				.navigation-item {
+					font-size: 12px;
+				}
+			}
+			.header-right {
+				gap: 10px;
+
+				#gutenverse-dashboard-notifications {
+					height: 24px;
+					width: 24px;
+				}
+				.button-upgrade-pro {
+					font-size: 10px;
+					padding: 8px 10px 8px 10px;
+					gap: 3px;
+	
+					svg {
+						width: 12px !important;
+						height: 12px !important;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	#gutenverse-dashboard {
+		.navigation-wrapper {
+			column-gap: 0;
+			padding-bottom: 20px;
+
+			.navigation-items {
+				gap: 8px !important;
+				padding-right: 0;
+				margin-bottom: 16px;
+
+				.navigation-item {
+					padding: 7px 4px 7px 4px !important;
+				}
+			}
+			.header-right {
+				width: 100%;
+				justify-content: space-between;
+
+				#gutenverse-dashboard-notifications {
+					order: 2;
+				}
+				.button-upgrade-pro {
+					order: 1;
+				}
+			}
+			.plugin-logo {
+				justify-content: start !important;
+				margin-bottom: 10px !important;
+			}
+			
+		}
+	}
+}
+
 @media (max-width: 765px) {
 	#gutenverse-dashboard {
 		.content-wrapper {

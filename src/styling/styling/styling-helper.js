@@ -292,9 +292,13 @@ const injectFontStyle = (theWindow, props) => {
     const iframeDoc = theWindow?.document;
     if (iframeDoc) {
         const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
+        const defaultWeight = ['400', '400italic', '700', '700italic'];
+        for (const key in googleArr) {
+            googleArr[key] = [...new Set([...googleArr[key], ...defaultWeight])];
+        }
 
         const googleFont = `https://fonts.googleapis.com/css?family=${Object.entries(googleArr)
-            .map(([font, weights]) => `${font.replace(' ', '+')}:wght@${weights.join(',')}`)
+            .map(([font, weights]) => `${font.replace(' ', '+')}:${weights.join(',')}`)
             .join('|')}`;
 
         let googleTag = iframeDoc.getElementById(googleFontId);

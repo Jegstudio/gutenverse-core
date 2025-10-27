@@ -1266,3 +1266,18 @@ if ( ! function_exists( 'gutenverse_pro_active' ) ) {
 		return defined( 'GUTENVERSE_PRO_VERSION' );
 	}
 }
+
+if ( ! function_exists( 'gutenverse_get_current_url' ) ) {
+	/**
+	 * Get current url with parameter
+	 *
+	 * @return string
+	 */
+	function gutenverse_get_current_url() {
+		$scheme = ( isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ) ? 'https' : 'http';
+		$host   = $_SERVER['HTTP_HOST'];
+		$uri    = $_SERVER['REQUEST_URI'];
+
+		return "{$scheme}://{$host}{$uri}";
+	}
+}

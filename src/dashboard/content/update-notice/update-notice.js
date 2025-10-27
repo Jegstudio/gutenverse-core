@@ -48,8 +48,6 @@ const UpdateNotice = ({ location }) => {
 
     const increaseLoaded = () => setLoaded(loaded + 3);
     const versionIndex = versions.findIndex((ver) => ver === version);
-    const prevVersion = versionIndex < versions.length - 1 ? versions[versionIndex + 1] : version;
-    const nextVersion = versionIndex > 0 ? versions[versionIndex - 1] : version;
 
     if (versionIndex >= loaded) {
         increaseLoaded();
@@ -82,53 +80,6 @@ const UpdateNotice = ({ location }) => {
                 </div>
                 <div className="upgrade-notice-body">
                     <div>{noticeContent}</div>
-                </div>
-                <div className="upgrade-notice-footer">
-                    <div>
-                        <div className="upgrade-history">
-                            <h2>{__('Version History', '--gctd--')}</h2>
-                            <ul className={loaded >= versions.length ? 'loaded' : ''}>
-                                {versions.slice(0, loaded).map((version) => (
-                                    <li key={version}>
-                                        <Link
-                                            index={version}
-                                            to={{
-                                                pathname: pathname,
-                                                search: `?page=${page}&plugin=${plugin}&path=${path}&version=${version}`,
-                                            }}
-                                        >
-                                            {__('Version %s', '--gctd--').replace('%s', version)}
-                                        </Link>
-                                    </li>
-                                ))}
-                                {loaded < versions.length && (
-                                    <li className="load-version">
-                                        <a onClick={() => increaseLoaded()}>
-                                            <sup>. . .</sup>
-                                        </a>
-                                    </li>
-                                )}
-                            </ul>
-                            <div className="buttons">
-                                <Link
-                                    to={{
-                                        pathname: pathname,
-                                        search: `?page=${page}&plugin=${plugin}&path=${path}&version=${prevVersion}`,
-                                    }}
-                                >
-                                    <button className={`prev ${versions[versions.length - 1] === version ? 'disable' : ''}`}>{__('Prev', '--gctd--')}</button>
-                                </Link>
-                                <Link
-                                    to={{
-                                        pathname: pathname,
-                                        search: `?page=${page}&plugin=${plugin}&path=${path}&version=${nextVersion}`,
-                                    }}
-                                >
-                                    <button className={`next ${versions[0] === version ? 'disable' : ''}`}>{__('Next', '--gctd--')}</button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </DashboardContent>

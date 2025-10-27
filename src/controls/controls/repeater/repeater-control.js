@@ -114,7 +114,7 @@ const SortableItem = SortableElement(props => {
                 </div>
             }
             {
-                isReset && resetStatus(items[index]) && <div className="repeater-clear" onClick={() => resetMethod(index, items, onValueChange)} >
+                isReset && resetStatus(items[index]) && <div className="repeater-clear" onClick={() => resetMethod(index, items, onUpdateIndexValue)} >
                     <RotateCcw size={12} />
                 </div>
             }
