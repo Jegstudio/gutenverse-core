@@ -1,26 +1,51 @@
 import { __ } from '@wordpress/i18n';
+import { ColorControl, RangeControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
 
-import { ColorControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
-
-export const stylePanel = (props) => {
+export const biographyStylePanel = (props) => {
     const {
         elementId,
-        authorType,
         switcher,
         setSwitcher
     } = props;
 
-
     return [
         {
-            id: 'typography',
-            show: authorType && authorType !== 'user_image',
+            id: 'biographyTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
         },
         {
+            id: 'biographyMargintop',
+            label: __('Margin Top', 'gutenverse'),
+            component: RangeControl,
+            allowDeviceControl: true,
+            min: 0,
+            max: 100,
+            step: 1,
+            unit: 'px',
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'biographyMargintop',
+                    'responsive': true,
+                    'selector': `.guten-post-author.${elementId} span.author-bio`,
+                    'properties': [
+                        {
+                            'name': 'margin-top',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        },
+                    ],
+                }
+            ]
+        },
+        {
             id: '__styleHover',
-            show: authorType && authorType !== 'user_image',
             component: SwitchControl,
             options: [
                 {
@@ -35,18 +60,15 @@ export const stylePanel = (props) => {
             onChange: ({ __styleHover }) => setSwitcher({ ...switcher, styleHover: __styleHover })
         },
         {
-            id: 'color',
-            show: (!switcher.styleHover || switcher.styleHover === 'normal') && authorType && authorType !== 'user_image',
+            id: 'biographyColor',
+            show: (!switcher.styleHover || switcher.styleHover === 'normal'),
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
             liveStyle: [
                 {
                     'type': 'color',
-                    'id': 'color',
-                    'selector': `
-                                .guten-post-author.${elementId} .author-name a,
-                                .guten-post-author.${elementId} .author-name
-                                `,
+                    'id': 'biographyColor',
+                    'selector': `.${elementId} .author-bio`,
                     'properties': [
                         {
                             'name': 'color',
@@ -57,39 +79,34 @@ export const stylePanel = (props) => {
             ],
         },
         {
-            id: 'textShadow',
-            show: (!switcher.styleHover || switcher.styleHover === 'normal') && authorType && authorType !== 'user_image',
+            id: 'biographyTextShadow',
+            show: (!switcher.styleHover || switcher.styleHover === 'normal'),
             label: __('Text Shadow', 'gutenverse'),
             component: TextShadowControl,
             liveStyle: [
                 {
                     'type': 'textShadow',
-                    'id': 'textShadow',
+                    'id': 'biographyTextShadow',
                     'properties': [
                         {
                             'name': 'text-shadow',
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `
-                                .guten-post-author.${elementId} .author-name a,
-                                .guten-post-author.${elementId} .author-name
-                                `,
+                    'selector': `.${elementId} .author-bio`,
                 }
             ],
         },
         {
-            id: 'colorHover',
-            show: switcher.styleHover === 'hover' && authorType && authorType !== 'user_image',
+            id: 'biographyColorHover',
+            show: switcher.styleHover === 'hover',
             label: __('Hover Text color', 'gutenverse'),
             component: ColorControl,
             liveStyle: [
                 {
                     'type': 'color',
-                    'id': 'colorHover',
-                    'selector': `
-                                .guten-post-author.${elementId}:hover .author-name,
-                                .guten-post-author.${elementId}:hover .author-name a`,
+                    'id': 'biographyColorHover',
+                    'selector': `.${elementId}:hover .author-bio`,
                     'properties': [
                         {
                             'name': 'color',
@@ -100,26 +117,23 @@ export const stylePanel = (props) => {
             ],
         },
         {
-            id: 'textShadowHover',
-            show: switcher.styleHover === 'hover' && authorType && authorType !== 'user_image',
+            id: 'biographyTextShadowHover',
+            show: switcher.styleHover === 'hover',
             label: __('Hover Text Shadow', 'gutenverse'),
             component: TextShadowControl,
             liveStyle: [
                 {
                     'type': 'textShadow',
-                    'id': 'textShadowHover',
+                    'id': 'biographyTextShadowHover',
                     'properties': [
                         {
                             'name': 'text-shadow',
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `
-                                .guten-post-author.${elementId}:hover .author-name,
-                                .guten-post-author.${elementId}:hover .author-name a`,
+                    'selector': `.${elementId}:hover .author-bio`,
                 }
             ],
         },
     ];
 };
-

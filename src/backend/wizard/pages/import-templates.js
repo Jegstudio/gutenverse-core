@@ -1,4 +1,4 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useEffect, useState, useRef, useCallback } from '@wordpress/element';
 import isEmpty from 'lodash/isEmpty';
 import { assignTemplates, fetchingDataImport, getDemo, importingPatterns, importMenus, importPages, installingPlugins, removingPrevious } from '../helper';
@@ -107,7 +107,12 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
                     .replace(/^-+|-+$/g, ''));
             }
         });
-        setImporterNotice(`Importing “${template.title}” demo in progress...`);
+        setImporterNotice(
+            sprintf(
+                __('Importing "%s" demo in progress...', 'gutenverse'),
+                `<strong>${template.title}</strong>`
+            )
+        );
 
         let promise = Promise.resolve();
         steps.forEach((el, index) => {
@@ -356,7 +361,7 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
             content={modalContent}
         />}
         <div className="template-title">
-            <h1 className="content-title">{__('Choose Prebuilt Templates', 'gutenverse')}</h1>
+            <h1 className="content-title">{__('Choose Prebuilt Demo', 'gutenverse')}</h1>
             <p>{__('Discover a wide selection of themes, each carefully crafted to meet the unique needs of your website. Whether you\'re building a blog, portfolio, or business site.', 'gutenverse')}</p>
         </div>
         <div className="search-filter-wrapper">

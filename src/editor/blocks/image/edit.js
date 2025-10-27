@@ -240,10 +240,30 @@ const ImageBlock = compose(
         }
     }, [elementRef]);
 
+    const imageToolbar = () => {
+        return applyFilters('gutenverse.button.url-toolbar',
+            <URLToolbar
+                url={url}
+                setAttributes={setAttributes}
+                isSelected={isSelected}
+                opensInNewTab={linkTarget === '_blank'}
+                onToggleOpenInNewTab={onToggleOpenInNewTab}
+                anchorRef={blockProps.ref}
+                usingDynamic={true}
+                setPanelState={setPanelState}
+                panelState={imagePanelState}
+                title="Item Link"
+                panelIsClicked={panelIsClicked}
+                setPanelIsClicked={setPanelIsClicked}
+            />,
+            {...props, setPanelState},
+            imagePanelState
+        );
+    };
     return <>
         <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
-        {imgSrc && <BlockControls>
+        <BlockControls>
             <ToolbarGroup>
                 <ImagePicker {...props}>
                     {({ open }) => <ToolbarButton
@@ -253,26 +273,9 @@ const ImageBlock = compose(
                         onClick={open}
                     />}
                 </ImagePicker>
-                {applyFilters('gutenverse.button.url-toolbar',
-                    <URLToolbar
-                        url={url}
-                        setAttributes={setAttributes}
-                        isSelected={isSelected}
-                        opensInNewTab={linkTarget === '_blank'}
-                        onToggleOpenInNewTab={onToggleOpenInNewTab}
-                        anchorRef={blockProps.ref}
-                        usingDynamic={true}
-                        setPanelState={setPanelState}
-                        panelState={imagePanelState}
-                        title="Item Link"
-                        panelIsClicked={panelIsClicked}
-                        setPanelIsClicked={setPanelIsClicked}
-                    />,
-                    {...props, setPanelState},
-                    imagePanelState
-                )}
+                {imageToolbar()}
             </ToolbarGroup>
-        </BlockControls>}
+        </BlockControls>
         {rootBlock && rootBlock.name === 'gutenverse/logo-slider' ? <div id={elementId}>{blockElement}</div> : blockElement}
     </>;
 });

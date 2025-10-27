@@ -307,6 +307,9 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * add wizard setup for Companion theme
 * add inactive timer to open popup
 * add more options for Advanced Tabs block
+* add author bio on post author block
+* add new settings in dashboard for performance
+* blocks now use API v3 for faster editing experience
 
 ##### Bug Fixes
 * fix frontend inline style
@@ -315,7 +318,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix issue with Taxonomy List block option causing error
 * fix Post Block pagination when value is empty
 * fix Chart block to load on view instead of page load
-* fix Fun Fact block recovery issue
+* fix more block recovery issues
 
 = 3.1.2 =
 ##### Bug Fixes
