@@ -447,6 +447,7 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 		$upload_path   = wp_upload_dir();
 		$upload_url    = $upload_path['baseurl'];
 		$custom_family = array();
+
 		foreach ( gutenverse_secure_iterable( $font_families ) as $font ) {
 			$family = $font['value'];
 			$type   = $font['type'];
@@ -464,7 +465,6 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 		}
 
 		$google_fonts = gutenverse_google_font_params( $families );
-
 		if ( ! empty( $google_fonts ) ) {
 			$font_url = add_query_arg(
 				array(
@@ -506,9 +506,21 @@ if ( ! function_exists( 'gutenverse_google_font_params' ) ) {
 	 * @return array
 	 */
 	function gutenverse_google_font_params( $families ) {
-		$result = array();
+		$result      = array();
+		$font_system = array(
+			'Arial',
+			'Tahoma',
+			'Verdana',
+			'Helvetica',
+			'Times New Roman',
+			'Trebuchet MS',
+			'Georgia',
+		);
 
 		foreach ( $families as $family => $weights ) {
+			if ( in_array( $family, $font_system ) ) {
+				continue;
+			}
 			$defaults = array( '400', '400italic', '700', '700italic' );
 			$weights  = array_merge(
 				$defaults,
