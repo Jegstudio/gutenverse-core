@@ -58,6 +58,7 @@ const setitngTitle = {
     block_settings: __('Global Block Settings', '--gctd--'),
     additional_features: __('Gutenverse News Additional Features', '--gctd--'),
     view_counter: __('View Counter Settings', '--gctd--'),
+    post_review: __('Post Review Settings', '--gctd--'),
     paywall: __('Paywall Settings', '--gctd--'),
     // like_dislike_button: __('Like & Dislike Settings', '--gctd--'),
     performance: __('Performance Settings', '--gctd--'),
