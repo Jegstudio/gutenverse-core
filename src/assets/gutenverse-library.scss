@@ -2396,6 +2396,7 @@ $border: #eaeaea;
             border: none;
             padding: 0;
             border-radius: 5px;
+            margin: 20px 20px 0;
         }
 
         .unibiz-gutenverse-badge {
@@ -2414,7 +2415,6 @@ $border: #eaeaea;
             overflow: hidden;
             position: relative;
             background-color: unset !important;
-            margin-top: 50px !important;
 
             .col-1 {
                 width: 80%;
@@ -2570,6 +2570,20 @@ $border: #eaeaea;
                     width: 100%;
                     display: flex;
                     justify-content: end;
+
+                    .mockup-wrapper {
+                        .unibiz-mockup {
+                            margin-right: 23px;
+                        }
+
+                        .unibiz-wave {
+                            right: -75%;
+                        }
+
+                        .unibiz-confetti {
+                            right: 90px;
+                        }
+                    }
                 }
             }
         }
