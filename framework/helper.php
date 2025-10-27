@@ -471,7 +471,7 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 					'family'  => join( '|', $google_fonts ),
 					'display' => 'swap',
 				),
-				'//fonts.googleapis.com/css'
+				'https://fonts.googleapis.com/css'
 			);
 
 			// Enqueue google font.
