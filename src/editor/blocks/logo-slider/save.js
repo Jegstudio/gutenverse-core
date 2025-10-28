@@ -2,8 +2,6 @@
 import { classnames } from 'gutenverse-core/components';
 import { useBlockProps } from '@wordpress/block-editor';
 import { swiperData } from 'gutenverse-core/helper';
-import { getImageSrc } from 'gutenverse-core/editor-helper';
-import { isEmpty } from 'lodash';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
