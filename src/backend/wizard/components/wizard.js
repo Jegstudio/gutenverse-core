@@ -516,7 +516,7 @@ const WizardPage = () => {
                 </div>
                 {requirement && <div className={`progress ${progress === 'importTemplate' ? 'active' : ''} ${progressCount >= 2 ? 'done' : ''}`}>
                     <p className="number">3</p>
-                    <h3 className="progress-title">{__('Import Template', 'gutenverse')}</h3>
+                    <h3 className="progress-title">{__('Import Demo', 'gutenverse')}</h3>
                 </div>}
                 {emptyLicense && <div className={`progress ${progress === 'upgradePro' ? 'active' : ''} ${progressCount >= 3 ? 'done' : ''}`}>
                     <p className="number">{requirement ? '4' : '3'}</p>
