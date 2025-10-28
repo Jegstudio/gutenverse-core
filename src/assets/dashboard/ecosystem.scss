@@ -572,14 +572,39 @@
             }
         }
     }
-
-    @media only screen and (max-width: 1000px) {
-        .plugin-item {
-            flex: 100%
-        }
-    }
 }
 
 body.gutenverse_page_gutenverse-ecosystem-list .notice:not(.gutenverse-notice):not(.ecosystem-upgrade-notice) {
     display: none;
+}
+
+
+    
+@media only screen and (max-width: 1150px) {
+    #gutenverse-dashboard .plugin-item {
+        .plugin-description {
+            font-size: 12px;
+        }
+    }
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1200px) {
+    #gutenverse-dashboard .plugin-item {
+        flex-wrap: wrap;
+
+        .details {
+            width: calc(100% - 85px);
+        }
+
+        .plugin-actions {
+            width: 100%;
+            justify-content: flex-end;
+        }
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    #gutenverse-dashboard .plugin-item {
+        flex: 100%
+    }
 }

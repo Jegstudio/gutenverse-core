@@ -96,8 +96,7 @@ $border: #eaeaea;
 				display: flex;
 				justify-content: space-between;
 				margin-bottom: 40px;
-				min-height: 90px;
-				padding: 0 40px;
+				padding: 20px 40px;
 				gap: 10px 20px;
 				position: relative;
 
@@ -115,6 +114,7 @@ $border: #eaeaea;
 					font-style: normal;
 					font-weight: 600;
 					line-height: 30px;
+					margin: 0;
 				}
 			}
 
@@ -464,7 +464,7 @@ $border: #eaeaea;
 
 				.gutenverse-notification {
 					display: flex;
-					width: 368px;
+					max-width: 368px;
 					border: 1px solid #00000011;
 					background-color: #f9f9ff;
 					border-radius: 5px;
@@ -615,13 +615,13 @@ $border: #eaeaea;
 	}
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1090px) {
 	#gutenverse-dashboard {
 		.navigation-wrapper {
 			column-gap: 0;
 			justify-content: space-between !important;
 			.navigation-items {
-				gap: 12px !important;
+				gap: 8px !important;
 				padding-right: 17px;
 
 				.navigation-item {
@@ -650,7 +650,7 @@ $border: #eaeaea;
 	}
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 800px) {
 	#gutenverse-dashboard {
 		.navigation-wrapper {
 			column-gap: 0;
@@ -680,7 +680,10 @@ $border: #eaeaea;
 				justify-content: start !important;
 				margin-bottom: 10px !important;
 			}
-			
+
+			.dashboard-notifications {
+				right: -24px;
+			}
 		}
 	}
 }
@@ -691,17 +694,23 @@ $border: #eaeaea;
 			.dashboard-content {
 				.content-header {
 					flex-wrap: wrap;
-					padding: 20px 40px;
-
-					h2 {
-						margin-bottom: 10px;
-					}
+					padding: 20px;
 
 					.header-control {
 						flex-wrap: wrap;
 						margin-bottom: 10px;
 					}
 				}
+			}
+		}
+	}
+}
+
+@media (max-width: 425px) {
+	#gutenverse-dashboard {
+		.navigation-wrapper {
+			.dashboard-notifications {
+				width: 360px;
 			}
 		}
 	}
