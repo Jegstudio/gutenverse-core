@@ -365,7 +365,7 @@ const ReadOnlyContent = ({ content }) => {
             <BlockPreview
                 blocks={blocks}
                 additionalStyles={[
-                    {css: 'body .is-root-container { display: flex; justify-content: center; flex-direction: column; }'}
+                    {css: 'body .is-root-container { display: flex; justify-content: center; flex-direction: column; min-height: 860px;} body .is-root-container > * { transform: scale(0.8); }'}
                 ]}
             />
         </div>

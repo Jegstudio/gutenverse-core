@@ -72,9 +72,9 @@ const SettingsBody = ({ settings, ...props }) => {
     }
     return <div className="settings-tab-body-wrapper">
         <div className="tab-header">
-            <h1>
+            <h2>
                 {getSettingTitle(props.subSettings ? props.subSettings : settings)}
-            </h1>
+            </h2>
         </div>
         <div className="settings-tab-body">
             {body}
