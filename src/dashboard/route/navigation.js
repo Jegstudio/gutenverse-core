@@ -152,7 +152,8 @@ const Navigation = ({ location }) => {
                 external: true,
             },
         ],
-        homeSlug
+        homeSlug,
+        companionActive
     );
 
     menus.sort((a, b) => a.priority - b.priority);
