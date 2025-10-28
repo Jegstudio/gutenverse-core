@@ -394,3 +394,50 @@
 	right: 0.5em;
 	top: 0;
 }
+@media only screen and (max-width: 1024px) {
+	.splide__arrow {
+		&--prev {
+			left: -40px;
+		}
+		&--next {
+			right: -40px;
+		}
+	}
+	.progress-bars {
+		gap: 20px;
+
+		.progress-bar {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.splide__arrow {
+		height: 25px;
+		width: 25px;
+
+		&--prev {
+			left: -30px;
+		}
+		&--next {
+			right: -30px;
+		}
+	}
+	.progress-bars {
+		margin: 30px auto 0;
+
+		.progress-bar {
+			.progress-bar-title {
+				color: #00223d55;
+				font-size: 10px;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				flex-direction: column;
+			}
+		}
+	}
+}

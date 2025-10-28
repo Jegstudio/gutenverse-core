@@ -1547,8 +1547,8 @@ body {
         }
 
         .content-left {
-            padding: 0 50px 0 50px;
-            width: calc(55% - 100px);
+            padding: 60px 30px 60px 50px;
+            width: calc(55% - 80px);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -1612,7 +1612,7 @@ body {
             width: fit-content;
             position: absolute;
             left: 278px;
-            top: 254px;
+            top: 277px;
         }
 
         .upgrade-pro-button {
@@ -3103,6 +3103,71 @@ body {
             }
         }
     }
+    .upgrade-pro-wrapper {
+        .slider-wrapper {
+            padding: 20px;
+        }
+            .upgrade-pro-content {
+            flex-wrap: nowrap;
+
+            .content-title {
+                font-size: 18px;
+                line-height: 1.5;
+            }
+            
+            .content-desc {
+                font-size: 14px;
+            }
+
+            .upgrade-pro-button {
+                .button-content-wrapper {
+                    padding: 8px 20px;
+                    font-size: 10px;
+
+                    svg {
+                        width: 10px !important;
+                        height: 10px !important;
+                    }
+                }
+            }
+
+            .content-left {
+                padding: 40px 30px 40px 30px;
+                position: relative;
+                height: fit-content;
+            }
+
+            .content-right {
+                width: 65%;
+            }
+
+            .content-list li {
+                font-size: 10px;
+
+                .circle {
+                    width: 12px;
+                    height: 12px;
+
+                    svg {
+                        width: 6px !important;
+                        height: 6px !important;
+                    }
+                }
+            }
+
+            .flexible-container-arrow {
+                left: 180px;
+                top: unset;
+                bottom: 35px;
+                margin-bottom: 4px;
+
+                svg {
+                    width: 50px !important;
+                    height: 41px !important;
+                }
+            }
+            }
+    }
 }
 
 @media only screen and (max-width: 767px) {
@@ -3277,6 +3342,63 @@ body {
                     font-size: 12px;
                     padding: 8px 22px;
                 }
+            }
+        }
+    }
+    .upgrade-pro-wrapper {
+        .upgrade-actions {
+            padding: 20px;
+
+            .button-next {
+                font-size: 12px;
+                padding: 8px 22px;
+            }
+
+            .button-back {
+                font-size: 12px;
+            }
+        }
+        .slider-wrapper {
+            padding: 20px;
+
+            .splide-autoplay-controls {
+                .splide-toggle-div {
+                    padding: 8px;
+
+                    svg {
+                        width: 12px;
+                        height: 12px;
+                    }
+                }
+            }
+        }
+        .upgrade-pro-content {
+            flex-direction: column;
+            flex-wrap: wrap;
+
+            .flexible-container-arrow {
+                left: 180px;
+                top: unset;
+                bottom: 35px;
+                margin-bottom: 4px;
+
+                svg {
+                    width: 50px !important;
+                    height: 41px !important;
+                }
+            }
+
+            .content-desc {
+                font-size: 12px;
+            }
+
+            .content-left {
+                padding: 40px 25px 40px 25px;
+                width: unset;
+                position: relative;
+            }
+            .content-right {
+                display: none;
             }
         }
     }
