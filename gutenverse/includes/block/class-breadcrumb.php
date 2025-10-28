@@ -117,10 +117,10 @@ class Breadcrumb extends Block_Abstract {
 			),
 		);
 		if ( is_404() ) {
-			return $this->default_data( $initial_data, 'Page Not Found' );
+			return $this->default_data( $initial_data, esc_html__( 'Page Not Found', 'gutenverse' ) );
 		}
 		if ( is_search() ) {
-			return $this->default_data( $initial_data, 'Search' );
+			return $this->default_data( $initial_data, esc_html__( 'Search', 'gutenverse' ) );
 		}
 		if ( is_category() || is_tax() ) {
 			return $this->taxonomy_category_data( $initial_data );
@@ -135,7 +135,7 @@ class Breadcrumb extends Block_Abstract {
 			return $this->attachment_data( $initial_data );
 		}
 		if ( is_author() ) {
-			return $this->default_data( $initial_data, 'Author' );
+			return $this->default_data( $initial_data, esc_html__( 'Author', 'gutenverse' ) );
 		}
 		return array();
 	}
@@ -158,13 +158,13 @@ class Breadcrumb extends Block_Abstract {
 	 * Get author data
 	 *
 	 * @param array  $initial_data initial data.
-	 * @param string $title title.
+	 * @param string $name name.
 	 *
 	 * @return array
 	 */
-	private function default_data( $initial_data, $title = '' ) {
+	private function default_data( $initial_data, $name = '' ) {
 		$initial_data[] = array(
-			'name' => esc_html__( $title, 'gutenverse' ),
+			'name' => $name,
 			'url'  => '',
 		);
 		return $initial_data;
