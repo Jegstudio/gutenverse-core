@@ -4,7 +4,7 @@ import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import ControlHeadingSimple from '../part/control-heading-simple';
-import { debounce, isEmpty } from 'lodash';
+import debounce from 'lodash/debounce';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isNotEmpty } from 'gutenverse-core/helper';
 
