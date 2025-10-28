@@ -72,7 +72,7 @@ const stylingStyle = (props) => {
     isNotEmpty(attributes['lastTextColor']) && data.push({
         'type': 'color',
         'id': 'lastTextColor',
-        'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav span span.breadcrumb-text`,
+        'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav span.breadcrumb-text`,
         'properties': [
             {
                 'name': 'color',

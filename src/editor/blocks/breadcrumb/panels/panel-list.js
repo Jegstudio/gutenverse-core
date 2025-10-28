@@ -6,18 +6,11 @@ import {
     TabSetting,
     TabStyle,
 } from 'gutenverse-core/controls';
-import { settingPanel } from './panel-setting';
 import { stylePanel } from './panel-style';
 import { layoutPanel } from './panel-layout';
 
 export const panelList = () => {
     return [
-        {
-            title: __('Setting', 'gutenverse'),
-            initialOpen: false,
-            panelArray: settingPanel,
-            tabRole: TabSetting,
-        },
         {
             title: __('Style', 'gutenverse'),
             initialOpen: false,

@@ -59,7 +59,7 @@ const BreadcrumbBlock = compose(
                     },
                     {
                         title: __('Inside Post Editor, Page Editor, Query Loop Block, and on the Frontend', 'gutenverse'),
-                        description: __('Breadcrumb data such as category, parent, or date hierarchy will be fetched automatically based on the current post or loop.', 'gutenverse')
+                        description: __('Breadcrumb data such as category, parent, or taxonomy will be fetched automatically based on the current post or loop.', 'gutenverse')
                     },
                     {
                         title: __('Inside Site Editor', 'gutenverse'),
@@ -71,21 +71,19 @@ const BreadcrumbBlock = compose(
         </InspectorControls>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
-            <nav className="breadcrumb-nav" aria-label="Breadcrumb">
-                <ul itemScope itemType="https://schema.org/BreadcrumbList">
+            <nav className="breadcrumb-nav">
+                <ol>
                     {breadcrumbs.map((item, index) => {
                         const notLast = (index < breadcrumbs.length - 1);
                         return <>
                             {notLast ?
-                                <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                                    <a itemProp="item" onClick={e => e.preventDefault()}>
-                                        <span itemProp="name" className="breadcrumb-link">{`${item.name}`}</span>
+                                <li>
+                                    <a onClick={e => e.preventDefault()}>
+                                        <span className="breadcrumb-link">{`${item.name}`}</span>
                                     </a>
                                 </li> :
-                                <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                                    <span itemProp="item">
-                                        <span itemProp="name" className="breadcrumb-text">{`${item.name}`}</span>
-                                    </span>
+                                <li>
+                                    <span className="breadcrumb-text">{`${item.name}`}</span>
                                 </li>
                             }
                             {
@@ -95,7 +93,7 @@ const BreadcrumbBlock = compose(
                             }
                         </>;
                     })}
-                </ul>
+                </ol>
             </nav>
         </div>
     </>;

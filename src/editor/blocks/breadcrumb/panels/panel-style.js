@@ -1,4 +1,4 @@
-import { ColorControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, IconControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 
 export const stylePanel = () => {
@@ -37,6 +37,11 @@ export const stylePanel = () => {
             max: 100,
             unit: 'px',
             step: 1,
+        },
+        {
+            id: 'separatorIcon',
+            label: __('Separator Icon', 'gutenverse'),
+            component: IconControl
         },
     ];
 };

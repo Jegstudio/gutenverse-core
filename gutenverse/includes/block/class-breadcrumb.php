@@ -3,7 +3,7 @@
  * Archive Title Block class
  *
  * @author Jegstudio
- * @since 1.0.0
+ * @since 3.3.0
  * @package gutenverse\block
  */
 
@@ -25,10 +25,10 @@ class Breadcrumb extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $post_id ) {
-		return '<nav class="breadcrumb-nav">
-					<ul>'
+		return '<nav class="breadcrumb-nav" aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+					<ol>'
 						. $this->render_breadcrumbs( $post_id ) .
-					'</ul>
+					'</ol>
 				</nav>';
 	}
 
@@ -43,6 +43,9 @@ class Breadcrumb extends Block_Abstract {
 	 * Render view in frontend
 	 */
 	public function render_frontend() {
+		if ( is_home() ) {
+			return '';
+		}
 		$post_id         = ! empty( $this->context['postId'] ) ? esc_html( $this->context['postId'] ) : get_the_ID();
 		$element_id      = $this->get_element_id();
 		$display_classes = $this->set_display_classes();
@@ -83,6 +86,7 @@ class Breadcrumb extends Block_Abstract {
 					<a itemprop="item" href="' . $data[ $index ]['url'] . '">
 						<span itemprop="name" class="breadcrumb-link">' . $data[ $index ]['name'] . '</span>
 					</a>
+					<meta itemprop="position" content="' . $index + 1 . '" />
 				</li>
 				<li class="separator">
                     <i class="' . $this->attributes['separatorIcon'] . '"></i>
@@ -90,9 +94,8 @@ class Breadcrumb extends Block_Abstract {
 			} else {
 				$component .= '
 				<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                    <span itemprop="item">
-                        <span itemprop="name" class="breadcrumb-text">' . $data[ $index ]['name'] . '</span>
-                    </span>
+                    <span itemprop="name" class="breadcrumb-text">' . $data[ $index ]['name'] . '</span>
+					<meta itemprop="position" content="' . $index + 1 . '" />
                 </li>';
 			}
 		}
@@ -107,25 +110,78 @@ class Breadcrumb extends Block_Abstract {
 	 * @return array
 	 */
 	private function get_data( $id ) {
-		$front_page   = get_post( get_option( 'page_on_front' ) );
 		$initial_data = array(
-			$this->get_post_name_and_url( $front_page ),
+			array(
+				'name' => esc_html__( 'Home', 'gutenverse' ),
+				'url'  => gutenverse_home_url_multilang(),
+			),
 		);
+		if ( is_404() ) {
+			return $this->default_data( $initial_data, 'Page Not Found' );
+		}
+		if ( is_search() ) {
+			return $this->default_data( $initial_data, 'Search' );
+		}
 		if ( is_category() || is_tax() ) {
 			return $this->taxonomy_category_data( $initial_data );
+		}
+		if ( is_tag() ) {
+			return $this->tag_data( $initial_data );
+		}
+		if ( is_single() ) {
+			return $this->post_data( $initial_data, $id );
+		}
+		if ( is_attachment() ) {
+			return $this->attachment_data( $initial_data );
+		}
+		if ( is_author() ) {
+			return $this->default_data( $initial_data, 'Author' );
 		}
 		return array();
 	}
 
 	/**
-	 * Undocumented function
+	 * Get Tag data for breadcrumb.
 	 *
 	 * @param array $initial_data initial data.
+	 * @return array
+	 */
+	private function tag_data( $initial_data ) {
+		$initial_data[] = array(
+			'name' => single_tag_title( '', false ),
+			'url'  => '',
+		);
+		return $initial_data;
+	}
+
+	/**
+	 * Get author data
+	 *
+	 * @param array  $initial_data initial data.
+	 * @param string $title title.
 	 *
 	 * @return array
 	 */
-	private function taxonomy_category_data( $initial_data ) {
-		$term        = get_queried_object();
+	private function default_data( $initial_data, $title = '' ) {
+		$initial_data[] = array(
+			'name' => esc_html__( $title, 'gutenverse' ),
+			'url'  => '',
+		);
+		return $initial_data;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param array         $initial_data initial data.
+	 * @param \WP_Term|null $term term.
+	 *
+	 * @return array
+	 */
+	private function taxonomy_category_data( $initial_data, $term = null ) {
+		if ( is_null( $term ) ) {
+			$term = get_queried_object();
+		}
 		$ancestors   = get_ancestors( $term->term_id, $term->taxonomy );
 		$hierarchy   = array_reverse( $ancestors );
 		$hierarchy[] = $term->term_id;
@@ -141,19 +197,71 @@ class Breadcrumb extends Block_Abstract {
 	}
 
 	/**
-	 * Undocumented function
+	 * Get breadcrumb data from attachment
 	 *
-	 * @param mixed $post post.
+	 * @param array $initial_data initial data.
+	 * @return array
+	 */
+	private function attachment_data( $initial_data ) {
+		global $post;
+		$parent_id = $post->post_parent;
+		if ( $parent_id ) {
+			$initial_data = $this->post_data( $initial_data, $parent_id );
+		}
+
+		$initial_data[] = array(
+			'name' => $post->post_title,
+			'url'  => '',
+		);
+		return $initial_data;
+	}
+
+	/**
+	 * Get Post breadcrmb data.
+	 *
+	 * @param array       $initial_data initial data.
+	 * @param string|bool $post_id post id.
 	 *
 	 * @return array
 	 */
-	private function get_post_name_and_url( $post ) {
-		if ( is_null( $post ) ) {
-			return array();
+	private function post_data( $initial_data, $post_id = false ) {
+		if ( ! $post_id ) {
+			$post = get_post( $post_id );
+		} else {
+			global $post;
 		}
-		return array(
+
+		$primary_category = $this->get_primary_category();
+
+		if ( $primary_category instanceof \WP_Term ) {
+			$result = $this->taxonomy_category_data( $initial_data, $primary_category );
+		}
+
+		$result[] = array(
 			'name' => get_the_title( $post ),
 			'url'  => get_permalink( $post ),
 		);
+
+		return $result;
+	}
+
+	/**
+	 * Get primary post category if post has multiple categories.
+	 *
+	 * @return \WP_Term|array|\WP_Error|null
+	 */
+	private function get_primary_category() {
+		$category = apply_filters( 'gutenverse_primary_category', false );
+
+		if ( $category instanceof \WP_Term ) {
+			return $category;
+		} elseif ( class_exists( 'WPSEO_Primary_Term' ) ) {
+			$wpseo_primary_term = new \WPSEO_Primary_Term( 'category', get_the_ID() );
+			$primary_term_id    = $wpseo_primary_term->get_primary_term();
+			return get_term( $primary_term_id );
+		} else {
+			$categories = get_the_category();
+			return ! empty( $categories ) ? $categories[0] : null;
+		}
 	}
 }
