@@ -35,7 +35,7 @@ const ButtonUpgradePro = (props) => {
     const proLink = link ? link : upgradeProUrl;
     const dashboardLink = adminUrl + 'admin.php?page=gutenverse&path=license';
     const upgradeURL = api + '/account/license';
-    const utm = `/?utm_source=${theme_slug}&utm_medium=${medium}&utm_campaign=upgradepro`;
+    const utm = `/?utm_source=${theme_slug}&utm_medium=${medium}&utm_campaign=demoupgrade`;
 
     const button = (text, icon, noPro, upgradeTier) => {
         return <a
