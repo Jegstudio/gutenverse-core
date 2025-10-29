@@ -1625,6 +1625,7 @@ body {
             overflow: hidden;
             margin: 32px 0 0;
             width: fit-content;
+            text-decoration: none;
 
             &::before.disable {
                 content: "";

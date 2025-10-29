@@ -13,7 +13,8 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
     const pause = useRef([]);
     const {
         gutenverseImgDir,
-        upgradeProUrl
+        upgradeProUrl,
+        theme_slug
     } = window['GutenverseWizard'];
 
     const animations = {
@@ -180,14 +181,14 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                         <span>{__('1000+ Icons Selector.', 'gutenverse')}</span>
                                     </li>
                                 </ul>
-                                <div className="upgrade-pro-button" onClick={() => window.open(upgradeProUrl, '_blank')}>
+                                <a className="upgrade-pro-button" href={`${upgradeProUrl}?utm_source=${theme_slug}&utm_medium=wizard&utm_campaign=upgradepro`} target="_blank" rel="noreferrer">
                                     <div className="button-content-wrapper">
                                         <span>{__('Upgrade To PRO', 'gutenverse')}</span>
                                         <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
                                             <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
                                         </svg>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div className="content-right">
                                 <img className="background" src={gutenverseImgDir + '/wizard-background-circle.png'} />
@@ -253,14 +254,14 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="upgrade-pro-button" onClick={() => window.open(upgradeProUrl, '_blank')}>
+                                <a className="upgrade-pro-button" href={`${upgradeProUrl}?utm_source=${theme_slug}&utm_medium=wizard&utm_campaign=upgradepro`} target="_blank" rel="noreferrer">
                                     <div className="button-content-wrapper">
                                         <span>{__('Upgrade To PRO', 'gutenverse')}</span>
                                         <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
                                             <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
                                         </svg>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div className="content-right">
                                 <img className="background" src={gutenverseImgDir + '/wizard-background-circle.png'} />
@@ -303,14 +304,14 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                         <span>{__('Gutenverse News.', 'gutenverse')}</span>
                                     </li>
                                 </ul>
-                                <div className="upgrade-pro-button" onClick={() => window.open(upgradeProUrl, '_blank')}>
+                                <a className="upgrade-pro-button" href={`${upgradeProUrl}?utm_source=${theme_slug}&utm_medium=wizard&utm_campaign=upgradepro`} target="_blank" rel="noreferrer">
                                     <div className="button-content-wrapper">
                                         <span>{__('Upgrade To PRO', 'gutenverse')}</span>
                                         <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
                                             <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
                                         </svg>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div className="content-right">
                                 <img className="background" src={gutenverseImgDir + '/wizard-background-circle.png'} />
@@ -337,14 +338,14 @@ export const UpgradePro = ({ updateProgress, requirement }) => {
                                 <p className="content-desc bold">
                                     {__('Ready to take your website to the next stage?', 'gutenverse')}
                                 </p>
-                                <div className="upgrade-pro-button" onClick={() => window.open(upgradeProUrl, '_blank')}>
+                                <a className="upgrade-pro-button" href={`${upgradeProUrl}?utm_source=${theme_slug}&utm_medium=wizard&utm_campaign=upgradepro`} target="_blank" rel="noreferrer">
                                     <div className="button-content-wrapper">
                                         <span>{__('Upgrade To PRO', 'gutenverse')}</span>
                                         <svg width={16} height={16} viewBox="0 0 15 15" fill={'white'} transform={'translate(0,0)'} xmlns="http://www.w3.org/2000/svg">
                                             <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={'white'} />
                                         </svg>
                                     </div>
-                                </div>
+                                </a>
                                 <div className="flexible-container-arrow" >
                                     <svg width="75" height="66" viewBox="0 0 81 66" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M7.14771 51.5482C55.9057 58.3778 90.3609 32.8459 66.1666 10.5624" stroke="url(#paint0_linear_24721_12165)" strokeWidth="1.5" strokeLinecap="round"/>
