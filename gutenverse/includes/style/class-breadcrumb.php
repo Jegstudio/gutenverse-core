@@ -183,32 +183,6 @@ class Breadcrumb extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['width'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => $selector,
-					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'width' );
-					},
-					'value'          => $this->attrs['width'],
-					'device_control' => true,
-				)
-			);
-		}
-
-		if ( isset( $this->attrs['height'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => $selector,
-					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'height' );
-					},
-					'value'          => $this->attrs['height'],
-					'device_control' => true,
-				)
-			);
-		}
-
 		if ( isset( $this->attrs['zIndex'] ) ) {
 			$this->inject_style(
 				array(
@@ -243,19 +217,6 @@ class Breadcrumb extends Style_Abstract {
 						';';
 					},
 					'value'          => $this->attrs['alignment'],
-					'device_control' => true,
-				)
-			);
-		}
-
-		if ( isset( $this->attrs['verticalAlignment'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => $selector,
-					'property'       => function ( $value ) {
-						return "align-items: {$value};";
-					},
-					'value'          => $this->attrs['verticalAlignment'],
 					'device_control' => true,
 				)
 			);

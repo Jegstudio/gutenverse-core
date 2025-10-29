@@ -34,32 +34,6 @@ const layoutStye = (props) => {
         'selector': selector,
     });
 
-    isNotEmpty(attributes['width']) && data.push({
-        'id': 'width',
-        'type': 'unitPoint',
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'width',
-                'valueType': 'direct'
-            }
-        ],
-        'selector': selector,
-    });
-
-    isNotEmpty(attributes['height']) && data.push({
-        'id': 'height',
-        'type': 'unitPoint',
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'height',
-                'valueType': 'direct'
-            }
-        ],
-        'selector': selector,
-    });
-
     isNotEmpty(attributes['zIndex']) && data.push({
         'type': 'plain',
         'id': 'zIndex',
@@ -71,37 +45,6 @@ const layoutStye = (props) => {
             }
         ],
         'selector': selector,
-    });
-
-    isNotEmpty(attributes['alignment']) && data.push({
-        'type': 'plain',
-        'id': 'alignment',
-        'selector': selector,
-        'properties': [
-            {
-                'name': 'justify-content',
-                'valueType': 'direct',
-            },
-            {
-                'name': 'text-align',
-                'valueType': 'function',
-                'functionName': 'handleAlign',
-            }
-        ],
-        'responsive': true,
-    });
-
-    isNotEmpty(attributes['verticalAlignment']) && data.push({
-        'type': 'plain',
-        'id': 'verticalAlignment',
-        'properties': [
-            {
-                'name': 'align-items',
-                'valueType': 'direct'
-            }
-        ],
-        'selector': selector,
-        'responsive': true
     });
 
     return data;

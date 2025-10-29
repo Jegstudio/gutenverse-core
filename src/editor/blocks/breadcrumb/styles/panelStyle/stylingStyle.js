@@ -8,6 +8,25 @@ const stylingStyle = (props) => {
         data,
     } = props;
 
+
+    isNotEmpty(attributes['alignment']) && data.push({
+        'type': 'plain',
+        'id': 'alignment',
+        'selector': `.guten-element.${elementId}.guten-breadcrumb`,
+        'properties': [
+            {
+                'name': 'justify-content',
+                'valueType': 'direct',
+            },
+            {
+                'name': 'text-align',
+                'valueType': 'function',
+                'functionName': 'handleAlign',
+            }
+        ],
+        'responsive': true,
+    });
+
     isNotEmpty(attributes['typography']) && data.push({
         'id': 'typography',
         'type': 'typography',

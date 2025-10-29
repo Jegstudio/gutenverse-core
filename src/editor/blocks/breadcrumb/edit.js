@@ -22,6 +22,7 @@ const BreadcrumbBlock = compose(
     const {
         elementId,
         separatorIcon,
+        hideCurrentTitle,
     } = attributes;
 
     const elementRef = useRef(null);
@@ -42,10 +43,13 @@ const BreadcrumbBlock = compose(
 
     const breadcrumbs = [
         { name: 'Home' },
-        { name: 'Category' },
-        { name: 'Child Category' },
+        { name: 'Navigation' },
+        { name: 'Navigation' },
         { name: 'Post' },
     ];
+    if (hideCurrentTitle) {
+        breadcrumbs.pop();
+    }
 
     return <>
         <CopyElementToolbar {...props} />
@@ -74,9 +78,9 @@ const BreadcrumbBlock = compose(
             <nav className="breadcrumb-nav">
                 <ol>
                     {breadcrumbs.map((item, index) => {
-                        const notLast = (index < breadcrumbs.length - 1);
+                        const isLast = (index === breadcrumbs.length - 1);
                         return <>
-                            {notLast ?
+                            {!isLast ?
                                 <li>
                                     <a onClick={e => e.preventDefault()}>
                                         <span className="breadcrumb-link">{`${item.name}`}</span>
@@ -87,7 +91,7 @@ const BreadcrumbBlock = compose(
                                 </li>
                             }
                             {
-                                notLast && <li className="separator">
+                                !isLast && <li className="separator">
                                     <i className={separatorIcon}></i>
                                 </li>
                             }

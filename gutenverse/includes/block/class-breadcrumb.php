@@ -72,7 +72,10 @@ class Breadcrumb extends Block_Abstract {
 	 * @return string
 	 */
 	private function render_breadcrumbs( $id ) {
-		$data        = $this->get_data( $id );
+		$data = $this->get_data( $id );
+		if ( $this->attributes['hideCurrentTitle'] && ! ( is_404() || is_author() || is_search() ) ) {
+			array_pop( $data );
+		}
 		$component   = '';
 		$data_length = count( $data );
 
@@ -86,7 +89,7 @@ class Breadcrumb extends Block_Abstract {
 					<a itemprop="item" href="' . $data[ $index ]['url'] . '">
 						<span itemprop="name" class="breadcrumb-link">' . $data[ $index ]['name'] . '</span>
 					</a>
-					<meta itemprop="position" content="' . $index + 1 . '" />
+					<meta itemprop="position" content="' . ( $index + 1 ) . '" />
 				</li>
 				<li class="separator">
                     <i class="' . $this->attributes['separatorIcon'] . '"></i>
@@ -95,7 +98,7 @@ class Breadcrumb extends Block_Abstract {
 				$component .= '
 				<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <span itemprop="name" class="breadcrumb-text">' . $data[ $index ]['name'] . '</span>
-					<meta itemprop="position" content="' . $index + 1 . '" />
+					<meta itemprop="position" content="' . ( $index + 1 ) . '" />
                 </li>';
 			}
 		}
@@ -127,6 +130,12 @@ class Breadcrumb extends Block_Abstract {
 		}
 		if ( is_tag() ) {
 			return $this->tag_data( $initial_data );
+		}
+		if ( class_exists( 'WooCommerce' ) && function_exists( 'is_product' ) && is_product() ) { // For woocommerce product.
+			return $this->product_data( $initial_data );
+		}
+		if ( is_page() ) {
+			return $this->page_data( $initial_data );
 		}
 		if ( is_single() ) {
 			return $this->post_data( $initial_data, $id );
@@ -225,7 +234,7 @@ class Breadcrumb extends Block_Abstract {
 	 * @return array
 	 */
 	private function post_data( $initial_data, $post_id = false ) {
-		if ( ! $post_id ) {
+		if ( $post_id ) {
 			$post = get_post( $post_id );
 		} else {
 			global $post;
@@ -234,15 +243,35 @@ class Breadcrumb extends Block_Abstract {
 		$primary_category = $this->get_primary_category();
 
 		if ( $primary_category instanceof \WP_Term ) {
-			$result = $this->taxonomy_category_data( $initial_data, $primary_category );
+			$initial_data = $this->taxonomy_category_data( $initial_data, $primary_category );
 		}
 
-		$result[] = array(
+		$initial_data[] = array(
 			'name' => get_the_title( $post ),
-			'url'  => get_permalink( $post ),
+			'url'  => '',
 		);
 
-		return $result;
+		return $initial_data;
+	}
+
+	/**
+	 * Get page data for breadcrumb
+	 *
+	 * @param array $initial_data initial data.
+	 *
+	 * @return array
+	 */
+	private function page_data( $initial_data ) {
+		global $post;
+		$ancestors = get_post_ancestors( $post->ID );
+		$ancestors = array_reverse( $ancestors );
+		foreach ( $ancestors as $ancestor_id ) {
+			$initial_data[] = array(
+				'name' => get_the_title( $ancestor_id ),
+				'url'  => get_permalink( $ancestor_id ),
+			);
+		}
+		return $initial_data;
 	}
 
 	/**
@@ -253,15 +282,32 @@ class Breadcrumb extends Block_Abstract {
 	private function get_primary_category() {
 		$category = apply_filters( 'gutenverse_primary_category', false );
 
-		if ( $category instanceof \WP_Term ) {
-			return $category;
-		} elseif ( class_exists( 'WPSEO_Primary_Term' ) ) {
-			$wpseo_primary_term = new \WPSEO_Primary_Term( 'category', get_the_ID() );
-			$primary_term_id    = $wpseo_primary_term->get_primary_term();
-			return get_term( $primary_term_id );
+		if ( $category ) {
+			return get_term( $category );
 		} else {
 			$categories = get_the_category();
 			return ! empty( $categories ) ? $categories[0] : null;
 		}
+	}
+
+	/**
+	 * Get product data for breadcrumb. (This is for woocommerce)
+	 *
+	 * @param array $initial_data initial data.
+	 * @return array
+	 */
+	private function product_data( $initial_data ) {
+		global $post;
+
+		$terms = wp_get_post_terms( $post->ID, 'product_cat' );
+		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+			$initial_data = $this->taxonomy_category_data( $initial_data, $terms[0] );
+		}
+
+		$initial_data[] = array(
+			'name' => get_the_title( $post->ID ),
+			'url'  => '',
+		);
+		return $initial_data;
 	}
 }

@@ -1,8 +1,32 @@
-import { ColorControl, IconControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, IconControl, IconRadioControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
+import { AlignLeft, AlignCenter, AlignRight } from 'gutenverse-core/components';
 
 export const stylePanel = () => {
     return [
+        {
+            id: 'alignment',
+            label: __('Alignment', 'gutenverse'),
+            component: IconRadioControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: __('Align Left', 'gutenverse'),
+                    value: 'flex-start',
+                    icon: <AlignLeft />,
+                },
+                {
+                    label: __('Align Center', 'gutenverse'),
+                    value: 'center',
+                    icon: <AlignCenter />,
+                },
+                {
+                    label: __('Align Right', 'gutenverse'),
+                    value: 'flex-end',
+                    icon: <AlignRight />,
+                },
+            ],
+        },
         {
             id: 'typography',
             label: __('Typography', 'gutenverse'),
@@ -20,7 +44,7 @@ export const stylePanel = () => {
         },
         {
             id: 'lastTextColor',
-            label: __('Last Text Color', 'gutenverse'),
+            label: __('Current Page Color', 'gutenverse'),
             component: ColorControl,
         },
         {

@@ -41,19 +41,7 @@
         "padding": {
             "type": "object"
         },
-        "width": {
-            "type":"object",
-            "default": {}
-        },
-        "height": {
-            "type":"object",
-            "default": {}
-        },
         "alignment": {
-			"type": "object",
-			"copyStyle": true
-		},
-        "verticalAlignment": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -102,7 +90,11 @@
         },
 		"arrowColor": {
             "type": "object"
-        }
+        },
+		"hideCurrentTitle": {
+			"type":"boolean",
+			"default": false
+		}
 	},
 	"supports": {
 		"className": false,
