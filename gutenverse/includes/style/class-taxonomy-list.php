@@ -156,6 +156,9 @@ class Taxonomy_List extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper",
 					'property'       => function ( $value ) {
 						$unit  = $value['unit'];
+						if ( ! isset( $value['point'] ) ) {
+							return '';
+						}
 						$value = $value['point'];
 						return "column-gap: {$value}{$unit};";
 					},
