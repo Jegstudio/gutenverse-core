@@ -1547,8 +1547,8 @@ body {
         }
 
         .content-left {
-            padding: 0 50px 0 50px;
-            width: calc(55% - 100px);
+            padding: 60px 30px 60px 50px;
+            width: calc(55% - 80px);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -1612,7 +1612,7 @@ body {
             width: fit-content;
             position: absolute;
             left: 278px;
-            top: 254px;
+            top: 277px;
         }
 
         .upgrade-pro-button {
@@ -1625,6 +1625,7 @@ body {
             overflow: hidden;
             margin: 32px 0 0;
             width: fit-content;
+            text-decoration: none;
 
             &::before.disable {
                 content: "";
@@ -2263,7 +2264,8 @@ body {
                     display: flex;
                     flex-direction: column;
                     gap: 16px;
-                    margin-bottom: 10px;
+                    margin-bottom: 20px;
+                    margin-top: 20px;
 
                     .steps {
                         display: flex;
@@ -2340,7 +2342,6 @@ body {
                         svg {
                             margin-right: 8px;
                             min-width: 20px;
-                            margin-top: 6px;
                         }
                     }
                 }
@@ -3092,5 +3093,314 @@ body {
 
     svg {
         opacity: 75%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .template-install {
+        .template-list {
+            .template-page {
+                width: calc(50% - 22px);
+            }
+        }
+    }
+    .upgrade-pro-wrapper {
+        .slider-wrapper {
+            padding: 20px;
+        }
+            .upgrade-pro-content {
+            flex-wrap: nowrap;
+
+            .content-title {
+                font-size: 18px;
+                line-height: 1.5;
+            }
+            
+            .content-desc {
+                font-size: 14px;
+            }
+
+            .upgrade-pro-button {
+                .button-content-wrapper {
+                    padding: 8px 20px;
+                    font-size: 10px;
+
+                    svg {
+                        width: 10px !important;
+                        height: 10px !important;
+                    }
+                }
+            }
+
+            .content-left {
+                padding: 40px 30px 40px 30px;
+                position: relative;
+                height: fit-content;
+            }
+
+            .content-right {
+                width: 65%;
+            }
+
+            .content-list li {
+                font-size: 10px;
+
+                .circle {
+                    width: 12px;
+                    height: 12px;
+
+                    svg {
+                        width: 6px !important;
+                        height: 6px !important;
+                    }
+                }
+            }
+
+            .flexible-container-arrow {
+                left: 180px;
+                top: unset;
+                bottom: 35px;
+                margin-bottom: 4px;
+
+                svg {
+                    width: 50px !important;
+                    height: 41px !important;
+                }
+            }
+            }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .template-install {
+        .template-list {
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+
+            .template-page {
+                width: 100%;
+            }
+        }
+        .template-actions {
+            padding: 20px;
+
+            .button-next {
+                font-size: 12px;
+                padding: 8px 23px;
+            }
+            .button-back {
+                font-size: 12px;
+            }
+        }
+        .search-filter-wrapper {
+            flex-direction: column;
+            gap: 20px;
+            padding: 30px 20px 0;
+
+            .search-input-wrapper {
+                width: 100%;
+
+                input {
+                    width: 100%;
+                }
+            }
+        }
+        .template-title {
+            padding: 30px 20px;
+
+            .content-title {
+                font-size: 1.3rem;
+            }
+            p {
+                font-size: 12px;
+            }
+        }
+    }
+    .theme-wizard {
+        padding: 20px;
+
+        .wizard-header {
+            .progress {
+                height: 40px;
+
+                .number {
+                    font-size: 10px;
+                    height: 20px;
+                    width: 20px;
+                }
+                .progress-title {
+                    font-size: 10px;
+                }
+            }
+        }
+
+        .wizard-body {
+            .finalizing {
+                padding: 120px 20px;
+
+                .image-wrapper {
+                    img {
+                        width: 100%;
+                    }
+                }
+                .final-detail {
+                    width: 100%;
+
+                    .final-title {
+                        font-size: 25px;
+                    }
+
+                    .final-desc {
+                        font-size: 12px;
+                    }
+
+                    .button-visit {
+                        font-size: 12px;
+                        padding: 10px 30px;
+                    }
+                }
+            }
+            .theme-install {
+                height: calc(100vw + 250px);
+
+                .content-wrapper {
+                    .image {
+                        &.bg-list-demo-wizard {
+                            right: -220px;
+                            width: 100%;
+                        }
+                        &.wizard-mockup-demo-companion {
+                            display: none;
+
+                            &.layout {
+                                display: none;
+                            }
+                        }
+                    }
+                    .text-content {
+                        margin: 20px;
+
+                        .content-title {
+                            font-size: 25px;
+                            max-width: 70%;
+                        }
+
+                        .content-list-container {
+                            max-width: 70%;
+
+                            .content-list {
+                                font-size: 12px;
+                            }
+                        }
+
+                        .button-install {
+                            font-size: 12px;
+                            padding: 10px 22px 12px;
+                        }
+                        .notice-install {
+                            font-size: 10px;
+                        }
+                    }
+                }
+            }
+            .getting-started {
+                height: 625px;
+                padding: 40px 0 40px;
+
+                .content-top {
+                    .content-title {
+                        font-size: 40px;
+                    }
+                    p.content-desc {
+                        padding: 0 20px;
+                        font-size: 12px;
+                    }
+                }
+                .content-bottom {
+                    p.consent-notice, a.consent-notice-link {
+                        font-size: 12px;
+                        padding: 0 20px;
+                    }
+                }
+                .wizard-image {
+                    &.item-2 {
+                        right: calc(50vw - 140px);
+                        top: 115px;
+                    }
+                    &.item-1 {
+                        height: unset;
+                        top: 220px;
+                        width: 100%;
+                    }
+                }
+            }
+
+            .wizard-footer {
+                padding: 20px;
+
+                .button-next {
+                    font-size: 12px;
+                    padding: 8px 22px;
+                }
+            }
+        }
+    }
+    .upgrade-pro-wrapper {
+        .upgrade-actions {
+            padding: 20px;
+
+            .button-next {
+                font-size: 12px;
+                padding: 8px 22px;
+            }
+
+            .button-back {
+                font-size: 12px;
+            }
+        }
+        .slider-wrapper {
+            padding: 20px;
+
+            .splide-autoplay-controls {
+                .splide-toggle-div {
+                    padding: 8px;
+
+                    svg {
+                        width: 12px;
+                        height: 12px;
+                    }
+                }
+            }
+        }
+        .upgrade-pro-content {
+            flex-direction: column;
+            flex-wrap: wrap;
+
+            .flexible-container-arrow {
+                left: 180px;
+                top: unset;
+                bottom: 35px;
+                margin-bottom: 4px;
+
+                svg {
+                    width: 50px !important;
+                    height: 41px !important;
+                }
+            }
+
+            .content-desc {
+                font-size: 12px;
+            }
+
+            .content-left {
+                padding: 40px 25px 40px 25px;
+                width: unset;
+                position: relative;
+            }
+            .content-right {
+                display: none;
+            }
+        }
     }
 }

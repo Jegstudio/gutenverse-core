@@ -43,7 +43,10 @@ export const stylePanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'color',
-                    'selector': `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} span, .${elementId} a`,
+                    'selector': `
+                                .guten-post-author.${elementId} .author-name a,
+                                .guten-post-author.${elementId} .author-name
+                                `,
                     'properties': [
                         {
                             'name': 'color',
@@ -68,7 +71,10 @@ export const stylePanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} span, .${elementId} a`,
+                    'selector': `
+                                .guten-post-author.${elementId} .author-name a,
+                                .guten-post-author.${elementId} .author-name
+                                `,
                 }
             ],
         },
@@ -81,7 +87,9 @@ export const stylePanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'colorHover',
-                    'selector': `.${elementId}:hover h1, .${elementId}:hover h2, .${elementId}:hover h3, .${elementId}:hover h4, .${elementId}:hover h5, .${elementId}:hover h6, .${elementId}:hover span, .${elementId}:hover a`,
+                    'selector': `
+                                .guten-post-author.${elementId}:hover .author-name,
+                                .guten-post-author.${elementId}:hover .author-name a`,
                     'properties': [
                         {
                             'name': 'color',
@@ -106,7 +114,9 @@ export const stylePanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId}:hover h1, .${elementId}:hover h2, .${elementId}:hover h3, .${elementId}:hover h4, .${elementId}:hover h5, .${elementId}:hover h6, .${elementId}:hover span, .${elementId}:hover a`,
+                    'selector': `
+                                .guten-post-author.${elementId}:hover .author-name,
+                                .guten-post-author.${elementId}:hover .author-name a`,
                 }
             ],
         },

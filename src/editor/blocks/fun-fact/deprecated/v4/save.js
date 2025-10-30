@@ -1,7 +1,6 @@
 import { compose } from '@wordpress/compose';
 
 import { classnames } from 'gutenverse-core/components';
-import { useBlockProps } from '@wordpress/block-editor';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
@@ -38,7 +37,6 @@ const save = compose(
         topIconContent,
         bottomIconContent,
         numberFormat,
-        numberRightSpace
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -72,13 +70,16 @@ const save = compose(
     };
 
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
+        <div className={className} {...advanceAnimationData}>
             <div className="fun-fact-inner">
                 {topIconContent && headerContent()}
                 <div className={`content ${contentDisplay}`}>
                     <div className="number-wrapper">
                         <span className="prefix">{`${prefix}`}</span>
-                        <span className="number loaded" data-number-format={numberFormat} data-safe={safeNumber} data-number={number} data-duration={duration} data-number-spaces={JSON.stringify(numberRightSpace)}></span>
+                        <span className="number loaded" data-number-format={numberFormat} data-safe={safeNumber} data-number={number} data-duration={duration} data-attributes={JSON.stringify({
+                            elementId: elementId,
+                            ...attributes
+                        })}></span>
                         <span className="suffix">{suffix}</span>
                         {showSupper && <sup className="super">{supper}</sup>}
                     </div>
