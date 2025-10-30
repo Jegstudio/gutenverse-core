@@ -298,6 +298,13 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.2.1-dev =
+##### New & Improvemenets
+* 
+
+##### Bug Fixes
+* fix post block pagination when there is animation effect
+
 = 3.2.0 =
 ##### New & Improvemenets
 * add toggle avatar (image) to testimonials block
