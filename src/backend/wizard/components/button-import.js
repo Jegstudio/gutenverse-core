@@ -76,7 +76,7 @@ const CompanionButton = ({ demoUsed, template, handleImport, setLoading }) => {
         }}
     >
         {demoUsed
-            ? (template?.status?.using_template ? __('Imported', 'gutenverse') : __('Switch Demo', 'gutenverse'))
+            ? (template?.status?.using_template ? __('Active', 'gutenverse') : __('Switch Demo', 'gutenverse'))
             : __('Import Demo', 'gutenverse')}
     </div>;
 };
