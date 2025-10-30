@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/popup-container",
 	"title": "Popup Container",
 	"description": "Build Popup using gutenverse popup container.",

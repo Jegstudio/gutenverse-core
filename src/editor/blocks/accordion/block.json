@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/accordion",
 	"title": "Accordion Item",
 	"description": "Create content inside an accordion element.",

@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/post-author",
 	"class_callback": "\\Gutenverse\\Block\\Post_Author",
 	"title": "Post Author",
@@ -34,6 +34,10 @@
 		},
 		"authorLink": {
 			"type": "boolean"
+		},
+		"authorBio": {
+			"type": "boolean",
+			"default": false
 		},
 		"authorLinkTarget": {
 			"type": "boolean"
@@ -73,6 +77,29 @@
 			"type": "object",
 			"default": {},
 			"copyStyle": true
+		},
+		"biographyTypography": {
+			"type":"object",
+			"copyStyle":true
+		},
+		"biographyMargintop":{
+			"type":"object"
+		},
+		"biographyColor": {
+			"type": "object",
+			"copyStyle":true
+		},
+		"biographyTextShadow": {
+			"type":"object",
+			"copyStyle":true
+		},
+		"biographyColorHover": {
+			"type":"object",
+			"copyStyle":true
+		},
+		"biographyTextShadowHover": {
+			"type":"object",
+			"copyStyle":true
 		},
 		"size": {
 			"type": "object",

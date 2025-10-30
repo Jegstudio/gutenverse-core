@@ -64,6 +64,7 @@ class Frontend_Assets {
 			'tab',
 			'team',
 			'testimonials',
+			'video'
 		);
 
 		foreach ( $blocks as $block ) {

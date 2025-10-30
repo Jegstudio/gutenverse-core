@@ -1,15 +1,19 @@
 
 import { __ } from '@wordpress/i18n';
-import { ColorControl, IconRadioControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, IconRadioControl, SizeControl, SelectControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const contentStylePanel = (props) => {
     const {
         elementId,
         layout,
+        itemWidth,
         switcher,
         setSwitcher,
     } = props;
+
+    const deviceType = getDeviceType();
 
     const optionAlign = () => {
         if (layout === 'column') {
@@ -65,7 +69,7 @@ export const contentStylePanel = (props) => {
         },
         {
             id: 'contentSpacing',
-            label: __('Content Spacing', 'gutenverse'),
+            label: __('Content Spacing Vertical', 'gutenverse'),
             component: SizeControl,
             allowDeviceControl: true,
             liveStyle: [
@@ -73,12 +77,12 @@ export const contentStylePanel = (props) => {
                     'type': 'unitPoint',
                     'id': 'contentSpacing',
                     'responsive': true,
-                    'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+                    'selector': `.${elementId} .taxonomy-list-wrapper`,
                     'properties': [
                         {
-                            'name': 'padding',
+                            'name': 'row-gap',
                             'valueType': 'pattern',
-                            'pattern': layout === 'column' ? 'calc({value}/2) 0' : '0 calc({value}/2)',
+                            'pattern': '{value}',
                             'patternValues': {
                                 'value': {
                                     'type': 'direct'
@@ -86,6 +90,91 @@ export const contentStylePanel = (props) => {
                             }
                         }
                     ],
+                }
+            ]
+        },
+        {
+            id: 'contentSpacingHorizontal',
+            show: layout !== 'column',
+            label: __('Content Spacing Horizontal', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'unitPoint',
+                    'id': 'contentSpacingHorizontal',
+                    'responsive': true,
+                    'selector': `.${elementId} .taxonomy-list-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'column-gap',
+                            'valueType': 'pattern',
+                            'pattern':'{value}',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                }
+            ]
+        },
+        {
+            id: 'itemWidth',
+            label: __('Item Width', 'gutenverse'),
+            component: SelectControl,
+            show: layout === 'row',
+            allowDeviceControl: true,
+            options: [
+                {
+                    value: '100%',
+                    label: __('Fullwidth', 'gutenverse'),
+                },
+                {
+                    value: 'fit-content',
+                    label: __('Fit Content Width', 'gutenverse'),
+                },
+                {
+                    value: 'custom',
+                    label: __('Custom Item Width', 'gutenverse'),
+                },
+            ],
+        },
+        {
+            id: 'customItemWidth',
+            label: __('Taxonomy Item Width', 'gutenverse'),
+            show: itemWidth && itemWidth[deviceType] && itemWidth[deviceType] === 'custom',
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 0,
+                    max: 100,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: 0,
+                    max: 100,
+                    step: 1,
+                    unit: '%',
+                },
+            },
+            liveStyle : [
+                {
+                    'type': 'unitPoint',
+                    'id': 'customItemWidth',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType' : 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
                 }
             ]
         },

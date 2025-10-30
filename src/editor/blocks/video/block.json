@@ -1,10 +1,11 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/video",
 	"title": "Video",
 	"description": "Embed a video you want to share.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
+	"viewScript": ["gutenverse-frontend-video-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"

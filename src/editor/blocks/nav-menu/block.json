@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/nav-menu",
 	"class_callback": "\\Gutenverse\\Block\\Nav_Menu",
 	"title": "Nav Menu",

@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/post-terms",
 	"class_callback": "\\Gutenverse\\Block\\Post_Terms",
 	"title": "Post Terms",

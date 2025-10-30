@@ -259,7 +259,7 @@ const ModalContent = ({
                     </div>
                     <div className="importer-step">
                         <div className="import-step-notice">
-                            {importerNotice}
+                            <p dangerouslySetInnerHTML={{__html: importerNotice}}/>
                         </div>
                         <div className="importer-inner-step">
                             {importerStep.map((step, index) => {
@@ -306,6 +306,10 @@ const ModalContent = ({
                 {
                     label: 'Import All Pages & Contents',
                     desc: 'All demo pages and content will be imported to match the demo layout.'
+                },
+                {
+                    label: 'Import Global Styles',
+                    desc: 'The global styles for this demo will be imported to match the demo layout.'
                 },
                 {
                     label: 'Import Menu',

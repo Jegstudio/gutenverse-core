@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/social-icon",
 	"title": "Social Icon Item",
 	"parent": ["gutenverse/social-icons"],

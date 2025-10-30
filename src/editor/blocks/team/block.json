@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/team",
 	"title": "Team",
 	"description": "Show your team details.",

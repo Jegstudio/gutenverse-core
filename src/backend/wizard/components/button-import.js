@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 
 export const ButtonImport = (props) => {
     const { template } = props;
-    if ( !template.pro || !template?.status?.need_upgrade) {
+    if ( !template.pro ) {
         return <CompanionButton {...props} />;
     } else {
         return <ButtonUpgradePro {...props} />;
@@ -27,16 +27,19 @@ const ButtonUpgradePro = (props) => {
     const {
         text = __('Upgrade To PRO', 'gutenverse'),
         link = null,
+        template,
+        medium = 'wizard'
     } = props;
 
-    const { upgradeProUrl, adminUrl, api } = window['GutenverseConfig'] || window['GutenverseWizard'] || {};
+    const { theme_slug, upgradeProUrl, adminUrl, api } = window['GutenverseConfig'] || window['GutenverseWizard'] || {};
     const proLink = link ? link : upgradeProUrl;
     const dashboardLink = adminUrl + 'admin.php?page=gutenverse&path=license';
     const upgradeURL = api + '/account/license';
+    const utm = `/?utm_source=${theme_slug}&utm_medium=${medium}&utm_campaign=demoupgrade`;
 
     const button = (text, icon, noPro, upgradeTier) => {
         return <a
-            href={noPro ? proLink : upgradeTier ? upgradeURL : dashboardLink}
+            href={noPro ? proLink + utm : upgradeTier ? upgradeURL : dashboardLink}
             className="left button-upgrade-pro"
             target="_blank"
             rel="noreferrer">
@@ -49,12 +52,14 @@ const ButtonUpgradePro = (props) => {
 
     const TheButton = () => {
         if (isEmpty(window?.gprodata)) {
-            return button(text, 'crown', false);
+            return button(text, 'crown', true);
         } else {
             return applyFilters('gutenverse.button.pro.banner',
                 button(__('Activate License', 'gutenverse'), 'key', false),
                 button(__('Renew License', 'gutenverse'), 'key', false),
-                button(__('Upgrade License', 'gutenverse'), 'key', false, true)
+                <CompanionButton {...props} />,
+                button(__('Upgrade License', 'gutenverse'), 'key', false, true),
+                template?.status?.required_tier
             );
         }
     };

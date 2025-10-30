@@ -1,6 +1,6 @@
 
 import { addFilter } from '@wordpress/hooks';
-import { HeaderV300, ContentV300 } from './version/v3-0-0';
+import { HeaderV320, ContentV320 } from './version/v3-2-0';
 
 export const loadUpgradeNotice = () => {
     addFilter(
@@ -9,14 +9,15 @@ export const loadUpgradeNotice = () => {
         (header, plugin, version) => {
             if (plugin === 'gutenverse') {
                 switch (version) {
-                    case '3.0.0':
-                        header = <HeaderV300 />;
+                    case '3.2.0':
+                        header = <HeaderV320 />;
                         break;
                 }
             }
 
             return header;
-        }
+        },
+        9
     );
 
     addFilter(
@@ -25,8 +26,8 @@ export const loadUpgradeNotice = () => {
         (content, plugin, version) => {
             if (plugin === 'gutenverse') {
                 switch (version) {
-                    case '3.0.0':
-                        content = <ContentV300 />;
+                    case '3.2.0':
+                        content = <ContentV320 />;
                         break;
                 }
             }

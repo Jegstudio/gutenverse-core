@@ -136,34 +136,72 @@ class Taxonomy_List extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['contentSpacing'] ) ) {
-			if ( 'column' === $this->attrs['layout'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper",
+					'property'       => function ( $value ) {
+						$unit  = $value['unit'];
+						$value = $value['point'];
+						return "row-gap: {$value}{$unit};";
+					},
+					'value'          => $this->attrs['contentSpacing'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['contentSpacingHorizontal'] ) && 'column' !== $this->attrs['layout'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper",
+					'property'       => function ( $value ) {
+						$unit  = $value['unit'];
+						if ( ! isset( $value['point'] ) ) {
+							return '';
+						}
+						$value = $value['point'];
+						return "column-gap: {$value}{$unit};";
+					},
+					'value'          => $this->attrs['contentSpacingHorizontal'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['itemWidth'] ) ) {
+			if ( 'row' === $this->attrs['layout'] ) {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item",
 						'property'       => function ( $value ) {
-							$point = (float) $value['point'] / 2;
-							$unit  = $value['unit'];
-							return "padding: {$point}{$unit} 0;";
+							if ( 'custom' !== $value ) {
+								return "width: {$value};";
+							}
 						},
-						'value'          => $this->attrs['contentSpacing'],
-						'device_control' => true,
-					)
-				);
-			} elseif ( 'row' === $this->attrs['layout'] ) {
-				$this->inject_style(
-					array(
-						'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item",
-						'property'       => function ( $value ) {
-							$point = (float) $value['point'] / 2;
-							$unit  = $value['unit'];
-							return "padding: 0 {$point}{$unit};";
-						},
-						'value'          => $this->attrs['contentSpacing'],
+						'value'          => $this->attrs['itemWidth'],
 						'device_control' => true,
 					)
 				);
 			}
 		}
+
+		if ( isset( $this->attrs['customItemWidth'] ) ) {
+			if ( 'row' === $this->attrs['layout'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item",
+						'property'       => function ( $value, $device ) {
+							if ( 'custom' === $this->attrs['itemWidth'][$device] ) {
+								return $this->handle_unit_point( $value, 'width' );
+							}
+						},
+						'value'          => $this->attrs['customItemWidth'],
+						'device_control' => true,
+					)
+				);
+			}
+		}
+
 		if ( isset( $this->attrs['contentTypography'] ) ) {
 			$this->inject_typography(
 				array(

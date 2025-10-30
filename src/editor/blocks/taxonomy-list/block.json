@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/taxonomy-list",
 	"title": "Taxonomy List",
 	"description": "Create a list of categories",
@@ -79,6 +79,22 @@
 		},
 		"contentSpacing": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"contentSpacingHorizontal": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"customItemWidth": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"itemWidth": {
+			"type": "object",
+
+			"default": {
+				"Desktop": "fit-content"
+			},
 			"copyStyle": true
 		},
 		"layout": {
