@@ -10,7 +10,7 @@ import {
 import { modifyGlobalVariable } from 'gutenverse-core/requests';
 import { signal } from 'gutenverse-core/editor-helper';
 import isEmpty from 'lodash/isEmpty';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 const withGlobalVariable = GlobalStyle => {
     return props => {
