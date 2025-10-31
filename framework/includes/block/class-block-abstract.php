@@ -57,6 +57,8 @@ abstract class Block_Abstract {
 		$this->set_content( $content );
 		$this->set_context( $fulldata );
 
+		add_action( 'wp_footer', array( $this, 'render_template' ) );
+
 		if ( ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || gutenverse_is_block_editor() ) {
 			return $this->render_gutenberg();
 		} else {
@@ -171,34 +173,34 @@ abstract class Block_Abstract {
 	protected function set_animation_classes() {
 		$animation_classes = ' ';
 
-		if ( ! isset( $this->attributes ['animation'] ) ) {
+		if ( ! isset( $this->attributes['animation'] ) ) {
 			return '';
 		}
 
 		$is_animation = false;
 
-		if ( isset( $this->attributes ['animation']['type'] ) ) {
-			$is_animation = ( ! empty( $this->attributes ['animation']['type']['Desktop'] ) && 'none' !== $this->attributes ['animation']['type']['Desktop'] ) || ( ! empty( $this->attributes ['animation']['type']['Tablet'] ) && 'none' !== $this->attributes ['animation']['type']['Tablet'] ) || ( ! empty( $this->attributes ['animation']['type']['Mobile'] ) && 'none' !== $this->attributes ['animation']['type']['Mobile'] );
+		if ( isset( $this->attributes['animation']['type'] ) ) {
+			$is_animation = ( ! empty( $this->attributes['animation']['type']['Desktop'] ) && 'none' !== $this->attributes['animation']['type']['Desktop'] ) || ( ! empty( $this->attributes['animation']['type']['Tablet'] ) && 'none' !== $this->attributes['animation']['type']['Tablet'] ) || ( ! empty( $this->attributes['animation']['type']['Mobile'] ) && 'none' !== $this->attributes['animation']['type']['Mobile'] );
 		}
 
 		if ( $is_animation ) {
 			$animation_classes .= 'animated guten-element-hide ';
 		}
 
-		if ( isset( $this->attributes ['animation']['duration'] ) && 'normal' !== $this->attributes ['animation']['duration'] ) {
-			$animation_classes .= "{$this->attributes ['animation']['duration']} ";
+		if ( isset( $this->attributes['animation']['duration'] ) && 'normal' !== $this->attributes['animation']['duration'] ) {
+			$animation_classes .= "{$this->attributes['animation']['duration']} ";
 		}
 
-		if ( ! empty( $this->attributes ['animation']['type']['Desktop'] ) && 'none' !== $this->attributes ['animation']['type']['Desktop'] ) {
-			$animation_classes .= "desktop-{$this->attributes ['animation']['type']['Desktop']} ";
+		if ( ! empty( $this->attributes['animation']['type']['Desktop'] ) && 'none' !== $this->attributes['animation']['type']['Desktop'] ) {
+			$animation_classes .= "desktop-{$this->attributes['animation']['type']['Desktop']} ";
 		}
 
-		if ( ! empty( $this->attributes ['animation']['type']['Tablet'] ) && 'none' !== $this->attributes ['animation']['type']['Tablet'] ) {
-			$animation_classes .= "desktop-{$this->attributes ['animation']['type']['Tablet']} ";
+		if ( ! empty( $this->attributes['animation']['type']['Tablet'] ) && 'none' !== $this->attributes['animation']['type']['Tablet'] ) {
+			$animation_classes .= "desktop-{$this->attributes['animation']['type']['Tablet']} ";
 		}
 
-		if ( ! empty( $this->attributes ['animation']['type']['Mobile'] ) && 'none' !== $this->attributes ['animation']['type']['Mobile'] ) {
-			$animation_classes .= "desktop-{$this->attributes ['animation']['type']['Mobile']} ";
+		if ( ! empty( $this->attributes['animation']['type']['Mobile'] ) && 'none' !== $this->attributes['animation']['type']['Mobile'] ) {
+			$animation_classes .= "desktop-{$this->attributes['animation']['type']['Mobile']} ";
 		}
 
 		return esc_attr( $animation_classes );
@@ -236,6 +238,15 @@ abstract class Block_Abstract {
 	 * @return mixed
 	 */
 	public function render_frontend() {
+		return null;
+	}
+
+	/**
+	 * Render Template in wp_footer
+	 *
+	 * @return mixed
+	 */
+	public function render_template() {
 		return null;
 	}
 
