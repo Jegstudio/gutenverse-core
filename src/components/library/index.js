@@ -19,18 +19,22 @@ let initLibraryState = {
     attributes: {emptyLicense, companionActive},
     active: 'themes',
     tabs: [
-        ...(companionActive ? [
+        ...(activeTheme !== 'unibiz' || !companionActive ? [
             {
                 id: 'themes',
                 icon: <IconBlocksSVG />,
-                label: __(
-                    (activeTheme === 'unibiz' && emptyLicense)
-                        ? 'Prebuilt Sites'
-                        : 'Themes',
-                    '--gctd--'
-                ),
+                label: __('Themes','--gctd--'),
             },
-        ] : []),
+        ] : companionActive && emptyLicense ?
+            [
+                {
+                    id: 'themes',
+                    icon: <IconBlocksSVG />,
+                    label: __('Prebuilt Sites','--gctd--'),
+                },
+            ]
+            :
+            []),
         {
             id: 'layout',
             icon: <IconLayoutsSVG />,
@@ -49,7 +53,7 @@ let initLibraryState = {
     ],
 };
 
-if (activeTheme === 'unibiz' && ( ! emptyLicense || ! companionActive )) {
+if (activeTheme === 'unibiz' && ( !emptyLicense && companionActive )) {
     initLibraryState.active = 'layout';
 }
 
@@ -146,7 +150,7 @@ const Library = (props) => {
             });
 
             setTimeout(() => {
-                initLibraryState = applyFilters('gutenverse.library.states', initLibraryState);
+                initLibraryState = applyFilters('gutenverse.library.states', initLibraryState, companionActive);
                 dispatch('gutenverse/library').initialModalData({
                     'libraryData': initLibraryState,
                     'layoutContentData': initLayoutState,
