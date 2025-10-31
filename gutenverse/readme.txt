@@ -1,10 +1,10 @@
-=== Gutenverse – Ultimate Block Addons and Page Builder for Site Editor ===
+=== Gutenverse - Ultimate WordPress FSE Blocks Addons & Ecosystem ===
 
 Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 3.2.0
+Stable tag: 3.2.1-dev
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,13 +12,13 @@ The best Gutenberg blocks editor, block addons, page builder and website builder
 
 ## Description
 
-**GUTENVERSE – GUTENBERG BLOCKS AND WEBSITE BUILDER FOR SITE EDITOR, TEMPLATE LIBRARY, POPUP BUILDER, ADVANCED ANIMATION EFFECTS, 45+ FREE USER-FRIENDLY BLOCKS**
+**GUTENVERSE – GUTENBERG BLOCKS AND WEBSITE BUILDER FOR SITE EDITOR, TEMPLATE LIBRARY, POPUP BUILDER, ADVANCED ANIMATION EFFECTS, COMPLETE FEATURE ECOSYSTEM, 45+ FREE USER-FRIENDLY BLOCKS**
 
 Level up your website creation with [Gutenverse](https://gutenverse.com/), a lightweight plugin that powers Gutenberg blocks, and a website builder for WordPress Full Site Editor. With over 600+ FREE template libraries, 45+ FREE block elements, and many other useful features. Gutenverse makes it easy to bring your dream website to life. It simplifies customization and improves your experience with the Gutenberg Block Editor and Site Editor.
 
-To help you get started, we’ve created a beautiful WordPress theme that works seamlessly with Gutenverse. The theme includes pre-designed layouts, flexible settings, and user-friendly controls, allowing for straightforward website creation. It’s also fully compatible with the Gutenberg Block Editor and Site Editor, supporting all Gutenverse features to ensure it performs well.
+To help you get started, we’ve built Unibiz - The First Multipurpose WordPress Block Theme that’s fully compatible with FSE and works seamlessly with Gutenverse. It comes with ready-to-import demo websites, flexible layouts, intuitive settings, and user-friendly controls, making website creation simple and efficient. The theme is fully integrated with the Gutenberg Block and Site Editor, supporting all Gutenverse features for optimal performance.
 
-[Explore The Gutenverse Theme Collection](https://gutenverse.com/theme-list/)
+[Explore The First Multipurpose WordPress Block Theme](https://wordpress.org/themes/unibiz/)
 
 Unlock all the features needed to create your website with [Gutenverse PRO](https://gutenverse.com/pricing/).
   
@@ -50,7 +50,7 @@ Whether you're a beginner or a pro at website creation, you deserve to create a 
 
 Choose from a wide selection of fully customizable blocks, each offering advanced and flexible options. Unleash your creativity and build content with endless possibilities.
 
-**2\.** [**Template Library**](https://gutenverse.com/#library)
+**2\. Template Library**
 
 Access a variety of layouts and sections to suit your needs. Install theme templates directly from the library for quick and easy customization.
 
@@ -82,27 +82,27 @@ Customize your editing experience by enabling or disabling blocks for a smoother
 
 Edit breakpoints for tablets and mobile devices to optimize your website’s responsiveness.
 
-**10\.** [**Gutenberg Blocks**](https://gutenverse.com/elements/)
+**10\.** [**Gutenberg Blocks**](https://gutenverse.com/blocks/)
 
 Gutenverse provides a range of blocks grouped into the following categories:
 
-*   [**Wrapper Blocks**](https://gutenverse.com/elements/#wrapper)
+*   [**Wrapper Blocks**](https://gutenverse.com/blocks/#wrapper)
 
 A collection of container or parent blocks for other block elements to group them, apply styles, and manage layout with responsiveness.
 
-*   [**Basic Blocks**](https://gutenverse.com/elements/#basic)
+*   [**Basic Blocks**](https://gutenverse.com/blocks/#basic)
 
 Get the blocks you need for functionality and design. Each block is designed to serve a specific purpose. Mix and match them to best suit your site.
 
-*   [**Post Blocks**](https://gutenverse.com/elements/#post)
+*   [**Post Blocks**](https://gutenverse.com/blocks/#post)
 
 Create detailed post templates with highly customizable blocks.
 
 
 ## Wrapper Blocks
-*   [**Section**](https://gutenverse.com/elements/#wrapper): Add a section to wrap several blocks within columns.
-*   [**Column**](https://gutenverse.com/elements/#wrapper)**:** Resizable column to hold your block elements, with draggable resize control that makes it convenient to use.
-*   [**Flexible Wrapper**](https://gutenverse.com/elements/#wrapper): Flexible Wrapper / Container to contain your block.
+*   [**Section**](https://gutenverse.com/blocks/#wrapper): Add a section to wrap several blocks within columns.
+*   [**Column**](https://gutenverse.com/blocks/#wrapper)**:** Resizable column to hold your block elements, with draggable resize control that makes it convenient to use.
+*   [**Flexible Wrapper**](https://gutenverse.com/blocks/#wrapper): Flexible Wrapper / Container to contain your block.
 *   [**Popup Builder**](https://gutenverse.com/popup/): Create a stunning popup to catch your user's attention.
 
 
@@ -124,7 +124,7 @@ Create detailed post templates with highly customizable blocks.
 *   **[PRO] Background Effect**: Add a glow effect to make your website more eye-catching.
 *   **[PRO] Background Animated**: Animate various background elements, such as colors, gradients, positions, and sizes, to enhance your site's visual appeal.
 *   **Shape Divider**: Add dividers between sections to create smooth transitions.
-*   **[PRO]** [**Shape Divider Animated**](https://gutenverse.com/#shape-divider): Add advanced animated dividers between sections to create smooth transitions.
+*   **[PRO] Shape Divider Animated**: Add advanced animated dividers between sections to create smooth transitions.
 *   **[PRO] Transform**: Easily rotate, scale, or skew elements on your website as you like.
 *   **[PRO] Mouse Move Effect**: Make an effect on the pointed object whenever the cursor moves.
 *   **[PRO] Advanced Animation**: Equipped with various types of animations to make your website look more dynamic.
@@ -134,38 +134,38 @@ Create detailed post templates with highly customizable blocks.
 
 
 ## Basic Blocks
-*   [**Accordions**](https://gutenverse.com/accordion/): A vertically stacked list of expandable/collapsable items.
-*   [**Advanced Heading**](https://gutenverse.com/advance-heading/): A more Advanced Heading with multiple options.
-*   [**Animated Text**](https://gutenverse.com/animated-text/): Create text with a beautiful animation flow.
-*   **[PRO]** [**Text Marquee**](https://gutenverse.com/text-marquee/): Add movement to text with a horizontal scrolling effect.
-*   [**Button**](https://gutenverse.com/button/): Add a beautiful and interactive action button.
-*   **[PRO]** [**Advance Button**](https://gutenverse.com/advance-button/): Enhance your website's button interactivity with customizable typography, colors, hover effects, and icons.
-*   [**Multi Buttons**](https://gutenverse.com/multi-buttons/): Add a collection of beautiful and interactive action buttons.
-*   [**Divider**](https://gutenverse.com/divider/): Split your content with a customizable divider.
-*   [**Fun Facts**](https://gutenverse.com/funfact/): Create an interesting fact about your website or something you achieved.
-*   [**Gallery**](https://gutenverse.com/gallery/): Showcase your images in a grid or masonry layout, with a popup and zoom option.
-*   [**Google Maps**](https://gutenverse.com/google-maps/): Display a location you want to share with your website visitor.
-*   [**Heading**](https://gutenverse.com/heading/): Create a Title/Heading on your page.
-*   [**Icon**](https://gutenverse.com/icon/): Add a beautiful icon with more than 100+ icon options.
-*   [**Icon Box**](https://gutenverse.com/icon-box/): Add an information section with an icon box.
-*   [**Icon List**](https://gutenverse.com/icon-list/): Create a list with icons.
-*   [**Image**](https://gutenverse.com/image/): Showcase your image.
-*   [**Image Box**](https://gutenverse.com/image-box/): Add an information section with an image box.
-*   **[PRO]** [**Image Marquee**](https://gutenverse.com/image-marquee/): Create captivating image carousels or slideshows that showcase multiple images seamlessly.
-*   **[PRO]** [**Lottie**](https://gutenverse.com/lottie/): Add Lottie files to your website and display them anywhere to capture users' attention with engaging motion graphics.
-*   [**Logo Slider**](https://gutenverse.com/logo-slider/): Showcase your clients, sponsors, or a list of images on your website.
-*   [**Nav Menu**](https://gutenverse.com/nav-menu/): Create a navigation menu for your visitor to explore your website.
-*   **[PRO]** [**Mega Menu**](https://gutenverse.com/mega-menu/): Optimize your website with a mega menu that displays multiple levels of navigation in a drop-down format, making it easier for visitors to navigate.
-*   [**Progress Bar**](https://gutenverse.com/progress-bar/): Create a progress bar of your achievement or other things you want to share.
-*   [**Search**](https://gutenverse.com/search/): Create a search bar to easily search your site contents.
-*   [**Social Icons**](https://gutenverse.com/social-icon/): Show social network links to your website visitors.
-*   [**Social Share**](https://gutenverse.com/social-share/): Allow your visitor to share the current page.
+*   [**Accordions**](https://gutenverse.com/blocks/accordion/): A vertically stacked list of expandable/collapsable items.
+*   [**Advanced Heading**](https://gutenverse.com/blocks/advance-heading/): A more Advanced Heading with multiple options.
+*   [**Animated Text**](https://gutenverse.com/blocks/animated-text/): Create text with a beautiful animation flow.
+*   **[PRO]** [**Text Marquee**](https://gutenverse.com/blocks/text-marquee/): Add movement to text with a horizontal scrolling effect.
+*   [**Button**](https://gutenverse.com/blocks/button/): Add a beautiful and interactive action button.
+*   **[PRO]** [**Advance Button**](https://gutenverse.com/blocks/advance-button/): Enhance your website's button interactivity with customizable typography, colors, hover effects, and icons.
+*   [**Multi Buttons**](https://gutenverse.com/blocks/multi-buttons/): Add a collection of beautiful and interactive action buttons.
+*   [**Divider**](https://gutenverse.com/blocks/divider/): Split your content with a customizable divider.
+*   [**Fun Facts**](https://gutenverse.com/blocks/funfact/): Create an interesting fact about your website or something you achieved.
+*   [**Gallery**](https://gutenverse.com/blocks/gallery/): Showcase your images in a grid or masonry layout, with a popup and zoom option.
+*   [**Google Maps**](https://gutenverse.com/blocks/google-maps/): Display a location you want to share with your website visitor.
+*   [**Heading**](https://gutenverse.com/blocks/heading/): Create a Title/Heading on your page.
+*   [**Icon**](https://gutenverse.com/blocks/icon/): Add a beautiful icon with more than 100+ icon options.
+*   [**Icon Box**](https://gutenverse.com/blocks/icon-box/): Add an information section with an icon box.
+*   [**Icon List**](https://gutenverse.com/blocks/icon-list/): Create a list with icons.
+*   [**Image**](https://gutenverse.com/blocks/image/): Showcase your image.
+*   [**Image Box**](https://gutenverse.com/blocks/image-box/): Add an information section with an image box.
+*   **[PRO]** [**Image Marquee**](https://gutenverse.com/blocks/image-marquee/): Create captivating image carousels or slideshows that showcase multiple images seamlessly.
+*   **[PRO]** [**Lottie**](https://gutenverse.com/blocks/lottie/): Add Lottie files to your website and display them anywhere to capture users' attention with engaging motion graphics.
+*   [**Logo Slider**](https://gutenverse.com/blocks/logo-slider/): Showcase your clients, sponsors, or a list of images on your website.
+*   [**Nav Menu**](https://gutenverse.com/blocks/nav-menu/): Create a navigation menu for your visitor to explore your website.
+*   **[PRO]** [**Mega Menu**](https://gutenverse.com/blocks/mega-menu/): Optimize your website with a mega menu that displays multiple levels of navigation in a drop-down format, making it easier for visitors to navigate.
+*   [**Progress Bar**](https://gutenverse.com/blocks/progress-bar/): Create a progress bar of your achievement or other things you want to share.
+*   [**Search**](https://gutenverse.com/blocks/search/): Create a search bar to easily search your site contents.
+*   [**Social Icons**](https://gutenverse.com/blocks/social-icon/): Show social network links to your website visitors.
+*   [**Social Share**](https://gutenverse.com/blocks/social-share/): Allow your visitor to share the current page.
 *   **Spacer**: Create a spacer to give a gap between content.
-*   [**Star Rating**](https://gutenverse.com/star-rating/): Showcase ratings of anything you want to share.
-*   [**Tabs**](https://gutenverse.com/tabs/): Create content inside a tab block.
-*   **[PRO]** [**Advance Tabs**](https://gutenverse.com/advance-tabs/): Divide contents into several tabs with the title in vertical or horizontal style.
-*   [**Team**](https://gutenverse.com/teams/): Show your team details.
-*   [**Testimonials**](https://gutenverse.com/testimonials/): Showcase your client’s or people’s testimonials.
+*   [**Star Rating**](https://gutenverse.com/blocks/star-rating/): Showcase ratings of anything you want to share.
+*   [**Tabs**](https://gutenverse.com/blocks/tabs/): Create content inside a tab block.
+*   **[PRO]** [**Advance Tabs**](https://gutenverse.com/blocks/advance-tabs/): Divide contents into several tabs with the title in vertical or horizontal style.
+*   [**Team**](https://gutenverse.com/blocks/teams/): Show your team details.
+*   [**Testimonials**](https://gutenverse.com/blocks/testimonials/): Showcase your client’s or people’s testimonials.
 *   **Text Editor**: A place to create text content.
 *   **Text Paragraph**: A place to create a simple text paragraph.
 *   **Video**: Embed a video you want to share.
@@ -178,16 +178,16 @@ Create detailed post templates with highly customizable blocks.
 *   **Condition**: Choose which elements or content should be displayed on the page with a conditional filter.
 *   **Dynamic Data**: Continuously update the elements with the latest content to keep your website's information up to date.
 *   **Highlight Style**: Highlight text with solid colors, and gradients, or fill the background.
-*   [**Main Title Text Clip**](https://gutenverse.com/#textclip): Apply text clipping effects to the main title for a unique visual style.
-*   [**Focus Title Text Clip**](https://gutenverse.com/#textclip): Use text clipping effects to the focus title to improve its visibility.
-*   [**Text Clip**](https://gutenverse.com/#textclip): Make every word and letter stand out using customizable gradient colors, adding a unique and vibrant touch to your content.
+*   **Main Title Text Clip**: Apply text clipping effects to the main title for a unique visual style.
+*   **Focus Title Text Clip**: Use text clipping effects to the focus title to improve its visibility.
+*   **Text Clip**: Make every word and letter stand out using customizable gradient colors, adding a unique and vibrant touch to your content.
 *   **Dynamic Global URL**: Automatically update URLs in the Icon Box based on dynamic data to ensure your links are always relevant.
 *   **Dynamic Image Data**: Display images that automatically refresh with the latest data and are always up-to-date.
 
 
 ## Post Block
 *   **Post Author**: Show the post author's name.
-*   [**Post Blocks**](https://gutenverse.com/post-block/): Showcase a block of posts of your choice.
+*   [**Post Blocks**](https://gutenverse.com/blocks/post-block/): Showcase a block of posts of your choice.
 *   **Post Comment**: Show the comment section of a single post.
 *   **Post Content**: Show the content of your post.
 *   **Post Date**: Show the published/modified date of a single post.
@@ -202,11 +202,11 @@ Create detailed post templates with highly customizable blocks.
 
 ## 🏆 [PRO] Advanced Features
 
-*   [**Advanced Form Builder**](https://gutenverse.com/form/): Design any type of forms that perform using advanced features to collect all types of data for your business in less time.
+*   [**Advanced Form Builder**](https://gutenverse.com/features/form/): Design any type of forms that perform using advanced features to collect all types of data for your business in less time.
 *   **Custom Font**: Personalize your website with custom fonts to match your brand’s unique style.
-*   [**Premium Themes**](https://gutenverse.com/theme-list/): Access a selection of premium themes designed to elevate the look and functionality of your website.
-*   [**Premium Template Library**](https://gutenverse.com/#library): Explore a wide variety of beautifully designed templates to make building your website 
-*   [**Advanced Popup Builder**](https://gutenverse.com/popup/): Packed with premade templates and advanced triggering options, optimize user engagement and conversions on your WordPress websites without needing to code. 
+*   [**Explore Unibiz Theme**](https://gutenverse.com/unibiz/): Access a selection of premium themes designed to elevate the look and functionality of your website.
+*   [**Premium Template Library**](https://gutenverse.com/features/template-library/): Explore a wide variety of beautifully designed templates to make building your website 
+*   [**Advanced Popup Builder**](https://gutenverse.com/features/popup/): Packed with premade templates and advanced triggering options, optimize user engagement and conversions on your WordPress websites without needing to code. 
 
   
 
@@ -298,6 +298,14 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.2.1-dev =
+##### New & Improvemenets
+* improve UI, show which current demo is active
+
+##### Bug Fixes
+* fix post block pagination when there is animation effect
+* fix nav menu overlay style
+
 = 3.2.0 =
 ##### New & Improvemenets
 * add toggle avatar (image) to testimonials block

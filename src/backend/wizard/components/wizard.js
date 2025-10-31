@@ -162,7 +162,7 @@ const SelectBaseTheme = ({ action, setAction, updateProgress, gutenverseWizard, 
                 .then(value => {
                     if (value !== false) {
                         getInstalledThemes(() => {
-                            setInstalling({ show: true, message: 'Theme Installed.', progress: '1/4' });
+                            setInstalling({ show: true, message: 'Theme Installed.', progress: '2/4' });
                         });
                         activateTheme(slug);
                     } else {

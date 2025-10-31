@@ -85,6 +85,12 @@ export const popupPanel = (props) => {
                     max: 100,
                     step: 1
                 },
+                px: {
+                    text: 'px',
+                    min: 100,
+                    max: 2000,
+                    step: 1
+                },
             },
             liveStyle: [
                 {

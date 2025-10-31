@@ -865,14 +865,14 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['overlayBackground']) && data.push({
         'type': 'background',
         'id': 'overlayBackground',
-        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay,  .${elementId}.guten-element.wp-block-gutenverse-nav-menu.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
     });
 
     isNotEmpty(attributes['overlayOpacity']) && data.push({
         'type': 'plain',
         'id': 'overlayOpacity',
         'responsive': true,
-        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, .${elementId}.guten-element.wp-block-gutenverse-nav-menu.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
         'properties': [
             {
                 'name': 'opacity',
@@ -891,7 +891,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['overlayPointer']) && data.push({
         'type': 'plain',
         'id': 'overlayPointer',
-        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, .${elementId}.guten-element.wp-block-gutenverse-nav-menu.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
         'properties': [
             {
                 'name': 'pointer-events',
@@ -908,10 +908,10 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     isNotEmpty(attributes['overlayBlur']) && data.push({
-        'type': 'overlayBlur',
-        'id': 'blur',
+        'type': 'plain',
+        'id': 'overlayBlur',
         'responsive': true,
-        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, .${elementId}.guten-element.wp-block-gutenverse-nav-menu.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
         'properties': [
             {
                 'name': '-webkit-backdrop-filter',
