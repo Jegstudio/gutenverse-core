@@ -102,18 +102,17 @@ class Frontend_Assets {
 	 * Frontend Script
 	 */
 	public function frontend_scripts() {
-		wp_enqueue_style( 'gutenverse-remove-default-style', get_stylesheet_uri() );
+		/**
+		 * Load custom frontend settings
+		 * Enqueue it in wp-block-library so it will be called early
+		 */
+		wp_enqueue_style( 'wp-block-library' );
 
 		$settings = get_option( 'gutenverse-settings' );
 		$default  = '';
 
 		if ( ! isset( $settings['frontend_settings']['remove_template_part_margin'] ) || $settings['frontend_settings']['remove_template_part_margin'] ) {
-			$default = '
-				.wp-block-template-part {
-					margin-block-start: 0;
-					margin-block-end: 0;
-				}
-			';
+			$default = '.wp-block-template-part{margin-block-start:0;margin-block-end:0;}';
 		}
 
 		$enqueue_default = apply_filters(
@@ -123,8 +122,10 @@ class Frontend_Assets {
 		);
 
 		if ( ! empty( $enqueue_default ) ) {
-			wp_add_inline_style( 'gutenverse-remove-default-style', $enqueue_default );
+			wp_add_inline_style( 'wp-block-library', $enqueue_default );
 		}
+
+		// Custom frontend setting end here.
 
 		wp_enqueue_script( 'gutenverse-frontend-event' );
 
