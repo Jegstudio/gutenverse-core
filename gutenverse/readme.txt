@@ -306,6 +306,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix post block pagination when there is animation effect
 * fix bug with postlist featured image aspect ratio by default browser on frontend
 * fix nav menu overlay style
+* fix issue with global color on older block themes
 
 = 3.2.0 =
 ##### New & Improvemenets
