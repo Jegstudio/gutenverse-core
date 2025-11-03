@@ -2488,10 +2488,10 @@ abstract class Style_Interface {
 			if ( $multi ) {
 				foreach ( $positions as $position ) {
 					if ( ! gutenverse_truly_empty( $dimension[ $position ] ) ) {
-						if ( '' === $prefix ) {
-							$styles[] = "{$position}: {$dimension[ $position ]}{$unit};";
-						} else {
+						if ( $prefix ) {
 							$styles[] = "{$prefix}-{$position}: {$dimension[ $position ]}{$unit};";
+						} else {
+							$styles[] = "{$position}: {$dimension[ $position ]}{$unit};";
 						}
 					}
 				}
