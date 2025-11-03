@@ -1,5 +1,5 @@
-import { __ } from '@wordpress/i18n';
-import { useEffect, useState, useRef } from '@wordpress/element';
+import { __, sprintf } from '@wordpress/i18n';
+import { useEffect, useState, useRef, useCallback } from '@wordpress/element';
 import isEmpty from 'lodash/isEmpty';
 import { assignTemplates, fetchingDataImport, getDemo, importingPatterns, importMenus, importPages, installingPlugins, removingPrevious } from '../helper';
 import { ImporterModal } from '../components/importer-modal';
@@ -17,7 +17,7 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
     const [importerCurrent, setImporterCurrent] = useState(0);
     const [importerStatus, setImporterStatus] = useState(0);
     const [demoUsed, setDemoUsed] = useState(false);
-    const loader = useRef();
+    const [debouncedSearch, setDebouncedSearch] = useState('');
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(null);
     const [filter, setFilter] = useState({
@@ -59,6 +59,9 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
             slug: ''
         }
     ]);
+
+    const searchRef = useRef('');
+    const loader = useRef();
 
     const updateTemplateStatus = (title) => {
         setTemplateList(prevTemplateList =>
@@ -104,7 +107,12 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
                     .replace(/^-+|-+$/g, ''));
             }
         });
-        setImporterNotice(`Importing “${template.title}” demo in progress...`);
+        setImporterNotice(
+            sprintf(
+                __('Importing "%s" demo in progress...', 'gutenverse'),
+                `<strong>${template.title}</strong>`
+            )
+        );
 
         let promise = Promise.resolve();
         steps.forEach((el, index) => {
@@ -262,11 +270,26 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
         setTemplateList(['initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial']);
     }, [filter]);
 
-    const handleSearch = (input) => {
-        setSearch(input);
-        setPage(1);
-        setTemplateList(['initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial']);
+
+    const handleChange = (e) => {
+        searchRef.current = e.target.value;
+        triggerDebounce();
     };
+
+    const triggerDebounce = useCallback(() => {
+        clearTimeout(triggerDebounce.timer);
+        triggerDebounce.timer = setTimeout(() => {
+            setDebouncedSearch(searchRef.current);
+        }, 500);
+    }, []);
+
+    useEffect(() => {
+        if (debouncedSearch !== null) {
+            setSearch(debouncedSearch);
+            setPage(1);
+            setTemplateList(Array(12).fill('initial'));
+        }
+    }, [debouncedSearch]);
 
     const handleOpened = (type) => {
         if (type === selectedFilter) {
@@ -335,11 +358,10 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
             template={selectedTemplate}
             templateList={templateList}
             importTemplates={importTemplates}
-            setSelectedTemplate={setSelectedTemplate}
             content={modalContent}
         />}
         <div className="template-title">
-            <h1 className="content-title">{__('Choose Prebuilt Templates', 'gutenverse')}</h1>
+            <h1 className="content-title">{__('Choose Prebuilt Demo', 'gutenverse')}</h1>
             <p>{__('Discover a wide selection of themes, each carefully crafted to meet the unique needs of your website. Whether you\'re building a blog, portfolio, or business site.', 'gutenverse')}</p>
         </div>
         <div className="search-filter-wrapper">
@@ -368,7 +390,7 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
                 </div>
             </div>
             <div className="search-input-wrapper">
-                <input type="text" name="search" className="search-form-field" value={search} onChange={e => handleSearch(e.target.value)} placeholder="Search demo..." />
+                <input type="text" name="search" className="search-form-field" onChange={handleChange} placeholder="Search demo..." />
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4.79141 3.15435e-07C4.04195 0.000400896 3.30304 0.176619 2.63406 0.514491C1.96508 0.852363 1.3847 1.34246 0.939564 1.94541C0.494425 2.54835 0.196943 3.24731 0.0710301 3.98611C-0.0548833 4.72492 -0.00571694 5.48296 0.214578 6.19931C0.434872 6.91566 0.820151 7.57033 1.33945 8.11072C1.85874 8.65111 2.49757 9.06213 3.20459 9.31076C3.9116 9.55938 4.66709 9.63868 5.41032 9.54226C6.15355 9.44585 6.86379 9.17641 7.48397 8.75562L10.4448 11.7141C10.5271 11.8023 10.6262 11.8731 10.7364 11.9222C10.8466 11.9713 10.9656 11.9977 11.0862 11.9999C11.2068 12.002 11.3266 11.9798 11.4385 11.9346C11.5503 11.8894 11.652 11.8222 11.7373 11.7369C11.8226 11.6516 11.8898 11.55 11.935 11.4381C11.9802 11.3263 12.0024 11.2065 12.0002 11.0858C11.9981 10.9652 11.9717 10.8463 11.9226 10.7361C11.8735 10.6259 11.8027 10.5267 11.7145 10.4445L8.75599 7.4836C9.24544 6.76324 9.52927 5.9231 9.57699 5.05351C9.6247 4.18392 9.43448 3.31776 9.02678 2.54819C8.61908 1.77861 8.00932 1.13471 7.26307 0.685737C6.51682 0.23676 5.66231 -0.000315659 4.79141 3.15435e-07ZM1.79701 4.79104C1.79701 3.99687 2.11249 3.23524 2.67405 2.67368C3.23561 2.11212 3.99724 1.79664 4.79141 1.79664C5.58557 1.79664 6.34721 2.11212 6.90876 2.67368C7.47032 3.23524 7.7858 3.99687 7.7858 4.79104C7.7858 5.5852 7.47032 6.34684 6.90876 6.9084C6.34721 7.46995 5.58557 7.78543 4.79141 7.78543C3.99724 7.78543 3.23561 7.46995 2.67405 6.9084C2.11249 6.34684 1.79701 5.5852 1.79701 4.79104Z" fill="#99A2A9" />
                 </svg>
@@ -379,7 +401,7 @@ export const ImportTemplates = ({ updateProgress, emptyLicense }) => {
             <div className="template-actions">
                 <div onClick={() => updateProgress('pluginAndTheme', 1)} className="button-back">
                     <svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 5.1C15.3314 5.1 15.6 4.83137 15.6 4.5C15.6 4.16863 15.3314 3.9 15 3.9V5.1ZM0.575736 4.07574C0.341421 4.31005 0.341421 4.68995 0.575736 4.92426L4.39411 8.74264C4.62843 8.97696 5.00833 8.97696 5.24264 8.74264C5.47696 8.50833 5.47696 8.12843 5.24264 7.89411L1.84853 4.5L5.24264 1.10589C5.47696 0.871573 5.47696 0.491674 5.24264 0.257359C5.00833 0.0230446 4.62843 0.0230446 4.39411 0.257359L0.575736 4.07574ZM15 3.9L1 3.9V5.1L15 5.1V3.9Z" fill="#99A2A9" />
+                        <path d="M15 5.1C15.3314 5.1 15.6 4.83137 15.6 4.5C15.6 4.16863 15.3314 3.9 15 3.9V5.1ZM0.575736 4.07574C0.341421 4.31005 0.341421 4.68995 0.575736 4.92426L4.39411 8.74264C4.62843 8.97696 5.00833 8.97696 5.24264 8.74264C5.47696 8.50833 5.47696 8.12843 5.24264 7.89411L1.84853 4.5L5.24264 1.10589C5.47696 0.871573 5.47696 0.491674 5.24264 0.257359C5.00833 0.0230446 4.62843 0.0230446 4.39411 0.257359L0.575736 4.07574ZM15 3.9L1 3.9V5.1L15 5.1V3.9Z" fill="currentColor" />
                     </svg>
                     {__('Back', 'gutenverse')}
                 </div>

@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/heading",
 	"title": "Heading",
 	"description": "Create Title/Heading on your page.",
@@ -28,11 +28,11 @@
 		},
 		"dynamicTextContent": {
 			"type": "array",
-			"copyStyle" : true
+			"copyStyle": true
 		},
 		"dynamicUrlContent": {
 			"type": "array",
-			"copyStyle" : true
+			"copyStyle": true
 		},
 		"type": {
 			"type": "number",
@@ -50,8 +50,8 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"containsAnchorTag" : {
-			"type" : "boolean",
+		"containsAnchorTag": {
+			"type": "boolean",
 			"copyStyle": true
 		},
 		"linkColor": {
@@ -211,14 +211,14 @@
 			"type": "array",
 			"default": []
 		},
-		"openChild":{
-			"type":"string"
+		"openChild": {
+			"type": "string"
 		},
 		"mask": {
 			"type": "object",
 			"copyStyle": true
 		},
-		
+
 		"textClip": {
 			"type": "object",
 			"default": {},
@@ -234,5 +234,5 @@
 		"reusable": false,
 		"html": false
 	},
-	"keywords": ["heading", "text", "title"]
+	"keywords": ["heading", "texts", "title"]
 }

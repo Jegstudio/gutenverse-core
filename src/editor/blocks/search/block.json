@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/search",
 	"title": "Search",
 	"description": "Gutenverse Search",
@@ -162,8 +162,8 @@
 			"type": "object",
 			"default": {
 				"Desktop": {
-					"point":"350",
-					"unit":"px"
+					"point": "350",
+					"unit": "px"
 				}
 			}
 		},
@@ -280,10 +280,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"search",
-		"gutenverse"
-	],
+	"keywords": ["search", "gutenverse"],
 	"example": {
 		"elementId": "guten-preview-search"
 	}

@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/post-content",
 	"class_callback": "\\Gutenverse\\Block\\Post_Content",
 	"title": "Post Content",
@@ -172,17 +172,10 @@
 			"default": {}
 		}
 	},
-	"usesContext": [
-		"postId",
-		"postType",
-		"queryId"
-	],
+	"usesContext": ["postId", "postType", "queryId"],
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"post",
-		"title"
-	]
+	"keywords": ["single", "post", "title"]
 }

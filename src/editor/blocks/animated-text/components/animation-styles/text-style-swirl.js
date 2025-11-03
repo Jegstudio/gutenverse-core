@@ -18,7 +18,7 @@ const textStyleSwirl = (props) => {
         delay: (el, i) => animationDuration * i,
     });
 
-    if (loop || (isRotationType && !stopRotating())) {
+    if (loop || (isRotationType && !stopRotating)) {
         animationRef.current.add({
             targets: targetRef.current,
             delay: displayDuration,

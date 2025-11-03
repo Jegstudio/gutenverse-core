@@ -14,7 +14,6 @@ export const ImporterModal = ({
     close = () => { },
     template = {},
     templateList = [],
-    setSelectedTemplate = () => { },
     content,
     updateTemplateStatus,
     setModal,
@@ -96,7 +95,6 @@ export const ImporterModal = ({
                 setStatus={setStatus}
                 template={template}
                 templateList={templateList}
-                setSelectedTemplate={setSelectedTemplate}
                 close={close}
                 additional={additional}
                 handleCheckboxChange={handleCheckboxChange}
@@ -176,7 +174,7 @@ const ModalContent = ({
             ];
         }
         setImporterStep(importStep);
-        importTemplates(template, templateList.find(template => template?.status?.using_template), importStep, additional);
+        importTemplates(selectedTemplate, templateList.find(template => template?.status?.using_template), importStep, additional);
     };
     const handleDone = () => {
         updateTemplateStatus(template?.title);
@@ -261,7 +259,7 @@ const ModalContent = ({
                     </div>
                     <div className="importer-step">
                         <div className="import-step-notice">
-                            {importerNotice}
+                            <p dangerouslySetInnerHTML={{__html: importerNotice}}/>
                         </div>
                         <div className="importer-inner-step">
                             {importerStep.map((step, index) => {
@@ -302,12 +300,16 @@ const ModalContent = ({
         case 'settings':
             const importProcess = [
                 {
-                    label: 'Installed All Required Plugins',
+                    label: 'Installing All Required Plugins',
                     desc: 'Install and activate all required plugins to ensure this demo functions correctly.'
                 },
                 {
                     label: 'Import All Pages & Contents',
                     desc: 'All demo pages and content will be imported to match the demo layout.'
+                },
+                {
+                    label: 'Import Global Styles',
+                    desc: 'The global styles for this demo will be imported to match the demo layout.'
                 },
                 {
                     label: 'Import Menu',
@@ -335,7 +337,7 @@ const ModalContent = ({
                     </div>
                     <div className="importer-step">
                         <div className="import-step-notice">
-                            <p>{__('Select the options below to import this demo:', 'gutenverse')}</p>
+                            <p>{__('Here’s what will be installed and imported:', 'gutenverse')}</p>
                         </div>
                         <div className="importer-inner-step">
                             {importProcess.map((process, key) => (
@@ -392,7 +394,7 @@ const ModalContent = ({
                     </div>
                     <div className="importer-step">
                         <div className="import-step-notice">
-                            <p>{__('Select the options below to import this demo:', 'gutenverse')}</p>
+                            <p>{__('Here’s what will be installed and imported:', 'gutenverse')}</p>
                         </div>
                         <div className="importer-inner-step">
                             {confirmationWarning.map((process, key) => (

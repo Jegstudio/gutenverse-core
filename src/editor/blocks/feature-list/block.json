@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/feature-list",
 	"title": "Feature List",
 	"description": "Add an information section with icon box.",
@@ -305,8 +305,5 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"feature",
-		"list"
-	]
+	"keywords": ["feature", "list", "texts"]
 }

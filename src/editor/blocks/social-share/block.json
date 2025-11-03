@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/social-share",
 	"title": "Social Share",
 	"description": "Allow your visitor to share the current page",
@@ -244,9 +244,7 @@
 			"attributes": {
 				"orientation": "horizontal"
 			},
-			"scope": [
-				"transform"
-			]
+			"scope": ["transform"]
 		},
 		{
 			"name": "social-share-vertical",
@@ -255,16 +253,11 @@
 			"attributes": {
 				"orientation": "vertical"
 			},
-			"scope": [
-				"transform"
-			]
+			"scope": ["transform"]
 		}
 	],
 	"supports": {
 		"className": false
 	},
-	"keywords": [
-		"social",
-		"share"
-	]
+	"keywords": ["social", "share", "link"]
 }

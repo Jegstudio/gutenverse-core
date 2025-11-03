@@ -150,7 +150,7 @@ const IconListItemBlock = (props) => {
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
-                    props,
+                    {...props, setPanelState},
                     iconListItemPanelState
                 )}
                 <ToolbarButton

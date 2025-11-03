@@ -1,5 +1,5 @@
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenverse/post-excerpt",
 	"class_callback": "\\Gutenverse\\Block\\Post_Excerpt",
 	"title": "Post Excerpt",
@@ -186,17 +186,10 @@
 			"default": {}
 		}
 	},
-	"usesContext": [
-		"postId",
-		"postType",
-		"queryId"
-	],
+	"usesContext": ["postId", "postType", "queryId"],
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": [
-		"post",
-		"excerpt"
-	]
+	"keywords": ["single", "post", "excerpt"]
 }

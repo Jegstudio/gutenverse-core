@@ -121,7 +121,7 @@ export const installingPlugins = (template, setImporterStatus) => {
                 version: template.gutenverse,
                 url: ''
             },
-            ...template.requirements,
+            ...template?.requirements,
         ];
 
         const plugins = pluginsList.map(plgn => ({

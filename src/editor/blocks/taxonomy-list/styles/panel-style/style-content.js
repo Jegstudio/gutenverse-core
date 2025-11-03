@@ -1,6 +1,10 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const contentStyle = (elementId, attributes, data) => {
+
+    const deviceType = getDeviceType();
+
     isNotEmpty(attributes['contentAlignment']) && data.push({
         'type': 'plain',
         'id': 'contentAlignment',
@@ -14,23 +18,70 @@ const contentStyle = (elementId, attributes, data) => {
         ],
     });
 
+    // Vertical
     isNotEmpty(attributes['contentSpacing']) && data.push({
         'type': 'unitPoint',
         'id': 'contentSpacing',
         'responsive': true,
-        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+        'selector': `.${elementId} .taxonomy-list-wrapper`,
         'properties': [
             {
-                'name': 'padding',
+                'name': 'row-gap',
                 'valueType': 'pattern',
-                'pattern' : attributes['layout'] === 'column' ? 'calc({value}/2) 0' : '0 calc({value}/2)',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
         ],
+    });
+
+    // Horizontal
+    isNotEmpty(attributes['contentSpacingHorizontal']) && attributes['layout'] !== 'column' && data.push({
+        'type': 'unitPoint',
+        'id': 'contentSpacingHorizontal',
+        'responsive': true,
+        'selector': `.${elementId} .taxonomy-list-wrapper`,
+        'properties': [
+            {
+                'name': 'column-gap',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['itemWidth']) && isNotEmpty(attributes['itemWidth'][deviceType]) && attributes['itemWidth'][deviceType] !== 'custom' && attributes['layout'] === 'row' && data.push({
+        'type': 'plain',
+        'id': 'itemWidth',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'direct',
+            }
+        ],
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+    });
+
+    isNotEmpty(attributes['customItemWidth']) && isNotEmpty(attributes['itemWidth']) && isNotEmpty(attributes['itemWidth'][deviceType]) && attributes['itemWidth'][deviceType] === 'custom' && attributes['layout'] === 'row' && data.push({
+        'type': 'unitPoint',
+        'id': 'customItemWidth',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
     });
 
     isNotEmpty(attributes['contentTypography']) && data.push({
@@ -43,10 +94,10 @@ const contentStyle = (elementId, attributes, data) => {
         'type': 'color',
         'id': 'contentColor',
         'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a`,
-        'properties' : [
+        'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct'
+                'name': 'color',
+                'valueType': 'direct'
             }
         ]
     });
@@ -55,10 +106,10 @@ const contentStyle = (elementId, attributes, data) => {
         'type': 'color',
         'id': 'contentColorHover',
         'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a:hover`,
-        'properties' : [
+        'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct'
+                'name': 'color',
+                'valueType': 'direct'
             }
         ]
     });
