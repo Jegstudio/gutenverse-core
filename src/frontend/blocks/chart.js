@@ -109,7 +109,7 @@ class GutenverseChart extends Default {
             multiValue,
             elementId
         } = chartData;
-        console.log(chartData, chartType);
+        // console.log(chartData, chartType);
 
         const chartId = `#chart-${elementId}`;
         const device = this._getDeviceType();
@@ -117,6 +117,7 @@ class GutenverseChart extends Default {
         const height = 200;
         const radius = Math.min(width, height) / 2;
         const data = chartItems;
+        console.log({totalValue});
 
         const svg = select(chartId)
             .append('svg')
@@ -127,7 +128,7 @@ class GutenverseChart extends Default {
 
         // === Chart Type ===
         if (chartType === 'doughnut') {
-            this._drawDonutChart(svg, data, radius, chartId, animationDuration);
+            this._drawDonutChart(svg, data, radius, chartId, animationDuration, chartContent);
         } else if (chartType === 'bar') {
             this._drawBarChart({svg, data, width, height, animationDuration, barThickness});
         }
@@ -164,8 +165,36 @@ class GutenverseChart extends Default {
         });
     }
 
-    _drawDonutChart(svg, data, radius, chartId, animationDuration = 800) {
-    // Append gradient defs if needed
+    _drawDonutChart(svg, data, radius, chartId, animationDuration = 800, chartContent) {
+        if(chartContent === 'percentage') {
+            let flag = 100;
+            for (const dataChart of data) {
+                flag -= dataChart.value;
+                if (flag < 0) break;
+            }
+            data = flag !== 0 ? [
+                ...data,
+                {
+                    label: '',
+                    value: flag,
+                    backgroundColor: {
+                        r: 255,
+                        g: 255,
+                        b: 255,
+                        a: 0
+                    },
+                    borderColor: {
+                        r: 255,
+                        g: 255,
+                        b: 255,
+                        a: 1
+                    },
+                    borderWidth: 0,
+                    _key: '00000'
+                }
+            ] : data;
+        }
+        // Append gradient defs if needed
         this._appendGradientDefs(svg, data);
 
         const pieGenerator = pie()
@@ -198,7 +227,6 @@ class GutenverseChart extends Default {
 
         // Animate
         arcs.transition()
-            .delay((d, i) => i * 150)
             .ease(easeCubic)
             .duration(animationDuration)
             .attrTween('d', function (d) {
@@ -238,7 +266,7 @@ class GutenverseChart extends Default {
             barThickness,
             enableGrid = true
         } = props;
-        console.log(props);
+        // console.log(props);
 
         this._appendGradientDefs(svg, data);
 
@@ -359,13 +387,13 @@ class GutenverseChart extends Default {
             .text(''); // empty until animated
 
         // === Animate Labels (start slightly later) ===
-        console.log({animationDuration});
+        // console.log({animationDuration});
         labels.transition()
             .ease(easeCubic)
             .delay((d, i) => i * 120)
             .duration(parseInt(animationDuration) + 700)
             .attr('y', d => {
-                console.log(d.value);
+                // console.log(d.value);
                 return y(d.value) - 5;
             })
             .tween('text', function (d) {
