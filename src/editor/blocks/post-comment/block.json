@@ -6,7 +6,6 @@
 	"description": "Show comment section of a single post.",
 	"category": "gutenverse-post",
 	"allowCopyStyle": true,
-	"viewScript": ["gutenverse-frontend-post-comment-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -516,5 +515,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["single", "post", "comment"]
+	"keywords": ["single", "post", "comment"],
+	"viewScript": ["gutenverse-frontend-post-comment-script"],
+	"style": ["gutenverse-frontend-post-comment-style"]
 }

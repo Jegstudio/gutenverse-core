@@ -102,5 +102,6 @@
 		"innerBlocks": true,
 		"anchor": true
 	},
-	"keywords": ["tabs", "accordions", "dropdown", "expand", "panels"]
+	"keywords": ["tabs", "accordions", "dropdown", "expand", "panels"],
+	"style": ["gutenverse-frontend-accordion-style"]
 }

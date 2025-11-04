@@ -191,5 +191,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["single", "post", "excerpt"]
+	"keywords": ["single", "post", "excerpt"],
+	"style": ["gutenverse-frontend-post-excerpt-style"]
 }

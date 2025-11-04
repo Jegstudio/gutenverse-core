@@ -235,5 +235,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["texts", "editor", "textarea", "paragraph"]
+	"keywords": ["texts", "editor", "textarea", "paragraph"],
+	"style": ["gutenverse-frontend-text-editor-style"]
 }

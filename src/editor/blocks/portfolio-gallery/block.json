@@ -5,7 +5,6 @@
 	"description": "Showcase your portfolio in image tab gallery",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
-	"viewScript": ["gutenverse-frontend-portfolio-gallery-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -323,5 +322,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["gallery", "image", "tab", "portofolio"]
+	"keywords": ["gallery", "image", "tab", "portofolio"],
+	"viewScript": ["gutenverse-frontend-portfolio-gallery-script"],
+	"style": ["gutenverse-frontend-portfolio-gallery-style"]
 }
