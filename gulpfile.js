@@ -42,10 +42,6 @@ const blocksDir = path.resolve(__dirname, './src/blocks');
 const blocksStyle = blocksDir + '/**/styles/style.scss';
 const finalDest = path.join(__dirname, 'framework/assets/css/frontend');
 
-if (blocksDir.endsWith(path.sep)) {
-    console.error("FATAL ERROR: blocksDir ends with a slash, this breaks the glob!");
-}
-
 gulp.task('frontend-block-styles', function () {
     return gulp
         .src([blocksStyle])
