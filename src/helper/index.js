@@ -1,5 +1,5 @@
 import { AES, enc, mode, pad } from 'crypto-js';
-import isEmpty from 'lodash/isEmpty';
+import isEmptyLodash from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
 import isEqualLodash from 'lodash/isEqual';
 import { select } from '@wordpress/data';
@@ -8,9 +8,11 @@ import { useSetting, useSettings, store as blockEditorStore } from '@wordpress/b
 import { store as editorStore } from '@wordpress/editor';
 import apiFetch from '@wordpress/api-fetch';
 
+export const isEmpty = value => isEmptyLodash(value);
+
 export const isEqual = (item1, item2) => isEqualLodash(item1, item2);
 
-export const check = val => isArray(val) && !isEmpty(val);
+export const check = val => isArray(val) && !isEmptyLodash(val);
 
 export const getFixData = (value, index) => value[index()];
 

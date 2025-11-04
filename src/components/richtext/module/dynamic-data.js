@@ -1,8 +1,7 @@
 import { useEffect, useState } from '@wordpress/element';
 import u from 'umbrellajs';
 import { applyFilters } from '@wordpress/hooks';
-import isEmpty from 'lodash/isEmpty';
-import _ from 'lodash';
+import { isEmpty, isEqual } from 'gutenverse-core/helper';
 import { isOnEditor } from 'gutenverse-core/helper';
 
 export const dynamicData = (props) => {
@@ -365,7 +364,7 @@ export const dynamicData = (props) => {
                                 setDynamicText(prevState => {
                                     const newState = [...prevState];
                                     newState[index] = result;
-                                    if (!_.isEqual(textContent, newState) || !isEmpty(dynamicText) || dynamicText.length > 0) {
+                                    if (!isEqual(textContent, newState) || !isEmpty(dynamicText) || dynamicText.length > 0) {
                                         setAttributes({dynamicTextContent: newState});
                                     }
                                     return newState;
@@ -388,7 +387,7 @@ export const dynamicData = (props) => {
                                 setDynamicUrl(prevState => {
                                     const newState = [...prevState];
                                     newState[index] = result;
-                                    if (!_.isEqual(urlContent, newState) || !isEmpty(dynamicUrl) || dynamicUrl.length > 0) {
+                                    if (!isEqual(urlContent, newState) || !isEmpty(dynamicUrl) || dynamicUrl.length > 0) {
                                         setAttributes({dynamicUrlContent: newState});
                                     }
                                     return newState;

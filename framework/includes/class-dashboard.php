@@ -228,7 +228,7 @@ class Dashboard {
 		if ( in_array( 'gutenverse-companion/gutenverse-companion.php', $config['activePlugins'], true ) || in_array( 'gutenverse-companion', $config['activePlugins'], true ) ) {
 			$config['companionActive'] = true;
 		} else {
-			$config['companionActive'] = false;
+			$config['companionActive'] = 'false';
 		}
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );

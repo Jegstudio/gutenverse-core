@@ -1,6 +1,6 @@
 import { isNotEmpty, responsiveBreakpoint, variableColorName, variableFontName } from 'gutenverse-core/helper';
 import { DeviceLoop, deviceStyleValue, elementVar, injectFont, normalAppender, responsiveAppender } from '../styling-utility';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'gutenverse-core/helper';
 import { hexToRgb, renderColor } from 'gutenverse-core/editor-helper';
 import { dispatch, select } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
