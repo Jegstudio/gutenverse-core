@@ -36,10 +36,15 @@ html :where(.editor-styles-wrapper) {
 // Responsive
 @import "./responsive/responsive-editor";
 
-// Blocks
+// Blocks Editor
 @import "../blocks/section/styles/editor";
 @import "../blocks/column/styles/editor";
 @import "../blocks/wrapper/styles/editor";
+
+// Blocks Frontend
+@import "../blocks/section/styles/style";
+@import "../blocks/column/styles/style";
+@import "../blocks/wrapper/styles/style";
 
 .guten-raw-wrapper {
 	width: 100%;
