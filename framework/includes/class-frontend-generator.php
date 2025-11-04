@@ -285,7 +285,7 @@ class Frontend_Generator {
 		foreach ( $blocks as $block ) {
 			$this->generate_block_style( $block, $style );
 
-			$this->check_attributes( $block['attrs'] );
+			$this->check_attributes( $block['attrs'], $block['blockName'] );
 
 			if ( 'core/template-part' === $block['blockName'] ) {
 				$parts = $this->get_template_part_content( $block['attrs'] );
@@ -444,9 +444,10 @@ class Frontend_Generator {
 	 *
 	 * @since 3.3.0-dev
 	 * 
-	 * @param array $attrs attributes data
+	 * @param array  $attrs attributes data
+	 * @param string $block_name block name.
 	 */
-	public function check_attributes( $attrs ) {
+	public function check_attributes( $attrs, $block_name ) {
 		if ( empty( $attrs ) ) {
 			return;
 		}
@@ -507,7 +508,7 @@ class Frontend_Generator {
 			);
 		}
 
-		$conditions = apply_filters( 'gutenverse_modular_script_conditions', $conditions, $attrs );
+		$conditions = apply_filters( 'gutenverse_modular_script_conditions', $conditions, $attrs, $block_name );
 
 		foreach ( $conditions as $condition ) {
 			$this->add_script( $condition );
@@ -648,9 +649,10 @@ class Frontend_Generator {
 
 		$required_handles = apply_filters( 'gutenverse_modular_script_handles', $this->script_list );
 
+		
 		// remove duplicates
 		$required_handles = array_values( array_unique( $this->script_list ) );
-
+		
 		if ( ! empty( $required_handles ) ) {
 			foreach ( $required_handles as $handle ) {
 				wp_enqueue_script( $handle );
