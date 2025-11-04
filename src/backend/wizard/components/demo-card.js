@@ -4,6 +4,7 @@ import { formatArray } from '../helper';
 import { useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { applyFilters } from '@wordpress/hooks';
+import classnames from 'classnames';
 
 export const DemoCard = ({
     template,
@@ -31,8 +32,17 @@ export const DemoCard = ({
             setModal(false);
             return;
         }).finally(() => setLoading(false));
-    }
-    return <div className={`template-page ${template?.cover ? '' : 'loading'}`} key={key}>
+    };
+
+    const templatePageClasses = classnames(
+        'template-page',
+        {
+            'loading': !template || !template?.cover,
+            'active': template?.status?.using_template,
+        },
+    );
+
+    return <div className={templatePageClasses} key={key}>
         {template.pro && <div className="pro-flag">{__('PRO', 'gutenverse')}</div>}
         <div className="template-thumbnail">
             {template?.cover ? <img src={template?.cover} /> : <div className="no-image"></div>}
@@ -43,9 +53,10 @@ export const DemoCard = ({
                             <p className="required-title">Required License</p>
                             <p className="required-tier">{formatArray(template?.status?.required_tier)}</p>
                         </div>
-                    </>
+                    </>;
                 }, () => <></>, template?.status?.required_tier) : <></>
             }
+            {template?.status?.using_template && <div className="overlay-active"><p>{__('Currently Active', 'gutenverse-companion')}</p></div>}
         </div>
         <div className="template-page-desc">
             {

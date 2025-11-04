@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ColorControl, NumberControl, RangeControl, SelectControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
 import { isYoutubeUrl } from 'gutenverse-core/helper';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'gutenverse-core/helper';
 
 export const videoPanel = (props) => {
     const {

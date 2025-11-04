@@ -12,14 +12,12 @@ import { URLToolbar } from 'gutenverse-core/toolbars';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { useEffect } from '@wordpress/element';
 import { useRef } from '@wordpress/element';
-import { isEmpty } from 'lodash';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
-import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
-import { useRichTextParameter } from 'gutenverse-core/helper';
+import { useRichTextParameter, isEmpty, isOnEditor } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
