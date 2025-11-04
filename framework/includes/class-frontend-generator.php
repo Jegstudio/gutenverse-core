@@ -22,7 +22,7 @@ use Gutenverse\Framework\Style\Section;
  * 		- Add few functions to load scripts conditionally: 
  * 				- check_attributes
  * 				- add_script
- * 				- load_modular_script
+ * 				- load_conditional_scripts
  *
  * @package gutenverse-framework
  */
@@ -59,8 +59,8 @@ class Frontend_Generator {
 		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 31 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'widget_style_generator' ) );
 		add_action( 'gutenverse_include_frontend', array( $this, 'embeed_font_generator' ), 50 );
-		add_action( 'gutenverse_include_frontend', array( $this, 'load_modular_script' ), 51 );
-		add_action( 'gutenverse_include_frontend', array( $this, 'load_modular_style' ) );
+		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_scripts' ), 51 );
+		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_styles' ) );
 	}
 
 	/**
@@ -509,7 +509,7 @@ class Frontend_Generator {
 			);
 		}
 
-		$conditions = apply_filters( 'gutenverse_modular_script_conditions', $conditions, $attrs, $block_name );
+		$conditions = apply_filters( 'gutenverse_conditional_script_attributes', $conditions, $attrs, $block_name );
 
 		foreach ( $conditions as $condition ) {
 			$this->add_script( $condition );
@@ -615,7 +615,7 @@ class Frontend_Generator {
 	 * 
 	 * @since 3.3.0-dev
 	 */
-	public function load_modular_script() {
+	public function load_conditional_scripts() {
 		wp_register_script(
 			'gutenverse-core-frontend-animation-basic-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/animation-basic.js',
@@ -648,7 +648,7 @@ class Frontend_Generator {
 			true
 		);
 
-		$required_handles = apply_filters( 'gutenverse_modular_script_handles', $this->script_list );
+		$required_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
 
 		
 		// remove duplicates
@@ -666,7 +666,7 @@ class Frontend_Generator {
 	 * 
 	 * @since 3.3.0-dev
 	 */
-	public function load_modular_style() {
+	public function load_conditional_styles() {
 		$blocks = array(
 			'column',
 			'section',

@@ -58,7 +58,7 @@ class Frontend_Cache {
 		add_filter( 'gutenverse_frontend_render_mechanism', array( $this, 'render_mechanism' ) );
 		add_filter( 'gutenverse_bypass_generate_style', array( $this, 'bypass_generate_css' ), null, 3 );
 		add_filter( 'gutenverse_global_fonts', array( $this, 'global_fonts' ), null, 2 );
-		add_filter( 'gutenverse_modular_script_handles', array( $this, 'script_handles' ), null, 2 );
+		add_filter( 'gutenverse_conditional_script_handles', array( $this, 'script_handles' ), null, 2 );
 		add_filter( 'gutenverse_render_generated_style', array( $this, 'render_style' ), null, 4 );
 	}
 
