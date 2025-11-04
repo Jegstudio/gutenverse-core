@@ -83,6 +83,18 @@ const renderFunctionValue = (functionName, functionProps, attribute, otherAttrib
                 value = `${attribute['point']}${attribute['unit']}`;
             }
             break;
+        case 'handleUseOtherAttribute':
+            const {theAttribute} = otherAttribute;
+            if ( deviceType ) {
+                if (theAttribute[deviceType] && theAttribute[deviceType]['point']) {
+                    value = `${theAttribute[deviceType]['point']}${theAttribute[deviceType]['unit']}`;
+                }
+            } else {
+                if (theAttribute && theAttribute['point']) {
+                    value = `${theAttribute['point']}${theAttribute['unit']}`;
+                }
+            }
+            break;
         default:
             break;
     }
