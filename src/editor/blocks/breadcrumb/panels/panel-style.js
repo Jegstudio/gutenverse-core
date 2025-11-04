@@ -48,9 +48,18 @@ export const stylePanel = () => {
             component: ColorControl,
         },
         {
-            id: 'arrowColor',
+            id: 'iconColor',
             component: ColorControl,
-            label: __('Arrow Color', 'gutenverse-news'),
+            label: __('icon Color', 'gutenverse-news'),
+        },
+        {
+            id: 'iconSize',
+            label: __('Icon Size', 'gutenverse-news'),
+            component: RangeControl,
+            min: 1,
+            max: 100,
+            unit: 'px',
+            step: 1,
         },
         {
             id: 'gap',

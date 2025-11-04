@@ -135,14 +135,27 @@ class Breadcrumb extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['arrowColor'] ) ) {
+		if ( isset( $this->attrs['iconColor'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-element.{$this->element_id}.guten-breadcrumb .breadcrumb-nav li.separator",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
-					'value'          => $this->attrs['arrowColor'],
+					'value'          => $this->attrs['iconColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['iconSize'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-element.{$this->element_id}.guten-breadcrumb .breadcrumb-nav li.separator i",
+					'property'       => function ( $value ) {
+						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['iconSize'],
 					'device_control' => false,
 				)
 			);

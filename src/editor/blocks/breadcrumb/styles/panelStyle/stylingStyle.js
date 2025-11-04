@@ -30,10 +30,7 @@ const stylingStyle = (props) => {
     isNotEmpty(attributes['typography']) && data.push({
         'id': 'typography',
         'type': 'typography',
-        'selector': `
-                    .guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li span,
-                    .guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li i
-                    `,
+        'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li span`,
     });
 
     isNotEmpty(attributes['gap']) && data.push({
@@ -100,9 +97,9 @@ const stylingStyle = (props) => {
         ],
     });
 
-    isNotEmpty(attributes['arrowColor']) && data.push({
+    isNotEmpty(attributes['iconColor']) && data.push({
         'type': 'color',
-        'id': 'arrowColor',
+        'id': 'iconColor',
         'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li.separator`,
         'properties': [
             {
@@ -110,6 +107,24 @@ const stylingStyle = (props) => {
                 'valueType': 'direct'
             }
         ],
+    });
+
+    isNotEmpty(attributes['iconSize']) && data.push({
+        'id': 'iconSize',
+        'type': 'plain',
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    }
+                }
+            },
+        ],
+        'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li.separator i`,
     });
 
     return data;

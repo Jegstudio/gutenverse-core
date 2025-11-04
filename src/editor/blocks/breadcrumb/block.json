@@ -88,9 +88,12 @@
 		"gap": {
             "type":"string"
         },
-		"arrowColor": {
+		"iconColor": {
             "type": "object"
         },
+		"iconSize":{
+			"type":"string"
+		},
 		"hideCurrentTitle": {
 			"type":"boolean",
 			"default": false
