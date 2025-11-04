@@ -211,6 +211,19 @@ class Icon_List extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['adjustVerticalAlign'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-icon-list-item i:before",
+					'property'       => function ( $value ) {
+						return "margin-top: {$value}px";
+					},
+					'value'          => $this->attrs['adjustVerticalAlign'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['textColorHover'] ) ) {
 			$this->inject_style(
 				array(
@@ -246,7 +259,21 @@ class Icon_List extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+
+			if ( isset( $this->attrs['textTypography']['lineHeight'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-list-item i",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'line-height' );
+						},
+						'value'          => $this->attrs['textTypography']['lineHeight'],
+						'device_control' => true,
+					)
+				);
+			}
 		}
+		
 		if ( isset( $this->attrs['isDivider'] ) ) {
 			if ( $this->attrs['isDivider'] ) {
 				$this->inject_style(

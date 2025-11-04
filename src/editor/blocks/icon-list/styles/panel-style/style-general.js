@@ -294,6 +294,26 @@ const panelGeneralStyle = (elementId, attributes, data) => {
         'selector': `.${elementId} .list-wrapper .guten-icon-list-item a`,
     });
 
+
+    isNotEmpty(attributes['adjustVerticalAlign']) && attributes['verticalAlign'] === 'flex-start' && data.push({
+        'type': 'plain',
+        'id': 'adjustVerticalAlign',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'margin-top',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ],
+        'selector': `.${elementId} .guten-icon-list-item i:before`,
+    });
+
     return data;
 };
 

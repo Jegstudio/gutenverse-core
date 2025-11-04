@@ -30,6 +30,10 @@
 			"type": "string",
 			"copyStyle": true
 		},
+		"adjustVerticalAlign": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"iconColor": {
 			"type": "object",
 			"copyStyle": true
@@ -100,6 +104,21 @@
 			"migrate": {
 				"attr": "borderHover",
 				"type": "border"
+			},
+			"copyStyle": true
+		},
+		"placeholderUnitPoint": {
+			"type": "object",
+			"default": {
+				"Desktop": {
+					"point" : 1
+				},
+				"Tablet": {
+					"point" : 1
+				},
+				"Mobile": {
+					"point" : 1
+				}
 			},
 			"copyStyle": true
 		},

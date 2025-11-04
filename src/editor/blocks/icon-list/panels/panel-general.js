@@ -7,7 +7,8 @@ export const panelGeneral = (props) => {
     const {
         elementId,
         isDivider,
-        displayInline
+        displayInline,
+        verticalAlign
     } = props;
 
     return [
@@ -291,6 +292,37 @@ export const panelGeneral = (props) => {
                     value: 'flex-end'
                 },
             ],
+        },
+        {
+            id: 'adjustVerticalAlign',
+            label: __('Adjust Vertical Align', 'gutenverse'),
+            component: RangeControl,
+            allowDeviceControl: true,
+            show: verticalAlign === 'flex-start',
+            min: -15,
+            max: 15,
+            step: 1,
+            unit: 'px',
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'adjustVerticalAlign',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-top',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-icon-list-item i:before`,
+                },
+            ]
         },
     ];
 };
