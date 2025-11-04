@@ -50,11 +50,11 @@ export const stylePanel = () => {
         {
             id: 'iconColor',
             component: ColorControl,
-            label: __('icon Color', 'gutenverse-news'),
+            label: __('icon Color', 'gutenverse'),
         },
         {
             id: 'iconSize',
-            label: __('Icon Size', 'gutenverse-news'),
+            label: __('Icon Size', 'gutenverse'),
             component: RangeControl,
             min: 1,
             max: 100,
@@ -63,8 +63,8 @@ export const stylePanel = () => {
         },
         {
             id: 'gap',
-            label: __('Gap', 'gutenverse-news'),
-            description: __('Value between arrow and text', 'gutenverse-news'),
+            label: __('Gap', 'gutenverse'),
+            description: __('Value between arrow and text', 'gutenverse'),
             component: RangeControl,
             min: 1,
             max: 100,

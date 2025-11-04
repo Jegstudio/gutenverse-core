@@ -6,7 +6,7 @@ export const layoutPanel = () => {
     return [
         {
             id: 'margin',
-            label: __('Margin', 'gutenverse-news'),
+            label: __('Margin', 'gutenverse'),
             component: DimensionControl,
             allowDeviceControl: true,
             position: ['top', 'right', 'bottom', 'left'],
@@ -31,7 +31,7 @@ export const layoutPanel = () => {
         },
         {
             id: 'padding',
-            label: __('Padding', 'gutenverse-news'),
+            label: __('Padding', 'gutenverse'),
             component: DimensionControl,
             allowDeviceControl: true,
             position: ['top', 'right', 'bottom', 'left'],
