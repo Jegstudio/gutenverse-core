@@ -60,6 +60,7 @@ class Frontend_Generator {
 		add_action( 'gutenverse_include_frontend', array( $this, 'widget_style_generator' ) );
 		add_action( 'gutenverse_include_frontend', array( $this, 'embeed_font_generator' ), 50 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_modular_script' ), 51 );
+		add_action( 'gutenverse_include_frontend', array( $this, 'load_modular_style' ) );
 	}
 
 	/**
@@ -657,6 +658,28 @@ class Frontend_Generator {
 			foreach ( $required_handles as $handle ) {
 				wp_enqueue_script( $handle );
 			}
+		}
+	}
+
+	/**
+	 * Load the styles
+	 * 
+	 * @since 3.3.0-dev
+	 */
+	public function load_modular_style() {
+		$blocks = array(
+			'column',
+			'section',
+			'wrapper'
+		);
+
+		foreach ( $blocks as $block ) {
+			wp_register_style(
+				'gutenverse-core-frontend-' . $block . '-style',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/frontend/' . $block . '.css',
+				array(),
+				GUTENVERSE_FRAMEWORK_VERSION
+			);
 		}
 	}
 }

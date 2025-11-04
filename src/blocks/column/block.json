@@ -263,5 +263,6 @@
 		"reusable": false,
 		"html": false
 	},
-	"keywords": ["container", "column", "wrapper", "structure"]
+	"keywords": ["container", "column", "wrapper", "structure"],
+	"style": ["gutenverse-core-frontend-column-style"]
 }
