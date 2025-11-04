@@ -1,6 +1,6 @@
 import { ReactPlayer } from 'gutenverse-core/components';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'gutenverse-core/helper';
 
 const VideoContainer = ({ popupVideoSrc, popupVideoStart, popupVideoEnd, popupVideoHideControls, popupVideoLoop, popupVideoMuted, popupVideoWidth, popupVideoHeight, videoRef, playing, setPlaying }) => {
     const playerStyle = {};

@@ -441,11 +441,13 @@ class Post_Block extends Post_Abstract {
 
 	/**
 	 * Render view in frontend
+	 *
+	 * @param bool $include_animation_classes Using animation class.
 	 */
-	public function render_frontend() {
+	public function render_frontend( $include_animation_classes = true ) {
 		$element_id      = $this->get_element_id();
 		$display_classes = $this->set_display_classes();
-		$animation_class = $this->set_animation_classes();
+		$animation_class = $include_animation_classes ? $this->set_animation_classes() : '';
 		$custom_classes  = $this->get_custom_classes();
 
 		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-post-block guten-element">' . $this->render_content( false, $this->attributes['excludeCurrentPost'] ) . '</div>';

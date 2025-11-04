@@ -10,7 +10,7 @@ import { Button } from '@wordpress/components';
 import { ReactPlayer } from 'gutenverse-core/components';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'gutenverse-core/helper';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
