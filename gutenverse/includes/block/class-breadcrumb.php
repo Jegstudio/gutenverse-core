@@ -83,23 +83,25 @@ class Breadcrumb extends Block_Abstract {
 
 			$is_not_last = $index < ( $data_length - 1 );
 
+			$item_name = $data[ $index ]['name'];
+			$item_url  = $data[ $index ]['url'];
+			$position  = $index + 1;
+
+			$link = ( $is_not_last || $this->attributes['hideCurrentTitle'] )
+				? "<a itemprop='item' href='{$item_url}'><span itemprop='name' class='breadcrumb-link'>{$item_name}</span></a>"
+				: "<span itemprop='name' class='breadcrumb-text'>{$item_name}</span>";
+
+			$component .= "
+			<li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'>
+				{$link}
+				<meta itemprop='position' content='{$position}' />
+			</li>";
+
 			if ( $is_not_last ) {
-				$component .= '
-				<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-					<a itemprop="item" href="' . $data[ $index ]['url'] . '">
-						<span itemprop="name" class="breadcrumb-link">' . $data[ $index ]['name'] . '</span>
-					</a>
-					<meta itemprop="position" content="' . ( $index + 1 ) . '" />
-				</li>
-				<li class="separator">
-                    <i class="' . $this->attributes['separatorIcon'] . '"></i>
-                </li>';
-			} else {
-				$component .= '
-				<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                    <span itemprop="name" class="breadcrumb-text">' . $data[ $index ]['name'] . '</span>
-					<meta itemprop="position" content="' . ( $index + 1 ) . '" />
-                </li>';
+				$component .= "
+				<li class='separator'>
+					<i class='{$this->attributes['separatorIcon']}'></i>
+				</li>";
 			}
 		}
 		return $component;
@@ -281,9 +283,10 @@ class Breadcrumb extends Block_Abstract {
 	 */
 	private function get_primary_category() {
 		$category = apply_filters( 'gutenverse_primary_category', false );
+		$category = get_term( $category );
 
-		if ( $category ) {
-			return get_term( $category );
+		if ( $category instanceof \WP_Term ) {
+			return $category;
 		} else {
 			$categories = get_the_category();
 			return ! empty( $categories ) ? $categories[0] : null;

@@ -45,7 +45,7 @@ const BreadcrumbBlock = compose(
         { name: 'Home' },
         { name: 'Navigation' },
         { name: 'Navigation' },
-        { name: 'Post' },
+        { name: 'Current Page' },
     ];
     if (hideCurrentTitle) {
         breadcrumbs.pop();
@@ -79,23 +79,25 @@ const BreadcrumbBlock = compose(
                 <ol>
                     {breadcrumbs.map((item, index) => {
                         const isLast = (index === breadcrumbs.length - 1);
-                        return <>
-                            {!isLast ?
+                        return (
+                            <>
                                 <li>
-                                    <a onClick={e => e.preventDefault()}>
-                                        <span className="breadcrumb-link">{`${item.name}`}</span>
-                                    </a>
-                                </li> :
-                                <li>
-                                    <span className="breadcrumb-text">{`${item.name}`}</span>
+                                    {isLast && !hideCurrentTitle ? (
+                                        <span className="breadcrumb-text">{item.name}</span>
+                                    ) : (
+                                        <a onClick={(e) => e.preventDefault()}>
+                                            <span className="breadcrumb-link">{item.name}</span>
+                                        </a>
+                                    )}
                                 </li>
-                            }
-                            {
-                                !isLast && <li className="separator">
-                                    <i className={separatorIcon}></i>
-                                </li>
-                            }
-                        </>;
+                                {!isLast && (
+                                    <li className="separator">
+                                        <i className={separatorIcon}></i>
+                                    </li>
+                                )}
+                            </>
+                        );
+
                     })}
                 </ol>
             </nav>
