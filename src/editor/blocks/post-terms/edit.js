@@ -11,7 +11,7 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'gutenverse-core/helper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';

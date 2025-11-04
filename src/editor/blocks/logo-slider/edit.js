@@ -6,7 +6,7 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'gutenverse-core/helper';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
 import { Swiper, swiperSettings } from '../../components/swiper';

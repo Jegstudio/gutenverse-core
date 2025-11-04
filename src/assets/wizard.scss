@@ -1110,7 +1110,8 @@ body {
                 }
             }
 
-            &:hover {
+            &:hover,
+            &.active {
                 border: 1px solid rgba(59, 87, 247, 1);
 
                 .template-thumbnail {
@@ -1126,7 +1127,6 @@ body {
             }
 
             .template-thumbnail {
-                position: relative;
 
                 .thumbnail-overlay {
                     position: absolute;
@@ -1338,6 +1338,31 @@ body {
                             color: rgba(59, 87, 247, 1);
                         }
                     }
+                }
+            }
+
+            .overlay-active {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 90px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(4px);
+                border-radius: 6px 6px 0px 0px;
+
+                p {
+                    font-family: Inter;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 100%;
+                    text-align: center;
+                    vertical-align: middle;
+                    color: #ffffff;
+                    margin: 0;
                 }
             }
         }
