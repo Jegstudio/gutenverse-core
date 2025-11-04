@@ -359,5 +359,5 @@
 	},
 	"editor_script": "gutenverse",
 	"editor_style": "gutenverse-editor-style",
-	"style": ["gutenverse-frontend-style", "gutenverse-core-frontend-section-style"]
+	"style": ["gutenverse-core-frontend-section-style"]
 }
