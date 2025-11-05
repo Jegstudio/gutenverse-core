@@ -50,7 +50,7 @@ export const stylePanel = () => {
         {
             id: 'iconColor',
             component: ColorControl,
-            label: __('icon Color', 'gutenverse'),
+            label: __('Icon Color', 'gutenverse'),
         },
         {
             id: 'iconSize',
