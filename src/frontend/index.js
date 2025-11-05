@@ -3,7 +3,7 @@ export { default as u } from 'umbrellajs';
 export { default as load } from 'load-script';
 export { default as apiFetch } from '@wordpress/api-fetch';
 export { responsiveBreakpoint } from './helper/index';
-import { ReplaceCSS } from './replace-css';
+import { ReplaceCSS } from './blocks/replace-css';
 
 export default (new ReplaceCSS()).init();
 
