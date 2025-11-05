@@ -30,7 +30,8 @@ const save = compose(
         barThickness,
         cutoutBackground,
         title,
-        description
+        description,
+        chartSize
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -59,6 +60,7 @@ const save = compose(
         barThickness,
         cutoutBackground,
         multiValue,
+        chartSize,
         elementId
     });
 
@@ -88,7 +90,7 @@ const save = compose(
                 </div>
                 <div className="chart-content content-chart">
                     <div className="chart-container" data-chart={data}>
-                        <div id={`chart-${elementId}`} style={{boxSizing:'border-box', height: '250px', width: '250px'}}></div>
+                        <div id={`chart-${elementId}`} style={{boxSizing:'border-box', lineHeight:'0'}}></div>
                     </div>
                     {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
                 </div>

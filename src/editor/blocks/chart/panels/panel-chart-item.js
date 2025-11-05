@@ -1,10 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { AlertControl, SelectControl, RangeControl, RepeaterControl, TextControl, ColorControl } from 'gutenverse-core/controls';
+import { AlertControl, SelectControl, RangeControl, RepeaterControl, TextControl, ColorControl, BackgroundControl } from 'gutenverse-core/controls';
 
 export const chartItemPanel = (props) => {
     const {
         chartContent,
         chartItems,
+        elementId
     } = props;
 
     let multiValue = false;
@@ -137,6 +138,24 @@ export const chartItemPanel = (props) => {
                     show: value => value.colorMode === 'default' || value.colorMode === undefined,
                     label: __('Color', 'gutenverse'),
                     component: ColorControl,
+                },
+                {
+                    id: 'chartColorGradient',
+                    show: value => value.colorMode === 'gradient',
+                    label: __('Gradient', 'gutenverse'),
+                    component: BackgroundControl,
+                    allowDeviceControl: true,
+                    options: ['gradient'],
+                    liveStyle: [
+                        {
+                            'type': 'background',
+                            'id': 'cardBackground',
+                            'selector': `.${elementId} .chart-content.content-card,
+                                .${elementId}.Desktop-noFlip .chart-content.content-card,
+                                .${elementId}.Tablet-noFlip .chart-content.content-card,
+                                .${elementId}.Mobile-noFlip .chart-content.content-card`,
+                        }
+                    ],
                 },
                 {
                     id: 'borderColor',
