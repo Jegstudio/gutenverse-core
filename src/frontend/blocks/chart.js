@@ -121,7 +121,7 @@ class GutenverseChart extends Default {
         if (chartType === 'doughnut') {
             this._drawDonutChart({svg, data, radius, elementId, animationDuration, chartContent, cutout, device, tooltip});
         } else if (chartType === 'bar') {
-            this._drawBarChart({svg, data, width, elementId, height, animationDuration, barThickness, tooltip});
+            this._drawBarChart({svg, data, width, elementId, height, animationDuration, barThickness, tooltip, totalValue, chartContent, minValue});
         }
     }
 
@@ -288,8 +288,13 @@ class GutenverseChart extends Default {
             });
     }
 
-    _getMaxvalue(data) {
-        return Math.max(...data.map(d => d.value));
+    _getMaxvalue(data, totalValue, chartContent) {
+        if(chartContent === 'percentage') {
+            const value = Math.max(...data.map(d => d.value));
+            return value <= 100 ? 100 : value;
+        } else {
+            return totalValue;
+        }
     }
 
     _drawBarChart(props) {
@@ -303,6 +308,9 @@ class GutenverseChart extends Default {
             enableGrid = true,
             tooltip,
             elementId,
+            totalValue,
+            minValue,
+            chartContent
         } = props;
 
         this._appendGradientDefs(svg, data, elementId, 'bar');
@@ -310,6 +318,8 @@ class GutenverseChart extends Default {
         const margin = { top: 20, right: 20, bottom: 40, left: 40 };
         const chartWidth = width - margin.left - margin.right;
         const chartHeight = height - margin.top - margin.bottom;
+        const topValue = this._getMaxvalue(data, totalValue, chartContent);
+        const bootomValue = minValue ? minValue : 0;
 
         const chartGroup = svg.append('g')
             .attr('transform', `translate(${margin.left - width / 2}, ${margin.top - height / 2})`);
@@ -320,7 +330,7 @@ class GutenverseChart extends Default {
             .padding(0.2);
 
         const y = scaleLinear()
-            .domain([0, this._getMaxvalue(data)])
+            .domain([bootomValue, topValue])
             .nice()
             .range([chartHeight, 0]);
 
