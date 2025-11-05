@@ -38,6 +38,16 @@ gulp.task('editor', function () {
         .pipe(gulp.dest('framework/assets/css/'));
 });
 
+gulp.task('frontend', function () {
+    return gulp
+        .src([path.resolve(__dirname, './src/assets/frontend.scss')])
+        .pipe(sass({ includePaths: ['node_modules', '../node_modules'] }))
+        .pipe(sass(sassOptions).on('error', sass.logError))
+        .pipe(concat('frontend.css'))
+        .pipe(postcss(postCSSOptions))
+        .pipe(gulp.dest('framework/assets/css/'));
+});
+
 const blocksDir = path.resolve(__dirname, './src/blocks');
 const blocksStyle = blocksDir + '/**/styles/style.scss';
 const finalDest = path.join(__dirname, 'framework/assets/css/frontend');
@@ -45,6 +55,7 @@ const finalDest = path.join(__dirname, 'framework/assets/css/frontend');
 gulp.task('frontend-block-styles', function () {
     return gulp
         .src([blocksStyle])
+        .pipe(sass({ includePaths: ['node_modules', '../node_modules'] }))
         .pipe(sass(sassOptions).on('error', sass.logError))
         .pipe(postcss(postCSSOptions))
         .on('data', function (file) {
@@ -54,16 +65,6 @@ gulp.task('frontend-block-styles', function () {
             file.path = path.join(file.base, blockName + '.css');  
         })
         .pipe(gulp.dest(finalDest));
-});
-
-gulp.task('frontend', function () {
-    return gulp
-        .src([path.resolve(__dirname, './src/assets/frontend.scss')])
-        .pipe(sass({ includePaths: ['node_modules', '../node_modules'] }))
-        .pipe(sass(sassOptions).on('error', sass.logError))
-        .pipe(concat('frontend.css'))
-        .pipe(postcss(postCSSOptions))
-        .pipe(gulp.dest('framework/assets/css/'));
 });
 
 gulp.task('backend', function () {
