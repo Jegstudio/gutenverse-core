@@ -5,7 +5,6 @@
 	"description": "Display a location you want to share to your website visitor.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
-	"viewScript": ["gutenverse-frontend-google-maps-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -166,5 +165,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["google", "map", "direction", "path", "place", "location"]
+	"keywords": ["google", "map", "direction", "path", "place", "location"],
+	"viewScript": ["gutenverse-frontend-google-maps-script"],
+	"style": ["gutenverse-frontend-google-maps-style"]
 }

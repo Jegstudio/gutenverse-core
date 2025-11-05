@@ -5,7 +5,6 @@
 	"description": "A vertically stacked list of expandable/collapsable item.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
-	"viewScript": ["gutenverse-frontend-accordion-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -396,5 +395,7 @@
 		"html": false,
 		"anchor": true
 	},
-	"keywords": ["tabs", "accordions", "dropdown", "expand", "panels"]
+	"keywords": ["tabs", "accordions", "dropdown", "expand", "panels"],
+	"viewScript": ["gutenverse-frontend-accordion-script"],
+	"style": ["gutenverse-frontend-accordions-style"]
 }

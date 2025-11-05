@@ -6,7 +6,6 @@
 	"description": "Create a navigation menu for your visitor to explore your website.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
-	"viewScript": ["gutenverse-frontend-nav-menu-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -563,5 +562,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["navigation", "menu"]
+	"keywords": ["navigation", "menu"],
+	"viewScript": ["gutenverse-frontend-nav-menu-script"],
+	"style": ["gutenverse-frontend-nav-menu-style"]
 }

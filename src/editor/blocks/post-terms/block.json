@@ -237,5 +237,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["single", "post", "term", "category", "tag", "taxonomy"]
+	"keywords": ["single", "post", "term", "category", "tag", "taxonomy"],
+	"style": ["gutenverse-frontend-post-terms-style"]
 }

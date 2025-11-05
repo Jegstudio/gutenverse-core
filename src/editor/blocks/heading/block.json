@@ -234,5 +234,6 @@
 		"reusable": false,
 		"html": false
 	},
-	"keywords": ["heading", "texts", "title"]
+	"keywords": ["heading", "texts", "title"],
+	"style": ["gutenverse-frontend-heading-style"]
 }

@@ -4,7 +4,6 @@
 	"title": "Search",
 	"description": "Gutenverse Search",
 	"category": "gutenverse-element",
-	"viewScript": ["gutenverse-frontend-search-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -284,5 +283,7 @@
 	"keywords": ["search", "gutenverse"],
 	"example": {
 		"elementId": "guten-preview-search"
-	}
+	},
+	"viewScript": ["gutenverse-frontend-search-script"],
+	"style": ["gutenverse-frontend-search-style"]
 }

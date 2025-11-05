@@ -5,7 +5,6 @@
 	"description": "Create a progress bar of your achivement or something you want to share.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
-	"viewScript": ["gutenverse-frontend-progress-bar-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -256,5 +255,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["progress", "bar", "loading", "stats", "data", "info"]
+	"keywords": ["progress", "bar", "loading", "stats", "data", "info"],
+	"viewScript": ["gutenverse-frontend-progress-bar-script"],
+	"style": ["gutenverse-frontend-progress-bar-style"]
 }

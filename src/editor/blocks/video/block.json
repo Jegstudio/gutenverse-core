@@ -5,7 +5,6 @@
 	"description": "Embed a video you want to share.",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
-	"viewScript": ["gutenverse-frontend-video-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -198,5 +197,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["video", "youtube", "twitch", "vimeo", "dailymotion", "watch"]
+	"keywords": ["video", "youtube", "twitch", "vimeo", "dailymotion", "watch"],
+	"viewScript": ["gutenverse-frontend-video-script"],
+	"style": ["gutenverse-frontend-video-style"]
 }

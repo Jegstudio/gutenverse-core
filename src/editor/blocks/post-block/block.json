@@ -6,7 +6,6 @@
 	"description": "Showcase a block of posts of your choice.",
 	"category": "gutenverse-post",
 	"allowCopyStyle": true,
-	"viewScript": ["gutenverse-frontend-postblock-script"],
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -848,5 +847,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["post", "block"]
+	"keywords": ["post", "block"],
+	"viewScript": ["gutenverse-frontend-postblock-script"],
+	"style": ["gutenverse-frontend-post-block-style"]
 }
