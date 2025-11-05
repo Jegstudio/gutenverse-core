@@ -17,6 +17,7 @@ class GutenverseCountdown extends Default {
             try {
                 this.__handleTimer(blockElement, dueDate, intervalId);
             } catch (error) {
+                //eslint-disable-next-line no-console
                 console.error('Error during countdown:', error);
                 clearInterval(intervalId);
             }
@@ -40,10 +41,12 @@ class GutenverseCountdown extends Default {
                     if (validSchemes.includes(parsedUrl.protocol)) {
                         window.location.assign(url);
                     } else {
+                        //eslint-disable-next-line no-console
                         console.error('Invalid URL scheme detected. Redirection aborted.');
                         clearInterval(intervalId);
                     }
                 } catch (e) {
+                    //eslint-disable-next-line no-console
                     console.error('Invalid URL format. Redirection aborted:', e);
                     clearInterval(intervalId);
                 }
