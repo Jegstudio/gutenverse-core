@@ -11,9 +11,3 @@ export * from '@wordpress/url';
 export * from './helper/fetch';
 export * from './blocks/index';
 export * from './scroll';
-
-// Frontend Script.
-// export { default as GutenverseVideo } from './blocks/video';
-
-// dependency Expose
-// export { default as Choices } from 'choices.js';
