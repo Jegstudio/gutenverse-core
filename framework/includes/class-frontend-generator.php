@@ -16,13 +16,13 @@ use Gutenverse\Framework\Style\Section;
 
 /**
  * Class Frontend Generator
- * 
+ *
  * @since 3.3.0-dev:
- * 		- Class renamed from Style_Generator to Frontend_Generator
- * 		- Add few functions to load scripts conditionally: 
- * 				- check_attributes
- * 				- add_script
- * 				- load_conditional_scripts
+ *      - Class renamed from Style_Generator to Frontend_Generator
+ *      - Add few functions to load scripts conditionally:
+ *              - check_attributes
+ *              - add_script
+ *              - load_conditional_scripts
  *
  * @package gutenverse-framework
  */
@@ -94,11 +94,11 @@ class Frontend_Generator {
 	 */
 	public function widget_style_generator() {
 		if ( current_theme_supports( 'widgets' ) ) {
-			$widgets    = get_option( 'widget_block' );
-			$style      = null;
-			$style_name = 'gutenverse-widget';
+			$widgets = get_option( 'widget_block' );
+			$style   = null;
+			$name    = 'gutenverse-widget';
 
-			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $style_name, 'widget' ) ) {
+			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'widget' ) && apply_filters( 'gutenverse_bypass_generate_script', false, $name ) ) {
 				return;
 			}
 
@@ -114,7 +114,7 @@ class Frontend_Generator {
 
 			do_action( 'gutenverse_after_style_loop_blocks' );
 
-			$this->render_style( $style_name, $style, 'widget' );
+			$this->render_style( $name, $style, 'widget' );
 		}
 	}
 
@@ -225,11 +225,11 @@ class Frontend_Generator {
 	public function template_style_generator() {
 		global $_wp_current_template_content, $_wp_current_template_id;
 		if ( $_wp_current_template_id ) {
-			$style      = null;
-			$template   = explode( '//', $_wp_current_template_id );
-			$style_name = 'gutenverse-template-' . $template[1];
+			$style    = null;
+			$template = explode( '//', $_wp_current_template_id );
+			$name     = 'gutenverse-template-' . $template[1];
 
-			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $style_name, 'template' ) ) {
+			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'template' ) && apply_filters( 'gutenverse_bypass_generate_script', false, $name ) ) {
 				return;
 			}
 
@@ -242,7 +242,7 @@ class Frontend_Generator {
 				}
 
 				if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-					$this->render_style( $style_name, $style, 'template' );
+					$this->render_style( $name, $style, 'template' );
 				}
 			}
 
@@ -256,9 +256,9 @@ class Frontend_Generator {
 	public function content_style_generator() {
 		global $post;
 		if ( $post ) {
-			$style      = null;
-			$style_name = 'gutenverse-content-' . $post->ID;
-			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $style_name, 'content' ) ) {
+			$style = null;
+			$name  = 'gutenverse-content-' . $post->ID;
+			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'content' ) && apply_filters( 'gutenverse_bypass_generate_script', false, $name ) ) {
 				return;
 			}
 
@@ -268,7 +268,7 @@ class Frontend_Generator {
 				$this->loop_blocks( $blocks, $style );
 
 				if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-					$this->render_style( $style_name, $style, 'content' );
+					$this->render_style( $name, $style, 'content' );
 				}
 			}
 
@@ -444,7 +444,7 @@ class Frontend_Generator {
 	 * Load attrs.
 	 *
 	 * @since 3.3.0-dev
-	 * 
+	 *
 	 * @param array  $attrs attributes data
 	 * @param string $block_name block name.
 	 */
@@ -519,7 +519,7 @@ class Frontend_Generator {
 	/**
 	 * Conditionally enqueues a script based on attribute checks.
 	 * If the 'device' parameter is present, it requires at least ONE device setting to pass the condition.
-	 * 
+	 *
 	 * @since 3.3.0-dev
 	 *
 	 * @param array $args The script configuration array, including 'attr', 'allow_if', and 'script'.
@@ -578,7 +578,7 @@ class Frontend_Generator {
 	/**
 	 * Helper method to securely check two values against a dynamic operator.
 	 * Prevents security risks associated with using 'eval()'.
-	 * 
+	 *
 	 * @since 3.3.0-dev
 	 *
 	 * @param mixed  $attr_value The value from the attributes array.
@@ -612,7 +612,7 @@ class Frontend_Generator {
 
 	/**
 	 * Load the scripts
-	 * 
+	 *
 	 * @since 3.3.0-dev
 	 */
 	public function load_conditional_scripts() {
@@ -650,10 +650,9 @@ class Frontend_Generator {
 
 		$required_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
 
-		
 		// remove duplicates
 		$required_handles = array_values( array_unique( $this->script_list ) );
-		
+
 		if ( ! empty( $required_handles ) ) {
 			foreach ( $required_handles as $handle ) {
 				wp_enqueue_script( $handle );
@@ -663,14 +662,14 @@ class Frontend_Generator {
 
 	/**
 	 * Load the styles
-	 * 
+	 *
 	 * @since 3.3.0-dev
 	 */
 	public function load_conditional_styles() {
 		$blocks = array(
 			'column',
 			'section',
-			'wrapper'
+			'wrapper',
 		);
 
 		foreach ( $blocks as $block ) {

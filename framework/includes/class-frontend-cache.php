@@ -57,6 +57,7 @@ class Frontend_Cache {
 		// Filter.
 		add_filter( 'gutenverse_frontend_render_mechanism', array( $this, 'render_mechanism' ) );
 		add_filter( 'gutenverse_bypass_generate_style', array( $this, 'bypass_generate_css' ), null, 3 );
+		add_filter( 'gutenverse_bypass_generate_script', array( $this, 'bypass_script' ), null, 2 );
 		add_filter( 'gutenverse_global_fonts', array( $this, 'global_fonts' ), null, 2 );
 		add_filter( 'gutenverse_conditional_script_handles', array( $this, 'script_handles' ), null, 2 );
 		add_filter( 'gutenverse_render_generated_style', array( $this, 'render_style' ), null, 4 );
@@ -199,6 +200,37 @@ class Frontend_Cache {
 		}
 
 		return $flag;
+	}
+
+	/**
+	 * Check if we going to by pass script checking.
+	 *
+	 * @param boolean $flag Flag.
+	 * @param string  $name Name of file.
+	 *
+	 * @return bool
+	 */
+	public function bypass_script( $flag, $name ) {
+		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
+		$filename  = $this->get_file_js_name( $name );
+
+		if ( 'file' === $mechanism && $this->is_file_exist( $filename, 'js' ) ) {
+			return true;
+		}
+
+		return $flag;
+	}
+
+	/**
+	 * Get File Name.
+	 *
+	 * @param string $name Name of file.
+	 *
+	 * @return string
+	 */
+	public function get_file_js_name( $name ) {
+		$cache_id = $this->get_style_cache_id();
+		return $name . '-' . $cache_id . '-script.json';
 	}
 
 	/**
