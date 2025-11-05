@@ -1316,6 +1316,12 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
     }
 }
 
+.gutenverse-companion-base-theme-notice {
+    &.notice {
+        margin-bottom: 30px;
+    }
+}
+
 .gutenverse-unibiz-notice {
     background-position: center;
     background-repeat: no-repeat;
@@ -1326,6 +1332,7 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
         border: none;
         padding: 0;
         border-radius: 5px;
+        margin-bottom: 30px;
     }
 
     .unibiz-gutenverse-badge {
