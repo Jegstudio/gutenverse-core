@@ -200,5 +200,5 @@
 		"anchor": true
 	},
 	"keywords": ["single", "post", "featured", "image"],
-	"style": ["gutenverse-frontend-featured-image-style"]
+	"style": ["gutenverse-frontend-post-featured-image-style"]
 }
