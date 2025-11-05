@@ -1316,6 +1316,10 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
     }
 }
 
+.notice ~ #gutenverse-dashboard .navigation-wrapper {
+    border-radius: 5px !important;
+}
+
 .gutenverse-companion-base-theme-notice {
     &.notice {
         margin-bottom: 30px;
