@@ -597,5 +597,5 @@
 	},
 	"keywords": ["testimonial", "review", "feedback"],
 	"viewScript": ["gutenverse-frontend-testimonials-script"],
-	"style": ["gutenverse-frontend-testimonals-style"]
+	"style": ["gutenverse-frontend-testimonials-style"]
 }

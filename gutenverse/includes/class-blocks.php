@@ -79,6 +79,8 @@ class Blocks {
 		register_block_type( GUTENVERSE_DIR . './block/portfolio-gallery/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/chart/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/popup-builder/block.json' );
+		register_block_type( GUTENVERSE_DIR . './block/google-maps/block.json' );
+		register_block_type( GUTENVERSE_DIR . './block/logo-slider/block.json' );
 
 		// Dynamic blocks.
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-author/block.json' );
