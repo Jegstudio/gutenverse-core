@@ -2,14 +2,14 @@
 import edit from './edit';
 import save from './save';
 import metadata from './block.json';
-import { IconAnimatedTextSVG } from '../../../assets/icon/index';
+import { IconBreadcrumbSVG } from '../../../assets/icon/index';
 
 const { name, attributes, supports } = metadata;
 
 export { metadata, name };
 
 export const settings = {
-    icon: <IconAnimatedTextSVG />,
+    icon: <IconBreadcrumbSVG />,
     edit,
     save,
 };
