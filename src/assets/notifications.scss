@@ -51,6 +51,16 @@
 		padding: 0;
 	}
 
+	#wp-admin-bar-gutenverse-adminbar-notification.hover {
+		.gutenverse-adminbar-notifications {
+			.notifications-icon {
+				.notification-total {
+					display: none;
+				}
+			}
+		}
+	}
+
 	#wp-admin-bar-gutenverse-notification-list {
 		.ab-item {
 			height: auto !important;
@@ -70,22 +80,28 @@
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
-
-				.mark-read {
-					cursor: pointer;
-					display: flex;
-				}
 			}
 
 			.tab-header {
 				display: flex;
 				border-bottom: 1px solid #ffffff22;
+				position: relative;
+
+				.mark-read {
+					cursor: pointer;
+					display: flex;
+					position: absolute;
+					right: 16px;
+					top: 50%;
+					transform: translateY(-50%);
+				}
 
 				.header-item {
 					cursor: pointer;
 					padding: 16px 0;
 					margin: 0 10px -1px;
 					color: #ccc;
+					position: relative;
 
 					&:first-child {
 						margin-left: 16px;
@@ -111,6 +127,21 @@
 						h3 {
 							color: #fff;
 						}
+					}
+
+					.notification-total-tab {
+						position: absolute;
+						top: -2px;
+						right: -6px;
+						background-color: #cf2f33;
+						color: white;
+						font-size: 9px;
+						width: 15px;
+						height: 15px;
+						border-radius: 50px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
 					}
 				}
 			}
@@ -269,6 +300,25 @@
 					border-radius: 5px;
 					padding: 14px;
 					flex-wrap: wrap;
+					position: relative;
+
+					.notification-new {
+						position: absolute !important;
+						top: 0;
+						right: 0;
+						display: flex;
+
+						&::before {
+							content: "";
+							background: #cf2f33;
+							width: 6px;
+							height: 6px;
+							border-radius: 50px;
+							position: absolute;
+							top: 10px;
+							right: 10px;
+						}
+					}
 
 					h3,
 					h5,

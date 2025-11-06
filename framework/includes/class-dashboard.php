@@ -383,40 +383,385 @@ class Dashboard {
 		$config = array();
 
 		$config['pluginCheck'] = array(
-			'2.2.1' => array(
-				'gutenverse'           => '3.2.1',
-				'gutenverse-companion' => '2.0.1',
-				'gutenverse-form'      => '2.2.0',
-				'gutenverse-news'      => '3.0.2',
-				'gutenverse-pro'       => '2.2.2',
+			'gutenverse'      => array(
+				array(
+					'plugin_version'    => '2.0.0',
+					'framework_version' => '1.0.0',
+				),
+				array(
+					'plugin_version'    => '2.0.1',
+					'framework_version' => '1.0.1',
+				),
+				array(
+					'plugin_version'    => '2.0.2',
+					'framework_version' => '1.0.2',
+				),
+				array(
+					'plugin_version'    => '2.0.3',
+					'framework_version' => '1.0.3',
+				),
+				array(
+					'plugin_version'    => '2.0.4',
+					'framework_version' => '1.0.4',
+				),
+				array(
+					'plugin_version'    => '2.0.5',
+					'framework_version' => '1.0.6',
+				),
+				array(
+					'plugin_version'    => '2.0.6',
+					'framework_version' => '1.0.7',
+				),
+				array(
+					'plugin_version'    => '2.0.7',
+					'framework_version' => '1.0.8',
+				),
+				array(
+					'plugin_version'    => '2.0.8',
+					'framework_version' => '1.0.9',
+				),
+				array(
+					'plugin_version'    => '2.0.9',
+					'framework_version' => '1.1.0',
+				),
+				array(
+					'plugin_version'    => '2.1.0',
+					'framework_version' => '1.1.0',
+				),
+				array(
+					'plugin_version'    => '2.1.1',
+					'framework_version' => '1.1.1',
+				),
+				array(
+					'plugin_version'    => '2.1.2',
+					'framework_version' => '1.1.2',
+				),
+				array(
+					'plugin_version'    => '2.1.3',
+					'framework_version' => '1.1.3',
+				),
+				array(
+					'plugin_version'    => '2.1.4',
+					'framework_version' => '1.1.4',
+				),
+				array(
+					'plugin_version'    => '2.1.5',
+					'framework_version' => '1.1.5',
+				),
+				array(
+					'plugin_version'    => '2.1.6',
+					'framework_version' => '1.1.6',
+				),
+				array(
+					'plugin_version'    => '2.1.7',
+					'framework_version' => '1.1.7',
+				),
+				array(
+					'plugin_version'    => '2.1.8',
+					'framework_version' => '1.1.8',
+				),
+				array(
+					'plugin_version'    => '2.1.9',
+					'framework_version' => '1.1.9',
+				),
+				array(
+					'plugin_version'    => '2.2.0',
+					'framework_version' => '1.2.0',
+				),
+				array(
+					'plugin_version'    => '2.2.1',
+					'framework_version' => '1.2.1',
+				),
+				array(
+					'plugin_version'    => '3.0.0',
+					'framework_version' => '2.0.0',
+				),
+				array(
+					'plugin_version'    => '3.0.1',
+					'framework_version' => '2.0.1',
+				),
+				array(
+					'plugin_version'    => '3.0.2',
+					'framework_version' => '2.0.2',
+				),
+				array(
+					'plugin_version'    => '3.0.3',
+					'framework_version' => '2.0.3',
+				),
+				array(
+					'plugin_version'    => '3.0.4',
+					'framework_version' => '2.0.4',
+				),
+				array(
+					'plugin_version'    => '3.0.5',
+					'framework_version' => '2.0.5',
+				),
+				array(
+					'plugin_version'    => '3.0.6',
+					'framework_version' => '2.0.6',
+				),
+				array(
+					'plugin_version'    => '3.0.7',
+					'framework_version' => '2.0.7',
+				),
+				array(
+					'plugin_version'    => '3.1.0',
+					'framework_version' => '2.1.0',
+				),
+				array(
+					'plugin_version'    => '3.1.1',
+					'framework_version' => '2.1.1',
+				),
+				array(
+					'plugin_version'    => '3.1.2',
+					'framework_version' => '2.1.2',
+				),
+				array(
+					'plugin_version'    => '3.2.0',
+					'framework_version' => '2.2.0',
+				),
+				array(
+					'plugin_version'    => '3.2.1',
+					'framework_version' => '2.2.1',
+				),
 			),
-			'2.2.0' => array(
-				'gutenverse'           => '3.2.0',
-				'gutenverse-companion' => '2.0.0',
-				'gutenverse-form'      => '2.2.0',
-				'gutenverse-news'      => '3.0.0',
-				'gutenverse-pro'       => '2.2.1',
+			'gutenverse-form' => array(
+				array(
+					'plugin_version'    => '1.0.0',
+					'framework_version' => '1.0.0',
+				),
+				array(
+					'plugin_version'    => '1.0.1',
+					'framework_version' => '1.0.1',
+				),
+				array(
+					'plugin_version'    => '1.0.2',
+					'framework_version' => '1.0.2',
+				),
+				array(
+					'plugin_version'    => '1.0.3',
+					'framework_version' => '1.0.3',
+				),
+				array(
+					'plugin_version'    => '1.0.4',
+					'framework_version' => '1.0.4',
+				),
+				array(
+					'plugin_version'    => '1.0.5',
+					'framework_version' => '1.0.5',
+				),
+				array(
+					'plugin_version'    => '1.0.6',
+					'framework_version' => '1.0.6',
+				),
+				array(
+					'plugin_version'    => '1.0.7',
+					'framework_version' => '1.0.7',
+				),
+				array(
+					'plugin_version'    => '1.0.8',
+					'framework_version' => '1.0.8',
+				),
+				array(
+					'plugin_version'    => '1.0.9',
+					'framework_version' => '1.0.9',
+				),
+				array(
+					'plugin_version'    => '1.1.0',
+					'framework_version' => '1.1.0',
+				),
+				array(
+					'plugin_version'    => '1.1.1',
+					'framework_version' => '1.1.1',
+				),
+				array(
+					'plugin_version'    => '1.1.2',
+					'framework_version' => '1.1.2',
+				),
+				array(
+					'plugin_version'    => '1.1.3',
+					'framework_version' => '1.1.3',
+				),
+				array(
+					'plugin_version'    => '1.1.4',
+					'framework_version' => '1.1.4',
+				),
+				array(
+					'plugin_version'    => '1.1.5',
+					'framework_version' => '1.1.5',
+				),
+				array(
+					'plugin_version'    => '1.1.6',
+					'framework_version' => '1.1.6',
+				),
+				array(
+					'plugin_version'    => '1.1.7',
+					'framework_version' => '1.1.7',
+				),
+				array(
+					'plugin_version'    => '1.1.8',
+					'framework_version' => '1.1.8',
+				),
+				array(
+					'plugin_version'    => '1.1.9',
+					'framework_version' => '1.1.9',
+				),
+				array(
+					'plugin_version'    => '2.0.0',
+					'framework_version' => '2.0.0',
+				),
+				array(
+					'plugin_version'    => '2.0.1',
+					'framework_version' => '2.0.1',
+				),
+				array(
+					'plugin_version'    => '2.0.2',
+					'framework_version' => '2.0.3',
+				),
+				array(
+					'plugin_version'    => '2.0.4',
+					'framework_version' => '2.0.4',
+				),
+				array(
+					'plugin_version'    => '2.0.5',
+					'framework_version' => '2.0.5',
+				),
+				array(
+					'plugin_version'    => '2.0.6',
+					'framework_version' => '2.0.6',
+				),
+				array(
+					'plugin_version'    => '2.0.8',
+					'framework_version' => '2.0.7',
+				),
+				array(
+					'plugin_version'    => '2.1.0',
+					'framework_version' => '2.1.0',
+				),
+				array(
+					'plugin_version'    => '2.1.1',
+					'framework_version' => '2.1.1',
+				),
+				array(
+					'plugin_version'    => '2.1.2',
+					'framework_version' => '2.1.2',
+				),
+				array(
+					'plugin_version'    => '2.1.3',
+					'framework_version' => '2.1.2',
+				),
+				array(
+					'plugin_version'    => '2.2.0',
+					'framework_version' => '2.2.0',
+				),
 			),
-			'2.1.2' => array(
-				'gutenverse'           => '3.1.2',
-				'gutenverse-companion' => '1.0.5',
-				'gutenverse-form'      => '2.1.2',
-				'gutenverse-news'      => '3.0.0',
-				'gutenverse-pro'       => '2.1.2',
+			'gutenverse-news' => array(
+				array(
+					'plugin_version'    => '1.0.0',
+					'framework_version' => '1.0.0',
+				),
+				array(
+					'plugin_version'    => '1.0.2',
+					'framework_version' => '1.0.6',
+				),
+				array(
+					'plugin_version'    => '1.0.3',
+					'framework_version' => '1.0.7',
+				),
+				array(
+					'plugin_version'    => '2.0.0',
+					'framework_version' => '2.0.6',
+				),
+				array(
+					'plugin_version'    => '2.0.1',
+					'framework_version' => '2.1.0',
+				),
+				array(
+					'plugin_version'    => '3.0.0',
+					'framework_version' => '2.1.2',
+				),
+				array(
+					'plugin_version'    => '3.0.2',
+					'framework_version' => '2.2.1',
+				),
 			),
-			'2.1.1' => array(
-				'gutenverse'           => '3.1.1',
-				'gutenverse-companion' => '1.0.5',
-				'gutenverse-form'      => '2.1.1',
-				'gutenverse-news'      => '2.0.1',
-				'gutenverse-pro'       => '2.1.1',
-			),
-			'2.1.0' => array(
-				'gutenverse'           => '3.1.0',
-				'gutenverse-companion' => '1.0.5',
-				'gutenverse-form'      => '2.1.0',
-				'gutenverse-news'      => '2.0.1',
-				'gutenverse-pro'       => '2.1.0',
+			'gutenverse-pro'  => array(
+				array(
+					'plugin_version'    => '1.0.0',
+					'framework_version' => '1.0.0',
+				),
+				array(
+					'plugin_version'    => '1.0.1',
+					'framework_version' => '1.0.2',
+				),
+				array(
+					'plugin_version'    => '1.0.2',
+					'framework_version' => '1.1.2',
+				),
+				array(
+					'plugin_version'    => '1.0.3',
+					'framework_version' => '1.1.5',
+				),
+				array(
+					'plugin_version'    => '1.0.4',
+					'framework_version' => '1.1.6',
+				),
+				array(
+					'plugin_version'    => '1.0.4',
+					'framework_version' => '1.1.7',
+				),
+				array(
+					'plugin_version'    => '1.0.5',
+					'framework_version' => '1.1.8',
+				),
+				array(
+					'plugin_version'    => '2.0.0',
+					'framework_version' => '2.0.0',
+				),
+				array(
+					'plugin_version'    => '2.0.1',
+					'framework_version' => '2.0.1',
+				),
+				array(
+					'plugin_version'    => '2.0.2',
+					'framework_version' => '2.0.3',
+				),
+				array(
+					'plugin_version'    => '2.0.4',
+					'framework_version' => '2.0.4',
+				),
+				array(
+					'plugin_version'    => '2.0.5',
+					'framework_version' => '2.0.5',
+				),
+				array(
+					'plugin_version'    => '2.0.6',
+					'framework_version' => '2.0.6',
+				),
+				array(
+					'plugin_version'    => '2.0.7',
+					'framework_version' => '2.0.7',
+				),
+				array(
+					'plugin_version'    => '2.1.0',
+					'framework_version' => '2.1.0',
+				),
+				array(
+					'plugin_version'    => '2.1.1',
+					'framework_version' => '2.1.1',
+				),
+				array(
+					'plugin_version'    => '2.1.2',
+					'framework_version' => '2.1.2',
+				),
+				array(
+					'plugin_version'    => '2.2.0',
+					'framework_version' => '2.2.0',
+				),
+				array(
+					'plugin_version'    => '2.2.1',
+					'framework_version' => '2.2.1',
+				),
 			),
 		);
 
