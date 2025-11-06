@@ -1,4 +1,3 @@
-import anime from 'animejs';
 import listHighlightStyles from './highlight-styles/list-highlighted-styles';
 
 export class HighlightStyle {
@@ -75,23 +74,25 @@ export class HighlightStyle {
         }
         this.target = paths;
 
-        this.animeInit = anime.timeline({loop: this.loop}).add({
-            targets: this.target,
-            strokeDashoffset: el => [el.getTotalLength(), 0],
-            opacity: [0, 1],
-            easing: 'easeInOutSine',
-            duration: this.animationDuration,
-        });
-
-        if (this.loop) {
-            this.animeInit.add({
+        import(/* webpackChunkName: "chunk-anime" */'animejs').then(( { default: anime } ) => {
+            this.animeInit = anime.timeline({loop: this.loop}).add({
                 targets: this.target,
-                opacity: [1, 0],
-                delay: this.displayDuration,
-                duration: this.transitionDuration,
+                strokeDashoffset: el => [el.getTotalLength(), 0],
+                opacity: [0, 1],
                 easing: 'easeInOutSine',
+                duration: this.animationDuration,
             });
-        }
+
+            if (this.loop) {
+                this.animeInit.add({
+                    targets: this.target,
+                    opacity: [1, 0],
+                    delay: this.displayDuration,
+                    duration: this.transitionDuration,
+                    easing: 'easeInOutSine',
+                });
+            }
+        });
     }
 
     __generateGradient() {

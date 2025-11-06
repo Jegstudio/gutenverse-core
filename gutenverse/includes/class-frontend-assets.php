@@ -97,13 +97,13 @@ class Frontend_Assets {
 	 */
 	public function load_conditional_styles() {
 		$blocks = array(
-			'accordion',
 			'accordions',
+			'accordion',
 			'advanced-heading',
 			'animated-text',
 			'archive-title',
-			'button',
 			'buttons',
+			'button',
 			'chart',
 			'countdown',
 			'demo',
@@ -136,8 +136,8 @@ class Frontend_Assets {
 			'progress-bar',
 			'search',
 			'search-result-title',
-			'social-icon',
 			'social-icons',
+			'social-icon',
 			'social-share',
 			'social-share-item',
 			'spacer',
