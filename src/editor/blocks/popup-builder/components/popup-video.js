@@ -1,8 +1,7 @@
 import { ReactPlayer } from 'gutenverse-core/components';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isEmpty } from 'gutenverse-core/helper';
 
-const VideoContainer = ({ popupVideoSrc, popupVideoStart, popupVideoEnd, popupVideoHideControls, popupVideoLoop, popupVideoMuted, popupVideoWidth, popupVideoHeight, videoRef, playing, setPlaying }) => {
+const VideoContainer = ({ popupVideoSrc, popupVideoStart, popupVideoEnd, popupVideoHideControls, popupVideoLoop, popupVideoMuted, videoRef, playing, setPlaying }) => {
     const playerStyle = {};
     const playerConfig = {
         youtube: {
@@ -12,7 +11,6 @@ const VideoContainer = ({ popupVideoSrc, popupVideoStart, popupVideoEnd, popupVi
             }
         }
     };
-    const deviceType = getDeviceType();
 
     return popupVideoSrc ? (
         <ReactPlayer
@@ -20,8 +18,8 @@ const VideoContainer = ({ popupVideoSrc, popupVideoStart, popupVideoEnd, popupVi
             className="guten-video-background"
             url={popupVideoSrc}
             controls={!popupVideoHideControls}
-            width={popupVideoWidth && popupVideoWidth[deviceType] ? `${popupVideoWidth[deviceType]}%` : '100%'}
-            height={popupVideoHeight && popupVideoHeight[deviceType] ? `${popupVideoHeight[deviceType]}px` : '500px'}
+            width={'100%'}
+            height={'100%'}
             playing={playing}
             muted={popupVideoMuted}
             loop={popupVideoLoop}

@@ -281,6 +281,21 @@
 		"videoContainerBorderResponsive": {
 			"type": "object"
 		},
+		"popupVideoWidth": {
+			"type": "object"
+		},
+		"popupVideoHeight": {
+			"type": "object"
+		},
+		"popupVideoContainerFixedHeight": {
+			"type": "object"
+		},
+		"videoContainerContentHorizontalAlign": {
+			"type": "object"
+		},
+		"videoContainerContentVerticalAlign": {
+			"type": "object"
+		},
 		"popupVideoPlayOn": {
 			"type": "string",
 			"default": "click"
