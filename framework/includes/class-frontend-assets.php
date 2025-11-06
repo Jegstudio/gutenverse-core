@@ -124,10 +124,7 @@ class Frontend_Assets {
 		if ( ! empty( $enqueue_default ) ) {
 			wp_add_inline_style( 'wp-block-library', $enqueue_default );
 		}
-
 		// Custom frontend setting end here.
-
-		wp_enqueue_script( 'gutenverse-frontend-event' );
 
 		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseData', $this->gutenverse_data() );
 
