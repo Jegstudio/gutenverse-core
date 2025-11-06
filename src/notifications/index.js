@@ -1,10 +1,10 @@
 import { createPortal, render, useEffect, useState } from '@wordpress/element';
 import { addFilter, applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
-import { IconNoticeWarningSVG } from 'gutenverse-core/icons';
 import isEmpty from 'lodash/isEmpty';
-import { CheckSquare } from 'gutenverse-core/components';
+// import { CheckSquare } from 'gutenverse-core/components';
 import { Gutenverse20Compatibility } from './notices/gutenverse-2-0-compatibility';
+import { versionCompare } from '../helper';
 
 // @since v3.2.0
 const NotificationList = () => {
@@ -59,29 +59,94 @@ const NotificationList = () => {
     const parentElement = document.getElementById('wp-admin-bar-gutenverse-adminbar-notification');
     const targetElement = parentElement ? parentElement.querySelector('.notifications-icon') : null;
 
-    const markAllRead = () => {
-        const ids = [];
-        notificationList.map(({ id, show }) => {
-            if (show && !readNotifications.includes(id)) ids.push(id);
-        });
-        setReadNotifications([
-            ...readNotifications,
-            ...ids
-        ]);
-        setNotifTotal(0);
-    };
+    // const markAllRead = () => {
+    //     const ids = [];
+    //     notificationList.map(({ id, show }) => {
+    //         if (show && !readNotifications.includes(id)) ids.push(id);
+    //     });
+    //     setReadNotifications([
+    //         ...readNotifications,
+    //         ...ids
+    //     ]);
+    //     setNotifTotal(0);
+    // };
 
     return <>
-        <div className="notification-title">
+        {/* <div className="notification-title">
             <h3>{__('Notification Center', '--gctd--')}</h3>
             <div className="mark-read" onClick={markAllRead}>
                 <CheckSquare size={16} />
             </div>
-        </div>
+        </div> */}
         <div className="notification-list">
             {!isEmpty(content) ? content : <p className="notification-empty">{__('There is no Notifications', '--gctd--')}</p>}
         </div>
         {notifTotal > 0 && createPortal(<span className="notification-total">{notifTotal}</span>, targetElement)}
+    </>;
+};
+
+const VersionCompatibility = () => {
+    const { pluginVersions } = window['GutenverseDashboard'];
+    const { pluginCheck } = window['GutenversePluginList'];
+    const { version } = window['gutenverseLoadedFramework'];
+
+    const loadContent = () => {
+        if (version && pluginCheck && pluginCheck[version]) {
+            const pluginLatest = pluginCheck[version];
+            return Object.keys(pluginLatest)?.map((slug) => {
+
+                if (!pluginVersions[slug]) return;
+
+                const v1 = pluginVersions[slug]['version'];
+                const v2 = pluginLatest[slug];
+                const button = versionCompare(v1, v2, '<') ? <a href="https://wordpress.org/support/plugin/gutenverse/reviews/#new-post" target="_blank" rel="noreferrer" className="guten-version-button guten-primary">
+                    {__('Need Update', '--gctd--')}
+                </a> : <div className="guten-version-button guten-disable">
+                    {__('Updated', '--gctd--')}
+                </div>;
+
+                return <div key={slug} className="gutenverse-version-wrapper">
+                    <div className="gutenverse-version-notice">
+                        <h3>{`${pluginVersions[slug]['name']} v${v1}`}</h3>
+                        <h5>{__('Gutenverse Core v2.2.0', '--gctd--')}</h5>
+                        <p>{__('Hi! Currently you are using an older version of this plugin. To provide better experience, please update this plugin to the latest version.', '--gctd--')}</p>
+                        <div className="gutenverse-version-action">
+                            {button}
+                        </div>
+                    </div>
+                </div>;
+            });
+        }
+
+        return null;
+    };
+
+    return <div className="content-list">
+        {loadContent()}
+    </div>;
+};
+
+const TabContent = () => {
+    const [mode, setMode] = useState(null);
+    let content = '';
+
+    switch (mode) {
+        case 'version-check':
+            content = <VersionCompatibility />;
+            break;
+        default:
+            content = <NotificationList />;
+            break;
+    }
+
+    return <>
+        <div className="tab-header">
+            <div className={`header-item ${!mode ? 'active' : ''}`} onClick={() => setMode(null)}><h3>{__('Notification Center', '--gctd--')}</h3></div>
+            <div className={`header-item ${mode === 'version-check' ? 'active' : ''}`} onClick={() => setMode('version-check')}><h3>{__('Version Compatibility', '--gctd--')}</h3></div>
+        </div>
+        <div className="tab-content">
+            {content}
+        </div>
     </>;
 };
 
@@ -90,7 +155,7 @@ const loadGutenverseNotifications = () => {
 
     if (notifDiv) {
         render(
-            <NotificationList />,
+            <TabContent />,
             notifDiv
         );
     }
@@ -191,7 +256,7 @@ addFilter(
 );
 
 
-const GutenversePluginUpdateNotice = ({data}) => {
+const GutenversePluginUpdateNotice = ({ data }) => {
     const { action_url, notice_header, notice_description, notice_action, notice_action_2, plugin_name } = data;
     return <>
         <div className="gutenverse-plugin-update-notice">

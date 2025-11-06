@@ -162,7 +162,7 @@ class Frontend_Toolbar {
 					$admin_bar->add_node(
 						array(
 							'id'     => 'gutenverse-adminbar-notification',
-							'title'  => '<span class="gutenverse-adminbar-notifications">' . '<div class="notifications-icon"><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-notifications.svg' ) . '"/></div>' . esc_html__( 'Gutenverse Notifications', '--gctd--' ) . '</span>',
+							'title'  => '<span class="gutenverse-adminbar-notifications">' . '<div class="notifications-icon"><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-notifications.svg' ) . '"/></div>' . esc_html__( 'Gutenverse Pulse', '--gctd--' ) . '</span>',
 							'parent' => 'top-secondary',
 						)
 					);

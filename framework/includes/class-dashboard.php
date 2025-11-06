@@ -118,6 +118,8 @@ class Dashboard {
 
 		wp_localize_script( 'gutenverse-core-event', 'GutenverseSettings', $this->gutenverse_setting_config() );
 
+		wp_localize_script( 'gutenverse-core-event', 'GutenversePluginList', $this->gutenverse_plugin_list_config() );
+
 		wp_set_script_translations( 'gutenverse-core-event', 'gutenverse', GUTENVERSE_FRAMEWORK_LANG_DIR );
 
 		if ( 'toplevel_page_gutenverse' === $hook ) {
@@ -373,6 +375,55 @@ class Dashboard {
 	}
 
 	/**
+	 * Gutenverse Plugin List Config
+	 *
+	 * @return array
+	 */
+	public function gutenverse_plugin_list_config() {
+		$config = array();
+
+		$config['pluginCheck'] = array(
+			'2.2.1' => array(
+				'gutenverse'           => '3.2.1',
+				'gutenverse-companion' => '2.0.1',
+				'gutenverse-form'      => '2.2.0',
+				'gutenverse-news'      => '3.0.2',
+				'gutenverse-pro'       => '2.2.2',
+			),
+			'2.2.0' => array(
+				'gutenverse'           => '3.2.0',
+				'gutenverse-companion' => '2.0.0',
+				'gutenverse-form'      => '2.2.0',
+				'gutenverse-news'      => '3.0.0',
+				'gutenverse-pro'       => '2.2.1',
+			),
+			'2.1.2' => array(
+				'gutenverse'           => '3.1.2',
+				'gutenverse-companion' => '1.0.5',
+				'gutenverse-form'      => '2.1.2',
+				'gutenverse-news'      => '3.0.0',
+				'gutenverse-pro'       => '2.1.2',
+			),
+			'2.1.1' => array(
+				'gutenverse'           => '3.1.1',
+				'gutenverse-companion' => '1.0.5',
+				'gutenverse-form'      => '2.1.1',
+				'gutenverse-news'      => '2.0.1',
+				'gutenverse-pro'       => '2.1.1',
+			),
+			'2.1.0' => array(
+				'gutenverse'           => '3.1.0',
+				'gutenverse-companion' => '1.0.5',
+				'gutenverse-form'      => '2.1.0',
+				'gutenverse-news'      => '2.0.1',
+				'gutenverse-pro'       => '2.1.0',
+			),
+		);
+
+		return $config;
+	}
+
+	/**
 	 * Gutenverse Settings Config
 	 *
 	 * @return array
@@ -408,10 +459,10 @@ class Dashboard {
 	 * Child Menu
 	 */
 	public function child_menu() {
-		$path            = admin_url( 'admin.php?page=gutenverse&path=' );
-		$active_theme    = get_option( 'stylesheet' );
-		$companion       = $this->get_active_plugins();
-		$companion       = in_array( 'gutenverse-companion/gutenverse-companion.php', $companion, true ) || in_array( 'gutenverse-companion', $companion, true );
+		$path         = admin_url( 'admin.php?page=gutenverse&path=' );
+		$active_theme = get_option( 'stylesheet' );
+		$companion    = $this->get_active_plugins();
+		$companion    = in_array( 'gutenverse-companion/gutenverse-companion.php', $companion, true ) || in_array( 'gutenverse-companion', $companion, true );
 
 		add_submenu_page(
 			self::TYPE,
@@ -443,7 +494,7 @@ class Dashboard {
 			2
 		);
 
-		if ( 'unibiz' !== $active_theme || !$companion ) {
+		if ( 'unibiz' !== $active_theme || ! $companion ) {
 			add_submenu_page(
 				self::TYPE,
 				esc_html__( 'Themes', '--gctd--' ),
@@ -453,7 +504,7 @@ class Dashboard {
 				null,
 				3
 			);
-		} else if ( !$companion ) {
+		} elseif ( ! $companion ) {
 			add_submenu_page(
 				self::TYPE,
 				esc_html__( 'Themes', '--gctd--' ),
