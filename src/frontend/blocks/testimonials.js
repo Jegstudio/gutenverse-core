@@ -74,3 +74,12 @@ const selected = u('.guten-testimonials');
 if (selected) {
     new GutenverseTestimonials(selected);
 }
+
+const elementPlaceholder = u('[data-image-placeholder]');
+const { image_placeholder } = window['GutenverseFrontendConfig'];
+elementPlaceholder.nodes.map(element => {
+    const data = u(element).data('image-placeholder');
+    if('gutenverse-image-placeholder' === data){
+        u(element).attr('src', image_placeholder);
+    }
+});

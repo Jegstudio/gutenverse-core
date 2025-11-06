@@ -37,7 +37,6 @@ class Form_Validation extends Style_Generator {
 	 * Form Validation Scripts
 	 */
 	public function form_validation_scripts() {
-		wp_enqueue_script( 'gutenverse-frontend-event' );
 		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseFormValidationData', $this->form_validation_data );
 		wp_enqueue_style(
 			'gutenverse-form-default-style',
