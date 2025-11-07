@@ -1,4 +1,4 @@
-import anime from 'animejs';
+import anime from 'anime';
 import { __ } from '@wordpress/i18n';
 import { Chart } from 'chart.js/auto';
 import { createPortal } from 'react-dom';

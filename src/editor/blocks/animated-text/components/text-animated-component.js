@@ -1,4 +1,4 @@
-import anime from 'animejs';
+import anime from 'anime';
 import { useEffect, useRef } from '@wordpress/element';
 import { u } from 'gutenverse-core/components';
 import listAnimationStyles from './animation-styles/list-animation-styles';

@@ -1,6 +1,6 @@
 import listHighlightStyles from './highlighted-styles/list-highlighted-styles';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import anime from 'animejs';
+import anime from 'anime';
 
 const TextHighlightedComponent = (props) => {
     const {

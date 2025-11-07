@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import anime from 'animejs';
+import anime from 'anime';
 import { useEffect, useRef } from '@wordpress/element';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';

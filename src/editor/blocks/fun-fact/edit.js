@@ -4,7 +4,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import anime from 'animejs';
+import anime from 'anime';
 import { getDeviceType, getImageSrc } from 'gutenverse-core/editor-helper';
 import { useRef } from '@wordpress/element';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
@@ -78,6 +78,7 @@ const FunFactBlock = compose(
                 const formatComma = safeNumber.replaceAll( ',', '.' );
                 const isValidNumber = /^-?\d+(\.\d+)?$/.test(formatComma);
                 if (!isValidNumber) {
+                    //eslint-disable-next-line no-console
                     console.warn('[FunFact] Invalid number input (potentially unsafe):', formatComma);
                     numberElement.textContent = 'Invalid number';
                     return;

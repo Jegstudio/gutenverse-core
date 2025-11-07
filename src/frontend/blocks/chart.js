@@ -1,4 +1,4 @@
-import anime from 'animejs';
+import anime from 'anime';
 import { Default, u } from 'gutenverse-core-frontend';
 import { Chart} from 'chart.js/auto';
 import isEmpty from 'lodash/isEmpty';
