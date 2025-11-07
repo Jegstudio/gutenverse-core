@@ -4,42 +4,10 @@ const FileManagerPlugin = require("filemanager-webpack-plugin");
 const rules = require("gutenverse-core/.config/rules");
 const { output } = require('../config');
 const { stats, plugins } = require("gutenverse-core/.config/config");
-const { externals, coreFrontendExternals } = require("gutenverse-core/.config/externals");
+const { externals, coreFrontendExternals, configDepsExtractExternals } = require("gutenverse-core/.config/externals");
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
 const modularDir = path.resolve(__dirname, "../../src/frontend/blocks/");
-const depDir = path.resolve(__dirname, "../../src/frontend/deps/");
-
-const getDepsConfig = () => {
-    const files = fs.readdirSync(depDir).filter(file => file.endsWith('.js'));
-    const names = {};
-    const entry = {};
-    const copyTasks = [];
-    const deleteTasks = [];
-
-    files.forEach(file => {
-        const name = file.replace('.js', '');
-
-        entry[name] = {
-            import: path.join(depDir, file),
-            library: {
-                name: name,
-                type: "window",
-            },
-        };
-
-        deleteTasks.push(`./gutenverse/assets/js/frontend/${name}.js`);
-
-        copyTasks.push({
-            source: process.env.NODE_ENV === 'development' ? `./build/${name}.js` : `./build/${name}.js`,
-            destination: "./gutenverse/assets/js/frontend/",
-        });
-
-        names[name] = name;
-    });
-
-    return { entry, copyTasks, deleteTasks, names };
-}
 
 const getModularConfig = () => {
     const files = fs.readdirSync(modularDir).filter(file => file.endsWith('.js'));
@@ -73,23 +41,6 @@ const getModularConfig = () => {
 };
 
 const { entry, copyTasks, deleteTasks } = getModularConfig();
-const depsResult = getDepsConfig();
-
-const frontendDeps = depsResult?.names ? depsResult?.names : {};
-Object.assign(entry, depsResult?.entry ? depsResult?.entry : {});
-copyTasks.push(...(depsResult?.copyTasks ? depsResult?.copyTasks : []));
-deleteTasks.push(...(depsResult?.deleteTasks ? depsResult?.deleteTasks : []));
-
-const makeDepsFunc = (frmt) => {
-    return (request) => {
-        for (const name of Object.keys(frontendDeps)) {
-            if (request === name) {
-                return frmt(frontendDeps[name]);
-            }
-        }
-        return undefined;
-    }
-};
 
 const frontendModular = {
     mode: "development",
@@ -98,7 +49,6 @@ const frontendModular = {
     externals: {
         ...externals,
         ...coreFrontendExternals,
-        ...frontendDeps,
     },
     stats,
     output,
@@ -108,10 +58,7 @@ const frontendModular = {
     },
     plugins: [
         ...plugins,
-        new DependencyExtractionWebpackPlugin({
-            requestToExternal: makeDepsFunc((val) => val),
-            requestToHandle: makeDepsFunc((val) => `gutenverse-dep-${val}-script`),
-        }),
+        new DependencyExtractionWebpackPlugin(configDepsExtractExternals()),
         new FileManagerPlugin({
             events: {
                 onStart: {

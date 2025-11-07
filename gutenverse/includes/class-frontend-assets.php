@@ -28,28 +28,7 @@ class Frontend_Assets {
 	 *
 	 * @since 3.3.0-dev
 	 */
-	public function load_dependencies() {
-		$deps = array(
-			'anime',
-		);
-		foreach ( $deps as $dep ) {
-			wp_register_script(
-				'gutenverse-dep-' . $dep . '-script',
-				GUTENVERSE_URL . '/assets/js/frontend/' . $dep . '.js',
-				array(),
-				GUTENVERSE_VERSION,
-				true
-			);
-		}
-	}
-
-	/**
-	 * Load the scripts
-	 *
-	 * @since 3.3.0-dev
-	 */
 	public function load_conditional_scripts() {
-		$this->load_dependencies();
 		$blocks = array(
 			'accordion',
 			'animated-text',
