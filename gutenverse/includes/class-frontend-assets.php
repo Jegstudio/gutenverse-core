@@ -25,10 +25,31 @@ class Frontend_Assets {
 
 	/**
 	 * Load the scripts
-	 * 
+	 *
+	 * @since 3.3.0-dev
+	 */
+	public function load_dependencies() {
+		$deps = array(
+			'anime',
+		);
+		foreach ( $deps as $dep ) {
+			wp_register_script(
+				'gutenverse-dep-' . $dep . '-script',
+				GUTENVERSE_URL . '/assets/js/frontend/' . $dep . '.js',
+				array(),
+				GUTENVERSE_VERSION,
+				true
+			);
+		}
+	}
+
+	/**
+	 * Load the scripts
+	 *
 	 * @since 3.3.0-dev
 	 */
 	public function load_conditional_scripts() {
+		$this->load_dependencies();
 		$blocks = array(
 			'accordion',
 			'animated-text',
@@ -49,7 +70,7 @@ class Frontend_Assets {
 			'tab',
 			'team',
 			'testimonials',
-			'video'
+			'video',
 		);
 
 		foreach ( $blocks as $block ) {
@@ -68,7 +89,7 @@ class Frontend_Assets {
 
 	/**
 	 * Load the styles
-	 * 
+	 *
 	 * @since 3.3.0-dev
 	 */
 	public function load_conditional_styles() {
@@ -138,7 +159,7 @@ class Frontend_Assets {
 			wp_register_style(
 				'gutenverse-frontend-' . $block . '-style',
 				GUTENVERSE_URL . '/assets/css/frontend/' . $block . '.css',
-				array('gutenverse-frontend'),
+				array( 'gutenverse-frontend' ),
 				GUTENVERSE_VERSION
 			);
 		}

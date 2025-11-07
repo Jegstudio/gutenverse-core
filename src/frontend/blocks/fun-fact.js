@@ -1,5 +1,5 @@
 import { Default, u } from 'gutenverse-core-frontend';
-
+import anime from 'anime';
 class GutenverseFunFact extends Default {
     /* public */
     init() {
@@ -41,22 +41,20 @@ class GutenverseFunFact extends Default {
         if (!numberRightSpace) {
             used = `${used} `;
         }
-        import(/* webpackChunkName: "chunk-anime" */'animejs').then(( { default: anime } ) => {
-            const numberAnimation = anime({
-                targets: targetElement.first(),
-                innerHTML: used,
-                easing: 'easeInOutQuart',
-                round: 1,
-                duration,
-                autoplay: false,
-                update: (formatter && safeNumber) ? function(anim) {
-                    const val = parseInt(anim.animations[0].currentValue);
-                    targetElement.first().innerHTML = !isNaN(val) ? formatter.format( val ) : anim.animations[0].currentValue;
-                } : null
-            });
-
-            this.playOnScreen(element, [numberAnimation]);
+        const numberAnimation = anime({
+            targets: targetElement.first(),
+            innerHTML: used,
+            easing: 'easeInOutQuart',
+            round: 1,
+            duration,
+            autoplay: false,
+            update: (formatter && safeNumber) ? function(anim) {
+                const val = parseInt(anim.animations[0].currentValue);
+                targetElement.first().innerHTML = !isNaN(val) ? formatter.format( val ) : anim.animations[0].currentValue;
+            } : null
         });
+
+        this.playOnScreen(element, [numberAnimation]);
     }
 }
 

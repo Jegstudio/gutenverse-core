@@ -1,5 +1,5 @@
 import { Default, u } from 'gutenverse-core-frontend';
-
+import anime from 'anime';
 class GutenverseProgressBar extends Default {
     /* public */
     init() {
@@ -16,26 +16,24 @@ class GutenverseProgressBar extends Default {
         const percentage = skillTrack.data('width');
         const duration = skillTrack.data('duration');
 
-        import(/* webpackChunkName: "chunk-anime" */'animejs').then(( { default: anime } ) => {
-            const barAnimation = anime({
-                targets: skillTrack.first(),
-                width: `${percentage}%`,
-                easing: 'easeInOutQuart',
-                duration,
-                autoplay: false
-            });
-
-            const percentAnimation = anime({
-                targets: numberLoaded.first(),
-                innerHTML: `${percentage}%`,
-                easing: 'easeInOutQuart',
-                round: 1,
-                duration,
-                autoplay: false
-            });
-
-            this.playOnScreen(element, [barAnimation, percentAnimation]);
+        const barAnimation = anime({
+            targets: skillTrack.first(),
+            width: `${percentage}%`,
+            easing: 'easeInOutQuart',
+            duration,
+            autoplay: false
         });
+
+        const percentAnimation = anime({
+            targets: numberLoaded.first(),
+            innerHTML: `${percentage}%`,
+            easing: 'easeInOutQuart',
+            round: 1,
+            duration,
+            autoplay: false
+        });
+
+        this.playOnScreen(element, [barAnimation, percentAnimation]);
     }
 }
 
