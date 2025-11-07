@@ -4,7 +4,7 @@
         "paths": {
             "gutenverse-core/*": ["gutenverse-core/src/*"],
             "gutenverse-core-frontend": ["gutenverse-core/src/frontend"],
-            "anime": ["gutenverse-core/src/frontend/deps/anime"],
+            "animejs": ["gutenverse-core/src/frontend/deps/animejs"],
         }
     },
     "include": ["./src/**/*", "..config/**/*"],

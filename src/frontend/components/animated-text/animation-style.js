@@ -1,6 +1,6 @@
 import listAnimationStyles from './animation-styles/list-animation-styles';
 import { u } from 'gutenverse-core-frontend';
-import anime from 'anime';
+import anime from 'animejs';
 export class AnimationStyle {
     constructor(element, animationProps) {
         this.element = element;

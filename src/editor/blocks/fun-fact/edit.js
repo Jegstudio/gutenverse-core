@@ -4,7 +4,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import anime from 'anime';
+import anime from 'animejs';
 import { getDeviceType, getImageSrc } from 'gutenverse-core/editor-helper';
 import { useRef } from '@wordpress/element';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
