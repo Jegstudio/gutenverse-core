@@ -194,7 +194,7 @@ class Assets {
 
 		// register external dependencies.
 		$deps = array(
-			'anime',
+			'animejs',
 		);
 		foreach ( $deps as $dep ) {
 			wp_register_script(
