@@ -4,11 +4,6 @@ const rules = require("../rules");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { stats, output, plugins } = require("../config");
 
-let reactPlayerStandalone = path.resolve(process.cwd(), "node_modules/react-player/dist/ReactPlayer.standalone.js");
-if (!fs.existsSync(reactPlayerStandalone)) {
-    reactPlayerStandalone = path.resolve(process.cwd(), "../node_modules/react-player/dist/ReactPlayer.standalone.js");
-}
-
 const modularDir = path.resolve(__dirname, "../../src/frontend/modular");
 
 const getModularConfig = () => {
