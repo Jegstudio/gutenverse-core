@@ -108,6 +108,8 @@ const coreFrontendExternals = {
 	'gutenverse-core-frontend': 'gutenverseCoreFrontend'
 };
 
+const coreDepExternals = getDepsExternal();
+
 const externals = {
 	wp: 'wp',
 	lodash: 'lodash', // WP loads lodash already.
@@ -115,7 +117,7 @@ const externals = {
 	// react: 'wp.element', // Use the bundled React in Gutenberg. (not working see https://github.com/WordPress/gutenberg/issues/33674)
 	// 'react-dom': 'wp.element', // Use the bundled ReactDom in Gutenberg.
 	...wpExternals,
-	...getDepsExternal(),
+	...coreDepExternals,
 }
 
 module.exports = {
@@ -123,5 +125,6 @@ module.exports = {
 	externals,
 	coreExternals,
 	coreFrontendExternals,
+	coreDepExternals,
 	configDepsExtractExternals,
 };
