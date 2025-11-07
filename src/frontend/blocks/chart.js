@@ -82,20 +82,20 @@ class GutenverseChart extends Default {
 
     _generateChart(chartData, element) {
         const {
-            chartContent,
-            tooltipDisplay,
-            legendDisplay,
-            chartItems,
-            chartType,
-            minValue,
-            totalValue,
-            animationDuration,
             cutout,
-            barThickness,
-            cutoutBackground,
-            multiValue,
+            minValue,
+            chartType,
             chartSize,
-            elementId
+            elementId,
+            multiValue,
+            totalValue,
+            chartItems,
+            barThickness,
+            chartContent,
+            legendDisplay,
+            tooltipDisplay,
+            cutoutBackground,
+            animationDuration,
         } = chartData;
 
         const chartId = `#chart-${elementId}`;
@@ -105,10 +105,12 @@ class GutenverseChart extends Default {
         const radius = Math.min(width, height) / 2;
         const data = chartItems;
 
-        const svg = select(chartId)
+        const svgContainer = select(chartId)
             .append('svg')
             .attr('width', width)
-            .attr('height', height)
+            .attr('height', height);
+
+        const svg = svgContainer
             .append('g')
             .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
@@ -119,9 +121,35 @@ class GutenverseChart extends Default {
         }
 
         if (chartType === 'doughnut') {
-            this._drawDonutChart({svg, data, radius, elementId, animationDuration, chartContent, cutout, device, tooltip});
+            this._drawDonutChart({
+                svg,
+                data,
+                radius,
+                cutout,
+                device,
+                tooltip,
+                elementId,
+                totalValue,
+                chartContent,
+                cutoutBackground,
+                animationDuration,
+            });
         } else if (chartType === 'bar') {
-            this._drawBarChart({svg, data, width, elementId, height, animationDuration, barThickness, tooltip, totalValue, chartContent, minValue});
+            this._drawBarChart({
+                svg,
+                data,
+                width,
+                height,
+                tooltip,
+                minValue,
+                elementId,
+                totalValue,
+                svgContainer,
+                chartContent,
+                barThickness,
+                legendDisplay,
+                animationDuration,
+            });
         }
     }
 
@@ -131,7 +159,7 @@ class GutenverseChart extends Default {
         data.forEach((d, i) => {
             if (d.colorMode !== 'gradient') return;
             if (d.gutenverseGradient) {
-                //placeholder
+                //apply gutenverse gradient
             } else {
                 let gradient;
                 const position = d.gradientPosition ? d.gradientPosition : 200;
@@ -149,9 +177,9 @@ class GutenverseChart extends Default {
                     case 'leftRight':
                         gradient = defs.append('linearGradient')
                             .attr('id', `gradient-${elementId}-${i}`)
-                            .attr('x1', type === 'donut' ? thePosition : '0%')
+                            .attr('x1', '0%')
                             .attr('y1', '0%')
-                            .attr('x2', type === 'bar' ? thePosition : '0%')
+                            .attr('x2', thePosition)
                             .attr('y2', '0%');
                         break;
                     case 'bottomTop':
@@ -165,9 +193,9 @@ class GutenverseChart extends Default {
                     case 'rightLeft':
                         gradient = defs.append('linearGradient')
                             .attr('id', `gradient-${elementId}-${i}`)
-                            .attr('x1', type === 'bar' ? thePosition : '0%')
+                            .attr('x1', thePosition)
                             .attr('y1', '0%')
-                            .attr('x2', type === 'donut' ? thePosition : '0%')
+                            .attr('x2', '0%')
                             .attr('y2', '0%');
                         break;
                 }
@@ -187,24 +215,71 @@ class GutenverseChart extends Default {
         const {
             svg,
             radius,
-            elementId,
-            animationDuration = 800,
-            chartContent,
             cutout,
             device,
             tooltip,
+            elementId,
+            totalValue,
+            chartContent,
+            cutoutBackground,
+            animationDuration = 800,
         } = props;
 
         let { data } = props;
         const theCutout = cutout[device] * 0.01;
 
-        if(chartContent === 'percentage') {
+        if(chartContent !== 'number') {
             let flag = 100;
             for (const dataChart of data) {
                 flag -= dataChart.value;
-                if (flag < 0) break;
             }
-            data = flag !== 0 ? [
+            data = flag > 0 ? [
+                ...data,
+                {
+                    label: '',
+                    value: flag,
+                    backgroundColor: {
+                        r: 255,
+                        g: 255,
+                        b: 255,
+                        a: 0
+                    },
+                    borderColor: {
+                        r: 255,
+                        g: 255,
+                        b: 255,
+                        a: 1
+                    },
+                    borderWidth: 0,
+                    _key: '00000'
+                }
+            ] : flag === 0 ? data : [
+                ...data,
+                {
+                    label: '',
+                    value: totalValue + ( flag - 100 ) ,
+                    backgroundColor: {
+                        r: 255,
+                        g: 255,
+                        b: 255,
+                        a: 0
+                    },
+                    borderColor: {
+                        r: 255,
+                        g: 255,
+                        b: 255,
+                        a: 1
+                    },
+                    borderWidth: 0,
+                    _key: '00000'
+                }
+            ];
+        } else {
+            let flag = totalValue;
+            for (const dataChart of data) {
+                flag -= dataChart.value;
+            }
+            data = flag > 0 ? [
                 ...data,
                 {
                     label: '',
@@ -243,7 +318,7 @@ class GutenverseChart extends Default {
 
         svg.append('path')
             .attr('d', backgroundArc({ startAngle: 0, endAngle: 2 * Math.PI }))
-            .attr('fill', '#e0e0e0')
+            .attr('fill', this._theColor(cutoutBackground))
             .attr('stroke', 'none');
 
         const arcs = svg.selectAll('path.donut')
@@ -289,7 +364,7 @@ class GutenverseChart extends Default {
     }
 
     _getMaxvalue(data, totalValue, chartContent) {
-        if(chartContent === 'percentage') {
+        if(chartContent !== 'number') {
             const value = Math.max(...data.map(d => d.value));
             return value <= 100 ? 100 : value;
         } else {
@@ -303,14 +378,16 @@ class GutenverseChart extends Default {
             data,
             width,
             height,
-            animationDuration = 800,
-            barThickness,
-            enableGrid = true,
             tooltip,
+            minValue,
             elementId,
             totalValue,
-            minValue,
-            chartContent
+            svgContainer,
+            chartContent,
+            barThickness,
+            legendDisplay,
+            enableGrid = true,
+            animationDuration = 800,
         } = props;
 
         this._appendGradientDefs(svg, data, elementId, 'bar');
@@ -320,13 +397,17 @@ class GutenverseChart extends Default {
         const chartHeight = height - margin.top - margin.bottom;
         const topValue = this._getMaxvalue(data, totalValue, chartContent);
         const bootomValue = minValue ? minValue : 0;
+        const totalWidth = (barThickness * data.length) + margin.left + margin.right;
+        const theWidth = chartWidth > totalWidth ? chartWidth : totalWidth;
+
+        svgContainer.attr('width', theWidth + margin.left + margin.right);
 
         const chartGroup = svg.append('g')
             .attr('transform', `translate(${margin.left - width / 2}, ${margin.top - height / 2})`);
 
         const x = scaleBand()
-            .domain(data.map(d => d.label))
-            .range([0, chartWidth])
+            .domain(data.map((d) => d.label))
+            .range([0, theWidth])
             .padding(0.2);
 
         const y = scaleLinear()
@@ -335,17 +416,37 @@ class GutenverseChart extends Default {
             .range([chartHeight, 0]);
 
         chartGroup.append('g')
-            .attr('transform', `translate(0, ${chartHeight})`)
-            .call(axisBottom(x))
-            .selectAll('text')
-            .attr('font-size', '10px')
-            .attr('fill', '#333');
-
-        chartGroup.append('g')
             .call(axisLeft(y).ticks(5))
             .selectAll('text')
             .attr('font-size', '10px')
             .attr('fill', '#333');
+
+        const xLabels = chartGroup.append('g')
+            .attr('transform', `translate(0, ${chartHeight})`)
+            .call(axisBottom(x))
+            .selectAll('text');
+
+        let diagonal = false;
+
+        xLabels.each(function() {
+            const textWidth = this.getBBox().width;
+            if (textWidth > x.bandwidth()) {
+                diagonal = true;
+            }
+        });
+
+        if (diagonal) {
+            xLabels
+                .attr('text-anchor', 'end')
+                .attr('transform', 'rotate(-45)')
+                .attr('dx', '-0.5em')
+                .attr('dy', '0.25em');
+        } else {
+            xLabels
+                .selectAll('text')
+                .attr('font-size', '10px')
+                .attr('fill', '#333');
+        }
 
         if (enableGrid) {
 
@@ -356,7 +457,7 @@ class GutenverseChart extends Default {
                 .enter()
                 .append('line')
                 .attr('x1', 1)
-                .attr('x2', (chartWidth - 1))
+                .attr('x2', ((theWidth) - 1))
                 .attr('y1', d => y(d))
                 .attr('y2', d => y(d))
                 .attr('stroke', '#e0e0e0')
@@ -447,6 +548,62 @@ class GutenverseChart extends Default {
                     select(this).text(Math.round(i(t)));
                 };
             });
+
+        legendDisplay && this._appendLegend({ svgContainer, svg, data, position: 'top', spacing: 70,  elementId, height, width });
+    }
+
+    _appendLegend({ svgContainer, svg, data, position = 'top', spacing = 50, elementId, height, width, radius = 8 }) {
+
+        const legendGroup = svg.append('g')
+            .attr('class', `chart-legend-${elementId}`);
+
+        let yOffset = position === 'top' ? -(height/2) : (height/2);
+
+        const legendItems = legendGroup.selectAll('.legend-item')
+            .data(data)
+            .enter()
+            .append('g')
+            .attr('class', 'legend-item');
+
+        legendItems.append('circle')
+            .attr('r', radius)
+            .attr('fill', d =>
+                d.colorMode === 'gradient'
+                    ? `url(#gradient-${elementId}-${data.indexOf(d)})`
+                    : this._theColor(d.backgroundColor)
+            );
+
+        const text = legendItems.append('text')
+            .attr('x', radius + 6)
+            .attr('y', 4)
+            .attr('font-size', '12px')
+            .attr('fill', '#333')
+            .text(d => d.label);
+
+        text.each(function(d) {
+            const bbox = this.getBBox();
+            d.textWidth = bbox.width + radius * 3;
+        });
+
+        const lineHeight = 24;
+        const maxWidth = +svgContainer.attr('width') - 20;
+        let xPos = -(maxWidth / 4);
+        let yPos = yOffset;
+        let isDown = 0;
+
+        legendItems.attr('transform', function(d) {
+            if (xPos + d.textWidth > maxWidth - (maxWidth / 4)) {
+                xPos = -(maxWidth / 4);
+                yPos += lineHeight;
+                isDown++;
+            }
+
+            const transform = `translate(${xPos}, ${yPos})`;
+            xPos += d.textWidth;
+            return transform;
+        });
+
+        legendGroup.attr('transform', `translate(0, -${lineHeight * isDown})`);
     }
 
     _appendTooltip(chartId) {
@@ -489,11 +646,11 @@ class GutenverseChart extends Default {
 
     _animateNumber(element, data) {
         const {
-            chartContent,
             chartItems,
             totalValue,
+            multiValue,
+            chartContent,
             animationDuration,
-            multiValue
         } = data;
 
         const el = element.nodes ? element.nodes[0] : element;

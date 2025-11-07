@@ -60,7 +60,6 @@
 		"@svgr/webpack": "^7.0.0",
 		"@wordpress/private-apis": "^1.20.0",
 		"animejs": "^3.2.2",
-		"chart.js": "^4.4.8",
 		"classnames": "^2.5.1",
 		"d3": "^7.9.0",
 		"flatpickr": "^4.6.13",

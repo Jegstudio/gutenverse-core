@@ -29,7 +29,7 @@ export const chartItemPanel = (props) => {
             component: RepeaterControl,
             titleFormat: '<strong><%= value.label ? value.label : "Chart Item" %></strong>',
             repeaterDefault: {
-                label: 'Chart Item',
+                label: 'Chart Item' + ` ${chartItems.length + 1}`,
                 value: '20',
                 backgroundColor: {
                     r: Math.floor(Math.random() * 256),
@@ -139,24 +139,25 @@ export const chartItemPanel = (props) => {
                     label: __('Color', 'gutenverse'),
                     component: ColorControl,
                 },
-                {
-                    id: 'chartColorGradient',
-                    show: value => value.colorMode === 'gradient',
-                    label: __('Gradient', 'gutenverse'),
-                    component: BackgroundControl,
-                    allowDeviceControl: true,
-                    options: ['gradient'],
-                    liveStyle: [
-                        {
-                            'type': 'background',
-                            'id': 'cardBackground',
-                            'selector': `.${elementId} .chart-content.content-card,
-                                .${elementId}.Desktop-noFlip .chart-content.content-card,
-                                .${elementId}.Tablet-noFlip .chart-content.content-card,
-                                .${elementId}.Mobile-noFlip .chart-content.content-card`,
-                        }
-                    ],
-                },
+                // try convert to gutenverse grandient later
+                // {
+                //     id: 'chartColorGradient',
+                //     show: value => value.colorMode === 'gradient',
+                //     label: __('Gradient', 'gutenverse'),
+                //     component: BackgroundControl,
+                //     allowDeviceControl: true,
+                //     options: ['gradient'],
+                //     liveStyle: [
+                //         {
+                //             'type': 'background',
+                //             'id': 'cardBackground',
+                //             'selector': `.${elementId} .chart-content.content-card,
+                //                 .${elementId}.Desktop-noFlip .chart-content.content-card,
+                //                 .${elementId}.Tablet-noFlip .chart-content.content-card,
+                //                 .${elementId}.Mobile-noFlip .chart-content.content-card`,
+                //         }
+                //     ],
+                // },
                 {
                     id: 'borderColor',
                     label: __('Border Color', 'gutenverse'),
