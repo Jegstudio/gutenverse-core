@@ -316,3 +316,16 @@ class GutenverseFormValidation extends Default {
 }
 
 export default GutenverseFormValidation;
+
+let { activePlugins } = window['GutenverseData'];
+
+if( !activePlugins.includes('gutenverse-form/gutenverse-form.php' )){
+    const selected = u('.guten-form-builder');
+
+    if (selected) {
+        new GutenverseFormValidation(selected);
+    }
+}
+
+
+console.log('HELLO WORLD')
