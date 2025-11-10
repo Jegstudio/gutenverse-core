@@ -326,6 +326,3 @@ if( !activePlugins.includes('gutenverse-form/gutenverse-form.php' )){
         new GutenverseFormValidation(selected);
     }
 }
-
-
-console.log('HELLO WORLD')
