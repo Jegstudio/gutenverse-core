@@ -158,8 +158,14 @@ class Breadcrumb extends Block_Abstract {
 	 * @return array
 	 */
 	private function tag_data( $initial_data ) {
+		$tag = get_queried_object();
+
 		$initial_data[] = array(
-			'name' => single_tag_title( '', false ),
+			'name' => esc_html__( 'Tag', 'gutenverse' ),
+			'url'  => get_tag_link( $tag ),
+		);
+		$initial_data[] = array(
+			'name' => $tag->name,
 			'url'  => '',
 		);
 		return $initial_data;
@@ -192,6 +198,12 @@ class Breadcrumb extends Block_Abstract {
 	private function taxonomy_category_data( $initial_data, $term = null ) {
 		if ( is_null( $term ) ) {
 			$term = get_queried_object();
+		}
+		if ( is_category() || is_tax() ) {
+			$initial_data[] = array(
+				'name' => esc_html__( 'Category', 'gutenverse' ),
+				'url'  => get_term_link( $term ),
+			);
 		}
 		$ancestors   = get_ancestors( $term->term_id, $term->taxonomy );
 		$hierarchy   = array_reverse( $ancestors );

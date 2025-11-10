@@ -13,6 +13,7 @@
             padding: 0;
             margin: 0;
             display: flex;
+            align-items: center;
 
             li {
                 display: inline-flex;
@@ -30,7 +31,8 @@
                 &.separator {
                     margin: 0 8px;
                     color: #aaa;
-                    display: inline-block;
+                    display: flex;
+                    align-items: center;
 
                     i {
                         &.fab {
