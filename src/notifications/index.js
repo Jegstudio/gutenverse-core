@@ -3,7 +3,7 @@ import { addFilter, applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 import isEmpty from 'lodash/isEmpty';
 import { Gutenverse20Compatibility } from './notices/gutenverse-2-0-compatibility';
-import { versionCompare } from '../helper';
+import { versionCompare, useNotificationsState } from '../helper';
 import { CheckSquare } from 'react-feather';
 
 const getRequiredPluginVersion = (history, currentFrameworkVersion) => {
@@ -30,27 +30,6 @@ const getPluginFrameworkVersion = (history, pluginVersion) => {
         }
     }
     return null;
-};
-
-const useNotificationsState = () => {
-    const localStorageKey = 'gutenverse_read_notifications';
-    const [readNotifications, setReadNotifications] = useState(JSON.parse(localStorage.getItem(localStorageKey)) || []);
-
-    useEffect(() => {
-        localStorage.setItem(localStorageKey, JSON.stringify(readNotifications));
-    }, [readNotifications]);
-
-    const markAsRead = (id) => {
-        if (!readNotifications.includes(id)) {
-            setReadNotifications(prev => [...prev, id]);
-        }
-    };
-
-    const markAllRead = (idsToMark) => {
-        setReadNotifications(prev => [...new Set([...prev, ...idsToMark])]);
-    };
-
-    return { readNotifications, markAsRead, markAllRead };
 };
 
 const useVersionCompatibilityData = (readNotifications, markAsRead) => {
@@ -179,7 +158,7 @@ const NotificationList = ({ readNotifications, markAsRead, onUpdateTotal }) => {
 
     useEffect(() => {
         if (onUpdateTotal) onUpdateTotal(total, newIds);
-    }, [total, newIds, onUpdateTotal]);
+    }, [total, newIds, onUpdateTotal, readNotifications]);
 
 
     if (!isEmpty(notificationList)) {
