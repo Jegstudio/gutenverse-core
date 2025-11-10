@@ -4,7 +4,7 @@ const FileManagerPlugin = require("filemanager-webpack-plugin");
 const rules = require("gutenverse-core/.config/rules");
 const { output } = require('../config');
 const { stats, plugins } = require("gutenverse-core/.config/config");
-const { externals, coreFrontendExternals } = require("gutenverse-core/.config/externals");
+const { externals, coreFrontendExternals, configDepsExtractExternals } = require("gutenverse-core/.config/externals");
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
 const modularDir = path.resolve(__dirname, "../../src/frontend/blocks/");
@@ -48,7 +48,7 @@ const frontendModular = {
     entry,
     externals: {
         ...externals,
-        ...coreFrontendExternals
+        ...coreFrontendExternals,
     },
     stats,
     output,
@@ -58,7 +58,7 @@ const frontendModular = {
     },
     plugins: [
         ...plugins,
-        new DependencyExtractionWebpackPlugin(),
+        new DependencyExtractionWebpackPlugin(configDepsExtractExternals()),
         new FileManagerPlugin({
             events: {
                 onStart: {

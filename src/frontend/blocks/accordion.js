@@ -1,4 +1,5 @@
 import { Default, u } from 'gutenverse-core-frontend';
+import anime from 'animejs';
 
 class GutenverseAccordion extends Default {
     /* public */
@@ -27,30 +28,28 @@ class GutenverseAccordion extends Default {
             const bodyItem = accordion.find('.accordion-body');
             const isActive = accordion.hasClass('active');
 
-            import(/* webpackChunkName: "chunk-anime" */'animejs').then(( { default: anime } ) => {
-                if(isActive) {
-                    anime({
-                        targets: bodyItem.first(),
-                        height: bodySize.height,
-                        duration: 500,
-                        easing: 'easeOutCubic',
-                    }).finished.finally(() => {
-                        bodyItem.addClass('expanded');
-                        bodyItem.attr('style', '');
-                    });
-                } else {
-                    setClosed && bodyItem.addClass('closed');
-                    anime({
-                        targets: bodyItem.first(),
-                        height: '0',
-                        duration: 500,
-                        easing: 'easeOutCubic',
-                    }).finished.finally(() => {
-                        setClosed && bodyItem.removeClass('closed');
-                        bodyItem.attr('style', '');
-                    });
-                }
-            });
+            if(isActive) {
+                anime({
+                    targets: bodyItem.first(),
+                    height: bodySize.height,
+                    duration: 500,
+                    easing: 'easeOutCubic',
+                }).finished.finally(() => {
+                    bodyItem.addClass('expanded');
+                    bodyItem.attr('style', '');
+                });
+            } else {
+                setClosed && bodyItem.addClass('closed');
+                anime({
+                    targets: bodyItem.first(),
+                    height: '0',
+                    duration: 500,
+                    easing: 'easeOutCubic',
+                }).finished.finally(() => {
+                    setClosed && bodyItem.removeClass('closed');
+                    bodyItem.attr('style', '');
+                });
+            }
         });
     }
 

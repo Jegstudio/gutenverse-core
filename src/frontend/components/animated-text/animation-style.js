@@ -1,6 +1,6 @@
 import listAnimationStyles from './animation-styles/list-animation-styles';
 import { u } from 'gutenverse-core-frontend';
-
+import anime from 'animejs';
 export class AnimationStyle {
     constructor(element, animationProps) {
         this.element = element;
@@ -28,23 +28,21 @@ export class AnimationStyle {
         if (this.animeInit) {
             this.animeInit.remove(this.target.nodes);
         }
-        import(/* webpackChunkName: "chunk-anime" */'animejs').then(( { default: anime } ) => {
-            this.animeInit = anime.timeline({loop: this.loop});
+        this.animeInit = anime.timeline({loop: this.loop});
 
-            if (this.animationStyle) {
-                this.animationStyle({
-                    loop: this.loop,
-                    animation: this.animeInit,
-                    target: this.target,
-                    animationDuration: this.animationDuration,
-                    displayDuration: this.displayDuration,
-                    transitionDuration: this.transitionDuration,
-                    isRotationType: this.textType == 'rotation',
-                    stopRotating: this._stopRotating,
-                    nextRotationText: this._nextRotationText,
-                });
-            }
-        });
+        if (this.animationStyle) {
+            this.animationStyle({
+                loop: this.loop,
+                animation: this.animeInit,
+                target: this.target,
+                animationDuration: this.animationDuration,
+                displayDuration: this.displayDuration,
+                transitionDuration: this.transitionDuration,
+                isRotationType: this.textType == 'rotation',
+                stopRotating: this._stopRotating,
+                nextRotationText: this._nextRotationText,
+            });
+        }
     }
 
     _generateElement = () => {
@@ -122,13 +120,11 @@ export class AnimationStyle {
         const length = u(this.element).find('.rotation-text.active').first().offsetWidth;
         this.targetWrapper = u(this.element).find('.text-wrapper').nodes;
 
-        import(/* webpackChunkName: "chunk-anime" */'animejs').then(( { default: anime } ) => {
-            this.animationWrapper = anime({
-                targets: this.targetWrapper,
-                width: length + 'px',
-                duration: 300,
-                easing: 'easeInOutQuad',
-            });
+        this.animationWrapper = anime({
+            targets: this.targetWrapper,
+            width: length + 'px',
+            duration: 300,
+            easing: 'easeInOutQuad',
         });
     };
 

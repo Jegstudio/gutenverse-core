@@ -25,7 +25,7 @@ class Frontend_Assets {
 
 	/**
 	 * Load the scripts
-	 * 
+	 *
 	 * @since 3.3.0-dev
 	 */
 	public function load_conditional_scripts() {
@@ -49,7 +49,7 @@ class Frontend_Assets {
 			'tab',
 			'team',
 			'testimonials',
-			'video'
+			'video',
 		);
 
 		foreach ( $blocks as $block ) {
@@ -68,7 +68,7 @@ class Frontend_Assets {
 
 	/**
 	 * Load the styles
-	 * 
+	 *
 	 * @since 3.3.0-dev
 	 */
 	public function load_conditional_styles() {
@@ -138,7 +138,7 @@ class Frontend_Assets {
 			wp_register_style(
 				'gutenverse-frontend-' . $block . '-style',
 				GUTENVERSE_URL . '/assets/css/frontend/' . $block . '.css',
-				array('gutenverse-frontend'),
+				array( 'gutenverse-frontend' ),
 				GUTENVERSE_VERSION
 			);
 		}
