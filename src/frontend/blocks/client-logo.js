@@ -49,22 +49,7 @@ class GutenverseClientLogo extends Default {
             breakpoints: this.swiperBreakpoint(JSON.parse(breakpoints))
         };
 
-        const settingsProps = {
-            id,
-            loop,
-            autoplay,
-            timeout,
-            nav,
-            arrow,
-            breakpoints
-        };
-
-        const settingsFilter = applyFilters(
-            'gutenverse.swiper.frontend',
-            settings,
-            settingsProps
-        );
-        new Swiper(`#${id}`, settingsFilter);
+        new Swiper(`#${id}`, settings);
     }
 }
 
