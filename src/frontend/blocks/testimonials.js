@@ -1,4 +1,4 @@
-import { Default, u, applyFilters } from 'gutenverse-core-frontend';
+import { Default, u } from 'gutenverse-core-frontend';
 
 class GutenverseTestimonials extends Default {
     /* public */
