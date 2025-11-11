@@ -23,4 +23,15 @@
             }
         }
     }
+
+    i[class*="unicode"] {
+        font-style: unset;
+    }
+
+    .unicode-sharp::before {
+        content: "★";
+    }
+    .unicode-sharp-hollow::before {
+        content: "☆";
+    }
 }
