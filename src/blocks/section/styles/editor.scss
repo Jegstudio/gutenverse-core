@@ -90,6 +90,11 @@
       border-color: #3b57f7;
     }
   }
+  .guten-video-bg-wrapper{
+    .components-sandbox{
+      height: inherit;
+    }
+  }
 }
 
 .section-variation-picker {
@@ -197,6 +202,7 @@
   &:not(.inherit-layout) {
     max-width: none !important;
   }
+  
 }
 
 // Force max width on backend
