@@ -67,7 +67,6 @@ class Frontend_Generator {
 		add_action( 'gutenverse_include_frontend', array( $this, 'widget_style_generator' ) );
 		add_action( 'gutenverse_include_frontend', array( $this, 'embeed_font_generator' ), 50 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_scripts' ), 51 );
-		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_styles' ), 51 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'block_styles' ) );
 	}
 
@@ -90,6 +89,8 @@ class Frontend_Generator {
 	 * @param string $origin Origination of style.
 	 */
 	public function render_style( $name, $style, $origin ) {
+		$this->load_conditional_styles();
+
 		if ( apply_filters( 'gutenverse_render_generated_style', false, $name, $style, $origin ) ) {
 			return;
 		}
