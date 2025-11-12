@@ -38,7 +38,14 @@ class Frontend_Cache {
 	 *
 	 * @var string
 	 */
-	protected $script_cache_name;
+	protected $conditional_script_cache_name;
+
+	/**
+	 * Style Cache Name.
+	 *
+	 * @var string
+	 */
+	protected $conditional_style_cache_name;
 
 	/**
 	 * Init constructor.
@@ -60,6 +67,7 @@ class Frontend_Cache {
 		add_filter( 'gutenverse_bypass_generate_script', array( $this, 'bypass_script' ), null, 2 );
 		add_filter( 'gutenverse_global_fonts', array( $this, 'global_fonts' ), null, 2 );
 		add_filter( 'gutenverse_conditional_script_handles', array( $this, 'script_handles' ), null, 2 );
+		add_filter( 'gutenverse_conditional_style_handles', array( $this, 'style_handles' ), null, 2 );
 		add_filter( 'gutenverse_render_generated_style', array( $this, 'render_style' ), null, 4 );
 	}
 
@@ -95,7 +103,16 @@ class Frontend_Cache {
 	 * @return string
 	 */
 	public function get_script_cache_filename() {
-		return $this->script_cache_name;
+		return $this->conditional_script_cache_name;
+	}
+
+	/**
+	 * Get Style Cache Name.
+	 *
+	 * @return string
+	 */
+	public function get_style_cache_filename() {
+		return $this->conditional_style_cache_name;
 	}
 
 	/**
@@ -119,17 +136,22 @@ class Frontend_Cache {
 	 * Set Modular Script Cache Name
 	 *
 	 * @param string $name Name of cache.
-	 * @param string $type Type of generated css.
 	 */
-	public function set_script_cache_name( $name, $type ) {
+	public function set_conditional_script_cache_name( $name ) {
 		$cache_id         = $this->get_style_cache_id();
 		$script_file_name = $name . '-script-' . $cache_id . '.json';
+		$this->conditional_script_cache_name = $script_file_name;
+	}
 
-		if ( is_page() || is_single() && 'content' === $type ) {
-			$this->script_cache_name = $script_file_name;
-		} elseif ( 'template' === $type ) {
-			$this->script_cache_name = $script_file_name;
-		}
+	/**
+	 * Set Modular Style Cache Name
+	 *
+	 * @param string $name Name of cache.
+	 */
+	public function set_conditional_style_cache_name( $name ) {
+		$cache_id         = $this->get_style_cache_id();
+		$style_file_name = $name . '-style-' . $cache_id . '.json';
+		$this->conditional_style_cache_name = $style_file_name;
 	}
 
 	/**
@@ -167,11 +189,34 @@ class Frontend_Cache {
 		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
 
 		if ( 'file' === $mechanism ) {
-			if ( $this->is_file_exist( $filename, 'js' ) ) {
-				$handles = $this->read_cache_file( $filename, 'js' );
+			if ( $this->is_file_exist( $filename, 'conditional_js' ) ) {
+				$handles = $this->read_cache_file( $filename, 'conditional_js' );
 				return json_decode( $handles, true );
 			} else {
-				$this->create_cache_file( $filename, wp_json_encode( $handles, true ), 'js' );
+				$this->create_cache_file( $filename, wp_json_encode( $handles, true ), 'conditional_js' );
+			}
+		}
+
+		return $handles;
+	}
+
+	/**
+	 * By Pass Script Loop Attribute.
+	 *
+	 * @param array $handles Array of style handles.
+	 *
+	 * @return array
+	 */
+	public function style_handles( $handles ) {
+		$filename  = $this->get_style_cache_filename();
+		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
+
+		if ( 'file' === $mechanism ) {
+			if ( $this->is_file_exist( $filename, 'conditional_css' ) ) {
+				$handles = $this->read_cache_file( $filename, 'conditional_css' );
+				return json_decode( $handles, true );
+			} else {
+				$this->create_cache_file( $filename, wp_json_encode( $handles, true ), 'conditional_css' );
 			}
 		}
 
@@ -189,7 +234,6 @@ class Frontend_Cache {
 	 */
 	public function bypass_generate_css( $flag, $name, $type ) {
 		$this->set_font_cache_name( $name, $type );
-		$this->set_script_cache_name( $name, $type );
 
 		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
 		$filename  = $this->get_file_name( $name );
@@ -211,10 +255,12 @@ class Frontend_Cache {
 	 * @return bool
 	 */
 	public function bypass_script( $flag, $name ) {
+		$this->set_conditional_script_cache_name( $name );
+		$this->set_conditional_style_cache_name( $name );
 		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
 		$filename  = $this->get_file_js_name( $name );
 
-		if ( 'file' === $mechanism && $this->is_file_exist( $filename, 'js' ) ) {
+		if ( 'file' === $mechanism && $this->is_file_exist( $filename, 'conditional_js' ) ) {
 			return true;
 		}
 
@@ -242,8 +288,8 @@ class Frontend_Cache {
 		$css_path = gutenverse_css_path();
 		$this->delete_file( $css_path );
 
-		$js_path = gutenverse_js_path();
-		$this->delete_file( $js_path );
+		$conditional_path = gutenverse_conditional_path();
+		$this->delete_file( $conditional_path );
 	}
 
 	/**
@@ -334,8 +380,8 @@ class Frontend_Cache {
 		$css_path = gutenverse_css_path();
 		$this->delete_file( $css_path, $cache_id );
 
-		$js_path = gutenverse_js_path();
-		$this->delete_file( $js_path, $cache_id );
+		$conditional_path = gutenverse_conditional_path();
+		$this->delete_file( $conditional_path, $cache_id );
 	}
 
 	/**
@@ -441,8 +487,9 @@ class Frontend_Cache {
 	 */
 	protected function get_path_by_type( $type, $filename = '' ) {
 		switch ( $type ) {
-			case 'js':
-				return gutenverse_js_path( $filename );
+			case 'conditional_js':
+			case 'conditional_css':
+				return gutenverse_conditional_path( $filename );
 			case 'css':
 			case 'font':
 			default:

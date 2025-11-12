@@ -49,6 +49,13 @@ class Frontend_Generator {
 	protected $script_list = array();
 
 	/**
+	 * List of styles required to load
+	 *
+	 * @var array
+	 */
+	protected $style_list = array();
+
+	/**
 	 * Init constructor.
 	 * priority change to 10 and embed font after style generator with priority 11.
 	 * to fix font not loaded in frontend for section that imported from libary.
@@ -60,7 +67,8 @@ class Frontend_Generator {
 		add_action( 'gutenverse_include_frontend', array( $this, 'widget_style_generator' ) );
 		add_action( 'gutenverse_include_frontend', array( $this, 'embeed_font_generator' ), 50 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_scripts' ), 51 );
-		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_styles' ) );
+		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_styles' ), 51 );
+		add_action( 'gutenverse_include_frontend', array( $this, 'block_styles' ) );
 	}
 
 	/**
@@ -94,11 +102,13 @@ class Frontend_Generator {
 	 */
 	public function widget_style_generator() {
 		if ( current_theme_supports( 'widgets' ) ) {
-			$widgets = get_option( 'widget_block' );
-			$style   = null;
-			$name    = 'gutenverse-widget';
+			$widgets       = get_option( 'widget_block' );
+			$style         = null;
+			$name          = 'gutenverse-widget';
+			$bypass_style  = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'widget' );
+			$bypass_script = apply_filters( 'gutenverse_bypass_generate_script', false, $name );
 
-			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'widget' ) && apply_filters( 'gutenverse_bypass_generate_script', false, $name ) ) {
+			if ( $bypass_style && $bypass_script ) {
 				return;
 			}
 
@@ -225,11 +235,13 @@ class Frontend_Generator {
 	public function template_style_generator() {
 		global $_wp_current_template_content, $_wp_current_template_id;
 		if ( $_wp_current_template_id ) {
-			$style    = null;
-			$template = explode( '//', $_wp_current_template_id );
-			$name     = 'gutenverse-template-' . $template[1];
+			$style         = null;
+			$template      = explode( '//', $_wp_current_template_id );
+			$name          = 'gutenverse-template-' . $template[1];
+			$bypass_style  = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'template' );
+			$bypass_script = apply_filters( 'gutenverse_bypass_generate_script', false, $name );
 
-			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'template' ) && apply_filters( 'gutenverse_bypass_generate_script', false, $name ) ) {
+			if ( $bypass_style && $bypass_script ) {
 				return;
 			}
 
@@ -256,9 +268,12 @@ class Frontend_Generator {
 	public function content_style_generator() {
 		global $post;
 		if ( $post ) {
-			$style = null;
-			$name  = 'gutenverse-content-' . $post->ID;
-			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'content' ) && apply_filters( 'gutenverse_bypass_generate_script', false, $name ) ) {
+			$style         = null;
+			$name          = 'gutenverse-content-' . $post->ID;
+			$bypass_style  = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'content' );
+			$bypass_script = apply_filters( 'gutenverse_bypass_generate_script', false, $name );
+
+			if ( $bypass_style && $bypass_script ) {
 				return;
 			}
 
@@ -533,7 +548,8 @@ class Frontend_Generator {
 
 		$attrs         = $args['attr'];
 		$conditions    = $args['allow_if'];
-		$script_handle = $args['script'];
+		$script_handle = isset( $args['script'] ) ? $args['script'] : false;
+		$style_handle  = isset( $args['style'] ) ? $args['style'] : false;
 
 		foreach ( $conditions as $condition ) {
 			$id       = $condition['id'];
@@ -570,8 +586,16 @@ class Frontend_Generator {
 			}
 		}
 
-		if ( $can_load ) {
+		if ( ! $can_load ) {
+			return;
+		}
+
+		if ( ! empty( $script_handle ) ) {
 			$this->script_list[] = $script_handle;
+		}
+
+		if ( ! empty( $style_handle ) ) {
+			$this->style_list[] = $style_handle;
 		}
 	}
 
@@ -648,14 +672,32 @@ class Frontend_Generator {
 			true
 		);
 
-		$required_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
+		$script_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
 
 		// remove duplicates
-		$required_handles = array_values( array_unique( $this->script_list ) );
+		$script_handles = array_values( array_unique( $this->script_list ) );
 
-		if ( ! empty( $required_handles ) ) {
-			foreach ( $required_handles as $handle ) {
+		if ( ! empty( $script_handles ) ) {
+			foreach ( $script_handles as $handle ) {
 				wp_enqueue_script( $handle );
+			}
+		}
+	}
+
+	/**
+	 * Load conditional styles file
+	 *
+	 * @since 3.3.0-dev
+	 */
+	public function load_conditional_styles() {
+		$style_handles  = apply_filters( 'gutenverse_conditional_style_handles', $this->style_list );
+		
+		// remove duplicates
+		$style_handles  = array_values( array_unique( $this->style_list ) );
+
+		if ( ! empty( $style_handles ) ) {
+			foreach ( $style_handles as $handle ) {
+				wp_enqueue_style( $handle );
 			}
 		}
 	}
@@ -665,7 +707,7 @@ class Frontend_Generator {
 	 *
 	 * @since 3.3.0-dev
 	 */
-	public function load_conditional_styles() {
+	public function block_styles() {
 		$blocks = array(
 			'column',
 			'section',
