@@ -2,11 +2,49 @@ import { Default, u, addQueryArgs, apiFetch } from 'gutenverse-core-frontend';
 import isEmpty from 'lodash/isEmpty';
 
 class GutenversePostblock extends Default {
+    /* static attributes */
+    static lazy_observer = null;
     /* public */
     init() {
         this._elements.map(element => {
             this._tabItems(element);
+            // run lazy observer
+            const images = this._detect_lazy_load(element);
+            this._run_lazy_observer(images);
         });
+    }
+
+    /* private */
+    _run_lazy_observer(images = []) {
+        if ('IntersectionObserver' in window && ! GutenversePostblock.lazy_observer) {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('lazyloaded');
+                        obs.unobserve(img);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+            GutenversePostblock.lazy_observer = observer;
+        }
+        images.forEach(img => GutenversePostblock.lazy_observer.observe(img));
+    }
+
+    /* private */
+    _detect_lazy_load(element) {
+        let images = [];
+        element.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            if (img.complete && img.naturalHeight !== 0) {
+                img.classList.add('lazyloaded');
+            } else {
+                images.push(img);
+            }
+        });
+
+        return images;
     }
 
     /* private */
@@ -72,7 +110,9 @@ class GutenversePostblock extends Default {
             breakpoint,
             noContentText,
             backgroundHover,
-            contentOrder
+            contentOrder,
+            paginationLoadmoreAnimation,
+            paginationLoadmoreAnimationSequence,
         } = settings;
 
         let query = null;
@@ -106,6 +146,7 @@ class GutenversePostblock extends Default {
                         inheritQuery,
                         postType,
                         postOffset,
+                        alreadyFetch: parseInt(numberPost),
                         numberPost: parseInt(numberPost) + parseInt(paginationNumberPost),
                         column,
                         includePost,
@@ -148,6 +189,8 @@ class GutenversePostblock extends Default {
                         paginationScrollLimit,
                         paginationIcon,
                         paginationIconPosition,
+                        paginationLoadmoreAnimation,
+                        paginationLoadmoreAnimationSequence,
                         qApi,
                         qSearch: query && query['q_search'],
                         qCategory: query && query['q_category_name'],

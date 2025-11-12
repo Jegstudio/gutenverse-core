@@ -841,6 +841,18 @@
 					"value": "read"
 				}
 			]
+		},
+		"paginationLoadmoreAnimation": {
+			"type": "string",
+			"default": ""
+		},
+		"paginationLoadmoreAnimationSequence": {
+			"type": "string",
+			"default": ""
+		},
+		"paginationLoadmoreAnimationSequenceDelay": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
