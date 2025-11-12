@@ -456,11 +456,16 @@ class Frontend_Cache {
 	public function inject_to_header( $filename, $type ) {
 		$cache_id = $this->get_style_cache_id();
 		$file_url = gutenverse_css_url( $filename );
+		$includes = array('gutenverse-frontend-style');
+
+		if ( gutenverse_pro_active() ) {
+			$includes[] = 'gutenverse-pro-block';
+		}
 
 		wp_enqueue_style(
 			'gutenverse-generated-' . $type,
 			$file_url,
-			array('gutenverse-frontend-style'),
+			$includes,
 			$cache_id
 		);
 	}
