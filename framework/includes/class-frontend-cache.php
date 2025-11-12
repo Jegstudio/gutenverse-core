@@ -460,7 +460,7 @@ class Frontend_Cache {
 		wp_enqueue_style(
 			'gutenverse-generated-' . $type,
 			$file_url,
-			array(),
+			array('gutenverse-frontend-style'),
 			$cache_id
 		);
 	}
