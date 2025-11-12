@@ -582,8 +582,8 @@ class Frontend_Generator {
 					break;
 				}
 			} elseif ( ! $this->check_condition( $attr_value, $operator, $value ) ) {
-					$can_load = false;
-					break;
+				$can_load = false;
+				break;
 			}
 		}
 
