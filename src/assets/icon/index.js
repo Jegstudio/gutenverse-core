@@ -35,6 +35,7 @@ import IconFeatureListItem from './icon-features-list-item.svg';
 import IconPortfolioGallery from './icon-portfolio-gallery.svg';
 import IconCountdown from './icon-countdown.svg';
 import IconChart from './icon-chart.svg';
+import IconBreadcrumb from './icon-breadcrumb.svg';
 
 /** Social */
 import IconShareEmail from './icon-share-email.svg';
@@ -362,4 +363,8 @@ export const IconChartSVG = () => {
 
 export const IconPostCarouselSVG = () => {
     return <IconPostCarousel />;
+};
+
+export const IconBreadcrumbSVG = () => {
+    return <IconBreadcrumb/>;
 };
