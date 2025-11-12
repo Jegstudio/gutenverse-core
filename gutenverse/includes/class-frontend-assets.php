@@ -78,6 +78,7 @@ class Frontend_Assets {
 			'advanced-heading',
 			'animated-text',
 			'archive-title',
+			'breadcrumb',
 			'buttons',
 			'button',
 			'chart',
