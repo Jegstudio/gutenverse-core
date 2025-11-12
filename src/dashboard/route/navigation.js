@@ -161,7 +161,7 @@ const NotificationList = ({ readNotifications, markAsRead, onUpdateTotal }) => {
 
     useEffect(() => {
         if (onUpdateTotal) onUpdateTotal(total, newIds);
-    }, [total, JSON.stringify(newIds)], readNotifications);
+    }, [total, JSON.stringify(newIds)]);
 
     if (!isEmpty(notificationList)) {
         content = notificationList
