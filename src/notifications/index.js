@@ -210,7 +210,6 @@ const useNotificationsState = () => {
 };
 
 const TabContent = () => {
-    console.log('loop');
     const [mode, setMode] = useState(null);
     const { readNotifications, markAsRead, markAllRead } = useNotificationsState();
 
