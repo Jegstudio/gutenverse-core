@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 import { ArrowLeft } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { Button } from '@wordpress/components';
+import { Button, SandBox } from '@wordpress/components';
 import { ReactPlayer } from 'gutenverse-core/components';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
@@ -18,35 +18,120 @@ import { AlertControl } from 'gutenverse-core/controls';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import { useSelect } from '@wordpress/data';
 
-const VideoContainer = ({ videoSrc, start, end, videoType, hideControls, playing, loop, muted, width, height }) => {
-    const playerStyle = {};
-    const playerConfig = {
-        youtube: {
-            playerVars: {
-                start,
-                end
-            }
-        }
-    };
+const VideoContainer = ({ videoSrc, start, end, hideControls, playing, loop, muted, width, height }) => {
+    if (!videoSrc) return null;
 
+    // Detect video type
+    let videoType = '';
+    if (/youtu(\.be|be\.com)/.test(videoSrc)) {
+        videoType = 'youtube';
+    } else if (/vimeo\.com/.test(videoSrc)) {
+        videoType = 'vimeo';
+    } else if (/twitch\.tv/.test(videoSrc)) {
+        videoType = 'twitch';
+    } else if (/dailymotion\.com/.test(videoSrc)) {
+        videoType = 'dailymotion';
+    } else {
+        videoType = 'unknown';
+    }
+
+    // Build the proper embed URL
+    let embedUrl = '';
     const deviceType = getDeviceType();
+    switch (videoType) {
+        case 'youtube': {
+            // Match all YouTube URL formats
+            const idMatch =
+                videoSrc.match(/(?:v=|\/embed\/|youtu\.be\/)([^?&]+)/) ||
+                videoSrc.match(/\/shorts\/([^?&]+)/);
+            const videoId = idMatch ? idMatch[1] : null;
 
-    return videoType && videoSrc ? (
-        <ReactPlayer
-            className="guten-video-background"
-            url={videoSrc}
-            controls={!hideControls}
-            width={width && width[deviceType] ? `${width[deviceType]}%` : '100%'}
-            height={height && height[deviceType] ? `${height[deviceType]}px` : '500px'}
-            playing={playing}
-            muted={muted}
-            loop={loop}
-            playsinline={true}
-            style={playerStyle}
-            config={playerConfig}
-        />
-    ) : null;
+            if (videoId) {
+                const params = new URLSearchParams();
+                if (start) params.set('start', start);
+                if (end) params.set('end', end);
+                params.set('autoplay', playing ? '1' : '0');
+                params.set('mute', muted ? '1' : '0');
+                params.set('loop', loop ? '1' : '0');
+                params.set('controls', hideControls ? '0' : '1');
+                if (loop) params.set('playlist', videoId); // Required for YouTube looping
+                embedUrl = `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+            }
+            break;
+        }
+        case 'vimeo': {
+            const idMatch = videoSrc.match(/vimeo\.com\/(\d+)/);
+            const videoId = idMatch ? idMatch[1] : null;
+            if (videoId) {
+                const params = new URLSearchParams();
+                params.set('autoplay', playing ? '1' : '0');
+                params.set('muted', muted ? '1' : '0');
+                params.set('loop', loop ? '1' : '0');
+                params.set('controls', hideControls ? '0' : '1');
+                if (start) params.set('#t', `${start}s`);
+                embedUrl = `https://player.vimeo.com/video/${videoId}?${params.toString()}`;
+            }
+            break;
+        }
+
+        case 'twitch': {
+            const channelMatch = videoSrc.match(/twitch\.tv\/([^/?]+)/);
+            const videoMatch = videoSrc.match(/videos\/(\d+)/);
+            const params = new URLSearchParams();
+            params.set('autoplay', playing ? 'true' : 'false');
+            params.set('muted', muted ? 'true' : 'false');
+            params.set('loop', loop ? 'true' : 'false');
+            params.set('parent', window.location.hostname);
+            if (videoMatch) {
+                embedUrl = `https://player.twitch.tv/?video=${videoMatch[1]}&${params.toString()}`;
+            } else if (channelMatch) {
+                embedUrl = `https://player.twitch.tv/?channel=${channelMatch[1]}&${params.toString()}`;
+            }
+            break;
+        }
+
+        case 'dailymotion': {
+            const idMatch = videoSrc.match(/dailymotion\.com\/video\/([^_]+)/);
+            const videoId = idMatch ? idMatch[1] : null;
+            if (videoId) {
+                const params = new URLSearchParams();
+                params.set('autoplay', playing ? '1' : '0');
+                params.set('mute', muted ? '1' : '0');
+                params.set('loop', loop ? '1' : '0');
+                params.set('controls', hideControls ? '0' : '1');
+                embedUrl = `https://www.dailymotion.com/embed/video/${videoId}?${params.toString()}`;
+            }
+            break;
+        }
+
+        default:
+            embedUrl = videoSrc;
+    }
+
+    if (!embedUrl) return null;
+
+    // Build iframe HTML
+    const iframeHtml = `
+		<iframe
+			class="guten-video-background"
+			src="${embedUrl}"
+			width="${width?.[deviceType] ? `${width[deviceType]}%` : '100%'}"
+			height="${height?.[deviceType] ? `${height[deviceType]}px` : '500px'}"
+			frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+			referrerpolicy="strict-origin-when-cross-origin"
+			allowfullscreen
+			title="Embedded Video"
+		></iframe>
+	`;
+
+    return (
+        <div className="video-preview">
+            <SandBox html={iframeHtml} />
+        </div>
+    );
 };
 
 const VideoPicker = (props) => {
@@ -107,6 +192,7 @@ const VideoBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const elementRef = useRef(null);
+    const videoRef = useRef(null);
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
@@ -156,6 +242,35 @@ const VideoBlock = compose(
         }
     }, [elementRef]);
 
+    useEffect(() => {
+        if (!videoRef.current) return;
+
+        const applyReferrerPolicy = () => {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach((iframe) => {
+                if (!iframe.hasAttribute('referrerpolicy')) {
+                    iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+                }
+            });
+        };
+
+        // Initial check for any existing iframes
+        applyReferrerPolicy();
+
+        // Observe for new iframes being added asynchronously
+        const observer = new MutationObserver(() => {
+            applyReferrerPolicy();
+        });
+
+        observer.observe(videoRef.current, {
+            childList: true,
+            subtree: true,
+        });
+
+        // Cleanup on unmount
+        return () => observer.disconnect();
+    }, []);
+
     const selectType = () => {
         switch (videoType) {
             case 'externalLink':
@@ -195,7 +310,7 @@ const VideoBlock = compose(
     };
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <InspectorControls>
             <div className={'header-control'}>
                 <AlertControl type={'warning'}>
@@ -205,7 +320,7 @@ const VideoBlock = compose(
             </div>
         </InspectorControls>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
-        <figure {...blockProps}>
+        <figure {...blockProps} ref={videoRef}>
             {!isEmpty(videoSrc) ? videoRender() : selectType()}
             {!isEmpty(videoSrc) ? caption() : null}
         </figure>
