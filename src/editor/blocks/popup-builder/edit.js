@@ -82,16 +82,36 @@ const PopupBuilder = (props) => {
         'data-close-overlay': closePopupOverlay
     });
 
+    const sendToPlayer = (command) => {
+        const iframe = videoRef.current?.querySelector('iframe');
+        const innerIframe = iframe.contentDocument.querySelector('iframe');
+        if (innerIframe && innerIframe.contentWindow) {
+            innerIframe.contentWindow.postMessage(command, '*');
+        }
+    };
+
     const toggleShow = () => {
         setShow((show) => !show);
         if (popupVideoResetOnClose && videoRef.current) {
-            videoRef.current.seekTo(popupVideoStart);
+            // videoRef.current.seekTo(popupVideoStart);
+            const message = JSON.stringify({
+                event: 'command',
+                func: 'seekTo',
+                args: [popupVideoStart, true],
+            });
+            sendToPlayer(message);
         }
         if (popupVideoPlayOn === 'first' && !firstPlaying) {
             return;
         }
         if (popupVideoPlayOn === 'first' || popupVideoPlayOn === 'every') {
             setPlaying(true);
+            const message = JSON.stringify({
+                event: 'command',
+                func: 'playVideo',
+                args: []
+            });
+            sendToPlayer(message);
             if (popupVideoPlayOn === 'first') {
                 setFirstPlaying(false);
             }
@@ -104,6 +124,12 @@ const PopupBuilder = (props) => {
             setShow(false);
             if (popupVideoPauseOnClose) {
                 setPlaying(false);
+                const message = JSON.stringify({
+                    event: 'command',
+                    func: 'pauseVideo',
+                    args: []
+                });
+                sendToPlayer(message);
             }
         }, exitAnimation ? (parseInt(exitAnimationDuration) || 0) + (parseInt(exitAnimationDelay) || 0) || 1000 : 0);
     };
@@ -137,7 +163,7 @@ const PopupBuilder = (props) => {
     };
 
     const renderContent = () => {
-        switch(popupType) {
+        switch (popupType) {
             case 'youtube':
                 return popupVideoSrc ? <PopupVideoContent playing={playing} setPlaying={setPlaying} attributes={attributes} videoRef={videoRef} /> : selectVideoSrc();
             default:
@@ -146,7 +172,7 @@ const PopupBuilder = (props) => {
     };
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             <div className="guten-popup-holder" onClick={toggleShow}>
