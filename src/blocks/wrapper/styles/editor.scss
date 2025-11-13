@@ -3,13 +3,20 @@
     margin-right: inherit;
     box-sizing: border-box;
 
-    &.inline, &.inline-block {
-        width: auto !important;    
+    &.inline,
+    &.inline-block {
+        width: auto !important;
     }
 
     .block-editor-inner-blocks {
         width: 100%;
         height: 100%;
+    }
+
+    .guten-video-bg-wrapper {
+        .components-sandbox {
+            height: inherit;
+        }
     }
 }
 
@@ -24,7 +31,7 @@
         width: 100%;
     }
 
-    > * {
+    >* {
         width: 100%;
     }
 }

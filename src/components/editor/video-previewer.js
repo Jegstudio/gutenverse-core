@@ -1,7 +1,7 @@
 import { SandBox } from '@wordpress/components';
 import { getDeviceType } from '../../editor-helper';
 
-const VideoPreviewer = ({ videoSrc, start, end, hideControls, playing, loop, muted, width, height, classNames, styles, wrapperStyles=[] }) => {
+const VideoPreviewer = ({ videoSrc, start, end, hideControls, playing, loop, muted, width, height, classNames, styles, wrapperStyles=[], videoRef=null }) => {
     if (!videoSrc) return null;
 
     // Detect video type
@@ -36,6 +36,7 @@ const VideoPreviewer = ({ videoSrc, start, end, hideControls, playing, loop, mut
                 params.set('mute', muted ? '1' : '0');
                 params.set('loop', loop ? '1' : '0');
                 params.set('controls', hideControls ? '0' : '1');
+                params.set('enablejsapi', '1');
                 if (loop) params.set('playlist', videoId); // Required for YouTube looping
                 embedUrl = `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
             }
@@ -108,17 +109,10 @@ const VideoPreviewer = ({ videoSrc, start, end, hideControls, playing, loop, mut
 	`;
 
     return (
-        <div className={classNames} style={styles}>
-            <SandBox html={iframeHtml} styles={wrapperStyles}/>
+        <div className={classNames} style={styles} ref={videoRef}>
+            <SandBox html={iframeHtml} styles={wrapperStyles} />
         </div>
     );
 };
 
-const styleToString = (styleObj = {}) =>
-    Object.entries(styleObj)
-        .map(([key, value]) => {
-            const kebabKey = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-            return `${kebabKey}:${value}`;
-        })
-        .join(';');
 export default VideoPreviewer;
