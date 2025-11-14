@@ -562,5 +562,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["navigation", "menu"]
+	"keywords": ["navigation", "menu"],
+	"viewScript": ["gutenverse-frontend-nav-menu-script"],
+	"style": ["gutenverse-frontend-nav-menu-style"]
 }

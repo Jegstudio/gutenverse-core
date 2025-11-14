@@ -191,5 +191,6 @@
 	"supports": {
 		"className": false
 	},
-	"keywords": ["star", "rating", "review"]
+	"keywords": ["star", "rating", "review"],
+	"style": ["gutenverse-frontend-star-rating-style"]
 }

@@ -226,5 +226,6 @@
         "input",
         "form",
         "gutenverse"
-    ]
+    ],
+    "viewScript": ["gutenverse-form-frontend-input-select-script"]
 }

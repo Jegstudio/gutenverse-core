@@ -266,5 +266,6 @@
 	"supports": {
 		"anchor": true
 	},
-	"keywords": ["image", "symbol", "logo"]
+	"keywords": ["image", "symbol", "logo"],
+	"style": ["gutenverse-frontend-image-style"]
 }

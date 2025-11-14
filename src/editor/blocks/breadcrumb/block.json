@@ -108,5 +108,6 @@
 		"animated",
 		"animation",
 		"text"
-	]
+	],
+	"style": ["gutenverse-frontend-breadcrumb-style"]
 }

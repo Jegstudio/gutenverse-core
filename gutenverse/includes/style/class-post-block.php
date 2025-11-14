@@ -1399,5 +1399,18 @@ class Post_Block extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['paginationLoadmoreAnimationSequenceDelay'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-post.loadmore-animation.has-delay",
+					'property'       => function ( $value ) {
+						return $value ? "--guten-post-block-loadmore-anim-delay: {$value}ms;" : '';
+					},
+					'value'          => $this->attrs['paginationLoadmoreAnimationSequenceDelay'],
+					'device_control' => false,
+				)
+			);
+		}
 	}
 }

@@ -225,5 +225,6 @@
 	"supports": {
 		"anchor": true
 	},
-	"keywords": ["icon", "image", "symbol", "logo"]
+	"keywords": ["icon", "image", "symbol", "logo"],
+	"style": ["gutenverse-frontend-icon-style"]
 }

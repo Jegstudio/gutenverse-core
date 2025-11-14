@@ -928,5 +928,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["gallery", "images", "carousel", "grid", "showcase"]
+	"keywords": ["gallery", "images", "carousel", "grid", "showcase"],
+	"viewScript": ["gutenverse-frontend-gallery-script"],
+	"style": ["gutenverse-frontend-gallery-style"]
 }

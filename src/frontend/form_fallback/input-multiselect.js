@@ -39,3 +39,13 @@ class GutenverseMultiInputSelect extends Default {
 }
 
 export default GutenverseMultiInputSelect;
+
+let { activePlugins } = window['GutenverseData'];
+
+if( !activePlugins.includes('gutenverse-form/gutenverse-form.php' )){
+    const selected = u('.guten-form-input-multiselect');
+
+    if (selected) {
+        new GutenverseMultiInputSelect(selected);
+    }
+}

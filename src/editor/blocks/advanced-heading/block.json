@@ -325,5 +325,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["advanced", "heading", "title", "subtitle", "multiple", "texts"]
+	"keywords": ["advanced", "heading", "title", "subtitle", "multiple", "texts"],
+	"style": ["gutenverse-frontend-advanced-heading-style"]
 }
