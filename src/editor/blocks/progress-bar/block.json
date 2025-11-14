@@ -255,5 +255,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["progress", "bar", "loading", "stats", "data", "info"]
+	"keywords": ["progress", "bar", "loading", "stats", "data", "info"],
+	"viewScript": ["gutenverse-frontend-progress-bar-script"],
+	"style": ["gutenverse-frontend-progress-bar-style"]
 }

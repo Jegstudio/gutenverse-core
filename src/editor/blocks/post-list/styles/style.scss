@@ -1,3 +1,7 @@
+@import "gutenverse-core/src/assets/mixin";
+@import "gutenverse-core/src/assets/variables";
+@import "gutenverse-core/src/assets/wp-fix";
+
 .guten-post-list {
     article {
         overflow: hidden;

@@ -310,5 +310,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["button", "url", "action", "click", "link"]
+	"keywords": ["button", "url", "action", "click", "link"],
+	"style": ["gutenverse-frontend-button-style"]
 }

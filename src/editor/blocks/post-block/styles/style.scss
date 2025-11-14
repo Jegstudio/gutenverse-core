@@ -1,3 +1,7 @@
+@import "gutenverse-core/src/assets/mixin";
+@import "gutenverse-core/src/assets/variables";
+@import "gutenverse-core/src/assets/wp-fix";
+
 .guten-postblock {
     .guten-overlay {
         position: absolute;
@@ -147,6 +151,26 @@
 
     .guten-post {
         margin-bottom: 2rem;
+
+        .thumbnail-container {
+            img[loading="lazy"] {
+                opacity: 0;
+                &.lazyloaded {
+                    transition: opacity .4s ease;
+                    opacity: 1;
+                }
+            }
+        }
+
+        &.initial-hide {
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        &.loadmore-animation.has-delay {
+            --guten-post-block-loadmore-anim-delay: 300ms;
+            animation-delay: calc(var(--guten-post-block-loadmore-anim-delay-idx, 1) * var(--guten-post-block-loadmore-anim-delay, 1s));
+        }
 
         &:hover .guten-edit-post {
             @include transform(false, translate3d(0, 0, 0));

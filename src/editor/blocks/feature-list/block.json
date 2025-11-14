@@ -305,5 +305,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["feature", "list", "texts"]
+	"keywords": ["feature", "list", "texts"],
+	"style": ["gutenverse-frontend-feature-list-style"]
 }

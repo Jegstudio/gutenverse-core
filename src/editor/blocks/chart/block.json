@@ -365,5 +365,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["pie", "chart", "stats", "statistic", "information", "data"]
+	"keywords": ["pie", "chart", "stats", "statistic", "information", "data"],
+	"viewScript": ["gutenverse-frontend-chart-script"],
+	"style": ["gutenverse-frontend-chart-style"]
 }

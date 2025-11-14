@@ -48,6 +48,25 @@ gulp.task('frontend', function () {
         .pipe(gulp.dest('gutenverse/assets/css/'));
 });
 
+const blocksDir = path.resolve(__dirname, './src/editor/blocks');
+const blocksStyle = blocksDir + '/**/styles/style.scss';
+const finalDest = path.join(__dirname, 'gutenverse/assets/css/frontend');
+
+gulp.task('frontend-block-styles', function () {
+    return gulp
+        .src([blocksStyle])
+        .pipe(sass({ includePaths: ['node_modules'] }))
+        .pipe(sass(sassOptions).on('error', sass.logError))
+        .pipe(postcss(postCSSOptions))
+        .on('data', function (file) {
+            const pathParts = file.relative.split(path.sep);
+            const blockName = pathParts[0];
+
+            file.path = path.join(file.base, blockName + '.css');
+        })
+        .pipe(gulp.dest(finalDest));
+});
+
 gulp.task('wizard', function () {
     return gulp
         .src([path.resolve(__dirname, './src/assets/wizard.scss')])
@@ -88,12 +107,12 @@ gulp.task('form', function () {
         .pipe(gulp.dest('gutenverse/assets/css/'));
 });
 
-gulp.task('build-process', gulp.parallel('blocks', 'frontend', 'wizard', 'update-notice', 'form-default-style', 'form'));
+gulp.task('build-process', gulp.parallel('blocks', 'frontend-block-styles', 'frontend', 'wizard', 'update-notice', 'form-default-style', 'form'));
 
 gulp.task('build', gulp.series('build-process'));
 
 const watchProcess = (basePath = '.') => {
-    gulp.watch([`${basePath}/src/**/*.scss`], gulp.parallel(['blocks', 'frontend', 'wizard', 'update-notice', 'form-default-style', 'form']));
+    gulp.watch([`${basePath}/src/**/*.scss`], gulp.parallel(['blocks', 'frontend-block-styles', 'frontend', 'wizard', 'update-notice', 'form-default-style', 'form']));
 };
 
 gulp.task(
@@ -146,7 +165,7 @@ gulp.task('release', gulp.series(
 async function getZip() {
     const zip = await import('gulp-zip');
     return zip.default;
-};
+}
 
 gulp.task('zip', async function () {
     const zip = await getZip();

@@ -276,5 +276,6 @@
 	"supports": {
 		"className": false
 	},
-	"keywords": ["social", "icon"]
+	"keywords": ["social", "icon"],
+	"style": ["gutenverse-frontend-social-icons-style"]
 }

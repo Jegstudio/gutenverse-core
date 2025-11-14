@@ -268,4 +268,8 @@ class GutenversePopupElement {
     }
 }
 
-export default GutenversePopupBuilder;
+const selected = u('.guten-popup-builder');
+
+if (selected) {
+    new GutenversePopupBuilder(selected);
+}

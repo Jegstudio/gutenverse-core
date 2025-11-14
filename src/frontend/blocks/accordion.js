@@ -82,4 +82,8 @@ class GutenverseAccordion extends Default {
     }
 }
 
-export default GutenverseAccordion;
+const selected = u('.guten-accordions');
+
+if (selected) {
+    new GutenverseAccordion(selected);
+}

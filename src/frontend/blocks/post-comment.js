@@ -31,4 +31,8 @@ class GutenversePostComment extends Default {
     }
 }
 
-export default GutenversePostComment;
+const selected = u('.guten-post-comment');
+
+if (selected) {
+    new GutenversePostComment(selected);
+}

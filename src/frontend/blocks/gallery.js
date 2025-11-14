@@ -239,7 +239,7 @@ class GutenverseGallery extends Default {
 
             shuffle && shuffle.filter(item => isValid(item));
         };
-        thisElement.find('#guten-gallery-search-box-input').on('change keyup', e => onSearch(shuffle, elementClassNames));
+        thisElement.find('#guten-gallery-search-box-input').on('change keyup', () => onSearch(shuffle, elementClassNames));
         thisElement.find('.guten-gallery-control').on('click', e => {
             const control = u(e.target);
             const filter = control.data('filter');
@@ -283,4 +283,8 @@ class GutenverseGallery extends Default {
     }
 }
 
-export default GutenverseGallery;
+const selected = u('.guten-gallery');
+
+if (selected) {
+    new GutenverseGallery(selected);
+}

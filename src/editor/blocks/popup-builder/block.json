@@ -289,5 +289,7 @@
 	"supports": {
 		"className": false
 	},
-	"keywords": ["popup", "builder"]
+	"keywords": ["popup", "builder"],
+	"viewScript": ["gutenverse-frontend-popup-builder-script"],
+	"style": ["gutenverse-frontend-popup-builder-style"]
 }

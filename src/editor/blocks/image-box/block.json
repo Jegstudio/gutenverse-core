@@ -423,5 +423,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["image", "box", "symbol", "logo"]
+	"keywords": ["image", "box", "symbol", "logo"],
+	"style": ["gutenverse-frontend-image-box-style"]
 }
