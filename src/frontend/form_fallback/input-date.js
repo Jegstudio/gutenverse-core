@@ -24,3 +24,13 @@ class GutenverseInputDate extends Default {
 }
 
 export default GutenverseInputDate;
+
+let { activePlugins } = window['GutenverseData'];
+
+if( !activePlugins.includes('gutenverse-form/gutenverse-form.php' )){
+    const selected = u('.guten-form-input-date');
+
+    if (selected) {
+        new GutenverseInputDate(selected);
+    }
+}

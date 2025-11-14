@@ -236,6 +236,10 @@ class Api {
 		$attributes = $request['attributes'];
 		$post_data  = new Post_Block();
 
+		if ( is_array( $attributes ) ) {
+			$attributes['fromPagination'] = true;
+		}
+
 		$post_data->set_attributes( $attributes );
 
 		$render = $post_data->render_frontend( false );

@@ -1,11 +1,10 @@
 import anime from 'animejs';
 import { __ } from '@wordpress/i18n';
-import { Chart } from 'chart.js/auto';
 import { createPortal } from 'react-dom';
 import { compose } from '@wordpress/compose';
 import { panelList } from './panels/panel-list';
 import { applyFilters } from '@wordpress/hooks';
-import { getChartData } from './data/chartData';
+import generateChart from './data/generateChart';
 import getBlockStyle from './styles/block-style';
 import { getColor } from 'gutenverse-core/styling';
 import { displayShortcut } from '@wordpress/keycodes';
@@ -155,22 +154,11 @@ const ChartBlock = compose(
             return;
         }
 
-        const customPositioner = (elements, eventPosition) => ({
-            x: eventPosition.x,
-            y: eventPosition.y,
-        });
-
-        const tooltipPlugin = Chart.registry.getPlugin('tooltip');
-        if (tooltipPlugin) {
-            tooltipPlugin.positioners.custom = customPositioner;
-        }
-
-        const data = getChartData(attributes, multiValue, canvasRef.current);
+        canvasRef.current.innerHTML = '';
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const generateChart = new Chart(canvasRef.current, data);
-                    chartRef.current = generateChart;
+                    generateChart(attributes, canvasRef.current);
                     obs.unobserve(entry.target);
                 }
             });
@@ -300,7 +288,7 @@ const ChartBlock = compose(
                 </div>}
                 <div className="chart-content content-chart">
                     <div className="chart-container">
-                        <canvas ref={canvasRef} id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
+                        <div ref={canvasRef} id={`chart-${elementId}`} style={{boxSizing:'border-box', lineHeight:'0'}}></div>
                     </div>
                     {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
                 </div>

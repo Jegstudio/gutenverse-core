@@ -193,5 +193,6 @@
 			"anchor": true
 		}
 	},
-	"keywords": ["divider", "line", "separator"]
+	"keywords": ["divider", "line", "separator"],
+	"style": ["gutenverse-frontend-divider-style"]
 }

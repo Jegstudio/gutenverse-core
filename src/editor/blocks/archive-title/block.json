@@ -202,5 +202,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["single", "category", "term", "archive", "title", "texts"]
+	"keywords": ["single", "category", "term", "archive", "title", "texts"],
+	"style": ["gutenverse-frontend-archive-title-style"]
 }

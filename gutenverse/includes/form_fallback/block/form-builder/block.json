@@ -159,5 +159,6 @@
         "form",
         "entry",
         "submit"
-    ]
+    ],
+    "viewScript": ["gutenverse-form-frontend-form-builder-script"]
 }

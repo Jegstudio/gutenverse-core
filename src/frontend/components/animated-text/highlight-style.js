@@ -1,6 +1,5 @@
-import anime from 'animejs';
 import listHighlightStyles from './highlight-styles/list-highlighted-styles';
-
+import anime from 'animejs';
 export class HighlightStyle {
     constructor(element, animationProps) {
         this.element = element;

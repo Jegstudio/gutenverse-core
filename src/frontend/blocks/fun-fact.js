@@ -1,6 +1,5 @@
-import anime from 'animejs';
 import { Default, u } from 'gutenverse-core-frontend';
-
+import anime from 'animejs';
 class GutenverseFunFact extends Default {
     /* public */
     init() {
@@ -58,4 +57,9 @@ class GutenverseFunFact extends Default {
         this.playOnScreen(element, [numberAnimation]);
     }
 }
-export default GutenverseFunFact;
+
+const selected = u('.guten-fun-fact');
+
+if (selected) {
+    new GutenverseFunFact(selected);
+}

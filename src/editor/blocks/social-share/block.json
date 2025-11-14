@@ -259,5 +259,6 @@
 	"supports": {
 		"className": false
 	},
-	"keywords": ["social", "share", "link"]
+	"keywords": ["social", "share", "link"],
+	"style": ["gutenverse-frontend-social-share-style"]
 }

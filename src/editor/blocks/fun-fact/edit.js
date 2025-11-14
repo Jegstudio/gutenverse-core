@@ -78,6 +78,7 @@ const FunFactBlock = compose(
                 const formatComma = safeNumber.replaceAll( ',', '.' );
                 const isValidNumber = /^-?\d+(\.\d+)?$/.test(formatComma);
                 if (!isValidNumber) {
+                    //eslint-disable-next-line no-console
                     console.warn('[FunFact] Invalid number input (potentially unsafe):', formatComma);
                     numberElement.textContent = 'Invalid number';
                     return;

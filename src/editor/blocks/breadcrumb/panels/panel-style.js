@@ -2,7 +2,12 @@ import { ColorControl, IconControl, IconRadioControl, RangeControl, TypographyCo
 import { __ } from '@wordpress/i18n';
 import { AlignLeft, AlignCenter, AlignRight } from 'gutenverse-core/components';
 
-export const stylePanel = () => {
+export const stylePanel = (props) => {
+    const {
+        elementId
+    } = props;
+
+
     return [
         {
             id: 'alignment',
@@ -60,6 +65,25 @@ export const stylePanel = () => {
             max: 100,
             unit: 'px',
             step: 1,
+            liveStyle: [
+                {
+                    'id': 'iconSize',
+                    'type': 'plain',
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                }
+                            }
+                        },
+                    ],
+                    'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li.separator i`,
+                }
+            ]
         },
         {
             id: 'gap',
@@ -70,6 +94,35 @@ export const stylePanel = () => {
             max: 100,
             unit: 'px',
             step: 1,
+            liveStyle: [
+                {
+                    'id': 'gap',
+                    'type': 'plain',
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                }
+                            }
+                        },
+                        {
+                            'name': 'margin-left',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li.separator`,
+                }
+            ]
         },
         {
             id: 'separatorIcon',

@@ -33,4 +33,8 @@ class GutenverseAnimatedText extends Default {
     }
 }
 
-export default GutenverseAnimatedText;
+const selected = u('.guten-animated-text');
+
+if (selected) {
+    new GutenverseAnimatedText(selected);
+}

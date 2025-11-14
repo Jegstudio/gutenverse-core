@@ -197,5 +197,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["video", "youtube", "twitch", "vimeo", "dailymotion", "watch"]
+	"keywords": ["video", "youtube", "twitch", "vimeo", "dailymotion", "watch"],
+	"viewScript": ["gutenverse-frontend-video-script"],
+	"style": ["gutenverse-frontend-video-style"]
 }

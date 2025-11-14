@@ -13,9 +13,10 @@
             padding: 0;
             margin: 0;
             display: flex;
+            align-items: center;
 
             li {
-                display: inline-flex;
+                display: flex;
                 align-items: center;
 
                 a {
@@ -24,13 +25,15 @@
                 }
 
                 span {
+                    display: flex;
                     transition: color 0.2s;
                 }
 
                 &.separator {
                     margin: 0 8px;
                     color: #aaa;
-                    display: inline-block;
+                    display: flex;
+                    align-items: center;
 
                     i {
                         &.fab {

@@ -1,6 +1,5 @@
-import anime from 'animejs';
 import { Default, u } from 'gutenverse-core-frontend';
-
+import anime from 'animejs';
 class GutenverseProgressBar extends Default {
     /* public */
     init() {
@@ -38,4 +37,8 @@ class GutenverseProgressBar extends Default {
     }
 }
 
-export default GutenverseProgressBar;
+const selected = u('.guten-progress-bar');
+
+if (selected) {
+    new GutenverseProgressBar(selected);
+}

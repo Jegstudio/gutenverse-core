@@ -277,6 +277,25 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
+    isNotEmpty(attributes['paginationLoadmoreAnimationSequenceDelay']) && data.push({
+        'type': 'plain',
+        'id': 'paginationLoadmoreAnimationSequenceDelay',
+        'properties': [
+            {
+                'name': '--guten-post-block-loadmore-anim-delay',
+                'valueType': 'pattern',
+                'pattern': '{value}ms',
+                'patternValues': {
+                    'value': {
+                        'type': 'attribute',
+                        'key': 'delay',
+                    },
+
+                }
+            }
+        ],
+        'selector': `.${elementId}.guten-element.guten-postblock .guten-post.loadmore-animation.has-delay`,
+    });
 
     return [
         ...data,
