@@ -547,5 +547,7 @@
 		"innerBlocks": true,
 		"anchor": true
 	},
-	"keywords": ["countdown", "timer", "due", "number"]
+	"keywords": ["countdown", "timer", "due", "number"],
+	"viewScript": ["gutenverse-frontend-countdown-script"],
+	"style": ["gutenverse-frontend-countdown-style"]
 }

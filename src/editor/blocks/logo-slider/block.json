@@ -412,5 +412,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["logo", "slider", "image"]
+	"keywords": ["logo", "slider", "image"],
+	"viewScript": ["gutenverse-frontend-client-logo-script"],
+	"style": ["gutenverse-frontend-logo-slider-style"]
 }

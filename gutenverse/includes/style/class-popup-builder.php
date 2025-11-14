@@ -402,5 +402,70 @@ class Popup_Builder extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['popupVideoWidth'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-popup-builder .guten-popup .guten-popup-content .guten-popup-video-container .guten-video",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'width' );
+					},
+					'value'          => $this->attrs['popupVideoWidth'],
+					'device_control' => true,
+				)
+			);
+		}
+	
+		if ( isset( $this->attrs['popupVideoHeight'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-popup-builder .guten-popup .guten-popup-content .guten-popup-video-container .guten-video",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'height' );
+					},
+					'value'          => $this->attrs['popupVideoHeight'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['popupVideoContainerFixedHeight'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-popup-builder .guten-popup .guten-popup-content .guten-popup-video-container",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'height' );
+					},
+					'value'          => $this->attrs['popupVideoContainerFixedHeight'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['videoContainerContentHorizontalAlign'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-popup-builder .guten-popup .guten-popup-content .guten-popup-video-container",
+					'property'       => function ( $value ) {
+						return "justify-content: {$value};";
+					},
+					'value'          => $this->attrs['videoContainerContentHorizontalAlign'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['videoContainerContentVerticalAlign'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-popup-builder .guten-popup .guten-popup-content .guten-popup-video-container",
+					'property'       => function ( $value ) {
+						return "align-items: {$value};";
+					},
+					'value'          => $this->attrs['videoContainerContentVerticalAlign'],
+					'device_control' => true,
+				)
+			);
+		}
 	}
 }

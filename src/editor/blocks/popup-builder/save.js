@@ -92,7 +92,7 @@ const save = compose(
                     url: popupVideoSrc,
                     class: 'guten-video-background',
                     width: '100%',
-                    height: '500px',
+                    height: '100%',
                     playing: false,
                     muted: popupVideoMuted,
                     loop: popupVideoLoop,

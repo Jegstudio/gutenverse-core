@@ -8,7 +8,9 @@ export const paginationPanel = (props) => {
         paginationPrevNextText,
         setSwitcher,
         switcher,
-        setAttributes
+        setAttributes,
+        paginationLoadmoreAnimation,
+        paginationLoadmoreAnimationSequence,
     } = props;
 
     return [
@@ -128,6 +130,63 @@ export const paginationPanel = (props) => {
                     value: 'after'
                 }
             ]
+        },
+        {
+            id: 'paginationLoadmoreAnimation',
+            show: paginationMode && (paginationMode === 'loadmore' || paginationMode === 'scrollload'),
+            label: __('Load Animation', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: 'None',
+                    value: 'none'
+                },
+                {
+                    label: 'Fade In',
+                    value: 'fadeIn'
+                },
+                {
+                    label: 'Fade In Left',
+                    value: 'fadeInLeft'
+                },
+                {
+                    label: 'Fade In Down',
+                    value: 'fadeInDown'
+                },
+                {
+                    label: 'Fade In Right',
+                    value: 'fadeInRight'
+                },
+                {
+                    label: 'Fade In Up',
+                    value: 'fadeInUp'
+                },
+            ]
+        },
+        {
+            id: 'paginationLoadmoreAnimationSequence',
+            show: paginationMode && (paginationMode === 'loadmore' || paginationMode === 'scrollload') && (paginationLoadmoreAnimation && paginationLoadmoreAnimation !== 'none'),
+            label: __('Load Animation Sequence', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: 'All',
+                    value: 'all'
+                },
+                {
+                    label: 'Sequential',
+                    value: 'sequential'
+                },
+            ]
+        },
+        {
+            id: 'paginationLoadmoreAnimationSequenceDelay',
+            show: paginationMode && (paginationMode === 'loadmore' || paginationMode === 'scrollload') && paginationLoadmoreAnimationSequence === 'sequential' && (paginationLoadmoreAnimation && paginationLoadmoreAnimation !== 'none'),
+            label: __('Delay (ms)', 'gutenverse'),
+            component: NumberControl,
+            description: __('Input in miliseconds (ms). Later will be converted into second (s)','gutenverse'),
+            min: 0,
+            step: 100
         },
     ];
 };

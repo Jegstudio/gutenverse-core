@@ -1,3 +1,7 @@
+@import "gutenverse-core/src/assets/mixin";
+@import "gutenverse-core/src/assets/variables";
+@import "gutenverse-core/src/assets/wp-fix";
+
 .guten-image-box, 
 .gutenverse-image-box {
     @include transition(false, false, all .4s ease);

@@ -233,5 +233,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["icon", "list", "image", "symbol", "logo", "texts"]
+	"keywords": ["icon", "list", "image", "symbol", "logo", "texts"],
+	"style": ["gutenverse-frontend-icon-list-style"]
 }

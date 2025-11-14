@@ -256,5 +256,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["single", "post", "author"]
+	"keywords": ["single", "post", "author"],
+	"style": ["gutenverse-frontend-post-author-style"]
 }

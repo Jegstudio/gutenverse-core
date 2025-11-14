@@ -30,7 +30,8 @@ const save = compose(
         barThickness,
         cutoutBackground,
         title,
-        description
+        description,
+        chartSize
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -59,12 +60,14 @@ const save = compose(
         barThickness,
         cutoutBackground,
         multiValue,
-    })
+        chartSize,
+        elementId
+    });
 
     const insideChart = <div className={`chart-inside type-${chartType}`}>
-        { 
-            'percentage' === chartContent || 'number' === chartContent ? 
-                <span >{multiValue || 'number' === chartContent ? '0' : '0%'}</span> 
+        {
+            'percentage' === chartContent || 'number' === chartContent ?
+                <span >{multiValue || 'number' === chartContent ? '0' : '0%'}</span>
                 : <i className={icon}/>
         }
     </div>;
@@ -87,7 +90,7 @@ const save = compose(
                 </div>
                 <div className="chart-content content-chart">
                     <div className="chart-container" data-chart={data}>
-                        <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
+                        <div id={`chart-${elementId}`} style={{boxSizing:'border-box', lineHeight:'0'}}></div>
                     </div>
                     {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
                 </div>

@@ -324,5 +324,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["heading", "animated", "animation", "moving", "title", "texts"]
+	"keywords": ["heading", "animated", "animation", "moving", "title", "texts"],
+	"viewScript": ["gutenverse-frontend-animated-text-script"],
+	"style": ["gutenverse-frontend-animated-text-style"]
 }

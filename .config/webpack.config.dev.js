@@ -1,11 +1,13 @@
 const { blocks } = require('./scripts/blocks');
-const { frontend } = require('./scripts/frontend');
 const { dashboard } = require('./scripts/dashboard');
 const { wizard } = require('./scripts/wizard');
+const { frontendModular } = require('./scripts/frontend-modular');
+const { formFallback } = require('./scripts/frontend-form-fallback');
 
 module.exports = [
     blocks,
-    frontend,
     dashboard,
-    wizard
+    wizard,
+    frontendModular,
+    formFallback
 ];

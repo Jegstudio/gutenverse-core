@@ -201,5 +201,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["single", "post", "title", "texts"]
+	"keywords": ["single", "post", "title", "texts"],
+	"style": ["gutenverse-frontend-post-title-style"]
 }

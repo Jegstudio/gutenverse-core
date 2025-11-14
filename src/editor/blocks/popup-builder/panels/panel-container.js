@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, HeadingControl } from 'gutenverse-core/controls';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, HeadingControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const containerPanel = (props) => {
@@ -92,6 +92,54 @@ export const containerPanel = (props) => {
             component: HeadingControl,
             label: __('Video Container', 'gutenverse'),
             show: popupType === 'youtube'
+        },
+        {
+            id: 'videoContainerContentHorizontalAlign',
+            label: __('Horizontal Align', 'gutenverse'),
+            component: SelectControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: 'Default',
+                    value: 'default'
+                },
+                {
+                    label: 'Start',
+                    value: 'start'
+                },
+                {
+                    label: 'Center',
+                    value: 'center'
+                },
+                {
+                    label: 'End',
+                    value: 'end'
+                },
+            ],
+        },
+        {
+            id: 'videoContainerContentVerticalAlign',
+            label: __('Vertical Align', 'gutenverse'),
+            component: SelectControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: 'Default',
+                    value: 'default'
+                },
+                {
+                    label: 'Top',
+                    value: 'start'
+                },
+                {
+                    label: 'Middle',
+                    value: 'center'
+                },
+                {
+                    label: 'Bottom',
+                    value: 'end'
+                },
+            ],
         },
         {
             id: 'videoContainerBorder',

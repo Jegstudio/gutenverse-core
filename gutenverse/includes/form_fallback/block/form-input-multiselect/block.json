@@ -231,5 +231,6 @@
   "supports": {
     "className": false
   },
-  "keywords": ["input", "form", "gutenverse"]
+  "keywords": ["input", "form", "gutenverse"],
+  "viewScript": ["gutenverse-form-frontend-input-multiselect-script"]
 }

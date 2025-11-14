@@ -134,6 +134,8 @@ class Post_Block extends Post_Abstract {
 			'paginationPrevIcon',
 			'paginationNextIcon',
 			'contentOrder',
+			'paginationLoadmoreAnimation',
+			'paginationLoadmoreAnimationSequence',
 		);
 	}
 
@@ -377,16 +379,38 @@ class Post_Block extends Post_Abstract {
 	 * @return string
 	 */
 	public function build_column( $results ) {
-		$block    = '';
-		$html_tag = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h3' ) );
-		$type     = esc_attr( $this->attributes['postblockType'] );
-		$orders   = $this->attributes['contentOrder'];
-		foreach ( $results as $post ) {
+		$block      = '';
+		$html_tag   = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h3' ) );
+		$type       = esc_attr( $this->attributes['postblockType'] );
+		$orders     = $this->attributes['contentOrder'];
+		$add_class  = '';
+		$pagination = $this->attributes['paginationMode'] ?? '';
+		$load_anim  = $this->attributes['paginationLoadmoreAnimation'] ?? '';
+		$anim_mode  = $this->attributes['paginationLoadmoreAnimationSequence'] ?? '';
+		$from_pag   = $this->attributes['fromPagination'] ?? false;
+		$last_idx   = $this->attributes['alreadyFetch'] ?? 0;
+
+		if ( ( 'loadmore' === $pagination || 'scrollload' === $pagination ) && ($load_anim && 'none' != $load_anim) && $from_pag ) {
+			$add_class = " animated {$load_anim} initial-hide loadmore-animation";
+		}
+
+		$loadmore_delay_last_idx = 1;
+
+		foreach ( $results as $idx => $post ) {
 			$thumbnail        = $this->get_thumbnail( $post->ID, 'post-thumbnail' );
 			$primary_category = $this->get_primary_category( $post->ID );
 			$post_url         = esc_url( get_the_permalink( $post ) );
 			$post_title       = esc_attr( get_the_title( $post ) );
 			$content          = '';
+
+			$added_class = $idx > $last_idx - 1 && $from_pag ? $add_class : '';
+			$added_style = '';
+
+			if ( 'sequential' === $anim_mode && $from_pag && $idx > $last_idx ) {
+				$added_class .= ' has-delay';
+				$added_style  = ' style="--guten-post-block-loadmore-anim-delay-idx: ' . "{$loadmore_delay_last_idx}" . '"';
+				++$loadmore_delay_last_idx;
+			}
 
 			foreach ( $orders as $order ) {
 				if ( 'title' === $order['value'] ) {
@@ -416,13 +440,13 @@ class Post_Block extends Post_Abstract {
 
 			if ( 'type-3' === $type ) {
 				$block = $block .
-				'<article ' . gutenverse_post_class( 'guten-post', $post->ID ) . '>
+				'<article ' . gutenverse_post_class( "guten-post{$added_class}", $post->ID ) . $added_style . '>
                     <div class="guten-thumb">' . $thumb . $primary_category . '</div>
                     <div class="guten-postblock-content">' . $content . '</div>
                 </article>';
 			} else {
 				$block = $block .
-				'<article ' . gutenverse_post_class( 'guten-post', $post->ID ) . '>
+				'<article ' . gutenverse_post_class( "guten-post{$added_class}", $post->ID ) . $added_style . '>
                     <div class="guten-thumb">' . $thumb . '</div>
                     <div class="guten-postblock-content">' . $primary_category . $content . '</div>
                 </article>';

@@ -26,3 +26,13 @@ class GutenverseInputSelect extends Default {
 }
 
 export default GutenverseInputSelect;
+
+let { activePlugins } = window['GutenverseData'];
+
+if( !activePlugins.includes('gutenverse-form/gutenverse-form.php' )){
+    const selected = u('.guten-form-input-select');
+
+    if (selected) {
+        new GutenverseInputSelect(selected);
+    }
+}
