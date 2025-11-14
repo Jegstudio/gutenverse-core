@@ -1,5 +1,5 @@
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { ReactPlayer } from 'gutenverse-core/components';
+import { ReactPlayer, VideoPreviewer } from 'gutenverse-core/components';
 
 const SectionVideoContainer = ({ attributes }) => {
     const { background = {} } = attributes;
@@ -22,6 +22,8 @@ const SectionVideoContainer = ({ attributes }) => {
         overflow: 'hidden',
         pointerEvents: 'none',
         opacity: 1,
+        width:'100%',
+        height: '100%'
     };
 
     const playerConfig = {
@@ -44,18 +46,28 @@ const SectionVideoContainer = ({ attributes }) => {
         return null;
     }
     return (
-        <ReactPlayer
-            className="guten-video-bg-wrapper"
-            url={videoLink}
-            controls={false}
+        <VideoPreviewer
+            classNames="guten-video-bg-wrapper"
+            videoSrc={videoLink}
+            hideControls={true}
             width="100%"
             height="100%"
             playing={true}
             muted={true}
             loop={!videoPlayOnce}
-            playsinline={true}
-            style={playerStyle}
             config={playerConfig}
+            styles={playerStyle}
+            wrapperStyles={[
+                `
+                    body{
+                        width: 100%;
+                        height: 100%;
+                        overflow: hidden;
+                    }
+                    body > div {
+                        height: inherit;
+                    }`
+            ]}
         />
     );
 };
