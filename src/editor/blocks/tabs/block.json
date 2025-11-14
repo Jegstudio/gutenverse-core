@@ -192,5 +192,7 @@
 		"html": false,
 		"anchor": true
 	},
-	"keywords": ["tabs", "accordions", "expand"]
+	"keywords": ["tabs", "accordions", "expand"],
+	"viewScript": ["gutenverse-frontend-tab-script"],
+	"style": ["gutenverse-frontend-tabs-style"]
 }

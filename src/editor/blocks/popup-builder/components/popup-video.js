@@ -1,33 +1,23 @@
-import { ReactPlayer } from 'gutenverse-core/components';
+import { VideoPreviewer } from 'gutenverse-core/components';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isEmpty } from 'gutenverse-core/helper';
 
-const VideoContainer = ({ popupVideoSrc, popupVideoStart, popupVideoEnd, popupVideoHideControls, popupVideoLoop, popupVideoMuted, videoRef, playing, setPlaying }) => {
-    const playerStyle = {};
-    const playerConfig = {
-        youtube: {
-            playerVars: {
-                start: popupVideoStart,
-                end: popupVideoEnd
-            }
-        }
-    };
+const VideoContainer = ({ popupVideoSrc, popupVideoStart, popupVideoEnd, popupVideoHideControls, popupVideoLoop, popupVideoMuted, popupVideoWidth, popupVideoHeight, videoRef, playing, elementId }) => {
+    const deviceType = getDeviceType();
 
     return popupVideoSrc ? (
-        <ReactPlayer
-            ref={videoRef}
-            className="guten-video-background"
-            url={popupVideoSrc}
-            controls={!popupVideoHideControls}
-            width={'100%'}
-            height={'100%'}
+        <VideoPreviewer
+            videoRef={videoRef}
+            classNames={`guten-video-background popup-video-${elementId}`}
+            videoSrc={popupVideoSrc}
+            hideControls={popupVideoHideControls}
+            width={popupVideoWidth && popupVideoWidth[deviceType] ? `${popupVideoWidth[deviceType]}%` : '100%'}
+            height={popupVideoHeight && popupVideoHeight[deviceType] ? `${popupVideoHeight[deviceType]}px` : '500px'}
             playing={playing}
             muted={popupVideoMuted}
             loop={popupVideoLoop}
-            playsinline={true}
-            style={playerStyle}
-            config={playerConfig}
-            onPlay={() => setPlaying(true)}
-            onPause={() => setPlaying(false)}
+            start={popupVideoStart}
+            end={popupVideoEnd}
         />
     ) : null;
 };

@@ -81,9 +81,9 @@ class Post_Author extends Style_Abstract {
 	 */
 	private function name_style() {
 		$selector       = ".guten-post-author.{$this->element_id} .author-name,
-							.guten-post-author.{$this->element_id} *";
+							.guten-post-author.{$this->element_id} .author-name a";
 		$selector_hover = ".guten-post-author.{$this->element_id} .author-name:hover,
-							.guten-post-author.{$this->element_id}:hover *";
+							.guten-post-author.{$this->element_id}:hover .author-name";
 		if ( isset( $this->attrs['typography'] ) ) {
 			$this->inject_typography(
 				array(

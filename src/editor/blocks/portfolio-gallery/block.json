@@ -322,5 +322,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["gallery", "image", "tab", "portofolio"]
+	"keywords": ["gallery", "image", "tab", "portofolio"],
+	"viewScript": ["gutenverse-frontend-portfolio-gallery-script"],
+	"style": ["gutenverse-frontend-portfolio-gallery-style"]
 }

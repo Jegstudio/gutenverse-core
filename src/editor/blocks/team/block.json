@@ -579,5 +579,7 @@
 	"supports": {
 		"anchor": true
 	},
-	"keywords": ["team", "member", "person", "info", "image"]
+	"keywords": ["team", "member", "person", "info", "image"],
+	"viewScript": ["gutenverse-frontend-team-script"],
+	"style": ["gutenverse-frontend-team-style"]
 }

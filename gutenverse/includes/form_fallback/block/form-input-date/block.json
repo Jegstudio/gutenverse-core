@@ -197,5 +197,6 @@
         "form",
         "gutenverse"
     ],
-    "example": {}
+    "example": {},
+    "viewScript": ["gutenverse-form-frontend-input-date-script"]
 }

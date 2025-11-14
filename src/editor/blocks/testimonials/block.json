@@ -595,5 +595,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["testimonial", "review", "feedback"]
+	"keywords": ["testimonial", "review", "feedback"],
+	"viewScript": ["gutenverse-frontend-testimonials-script"],
+	"style": ["gutenverse-frontend-testimonials-style"]
 }

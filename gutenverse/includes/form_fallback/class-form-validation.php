@@ -37,14 +37,33 @@ class Form_Validation extends Style_Generator {
 	 * Form Validation Scripts
 	 */
 	public function form_validation_scripts() {
-		wp_enqueue_script( 'gutenverse-frontend-event' );
 		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseFormValidationData', $this->form_validation_data );
-		wp_enqueue_style(
+		wp_register_style(
 			'gutenverse-form-default-style',
 			GUTENVERSE_URL . '/assets/css/form-default-style.css',
 			array(),
 			GUTENVERSE_VERSION
 		);
+
+		$blocks = array(
+			'form-builder',
+			'input-date',
+			'input-multiselect',
+			'input-select',
+		);
+
+		foreach ( $blocks as $block ) {
+			$include   = ( include GUTENVERSE_DIR . '/lib/dependencies/form_fallback/' . $block . '.asset.php' )['dependencies'];
+			$include[] = 'gutenverse-frontend-event';
+
+			wp_register_script(
+				'gutenverse-form-frontend-' . $block . '-script',
+				GUTENVERSE_URL . '/assets/js/form_fallback/' . $block . '.js',
+				$include,
+				GUTENVERSE_VERSION,
+				true
+			);
+		}
 	}
 	/**
 	 * Get form Block from Widgets.
@@ -94,6 +113,20 @@ class Form_Validation extends Style_Generator {
 	 */
 	public function loop_blocks_to_get_form_data( $blocks ) {
 		foreach ( $blocks as $block ) {
+
+			if ( stripos( $block['blockName'], 'form' ) !== false ) {
+				wp_enqueue_style( 'gutenverse-form-default-style' );
+				$name = explode( '/', $block['blockName'] );
+
+				$block_json = gutenverse_get_json( GUTENVERSE_DIR . 'includes/form_fallback/block/' . $name[1] . '/block.json' );
+
+				if ( isset( $block_json['viewScript'] ) && is_array( $block_json['viewScript'] ) ) {
+					foreach ( $block_json['viewScript'] as $script ) {
+						wp_enqueue_script( $script );
+					}
+				}
+			}
+
 			if ( 'gutenverse/form-builder' === $block['blockName'] ) {
 				if ( isset( $block['attrs']['formId'] ) ) {
 					$form_id   = $block['attrs']['formId']['value'];

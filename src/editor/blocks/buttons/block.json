@@ -173,5 +173,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["multiple", "buttons", "url", "action", "click", "link"]
+	"keywords": ["multiple", "buttons", "url", "action", "click", "link"],
+	"style": ["gutenverse-frontend-buttons-style"]
 }

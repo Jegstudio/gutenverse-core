@@ -1,0 +1,113 @@
+{
+	"apiVersion": 3,
+	"name": "gutenverse/breadcrumb",
+	"class_callback": "\\Gutenverse\\Block\\Breadcrumb",
+	"title": "Breadcrumb",
+	"description": "Display a navigation breadcrumb for easier site navigation.",
+	"category": "gutenverse-element",
+	"allowCopyStyle": true,
+	"attributes": {
+		"elementId": {
+            "type": "string"
+        },
+        "background": {
+            "type": "object",
+            "copyStyle": true
+        },
+        "backgroundHover": {
+            "type": "object",
+            "copyStyle": true
+        },
+		"backgroundTransition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        }, 
+        "margin": {
+            "type": "number"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "alignment": {
+			"type": "object",
+			"copyStyle": true
+		},
+        "zIndex": {
+            "type": "object"
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+		"transform": {
+			"type": "object",
+			"copyStyle": true
+		},
+        "condition": {
+			"type": "object",
+			"default": {}
+		},
+		"separatorIcon": {
+			"type": "string",
+			"default": "fas fa-chevron-right"
+		},
+		"typography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"lastTextColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"gap": {
+            "type":"string"
+        },
+		"iconColor": {
+            "type": "object"
+        },
+		"iconSize":{
+			"type":"string"
+		},
+		"hideCurrentTitle": {
+			"type":"boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"className": false,
+		"anchor": true
+	},
+	"keywords": [
+		"heading",
+		"animated",
+		"animation",
+		"text"
+	],
+	"style": ["gutenverse-frontend-breadcrumb-style"]
+}

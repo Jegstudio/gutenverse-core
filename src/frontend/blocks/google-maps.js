@@ -16,8 +16,13 @@ class GutenverseMaps extends Default {
             // Set iframe source
             setTimeout(() => {
                 u(iframe).attr('src', src);
-            }, 500)
+            }, 500);
         });
     }
 }
-export default GutenverseMaps;
+
+const selected = u('.guten-maps');
+
+if (selected) {
+    new GutenverseMaps(selected);
+}

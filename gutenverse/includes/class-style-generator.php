@@ -14,6 +14,7 @@ use Gutenverse\Style\Accordions;
 use Gutenverse\Style\Advanced_Heading;
 use Gutenverse\Style\Animated_Text;
 use Gutenverse\Style\Archive_Title;
+use Gutenverse\Style\Breadcrumb;
 use Gutenverse\Style\Button;
 use Gutenverse\Style\Buttons;
 use Gutenverse\Style\Countdown;
@@ -115,6 +116,9 @@ class Style_Generator {
 				break;
 			case 'gutenverse/animated-text':
 				$instance = new Animated_Text( $attrs );
+				break;
+			case 'gutenverse/breadcrumb':
+				$instance = new Breadcrumb( $attrs );
 				break;
 			case 'gutenverse/taxonomy-list':
 				$instance = new Taxonomy_List( $attrs );
