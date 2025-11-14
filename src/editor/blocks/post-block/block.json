@@ -859,5 +859,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["post", "block"]
+	"keywords": ["post", "block"],
+	"viewScript": ["gutenverse-frontend-postblock-script"],
+	"style": ["gutenverse-frontend-post-block-style"]
 }

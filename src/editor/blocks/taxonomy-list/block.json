@@ -243,5 +243,6 @@
 	"supports": {
 		"className": false
 	},
-	"keywords": ["categories", "terms", "tags", "list"]
+	"keywords": ["categories", "terms", "tags", "list"],
+	"style": ["gutenverse-frontend-taxonomy-list-style"]
 }

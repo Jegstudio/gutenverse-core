@@ -193,5 +193,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["single", "post", "date"]
+	"keywords": ["single", "post", "date"],
+	"style": ["gutenverse-frontend-post-date-style"]
 }

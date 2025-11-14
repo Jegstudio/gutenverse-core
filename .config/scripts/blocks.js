@@ -4,7 +4,7 @@ const path = require("path");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { output } = require("../config");
 const { stats, plugins } = require("gutenverse-core/.config/config");
-const { externals, coreExternals, coreFrontendExternals } = require("gutenverse-core/.config/externals");
+const { externals, coreExternals, coreFrontendExternals, configDepsExtractExternals } = require("gutenverse-core/.config/externals");
 const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
 
 class BlockJsonCopyPlugin {
@@ -91,7 +91,7 @@ const blocks = {
     },
     plugins: [
         ...plugins,
-        new DependencyExtractionWebpackPlugin(),
+        new DependencyExtractionWebpackPlugin(configDepsExtractExternals()),
         new FileManagerPlugin({
             events: {
                 onStart: {

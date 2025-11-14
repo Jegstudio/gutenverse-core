@@ -108,5 +108,6 @@
 			"default": {}
 		}
 	},
-	"keywords": ["social", "share"]
+	"keywords": ["social", "share"],
+	"style": ["gutenverse-frontend-social-share-item-style"]
 }

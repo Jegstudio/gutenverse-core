@@ -1,5 +1,6 @@
-import { Default, u, apiFetch } from 'gutenverse-core-frontend';
+import { Default, u } from 'gutenverse-core-frontend';
 import isEmpty from 'lodash/isEmpty';
+import apiFetch from '@wordpress/api-fetch';
 
 class GutenverseFormValidation extends Default {
     /* public */
@@ -315,3 +316,13 @@ class GutenverseFormValidation extends Default {
 }
 
 export default GutenverseFormValidation;
+
+let { activePlugins } = window['GutenverseData'];
+
+if( !activePlugins.includes('gutenverse-form/gutenverse-form.php' )){
+    const selected = u('.guten-form-builder');
+
+    if (selected) {
+        new GutenverseFormValidation(selected);
+    }
+}

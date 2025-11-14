@@ -1,5 +1,7 @@
-import { Default, u, addQueryArgs, apiFetch } from 'gutenverse-core-frontend';
+import { Default, u } from 'gutenverse-core-frontend';
 import isEmpty from 'lodash/isEmpty';
+import apiFetch from '@wordpress/api-fetch';
+import { addQueryArgs } from '@wordpress/url';
 
 class GutenversePostblock extends Default {
     /* static attributes */
@@ -341,4 +343,8 @@ class GutenversePostblock extends Default {
     }
 }
 
-export default GutenversePostblock;
+const selected = u('.guten-post-block');
+
+if (selected) {
+    new GutenversePostblock(selected);
+}

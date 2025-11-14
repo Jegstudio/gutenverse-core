@@ -283,5 +283,7 @@
 	"keywords": ["search", "gutenverse"],
 	"example": {
 		"elementId": "guten-preview-search"
-	}
+	},
+	"viewScript": ["gutenverse-frontend-search-script"],
+	"style": ["gutenverse-frontend-search-style"]
 }

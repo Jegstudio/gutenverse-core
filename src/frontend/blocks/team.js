@@ -71,4 +71,9 @@ class GutenverseTeam extends Default {
         </div>`;
     }
 }
-export default GutenverseTeam;
+
+const selected = u('.guten-team');
+
+if (selected) {
+    new GutenverseTeam(selected);
+}

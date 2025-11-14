@@ -31,5 +31,6 @@
 		"className": false,
 		"html": false
 	},
-	"keywords": ["tabs", "accordions", "expand"]
+	"keywords": ["tabs", "accordions", "expand"],
+	"style": ["gutenverse-frontend-tab-style"]
 }

@@ -165,5 +165,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["google", "map", "direction", "path", "place", "location"]
+	"keywords": ["google", "map", "direction", "path", "place", "location"],
+	"viewScript": ["gutenverse-frontend-google-maps-script"],
+	"style": ["gutenverse-frontend-google-maps-style"]
 }

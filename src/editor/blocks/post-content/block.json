@@ -177,5 +177,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["single", "post", "title"]
+	"keywords": ["single", "post", "title"],
+	"style": ["gutenverse-frontend-post-content-style"]
 }

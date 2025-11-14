@@ -606,5 +606,7 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["post", "list"]
+	"keywords": ["post", "list"],
+	"viewScript": ["gutenverse-frontend-postlist-script"],
+	"style": ["gutenverse-frontend-post-list-style"]
 }

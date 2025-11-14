@@ -395,5 +395,7 @@
 		"html": false,
 		"anchor": true
 	},
-	"keywords": ["tabs", "accordions", "dropdown", "expand", "panels"]
+	"keywords": ["tabs", "accordions", "dropdown", "expand", "panels"],
+	"viewScript": ["gutenverse-frontend-accordion-script"],
+	"style": ["gutenverse-frontend-accordions-style"]
 }
