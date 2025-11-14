@@ -26,7 +26,7 @@ class Frontend_Assets {
 	/**
 	 * Load the scripts
 	 *
-	 * @since 3.3.0-dev
+	 * @since 3.3.0
 	 */
 	public function load_conditional_scripts() {
 		$blocks = array(
@@ -69,7 +69,7 @@ class Frontend_Assets {
 	/**
 	 * Load the styles
 	 *
-	 * @since 3.3.0-dev
+	 * @since 3.3.0
 	 */
 	public function load_conditional_styles() {
 		$blocks = array(
