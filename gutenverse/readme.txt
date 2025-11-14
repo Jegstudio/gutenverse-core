@@ -307,6 +307,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 ##### Bug Fixes
 * fix star rating style option
 * fix gallery issue inside pattern
+* fix icon list vertical align
 
 = 3.2.1 =
 ##### New & Improvemenets
