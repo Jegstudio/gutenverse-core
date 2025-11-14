@@ -301,6 +301,11 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 = 3.3.0-dev =
 ##### New & Improvemenets
 * Improve CSS & JS files to load only if block/feature exist
+* add animation in post block load more pagination
+* add option for width and height in popup video
+
+##### Bug Fixes
+* fix star rating style option
 
 = 3.2.1 =
 ##### New & Improvemenets
