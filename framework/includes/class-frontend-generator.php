@@ -17,7 +17,7 @@ use Gutenverse\Framework\Style\Section;
 /**
  * Class Frontend Generator
  *
- * @since 3.3.0-dev:
+ * @since 2.3.0:
  *      - Class renamed from Style_Generator to Frontend_Generator
  *      - Add few functions to load scripts conditionally:
  *              - check_attributes
@@ -458,7 +458,7 @@ class Frontend_Generator {
 	/**
 	 * Load attrs.
 	 *
-	 * @since 3.3.0-dev
+	 * @since 2.3.0
 	 *
 	 * @param array  $attrs attributes data
 	 * @param string $block_name block name.
@@ -535,7 +535,7 @@ class Frontend_Generator {
 	 * Conditionally enqueues a script based on attribute checks.
 	 * If the 'device' parameter is present, it requires at least ONE device setting to pass the condition.
 	 *
-	 * @since 3.3.0-dev
+	 * @since 2.3.0
 	 *
 	 * @param array $args The script configuration array, including 'attr', 'allow_if', and 'script'.
 	 */
@@ -603,7 +603,7 @@ class Frontend_Generator {
 	 * Helper method to securely check two values against a dynamic operator.
 	 * Prevents security risks associated with using 'eval()'.
 	 *
-	 * @since 3.3.0-dev
+	 * @since 2.3.0
 	 *
 	 * @param mixed  $attr_value The value from the attributes array.
 	 * @param string $operator The comparison operator (e.g., '===', '!==').
@@ -637,7 +637,7 @@ class Frontend_Generator {
 	/**
 	 * Load the scripts
 	 *
-	 * @since 3.3.0-dev
+	 * @since 2.3.0
 	 */
 	public function load_conditional_scripts() {
 		wp_register_script(
@@ -687,13 +687,13 @@ class Frontend_Generator {
 	/**
 	 * Load conditional styles file
 	 *
-	 * @since 3.3.0-dev
+	 * @since 2.3.0
 	 */
 	public function load_conditional_styles() {
-		$style_handles  = apply_filters( 'gutenverse_conditional_style_handles', $this->style_list );
-		
+		$style_handles = apply_filters( 'gutenverse_conditional_style_handles', $this->style_list );
+
 		// remove duplicates
-		$style_handles  = array_values( array_unique( $this->style_list ) );
+		$style_handles = array_values( array_unique( $this->style_list ) );
 
 		if ( ! empty( $style_handles ) ) {
 			foreach ( $style_handles as $handle ) {
@@ -705,7 +705,7 @@ class Frontend_Generator {
 	/**
 	 * Load the styles
 	 *
-	 * @since 3.3.0-dev
+	 * @since 2.3.0
 	 */
 	public function block_styles() {
 		$blocks = array(

@@ -11,13 +11,13 @@ namespace Gutenverse\Framework;
 
 /**
  * Class Style Generator
- * 
- * @since 3.3.0-dev: This class is removed
+ *
+ * @since 2.3.0: This class is removed
  * NOTE: This class is just fallback in case there is another plugin using this
  *
  * @package gutenverse-framework
  */
-class Style_Generator extends Frontend_Generator{
+class Style_Generator extends Frontend_Generator {
 	/**
 	 * Font Families
 	 *

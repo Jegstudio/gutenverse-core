@@ -12,7 +12,7 @@ namespace Gutenverse\Framework;
 /**
  * Class Frontend Cache.
  *
- * @since 3.3.0-dev:
+ * @since 2.3.0:
  *      - Class renamed from Style_Cache to Frontend_Cache
  *      - Add function get_path_by_type to load different path
  *
@@ -138,8 +138,8 @@ class Frontend_Cache {
 	 * @param string $name Name of cache.
 	 */
 	public function set_conditional_script_cache_name( $name ) {
-		$cache_id         = $this->get_style_cache_id();
-		$script_file_name = $name . '-script-' . $cache_id . '.json';
+		$cache_id                            = $this->get_style_cache_id();
+		$script_file_name                    = $name . '-script-' . $cache_id . '.json';
 		$this->conditional_script_cache_name = $script_file_name;
 	}
 
@@ -149,8 +149,8 @@ class Frontend_Cache {
 	 * @param string $name Name of cache.
 	 */
 	public function set_conditional_style_cache_name( $name ) {
-		$cache_id         = $this->get_style_cache_id();
-		$style_file_name = $name . '-style-' . $cache_id . '.json';
+		$cache_id                           = $this->get_style_cache_id();
+		$style_file_name                    = $name . '-style-' . $cache_id . '.json';
 		$this->conditional_style_cache_name = $style_file_name;
 	}
 
@@ -456,7 +456,7 @@ class Frontend_Cache {
 	public function inject_to_header( $filename, $type ) {
 		$cache_id = $this->get_style_cache_id();
 		$file_url = gutenverse_css_url( $filename );
-		$includes = array('gutenverse-frontend-style');
+		$includes = array( 'gutenverse-frontend-style' );
 
 		if ( gutenverse_pro_active() ) {
 			$includes[] = 'gutenverse-pro-block';
@@ -483,7 +483,7 @@ class Frontend_Cache {
 	/**
 	 * Create File.
 	 *
-	 * @since 3.3.0-dev: add this function to load different path
+	 * @since 2.3.0: add this function to load different path
 	 *
 	 * @param string $type File type.
 	 * @param string $filename File name with extension.
@@ -505,7 +505,7 @@ class Frontend_Cache {
 	/**
 	 * Create File.
 	 *
-	 * @since 3.3.0-dev: add $type to load different path
+	 * @since 2.3.0: add $type to load different path
 	 *
 	 * @param string $filename File name with extension.
 	 * @param string $content Style content.
@@ -537,7 +537,7 @@ class Frontend_Cache {
 	/**
 	 * Read Cache File.
 	 *
-	 * @since 3.3.0-dev: add $type to load different path
+	 * @since 2.3.0: add $type to load different path
 	 *
 	 * @param string $filename File name.
 	 * @param string $type File type.
@@ -559,7 +559,7 @@ class Frontend_Cache {
 	/**
 	 * Check if file exist.
 	 *
-	 * @since 3.3.0-dev: add $type to load different path
+	 * @since 2.3.0: add $type to load different path
 	 *
 	 * @param string $filename File name.
 	 * @param string $type File type.

@@ -590,8 +590,8 @@ if ( ! function_exists( 'gutenverse_css_path' ) ) {
 if ( ! function_exists( 'gutenverse_conditional_path' ) ) {
 	/**
 	 * Get Gutenverse CSS Path.
-	 * 
-	 * @since 3.3.0-dev
+	 *
+	 * @since 2.3.0
 	 *
 	 * @param string $file File name.
 	 *

@@ -74,7 +74,7 @@ class Init {
 	/**
 	 * Hold instance of frontend generator
 	 *
-	 * @since 3.3.0-dev: renamed from style_generator to frontend_generator
+	 * @since 2.3.0: renamed from style_generator to frontend_generator
 	 *
 	 * @var Frontend_Generator
 	 */
@@ -83,7 +83,7 @@ class Init {
 	/**
 	 * Frontend Cache
 	 *
-	 * @since 3.3.0-dev: renamed from style_cache to frontend_cache
+	 * @since 2.3.0: renamed from style_cache to frontend_cache
 	 *
 	 * @var Frontend_Cache
 	 */
