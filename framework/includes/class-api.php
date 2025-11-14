@@ -332,7 +332,7 @@ class Api {
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'install_and_activate_theme_by_slug' ),
-				'permission_callback' => 'gutenverse_permission_check_author',
+				'permission_callback' => 'gutenverse_permission_check_admin',
 			)
 		);
 
