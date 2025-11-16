@@ -1,6 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
-import { ColorControl, IconRadioControl, SizeControl, SelectControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, IconRadioControl, SizeControl, SelectControl, SwitchControl, TypographyControl, HeadingControl, TextControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
@@ -11,9 +11,45 @@ export const contentStylePanel = (props) => {
         itemWidth,
         switcher,
         setSwitcher,
+        showCount,
+        countJustify
     } = props;
 
     const deviceType = getDeviceType();
+
+    const optionJustify = () => {
+        if (layout !== 'column') {
+            return [
+                {
+                    label: __('Default', 'gutenverse'),
+                    value: 'default',
+                },
+                {
+                    label: __('Custom', 'gutenverse'),
+                    value: 'custom',
+                },
+            ];
+        } else {
+            return [
+                {
+                    label: __('Default', 'gutenverse'),
+                    value: 'default',
+                },
+                {
+                    label: __('Space Around', 'gutenverse'),
+                    value: 'space-around',
+                },
+                {
+                    label: __('Space Between', 'gutenverse'),
+                    value: 'space-between',
+                },
+                {
+                    label: __('Custom', 'gutenverse'),
+                    value: 'custom',
+                },
+            ];
+        }
+    };
 
     const optionAlign = () => {
         if (layout === 'column') {
@@ -233,6 +269,72 @@ export const contentStylePanel = (props) => {
                             'valueType': 'direct'
                         }
                     ]
+                }
+            ]
+        },
+        {
+            id: 'countSplitter',
+            component: HeadingControl,
+            show: showCount,
+            label: __('Taxonomy Count', 'gutenverse'),
+        },
+        {
+            id: 'countTypography',
+            show: showCount,
+            label: __('Count Typography', 'gutenverse'),
+            component: TypographyControl
+        },
+        {
+            id: 'countColor',
+            label: __('Count Color', 'gutenverse'),
+            component: ColorControl,
+            show: showCount,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'countColor',
+                    'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item span.taxonomy-list-count.guten-taxonomy`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'countJustify',
+            label: __('Space Count & Taxnomy', 'gutenverse'),
+            component: SelectControl,
+            show: showCount,
+            allowDeviceControl: true,
+            options: optionJustify(),
+        },
+        {
+            id: 'countSpacing',
+            label: __('Count Spacing', 'gutenverse'),
+            component: SizeControl,
+            show: showCount && countJustify && countJustify[deviceType] === 'custom',
+            allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'unitPoint',
+                    'id': 'countSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+                    'properties': [
+                        {
+                            'name': 'gap',
+                            'valueType': 'pattern',
+                            'pattern': '{value}',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
                 }
             ]
         },

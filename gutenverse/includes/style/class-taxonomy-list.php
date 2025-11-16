@@ -139,10 +139,15 @@ class Taxonomy_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper",
-					'property'       => function ( $value ) {
-						$unit  = $value['unit'];
-						$value = $value['point'];
-						return "row-gap: {$value}{$unit};";
+					'property' => function ( $value ) {
+						$unit  = $value['unit']  ?? '';
+						$point = $value['point'] ?? '';
+
+						if ($point === '' || !is_numeric($point)) {
+							return '';
+						}
+
+						return "row-gap: {$point}{$unit};";
 					},
 					'value'          => $this->attrs['contentSpacing'],
 					'device_control' => true,
@@ -212,6 +217,7 @@ class Taxonomy_List extends Style_Abstract {
 				)
 			);
 		}
+	
 		if ( isset( $this->attrs['contentColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -237,6 +243,61 @@ class Taxonomy_List extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['countTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item span.taxonomy-list-count.guten-taxonomy",
+					'property'       => function ( $value ) {},
+					'value'          => $this->attrs['countTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['countColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item span.taxonomy-list-count.guten-taxonomy",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['countColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['countJustify'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .taxonomy-list-item",
+					'property'       => function ( $value ) {
+						if ( ( 'space-around' === $value || 'space-between' === $value ) ) {
+							return "justify-content: {$value};";
+						}
+					},
+					'value'          => $this->attrs['countJustify'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['countSpacing'] ) && isset( $this->attrs['countJustify'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .taxonomy-list-item",
+					'property'       => function ( $value, $device ) {
+						if ( 'custom' === $this->attrs['countJustify'][$device] ) {
+							return $this->handle_unit_point( $value, 'gap' );
+						}
+					},
+					'value'          => $this->attrs['countSpacing'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['showDivider'] ) ) {
 			if ( $this->attrs['showDivider'] ) {
 				if ( 'column' === $this->attrs['layout'] ) {

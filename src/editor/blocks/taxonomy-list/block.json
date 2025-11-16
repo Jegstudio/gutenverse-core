@@ -107,6 +107,34 @@
 			"default": false,
 			"copyStyle": true
 		},
+		"showCount": {
+			"type": "boolean",
+			"default": false,
+			"copyStyle": true
+		},
+		"countBracket": {
+			"type": "string",
+			"default": "parentheses"
+		},
+		"countTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"countColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"countJustify": {
+			"type": "object",
+			"default": {
+				"Desktop": "default"
+			},
+			"copyStyle": true
+		},
+		"countSpacing": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"colorDivider": {
 			"type": "object",
 			"copyStyle": true

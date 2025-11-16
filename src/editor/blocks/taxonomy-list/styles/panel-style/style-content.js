@@ -113,6 +113,57 @@ const contentStyle = (elementId, attributes, data) => {
             }
         ]
     });
+
+    isNotEmpty(attributes['countTypography']) && data.push({
+        'type': 'typography',
+        'id': 'countTypography',
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item span.taxonomy-list-count.guten-taxonomy`,
+    });
+
+    isNotEmpty(attributes['countColor']) && data.push({
+        'type': 'color',
+        'id': 'countColor',
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item span.taxonomy-list-count.guten-taxonomy`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['countJustify']) && ( attributes['countJustify'][deviceType] === 'space-around' || attributes['countJustify'][deviceType] === 'space-between' ) && data.push({
+        'type': 'plain',
+        'responsive': true,
+        'id': 'countJustify',
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+        'properties': [
+            {
+                'name': 'justify-content',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['countSpacing']) && isNotEmpty(attributes['countJustify']) && attributes['countJustify'][deviceType] === 'custom' && data.push({
+        'type': 'unitPoint',
+        'id': 'countSpacing',
+        'responsive': true,
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+        'properties': [
+            {
+                'name': 'gap',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ],
+    });
+
     return data;
 };
 

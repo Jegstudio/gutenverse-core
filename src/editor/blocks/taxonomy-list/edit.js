@@ -34,7 +34,9 @@ const IconListBlock = compose(
         hideEmpty,
         showIcon,
         taxonomyType,
-        showDivider
+        showDivider,
+        showCount,
+        countBracket,
     } = attributes;
 
     const elementRef = useRef();
@@ -73,6 +75,8 @@ const IconListBlock = compose(
                         hideEmpty,
                         showIcon,
                         showDivider,
+                        showCount,
+                        countBracket,
                         taxonomyType
                     }
                 }),
@@ -114,6 +118,8 @@ const IconListBlock = compose(
         icon,
         hideEmpty,
         showIcon,
+        showCount,
+        countBracket,
         taxonomyType
     ]);
 
