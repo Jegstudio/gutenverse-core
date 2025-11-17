@@ -2192,8 +2192,8 @@ abstract class Style_Interface {
 	/**
 	 * Handle Border
 	 *
-	 * @param array $name Value of Box Shadow.
-	 * @param array $selector Value of Box Shadow.
+	 * @param string $name Value of Box Shadow.
+	 * @param string $selector Value of Box Shadow.
 	 */
 	protected function handle_border( $name, $selector ) {
 		if ( isset( $this->attrs[ $name ] ) ) {
