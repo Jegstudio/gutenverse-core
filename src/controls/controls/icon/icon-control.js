@@ -186,7 +186,7 @@ export const IconLibrary = ({
                     </AutoSizer>
                 </div>
                 <div className={'icon-library-insert'}>
-                    <Button isPrimary={true} onClick={changeIcon}>
+                    <Button variant={true} onClick={changeIcon}>
                         {__('Insert Icon', '--gctd--')}
                     </Button>
                 </div>
