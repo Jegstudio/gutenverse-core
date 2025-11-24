@@ -50,6 +50,11 @@
 .edit-post-sidebar,
 .edit-site-sidebar,
 .components-panel {
+  z-index: auto !important;
+  transform: none !important;
+  overflow: visible !important;
+  filter: none !important;
+  opacity: 1 !important;
   .interface-complementary-area__pin-unpin-item {
     display: none !important;
   }
