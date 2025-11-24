@@ -1,6 +1,6 @@
 import { hexToRgb } from 'gutenverse-core/editor-helper';
 import { variableColorName } from 'gutenverse-core/helper';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 export const handleColor = (props, property) => {
     const { r, g, b, a = 1, type, id } = props;

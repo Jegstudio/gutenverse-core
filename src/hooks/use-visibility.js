@@ -1,5 +1,5 @@
 import {createRef, useEffect, useState} from '@wordpress/element';
-import { throttle } from 'lodash';
+import throttle from 'lodash/throttle';
 
 /**
  * Check if an element is in viewport

@@ -1,7 +1,7 @@
 import { animations } from '../data/animation';
 import { devices } from '../data/devices';
-import { responsiveBreakpoint } from 'gutenverse-core-frontend';
 import isEmpty from 'lodash/isEmpty';
+import { responsiveBreakpoint } from '../helper';
 
 export class Default {
     constructor(elements) {

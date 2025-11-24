@@ -130,8 +130,8 @@ const ThemesContentNoLicense = (props) => {
 };
 
 const ThemesContentUnibizCTA = (props) => {
-    const { imgDir, proDemoUrl, domainURL, clientUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
-    const { companionActive } = props;
+    const { imgDir, proDemoUrl, domainURL, clientUrl, url } = window['GutenverseConfig'] || window['GutenverseDashboard'] ||{};
+    const { companionActive, activeTheme } = props;
     const [buttonText, setButtonText] = useState(__('Install Unibiz Theme', '--gctd--'));
     const [buttonTextCompanion, setButtonTextCompanion] = useState(__('Install Gutenverse Companion', '--gctd--'));
     const pluginsList = [
@@ -141,7 +141,7 @@ const ThemesContentUnibizCTA = (props) => {
     const activateTheme = () => {
         setButtonText(<IconLoadingSVG />);
         const themeSlug = 'unibiz'; // change this to your theme slug
-        const base = (domainURL ?? clientUrl).replace(/\/$/, '');
+        const base = (domainURL ?? clientUrl ?? url).replace(/\/$/, '');
 
         // Step 1: Install + Activate Theme
         installAndActivateTheme(themeSlug)
@@ -171,9 +171,7 @@ const ThemesContentUnibizCTA = (props) => {
             });
     };
 
-    console.log(companionActive);
-
-    return companionActive ?
+    return activeTheme !== 'unibiz'?
         <div id="gutenverse-library-themes-content-wrapper">
             <div className="banner-wrapper" style={{ backgroundImage: `url(${imgDir}/wizard-bg-cta-companion.png` }}>
                 <div className="banner-content">
@@ -250,9 +248,11 @@ const ThemesContentUnibizCTA = (props) => {
 
 const ThemesContent = (props) => {
     const {modalData, setPage, getDemo, page, demoList, setDemoList} = props;
-    const {emptyLicense, companionActive} = modalData?.libraryData?.attributes || {};
-    const { activeTheme, adminUrl } = window['GutenverseConfig'] || {};
-    const flag = activeTheme === 'unibiz' && emptyLicense && companionActive;
+    const {emptyLicense} = modalData?.libraryData?.attributes || {};
+    const { activeTheme, adminUrl, plugins } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+
+    const companionActive = plugins['gutenverse-companion']?.active;
+    const flag = activeTheme === 'unibiz' && emptyLicense && (companionActive && companionActive !== 'false') ;
 
     return flag ?
         <ThemesContentNoLicense
@@ -263,8 +263,10 @@ const ThemesContent = (props) => {
             page={page}
             demoList={demoList}
             setDemoList={setDemoList}
+            companionActive={companionActive}
         /> :
         <ThemesContentUnibizCTA
+            activeTheme={activeTheme}
             companionActive={companionActive}
         /> ;
 };

@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'gutenverse-core/helper';
 import { handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const borderResponsiveCSS = (value) => {

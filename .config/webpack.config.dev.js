@@ -5,6 +5,8 @@ const { core } = require('./scripts/core');
 const { corefrontend } = require('./scripts/core-frontend');
 const { reactJSXRuntimePolyfill } = require('./scripts/jsxpolyfil');
 const { notifications } = require('./scripts/notifications');
+const { coreFrontendModular } = require('./scripts/core-frontend-modular');
+const { coredeps } = require('./scripts/core-deps');
 
 module.exports = [
     reactJSXRuntimePolyfill,
@@ -13,5 +15,7 @@ module.exports = [
     components,
     core,
     corefrontend,
-    notifications
+    notifications,
+    coreFrontendModular,
+    coredeps,
 ];

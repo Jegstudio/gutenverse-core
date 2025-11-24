@@ -587,6 +587,29 @@ if ( ! function_exists( 'gutenverse_css_path' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_conditional_path' ) ) {
+	/**
+	 * Get Gutenverse CSS Path.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $file File name.
+	 *
+	 * @return string
+	 */
+	function gutenverse_conditional_path( $file = '' ) {
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
+		$custom_dir  = $upload_path . '/gutenverse/conditional';
+
+		if ( '' === $file ) {
+			return $custom_dir . $file;
+		} else {
+			return $custom_dir . '/' . $file;
+		}
+	}
+}
+
 if ( ! function_exists( 'gutenverse_remove_protocol' ) ) {
 	/**
 	 * Get Gutenverse CSS Path.
@@ -1268,5 +1291,36 @@ if ( ! function_exists( 'gutenverse_get_current_url' ) ) {
 		$uri    = $_SERVER['REQUEST_URI'];
 
 		return "{$scheme}://{$host}{$uri}";
+	}
+}
+
+if ( ! function_exists( 'gutenverse_home_url_multilang' ) ) {
+	/**
+	 * Method gutenverse_home_url_multilang
+	 *
+	 * @param string      $path path.
+	 * @param string|null $scheme scheme.
+	 *
+	 * @return string
+	 */
+	function gutenverse_home_url_multilang( $path = '', $scheme = null ) {
+		if ( function_exists( 'pll_current_language' ) ) {
+			if ( isset( $path[0] ) && '/' !== $path[0] ) {
+				$path = '/' . $path;
+			}
+
+			$polylang_setting = get_option( 'polylang', array() );
+			$default_lang     = $polylang_setting['default_lang'];
+			$current_lang     = pll_current_language();
+
+			if ( isset( $polylang_setting['hide_default'] ) && $polylang_setting['hide_default'] ) {
+				if ( $default_lang === $current_lang ) {
+					return home_url( $path, $scheme );
+				}
+			}
+
+			return home_url( $current_lang . $path, $scheme );
+		}
+		return home_url( $path, $scheme );
 	}
 }

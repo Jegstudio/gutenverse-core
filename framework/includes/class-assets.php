@@ -191,6 +191,20 @@ class Assets {
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
+
+		// register external dependencies.
+		$deps = array(
+			'animejs',
+		);
+		foreach ( $deps as $dep ) {
+			wp_register_script(
+				'gutenverse-dep-' . $dep . '-script',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/' . $dep . '.js',
+				array(),
+				GUTENVERSE_FRAMEWORK_VERSION,
+				true
+			);
+		}
 	}
 
 	/**

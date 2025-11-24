@@ -48,6 +48,25 @@ gulp.task('frontend', function () {
         .pipe(gulp.dest('framework/assets/css/'));
 });
 
+const blocksDir = path.resolve(__dirname, './src/blocks');
+const blocksStyle = blocksDir + '/**/styles/style.scss';
+const finalDest = path.join(__dirname, 'framework/assets/css/frontend');
+
+gulp.task('frontend-block-styles', function () {
+    return gulp
+        .src([blocksStyle])
+        .pipe(sass({ includePaths: ['node_modules', '../node_modules'] }))
+        .pipe(sass(sassOptions).on('error', sass.logError))
+        .pipe(postcss(postCSSOptions))
+        .on('data', function (file) {
+            const pathParts = file.relative.split(path.sep);
+            const blockName = pathParts[0];
+
+            file.path = path.join(file.base, blockName + '.css');  
+        })
+        .pipe(gulp.dest(finalDest));
+});
+
 gulp.task('backend', function () {
     return gulp
         .src([path.resolve(__dirname, './src/assets/backend.scss')])
@@ -69,12 +88,12 @@ gulp.task('notifications', function () {
         .pipe(gulp.dest('framework/assets/css/'));
 });
 
-gulp.task('build-process', gulp.parallel('editor', 'frontend', 'backend', 'notifications'));
+gulp.task('build-process', gulp.parallel('editor', 'frontend', 'frontend-block-styles', 'backend', 'notifications'));
 
 gulp.task('build', gulp.series('build-process'));
 
 const watchProcess = (basePath = '.') => {
-    gulp.watch([`${basePath}/src/**/*.scss`], gulp.parallel(['editor', 'frontend', 'backend', 'notifications']));
+    gulp.watch([`${basePath}/src/**/*.scss`], gulp.parallel(['editor', 'frontend', 'frontend-block-styles', 'backend', 'notifications']));
 };
 
 gulp.task('use-dev-mode-js', function () {
