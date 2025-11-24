@@ -1,6 +1,6 @@
 <?php
 /**
- * Style Generator Cache
+ * Frontend Assets Generator Cache
  *
  * @author Jegstudio
  * @since 1.0.0
@@ -10,18 +10,21 @@
 namespace Gutenverse\Framework;
 
 /**
- * Class Style Cache.
+ * Class Frontend Cache.
+ *
+ * @since 2.3.0:
+ *      - Class renamed from Style_Cache to Frontend_Cache
+ *      - Add function get_path_by_type to load different path
  *
  * @package gutenverse-framework
  */
-class Style_Cache {
+class Frontend_Cache {
 	/**
 	 * Option Name.
 	 *
 	 * @var string
 	 */
 	public static $option_name = 'gutenverse-style-cache-id';
-
 
 	/**
 	 * Font Cache Name.
@@ -31,13 +34,27 @@ class Style_Cache {
 	protected $font_cache_name;
 
 	/**
+	 * Script Cache Name.
+	 *
+	 * @var string
+	 */
+	protected $conditional_script_cache_name;
+
+	/**
+	 * Style Cache Name.
+	 *
+	 * @var string
+	 */
+	protected $conditional_style_cache_name;
+
+	/**
 	 * Init constructor.
 	 */
 	public function __construct() {
 		// Perlu Test Schedule.
 		add_action( 'wp_loaded', array( $this, 'schedule_cleanup_cron' ) );
 		add_action( 'gutenverse_cleanup_cached_style', array( $this, 'cleanup_cached_style' ) );
-		add_action( 'switch_theme', array( $this, 'delete_generated_css_switch_theme' ) );
+		add_action( 'switch_theme', array( $this, 'delete_generated_files_when_switch_theme' ) );
 		add_filter( 'cron_schedules', array( $this, 'add_custom_intervals' ) );
 
 		// Reset Generator ID when this hook triggered.
@@ -47,7 +64,10 @@ class Style_Cache {
 		// Filter.
 		add_filter( 'gutenverse_frontend_render_mechanism', array( $this, 'render_mechanism' ) );
 		add_filter( 'gutenverse_bypass_generate_style', array( $this, 'bypass_generate_css' ), null, 3 );
+		add_filter( 'gutenverse_bypass_generate_script', array( $this, 'bypass_script' ), null, 2 );
 		add_filter( 'gutenverse_global_fonts', array( $this, 'global_fonts' ), null, 2 );
+		add_filter( 'gutenverse_conditional_script_handles', array( $this, 'script_handles' ), null, 2 );
+		add_filter( 'gutenverse_conditional_style_handles', array( $this, 'style_handles' ), null, 2 );
 		add_filter( 'gutenverse_render_generated_style', array( $this, 'render_style' ), null, 4 );
 	}
 
@@ -78,6 +98,24 @@ class Style_Cache {
 	}
 
 	/**
+	 * Get Script Cache Name.
+	 *
+	 * @return string
+	 */
+	public function get_script_cache_filename() {
+		return $this->conditional_script_cache_name;
+	}
+
+	/**
+	 * Get Style Cache Name.
+	 *
+	 * @return string
+	 */
+	public function get_style_cache_filename() {
+		return $this->conditional_style_cache_name;
+	}
+
+	/**
 	 * Set Font Cache Name
 	 *
 	 * @param string $name Name of cache.
@@ -95,6 +133,28 @@ class Style_Cache {
 	}
 
 	/**
+	 * Set Modular Script Cache Name
+	 *
+	 * @param string $name Name of cache.
+	 */
+	public function set_conditional_script_cache_name( $name ) {
+		$cache_id                            = $this->get_style_cache_id();
+		$script_file_name                    = $name . '-script-' . $cache_id . '.json';
+		$this->conditional_script_cache_name = $script_file_name;
+	}
+
+	/**
+	 * Set Modular Style Cache Name
+	 *
+	 * @param string $name Name of cache.
+	 */
+	public function set_conditional_style_cache_name( $name ) {
+		$cache_id                           = $this->get_style_cache_id();
+		$style_file_name                    = $name . '-style-' . $cache_id . '.json';
+		$this->conditional_style_cache_name = $style_file_name;
+	}
+
+	/**
 	 * By Pass Populate Font.
 	 *
 	 * @param array $fonts Array of fonts.
@@ -106,15 +166,61 @@ class Style_Cache {
 		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
 
 		if ( 'file' === $mechanism ) {
-			if ( $this->is_file_exist( $filename ) ) {
-				$fonts = $this->read_cache_file( $filename );
+			if ( $this->is_file_exist( $filename, 'font' ) ) {
+				$fonts = $this->read_cache_file( $filename, 'font' );
 				return json_decode( $fonts, true );
 			} else {
-				$this->create_cache_file( $filename, wp_json_encode( $fonts, true ) );
+				$this->create_cache_file( $filename, wp_json_encode( $fonts, true ), 'font' );
 			}
 		}
 
 		return $fonts;
+	}
+
+	/**
+	 * By Pass Script Loop Attribute.
+	 *
+	 * @param array $handles Array of script handles.
+	 *
+	 * @return array
+	 */
+	public function script_handles( $handles ) {
+		$filename  = $this->get_script_cache_filename();
+		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
+
+		if ( 'file' === $mechanism ) {
+			if ( $this->is_file_exist( $filename, 'conditional_js' ) ) {
+				$handles = $this->read_cache_file( $filename, 'conditional_js' );
+				return json_decode( $handles, true );
+			} else {
+				$this->create_cache_file( $filename, wp_json_encode( $handles, true ), 'conditional_js' );
+			}
+		}
+
+		return $handles;
+	}
+
+	/**
+	 * By Pass Script Loop Attribute.
+	 *
+	 * @param array $handles Array of style handles.
+	 *
+	 * @return array
+	 */
+	public function style_handles( $handles ) {
+		$filename  = $this->get_style_cache_filename();
+		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
+
+		if ( 'file' === $mechanism ) {
+			if ( $this->is_file_exist( $filename, 'conditional_css' ) ) {
+				$handles = $this->read_cache_file( $filename, 'conditional_css' );
+				return json_decode( $handles, true );
+			} else {
+				$this->create_cache_file( $filename, wp_json_encode( $handles, true ), 'conditional_css' );
+			}
+		}
+
+		return $handles;
 	}
 
 	/**
@@ -128,10 +234,11 @@ class Style_Cache {
 	 */
 	public function bypass_generate_css( $flag, $name, $type ) {
 		$this->set_font_cache_name( $name, $type );
+
 		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
 		$filename  = $this->get_file_name( $name );
 
-		if ( 'file' === $mechanism && $this->is_file_exist( $filename ) ) {
+		if ( 'file' === $mechanism && $this->is_file_exist( $filename, 'css' ) ) {
 			$this->inject_to_header( $filename, $type );
 			return true;
 		}
@@ -140,12 +247,49 @@ class Style_Cache {
 	}
 
 	/**
-	 * Delete Generated CSS when Switching Theme
+	 * Check if we going to by pass script checking.
+	 *
+	 * @param boolean $flag Flag.
+	 * @param string  $name Name of file.
+	 *
+	 * @return bool
 	 */
-	public function delete_generated_css_switch_theme() {
+	public function bypass_script( $flag, $name ) {
+		$this->set_conditional_script_cache_name( $name );
+		$this->set_conditional_style_cache_name( $name );
+		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
+		$filename  = $this->get_file_js_name( $name );
+
+		if ( 'file' === $mechanism && $this->is_file_exist( $filename, 'conditional_js' ) ) {
+			return true;
+		}
+
+		return $flag;
+	}
+
+	/**
+	 * Get File Name.
+	 *
+	 * @param string $name Name of file.
+	 *
+	 * @return string
+	 */
+	public function get_file_js_name( $name ) {
+		$cache_id = $this->get_style_cache_id();
+		return $name . '-' . $cache_id . '-script.json';
+	}
+
+	/**
+	 * Delete Generated CSS & JSON when Switching Theme
+	 */
+	public function delete_generated_files_when_switch_theme() {
 		delete_option( self::$option_name );
-		$path = gutenverse_css_path();
-		$this->delete_file( $path );
+
+		$css_path = gutenverse_css_path();
+		$this->delete_file( $css_path );
+
+		$conditional_path = gutenverse_conditional_path();
+		$this->delete_file( $conditional_path );
 	}
 
 	/**
@@ -231,10 +375,13 @@ class Style_Cache {
 	 * Clean up cache style.
 	 */
 	public function cleanup_cached_style() {
-		$path     = gutenverse_css_path();
 		$cache_id = $this->get_style_cache_id();
 
-		$this->delete_file( $path, $cache_id );
+		$css_path = gutenverse_css_path();
+		$this->delete_file( $css_path, $cache_id );
+
+		$conditional_path = gutenverse_conditional_path();
+		$this->delete_file( $conditional_path, $cache_id );
 	}
 
 	/**
@@ -296,7 +443,7 @@ class Style_Cache {
 	 */
 	public function generate_and_render( $name, $style, $source ) {
 		$filename = $this->get_file_name( $name );
-		$this->create_cache_file( $filename, $style );
+		$this->create_cache_file( $filename, $style, 'css' );
 		$this->inject_to_header( $filename, $source );
 	}
 
@@ -309,11 +456,16 @@ class Style_Cache {
 	public function inject_to_header( $filename, $type ) {
 		$cache_id = $this->get_style_cache_id();
 		$file_url = gutenverse_css_url( $filename );
+		$includes = array( 'gutenverse-frontend-style' );
+
+		if ( gutenverse_pro_active() ) {
+			$includes[] = 'gutenverse-pro-block';
+		}
 
 		wp_enqueue_style(
 			'gutenverse-generated-' . $type,
 			$file_url,
-			array(),
+			$includes,
 			$cache_id
 		);
 	}
@@ -331,17 +483,42 @@ class Style_Cache {
 	/**
 	 * Create File.
 	 *
+	 * @since 2.3.0: add this function to load different path
+	 *
+	 * @param string $type File type.
 	 * @param string $filename File name with extension.
-	 * @param string $content Style Content.
 	 *
 	 * @return bool
 	 */
-	public function create_cache_file( $filename, $content ) {
+	protected function get_path_by_type( $type, $filename = '' ) {
+		switch ( $type ) {
+			case 'conditional_js':
+			case 'conditional_css':
+				return gutenverse_conditional_path( $filename );
+			case 'css':
+			case 'font':
+			default:
+				return gutenverse_css_path( $filename );
+		}
+	}
+
+	/**
+	 * Create File.
+	 *
+	 * @since 2.3.0: add $type to load different path
+	 *
+	 * @param string $filename File name with extension.
+	 * @param string $content Style content.
+	 * @param string $type File type.
+	 *
+	 * @return bool
+	 */
+	public function create_cache_file( $filename, $content, $type = 'css' ) {
 		global $wp_filesystem;
 		$this->initialize_wp_filesystem();
 
-		$style_directory = gutenverse_css_path();
-		$file_path       = gutenverse_css_path( $filename );
+		$style_directory = $this->get_path_by_type( $type );
+		$file_path       = $this->get_path_by_type( $type, $filename );
 
 		if ( ! $wp_filesystem->is_dir( $style_directory ) ) {
 			wp_mkdir_p( $style_directory );
@@ -360,14 +537,17 @@ class Style_Cache {
 	/**
 	 * Read Cache File.
 	 *
-	 * @param string $filename File Name.
+	 * @since 2.3.0: add $type to load different path
+	 *
+	 * @param string $filename File name.
+	 * @param string $type File type.
 	 *
 	 * @return string
 	 */
-	public function read_cache_file( $filename ) {
+	public function read_cache_file( $filename, $type = 'css' ) {
 		global $wp_filesystem;
 		$this->initialize_wp_filesystem();
-		$file_path = gutenverse_css_path( $filename );
+		$file_path = $this->get_path_by_type( $type, $filename );
 
 		if ( $wp_filesystem->exists( $file_path ) ) {
 			return $wp_filesystem->get_contents( $file_path );
@@ -379,15 +559,18 @@ class Style_Cache {
 	/**
 	 * Check if file exist.
 	 *
-	 * @param string $filename file name.
+	 * @since 2.3.0: add $type to load different path
+	 *
+	 * @param string $filename File name.
+	 * @param string $type File type.
 	 *
 	 * @return bool
 	 */
-	public function is_file_exist( $filename ) {
+	public function is_file_exist( $filename, $type = 'css' ) {
 		global $wp_filesystem;
 		$this->initialize_wp_filesystem();
 
-		$file_path = gutenverse_css_path( $filename );
+		$file_path = $this->get_path_by_type( $type, $filename );
 
 		if ( $wp_filesystem->exists( $file_path ) ) {
 			return true;

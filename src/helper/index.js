@@ -3,7 +3,7 @@ import isEmptyLodash from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
 import isEqualLodash from 'lodash/isEqual';
 import { select } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { useSetting, useSettings, store as blockEditorStore } from '@wordpress/block-editor';
 import { store as editorStore } from '@wordpress/editor';
 import apiFetch from '@wordpress/api-fetch';
@@ -169,6 +169,27 @@ export const isYoutubeUrl = (url) => {
         }
     }
     return false;
+};
+
+export const useNotificationsState = () => {
+    const localStorageKey = 'gutenverse_read_notifications';
+    const [readNotifications, setReadNotifications] = useState(JSON.parse(localStorage.getItem(localStorageKey)) || []);
+
+    useEffect(() => {
+        localStorage.setItem(localStorageKey, JSON.stringify(readNotifications));
+    }, [readNotifications]);
+
+    const markAsRead = (id) => {
+        if (!readNotifications.includes(id)) {
+            setReadNotifications(prev => [...prev, id]);
+        }
+    };
+
+    const markAllRead = (idsToMark) => {
+        setReadNotifications(prev => [...new Set([...prev, ...idsToMark])]);
+    };
+
+    return { readNotifications, markAsRead, markAllRead };
 };
 
 export const filteredAttributes = (attributes, images) => {

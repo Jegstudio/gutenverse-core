@@ -44,6 +44,8 @@ export { default as PopupPro } from './pro/popup-pro';
 export { default as PopupInstallPlugin } from './pro/popup-install-plugin';
 export { default as PopupInsufficientTier } from './pro/popup-insufficient-tier';
 
+/**Editor Component */
+export { default as VideoPreviewer } from './editor/video-previewer';
 
 //export dependency
 export { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';

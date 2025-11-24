@@ -19,8 +19,12 @@ const output = {
 const plugins = [
 ];
 
+// external dependencies location
+const depDir = path.resolve(__dirname, "../src/frontend/deps/");
+
 module.exports = {
     stats,
     output,
-    plugins
+    plugins,
+    depDir
 };

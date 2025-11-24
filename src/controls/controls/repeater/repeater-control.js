@@ -362,7 +362,7 @@ const RepeaterControl = (props) => {
                 </>}
                 {
                     isAddNew && <div className={'repeater-add-wrapper'}>
-                        <Button isPrimary={true} onClick={addNewItem}>
+                        <Button variant={true} onClick={addNewItem}>
                             {__('Add Item', '--gctd--')}
                         </Button>
                     </div>

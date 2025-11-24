@@ -231,5 +231,6 @@
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["wrapper", "container", "structure"]
+	"keywords": ["wrapper", "container", "structure"],
+	"style": ["gutenverse-core-frontend-wrapper-style"]
 }

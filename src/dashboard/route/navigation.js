@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState, useMemo } from '@wordpress/element';
 import { createPortal } from '@wordpress/element';
 import { Link } from 'gutenverse-core/router';
 import { __ } from '@wordpress/i18n';
@@ -6,64 +6,252 @@ import { IconCrownBannerSVG, IconNoticeBellSVG, LogoFullColor31SVG } from 'guten
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { ButtonUpgradePro, CheckSquare } from 'gutenverse-core/components';
+import { versionCompare, useNotificationsState } from '../../helper';
 
 // @since v3.2.0
-const NotificationList = ({ readNotifications, setReadNotifications, notifTotal, setNotifTotal, notificationList }) => {
+const getRequiredPluginVersion = (history, currentFrameworkVersion) => {
+    let requiredVersion = null;
+
+    if (!history || !history.length) return null;
+
+    for (const entry of history) {
+        if (versionCompare(entry.framework_version, currentFrameworkVersion, '<=')) {
+            requiredVersion = entry.plugin_version;
+        } else {
+            break;
+        }
+    }
+    return requiredVersion;
+};
+
+const getPluginFrameworkVersion = (history, pluginVersion) => {
+    if (!history || !history.length) return null;
+
+    for (const entry of history) {
+        if (entry.plugin_version === pluginVersion) {
+            return entry.framework_version;
+        }
+    }
+    return null;
+};
+
+const useVersionCompatibilityData = (readNotifications, markAsRead) => {
+    const { adminUrl, pluginVersions } = window['GutenverseDashboard'];
+    const { pluginCheck } = window['GutenversePluginList'];
+    const { version } = window['gutenverseLoadedFramework'];
+
+    const data = useMemo(() => {
+        if (!version || !pluginCheck) {
+            return { content: null, count: 0, newIds: [] };
+        }
+
+        let count = 0;
+        let newIds = [];
+
+        const content = Object.keys(pluginVersions)?.map((installedSlug) => {
+
+            const compatibilitySlug = installedSlug;
+            const history = pluginCheck[compatibilitySlug];
+
+            if (!pluginVersions[installedSlug]) {
+                return null;
+            }
+
+            const v1 = pluginVersions[installedSlug]['version'];
+
+            let needsUpdate = false;
+            let v_core_history = getPluginFrameworkVersion(history, v1) || 'N/A';
+            let v2 = null;
+            let message = '';
+
+            if (history) {
+                v2 = getRequiredPluginVersion(history, version);
+
+                if (v2) {
+                    needsUpdate = versionCompare(v1, v2, '<');
+                } else {
+                    needsUpdate = true;
+                    v2 = 'Unknown';
+                }
+
+                message = needsUpdate
+                    ? __('Hi! Currently you are using an older version of this plugin. Please update to the compatible version: ' + v2 + '.', '--gctd--')
+                    : __('Your plugin version is compatible with the current Gutenverse Core.', '--gctd--');
+
+            } else {
+                needsUpdate = true;
+                v2 = 'Required';
+                message = __('Plugin compatibility data is missing. Please update the plugin to the latest version to ensure compatibility.', '--gctd--');
+            }
+
+            let button = null;
+            let notificationId = null;
+            let isNew = false;
+            let mouseEnterAction = undefined;
+
+            if (needsUpdate) {
+                notificationId = `gutenverse-version-check-${installedSlug}-${v2}`;
+                isNew = !readNotifications.includes(notificationId);
+
+                if (isNew) {
+                    count++;
+                    newIds.push(notificationId);
+                }
+
+                mouseEnterAction = () => markAsRead(notificationId);
+
+                button = <a
+                    href={adminUrl + '/plugins.php'}
+                    rel="noreferrer"
+                    className="guten-version-button guten-primary"
+                >
+                    {__('Need Update', '--gctd--')}
+                </a>;
+            } else {
+                button = <div className="guten-version-button guten-disable">
+                    {__('Updated', '--gctd--')}
+                </div>;
+            }
+
+            return <div
+                key={installedSlug}
+                className="gutenverse-version-wrapper"
+                onMouseEnter={mouseEnterAction}
+            >
+                {isNew && <span className="notification-new"></span>}
+                <div className="gutenverse-version-notice">
+                    <h3>{`${pluginVersions[installedSlug]['name']} v${v1}`}</h3>
+                    <h5>{__(`Gutenverse Core v${v_core_history}`, '--gctd--')}</h5>
+                    <p>{message}</p>
+                    <div className="gutenverse-version-action">
+                        {button}
+                    </div>
+                </div>
+            </div>;
+        }).filter(item => item !== null);
+
+        return { content, count, newIds };
+
+    }, [version, pluginCheck, pluginVersions, adminUrl, readNotifications, markAsRead]);
+
+    return data;
+};
+
+const NotificationList = ({ readNotifications, markAsRead, onUpdateTotal }) => {
     let content = [];
+    const notificationList = applyFilters(
+        'gutenverse.notification.list',
+        [],
+        null
+    );
+
+    const { total, newIds } = useMemo(() => {
+        let currentTotal = 0;
+        let ids = [];
+        notificationList.map(({ id, show }) => {
+            if (show) {
+                ids.push(id);
+                if (!readNotifications.includes(id)) {
+                    currentTotal++;
+                }
+            }
+        });
+        return { total: currentTotal, newIds: ids };
+    }, [notificationList, readNotifications]);
+
+    useEffect(() => {
+        if (onUpdateTotal) onUpdateTotal(total, newIds);
+    }, [total, JSON.stringify(newIds)]);
 
     if (!isEmpty(notificationList)) {
-        const uniqueNotifications = [
-            ...new Map(
-                notificationList
-                    .filter(notification => notification.show)
-                    .map(n => [n.id, n]) // key = id, value = notification
-            ).values()
-        ];
-        content = uniqueNotifications
+        content = notificationList
+            .filter(notification => notification.show)
             .map(notification => {
                 const { id, content } = notification;
-
                 const isNew = !readNotifications.includes(id);
 
-                const markAsRead = () => {
-                    if (isNew) {
-                        setReadNotifications([
-                            ...readNotifications,
-                            id
-                        ]);
-                        setNotifTotal(notifTotal - 1);
-                    }
-                };
-
-                return <div key={id} className="gutenverse-notification-wrapper" onMouseEnter={markAsRead}>
+                return <div key={id} className="gutenverse-notification-wrapper" onMouseEnter={() => markAsRead(id)}>
                     {isNew && <span className="notification-new"></span>}
                     {content}
                 </div>;
             });
     }
 
-    const markAllRead = () => {
-        const ids = [];
-        notificationList.map(({ id, show }) => {
-            if (show && !readNotifications.includes(id)) ids.push(id);
-        });
-        setReadNotifications([
-            ...readNotifications,
-            ...ids
-        ]);
-        setNotifTotal(0);
-    };
-
     return <>
-        <div className="notification-title">
-            <h3>{__('Notification Center', '--gctd--')}</h3>
-            <div className="mark-read" onClick={markAllRead}>
-                <CheckSquare size={16} />
-            </div>
-        </div>
         <div className="notification-list">
             {!isEmpty(content) ? content : <p className="notification-empty">{__('There is no Notifications', '--gctd--')}</p>}
         </div>
+    </>;
+};
+
+const VersionCompatibility = ({ content }) => {
+    return <div className="content-list">
+        {!isEmpty(content) ? content : <p className="notification-empty">{__('All plugins are compatible.', '--gctd--')}</p>}
+    </div>;
+};
+
+const TabContent = (props) => {
+    const {element, showNotifications} = props;
+    const [mode, setMode] = useState(null);
+    const { readNotifications, markAsRead, markAllRead } = useNotificationsState();
+
+    const [normalNotifTotal, setNormalNotifTotal] = useState(0);
+    const [normalNotifIds, setNormalNotifIds] = useState([]);
+
+    const { content: versionContent, count: versionNotifTotal, newIds: versionNotifIds } = useVersionCompatibilityData(readNotifications, markAsRead);
+
+    const totalNotifs = normalNotifTotal + versionNotifTotal;
+
+    const targetElement = element ? element : null;
+    if (!targetElement) return;
+
+    const handleNormalTotalUpdate = (total, ids) => {
+        setNormalNotifTotal(total);
+        setNormalNotifIds(ids);
+    };
+
+    const handleMarkAllRead = () => {
+        markAllRead([...normalNotifIds, ...versionNotifIds]);
+    };
+
+
+    let content = '';
+
+    switch (mode) {
+        case 'version-check':
+            content = <VersionCompatibility content={versionContent} updateCount={versionNotifTotal} />;
+            break;
+        default:
+            content = <NotificationList
+                readNotifications={readNotifications}
+                markAsRead={markAsRead}
+                onUpdateTotal={handleNormalTotalUpdate}
+            />;
+            break;
+    }
+
+    const NotifBadge = ({ total }) => {
+        return total > 0 ? <span className="notification-total-tab">{total}</span> : null;
+    };
+
+    return <>
+        <div className={`tab-content ${showNotifications ? 'show' : ''}`}>
+            <div className="tab-header">
+                <div className={`header-item ${!mode ? 'active' : ''}`} onClick={() => setMode(null)}>
+                    <h3>{__('Notification Center', '--gctd--')}</h3>
+                    <NotifBadge total={normalNotifTotal} />
+                </div>
+                <div className={`header-item ${mode === 'version-check' ? 'active' : ''}`} onClick={() => setMode('version-check')}>
+                    <h3>{__('Version Compatibility', '--gctd--')}</h3>
+                    <NotifBadge total={versionNotifTotal} />
+                </div>
+                <div className="mark-read" onClick={() => handleMarkAllRead()}>
+                    <CheckSquare size={16} />
+                </div>
+            </div>
+            {content}
+        </div>
+        {totalNotifs > 0 && targetElement && createPortal(<span className="notification-total">{totalNotifs}</span>, targetElement)}
     </>;
 };
 
@@ -78,25 +266,13 @@ const Navigation = ({ location }) => {
         companionActive
     } = window['GutenverseDashboard'];
 
-    const localStorageKey = 'gutenverse_read_notifications';
-    const [readNotifications, setReadNotifications] = useState(JSON.parse(localStorage.getItem(localStorageKey)) || []);
     const [injectLocation, setInjectLocation] = useState(null);
     const [showNotifications, setShowNotification] = useState(false);
-    const [notifTotal, setNotifTotal] = useState(0);
-    const notificationRef = useRef();
     const { pathname, search } = location;
     const query = new URLSearchParams(search);
     const path = query.get('path') ? query.get('path') : '';
 
-    useEffect(() => {
-        localStorage.setItem(localStorageKey, JSON.stringify(readNotifications));
-    }, [readNotifications]);
-
-    const notificationList = applyFilters(
-        'gutenverse.notification.list',
-        [],
-        null
-    );
+    const iconRef = useRef();
 
     const menus = applyFilters(
         'gutenverse.dashboard.route.navigation',
@@ -164,32 +340,17 @@ const Navigation = ({ location }) => {
         Array.from(list).forEach(item => {
             item.remove();
         });
-
-        let total = notifTotal;
-        notificationList.map(({ id, show }) => {
-            if (show && !readNotifications.includes(id)) total++;
-        });
-        setNotifTotal(total);
     }, []);
-
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (notificationRef.current && !notificationRef.current.contains(event.target)) {
-                setShowNotification(false);
-            }
-        }
-
-        document.addEventListener('mousedown', handleClickOutside);
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [notificationRef]);
 
     setTimeout(() => {
         let injectLocation = document.querySelector('#toplevel_page_gutenverse .wp-submenu');
         setInjectLocation(injectLocation);
     }, 1);
+
+    let element = null;
+    useEffect(()=>{
+        element = iconRef.current;
+    }, [iconRef.current]);
 
     const navigationButton = <>
         <li className="wp-submenu-head" aria-hidden="true">Gutenverse</li>
@@ -271,16 +432,12 @@ const Navigation = ({ location }) => {
             </div>
             <div className="header-right">
                 <div id="gutenverse-dashboard-notifications" onClick={() => setShowNotification(!showNotifications)}>
-                    <IconNoticeBellSVG />
-                    {notifTotal > 0 && <div className="notification-total">{notifTotal}</div>}
+                    <div className="notifications-icon" ref={iconRef}>
+                        <IconNoticeBellSVG />
+                    </div>
                 </div>
-                {showNotifications && <div className="dashboard-notifications" ref={notificationRef}>
-                    <NotificationList
-                        readNotifications={readNotifications}
-                        setReadNotifications={setReadNotifications}
-                        notifTotal={notifTotal}
-                        setNotifTotal={setNotifTotal}
-                        notificationList={notificationList} />
+                {iconRef.current && <div className={`dashboard-notifications ${showNotifications ? 'show' : ''}`} >
+                    <TabContent element={iconRef.current} showNotifications={showNotifications}/>
                 </div>}
                 <ButtonUpgradePro location="dashboard-navigation" isBanner={true} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboardnav&utm_client_site=${url}&utm_client_theme=${activeTheme}`} />
             </div>
