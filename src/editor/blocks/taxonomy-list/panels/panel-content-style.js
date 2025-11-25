@@ -118,7 +118,25 @@ export const contentStylePanel = (props) => {
                         {
                             'name': 'row-gap',
                             'valueType': 'pattern',
-                            'pattern': '{value}',
+                            'pattern': 'calc({value}/2)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                },
+                {
+                    'type': 'unitPoint',
+                    'id': 'contentSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .taxonomy-list-item:not(:first-child)`,
+                    'properties': [
+                        {
+                            'name': 'padding-top',
+                            'valueType': 'pattern',
+                            'pattern': 'calc({value}/2)',
                             'patternValues': {
                                 'value': {
                                     'type': 'direct'
@@ -145,7 +163,25 @@ export const contentStylePanel = (props) => {
                         {
                             'name': 'column-gap',
                             'valueType': 'pattern',
-                            'pattern':'{value}',
+                            'pattern':'calc({value}/2)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                },
+                {
+                    'type': 'unitPoint',
+                    'id': 'contentSpacingHorizontal',
+                    'responsive': true,
+                    'selector': `.${elementId} .taxonomy-list-item:not(:first-child)`,
+                    'properties': [
+                        {
+                            'name': 'padding-left',
+                            'valueType': 'pattern',
+                            'pattern':'calc({value}/2)',
                             'patternValues': {
                                 'value': {
                                     'type': 'direct'

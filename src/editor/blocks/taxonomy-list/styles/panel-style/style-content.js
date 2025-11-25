@@ -18,25 +18,64 @@ const contentStyle = (elementId, attributes, data) => {
         ],
     });
 
-    // Vertical
-    isNotEmpty(attributes['contentSpacing']) && data.push({
-        'type': 'unitPoint',
-        'id': 'contentSpacing',
-        'responsive': true,
-        'selector': `.${elementId} .taxonomy-list-wrapper`,
-        'properties': [
-            {
-                'name': 'row-gap',
-                'valueType': 'pattern',
-                'pattern': '{value}',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct'
+    if ( isNotEmpty(attributes['layout']) && attributes['layout'] !== 'column' ) {
+        isNotEmpty(attributes['contentSpacing']) && data.push({
+            'type': 'unitPoint',
+            'id': 'contentSpacing',
+            'responsive': true,
+            'selector': `.${elementId} .taxonomy-list-wrapper`,
+            'properties': [
+                {
+                    'name': 'row-gap',
+                    'valueType': 'pattern',
+                    'pattern': '{value}',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct'
+                        }
                     }
                 }
-            }
-        ],
-    });
+            ],
+        });
+    } else {
+        // Vertical
+        isNotEmpty(attributes['contentSpacing']) && data.push({
+            'type': 'unitPoint',
+            'id': 'contentSpacing',
+            'responsive': true,
+            'selector': `.${elementId} .taxonomy-list-wrapper`,
+            'properties': [
+                {
+                    'name': 'row-gap',
+                    'valueType': 'pattern',
+                    'pattern': 'calc({value}/2)',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct'
+                        }
+                    }
+                }
+            ],
+        },
+        {
+            'type': 'unitPoint',
+            'id': 'contentSpacing',
+            'responsive': true,
+            'selector': `.${elementId} .taxonomy-list-item:not(:first-child)`,
+            'properties': [
+                {
+                    'name': 'padding-top',
+                    'valueType': 'pattern',
+                    'pattern': 'calc({value}/2)',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct'
+                        }
+                    }
+                }
+            ],
+        });
+    }
 
     // Horizontal
     isNotEmpty(attributes['contentSpacingHorizontal']) && attributes['layout'] !== 'column' && data.push({
@@ -48,7 +87,25 @@ const contentStyle = (elementId, attributes, data) => {
             {
                 'name': 'column-gap',
                 'valueType': 'pattern',
-                'pattern': '{value}',
+                'pattern':'calc({value}/2)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ],
+    },
+    {
+        'type': 'unitPoint',
+        'id': 'contentSpacingHorizontal',
+        'responsive': true,
+        'selector': `.${elementId} .taxonomy-list-item:not(:first-child)`,
+        'properties': [
+            {
+                'name': 'padding-left',
+                'valueType': 'pattern',
+                'pattern':'calc({value}/2)',
                 'patternValues': {
                     'value': {
                         'type': 'direct'
