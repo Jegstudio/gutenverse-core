@@ -150,7 +150,7 @@ const PostBlockBlock = compose(
                                     postType,
                                     contentOrder,
                                     postOffset,
-                                    numberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost :
+                                    numberPost: ('prevnext' === paginationMode || 'number' === paginationMode || 'normal-prevnext' === paginationMode || 'normal-number' === paginationMode) ? numberPost :
                                         parseInt(postLoaded) === parseInt(numberPost)
                                             ? numberPost
                                             : postLoaded,
@@ -191,7 +191,7 @@ const PostBlockBlock = compose(
                                     paginationMode,
                                     paginationLoadmoreText,
                                     paginationLoadingText,
-                                    paginationNumberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost : paginationNumberPost,
+                                    paginationNumberPost: ('prevnext' === paginationMode || 'number' === paginationMode || 'normal-prevnext' === paginationMode || 'normal-number' === paginationMode) ? numberPost : paginationNumberPost,
                                     paginationScrollLimit,
                                     paginationIcon,
                                     paginationIconPosition,
