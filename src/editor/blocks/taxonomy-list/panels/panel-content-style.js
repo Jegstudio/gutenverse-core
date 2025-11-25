@@ -108,7 +108,7 @@ export const contentStylePanel = (props) => {
             label: __('Content Spacing Vertical', 'gutenverse'),
             component: SizeControl,
             allowDeviceControl: true,
-            liveStyle: [
+            liveStyle: layout === 'column' ? [
                 {
                     'type': 'unitPoint',
                     'id': 'contentSpacing',
@@ -137,6 +137,25 @@ export const contentStylePanel = (props) => {
                             'name': 'padding-top',
                             'valueType': 'pattern',
                             'pattern': 'calc({value}/2)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                }
+            ] : [
+                {
+                    'type': 'unitPoint',
+                    'id': 'contentSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .taxonomy-list-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'row-gap',
+                            'valueType': 'pattern',
+                            'pattern': '{value}',
                             'patternValues': {
                                 'value': {
                                     'type': 'direct'
