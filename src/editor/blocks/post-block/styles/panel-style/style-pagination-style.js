@@ -36,7 +36,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['numberGap']) && data.push({
         'type': 'plain',
         'id': 'numberGap',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId} .guten-postblock .guten_block_nav`,
         'properties': [
             {
@@ -55,7 +55,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['paginationWidth']) && data.push({
         'type': 'unitPoint',
         'id': 'paginationWidth',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock:not(.guten-pagination-prevnext) .guten_block_nav .btn-pagination:not(.next):not(.prev)`,
         'properties': [
             {
@@ -65,10 +65,10 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         ]
     });
 
-    isNotEmpty(attributes['paginationHeight']) && 'number' === attributes['paginationMode'] && data.push({
+    isNotEmpty(attributes['paginationHeight']) && ('number' === attributes['paginationMode'] || 'normal-number' === attributes['paginationMode']) && data.push({
         'type': 'plain',
         'id': 'paginationHeight',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev)`,
         'properties': [
             {
@@ -87,7 +87,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['paginationNavigationWidth']) && data.push({
         'type': 'unitPoint',
         'id': 'paginationNavigationWidth',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
                         .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
         'properties': [
@@ -101,7 +101,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['paginationNavigationHeight']) && data.push({
         'type': 'plain',
         'id': 'paginationNavigationHeight',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
                         .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
         'properties': [
@@ -121,7 +121,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['paginationIconSpacing']) && data.push({
         'type': 'plain',
         'id': 'paginationIconSpacing',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.prev i`,
         'properties': [
             {
@@ -140,7 +140,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['paginationIconSpacing']) && data.push({
         'type': 'plain',
         'id': 'paginationIconSpacing',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.next i`,
         'properties': [
             {
@@ -159,7 +159,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['paginationIconSize']) && data.push({
         'type': 'unitPoint',
         'id': 'paginationIconSize',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.prev i`,
         'properties': [
             {
@@ -172,7 +172,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['paginationIconSize']) && data.push({
         'type': 'unitPoint',
         'id': 'paginationIconSize',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.next i`,
         'properties': [
             {
@@ -185,7 +185,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['paginationAlign']) && data.push({
         'type': 'plain',
         'id': 'paginationAlign',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId} .guten-postblock .guten-block-pagination,  .${elementId} .guten-postblock .guten_block_nav`,
         'properties': [
             {
@@ -198,7 +198,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['navigationAlign']) && data.push({
         'type': 'plain',
         'id': 'navigationAlign',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav,
                         .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav`,
         'properties': [

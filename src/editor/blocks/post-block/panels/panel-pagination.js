@@ -40,6 +40,14 @@ export const paginationPanel = (props) => {
                     label: __('Number'),
                     value: 'number'
                 },
+                {
+                    label: __('Normal Prev Next'),
+                    value: 'normal-prevnext'
+                },
+                {
+                    label: __('Normal Number'),
+                    value: 'normal-number'
+                },
             ],
             onChange: ({ paginationMode, __paginationHover }) => {
                 const paginationSwitcherData = paginationSwitcher(paginationMode);
@@ -52,30 +60,30 @@ export const paginationPanel = (props) => {
         },
         {
             id: 'paginationPrevNextText',
-            show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext'),
+            show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext' || paginationMode === 'normal-prevnext' || paginationMode === 'normal-number'),
             label: __('Show Text', 'gutenverse'),
             component: CheckboxControl
         },
         {
             id: 'paginationPrevText',
-            show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext') && paginationPrevNextText,
+            show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext' || paginationMode === 'normal-prevnext' || paginationMode === 'normal-number') && paginationPrevNextText,
             label: __('"Previous" Text', 'gutenverse'),
             component: TextControl
         },
         {
             id: 'paginationNextText',
-            show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext') && paginationPrevNextText,
+            show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext' || paginationMode === 'normal-prevnext' || paginationMode === 'normal-number') && paginationPrevNextText,
             label: __('"Next" Text', 'gutenverse'),
             component: TextControl
         },
         {
             id: 'paginationPrevIcon',
-            show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext'),
+            show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext' || paginationMode === 'normal-prevnext' || paginationMode === 'normal-number'),
             component: IconControl
         },
         {
             id: 'paginationNextIcon',
-            show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext'),
+            show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext' || paginationMode === 'normal-prevnext' || paginationMode === 'normal-number'),
             component: IconControl
         },
         {
@@ -184,7 +192,7 @@ export const paginationPanel = (props) => {
             show: paginationMode && (paginationMode === 'loadmore' || paginationMode === 'scrollload') && paginationLoadmoreAnimationSequence === 'sequential' && (paginationLoadmoreAnimation && paginationLoadmoreAnimation !== 'none'),
             label: __('Delay (ms)', 'gutenverse'),
             component: NumberControl,
-            description: __('Input in miliseconds (ms). Later will be converted into second (s)','gutenverse'),
+            description: __('Input in miliseconds (ms). Later will be converted into second (s)', 'gutenverse'),
             min: 0,
             step: 100
         },
