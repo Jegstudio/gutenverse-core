@@ -18,7 +18,7 @@ class GutenversePostblock extends Default {
 
     /* private */
     _run_lazy_observer(images = []) {
-        if ('IntersectionObserver' in window && ! GutenversePostblock.lazy_observer) {
+        if ('IntersectionObserver' in window && !GutenversePostblock.lazy_observer) {
             const observer = new IntersectionObserver((entries, obs) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -301,7 +301,8 @@ class GutenversePostblock extends Default {
             window.addEventListener('scroll', scrolling);
         }
 
-        if (paginationMode === 'prevnext' || paginationMode === 'number') {
+        // Only bind AJAX handlers for AJAX pagination modes, not native modes
+        if ((paginationMode === 'prevnext' || paginationMode === 'number') && paginationMode !== 'normal-prevnext' && paginationMode !== 'normal-number') {
             const prevButton = blockElement.find('.guten_block_nav .prev');
             const nextButton = blockElement.find('.guten_block_nav .next');
 

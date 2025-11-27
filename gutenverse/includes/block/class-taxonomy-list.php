@@ -44,6 +44,9 @@ class Taxonomy_List extends Block_Abstract {
 
 		$categories = get_terms( $args );
 		$icon       = '';
+		$show_count = $this->attributes['showCount'];
+		$bracket    = $this->attributes['countBracket'];
+
 		if ( $this->attributes['showIcon'] ) {
 			$icon = '<span class="icon-list"><i aria-hidden="true" class="' . esc_attr( $this->attributes['icon'] ) . '"></i></span>';
 		}
@@ -58,6 +61,7 @@ class Taxonomy_List extends Block_Abstract {
 							' . $icon . '
 							<div class="taxonomy-list-content">' . esc_html( $category->name ) . '</div>
 						</a>
+						' . ( $show_count ? ( '<span class="taxonomy-list-count guten-taxonomy" >' . $this->gutenverse_wrap_count( $category->count, $bracket ) . '</span>' ) : '' ) . '
 					</div>';
 				}
 				?>
@@ -89,5 +93,27 @@ class Taxonomy_List extends Block_Abstract {
 		$custom_classes  = $this->get_custom_classes();
 
 		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-taxonomy-list guten-element">' . $this->render_content( $this->attributes['qty'], $this->attributes['includedCategory'], $this->attributes['sortType'], $this->attributes['hideEmpty'], $this->attributes['sortBy'] ) . '</div>';
+	}
+
+	/**
+	 * use count bracket
+	 */
+	public function gutenverse_wrap_count($count, $bracket) {
+		switch ($bracket) {
+			case 'parentheses':
+				return '(' . $count . ')';
+			case 'braces':
+				return '{' . $count . '}';
+			case 'square':
+				return '[' . $count . ']';
+			case 'angle':
+				return '<' . $count . '>';
+			case 'double-quotes':
+				return '"' . $count . '"';
+			case 'single-quotes':
+				return "'" . $count . "'";
+			default:
+				return $count;
+		}
 	}
 }

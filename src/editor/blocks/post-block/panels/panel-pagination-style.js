@@ -66,7 +66,7 @@ export const paginationStylePanel = (props) => {
         {
             id: 'numberGap',
             label: __('Gap', 'gutenverse'),
-            show: 'number' === paginationMode || 'prevnext' === paginationMode,
+            show: 'number' === paginationMode || 'prevnext' === paginationMode || 'normal-number' === paginationMode || 'normal-prevnext' === paginationMode,
             component: RangeControl,
             min: 0,
             max: 500,
@@ -97,7 +97,7 @@ export const paginationStylePanel = (props) => {
         {
             id: 'paginationWidth',
             label: 'number' === paginationMode ? __('Number Width', 'gutenverse') : __('Width', 'gutenverse'),
-            show: 'prevnext' !== paginationMode,
+            show: 'prevnext' !== paginationMode && 'normal-prevnext' !== paginationMode,
             component: SizeControl,
             min: 1,
             max: 500,
@@ -135,7 +135,7 @@ export const paginationStylePanel = (props) => {
         {
             id: 'paginationHeight',
             label: __('Number Height', 'gutenverse'),
-            show: 'number' === paginationMode,
+            show: 'number' === paginationMode || 'normal-number' === paginationMode,
             component: RangeControl,
             min: 1,
             max: 100,
@@ -166,7 +166,7 @@ export const paginationStylePanel = (props) => {
         {
             id: 'paginationNavigationWidth',
             label: 'prevnext' === paginationMode ? __('Width', 'gutenverse') : __('Navigation Width', 'gutenverse'),
-            show: 'number' === paginationMode || 'prevnext' === paginationMode,
+            show: 'number' === paginationMode || 'prevnext' === paginationMode || 'normal-number' === paginationMode || 'normal-prevnext' === paginationMode,
             component: SizeControl,
             min: 1,
             max: 500,
@@ -205,7 +205,7 @@ export const paginationStylePanel = (props) => {
         {
             id: 'paginationNavigationHeight',
             label: 'prevnext' === paginationMode ? __('Height', 'gutenverse') : __('Navigation Height', 'gutenverse'),
-            show: 'number' === paginationMode || 'prevnext' === paginationMode,
+            show: 'number' === paginationMode || 'prevnext' === paginationMode || 'normal-number' === paginationMode || 'normal-prevnext' === paginationMode,
             component: RangeControl,
             min: 1,
             max: 100,
@@ -332,7 +332,7 @@ export const paginationStylePanel = (props) => {
             id: 'paginationAlign',
             label: __('Alignment', 'gutenverse'),
             component: IconRadioControl,
-            show: 'prevnext' !== paginationMode && 'number' !== paginationMode,
+            show: 'prevnext' !== paginationMode && 'number' !== paginationMode && 'normal-prevnext' !== paginationMode && 'normal-number' !== paginationMode,
             allowDeviceControl: true,
             options: [
                 {
@@ -356,7 +356,7 @@ export const paginationStylePanel = (props) => {
             id: 'navigationAlign',
             label: __('Alignment', 'gutenverse'),
             allowDeviceControl: true,
-            show: 'prevnext' === paginationMode || 'number' === paginationMode,
+            show: 'prevnext' === paginationMode || 'number' === paginationMode || 'normal-prevnext' === paginationMode || 'normal-number' === paginationMode,
             component: IconRadioControl,
             options: [
                 {

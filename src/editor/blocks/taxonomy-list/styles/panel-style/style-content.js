@@ -18,25 +18,64 @@ const contentStyle = (elementId, attributes, data) => {
         ],
     });
 
-    // Vertical
-    isNotEmpty(attributes['contentSpacing']) && data.push({
-        'type': 'unitPoint',
-        'id': 'contentSpacing',
-        'responsive': true,
-        'selector': `.${elementId} .taxonomy-list-wrapper`,
-        'properties': [
-            {
-                'name': 'row-gap',
-                'valueType': 'pattern',
-                'pattern': '{value}',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct'
+    if ( isNotEmpty(attributes['layout']) && attributes['layout'] !== 'column' ) {
+        isNotEmpty(attributes['contentSpacing']) && data.push({
+            'type': 'unitPoint',
+            'id': 'contentSpacing',
+            'responsive': true,
+            'selector': `.${elementId} .taxonomy-list-wrapper`,
+            'properties': [
+                {
+                    'name': 'row-gap',
+                    'valueType': 'pattern',
+                    'pattern': '{value}',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct'
+                        }
                     }
                 }
-            }
-        ],
-    });
+            ],
+        });
+    } else {
+        // Vertical
+        isNotEmpty(attributes['contentSpacing']) && data.push({
+            'type': 'unitPoint',
+            'id': 'contentSpacing',
+            'responsive': true,
+            'selector': `.${elementId} .taxonomy-list-wrapper`,
+            'properties': [
+                {
+                    'name': 'row-gap',
+                    'valueType': 'pattern',
+                    'pattern': 'calc({value}/2)',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct'
+                        }
+                    }
+                }
+            ],
+        },
+        {
+            'type': 'unitPoint',
+            'id': 'contentSpacing',
+            'responsive': true,
+            'selector': `.${elementId} .taxonomy-list-item:not(:first-child)`,
+            'properties': [
+                {
+                    'name': 'padding-top',
+                    'valueType': 'pattern',
+                    'pattern': 'calc({value}/2)',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct'
+                        }
+                    }
+                }
+            ],
+        });
+    }
 
     // Horizontal
     isNotEmpty(attributes['contentSpacingHorizontal']) && attributes['layout'] !== 'column' && data.push({
@@ -48,7 +87,25 @@ const contentStyle = (elementId, attributes, data) => {
             {
                 'name': 'column-gap',
                 'valueType': 'pattern',
-                'pattern': '{value}',
+                'pattern':'calc({value}/2)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ],
+    },
+    {
+        'type': 'unitPoint',
+        'id': 'contentSpacingHorizontal',
+        'responsive': true,
+        'selector': `.${elementId} .taxonomy-list-item:not(:first-child)`,
+        'properties': [
+            {
+                'name': 'padding-left',
+                'valueType': 'pattern',
+                'pattern':'calc({value}/2)',
                 'patternValues': {
                     'value': {
                         'type': 'direct'
@@ -113,6 +170,57 @@ const contentStyle = (elementId, attributes, data) => {
             }
         ]
     });
+
+    isNotEmpty(attributes['countTypography']) && data.push({
+        'type': 'typography',
+        'id': 'countTypography',
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item span.taxonomy-list-count.guten-taxonomy`,
+    });
+
+    isNotEmpty(attributes['countColor']) && data.push({
+        'type': 'color',
+        'id': 'countColor',
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item span.taxonomy-list-count.guten-taxonomy`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['countJustify']) && ( attributes['countJustify'][deviceType] === 'space-around' || attributes['countJustify'][deviceType] === 'space-between' ) && data.push({
+        'type': 'plain',
+        'responsive': true,
+        'id': 'countJustify',
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+        'properties': [
+            {
+                'name': 'justify-content',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['countSpacing']) && isNotEmpty(attributes['countJustify']) && attributes['countJustify'][deviceType] === 'custom' && data.push({
+        'type': 'unitPoint',
+        'id': 'countSpacing',
+        'responsive': true,
+        'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+        'properties': [
+            {
+                'name': 'gap',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ],
+    });
+
     return data;
 };
 
