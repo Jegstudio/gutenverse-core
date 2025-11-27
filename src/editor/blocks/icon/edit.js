@@ -15,7 +15,7 @@ import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef, withTooltip } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -31,7 +31,8 @@ const IconBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('icon'),
-    withMouseMoveEffect
+    withMouseMoveEffect,
+    withTooltip('.guten-icon-wrapper'),
 )((props) => {
     const {
         attributes,

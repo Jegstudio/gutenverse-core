@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, tooltipPanel, tooltipStylePanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { contentColor } from './panel-color';
 import { iconPanel } from './panel-icon';
@@ -17,6 +17,13 @@ export const panelList = () => {
                 styleId: 'heading-animation'
             }),
             tabRole: TabSetting
+        },
+        {
+            title: __('Tooltip', 'gutenverse'),
+            initialOpen: false,
+            panelArray: tooltipPanel,
+            tabRole: TabSetting,
+            pro: true
         },
         {
             title: __('Mouse Move Effect', 'gutenverse'),
@@ -88,6 +95,13 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: contentColor,
             tabRole: TabStyle
+        },
+        {
+            title: __('Tooltip Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: tooltipStylePanel,
+            tabRole: TabStyle,
+            pro: true
         },
         {
             title: __('Background', 'gutenverse'),
