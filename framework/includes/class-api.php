@@ -10,6 +10,7 @@
 namespace Gutenverse\Framework;
 
 use Automatic_Upgrader_Skin;
+use Exception;
 use Theme_Upgrader;
 use WP_Error;
 use WP_Query;
@@ -380,13 +381,20 @@ class Api {
 	 */
 	public function remove_cache_files() {
 		try {
-			Init::instance()->frontend_cache->cleanup_cached_style();
-			return new WP_REST_Response(
-				array(
-					'status' => 'success',
-				),
-				200
-			);
+			$options = get_option( 'gutenverse-settings' );
+
+			if ( isset( $options['frontend_settings']['render_mechanism'] ) && isset( $options['frontend_settings']['file_delete_mechanism'] ) && 'file' === $options['frontend_settings']['render_mechanism'] &&  'manual' === $options['frontend_settings']['file_delete_mechanism']) {
+				Init::instance()->frontend_cache->cleanup_cached_style();
+				return new WP_REST_Response(
+					array(
+						'status' => 'success',
+					),
+					200
+				);
+			}else{
+				throw new Exception("Failed Request: Can Only used if Manual Deletion is Manual", 1);
+			}
+			
 		} catch ( \Throwable $th ) {
 			return new WP_REST_Response(
 				array(
