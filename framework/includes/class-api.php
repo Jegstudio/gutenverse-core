@@ -383,7 +383,7 @@ class Api {
 		try {
 			$options = get_option( 'gutenverse-settings' );
 
-			if ( isset( $options['frontend_settings']['render_mechanism'] ) && isset( $options['frontend_settings']['file_delete_mechanism'] ) && 'file' === $options['frontend_settings']['render_mechanism'] &&  'manual' === $options['frontend_settings']['file_delete_mechanism']) {
+			if ( ( 'manual' === $options['frontend_settings']['file_delete_mechanism'] || null === $options['frontend_settings']['file_delete_mechanism'])) {
 				Init::instance()->frontend_cache->cleanup_cached_style();
 				return new WP_REST_Response(
 					array(

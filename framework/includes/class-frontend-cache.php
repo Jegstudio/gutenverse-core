@@ -337,6 +337,7 @@ class Frontend_Cache {
 			if ( isset( $options['frontend_settings']['render_mechanism'] ) && isset( $options['frontend_settings']['file_delete_mechanism'] ) && 'file' === $options['frontend_settings']['render_mechanism'] &&  'auto' === $options['frontend_settings']['file_delete_mechanism']) {
 				wp_schedule_event( $midnight, isset( $options['frontend_settings']['old_render_deletion_schedule'] ) ? $options['frontend_settings']['old_render_deletion_schedule'] : 'daily', 'gutenverse_cleanup_cached_style' );
 			} else {
+				wp_clear_scheduled_hook( 'gutenverse_cleanup_cached_style' );
 				$this->cleanup_cached_style();
 			}
 		}
