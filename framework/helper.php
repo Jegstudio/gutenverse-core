@@ -1197,10 +1197,33 @@ if ( ! function_exists( 'gutenverse_permission_check_author' ) ) {
 	/**
 	 * Check author permissions.
 	 *
+	 * @param mixed $request request object.
+	 *
 	 * @return bool|WP_Error
 	 */
-	function gutenverse_permission_check_author() {
-		if ( ! current_user_can( 'edit_posts' ) ) {
+	function gutenverse_permission_check_author( $request ) {
+		if ( ! current_user_can( 'edit_posts', $request->get_param( 'id' ) ) ) {
+			return new WP_Error(
+				'forbidden_permission',
+				esc_html__( 'Forbidden Access', '--gctd--' ),
+				array( 'status' => 403 )
+			);
+		}
+
+		return true;
+	}
+}
+
+if ( ! function_exists( 'gutenverse_permission_delete_posts' ) ) {
+	/**
+	 * Check author can delete Post.
+	 *
+	 * @param mixed $request request object.
+	 *
+	 * @return bool|WP_Error
+	 */
+	function gutenverse_permission_delete_posts( $request ) {
+		if ( ! current_user_can( 'delete_post', $request->get_param( 'id' ) ) ) {
 			return new WP_Error(
 				'forbidden_permission',
 				esc_html__( 'Forbidden Access', '--gctd--' ),
