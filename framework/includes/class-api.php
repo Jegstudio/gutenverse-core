@@ -13,6 +13,7 @@ use Automatic_Upgrader_Skin;
 use Theme_Upgrader;
 use WP_Error;
 use WP_Query;
+use WP_REST_Response;
 
 /**
  * Class Api
@@ -336,6 +337,16 @@ class Api {
 			)
 		);
 
+		register_rest_route(
+			self::ENDPOINT,
+			'settings/remove-cache',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'remove_cache_files' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
 		/** ----------------------------------------------------------------
 		 * Frontend/Global Routes
 		 */
@@ -360,6 +371,32 @@ class Api {
 		);
 	}
 
+	/**
+	 * Remove Frontend Cache Files
+	 *
+	 * since version 2.3.1
+	 *
+	 * @return WP_Rest
+	 */
+	public function remove_cache_files() {
+		try {
+			Init::instance()->frontend_cache->cleanup_cached_style();
+			return new WP_REST_Response(
+				array(
+					'status' => 'success',
+				),
+				200
+			);
+		} catch ( \Throwable $th ) {
+			return new WP_REST_Response(
+				array(
+					'status'  => 'failed',
+					'message' => $th->getMessage(),
+				),
+				400
+			);
+		}
+	}
 	/**
 	 * Fetch Data
 	 *
@@ -1742,7 +1779,7 @@ class Api {
 				$url
 			)
 		);
-		
+
 		if ( is_wp_error( $response ) ) {
 			return false;
 		}
