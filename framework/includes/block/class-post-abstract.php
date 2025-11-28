@@ -549,7 +549,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			'next'       => self::has_next_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] ),
 			'prev'       => self::has_prev_page( $args['paged'] ),
 			'page'       => $args['paged'],
-			'total_page' => self::count_total_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] > 0 ? $attr['paginationNumberPost'] : 1 ),
+			'total_page' => self::count_total_page( $attr['paginationMode'], $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] > 0 ? $attr['paginationNumberPost'] : 1 ),
 		);
 	}
 
@@ -746,11 +746,14 @@ abstract class Post_Abstract extends Block_Abstract {
 				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
 			}
 
+			$prev_link = 1 === $page ? '' : '<a href="#" class="btn-pagination prev ' . esc_attr( $prev ) . '" title="' . $prev_inner_text . '">' . $prev_text . '</a>';
+			$next_link = $total <= $page ? '' : '<a href="#" class="btn-pagination next ' . esc_attr( $next ) . '" title="' . $next_innet_text . '">' . $next_text . '</a>';
+
 			$output =
 			'<div class="guten_block_nav ' . esc_attr( 'additional_class' ) . '" data-page="' . $page . '">
-                    <a href="#" class="btn-pagination prev ' . esc_attr( $prev ) . '" title="' . $prev_inner_text . "\">{$prev_text}</a>
-                    <a href=\"#\" class=\"btn-pagination next " . esc_attr( $next ) . '" title="' . $next_innet_text . "\">{$next_text}</a>
-                </div>";
+				' . $prev_link . '
+				' . $next_link . '
+			</div>';
 		}
 
 		if ( 'number' === $this->attributes['paginationMode'] && $total > 1 ) {
@@ -815,20 +818,30 @@ abstract class Post_Abstract extends Block_Abstract {
 				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
 			}
 
-			$output = sprintf(
-				'<div class="guten_block_nav native-pagination" data-page="%d">
-					<a href="%s" class="btn-pagination prev %s" title="%s">%s</a>
-					<a href="%s" class="btn-pagination next %s" title="%s">%s</a>
-				</div>',
-				$page,
+			$prev_link = 1 === $page ? '' : sprintf(
+				'<a href="%s" class="btn-pagination prev %s" title="%s">%s</a>',
 				esc_url( $prev_url ),
 				esc_attr( $prev_class ),
 				esc_attr( $prev_inner_text ),
-				$prev_text,
+				$prev_text
+			);
+
+			$next_link = $total <= $page ? '' : sprintf(
+				'<a href="%s" class="btn-pagination next %s" title="%s">%s</a>',
 				esc_url( $next_url ),
 				esc_attr( $next_class ),
 				esc_attr( $next_innet_text ),
 				$next_text
+			);
+
+			$output = sprintf(
+				'<div class="guten_block_nav native-pagination" data-page="%d">
+					%s
+					%s
+				</div>',
+				$page,
+				$prev_link,
+				$next_link
 			);
 		}
 
@@ -1043,15 +1056,20 @@ abstract class Post_Abstract extends Block_Abstract {
 	/**
 	 * Get total count of total page
 	 *
-	 * @param int $total Total number of query result.
-	 * @param int $curpage Current Page.
-	 * @param int $offset Offset post.
-	 * @param int $perpage Number post for first page.
-	 * @param int $perpage_ajax Number post for ajax request.
+	 * @param string $pagination_mode Mode Pagination.
+	 * @param int    $total Total number of query result.
+	 * @param int    $curpage Current Page.
+	 * @param int    $offset Offset post.
+	 * @param int    $perpage Number post for first page.
+	 * @param int    $perpage_ajax Number post for ajax request.
 	 *
 	 * @return int
 	 */
-	private static function count_total_page( $total, $curpage = 1, $offset = 0, $perpage = 2, $perpage_ajax = 2 ) {
+	private static function count_total_page( $pagination_mode, $total, $curpage = 1, $offset = 0, $perpage = 2, $perpage_ajax = 2 ) {
+		if ( ! in_array( $pagination_mode, array( 'loadmore', 'scrollload' ), true ) ) {
+			$perpage_ajax = $perpage;
+		}
+
 		$remain = (int) $total - ( (int) $offset + (int) $perpage );
 		while ( $remain > 0 ) {
 			$remain -= $perpage_ajax;
