@@ -280,6 +280,12 @@
                         align-items: center;
                     }
 
+                    .template-tab-body{
+                        h2{
+                            margin: 0px;
+                        }
+                    }
+
                     .file-delete-mechanism-wrapper {
                         border-bottom: 1px solid #E3E4E6;
 
@@ -287,6 +293,23 @@
                             font-family: Roboto;
                             font-weight: 500;
                             font-size: 14px;
+                        }
+
+                        .gutenverse-control-alert{
+                            margin-top: 20px ;
+                            .control-body{
+                                background-color: rgba(244,94,94,.2);
+                                border: none;
+                                .control-icon{
+                                    margin-top: 2px;
+                                    svg{
+                                        fill: red;
+                                    }
+                                }
+                                .control-alert span{
+                                    color: red;
+                                }
+                            }
                         }
 
                         .control-wrapper {

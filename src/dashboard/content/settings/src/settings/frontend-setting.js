@@ -78,6 +78,9 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
             />
             {render_mechanism === 'file' && <>
                 <div className="file-delete-mechanism-wrapper">
+                    <AlertControl>
+                        <span>{__('Use manual delete cache clean process instead of automatic if you are using other cache plugin', '--gctd--')}</span>
+                    </AlertControl>
                     <ControlSelect
                         id={'file_delete_mechanism'}
                         title={__('Manual Deletion', '--gctd--')}
@@ -98,14 +101,14 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
                     {file_delete_mechanism === 'manual' && (
                         <div className="manual-button-wrapper" >
                             <div className="left">
-                                <label>{__('Cache Files', '--gctd--')}</label>
+                                <label>{__('Cache Clean Up', '--gctd--')}</label>
                                 <p>Free up to <b>{unused_size}</b> by removing temporary cache files</p>
                             </div>
                             <div className="right">
                                 {
                                     loading ? <div className="manual-delete-button loading">
                                         {__('Loading...', '--gctd--')}
-                                    </div> : <div className="manual-delete-button" onClick={handleDeleteCache}>{__('Delete Unused Cache Files', '--gctd--')}</div>
+                                    </div> : <div className="manual-delete-button" onClick={handleDeleteCache}>{__('Delete Cache', '--gctd--')}</div>
                                 }
                             </div>
                         </div>
@@ -146,9 +149,6 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
                         />
                     }
                 </div>
-
-
-
             </>
             }
         </div>
