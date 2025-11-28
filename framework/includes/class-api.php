@@ -383,7 +383,7 @@ class Api {
 		try {
 			$options = get_option( 'gutenverse-settings' );
 
-			if ( ( 'manual' === $options['frontend_settings']['file_delete_mechanism'] || null === $options['frontend_settings']['file_delete_mechanism'])) {
+			if ( ! isset( $options['frontend_settings']['file_delete_mechanism'] ) || 'manual' === $options['frontend_settings']['file_delete_mechanism'] ) {
 				Init::instance()->frontend_cache->cleanup_cached_style();
 				return new WP_REST_Response(
 					array(
@@ -391,10 +391,9 @@ class Api {
 					),
 					200
 				);
-			}else{
-				throw new Exception("Failed Request: Can Only used if Manual Deletion is Manual", 1);
+			} else {
+				throw new Exception( 'Failed Request: Can Only used if Manual Deletion is Manual', 1 );
 			}
-			
 		} catch ( \Throwable $th ) {
 			return new WP_REST_Response(
 				array(
