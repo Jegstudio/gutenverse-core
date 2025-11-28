@@ -360,7 +360,8 @@ abstract class Post_Abstract extends Block_Abstract {
 		$args['post_type'] = $attr['postType'];
 		// For native pagination modes, read from URL query parameter.
 		if ( isset( $attr['paginationMode'] ) && in_array( $attr['paginationMode'], array( 'normal-prevnext', 'normal-number' ), true ) ) {
-			$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+			$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : get_query_var( 'page' );
+			$paged = $paged ? $paged : 1;
 			$paged = max( 1, intval( $paged ) ); // Ensure positive integer.
 		} else {
 			// For AJAX modes, use attribute.
