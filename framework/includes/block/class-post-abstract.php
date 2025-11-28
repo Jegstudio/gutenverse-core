@@ -358,8 +358,10 @@ abstract class Post_Abstract extends Block_Abstract {
 		$args             = array();
 
 		$args['post_type'] = $attr['postType'];
+
+		$is_normal_mode = isset( $attr['paginationMode'] ) && in_array( $attr['paginationMode'], array( 'normal-prevnext', 'normal-number' ), true );
 		// For native pagination modes, read from URL query parameter.
-		if ( isset( $attr['paginationMode'] ) && in_array( $attr['paginationMode'], array( 'normal-prevnext', 'normal-number' ), true ) ) {
+		if ( $is_normal_mode ) {
 			$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : get_query_var( 'page' );
 			$paged = $paged ? $paged : 1;
 			$paged = max( 1, intval( $paged ) ); // Ensure positive integer.
@@ -370,7 +372,7 @@ abstract class Post_Abstract extends Block_Abstract {
 		$args['paged'] = $paged;
 
 		// Calculate offset based on pagination mode.
-		if ( isset( $attr['paginationMode'] ) && in_array( $attr['paginationMode'], array( 'normal-prevnext', 'normal-number' ), true ) ) {
+		if ( $is_normal_mode ) {
 			// Native pagination: simple offset calculation.
 			// offset = (page - 1) * posts_per_page + initial_offset.
 			$args['offset']         = ( ( $paged - 1 ) * $attr['numberPost'] ) + (int) $attr['postOffset'];
@@ -545,9 +547,11 @@ abstract class Post_Abstract extends Block_Abstract {
 
 		wp_reset_postdata();
 
+		$total_next = $is_normal_mode ? $attr['numberPost'] : $attr['paginationNumberPost'];
+
 		return array(
 			'result'     => $result,
-			'next'       => self::has_next_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] ),
+			'next'       => self::has_next_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $total_next ),
 			'prev'       => self::has_prev_page( $args['paged'] ),
 			'page'       => $args['paged'],
 			'total_page' => self::count_total_page( $attr['paginationMode'], $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] > 0 ? $attr['paginationNumberPost'] : 1 ),
