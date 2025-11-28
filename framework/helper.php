@@ -1197,12 +1197,10 @@ if ( ! function_exists( 'gutenverse_permission_check_author' ) ) {
 	/**
 	 * Check author permissions.
 	 *
-	 * @param mixed $request request object.
-	 *
 	 * @return bool|WP_Error
 	 */
-	function gutenverse_permission_check_author( $request ) {
-		if ( ! current_user_can( 'edit_posts', $request->get_param( 'id' ) ) ) {
+	function gutenverse_permission_check_author() {
+		if ( ! current_user_can( 'edit_posts' ) ) {
 			return new WP_Error(
 				'forbidden_permission',
 				esc_html__( 'Forbidden Access', '--gctd--' ),
