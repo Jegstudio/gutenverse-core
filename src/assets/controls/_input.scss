@@ -193,7 +193,7 @@
       }
     }
 
-    > .control-body {
+    >.control-body {
       margin: 0;
       border: 1px solid #e6e6ef;
       border-radius: 5px;
@@ -202,6 +202,7 @@
   }
 
   &.gutenverse-control- {
+
     /** Alert **/
     &alert {
       .control-body {
@@ -389,7 +390,7 @@
         align-items: center;
         font-weight: bold;
 
-        > div {
+        >div {
           position: relative;
         }
 
@@ -424,7 +425,7 @@
           background: white;
           z-index: 9;
 
-          > span {
+          >span {
             position: relative;
             width: 100%;
             cursor: pointer;
@@ -487,7 +488,7 @@
         box-shadow: inset 0 2px 3px rgba($input-switch-shadow, 0.1);
       }
 
-      input:checked + .switch {
+      input:checked+.switch {
         background: $input-switch-active;
       }
 
@@ -503,7 +504,7 @@
         padding-top: 1px;
       }
 
-      input:checked + .switch::before {
+      input:checked+.switch::before {
         left: 11px;
         right: auto;
         color: #fff;
@@ -527,7 +528,7 @@
           background 150ms ease;
       }
 
-      input:checked + .switch::after {
+      input:checked+.switch::after {
         transform: translate3d(27px, -50%, 0);
       }
     }
@@ -812,7 +813,7 @@
               background-color: white;
               position: relative;
 
-              & > * {
+              &>* {
                 display: flex;
               }
 
@@ -904,6 +905,7 @@
     /** Font **/
     &dynamic,
     &font {
+
       .post-option,
       .font-option {
         padding: 7px 15px;
@@ -1002,7 +1004,7 @@
       .control-body {
         margin-right: 0;
 
-        > * {
+        >* {
           width: auto;
           line-height: 0;
 
@@ -1018,8 +1020,8 @@
         height: 0;
         display: none;
 
-        + svg,
-        + .icon-radio {
+        +svg,
+        +.icon-radio {
           cursor: pointer;
           border: 1px solid #ddd;
           border-radius: 3px;
@@ -1028,13 +1030,13 @@
           padding: 2px;
         }
 
-        + .icon-radio {
+        +.icon-radio {
           width: 100%;
           text-align: center;
         }
 
-        &:checked + svg,
-        &:checked + .icon-radio {
+        &:checked+svg,
+        &:checked+.icon-radio {
           background: #e7ecfd;
           border: 1px solid #e7ecfd;
           color: #3b57f7;
@@ -1067,7 +1069,7 @@
         height: 0;
         display: none;
 
-        + svg {
+        +svg {
           cursor: pointer;
           border: 1px solid #c1c1c1;
           padding: 5px;
@@ -1166,7 +1168,7 @@
           bottom: 3px;
         }
 
-        > div {
+        >div {
           position: relative;
           z-index: 5;
           width: 18px;
@@ -1264,7 +1266,7 @@
             gap: 10px;
             position: relative;
 
-            > span {
+            >span {
               position: absolute;
             }
 
@@ -1273,14 +1275,14 @@
               border: 1px solid #ddd;
               border-radius: 3px;
 
-              > div {
+              >div {
                 width: 22px;
                 height: 22px;
                 border-radius: 2px;
               }
             }
 
-            .variable-color-item-wrapper > div {
+            .variable-color-item-wrapper>div {
               width: 20px;
               height: 20px;
               border-radius: 50%;
@@ -1366,7 +1368,7 @@
         display: flex;
         justify-content: space-between;
 
-        & > div {
+        &>div {
           width: 45%;
         }
 
@@ -1561,7 +1563,7 @@
     /** Icon Chooser **/
     &icon {
       .icon-wrapper {
-        padding-bottom: 42%;
+        padding-bottom: 56%;
         position: relative;
         height: 0;
         background-image: linear-gradient(45deg, #ddd 25%, transparent 0, transparent 75%, #ddd 0, #ddd),
@@ -1577,13 +1579,13 @@
       }
 
       .icon-preview {
-        padding-bottom: 42%;
+        padding-bottom: 50%;
         height: 100%;
         background-size: cover;
         background-position: center;
         position: relative;
 
-        > * {
+        >* {
           color: #333;
           font-size: 70px;
           position: absolute;
@@ -1599,13 +1601,47 @@
 
       .icon-change {
         position: absolute;
-        bottom: -25px;
+        bottom: 0;
         width: 100%;
         text-align: center;
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(0, 0, 0, 0.5);
         font-size: 11px;
-        line-height: 23px;
+        line-height: 30px;
         transition: all 0.3s ease 0s;
+        color: #fff;
+        display: flex;
+
+        >div {
+          flex: 1;
+        }
+
+        >.active {
+          background: rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      .icon-warning {
+        background-color: #FFF9E2;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        font-size: 12px;
+        line-height: 1.4;
+        display: flex;
+        gap: 11px;
+        justify-content: center;
+        align-items: flex-start;
+
+        svg {
+          width: 7%;
+          margin-top: 3px;
+          color: #FFC908;
+        }
+
+        span {
+          width: 90%;
+          color: #B99518;
+        }
       }
 
       &:hover {
@@ -1866,7 +1902,7 @@
         width: 40%;
         margin-right: 10px;
 
-        & > div {
+        &>div {
           display: flex;
           width: 100%;
           justify-content: center;
@@ -1934,7 +1970,7 @@
       .border-value {
         width: 60%;
 
-        & > div {
+        &>div {
           margin-bottom: 5px;
 
           &.gutenverse-control-color {
@@ -1950,7 +1986,7 @@
           }
         }
 
-        & > div:not(.gutenverse-control-color) {
+        &>div:not(.gutenverse-control-color) {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -1977,28 +2013,28 @@
 
     /** mask **/
     &mask {
-      > * {
+      >* {
         display: block;
       }
     }
 
     /** pointer event **/
     &pointer {
-      > * {
+      >* {
         display: block;
       }
     }
 
     /** condition **/
     &condition {
-      > * {
+      >* {
         display: block;
       }
     }
 
     /** background **/
     &background {
-      > * {
+      >* {
         display: block;
       }
 
@@ -2010,7 +2046,7 @@
         display: flex;
         justify-content: space-between;
 
-        & > div {
+        &>div {
           width: 45%;
 
           .control-body {
@@ -2048,7 +2084,7 @@
         height: 0;
         display: none;
 
-        &:checked + span {
+        &:checked+span {
           background: #e7ecfd;
           color: #3b57f7;
           border: 1px solid #e7ecfd;
@@ -2070,7 +2106,7 @@
     }
 
     &gradient {
-      & > * {
+      &>* {
         display: block;
       }
 
@@ -2135,7 +2171,7 @@
       .wrapper {
         display: flex;
 
-        & > * {
+        &>* {
           flex-grow: 1;
         }
       }
@@ -2185,7 +2221,7 @@
         position: relative;
         margin-right: 20px;
 
-        & > div,
+        &>div,
         .saturation-white,
         .saturation-black {
           border-radius: 5px;
@@ -2301,8 +2337,7 @@
         position: absolute;
         width: 11px;
         cursor: pointer;
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAARCAQAAABzuJQIAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAB7SURBVCjP3c7BDQMhDETRP4gyUlb6SEphe9w+JgdArIMPm2uGizV6MpbpERgBzGb0tuZcLvTbDSoHrMUMQmFrY/IaaOeKB7yE+1yTz43irZNXbXcCFosuXqFt9g0cyZICT7LkrU+b62vGeVv4IX+Phc+tfABZK3xj5cgHC29ECUeufxkAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTctMDUtMzFUMTg6NDE6MzIrMDI6MDD31tLGAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE3LTA1LTMxVDE4OjQxOjMyKzAyOjAwhotqegAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII=)
-          right center;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAARCAQAAABzuJQIAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAB7SURBVCjP3c7BDQMhDETRP4gyUlb6SEphe9w+JgdArIMPm2uGizV6MpbpERgBzGb0tuZcLvTbDSoHrMUMQmFrY/IaaOeKB7yE+1yTz43irZNXbXcCFosuXqFt9g0cyZICT7LkrU+b62vGeVv4IX+Phc+tfABZK3xj5cgHC29ECUeufxkAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTctMDUtMzFUMTg6NDE6MzIrMDI6MDD31tLGAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE3LTA1LTMxVDE4OjQxOjMyKzAyOjAwhotqegAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII=) right center;
 
         div {
           height: 7px;
@@ -2476,7 +2511,7 @@
           }
 
           &:hover {
-            transform: scale( .94 );
+            transform: scale(.94);
             color: rgba(255, 255, 255, 0.75);
 
             svg {
@@ -2568,7 +2603,7 @@
       }
 
       &-pro-notice {
-        > div {
+        >div {
           display: block;
           text-align: center;
         }

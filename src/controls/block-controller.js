@@ -52,11 +52,11 @@ const BlockController = (props) => {
                 [id]: value
             };
 
-            timeoutRef.current = liveStyle && updateLiveStyle({elementId, attributes: newValue, styles: liveStyle, elementRef});
-            if(setLiveAttr){
+            timeoutRef.current = liveStyle && updateLiveStyle({ elementId, attributes: newValue, styles: liveStyle, elementRef });
+            if (setLiveAttr) {
                 setLiveAttr({
                     ...liveAttr,
-                    [id] : value
+                    [id]: value
                 });
             }
         };
@@ -69,6 +69,7 @@ const BlockController = (props) => {
             values={panelProps}
             onValueChange={onValueChange}
             onLocalChange={onLocalChange}
+            setAttributes={setAttributes}
             elementRef={elementRef}
             isOpen={true}
         />;
