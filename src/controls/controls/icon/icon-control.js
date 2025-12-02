@@ -5,7 +5,7 @@ import ControlHeadingSimple from '../part/control-heading-simple';
 import faIcons from './font-awesome-icons';
 import gtnIcons from './gutenverse-icons';
 import { __ } from '@wordpress/i18n';
-import { Trash, X, Star, Upload } from 'react-feather';
+import { Trash, X } from 'react-feather';
 import { Button } from '@wordpress/components';
 import { MediaUpload } from '@wordpress/block-editor';
 import classnames from 'classnames';
@@ -13,8 +13,8 @@ import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import { AutoSizer, Grid } from 'react-virtualized';
-import { gutenverseRoot } from 'gutenverse-core/helper';
-import { LogoFullColorSVG, IconSearchSVG, IconInfoGraySVG } from 'gutenverse-core/icons';
+import { svgAtob, gutenverseRoot } from 'gutenverse-core/helper';
+import { LogoFullColorSVG, IconSearchSVG } from 'gutenverse-core/icons';
 
 const COLUMN_NUMBER = 8;
 
@@ -237,13 +237,24 @@ const IconControl = (props) => {
     const removeSVG = (e) => {
         e.stopPropagation();
         if (svgAttribute) {
-            updateAttributes({ [svgAttribute]: {} });
+            updateAttributes({ [svgAttribute]: '' });
         }
     };
 
     const onSelectSVG = (media) => {
-        if (svgAttribute) {
-            updateAttributes({ [svgAttribute]: media });
+        if (svgAttribute && media.url) {
+            // Fetch SVG content and store as string
+            fetch(media.url)
+                .then(response => response.text())
+                .then(svgContent => {
+                    const encodedSVG = btoa(svgContent);
+                    updateAttributes({ [svgAttribute]: encodedSVG });
+                })
+                .catch((error) => {
+                    console.error('Failed to fetch SVG content:', error);
+                    // Fallback: store empty string
+                    updateAttributes({ [svgAttribute]: '' });
+                });
         }
     };
 
@@ -264,14 +275,6 @@ const IconControl = (props) => {
         {iconType === 'icon' ? (
             <div className={'control-body'}>
                 <div>
-                    <div className="icon-warning">
-                        <IconInfoGraySVG />
-                        <span>
-                            {__('Using the icon library may increase your frontend size.', '--gctd--')}
-                            <div style={{ display: 'block', marginBottom: '10px' }}></div>
-                            {__('For site best performance, use upload SVG for all icons', '--gctd--')}
-                        </span>
-                    </div>
                     <div className={'icon-wrapper'}>
                         {value !== '' && <div className={'icon-remove'} onClick={e => removeIcon(e)}>
                             <Trash />
@@ -295,10 +298,10 @@ const IconControl = (props) => {
                 <MediaUpload
                     onSelect={onSelectSVG}
                     allowedTypes={['image/svg+xml']}
-                    value={svgValue ? svgValue.id : undefined}
+                    value={undefined}
                     render={({ open }) => (
                         <div className={'icon-wrapper'}>
-                            {svgValue && svgValue.url && <div className={'icon-remove'} onClick={e => removeSVG(e)}>
+                            {svgValue && <div className={'icon-remove'} onClick={e => removeSVG(e)}>
                                 <Trash />
                             </div>}
                             <div className={'icon-preview'} onClick={open} style={{
@@ -308,7 +311,7 @@ const IconControl = (props) => {
                                 alignItems: 'center',
                                 justifyContent: 'center'
                             }}>
-                                {svgValue && svgValue.url ? <img src={svgValue.url} alt="SVG Icon" style={{ maxWidth: '60%', maxHeight: '60%' }} /> : null}
+                                {svgValue ? <div dangerouslySetInnerHTML={{ __html: svgAtob(svgValue) }} style={{ maxWidth: '60%', maxHeight: '60%', display: 'flex' }} /> : null}
                             </div>
                             <div className={'icon-change'}>
                                 <div className={'choose-icon'} onClick={() => setType('icon')}>

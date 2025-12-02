@@ -946,4 +946,12 @@ export const installAndActivateTheme = (slug) => {
         .catch(err => {
             console.error('Error:', err);
         });
-}
+};
+
+export const svgAtob = (encodedSVG) => {
+    try {
+        return atob(encodedSVG);
+    } catch (e) {
+        console.error('Invalid base64:', e);
+    }
+};

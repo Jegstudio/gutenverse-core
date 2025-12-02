@@ -254,4 +254,21 @@ abstract class Block_Abstract {
 
 		return $def;
 	}
+
+	/**
+	 * Render Icon
+	 *
+	 * @param string $type Icon type.
+	 * @param string $icon Icon class.
+	 * @param string $svg  SVG data.
+	 *
+	 * @return string
+	 */
+	protected function render_icon( $type, $icon, $svg ) {
+		if ( 'svg' === $type && ! empty( $svg ) ) {
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+			return base64_decode( $svg, true );
+		}
+		return '<i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i>';
+	}
 }
