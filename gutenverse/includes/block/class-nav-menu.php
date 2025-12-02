@@ -45,6 +45,26 @@ class Nav_Menu extends Block_Abstract {
 		$close_aria_label     = isset( $this->attributes['closeAriaLabel'] ) ? esc_attr( $this->attributes['closeAriaLabel'] ) : false;
 		$hamburger_aria_label = isset( $this->attributes['hamburgerAriaLabel'] ) ? esc_attr( $this->attributes['hamburgerAriaLabel'] ) : false;
 
+		$mobile_icon_type       = isset( $this->attributes['mobileIconType'] ) ? $this->attributes['mobileIconType'] : 'icon';
+		$mobile_icon_svg        = isset( $this->attributes['mobileIconSVG'] ) ? $this->attributes['mobileIconSVG'] : array();
+		$mobile_close_icon_type = isset( $this->attributes['mobileCloseIconType'] ) ? $this->attributes['mobileCloseIconType'] : 'icon';
+		$mobile_close_icon_svg  = isset( $this->attributes['mobileCloseIconSVG'] ) ? $this->attributes['mobileCloseIconSVG'] : array();
+
+		$hamburger_icon_html = $this->render_icon( $mobile_icon_type, $mobile_menu_icon, $mobile_icon_svg );
+		$close_icon_html     = $this->render_icon( $mobile_close_icon_type, $mobile_close_icon, $mobile_close_icon_svg );
+
+		// Handle submenu indicator SVG.
+		$submenu_indicator_type = isset( $this->attributes['submenuItemIndicatorType'] ) ? $this->attributes['submenuItemIndicatorType'] : 'icon';
+		$submenu_indicator_svg  = isset( $this->attributes['submenuItemIndicatorSVG'] ) ? $this->attributes['submenuItemIndicatorSVG'] : array();
+		$submenu_indicator_svg_encoded = '';
+
+		if ( 'svg' === $submenu_indicator_type && ! empty( $submenu_indicator_svg ) ) {
+			$svg_content = $this->render_icon( $submenu_indicator_type, '', $submenu_indicator_svg );
+			if ( ! empty( $svg_content ) ) {
+				$submenu_indicator_svg_encoded = base64_encode( $svg_content );
+			}
+		}
+
 		if ( $remove_link ) {
 			$menu = str_replace( 'href', 'href="javascript:void(0);" data-href', $menu );
 		}
@@ -54,10 +74,10 @@ class Nav_Menu extends Block_Abstract {
 			$overlay = '<div class="guten-nav-overlay"></div>';
 		}
 
-		return '<div id="' . $element_id . '" class="guten-element guten-nav-menu nav-menu break-point-' . $menu_breakpoint . ' ' . $submenu_click . $display_classes . $animation_class . $custom_classes . '" data-item-indicator="' . $item_indicator . '" data-close-on-click="' . $closeon_click . '">
+		return '<div id="' . $element_id . '" class="guten-element guten-nav-menu nav-menu break-point-' . $menu_breakpoint . ' ' . $submenu_click . $display_classes . $animation_class . $custom_classes . '" data-item-indicator="' . $item_indicator . '" data-item-indicator-type="' . esc_attr( $submenu_indicator_type ) . '" data-item-indicator-svg="' . esc_attr( $submenu_indicator_svg_encoded ) . '" data-close-on-click="' . $closeon_click . '">
 			<div class="gutenverse-hamburger-wrapper">
 				<button class="gutenverse-hamburger-menu" aria-label=' . $hamburger_aria_label . '>
-					<i aria-hidden="true" class="' . $mobile_menu_icon . '"></i>
+				' . $hamburger_icon_html . '
 				</button>
 			</div>
 			' . $overlay . '
@@ -67,7 +87,7 @@ class Nav_Menu extends Block_Abstract {
 						<div class="gutenverse-nav-site-title">
 							<a href="' . $menu_url . '" class="gutenverse-nav-logo">' . $mobile_logo_image . '</a>
 						</div>
-						<button class="gutenverse-close-menu" aria-label=' . $close_aria_label . '><i aria-hidden="true" class="' . $mobile_close_icon . '"></i></button>
+						<button class="gutenverse-close-menu" aria-label=' . $close_aria_label . '>' . $close_icon_html . '</button>
 					</div>
 				</div>
 			</div>

@@ -40,9 +40,23 @@
 			"type": "string",
 			"default": "fas fa-bars"
 		},
+		"mobileIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"mobileIconSVG": {
+			"type": "object"
+		},
 		"mobileCloseIcon": {
 			"type": "string",
 			"default": "fas fa-times"
+		},
+		"mobileCloseIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"mobileCloseIconSVG": {
+			"type": "object"
 		},
 		"mobileSubmenuClick": {
 			"type": "boolean",
@@ -160,6 +174,13 @@
 		"submenuItemIndicator": {
 			"type": "string",
 			"default": "fas fa-angle-down"
+		},
+		"submenuItemIndicatorType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"submenuItemIndicatorSVG": {
+			"type": "object"
 		},
 		"SubmenuIndicatorSize": {
 			"type": "object",

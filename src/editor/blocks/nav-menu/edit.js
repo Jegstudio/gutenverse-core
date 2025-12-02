@@ -35,7 +35,11 @@ const NavMenuBlock = compose(
         mobileMenuLink,
         mobileMenuURL,
         mobileIcon,
+        mobileIconType,
+        mobileIconSVG,
         mobileCloseIcon,
+        mobileCloseIconType,
+        mobileCloseIconSVG,
         submenuClick,
         mobileSubmenuClick,
         mobileCloseOnClick,
@@ -81,13 +85,17 @@ const NavMenuBlock = compose(
                         mobileMenuLink,
                         mobileMenuURL,
                         mobileIcon,
+                        mobileIconType,
+                        mobileIconSVG,
                         mobileCloseIcon,
+                        mobileCloseIconType,
+                        mobileCloseIconSVG,
                         submenuClick,
                         mobileSubmenuClick,
                         mobileCloseOnClick,
                         submenuItemIndicator,
                         transform,
-                        mobileEnableOverlay
+                        mobileEnableOverlay,
                     },
                 }),
             }).then((data) => {
@@ -122,7 +130,11 @@ const NavMenuBlock = compose(
         mobileMenuLink,
         mobileMenuURL,
         mobileIcon,
+        mobileIconType,
+        mobileIconSVG,
         mobileCloseIcon,
+        mobileCloseIconType,
+        mobileCloseIconSVG,
         submenuClick,
         mobileSubmenuClick,
         mobileCloseOnClick,
@@ -167,7 +179,7 @@ const NavMenuBlock = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             {!loading && response ? <RawHTML key="html">

@@ -732,6 +732,17 @@ class Nav_Menu extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu svg, #{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu img",
+					'property'       => function ( $value ) {
+						return "width: {$value}px;";
+					},
+					'value'          => $this->attrs['hamburgerSize'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['hamburgerPadding'] ) ) {
@@ -771,6 +782,17 @@ class Nav_Menu extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu svg, #{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu img",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['hamburgerColorNormal'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['hamburgerBgNormal'] ) ) {
@@ -803,6 +825,17 @@ class Nav_Menu extends Style_Abstract {
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu:hover",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['hamburgerColorHover'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu:hover svg, #{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu:hover img",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
 					},
 					'value'          => $this->attrs['hamburgerColorHover'],
 					'device_control' => true,
@@ -858,6 +891,17 @@ class Nav_Menu extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu svg, #{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu img",
+					'property'       => function ( $value ) {
+						return "width: {$value}px;";
+					},
+					'value'          => $this->attrs['closeSize'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['closePadding'] ) ) {
@@ -897,6 +941,17 @@ class Nav_Menu extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu svg, #{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu img",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['closeColorNormal'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['closeBgNormal'] ) ) {
@@ -929,6 +984,17 @@ class Nav_Menu extends Style_Abstract {
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['closeColorHover'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover svg, #{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover img",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
 					},
 					'value'          => $this->attrs['closeColorHover'],
 					'device_control' => true,
