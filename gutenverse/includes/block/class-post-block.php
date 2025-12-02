@@ -390,7 +390,7 @@ class Post_Block extends Post_Abstract {
 		$from_pag   = $this->attributes['fromPagination'] ?? false;
 		$last_idx   = $this->attributes['alreadyFetch'] ?? 0;
 
-		if ( ( 'loadmore' === $pagination || 'scrollload' === $pagination ) && ($load_anim && 'none' != $load_anim) && $from_pag ) {
+		if ( ( 'loadmore' === $pagination || 'scrollload' === $pagination ) && ( $load_anim && 'none' != $load_anim ) && $from_pag ) {
 			$add_class = " animated {$load_anim} initial-hide loadmore-animation";
 		}
 
