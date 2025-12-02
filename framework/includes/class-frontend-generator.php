@@ -540,55 +540,55 @@ class Frontend_Generator {
 	 * @param array $args The script configuration array, including 'attr', 'allow_if', and 'script'.
 	 */
 	public function add_script( array $args ) {
-		$can_load = true;
-
-		if ( ! isset( $args['attr'], $args['allow_if'], $args['script'] ) ) {
-			return;
-		}
-
-		$attrs         = $args['attr'];
-		$conditions    = $args['allow_if'];
+		$can_load      = true;
 		$script_handle = isset( $args['script'] ) ? $args['script'] : false;
 		$style_handle  = isset( $args['style'] ) ? $args['style'] : false;
 
-		foreach ( $conditions as $condition ) {
-			$id       = $condition['id'];
-			$operator = $condition['operator'];
-			$value    = $condition['value'];
+		if ( isset( $args['attr'], $args['allow_if'] ) ) {
+			$attrs      = $args['attr'];
+			$conditions = $args['allow_if'];
 
-			if ( ! isset( $attrs[ $id ] ) ) {
-				$can_load = false;
-				break;
-			}
+			foreach ( $conditions as $condition ) {
+				$id       = $condition['id'];
+				$operator = $condition['operator'];
+				$value    = $condition['value'];
 
-			$attr_value = $attrs[ $id ];
-
-			if ( isset( $condition['device'] ) ) {
-				$device_condition_met = false;
-
-				if ( is_array( $attr_value ) ) {
-					foreach ( $attr_value as $device_setting_value ) {
-
-						if ( $this->check_condition( $device_setting_value, $operator, $value ) ) {
-							$device_condition_met = true;
-							break;
-						}
-					}
-				}
-
-				if ( ! $device_condition_met ) {
+				if ( ! isset( $attrs[ $id ] ) ) {
 					$can_load = false;
 					break;
 				}
-			} elseif ( ! $this->check_condition( $attr_value, $operator, $value ) ) {
-				$can_load = false;
-				break;
+
+				$attr_value = $attrs[ $id ];
+
+				if ( isset( $condition['device'] ) ) {
+					$device_condition_met = false;
+
+					if ( is_array( $attr_value ) ) {
+						foreach ( $attr_value as $device_setting_value ) {
+
+							if ( $this->check_condition( $device_setting_value, $operator, $value ) ) {
+								$device_condition_met = true;
+								break;
+							}
+						}
+					}
+
+					if ( ! $device_condition_met ) {
+						$can_load = false;
+						break;
+					}
+				} elseif ( ! $this->check_condition( $attr_value, $operator, $value ) ) {
+					$can_load = false;
+					break;
+				}
+			}
+
+			if ( ! $can_load ) {
+				return;
 			}
 		}
 
-		if ( ! $can_load ) {
-			return;
-		}
+		// Asumsikan pengecekan ada di element itu sendiri.
 
 		if ( ! empty( $script_handle ) ) {
 			$this->script_list[] = $script_handle;

@@ -139,7 +139,7 @@ class Assets {
 		wp_register_style(
 			'gutenverse-frontend-style',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/frontend.css',
-			array( 'fontawesome-gutenverse', 'gutenverse-iconlist' ),
+			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
 	}
