@@ -44,6 +44,8 @@ const NavMenuBlock = compose(
         mobileSubmenuClick,
         mobileCloseOnClick,
         submenuItemIndicator,
+        submenuItemIndicatorType,
+        submenuItemIndicatorSVG,
         transform,
         mobileEnableOverlay,
     } = attributes;
@@ -94,6 +96,8 @@ const NavMenuBlock = compose(
                         mobileSubmenuClick,
                         mobileCloseOnClick,
                         submenuItemIndicator,
+                        submenuItemIndicatorType,
+                        submenuItemIndicatorSVG,
                         transform,
                         mobileEnableOverlay,
                     },
@@ -139,6 +143,8 @@ const NavMenuBlock = compose(
         mobileSubmenuClick,
         mobileCloseOnClick,
         submenuItemIndicator,
+        submenuItemIndicatorType,
+        submenuItemIndicatorSVG,
         transform,
         mobileEnableOverlay
     ]);
@@ -172,7 +178,9 @@ const NavMenuBlock = compose(
             deviceType?.toLowerCase(),
             `${breakpoint}-breakpoint`,
         ),
-        ['data-item-indicator']: submenuItemIndicator
+        ['data-item-indicator']: submenuItemIndicator,
+        ['data-item-indicator-type']: submenuItemIndicatorType,
+        ['data-item-indicator-svg']: submenuItemIndicatorSVG,
     });
 
     useGenerateElementId(clientId, elementId, elementRef);

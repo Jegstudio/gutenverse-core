@@ -37,9 +37,23 @@ class GutenverseNavMenu extends Default {
 
     _addDropdownIcon(item) {
         const indicator = item.wrapper.data('item-indicator');
+        const indicatorType = item.wrapper.data('item-indicator-type');
+        const indicatorSvg = item.wrapper.data('item-indicator-svg');
+
         item.menuDropdown.each(node => {
             u(node).find('i').remove();
-            u(node).append(`<i class='${indicator}'></i>`);
+            u(node).find('svg').remove();
+
+            if (indicatorType === 'svg' && indicatorSvg) {
+                try {
+                    const svgContent = atob(indicatorSvg);
+                    u(node).append(svgContent);
+                } catch (e) {
+                    u(node).append(`<i class='${indicator}'></i>`);
+                }
+            } else {
+                u(node).append(`<i class='${indicator}'></i>`);
+            }
         });
     }
 
@@ -49,7 +63,7 @@ class GutenverseNavMenu extends Default {
         const viewportWidth = window.innerWidth;
         const leftVal = window.getComputedStyle(item).left;
 
-        if (rect.right > viewportWidth){
+        if (rect.right > viewportWidth) {
             if (leftVal === '0px') {
                 u(item).attr('style', 'left: -120%;');
                 return;
@@ -100,7 +114,7 @@ class GutenverseNavMenu extends Default {
             });
         }
 
-        const dropdownToggle = item.wrapper.find('li.menu-item-has-children > a i');
+        const dropdownToggle = item.wrapper.find('li.menu-item-has-children > a i, li.menu-item-has-children > a svg');
         dropdownToggle.on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -111,28 +125,28 @@ class GutenverseNavMenu extends Default {
             submenu.toggleClass('dropdown-open');
         }
 
-        if ( parseInt( item.wrapper.data('close-on-click') ) === 1 ) {
+        if (parseInt(item.wrapper.data('close-on-click')) === 1) {
             item.singleMenu.on('click', function () {
                 item.container.removeClass('active');
                 item.overlay.removeClass('active');
             });
         }
     }
-    __normalizeUrl(url){
+    __normalizeUrl(url) {
         return url.endsWith('/') ? url.slice(0, -1) : url;
     }
-    __removingClass(element, currentUrl){
+    __removingClass(element, currentUrl) {
         let menuLinks = u(element).find('.gutenverse-menu a');
         menuLinks.each(link => {
             const parentLi = u(link).closest('li');
             if (this.__normalizeUrl(link.href) !== currentUrl) {
                 parentLi.removeClass('current-menu-item');
-            }else{
+            } else {
                 parentLi.addClass('current-menu-item');
             }
         });
     }
-    __handleAnchor(element){
+    __handleAnchor(element) {
         let currentUrl = this.__normalizeUrl(window.location.href);
         this.__removingClass(element, currentUrl);
         window.addEventListener('popstate', () => {

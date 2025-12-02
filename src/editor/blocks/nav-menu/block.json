@@ -45,7 +45,7 @@
 			"default": "icon"
 		},
 		"mobileIconSVG": {
-			"type": "object"
+			"type": "string"
 		},
 		"mobileCloseIcon": {
 			"type": "string",
@@ -56,7 +56,7 @@
 			"default": "icon"
 		},
 		"mobileCloseIconSVG": {
-			"type": "object"
+			"type": "string"
 		},
 		"mobileSubmenuClick": {
 			"type": "boolean",
@@ -180,7 +180,7 @@
 			"default": "icon"
 		},
 		"submenuItemIndicatorSVG": {
-			"type": "object"
+			"type": "string"
 		},
 		"SubmenuIndicatorSize": {
 			"type": "object",

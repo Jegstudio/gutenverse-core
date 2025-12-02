@@ -98,7 +98,7 @@ export const hamburgerStyle = (props) => {
                         'type': 'plain',
                         'id': 'hamburgerSize',
                         'responsive': true,
-                        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu img`,
+                        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu svg`,
                         'properties': [
                             {
                                 'name': 'width',
@@ -194,7 +194,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'color',
                     'id': 'hamburgerColorNormal',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu img`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu svg`,
                     'properties': [
                         {
                             'name': 'fill',
@@ -269,7 +269,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'color',
                     'id': 'hamburgerColorHover',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover img`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover svg`,
                     'properties': [
                         {
                             'name': 'fill',
@@ -391,7 +391,7 @@ export const hamburgerStyle = (props) => {
                 {
                     'type': 'plain',
                     'id': 'closeSize',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu img`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu svg`,
                     'responsive': true,
                     'properties': [
                         {
@@ -488,7 +488,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'color',
                     'id': 'closeColorNormal',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu img`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu svg`,
                     'properties': [
                         {
                             'name': 'fill',
@@ -563,7 +563,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'color',
                     'id': 'closeColorHover',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover img`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover svg`,
                     'properties': [
                         {
                             'name': 'fill',

@@ -131,7 +131,7 @@ class Frontend_Assets {
 		wp_register_style(
 			'gutenverse-frontend',
 			GUTENVERSE_URL . '/assets/css/frontend.css',
-			array( 'fontawesome-gutenverse', 'gutenverse-iconlist' ),
+			array(),
 			GUTENVERSE_VERSION
 		);
 

@@ -54,8 +54,8 @@ class Nav_Menu extends Block_Abstract {
 		$close_icon_html     = $this->render_icon( $mobile_close_icon_type, $mobile_close_icon, $mobile_close_icon_svg );
 
 		// Handle submenu indicator SVG.
-		$submenu_indicator_type = isset( $this->attributes['submenuItemIndicatorType'] ) ? $this->attributes['submenuItemIndicatorType'] : 'icon';
-		$submenu_indicator_svg  = isset( $this->attributes['submenuItemIndicatorSVG'] ) ? $this->attributes['submenuItemIndicatorSVG'] : array();
+		$submenu_indicator_type        = isset( $this->attributes['submenuItemIndicatorType'] ) ? $this->attributes['submenuItemIndicatorType'] : 'icon';
+		$submenu_indicator_svg         = isset( $this->attributes['submenuItemIndicatorSVG'] ) ? $this->attributes['submenuItemIndicatorSVG'] : array();
 		$submenu_indicator_svg_encoded = '';
 
 		if ( 'svg' === $submenu_indicator_type && ! empty( $submenu_indicator_svg ) ) {

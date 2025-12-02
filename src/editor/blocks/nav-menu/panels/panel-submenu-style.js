@@ -44,6 +44,24 @@ export const SubmenuItemStyle = (props) => {
                             }
                         }
                     ]
+                },
+                {
+                    'type': 'plain',
+                    'id': 'SubmenuIndicatorSize',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a > svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a > svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ],
         },
@@ -214,6 +232,18 @@ export const SubmenuItemStyle = (props) => {
                             'valueType': 'direct'
                         }
                     ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'submenuIndicatorColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ],
         },
@@ -270,6 +300,18 @@ export const SubmenuItemStyle = (props) => {
                             'valueType': 'direct'
                         }
                     ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'submenuIndicatorHoverColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a > svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ],
         },
@@ -322,6 +364,18 @@ export const SubmenuItemStyle = (props) => {
                     'properties': [
                         {
                             'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'submenuIndicatorActiveColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a > svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
                             'valueType': 'direct'
                         }
                     ]
