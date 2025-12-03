@@ -31,6 +31,11 @@
                 font-size: 40px;
                 color: var(--guten-txt-color);
 
+                svg {
+                    height: auto;
+                    width: 40px;
+                }
+
                 i {
                     display: block;
                 }

@@ -6,6 +6,7 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import anime from 'animejs';
 import { getDeviceType, getImageSrc } from 'gutenverse-core/editor-helper';
+import { svgAtob } from 'gutenverse-core/helper';
 import { useRef } from '@wordpress/element';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -41,6 +42,7 @@ const FunFactBlock = compose(
         hoverBottom,
         hoverBottomDirection,
         iconType,
+        iconSVG,
         image,
         imageAlt,
         lazyLoad,
@@ -133,6 +135,17 @@ const FunFactBlock = compose(
             case 'icon':
                 return <div className="icon-box">
                     <div className="icon"><i className={icon}></i></div>
+                </div>;
+            case 'svg':
+                return <div className="icon-box">
+                    <div className="icon">
+                        {iconSVG && (
+                            <div
+                                className="gutenverse-icon-svg"
+                                dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
+                            />
+                        )}
+                    </div>
                 </div>;
             case 'image':
                 return <div className="icon-box">

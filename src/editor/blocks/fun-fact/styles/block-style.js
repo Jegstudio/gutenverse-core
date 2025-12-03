@@ -161,6 +161,25 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['iconSize']) && data.push({
+        'type': 'plain',
+        'id': 'iconSize',
+        'responsive': true,
+        'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon svg`,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ]
+    });
+
     isNotEmpty(attributes['iconRotate']) && data.push({
         'type': 'plain',
         'id': 'iconRotate',
@@ -219,6 +238,19 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['iconColor']) && data.push({
+        'type': 'color',
+        'id': 'iconColor',
+        'responsive': true,
+        'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct',
+            }
+        ]
+    });
+
     isNotEmpty(attributes['iconBgColor']) && data.push({
         'type': 'color',
         'id': 'iconBgColor',
@@ -252,6 +284,19 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'color',
+                'valueType': 'direct',
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['iconColorHover']) && data.push({
+        'type': 'color',
+        'id': 'iconColorHover',
+        'responsive': true,
+        'selector': `.${elementId}.guten-fun-fact .fun-fact-inner:hover .icon svg`,
+        'properties': [
+            {
+                'name': 'fill',
                 'valueType': 'direct',
             }
         ]

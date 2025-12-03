@@ -125,6 +125,16 @@ class Fun_Fact extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-fun-fact .fun-fact-inner .icon svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['iconColor'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconBgColor'] ) ) {
@@ -171,6 +181,16 @@ class Fun_Fact extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .fun-fact-inner:hover .icon svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['iconColorHover'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconBgColorHover'] ) ) {
@@ -212,6 +232,16 @@ class Fun_Fact extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
 					'property'       => function ( $value ) {
 						return "font-size: {$value}px !important;";
+					},
+					'value'          => $this->attrs['iconSize'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .fun-fact-inner .icon svg",
+					'property'       => function ( $value ) {
+						return "width: {$value}px !important;";
 					},
 					'value'          => $this->attrs['iconSize'],
 					'device_control' => true,

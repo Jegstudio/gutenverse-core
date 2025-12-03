@@ -23,13 +23,19 @@ export const iconPanel = ({ elementId, iconType, imageSize, imageSizeResponsive 
                     value: 'image',
                     label: 'Image'
                 },
+                {
+                    value: 'svg',
+                    label: 'SVG'
+                },
             ],
         },
         {
             id: 'icon',
-            show: iconType === 'icon',
+            show: iconType === 'icon' || iconType === 'svg',
             label: __('Select Icon', 'gutenverse'),
             component: IconControl,
+            typeAttribute: 'iconType',
+            svgAttribute: 'iconSVG',
         },
         {
             id: 'image',
