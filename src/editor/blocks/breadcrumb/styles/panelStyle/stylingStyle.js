@@ -109,6 +109,18 @@ const stylingStyle = (props) => {
         ],
     });
 
+    isNotEmpty(attributes['iconColor']) && data.push({
+        'type': 'color',
+        'id': 'iconColor',
+        'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li.separator svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
     isNotEmpty(attributes['iconSize']) && data.push({
         'id': 'iconSize',
         'type': 'plain',
@@ -125,6 +137,24 @@ const stylingStyle = (props) => {
             },
         ],
         'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li.separator i`,
+    });
+
+    isNotEmpty(attributes['iconSize']) && data.push({
+        'id': 'iconSize',
+        'type': 'plain',
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    }
+                }
+            },
+        ],
+        'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li.separator svg`,
     });
 
     return data;

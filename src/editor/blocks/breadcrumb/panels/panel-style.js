@@ -82,6 +82,23 @@ export const stylePanel = (props) => {
                         },
                     ],
                     'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li.separator i`,
+                },
+                {
+                    'id': 'iconSize',
+                    'type': 'plain',
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                }
+                            }
+                        },
+                    ],
+                    'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li.separator svg`,
                 }
             ]
         },

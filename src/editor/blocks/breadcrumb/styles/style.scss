@@ -35,6 +35,11 @@
                     display: flex;
                     align-items: center;
 
+                    svg {
+                        width: 16px;
+                        height: auto;
+                    }
+
                     i {
                         &.fab {
                             font-family: 'Font Awesome 6 Brands' !important;

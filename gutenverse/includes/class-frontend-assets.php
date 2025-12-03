@@ -78,6 +78,11 @@ class Frontend_Assets {
 					}
 				}
 				break;
+			case 'gutenverse/breadcrumb':
+				if ( ! isset( $attrs['separatorIconType'] ) || 'icon' === $attrs['separatorIconType'] ) {
+					$this->icon_conditional_load( $conditions );
+				}
+				break;
 		}
 
 		return $conditions;
