@@ -53,24 +53,31 @@ class Frontend_Assets {
 	 * @since 3.3.0
 	 */
 	public function font_icon_conditional_load( $conditions, $attrs, $block_name ) {
-		if ( 'gutenverse/nav-menu' === $block_name ) {
-			if ( ! isset( $attrs['mobileIconType'] ) || ! isset( $attrs['mobileCloseIconType'] ) || ! isset( $attrs['submenuItemIndicatorType'] ) ) {
-				$this->icon_conditional_load( $conditions );
-			}
-		}
-
-		if ( 'gutenverse/divider' === $block_name ) {
-			if ( isset( $attrs['content'] ) && 'icon' === $attrs['content'] ) {
-				if ( ! isset( $attrs['iconType'] ) ) {
+		switch ( $block_name ) {
+			case 'gutenverse/nav-menu':
+				if ( ! isset( $attrs['mobileIconType'] ) || ! isset( $attrs['mobileCloseIconType'] ) || ! isset( $attrs['submenuItemIndicatorType'] ) ) {
 					$this->icon_conditional_load( $conditions );
 				}
-			}
-		}
-
-		if ( 'gutenverse/accordions' === $block_name ) {
-			if ( ( ! isset( $attrs['iconOpenType'] ) || 'icon' === $attrs['iconOpenType'] ) || ( ! isset( $attrs['iconClosedType'] ) || 'icon' === $attrs['iconClosedType'] ) ) {
-				$this->icon_conditional_load( $conditions );
-			}
+				break;
+			case 'gutenverse/divider':
+				if ( isset( $attrs['content'] ) && 'icon' === $attrs['content'] ) {
+					if ( ! isset( $attrs['iconType'] ) ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+				break;
+			case 'gutenverse/accordions':
+				if ( ( ! isset( $attrs['iconOpenType'] ) || 'icon' === $attrs['iconOpenType'] ) || ( ! isset( $attrs['iconClosedType'] ) || 'icon' === $attrs['iconClosedType'] ) ) {
+					$this->icon_conditional_load( $conditions );
+				}
+				break;
+			case 'gutenverse/button':
+				if ( isset( $attrs['showIcon'] ) && $attrs['showIcon'] ) {
+					if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+				break;
 		}
 
 		return $conditions;

@@ -68,7 +68,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'iconPosition',
         'responsive': true,
-        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i, .editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button svg`,
         'properties': [
             {
                 'name': 'margin-right',
@@ -90,7 +90,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'iconPosition',
         'responsive': true,
-        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i, .editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button svg`,
         'properties': [
             {
                 'name': 'margin-left',
@@ -118,6 +118,19 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
         'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
+        'responsive': true
+    });
+
+    isNotEmpty(attributes['iconSize']) && isNotEmpty(attributes['showIcon']) && data.push({
+        'type': 'unitPoint',
+        'id': 'iconSize',
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button svg`,
         'responsive': true
     });
 
@@ -172,6 +185,18 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['iconColor']) && data.push({
+        'type': 'color',
+        'id': 'iconColor',
+        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
     // Hover
     if (isNotEmpty(attributes['hoverWithParent'])) {
         isNotEmpty(attributes['hoverTextColor']) && data.push({
@@ -196,6 +221,17 @@ const getBlockStyle = (elementId, attributes) => {
                 }
             ],
         });
+        isNotEmpty(attributes['hoverIconColor']) && data.push({
+            'type': 'color',
+            'id': 'hoverIconColor',
+            'selector': attributes['parentSelector'] + ` .${elementId}.guten-button-wrapper .guten-button svg` ,
+            'properties': [
+                {
+                    'name': 'fill',
+                    'valueType': 'direct'
+                }
+            ],
+        });
     } else {
         isNotEmpty(attributes['hoverTextColor']) && data.push({
             'type': 'color',
@@ -215,6 +251,17 @@ const getBlockStyle = (elementId, attributes) => {
             'properties': [
                 {
                     'name': 'color',
+                    'valueType': 'direct'
+                }
+            ],
+        });
+        isNotEmpty(attributes['hoverIconColor']) && data.push({
+            'type': 'color',
+            'id': 'hoverIconColor',
+            'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover svg`,
+            'properties': [
+                {
+                    'name': 'fill',
                     'valueType': 'direct'
                 }
             ],

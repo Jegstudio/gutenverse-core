@@ -122,6 +122,13 @@
 			"default": "fab fa-wordpress",
 			"copyStyle": true
 		},
+		"iconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"iconSVG": {
+			"type": "string"
+		},
 		"iconPosition": {
 			"type": "string",
 			"default": "before",
