@@ -1,18 +1,12 @@
 import { compose } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
-import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { panelList } from './panels/panel-list';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { useState } from '@wordpress/element';
-import { createPortal } from 'react-dom';
-import { IconLibrary } from 'gutenverse-core/controls';
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
-import { displayShortcut } from '@wordpress/keycodes';
 import * as divider from './data/divider-style';
-import { gutenverseRoot, svgAtob } from 'gutenverse-core/helper';
-import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
+import { svgAtob } from 'gutenverse-core/helper';
 import { useRef } from '@wordpress/element';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -29,7 +23,7 @@ const DividerOnly = (props) => {
 };
 
 const DividerContent = (props) => {
-    const { attributes, setAttributes, dividerClass, dividerStyle, openIconLibrary, setOpenIconLibrary } = props;
+    const { attributes, setAttributes, dividerClass, dividerStyle } = props;
     const { contentAlign, content, text, icon, iconType, iconSVG } = attributes;
 
     const renderContent = () => {
@@ -49,12 +43,10 @@ const DividerContent = (props) => {
                     return <div
                         className="gutenverse-icon-svg"
                         dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
-                        onClick={() => setOpenIconLibrary(true)}
                     />;
                 }
                 return <i
                     className={`${icon}`}
-                    onClick={() => setOpenIconLibrary(true)}
                 />;
             default:
                 return null;
@@ -62,14 +54,6 @@ const DividerContent = (props) => {
     };
 
     return <div className={'guten-divider-wrapper'} style={dividerStyle}>
-        {content === 'icon' && openIconLibrary && createPortal(
-            <IconLibrary
-                closeLibrary={() => setOpenIconLibrary(false)}
-                value={icon}
-                onChange={icon => setAttributes({ icon })}
-            />,
-            gutenverseRoot
-        )}
         {contentAlign !== 'left' && <div {...dividerClass}></div>}
         <span className={'guten-divider-content'}>{renderContent()}</span>
         {contentAlign !== 'right' && <div {...dividerClass}></div>}
@@ -98,7 +82,6 @@ const DividerBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dividerStyle, setDividerStyle] = useState(null);
-    const [openIconLibrary, setOpenIconLibrary] = useState(false);
 
     const isRegular = ['default', 'double', 'dotted', 'dashed'].includes(type);
     const isTribal = ['fir', 'halfrounds', 'leaves', 'stripes', 'squares', 'trees', 'tribal', 'x'].includes(type);
@@ -153,25 +136,12 @@ const DividerBlock = compose(
     const theProps = {
         ...props,
         dividerClass,
-        dividerStyle,
-        openIconLibrary,
-        setOpenIconLibrary
+        dividerStyle
     };
 
     return <>
         <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
-        {content === 'icon' && <BlockControls>
-            <ToolbarGroup>
-                <ToolbarButton
-                    name="icon"
-                    icon={<LogoCircleColor24SVG />}
-                    title={__('Choose Icon', 'gutenverse')}
-                    shortcut={displayShortcut.primary('i')}
-                    onClick={() => setOpenIconLibrary(true)}
-                />
-            </ToolbarGroup>
-        </BlockControls>}
         <div {...blockProps}>
             <Component {...theProps} />
         </div>
