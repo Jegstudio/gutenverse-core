@@ -1,16 +1,13 @@
 import { __ } from '@wordpress/i18n';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { CheckboxControl, ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ImageControl, RangeControl, SelectControl, TextControl, IconControl } from 'gutenverse-core/controls';
 
 export const panelIcon = (props) => {
     const {
         elementId,
         iconType,
-        removeStyle,
-        iconSize,
-        imageWidth,
-        imageHeight
     } = props;
+
     const deviceType = getDeviceType();
 
     return [
@@ -31,21 +28,21 @@ export const panelIcon = (props) => {
                     value: 'image',
                     label: 'Image'
                 },
+                {
+                    value: 'svg',
+                    label: 'SVG'
+                },
             ],
-            onChange: ({ iconShape }) => {
-                if ('icon' !== iconShape) {
-                    removeStyle('iconSize-style-0');
-                }
-
-                if ('image' !== iconShape) {
-                    removeStyle('imageWidth-style-0');
-                    removeStyle('imageHeight-style-0');
-                }
-            },
+        },
+        {
+            id: 'icon',
+            label: __('Icon', 'gutenverse'),
+            component: IconControl,
+            show: iconType && (iconType === 'icon' || iconType === 'svg'),
         },
         {
             id: 'iconSize',
-            show: iconType && iconType === 'icon',
+            show: iconType && (iconType === 'icon' || iconType === 'svg'),
             label: __('Icon Size', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
@@ -62,6 +59,25 @@ export const panelIcon = (props) => {
                     'properties': [
                         {
                             'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+
+                            }
+                        }
+                    ],
+                },
+                {
+                    'type': 'plain',
+                    'id': 'iconSize',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-icon-box-wrapper .icon-box-header.icon-box .icon svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

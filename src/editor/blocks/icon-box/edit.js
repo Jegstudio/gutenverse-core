@@ -5,12 +5,8 @@ import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { createPortal } from 'react-dom';
-import { IconLibrary } from 'gutenverse-core/controls';
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
-import { displayShortcut } from '@wordpress/keycodes';
-import { gutenverseRoot } from 'gutenverse-core/helper';
-import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
+import { ToolbarGroup } from '@wordpress/components';
+import { svgAtob } from 'gutenverse-core/helper';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
@@ -65,6 +61,7 @@ const IconBoxBlock = compose(
         image,
         imageAlt,
         icon,
+        iconSVG,
         iconType,
         iconPosition,
         iconStyleMode = 'color',
@@ -91,7 +88,6 @@ const IconBoxBlock = compose(
     const imageAltText = imageAlt || null;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const elementRef = useRef();
     const prevHoverWithParent = useRef();
     const [dynamicHref, setDynamicHref] = useState();
@@ -130,8 +126,17 @@ const IconBoxBlock = compose(
         switch (iconType) {
             case 'icon':
                 return <div className="icon-box icon-box-header">
-                    <div className={`icon bg-style-${iconStyleMode}`} onClick={() => setOpenIconLibrary(true)}>
+                    <div className={`icon bg-style-${iconStyleMode}`}>
                         <i className={`${icon} icon-style-${iconStyleMode}`}></i>
+                    </div>
+                </div>;
+            case 'svg':
+                return <div className="icon-box icon-box-header">
+                    <div className={`icon bg-style-${iconStyleMode}`}>
+                        <div
+                            className="gutenverse-icon-svg"
+                            dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
+                        />
                     </div>
                 </div>;
             case 'image':
@@ -243,23 +248,9 @@ const IconBoxBlock = compose(
                     {...props, setPanelState},
                     iconBoxPanelState
                 )}
-                <ToolbarButton
-                    name="icon"
-                    icon={<LogoCircleColor24SVG />}
-                    title={__('Choose Icon', 'gutenverse')}
-                    shortcut={displayShortcut.primary('i')}
-                    onClick={() => setOpenIconLibrary(true)}
-                />
             </ToolbarGroup>
         </BlockControls>
-        {openIconLibrary && createPortal(
-            <IconLibrary
-                closeLibrary={() => setOpenIconLibrary(false)}
-                value={icon}
-                onChange={icon => setAttributes({ icon })}
-            />,
-            gutenverseRoot
-        )}
+
         <div  {...blockProps}>
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
                 {iconPosition !== 'bottom' && iconContent()}

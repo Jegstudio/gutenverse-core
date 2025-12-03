@@ -1,6 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
 import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
+import { svgAtob } from 'gutenverse-core/helper';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
@@ -49,6 +50,7 @@ const save = compose(
         image,
         imageAlt,
         icon,
+        iconSVG,
         iconType,
         iconPosition,
         iconStyleMode = 'color',
@@ -86,6 +88,15 @@ const save = compose(
                 return <div className="icon-box icon-box-header">
                     <div className={`icon bg-style-${iconStyleMode}`}>
                         <i className={`${icon} icon-style-${iconStyleMode}`}></i>
+                    </div>
+                </div>;
+            case 'svg':
+                return <div className="icon-box icon-box-header">
+                    <div className={`icon bg-style-${iconStyleMode}`}>
+                        <div
+                            className="gutenverse-icon-svg"
+                            dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
+                        />
                     </div>
                 </div>;
             case 'image':

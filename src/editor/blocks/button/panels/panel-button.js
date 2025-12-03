@@ -185,12 +185,7 @@ export const buttonPanel = (props) => {
             id: 'icon',
             label: __('Icon', 'gutenverse'),
             component: IconControl,
-            typeAttribute: 'iconType',
-            svgAttribute: 'iconSVG',
             show: showIcon,
-            value: icon,
-            iconType: iconType,
-            svgValue: iconSVG,
         },
         {
             id: 'iconPosition',

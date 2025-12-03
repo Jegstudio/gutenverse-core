@@ -190,6 +190,27 @@ const getBlockStyle = (elementId, attributes) => {
         'multiAttr': { 'iconSize': attributes['iconSize'][device] }
     });
 
+    isNotEmpty(attributes['iconType']) && attributes['iconType'] === 'svg' && data.push({
+        'type': 'plain',
+        'id': 'iconType',
+        'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper .icon-box-header.icon-box .icon svg`,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                        'key': 'iconSize',
+                    },
+
+                }
+            }
+        ],
+        'multiAttr': { 'iconSize': attributes['iconSize'][device] }
+    });
+
     isNotEmpty(attributes['iconType']) && attributes['iconType'] === 'image' && data.push(
         {
             'type': 'plain',
@@ -238,6 +259,26 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'iconSize',
         'responsive': true,
         'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper .icon-box-header.icon-box .icon i`,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+
+                }
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['iconSize']) && isNotEmpty(attributes['iconType']) && attributes['iconType'] === 'svg' && data.push({
+        'type': 'plain',
+        'id': 'iconSize',
+        'responsive': true,
+        'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper .icon-box-header.icon-box .icon svg`,
         'properties': [
             {
                 'name': 'font-size',
@@ -443,6 +484,18 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['iconColor']) && data.push({
+        'type': 'color',
+        'id': 'iconColor',
+        'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['iconHoverColor']) && data.push({
         'type': 'color',
         'id': 'iconHoverColor',
@@ -450,6 +503,18 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['iconHoverColor']) && data.push({
+        'type': 'color',
+        'id': 'iconHoverColor',
+        'selector': `.guten-icon-box.${elementId}:hover .icon-box.icon-box-header .icon svg`,
+        'properties': [
+            {
+                'name': 'fill',
                 'valueType': 'direct'
             }
         ]

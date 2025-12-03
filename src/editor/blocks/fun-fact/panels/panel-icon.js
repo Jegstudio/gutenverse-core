@@ -34,8 +34,6 @@ export const iconPanel = ({ elementId, iconType, imageSize, imageSizeResponsive 
             show: iconType === 'icon' || iconType === 'svg',
             label: __('Select Icon', 'gutenverse'),
             component: IconControl,
-            typeAttribute: 'iconType',
-            svgAttribute: 'iconSVG',
         },
         {
             id: 'image',

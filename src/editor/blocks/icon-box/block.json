@@ -136,6 +136,9 @@
 			"type": "string",
 			"default": "icon"
 		},
+		"iconSVG": {
+			"type": "string"
+		},
 		"icon": {
 			"type": "string",
 			"default": "far fa-user"

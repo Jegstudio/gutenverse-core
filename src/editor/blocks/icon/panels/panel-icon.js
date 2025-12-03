@@ -10,8 +10,6 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
             id: 'icon',
             label: __('Icon', 'gutenverse'),
             component: IconControl,
-            typeAttribute: 'iconType',
-            svgAttribute: 'iconSVG',
         },
         {
             id: 'iconAlign',
