@@ -25,6 +25,25 @@ class Frontend_Assets {
 	}
 
 	/**
+	 * Icon conditional load
+	 *
+	 * @param mixed $conditions The value from the attributes array.
+	 *
+	 * @since 3.3.0
+	 */
+	private function icon_conditional_load( &$conditions ) {
+		$conditions[] = array(
+			'style' => 'fontawesome-gutenverse',
+		);
+
+		$conditions[] = array(
+			'style' => 'gutenverse-iconlist',
+		);
+
+		return $conditions;
+	}
+
+	/**
 	 * Load the font icon
 	 *
 	 * @param mixed  $conditions The value from the attributes array.
@@ -36,12 +55,15 @@ class Frontend_Assets {
 	public function font_icon_conditional_load( $conditions, $attrs, $block_name ) {
 		if ( 'gutenverse/nav-menu' === $block_name ) {
 			if ( ! isset( $attrs['mobileIconType'] ) || ! isset( $attrs['mobileCloseIconType'] ) || ! isset( $attrs['submenuItemIndicatorType'] ) ) {
-				$conditions[] = array(
-					'style' => 'fontawesome-gutenverse',
-				);
-				$conditions[] = array(
-					'style' => 'gutenverse-iconlist',
-				);
+				$this->icon_conditional_load( $conditions );
+			}
+		}
+
+		if ( 'gutenverse/divider' === $block_name ) {
+			if ( isset( $attrs['content'] ) && 'icon' === $attrs['content'] ) {
+				if ( ! isset( $attrs['iconType'] ) ) {
+					$this->icon_conditional_load( $conditions );
+				}
 			}
 		}
 

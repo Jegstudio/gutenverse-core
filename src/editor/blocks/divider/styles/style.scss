@@ -58,6 +58,11 @@
 .guten-divider-content {
     padding: 0 10px 0 10px;
     flex-shrink: 0;
+
+    svg {
+        width: var(--divider-icon-size);
+        height: auto;
+    }
 }
 
 @media (max-width: 425px) {

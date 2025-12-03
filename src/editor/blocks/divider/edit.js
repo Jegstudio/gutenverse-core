@@ -11,7 +11,7 @@ import { IconLibrary } from 'gutenverse-core/controls';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
 import * as divider from './data/divider-style';
-import { gutenverseRoot } from 'gutenverse-core/helper';
+import { gutenverseRoot, svgAtob } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
@@ -30,7 +30,7 @@ const DividerOnly = (props) => {
 
 const DividerContent = (props) => {
     const { attributes, setAttributes, dividerClass, dividerStyle, openIconLibrary, setOpenIconLibrary } = props;
-    const { contentAlign, content, text, icon } = attributes;
+    const { contentAlign, content, text, icon, iconType, iconSVG } = attributes;
 
     const renderContent = () => {
         switch (content) {
@@ -45,6 +45,13 @@ const DividerContent = (props) => {
                     identifier="text"
                 />;
             case 'icon':
+                if (iconType === 'svg' && iconSVG) {
+                    return <div
+                        className="gutenverse-icon-svg"
+                        dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
+                        onClick={() => setOpenIconLibrary(true)}
+                    />;
+                }
                 return <i
                     className={`${icon}`}
                     onClick={() => setOpenIconLibrary(true)}

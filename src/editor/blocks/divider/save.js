@@ -7,6 +7,7 @@ import * as divider from './data/divider-style';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { svgAtob } from 'gutenverse-core/helper';
 
 const DividerOnly = (props) => {
     const { dividerClass, dividerStyle } = props;
@@ -18,13 +19,19 @@ const DividerOnly = (props) => {
 
 const DividerContent = (props) => {
     const { attributes, dividerClass, dividerStyle } = props;
-    const { contentAlign, content, text, icon } = attributes;
+    const { contentAlign, content, text, icon, iconType, iconSVG } = attributes;
 
     const renderContent = () => {
         switch (content) {
             case 'text':
                 return <span><RichText.Content value={text} /></span>;
             case 'icon':
+                if (iconType === 'svg' && iconSVG) {
+                    return <div
+                        className="gutenverse-icon-svg"
+                        dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
+                    />;
+                }
                 return <i className={`${icon}`} />;
             default:
                 return null;
