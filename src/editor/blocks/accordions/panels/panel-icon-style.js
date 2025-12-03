@@ -98,6 +98,24 @@ export const panelIconStyle = (props) => {
                             }
                         }
                     ],
+                },
+                {
+                    'type': 'plain',
+                    'id': 'iconSize',
+                    'responsive': true,
+                    'selector': `.${elementId} .accordion-item .accordion-icon svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                }
+                            }
+                        }
+                    ],
                 }
             ]
         },
@@ -120,6 +138,17 @@ export const panelIconStyle = (props) => {
                     'properties': [
                         {
                             'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                },
+                {
+                    'type': 'color',
+                    'id': 'iconColor',
+                    'selector': `.${elementId} .accordion-item .accordion-icon svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
                             'valueType': 'direct'
                         }
                     ],
@@ -212,6 +241,23 @@ export const panelIconStyle = (props) => {
                             }
                         }
                     ],
+                },
+                {
+                    'type': 'plain',
+                    'responsive': true,
+                    'selector': `.${elementId} .accordion-item.active .accordion-icon svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                }
+                            }
+                        }
+                    ],
                 }
             ]
         },
@@ -233,6 +279,16 @@ export const panelIconStyle = (props) => {
                     'properties': [
                         {
                             'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                },
+                {
+                    'type': 'color',
+                    'selector': `.${elementId} .accordion-item.active .accordion-icon svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
                             'valueType': 'direct'
                         }
                     ],

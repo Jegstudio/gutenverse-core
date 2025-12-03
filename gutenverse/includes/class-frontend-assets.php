@@ -67,6 +67,12 @@ class Frontend_Assets {
 			}
 		}
 
+		if ( 'gutenverse/accordions' === $block_name ) {
+			if ( ( ! isset( $attrs['iconOpenType'] ) || 'icon' === $attrs['iconOpenType'] ) || ( ! isset( $attrs['iconClosedType'] ) || 'icon' === $attrs['iconClosedType'] ) ) {
+				$this->icon_conditional_load( $conditions );
+			}
+		}
+
 		return $conditions;
 	}
 

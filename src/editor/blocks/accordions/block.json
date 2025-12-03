@@ -18,10 +18,24 @@
 			"default": "fas fa-minus",
 			"copyStyle": true
 		},
+		"iconOpenType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"iconOpenSVG": {
+			"type": "string"
+		},
 		"iconClosed": {
 			"type": "string",
 			"default": "fas fa-plus",
 			"copyStyle": true
+		},
+		"iconClosedType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"iconClosedSVG": {
+			"type": "string"
 		},
 		"iconPosition": {
 			"type": "string",
