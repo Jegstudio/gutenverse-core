@@ -23,7 +23,7 @@ const getBlockStyle = (elementId, attributes) => {
                 }
             }
         ],
-        'selector': `.${elementId} i`,
+        'selector': `.${elementId} i, .${elementId} svg`,
     });
 
     /**Panel List */

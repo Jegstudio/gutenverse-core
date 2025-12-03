@@ -11,9 +11,15 @@
     }
     a {
         display: flex;
-        i{
+
+        i, svg{
             display: flex;
             align-items: center;
+        }
+
+        svg {
+            width: 15px;
+            height: auto;
         }
     }
 }

@@ -54,7 +54,7 @@ class Icon_List_Item extends Style_Abstract {
 		if ( isset( $this->attrs['iconLineHeight'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} i",
+					'selector'       => ".{$this->element_id} i, .{$this->element_id} svg",
 					'property'       => function ( $value ) {
 						return "line-height: {$value}px;";
 					},
