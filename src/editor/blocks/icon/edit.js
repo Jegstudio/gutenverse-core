@@ -1,18 +1,14 @@
+
 import { compose } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { BlockControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
-import { createPortal } from 'react-dom';
-import { IconLibrary } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+import { ToolbarGroup } from '@wordpress/components';
 import { URLToolbar } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
-import { displayShortcut } from '@wordpress/keycodes';
-import { gutenverseRoot } from 'gutenverse-core/helper';
-import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
+import { svgAtob } from 'gutenverse-core/helper';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
@@ -44,6 +40,8 @@ const IconBlock = compose(
     const {
         elementId,
         icon,
+        iconType,
+        iconSVG,
         iconShape,
         iconView,
         url,
@@ -59,7 +57,6 @@ const IconBlock = compose(
         panelIsClicked
     } = useRichTextParameter();
 
-    const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -158,29 +155,18 @@ const IconBlock = compose(
                     {...props, setPanelState},
                     iconPanelState
                 )}
-                <ToolbarButton
-                    name="icon"
-                    icon={<LogoCircleColor24SVG />}
-                    title={__('Choose Icon', 'gutenverse')}
-                    shortcut={displayShortcut.primary('i')}
-                    onClick={() => setOpenIconLibrary(true)}
-                />
             </ToolbarGroup>
         </BlockControls>
         <div {...blockProps}>
-            {openIconLibrary && createPortal(
-                <IconLibrary
-                    closeLibrary={() => setOpenIconLibrary(false)}
-                    value={icon}
-                    onChange={icon => setAttributes({ icon })}
-                />,
-                gutenverseRoot
-            )}
             <div {...wrapperProps}>
-                <i
-                    className={`${icon}`}
-                    onClick={() => setOpenIconLibrary(true)}
-                />
+                {iconType === 'svg' && iconSVG ? (
+                    <div
+                        className="gutenverse-icon-svg"
+                        dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
+                    />
+                ) : (
+                    <i className={`${icon}`} />
+                )}
             </div>
         </div>
     </>;

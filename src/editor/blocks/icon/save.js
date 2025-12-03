@@ -6,7 +6,7 @@ import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenvers
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
-import { isEmpty } from 'gutenverse-core/helper';
+import { isEmpty, svgAtob } from 'gutenverse-core/helper';
 
 const save = compose(
     withAnimationAdvanceScript('icon'),
@@ -19,6 +19,8 @@ const save = compose(
     const {
         elementId,
         icon,
+        iconType,
+        iconSVG,
         url,
         ariaLabel,
         linkTarget,
@@ -56,9 +58,23 @@ const save = compose(
 
         const iconElement = !isEmpty(url) ?
             <a className={wrapperClass} href={href} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
-                <i className={`${icon}`}/>
+                {iconType === 'svg' && iconSVG ? (
+                    <div
+                        className="gutenverse-icon-svg"
+                        dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
+                    />
+                ) : (
+                    <i className={`${icon}`}/>
+                )}
             </a> : <span className={wrapperClass}>
-                <i className={`${icon}`}/>
+                {iconType === 'svg' && iconSVG ? (
+                    <div
+                        className="gutenverse-icon-svg"
+                        dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
+                    />
+                ) : (
+                    <i className={`${icon}`}/>
+                )}
             </span>;
 
         return iconElement;
