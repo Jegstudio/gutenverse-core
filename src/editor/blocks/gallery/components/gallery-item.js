@@ -1,5 +1,6 @@
 
 import { getImageSrc } from 'gutenverse-core/editor-helper';
+import { svgAtob } from 'gutenverse-core/helper';
 
 const GalleryItem = (attributes) => {
     const {
@@ -7,7 +8,11 @@ const GalleryItem = (attributes) => {
         layout,
         hover,
         zoomIcon,
+        zoomIconType,
+        zoomIconSVG,
         linkIcon,
+        linkIconType,
+        linkIconSVG,
         zoomText,
         linkText,
         onZoom = () => { },
@@ -56,7 +61,14 @@ const GalleryItem = (attributes) => {
                                     {zoomText}
                                 </p>}
                                 {zoomIcon && <span className="item-icon-inner" onClick={onZoom}>
-                                    <i className={zoomIcon} aria-hidden="true"></i>
+                                    {zoomIconType === 'svg' && zoomIconSVG ? (
+                                        <div
+                                            className="gutenverse-icon-svg"
+                                            dangerouslySetInnerHTML={{ __html: svgAtob(zoomIconSVG) }}
+                                        />
+                                    ) : (
+                                        <i className={zoomIcon} aria-hidden="true"></i>
+                                    )}
                                 </span>}
                             </div>}
                             {(!galleryItem.disableLink && (linkIcon || undefined !== linkText)) && <a href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`} onClick={e => e.preventDefault()}>
@@ -64,7 +76,14 @@ const GalleryItem = (attributes) => {
                                     {linkText}
                                 </p>}
                                 {linkIcon && <span className="item-icon-inner">
-                                    <i className={linkIcon} aria-hidden="true"></i>
+                                    {linkIconType === 'svg' && linkIconSVG ? (
+                                        <div
+                                            className="gutenverse-icon-svg"
+                                            dangerouslySetInnerHTML={{ __html: svgAtob(linkIconSVG) }}
+                                        />
+                                    ) : (
+                                        <i className={linkIcon} aria-hidden="true"></i>
+                                    )}
                                 </span>}
                             </a>}
                         </div>
@@ -102,7 +121,14 @@ const GalleryItem = (attributes) => {
                                     {zoomText}
                                 </p>}
                                 <span className="item-icon-inner" onClick={onZoom}>
-                                    <i className={zoomIcon} aria-hidden="true"></i>
+                                    {zoomIconType === 'svg' && zoomIconSVG ? (
+                                        <div
+                                            className="gutenverse-icon-svg"
+                                            dangerouslySetInnerHTML={{ __html: svgAtob(zoomIconSVG) }}
+                                        />
+                                    ) : (
+                                        <i className={zoomIcon} aria-hidden="true"></i>
+                                    )}
                                 </span>
                             </div>}
                             {(!galleryItem.disableLink && linkIcon) && <a href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`}>
@@ -110,7 +136,14 @@ const GalleryItem = (attributes) => {
                                     {linkText}
                                 </p>}
                                 <span className="item-icon-inner">
-                                    <i className={linkIcon} aria-hidden="true"></i>
+                                    {linkIconType === 'svg' && linkIconSVG ? (
+                                        <div
+                                            className="gutenverse-icon-svg"
+                                            dangerouslySetInnerHTML={{ __html: svgAtob(linkIconSVG) }}
+                                        />
+                                    ) : (
+                                        <i className={linkIcon} aria-hidden="true"></i>
+                                    )}
                                 </span>
                             </a>}
                         </div>

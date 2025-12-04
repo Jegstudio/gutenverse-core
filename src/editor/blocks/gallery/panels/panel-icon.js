@@ -68,6 +68,17 @@ export const iconPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'iconColor',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span svg, .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -109,6 +120,24 @@ export const iconPanel = (props) => {
                     'properties': [
                         {
                             'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    'type': 'plain',
+                    'id': 'iconSize',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span svg, .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

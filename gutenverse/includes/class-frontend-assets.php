@@ -103,6 +103,17 @@ class Frontend_Assets {
 					$this->icon_conditional_load( $conditions );
 				}
 				break;
+			case 'gutenverse/gallery':
+				if ( ! isset( $attrs['zoomIconType'] ) || 'icon' === $attrs['zoomIconType'] ) {
+					$this->icon_conditional_load( $conditions );
+				}
+				if ( ! isset( $attrs['linkIconType'] ) || 'icon' === $attrs['linkIconType'] ) {
+					$this->icon_conditional_load( $conditions );
+				}
+				if ( ! isset( $attrs['enableLoadIconType'] ) || 'icon' === $attrs['enableLoadIconType'] ) {
+					$this->icon_conditional_load( $conditions );
+				}
+				break;
 		}
 
 		return $conditions;

@@ -396,6 +396,12 @@
                             border-radius: 50%;
                             padding: 15px;
                             line-height: 0;
+
+                            svg {
+                                display: flex;
+                                height: auto;
+                                width: 1em;
+                            }
                         }
                     }
                 }
@@ -413,6 +419,12 @@
                             padding: 15px;
                             border-radius: 50%;
                             line-height: 0;
+
+                            svg {
+                                display: flex;
+                                height: auto;
+                                width: 1em;
+                            }
                         }
                     }
                     .item-hover-bg {
@@ -571,6 +583,12 @@
             .icon-position-before,
             .icon-position-after {
                 display: flex;
+
+                svg {
+                    display: flex;
+                    height: auto;
+                    width: 1em;
+                }
             }
         }
     }
