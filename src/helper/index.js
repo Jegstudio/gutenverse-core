@@ -7,6 +7,7 @@ import { useState, useEffect } from '@wordpress/element';
 import { useSetting, useSettings, store as blockEditorStore } from '@wordpress/block-editor';
 import { store as editorStore } from '@wordpress/editor';
 import apiFetch from '@wordpress/api-fetch';
+import { string } from 'prop-types';
 
 export const isEmpty = value => isEmptyLodash(value);
 
@@ -841,7 +842,7 @@ export const installingPlugins = (pluginsList) => {
         const { plugins: installedPlugin } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
         const plugins = pluginsList.map(plgn => ({
-            needUpdate: installedPlugin[plgn.slug] ? versionCompare(plgn.version, installedPlugin[plgn.slug]?.version , '>') : false,
+            needUpdate: installedPlugin[plgn.slug] ? versionCompare(plgn.version, installedPlugin[plgn.slug]?.version, '>') : false,
             name: plgn.name,
             slug: plgn.slug,
             version: plgn.version,
@@ -865,7 +866,7 @@ export const installingPlugins = (pluginsList) => {
                             data: {
                                 status: 'inactive'
                             }
-                        }).then (() => {
+                        }).then(() => {
                             apiFetch({
                                 path: `wp/v2/plugins/plugin?plugin=${plugin.slug}/${plugin.slug}`,
                                 method: 'DELETE'
@@ -950,7 +951,11 @@ export const installAndActivateTheme = (slug) => {
 
 export const svgAtob = (encodedSVG) => {
     try {
-        return atob(encodedSVG);
+        if (typeof encodedSVG === 'string') {
+            return atob(encodedSVG);
+        } else {
+            return null;
+        }
     } catch (e) {
         console.error('Invalid base64:', e);
     }
