@@ -75,6 +75,24 @@ export const closePanel = (props) => {
                         }
                     ],
                     'selector': `.${elementId}.guten-popup-builder .guten-popup-close i`,
+                },
+                {
+                    'type': 'plain',
+                    'id': 'closeButtonSize',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId}.guten-popup-builder .guten-popup-close svg`,
                 }
             ]
         },
@@ -338,6 +356,18 @@ export const closePanel = (props) => {
                             'valueType': 'direct'
                         }
                     ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'closeButtonColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -416,6 +446,18 @@ export const closePanel = (props) => {
                     'properties': [
                         {
                             'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'closeButtonColorHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close:hover svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
                             'valueType': 'direct'
                         }
                     ]

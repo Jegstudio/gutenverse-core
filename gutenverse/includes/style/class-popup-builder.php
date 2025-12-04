@@ -177,6 +177,17 @@ class Popup_Builder extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['closeButtonColor'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['closeButtonColorHover'] ) && isset( $this->attrs['showCloseButton'] ) && $this->attrs['showCloseButton'] ) {
@@ -185,6 +196,17 @@ class Popup_Builder extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close:hover i",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['closeButtonColorHover'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close:hover svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
 					},
 					'value'          => $this->attrs['closeButtonColorHover'],
 					'device_control' => true,
@@ -206,6 +228,17 @@ class Popup_Builder extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .guten-popup-close i",
 					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['closeButtonSize'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-popup-close svg",
+					'property'       => function ( $value ) {
+						return "width: {$value}px;";
 					},
 					'value'          => $this->attrs['closeButtonSize'],
 					'device_control' => true,

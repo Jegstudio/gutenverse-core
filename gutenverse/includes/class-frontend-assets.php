@@ -119,6 +119,11 @@ class Frontend_Assets {
 					$this->icon_conditional_load( $conditions );
 				}
 				break;
+			case 'gutenverse/popup-builder':
+				if ( ! isset( $attrs['closeIconType'] ) || 'icon' === $attrs['closeIconType'] ) {
+					$this->icon_conditional_load( $conditions );
+				}
+				break;
 		}
 
 		return $conditions;

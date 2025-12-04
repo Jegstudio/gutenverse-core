@@ -96,6 +96,16 @@
         padding: 3px;
         border-radius: 3px;
 
+        svg,
+        .gutenverse-icon-svg {
+            display: inline-flex;
+        }
+
+        svg {
+            height: auto;
+            width: 1em;
+        }
+
         i {
             font-size: 27px;
             color: var(--guten-txt-color);

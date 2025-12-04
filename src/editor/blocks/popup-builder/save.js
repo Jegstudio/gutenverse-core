@@ -6,6 +6,8 @@ import { classnames } from 'gutenverse-core/components';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
+import { svgAtob } from 'gutenverse-core/helper';
+import isEmpty from 'lodash/isEmpty';
 
 const save = compose(
     withMouseMoveEffectScript
@@ -18,6 +20,8 @@ const save = compose(
         position,
         sideMode,
         closeIcon,
+        closeIconType,
+        closeIconSVG,
         openTrigger,
         openWaitTime,
         openScrollDistance,
@@ -54,11 +58,11 @@ const save = compose(
             displayClass,
         ),
         'data-trigger': openTrigger,
-        'data-wait': isNaN(openWaitTime) ? undefined : openWaitTime,
+        'data-wait': isNaN(openWaitTime) || isEmpty(openWaitTime) ? undefined : openWaitTime,
         'data-hide': hideAfterClosed ? 'hide-' + elementId : undefined,
-        'data-scroll': isNaN(openScrollDistance) ? undefined : openScrollDistance,
+        'data-scroll': isNaN(openScrollDistance) || isEmpty(openScrollDistance) ? undefined : openScrollDistance,
         'data-anchor': openAnchor,
-        'data-max-click': isNaN(openMaxClick) ? undefined : openMaxClick,
+        'data-max-click': isNaN(openMaxClick) || isEmpty(openMaxClick) ? undefined : openMaxClick,
         'data-close-overlay': closePopupOverlay,
         'data-inactive-interval': openInterval ? JSON.stringify(openInterval) : undefined,
         'data-exit-animation': exitAnimation,
@@ -126,7 +130,14 @@ const save = compose(
                 <div className="guten-popup-overlay"></div>
                 {showCloseButton && closePosition === 'overlay' && (
                     <div className="guten-popup-close">
-                        <i className={closeIcon}></i>
+                        {closeIconType === 'svg' && closeIconSVG ? (
+                            <div
+                                className="gutenverse-icon-svg"
+                                dangerouslySetInnerHTML={{ __html: svgAtob(closeIconSVG) }}
+                            />
+                        ) : (
+                            <i className={closeIcon}></i>
+                        )}
                     </div>
                 )}
                 <div
@@ -143,7 +154,14 @@ const save = compose(
                     >
                         {showCloseButton && closePosition === 'container' && (
                             <div className="guten-popup-close">
-                                <i className={closeIcon}></i>
+                                {closeIconType === 'svg' && closeIconSVG ? (
+                                    <div
+                                        className="gutenverse-icon-svg"
+                                        dangerouslySetInnerHTML={{ __html: svgAtob(closeIconSVG) }}
+                                    />
+                                ) : (
+                                    <i className={closeIcon}></i>
+                                )}
                             </div>
                         )}
                         {renderContent()}

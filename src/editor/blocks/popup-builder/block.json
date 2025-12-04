@@ -111,6 +111,13 @@
 			"type": "string",
 			"default": "gtn gtn-x-line"
 		},
+		"closeIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"closeIconSVG": {
+			"type": "string"
+		},
 		"closePosition": {
 			"type": "string",
 			"default": "container",
