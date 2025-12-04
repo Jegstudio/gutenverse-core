@@ -78,6 +78,13 @@
 			"default": "gtn gtn-right-arrow-light",
 			"copyStyle": true
 		},
+		"linkIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"linkIconSVG": {
+			"type": "string"
+		},
 		"linkIconPosition": {
 			"type": "string",
 			"default": "right",

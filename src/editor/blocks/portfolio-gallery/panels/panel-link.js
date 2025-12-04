@@ -174,6 +174,18 @@ export const linkPanel = (props) => {
                         }
                     ],
                     'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a i`,
+                },
+                {
+                    'type': 'unitPoint',
+                    'id': 'linkIconSize',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'direct',
+                        }
+                    ],
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a svg`,
                 }
             ]
         },
@@ -239,6 +251,17 @@ export const linkPanel = (props) => {
                     'properties': [
                         {
                             'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'linkIconColor',
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
                             'valueType': 'direct'
                         }
                     ]
@@ -311,6 +334,17 @@ export const linkPanel = (props) => {
                     'properties': [
                         {
                             'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'linkIconColorHover',
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a:hover svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
                             'valueType': 'direct'
                         }
                     ]

@@ -10,6 +10,7 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import { svgAtob } from 'gutenverse-core/helper';
 
 const PortfolioGalleryBlock = compose(
     withPartialRender,
@@ -30,6 +31,8 @@ const PortfolioGalleryBlock = compose(
         showLink,
         linkText,
         linkIcon,
+        linkIconType,
+        linkIconSVG,
         behavior
     } = attributes;
 
@@ -102,7 +105,14 @@ const PortfolioGalleryBlock = compose(
                                     showLink && el.link && <div className="row-link-wrapper">
                                         <a href={el.link} aria-label={el.title} target="_blank" rel="noreferrer">
                                             {linkText}
-                                            <i className={`${linkIcon}`} aria-hidden="true"></i>
+                                            {linkIconType === 'svg' && linkIconSVG ? (
+                                                <div
+                                                    className="gutenverse-icon-svg"
+                                                    dangerouslySetInnerHTML={{ __html: svgAtob(linkIconSVG) }}
+                                                />
+                                            ) : (
+                                                <i className={`${linkIcon}`} aria-hidden="true"></i>
+                                            )}
                                         </a>
                                     </div>
                                 }

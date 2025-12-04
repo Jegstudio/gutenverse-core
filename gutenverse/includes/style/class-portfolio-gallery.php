@@ -394,6 +394,17 @@ class Portfolio_Gallery extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a svg",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'width' );
+					},
+					'value'          => $this->attrs['linkIconSize'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['linkBackground'] ) ) {
@@ -419,6 +430,17 @@ class Portfolio_Gallery extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .portfolio-gallery-container .row-item .row-link-wrapper a i",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['linkIconColor'],
+					'device_control' => false,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .portfolio-gallery-container .row-item .row-link-wrapper a svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
 					},
 					'value'          => $this->attrs['linkIconColor'],
 					'device_control' => false,
@@ -462,6 +484,17 @@ class Portfolio_Gallery extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .portfolio-gallery-container .row-item .row-link-wrapper a:hover i",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['linkIconColorHover'],
+					'device_control' => false,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .portfolio-gallery-container .row-item .row-link-wrapper a:hover svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
 					},
 					'value'          => $this->attrs['linkIconColorHover'],
 					'device_control' => false,
