@@ -49,6 +49,16 @@
             color: var(--jkit-txt-h-color);
             font-weight: 700;
 
+            svg,
+            .gutenverse-icon-svg {
+                display: inline-flex;
+            }
+
+            svg {
+                height: auto;
+                width: 1em;
+            }
+
             a {
                 text-decoration: none;
                 color: var(--jkit-txt-h-color);

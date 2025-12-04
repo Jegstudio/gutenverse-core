@@ -114,6 +114,11 @@ class Frontend_Assets {
 					$this->icon_conditional_load( $conditions );
 				}
 				break;
+			case 'gutenverse/image-box':
+				if ( ! isset( $attrs['titleIconType'] ) || 'icon' === $attrs['titleIconType'] ) {
+					$this->icon_conditional_load( $conditions );
+				}
+				break;
 		}
 
 		return $conditions;

@@ -62,6 +62,24 @@ export const panelTitleStyle = props => {
                             }
                         }
                     ]
+                },
+                {
+                    'type': 'plain',
+                    'id': 'titleIconSize',
+                    'responsive': true,
+                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -79,7 +97,7 @@ export const panelTitleStyle = props => {
                     'type': 'plain',
                     'id': 'titleIconSpacing',
                     'responsive': true,
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title.icon-position-before i`,
+                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title.icon-position-before i, .${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title.icon-position-before .gutenverse-icon-svg`,
                     'properties': [
                         {
                             'name': 'margin-right',
@@ -97,7 +115,7 @@ export const panelTitleStyle = props => {
                     'type': 'plain',
                     'id': 'titleIconSpacing',
                     'responsive': true,
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title.icon-position-after i`,
+                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title.icon-position-after i, .${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title.icon-position-after .gutenverse-icon-svg`,
                     'properties': [
                         {
                             'name': 'margin-left',
@@ -163,6 +181,17 @@ export const panelTitleStyle = props => {
                             'valueType': 'direct'
                         }
                     ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'titleNormalIconColor',
+                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -198,6 +227,17 @@ export const panelTitleStyle = props => {
                     'properties': [
                         {
                             'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'titleHoverIconColor',
+                    'selector': `.${elementId}.gutenverse-image-box:hover .inner-container .image-box-body .body-title svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
                             'valueType': 'direct'
                         }
                     ]

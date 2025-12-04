@@ -8,6 +8,7 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
+import { svgAtob } from 'gutenverse-core/helper';
 
 const WrapAHref = ({ attributes, children }) => {
     const {
@@ -51,6 +52,8 @@ const save = compose(
         titleIconPosition,
         description,
         titleIcon,
+        titleIconType,
+        titleIconSVG,
         hoverBottom,
         hoverBottomDirection,
         hasInnerBlocks,
@@ -88,12 +91,30 @@ const save = compose(
                                 'body-title',
                                 `icon-position-${titleIconPosition}`
                             )}>
-                                {titleIconPosition === 'before' && titleIcon !== '' && <i className={titleIcon} />}
+                                {titleIconPosition === 'before' && titleIcon !== '' && (
+                                    titleIconType === 'svg' && titleIconSVG ? (
+                                        <div
+                                            className="gutenverse-icon-svg"
+                                            dangerouslySetInnerHTML={{ __html: svgAtob(titleIconSVG) }}
+                                        />
+                                    ) : (
+                                        <i className={titleIcon} />
+                                    )
+                                )}
                                 <RichText.Content
                                     value={title}
                                     tagName="span"
                                 />
-                                {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
+                                {titleIconPosition === 'after' && titleIcon !== '' && (
+                                    titleIconType === 'svg' && titleIconSVG ? (
+                                        <div
+                                            className="gutenverse-icon-svg"
+                                            dangerouslySetInnerHTML={{ __html: svgAtob(titleIconSVG) }}
+                                        />
+                                    ) : (
+                                        <i className={titleIcon} />
+                                    )
+                                )}
                             </TitleTag>
                         }
                         {
