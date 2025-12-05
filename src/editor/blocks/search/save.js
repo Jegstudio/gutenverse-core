@@ -4,6 +4,7 @@ import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } fro
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
+import { renderIcon } from './icon-renderer';
 
 const save = compose(
     withAnimationAdvanceScript('icon'),
@@ -18,6 +19,8 @@ const save = compose(
         elementId,
         showButton,
         closeIcon,
+        closeIconType,
+        closeIconSVG,
     } = attributes;
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
@@ -45,7 +48,7 @@ const save = compose(
                             )}
                         />
                         <div className="close-icon">
-                            <i className={closeIcon}></i>
+                            {renderIcon(closeIcon, closeIconType, closeIconSVG)}
                         </div>
                     </div>
                 </div>

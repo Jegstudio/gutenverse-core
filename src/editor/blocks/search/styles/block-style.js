@@ -681,6 +681,26 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ]
     });
+
+    isNotEmpty(attributes['closeIconSize']) && data.push({
+        'type': 'plain',
+        'id': 'closeIconSize',
+        'responsive': true,
+        'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon svg`,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ]
+    });
+
     isNotEmpty(attributes['closeIconRotate']) && data.push({
         'type': 'plain',
         'id': 'closeIconRotate',
@@ -735,6 +755,20 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ]
     });
+
+    isNotEmpty(attributes['closeIconColor']) && data.push({
+        'type': 'color',
+        'id': 'closeIconColor',
+        'responsive': true,
+        'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct',
+            }
+        ]
+    });
+
     isNotEmpty(attributes['closeIconColorHover']) && data.push({
         'type': 'color',
         'id': 'closeIconColorHover',
@@ -747,6 +781,20 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ]
     });
+
+    isNotEmpty(attributes['closeIconColorHover']) && data.push({
+        'type': 'color',
+        'id': 'closeIconColorHover',
+        'responsive': true,
+        'selector': `.${elementId} .gutenverse-search-form .search-input-container:hover .close-icon svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct',
+            }
+        ]
+    });
+
     return [
         ...data,
         ...applyFilters(
