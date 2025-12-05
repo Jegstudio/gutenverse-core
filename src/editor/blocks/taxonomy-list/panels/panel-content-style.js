@@ -343,13 +343,13 @@ export const contentStylePanel = (props) => {
             id: 'contentBorder',
             label: __('Content Border', 'gutenverse'),
             component: BorderControl,
-            show: !switcher.contentSwitch || switcher.contentSwitch === 'normal' && device === 'Desktop',
+            show: !switcher.contentSwitch || switcher.contentSwitch === 'normal' && deviceType === 'Desktop',
         },
         {
             id: 'contentBorderResponsive',
             label: __('Content Border', 'gutenverse'),
             component: BorderResponsiveControl,
-            show: !switcher.contentSwitch || switcher.contentSwitch === 'normal' && device !== 'Desktop',
+            show: !switcher.contentSwitch || switcher.contentSwitch === 'normal' && deviceType !== 'Desktop',
         },
         // Hover
         {
@@ -394,13 +394,13 @@ export const contentStylePanel = (props) => {
             id: 'contentBorderHover',
             label: __('Content Border', 'gutenverse'),
             component: BorderControl,
-            show: switcher.contentSwitch === 'hover' && device !== 'Desktop',
+            show: switcher.contentSwitch === 'hover' && deviceType !== 'Desktop',
         },
         {
             id: 'contentBorderHoverResponsive',
             label: __('Content Border', 'gutenverse'),
             component: BorderResponsiveControl,
-            show: switcher.contentSwitch === 'hover' && device !== 'Desktop',
+            show: switcher.contentSwitch === 'hover' && deviceType !== 'Desktop',
         },
         // End normal-hover
         {
