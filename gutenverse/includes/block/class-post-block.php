@@ -127,12 +127,18 @@ class Post_Block extends Post_Abstract {
 			'paginationNumberPost',
 			'paginationScrollLimit',
 			'paginationIcon',
+			'paginationIconType',
+			'paginationIconSVG',
 			'paginationIconPosition',
 			'paginationPrevNextText',
 			'paginationPrevText',
 			'paginationNextText',
 			'paginationPrevIcon',
+			'paginationPrevIconType',
+			'paginationPrevIconSVG',
 			'paginationNextIcon',
+			'paginationNextIconType',
+			'paginationNextIconSVG',
 			'contentOrder',
 			'paginationLoadmoreAnimation',
 			'paginationLoadmoreAnimationSequence',
@@ -193,23 +199,31 @@ class Post_Block extends Post_Abstract {
 				$author_by   = esc_attr( $this->attributes['metaAuthorByText'] );
 
 				$icon          = esc_attr( $this->attributes['metaAuthorIcon'] );
+				$icon_type     = isset( $this->attributes['metaAuthorIconType'] ) ? esc_attr( $this->attributes['metaAuthorIconType'] ) : 'icon';
+				$icon_svg      = isset( $this->attributes['metaAuthorIconSVG'] ) ? $this->attributes['metaAuthorIconSVG'] : '';
 				$icon_position = esc_attr( $this->attributes['metaAuthorIconPosition'] );
 
+				$icon_html = $this->render_icon( $icon, $icon_type, $icon_svg );
+
 				if ( 'before' === $icon_position ) {
-					$author_output = '<div class="guten-meta-author icon-position-' . $icon_position . '"><i aria-hidden="true" class="' . $icon . '"></i><span class="by">' . $author_by . '</span> <a href="' . $author_url . '">' . $author_name . '</a></div>';
+					$author_output = '<div class="guten-meta-author icon-position-' . $icon_position . '">' . $icon_html . '<span class="by">' . $author_by . '</span> <a href="' . $author_url . '">' . $author_name . '</a></div>';
 				} else {
-					$author_output = '<div class="guten-meta-author icon-position-' . $icon_position . '"><span class="by">' . $author_by . '</span><a href="' . $author_url . '">' . $author_name . '</a><i aria-hidden="true" class="' . $icon . '"></i></div>';
+					$author_output = '<div class="guten-meta-author icon-position-' . $icon_position . '"><span class="by">' . $author_by . '</span><a href="' . $author_url . '">' . $author_name . '</a>' . $icon_html . '</div>';
 				}
 			}
 
 			if ( $this->attr_is_true( $this->attributes['metaDateEnabled'] ) ) {
 				$icon          = esc_attr( $this->attributes['metaDateIcon'] );
+				$icon_type     = isset( $this->attributes['metaDateIconType'] ) ? esc_attr( $this->attributes['metaDateIconType'] ) : 'icon';
+				$icon_svg      = isset( $this->attributes['metaDateIconSVG'] ) ? $this->attributes['metaDateIconSVG'] : '';
 				$icon_position = esc_attr( $this->attributes['metaDateIconPosition'] );
 
+				$icon_html = $this->render_icon( $icon, $icon_type, $icon_svg );
+
 				if ( 'before' === $icon_position ) {
-					$date_output = '<div class="guten-meta-date icon-position-' . $icon_position . '"><i aria-hidden="true" class="' . $icon . '"></i>' . $this->format_date( $post ) . '</div>';
+					$date_output = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $icon_html . $this->format_date( $post ) . '</div>';
 				} else {
-					$date_output = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $this->format_date( $post ) . '<i aria-hidden="true" class="' . $icon . '"></i></div>';
+					$date_output = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $this->format_date( $post ) . $icon_html . '</div>';
 				}
 			}
 
@@ -217,6 +231,23 @@ class Post_Block extends Post_Abstract {
 		}
 
 		return apply_filters( 'gutenverse_post_block_meta', $meta, $post, $this );
+	}
+
+	/**
+	 * Render icon (font icon or SVG)
+	 *
+	 * @param string $icon Icon class name.
+	 * @param string $icon_type Type of icon ('icon' or 'svg').
+	 * @param string $icon_svg Base64 encoded SVG data.
+	 *
+	 * @return string
+	 */
+	protected function render_icon( $icon, $icon_type = 'icon', $icon_svg = '' ) {
+		if ( 'svg' === $icon_type && ! empty( $icon_svg ) ) {
+			$svg_data = base64_decode( $icon_svg );
+			return '<div class="gutenverse-icon-svg">' . $svg_data . '</div>';
+		}
+		return '<i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i>';
 	}
 
 	/**
@@ -255,13 +286,17 @@ class Post_Block extends Post_Abstract {
 
 		if ( $this->attr_is_true( $this->attributes['readmoreEnabled'] ) ) {
 			$icon          = esc_attr( $this->attributes['readmoreIcon'] );
+			$icon_type     = isset( $this->attributes['readmoreIconType'] ) ? esc_attr( $this->attributes['readmoreIconType'] ) : 'icon';
+			$icon_svg      = isset( $this->attributes['readmoreIconSVG'] ) ? $this->attributes['readmoreIconSVG'] : '';
 			$icon_position = esc_attr( $this->attributes['readmoreIconPosition'] );
 			$text          = esc_attr( $this->attributes['readmoreText'] );
 
+			$icon_html = $this->render_icon( $icon, $icon_type, $icon_svg );
+
 			if ( 'before' === $icon_position ) {
-				$readmore = '<i aria-hidden="true" class="' . $icon . '"></i>' . $text;
+				$readmore = $icon_html . $text;
 			} else {
-				$readmore = $text . '<i aria-hidden="true" class="' . $icon . '"></i>';
+				$readmore = $text . $icon_html;
 			}
 
 			$readmore =
@@ -307,18 +342,23 @@ class Post_Block extends Post_Abstract {
 		if ( $this->attr_is_true( $this->attributes['commentEnabled'] ) ) {
 			$number        = $this->guten_get_comments_number( $post->ID );
 			$icon          = esc_attr( $this->attributes['commentIcon'] );
+			$icon_type     = isset( $this->attributes['commentIconType'] ) ? esc_attr( $this->attributes['commentIconType'] ) : 'icon';
+			$icon_svg      = isset( $this->attributes['commentIconSVG'] ) ? $this->attributes['commentIconSVG'] : '';
 			$icon_position = esc_attr( $this->attributes['commentIconPosition'] );
 
+			$icon_html = $this->render_icon( $icon, $icon_type, $icon_svg );
+
+			$inner_comment_content = '';
 			if ( 'before' === $icon_position ) {
-				$comment = '<i aria-hidden="true" class="' . $icon . '"></i><span>' . $number . '</span>';
+				$inner_comment_content = $icon_html . '<span>' . $number . '</span>';
 			} else {
-				$comment = '<span>' . $number . '</span><i aria-hidden="true" class="' . $icon . '"></i>';
+				$inner_comment_content = '<span>' . $number . '</span>' . $icon_html;
 			}
 
 			$comment =
 			'<div class="guten-meta-comment icon-position-' . $icon_position . '">
                 <a href="' . $this->guten_get_respond_link( $post->ID ) . '" >
-                    ' . $comment . '
+                    ' . $inner_comment_content . '
                 </a>
             </div>';
 		}

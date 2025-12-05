@@ -1,7 +1,8 @@
 import { Fragment } from '@wordpress/element';
 import { dummyText } from 'gutenverse-core/helper';
+import { renderIcon } from './icon-renderer';
 
-const PostBlockColumns = (props) => {
+const PostBlockContent = (props) => {
     const {
         postData = [],
         attributes
@@ -16,18 +17,26 @@ const PostBlockColumns = (props) => {
         excerptMore,
         readmoreEnabled,
         readmoreIcon,
+        readmoreIconType,
+        readmoreIconSVG,
         readmoreIconPosition,
         readmoreText,
         commentEnabled,
         commentIcon,
+        commentIconType,
+        commentIconSVG,
         commentIconPosition,
         metaEnabled,
         metaAuthorEnabled,
         metaAuthorByText,
         metaAuthorIcon,
+        metaAuthorIconType,
+        metaAuthorIconSVG,
         metaAuthorIconPosition,
         metaDateEnabled,
         metaDateIcon,
+        metaDateIconType,
+        metaDateIconSVG,
         metaDateIconPosition,
         postblockType,
         contentOrder = []
@@ -52,27 +61,19 @@ const PostBlockColumns = (props) => {
             <div className="guten-post-meta">
                 {metaAuthorEnabled && (
                     <div className={`guten-meta-author icon-position-${metaAuthorIconPosition}`}>
-                        {metaAuthorIconPosition === 'before' && (
-                            <i aria-hidden="true" className={metaAuthorIcon}></i>
-                        )}
+                        {metaAuthorIconPosition === 'before' && renderIcon(metaAuthorIcon, metaAuthorIconType, metaAuthorIconSVG)}
                         <span className="by">{metaAuthorByText}</span>{' '}
-                        <a href={'javascript:void(0);'}>
+                        <a href="#">
                             {post?.author_name || 'gutenverse'}
                         </a>
-                        {metaAuthorIconPosition === 'after' && (
-                            <i aria-hidden="true" className={metaAuthorIcon}></i>
-                        )}
+                        {metaAuthorIconPosition === 'after' && renderIcon(metaAuthorIcon, metaAuthorIconType, metaAuthorIconSVG)}
                     </div>
                 )}
                 {metaDateEnabled && (
                     <div className={`guten-meta-date icon-position-${metaDateIconPosition}`}>
-                        {metaDateIconPosition === 'before' && (
-                            <i aria-hidden="true" className={metaDateIcon}></i>
-                        )}
+                        {metaDateIconPosition === 'before' && renderIcon(metaDateIcon, metaDateIconType, metaDateIconSVG)}
                         {formatDate(post)}
-                        {metaDateIconPosition === 'after' && (
-                            <i aria-hidden="true" className={metaDateIcon}></i>
-                        )}
+                        {metaDateIconPosition === 'after' && renderIcon(metaDateIcon, metaDateIconType, metaDateIconSVG)}
                     </div>
                 )}
             </div>
@@ -100,30 +101,26 @@ const PostBlockColumns = (props) => {
             <div className="guten-post-meta-bottom">
                 {readmoreEnabled && (
                     <div className={`guten-meta-readmore icon-position-${readmoreIconPosition}`}>
-                        <a href={'javascript:void(0);'} className="guten-readmore">
-                            {readmoreIconPosition === 'before' && (
-                                <i aria-hidden="true" className={readmoreIcon}></i>
-                            )}
+                        <a href="#" className="guten-readmore">
+                            {readmoreIconPosition === 'before' && renderIcon(readmoreIcon, readmoreIconType, readmoreIconSVG)}
                             {readmoreText}
-                            {readmoreIconPosition === 'after' && (
-                                <i aria-hidden="true" className={readmoreIcon}></i>
-                            )}
+                            {readmoreIconPosition === 'after' && renderIcon(readmoreIcon, readmoreIconType, readmoreIconSVG)}
                         </a>
                     </div>
                 )}
                 {commentEnabled && (
                     <div className={`guten-meta-comment icon-position-${commentIconPosition}`}>
-                        <a href={'javascript:void(0);'} data-href={post?.comment_url || 'dummy-data'}>
+                        <a href="#" data-href={post?.comment_url || 'dummy-data'}>
                             {commentIconPosition === 'before' && (
                                 <>
-                                    <i aria-hidden="true" className={commentIcon}></i>
+                                    {renderIcon(commentIcon, commentIconType, commentIconSVG)}
                                     <span>{post?.comment_count || 0}</span>
                                 </>
                             )}
                             {commentIconPosition === 'after' && (
                                 <>
                                     <span>{post?.comment_count || 0}</span>
-                                    <i aria-hidden="true" className={commentIcon}></i>
+                                    {renderIcon(commentIcon, commentIconType, commentIconSVG)}
                                 </>
                             )}
                         </a>
@@ -137,12 +134,12 @@ const PostBlockColumns = (props) => {
         if (!categoryEnabled) return null;
 
         const position = postblockType === 'type-3' ? `position-${categoryPosition}` : '';
-        const category = post?.primary_category || { name: 'category', slug: 'category', url: 'javascript:void(0);' };
+        const category = post?.primary_category || { name: 'category', slug: 'category', url: '#' };
 
         return (
             <div className={`guten-post-category ${position}`}>
                 <span>
-                    <a href={'javascript:void(0);'} className={`category-${category.slug}`}>
+                    <a href="#" className={`category-${category.slug}`}>
                         {category.name}
                     </a>
                 </span>
@@ -158,7 +155,7 @@ const PostBlockColumns = (props) => {
                 const HtmlTag = htmlTag;
                 content.push(
                     <HtmlTag key={`title-${index}`} className="guten-post-title">
-                        <a href={'javascript:void(0);'}>
+                        <a href="#">
                             {post?.title || dummyText(5, 10)}
                         </a>
                     </HtmlTag>
@@ -201,7 +198,7 @@ const PostBlockColumns = (props) => {
         return (
             <article key={post?.id || index} className={postClasses}>
                 <div className="guten-thumb">
-                    <a href={'javascript:void(0);'}>
+                    <a href="#">
                         <div className="thumbnail-container">
                             <img
                                 loading="eager"
@@ -237,4 +234,4 @@ const PostBlockColumns = (props) => {
     );
 };
 
-export default PostBlockColumns;
+export default PostBlockContent;

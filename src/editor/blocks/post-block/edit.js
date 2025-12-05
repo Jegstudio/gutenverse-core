@@ -13,7 +13,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
-import PostBlockColumns from './PostBlockColumns';
+import PostBlockContent from './PostBlockContent';
 import PostBlockPagination from './PostBlockPagination';
 
 const PostBlockBlock = compose(
@@ -50,7 +50,15 @@ const PostBlockBlock = compose(
         paginationPrevText,
         paginationNextText,
         paginationPrevIcon,
-        paginationNextIcon
+        paginationNextIcon,
+        paginationIcon,
+        paginationIconType,
+        paginationIconSVG,
+        paginationIconPosition,
+        paginationPrevIconType,
+        paginationPrevIconSVG,
+        paginationNextIconType,
+        paginationNextIconSVG,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -203,7 +211,7 @@ const PostBlockBlock = compose(
                 {!loading ? (
                     <div className={`gutenverse guten-postblock ${postblockTypeClass} ${paginationClass} ${breakpointClass} post-element ${elementId}`} data-id={elementId}>
                         <div className="guten-block-container">
-                            <PostBlockColumns
+                            <PostBlockContent
                                 postData={postData}
                                 attributes={attributes}
                                 isEditor={isOnEditor()}
@@ -216,7 +224,15 @@ const PostBlockBlock = compose(
                             paginationPrevText={paginationPrevText}
                             paginationNextText={paginationNextText}
                             paginationPrevIcon={paginationPrevIcon}
+                            paginationPrevIconType={paginationPrevIconType}
+                            paginationPrevIconSVG={paginationPrevIconSVG}
                             paginationNextIcon={paginationNextIcon}
+                            paginationNextIconType={paginationNextIconType}
+                            paginationNextIconSVG={paginationNextIconSVG}
+                            paginationIcon={paginationIcon}
+                            paginationIconType={paginationIconType}
+                            paginationIconSVG={paginationIconSVG}
+                            paginationIconPosition={paginationIconPosition}
                             currentPage={page}
                             totalPages={totalPages}
                             onPageChange={(newPage) => setPage(newPage)}

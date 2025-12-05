@@ -24,6 +24,17 @@ export const commentPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
+                },
+                {
+                    'type': 'color',
+                    'id': 'commentColor',
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
             ]
         },
@@ -45,6 +56,24 @@ export const commentPanel = (props) => {
                     'properties': [
                         {
                             'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    'type': 'plain',
+                    'id': 'commentSize',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

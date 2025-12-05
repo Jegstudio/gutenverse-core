@@ -130,7 +130,51 @@ class Frontend_Assets {
 				}
 				break;
 			case 'gutenverse/post-block':
-				$this->icon_conditional_load( $conditions );
+				// Check readmore icon. readmoreEnabled default nya true, readmoreIconType juga default nya icon.
+				if ( ! isset( $attrs['readmoreEnabled'] ) && ! isset( $attrs['readmoreIconType'] ) ) {
+					$this->icon_conditional_load( $conditions );
+				}
+
+				// Check comment icon (requires commentEnabled).
+				if ( isset( $attrs['commentEnabled'] ) && $attrs['commentEnabled'] ) {
+					if ( ! isset( $attrs['commentIconType'] ) ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+
+				// Check meta author icon (requires metaEnabled AND metaAuthorEnabled).
+				if ( ! isset( $attrs['metaEnabled'] ) ) {
+					if ( ! isset( $attrs['metaAuthorEnabled'] ) ) {
+						if ( ! isset( $attrs['metaAuthorIconType'] ) ) {
+							$this->icon_conditional_load( $conditions );
+						}
+					}
+
+					// Check meta date icon (requires metaEnabled AND metaDateEnabled).
+					if ( ! isset( $attrs['metaDateEnabled'] ) ) {
+						if ( ! isset( $attrs['metaDateIconType'] ) ) {
+							$this->icon_conditional_load( $conditions );
+						}
+					}
+				}
+
+				// Check pagination icons (always shown when pagination is enabled).
+				if ( isset( $attrs['paginationMode'] ) ) {
+					if ( in_array( $attrs['paginationMode'], array( 'loadmore', 'scrollload' ), true ) ) {
+						if ( ! isset( $attrs['paginationIconType'] ) ) {
+							$this->icon_conditional_load( $conditions );
+						}
+					}
+
+					if ( in_array( $attrs['paginationMode'], array( 'prevnext', 'number', 'normal-prevnext', 'normal-number' ), true ) ) {
+						if ( ! isset( $attrs['paginationPrevIconType'] ) ) {
+							$this->icon_conditional_load( $conditions );
+						}
+						if ( ! isset( $attrs['paginationNextIconType'] ) ) {
+							$this->icon_conditional_load( $conditions );
+						}
+					}
+				}
 				break;
 		}
 

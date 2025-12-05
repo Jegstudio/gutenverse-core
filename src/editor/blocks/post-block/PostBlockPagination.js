@@ -1,15 +1,24 @@
+import { renderIcon } from './icon-renderer';
+
 const PostBlockPagination = (props) => {
     const {
         paginationMode,
         paginationLoadmoreText,
+        paginationIcon,
+        paginationIconType,
+        paginationIconSVG,
+        paginationIconPosition,
         paginationPrevNextText,
         paginationPrevText,
         paginationNextText,
         paginationPrevIcon,
+        paginationPrevIconType,
+        paginationPrevIconSVG,
         paginationNextIcon,
+        paginationNextIconType,
+        paginationNextIconSVG,
         currentPage = 1,
-        totalPages = 1,
-        onPageChange
+        totalPages = 1
     } = props;
 
     if (!paginationMode || paginationMode === 'disable') {
@@ -17,11 +26,14 @@ const PostBlockPagination = (props) => {
     }
 
     const renderLoadMore = () => {
+        const iconHtml = renderIcon(paginationIcon, paginationIconType, paginationIconSVG);
         return (
             <div className="guten-block-pagination guten-align">
-                <div className="guten-block-loadmore icon-position-before">
+                <div className={`guten-block-loadmore icon-position-${paginationIconPosition || 'before'}`}>
                     <span data-load="Load More" data-loading="Loading...">
+                        {paginationIconPosition === 'before' && iconHtml}
                         {paginationLoadmoreText}
+                        {paginationIconPosition === 'after' && iconHtml}
                     </span>
                 </div>
             </div>
@@ -32,22 +44,22 @@ const PostBlockPagination = (props) => {
         return (
             <div className="guten_block_nav additional_class" data-page={currentPage}>
                 <a
-                    href="javascript:void(0);"
+                    href="#"
                     data-href="#"
                     className={`btn-pagination prev ${currentPage === 1 ? 'disabled' : ''}`}
                     title="Prev"
                 >
-                    <i className={paginationPrevIcon}></i>{' '}
+                    {renderIcon(paginationPrevIcon, paginationPrevIconType, paginationPrevIconSVG)}{' '}
                     {paginationPrevNextText ? paginationPrevText : ''}
                 </a>
                 <a
-                    href="javascript:void(0);"
+                    href="#"
                     data-href="#"
                     className={`btn-pagination next ${currentPage >= totalPages ? 'disabled' : ''}`}
                     title="Next"
                 >
                     {paginationPrevNextText ? paginationNextText : ''}{' '}
-                    <i className={paginationNextIcon}></i>
+                    {renderIcon(paginationNextIcon, paginationNextIconType, paginationNextIconSVG)}
                 </a>
             </div>
         );
@@ -55,7 +67,6 @@ const PostBlockPagination = (props) => {
 
     const renderNumber = () => {
         const pages = [];
-        const maxVisible = 5;
         let startPage = Math.max(1, currentPage - 2);
         let endPage = Math.min(totalPages, currentPage + 2);
 
@@ -64,7 +75,7 @@ const PostBlockPagination = (props) => {
             pages.push(
                 <a
                     key="page-1"
-                    href="javascript:void(0);"
+                    href="#"
                     data-href="#"
                     className="btn-pagination"
                     data-page="1"
@@ -89,7 +100,7 @@ const PostBlockPagination = (props) => {
                 pages.push(
                     <a
                         key={`page-${i}`}
-                        href="javascript:void(0);"
+                        href="#"
                         data-href="#"
                         className="btn-pagination"
                         data-page={i}
@@ -108,7 +119,7 @@ const PostBlockPagination = (props) => {
             pages.push(
                 <a
                     key={`page-${totalPages}`}
-                    href="javascript:void(0);"
+                    href="#"
                     data-href="#"
                     className="btn-pagination"
                     data-page={totalPages}
@@ -121,23 +132,23 @@ const PostBlockPagination = (props) => {
         return (
             <div className="guten_block_nav" data-page={currentPage}>
                 <a
-                    href="javascript:void(0);"
+                    href="#"
                     data-href="#"
                     className={`btn-pagination prev ${currentPage === 1 ? 'disabled' : ''}`}
                     title="Prev"
                 >
-                    <i className={paginationPrevIcon}></i>{' '}
+                    {renderIcon(paginationPrevIcon, paginationPrevIconType, paginationPrevIconSVG)}{' '}
                     {paginationPrevNextText ? paginationPrevText : ''}
                 </a>
                 {pages}
                 <a
-                    href="javascript:void(0);"
+                    href="#"
                     data-href="#"
                     className={`btn-pagination next ${currentPage >= totalPages ? 'disabled' : ''}`}
                     title="Next"
                 >
                     {paginationPrevNextText ? paginationNextText : ''}{' '}
-                    <i className={paginationNextIcon}></i>
+                    {renderIcon(paginationNextIcon, paginationNextIconType, paginationNextIconSVG)}
                 </a>
             </div>
         );

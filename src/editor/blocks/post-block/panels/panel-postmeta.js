@@ -46,6 +46,17 @@ export const postmetaPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
+                },
+                {
+                    'type': 'color',
+                    'id': 'metaColorIcon',
+                    'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
             ]
         },
@@ -67,6 +78,24 @@ export const postmetaPanel = (props) => {
                     'properties': [
                         {
                             'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    'type': 'plain',
+                    'id': 'metaSizeIcon',
+                    'responsive' : true,
+                    'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

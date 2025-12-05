@@ -155,6 +155,7 @@
         .thumbnail-container {
             img[loading="lazy"] {
                 opacity: 0;
+
                 &.lazyloaded {
                     transition: opacity .4s ease;
                     opacity: 1;
@@ -178,12 +179,38 @@
             visibility: visible;
         }
 
-        .icon-position-before i {
-            margin-right: 5px;
+        .icon-position-before {
+            i {
+                margin-right: 5px;
+            }
+
+            .gutenverse-icon-svg {
+                display: inline-flex;
+                vertical-align: sub;
+                margin-right: 5px;
+
+                svg {
+                    height: auto;
+                    width: 1em;
+                }
+            }
         }
 
-        .icon-position-after i {
-            margin-left: 5px;
+        .icon-position-after {
+            i {
+                margin-left: 5px;
+            }
+
+            .gutenverse-icon-svg {
+                display: inline-flex;
+                vertical-align: sub;
+                margin-left: 5px;
+
+                svg {
+                    height: auto;
+                    width: 1em;
+                }
+            }
         }
     }
 
@@ -452,6 +479,16 @@
             i {
                 padding-top: 4px;
             }
+
+            .gutenverse-icon-svg {
+                display: inline-flex;
+                vertical-align: sub;
+
+                svg {
+                    width: 1em;
+                    height: auto;
+                }
+            }
         }
     }
 
@@ -482,8 +519,14 @@
                 transition: none;
             }
 
-            i {
-                transition: none;
+            .gutenverse-icon-svg {
+                display: inline-flex;
+                vertical-align: sub;
+
+                svg {
+                    width: 1em;
+                    height: auto;
+                }
             }
 
             &.disabled {
