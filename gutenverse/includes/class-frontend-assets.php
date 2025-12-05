@@ -175,6 +175,7 @@ class Frontend_Assets {
 						}
 					}
 				}
+				break;
 			case 'gutenverse/search':
 				if ( ! isset( $attrs['closeIconType'] ) || 'icon' === $attrs['closeIconType'] ) {
 					$this->icon_conditional_load( $conditions );
