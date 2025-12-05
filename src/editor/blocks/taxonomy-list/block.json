@@ -45,6 +45,14 @@
 			"type": "string",
 			"default": "fab fa-wordpress"
 		},
+		"iconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"iconSVG": {
+			"type": "string",
+			"default": ""
+		},
 		"iconColor": {
 			"type": "object",
 			"copyStyle": true

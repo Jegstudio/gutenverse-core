@@ -18,6 +18,28 @@ use Gutenverse\Framework\Block\Block_Abstract;
  */
 class Taxonomy_List extends Block_Abstract {
 	/**
+	 * Render icon (font icon or SVG)
+	 *
+	 * @param string $icon Icon class name.
+	 * @param string $icon_type Type of icon ('icon' or 'svg').
+	 * @param string $icon_svg Base64 encoded SVG data.
+	 *
+	 * @return string
+	 */
+	protected function render_icon( $icon, $icon_type = 'icon', $icon_svg = '' ) {
+		if ( 'svg' === $icon_type && ! empty( $icon_svg ) ) {
+			$svg_data = base64_decode( $icon_svg );
+			return '<div class="gutenverse-icon-svg">' . $svg_data . '</div>';
+		}
+
+		if ( ! empty( $icon ) ) {
+			return '<i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i>';
+		}
+
+		return '';
+	}
+
+	/**
 	 * Render content
 	 *
 	 * @param integer $category_qty .
@@ -48,7 +70,10 @@ class Taxonomy_List extends Block_Abstract {
 		$bracket    = $this->attributes['countBracket'];
 
 		if ( $this->attributes['showIcon'] ) {
-			$icon = '<span class="icon-list"><i aria-hidden="true" class="' . esc_attr( $this->attributes['icon'] ) . '"></i></span>';
+			$icon_type = isset( $this->attributes['iconType'] ) ? $this->attributes['iconType'] : 'icon';
+			$icon_svg  = isset( $this->attributes['iconSVG'] ) ? $this->attributes['iconSVG'] : '';
+			$icon_html = $this->render_icon( $this->attributes['icon'], $icon_type, $icon_svg );
+			$icon      = '<span class="icon-list">' . $icon_html . '</span>';
 		}
 		if ( ! empty( $categories ) ) {
 			ob_start();

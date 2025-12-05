@@ -186,6 +186,13 @@ class Frontend_Assets {
 					$this->icon_conditional_load( $conditions );
 				}
 				break;
+			case 'gutenverse/taxonomy-list':
+				if ( isset( $attrs['showIcon'] ) && $attrs['showIcon'] ) {
+					if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+				break;
 		}
 
 		return $conditions;
