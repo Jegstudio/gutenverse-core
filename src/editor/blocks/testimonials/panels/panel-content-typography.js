@@ -103,6 +103,24 @@ export const panelContentTypography = props => {
                             }
                         }
                     ]
+                },
+                {
+                    'type': 'plain',
+                    'id': 'quoteSize',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-testimonial-item .testimonial-box .icon-content svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -279,6 +297,17 @@ export const panelContentTypography = props => {
                         }
                     ],
                     'selector': `.${elementId} .guten-testimonial-item .testimonial-box .icon-content i`,
+                },
+                {
+                    'type': 'color',
+                    'id': 'quoteNormalColor',
+                    'properties': [
+                        {
+                            'name': 'fill',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-testimonial-item .testimonial-box .icon-content svg`,
                 }
             ]
         },

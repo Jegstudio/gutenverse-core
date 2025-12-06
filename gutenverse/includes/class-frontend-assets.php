@@ -130,7 +130,7 @@ class Frontend_Assets {
 				}
 				break;
 			case 'gutenverse/post-block':
-				// Check readmore icon. readmoreEnabled default nya true, readmoreIconType juga default nya icon.
+				// Check quote icon. readmoreEnabled default nya true, readmoreIconType juga default nya icon.
 				if ( ! isset( $attrs['readmoreEnabled'] ) && ! isset( $attrs['readmoreIconType'] ) ) {
 					$this->icon_conditional_load( $conditions );
 				}
@@ -158,7 +158,7 @@ class Frontend_Assets {
 					}
 				}
 
-				// Check pagination icons (always shown when pagination is enabled).
+				// Check rating icons. icons (always shown when pagination is enabled).
 				if ( isset( $attrs['paginationMode'] ) ) {
 					if ( in_array( $attrs['paginationMode'], array( 'loadmore', 'scrollload' ), true ) ) {
 						if ( ! isset( $attrs['paginationIconType'] ) ) {
@@ -189,6 +189,22 @@ class Frontend_Assets {
 			case 'gutenverse/taxonomy-list':
 				if ( isset( $attrs['showIcon'] ) && $attrs['showIcon'] ) {
 					if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+				break;
+			case 'gutenverse/testimonials':
+				if ( isset( $attrs['showQuote'] ) && $attrs['showQuote'] ) {
+					if ( ! isset( $attrs['iconQuoteType'] ) || 'icon' === $attrs['iconQuoteType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+
+				if ( isset( $attrs['showRating'] ) && $attrs['showRating'] ) {
+					if ( ! isset( $attrs['iconRatingFullType'] ) || 'icon' === $attrs['iconRatingFullType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+					if ( ! isset( $attrs['iconRatingHalfType'] ) || 'icon' === $attrs['iconRatingHalfType'] ) {
 						$this->icon_conditional_load( $conditions );
 					}
 				}

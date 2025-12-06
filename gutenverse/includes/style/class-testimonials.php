@@ -674,6 +674,19 @@ class Testimonials extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['quoteSize'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-testimonial-item .testimonial-box .icon-content svg",
+					'property'       => function ( $value ) {
+						return "width: {$value}px;";
+					},
+					'value'          => $this->attrs['quoteSize'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['quotePositionTop'] ) ) {
 			$this->inject_style(
 				array(
@@ -791,12 +804,38 @@ class Testimonials extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['quoteNormalColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-testimonial-item .testimonial-box .icon-content svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['quoteNormalColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['quoteHoverColor'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item:hover .testimonial-box .icon-content i",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['quoteHoverColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['quoteHoverColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-testimonial-item:hover .testimonial-box .icon-content svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
 					},
 					'value'          => $this->attrs['quoteHoverColor'],
 					'device_control' => false,
@@ -932,6 +971,19 @@ class Testimonials extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['ratingColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 .guten-testimonial-item ul.rating-stars li svg, .{$this->element_id}.style-2 .guten-testimonial-item ul.rating-stars li svg, .{$this->element_id}.style-3 .guten-testimonial-item ul.rating-stars li svg, .{$this->element_id}.style-4 .guten-testimonial-item ul.rating-stars li svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['ratingColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['ratingColorHover'] ) ) {
 			$this->inject_style(
 				array(
@@ -945,12 +997,38 @@ class Testimonials extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['ratingColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 .guten-testimonial-item:hover ul.rating-stars li svg, .{$this->element_id}.style-2 .guten-testimonial-item:hover ul.rating-stars li svg, .{$this->element_id}.style-3 .guten-testimonial-item:hover ul.rating-stars li svg, .{$this->element_id}.style-4 .guten-testimonial-item:hover ul.rating-stars li svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['ratingColorHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['ratingIconSize'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} ul.rating-stars li i",
+					'selector'       => ".{$this->element_id} .guten-testimonial-item ul.rating-stars li i",
 					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['ratingIconSize'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingIconSize'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-testimonial-item ul.rating-stars li .gutenverse-icon-svg svg",
+					'property'       => function ( $value ) {
+						return "width: {$value}px;";
 					},
 					'value'          => $this->attrs['ratingIconSize'],
 					'device_control' => true,

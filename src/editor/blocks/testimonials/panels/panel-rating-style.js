@@ -46,6 +46,20 @@ export const panelRatingStyle = ({ elementId }) => {
                             'valueType': 'direct',
                         }
                     ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'ratingColor',
+                    'selector': `.${elementId}.style-1 .guten-testimonial-item ul.rating-stars li svg, 
+                    .${elementId}.style-2 .guten-testimonial-item ul.rating-stars li svg, 
+                    .${elementId}.style-3 .guten-testimonial-item ul.rating-stars li svg, 
+                    .${elementId}.style-4 .guten-testimonial-item ul.rating-stars li svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -88,6 +102,24 @@ export const panelRatingStyle = ({ elementId }) => {
                     'properties': [
                         {
                             'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    'type': 'plain',
+                    'id': 'ratingIconSize',
+                    'responsive': true,
+                    'selector': `.${elementId} ul.rating-stars li svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

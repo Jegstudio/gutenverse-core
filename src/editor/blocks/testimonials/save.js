@@ -29,11 +29,17 @@ const save = compose(
         showQuote,
         showClientImage,
         iconQuote,
+        iconQuoteType,
+        iconQuoteSVG,
         quoteOverride,
         contentPosition,
         showRating,
         iconRatingHalf,
+        iconRatingHalfType,
+        iconRatingHalfSVG,
         iconRatingFull,
+        iconRatingFullType,
+        iconRatingFullSVG,
         starPosition
     } = attributes;
 
@@ -59,12 +65,18 @@ const save = compose(
                                 contentType={contentType}
                                 showQuote={showQuote}
                                 iconQuote={iconQuote}
+                                iconQuoteType={iconQuoteType}
+                                iconQuoteSVG={iconQuoteSVG}
                                 quoteOverride={quoteOverride}
                                 contentPosition={contentPosition}
                                 showRating={showRating}
                                 showClientImage={showClientImage}
                                 iconRatingFull={iconRatingFull}
+                                iconRatingFullType={iconRatingFullType}
+                                iconRatingFullSVG={iconRatingFullSVG}
                                 iconRatingHalf={iconRatingHalf}
+                                iconRatingHalfType={iconRatingHalfType}
+                                iconRatingHalfSVG={iconRatingHalfSVG}
                                 starPosition={starPosition}
                                 frontEnd={true}
                                 index={index}
