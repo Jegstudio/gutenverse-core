@@ -646,7 +646,7 @@ class Api {
 				// Get excerpt.
 				$excerpt = get_the_excerpt( $post_id );
 				if ( empty( $excerpt ) ) {
-					$excerpt = wp_trim_words( get_the_content(), 55, '...' );
+					$excerpt = wp_trim_words( get_the_content(), 9999, '...' );
 				}
 
 				// Format dates based on user settings.
