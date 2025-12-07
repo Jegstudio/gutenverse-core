@@ -9,7 +9,7 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
-import { renderIcon } from './icon-renderer';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const SearchBlock = compose(
     withPartialRender,

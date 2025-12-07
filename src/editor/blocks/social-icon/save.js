@@ -8,7 +8,7 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
-import { renderIcon } from './icon-renderer';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const save = compose(
     withAnimationAdvanceScript('social-icon'),

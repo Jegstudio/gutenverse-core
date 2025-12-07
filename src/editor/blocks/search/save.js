@@ -4,7 +4,7 @@ import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } fro
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
-import { renderIcon } from './icon-renderer';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const save = compose(
     withAnimationAdvanceScript('icon'),

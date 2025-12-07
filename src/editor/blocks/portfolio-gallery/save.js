@@ -8,7 +8,7 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
-import { svgAtob } from 'gutenverse-core/helper';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const save = compose(
     withAnimationAdvanceScript('portfolio-gallery'),
@@ -53,14 +53,7 @@ const save = compose(
                                     showLink && el.link && <div className="row-link-wrapper">
                                         <a href={el.link} aria-label={el.title} target="_blank" rel="noreferrer">
                                             {linkText}
-                                            {linkIconType === 'svg' && linkIconSVG ? (
-                                                <div
-                                                    className="gutenverse-icon-svg"
-                                                    dangerouslySetInnerHTML={{ __html: svgAtob(linkIconSVG) }}
-                                                />
-                                            ) : (
-                                                <i className={`${linkIcon}`} aria-hidden="true"></i>
-                                            )}
+                                            {renderIcon(linkIcon, linkIconType, linkIconSVG)}
                                         </a>
                                     </div>
                                 }

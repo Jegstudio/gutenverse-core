@@ -123,8 +123,8 @@ class Taxonomy_List extends Block_Abstract {
 	/**
 	 * use count bracket
 	 */
-	public function gutenverse_wrap_count($count, $bracket) {
-		switch ($bracket) {
+	public function gutenverse_wrap_count( $count, $bracket ) {
+		switch ( $bracket ) {
 			case 'parentheses':
 				return '(' . $count . ')';
 			case 'braces':

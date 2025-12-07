@@ -8,7 +8,7 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect, useState, useRef, RawHTML } from '@wordpress/element';
 import { useDisplayEditor, useAnimationEditor } from 'gutenverse-core/hooks';
-import { dummyText, isOnEditor } from 'gutenverse-core/helper';
+import { dummyText, isOnEditor, renderIcon, svgAtob } from 'gutenverse-core/helper';
 import { addQueryArgs } from '@wordpress/url';
 import apiFetch from '@wordpress/api-fetch';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
@@ -93,19 +93,25 @@ const IconListBlock = compose(
             setResponse(`<div class="taxonomy-list-wrapper">
                     <div class="taxonomy-list-item">
 						<a href="javascript:void(0)">
-							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
+							<span class="icon-list">
+                                ${renderIcon(icon, iconType, iconSVG)}
+                            </span>
 							<div class="taxonomy-list-content">${dummyText(5, 10)}</div>
 						</a>
 					</div>
                     <div class="taxonomy-list-item">
 						<a href="javascript:void(0)">
-							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
+							<span class="icon-list">
+                                ${renderIcon(icon, iconType, iconSVG)}
+                            </span>
 							<div class="taxonomy-list-content">${dummyText(5, 10)}</div>
 						</a>
 					</div>
                     <div class="taxonomy-list-item">
 						<a href="javascript:void(0)">
-							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
+							<span class="icon-list">
+                                ${renderIcon(icon, iconType, iconSVG)}
+                            </span>
 							<div class="taxonomy-list-content">${dummyText(5, 10)}</div>
 						</a>
 					</div>

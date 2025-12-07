@@ -40,6 +40,9 @@
             border-radius: 50%;
             background: var(--guten-txt-m-color);
             border: 0;
+            svg {
+                fill: var(--guten-txt-m-color);
+            }
 
             &.tns-nav-active {
                 background: var(--guten-txt-color);
@@ -197,18 +200,6 @@
             color: var(--guten-txt-m-color);
             display: inline-flex;
 
-            .gutenverse-icon-svg {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                svg {
-                    fill: var(--guten-txt-m-color);
-                    width: 1.25em;
-                    height: auto;
-                }
-            }
-
             &.quote-override {
                 position: absolute !important;
                 top: 0;
@@ -266,18 +257,6 @@
 
             li {
                 color: $color-yellow;
-
-                .gutenverse-icon-svg {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    svg {
-                        fill: $color-yellow;
-                        width: 1.25em;
-                        height: auto;
-                    }
-                }
             }
 
             li:not(:last-child) {
@@ -308,34 +287,22 @@
         }
 
         .rating-stars {
-                margin: 0px;
-                margin-bottom: 15px;
-                padding: 0px;
-                display: flex;
-                list-style: none;
-                justify-content: center;
-                align-items: center;
+            margin: 0px;
+            margin-bottom: 15px;
+            padding: 0px;
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            align-items: center;
 
-                li {
-                    color: $color-yellow;
-                }
-
-                li:not(:last-child) {
-                    margin-right: 5px;
-                }
-
-                .gutenverse-icon-svg {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    svg {
-                        fill: $color-yellow;
-                        width: 1.25em;
-                        height: auto;
-                    }
-                }
+            li {
+                color: $color-yellow;
             }
+
+            li:not(:last-child) {
+                margin-right: 5px;
+            }
+        }
 
         .comment-bio {
             @include displayflex();
@@ -381,8 +348,9 @@
 
         .icon-content {
             position: static;
-            font-size: 40px;
-            color: $color-grey-200;
+            svg {
+                fill: $color-grey-200;
+            }
             line-height: 1;
             display: inline-flex;
 
@@ -390,18 +358,6 @@
                 position: absolute !important;
                 top: 0;
                 left: 0;
-            }
-
-            .gutenverse-icon-svg {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                svg {
-                    fill: $color-grey-200;
-                    width: 1.25em;
-                    height: auto;
-                }
             }
         }
 
@@ -413,6 +369,9 @@
 
             p {
                 color: var(--guten-txt-m-color);
+            }
+            svg {
+                fill: var(--guten-txt-m-color);
             }
         }
     }
@@ -440,18 +399,6 @@
                 position: absolute !important;
                 top: 0;
                 left: 0;
-            }
-
-            .gutenverse-icon-svg {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                svg {
-                    fill: var(--guten-txt-m-color);
-                    width: 1.25em;
-                    height: auto;
-                }
             }
         }
 
@@ -508,18 +455,6 @@
             li:not(:last-child) {
                 margin-right: 5px;
             }
-
-            .gutenverse-icon-svg {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                svg {
-                    fill: $color-yellow;
-                    width: 1.25em;
-                    height: auto;
-                }
-            }
         }
     }
 
@@ -546,18 +481,6 @@
                 position: absolute !important;
                 top: 0;
                 left: 0;
-            }
-
-            .gutenverse-icon-svg {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                svg {
-                    fill: var(--guten-txt-m-color);
-                    width: 1.25em;
-                    height: auto;
-                }
             }
         }
 
@@ -605,18 +528,6 @@
 
             li:not(:last-child) {
                 margin-right: 5px;
-            }
-
-            .gutenverse-icon-svg {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                svg {
-                    fill: $color-yellow;
-                    width: 1.25em;
-                    height: auto;
-                }
             }
         }
 

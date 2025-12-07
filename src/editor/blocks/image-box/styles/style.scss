@@ -40,28 +40,23 @@
             padding: 30px 35px;
             position: relative;
             overflow: hidden;
-            background: var(--jkit-bg-color);
+            background: var(--guten-bg-color);
             @include boxshadow(0 0 20px 0 rgba(0, 0, 0, 0.25));
         }
         .body-title {
             font-size: 18px;
             margin-bottom: 20px;
-            color: var(--jkit-txt-h-color);
+            color: var(--guten-txt-h-color);
             font-weight: 700;
-
-            svg,
-            .gutenverse-icon-svg {
-                display: inline-flex;
-            }
+            display: inline-flex;
 
             svg {
-                height: auto;
-                width: 1em;
+                fill: var(--guten-txt-h-color);
             }
 
             a {
                 text-decoration: none;
-                color: var(--jkit-txt-h-color);
+                color: var(--guten-txt-h-color);
             }
         }
         &.style-floating {

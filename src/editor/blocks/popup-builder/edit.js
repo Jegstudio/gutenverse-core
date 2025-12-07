@@ -12,7 +12,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 import PopupVideoContent from './components/popup-video';
-import { svgAtob } from 'gutenverse-core/helper';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const PopupBuilder = (props) => {
     const {
@@ -192,14 +192,7 @@ const PopupBuilder = (props) => {
             )}>
                 <div className="guten-popup-overlay" onClick={overlayClicked}></div>
                 {showCloseButton && closePosition === 'overlay' && <div className="guten-popup-close" onClick={hidePopup}>
-                    {closeIconType === 'svg' && closeIconSVG ? (
-                        <div
-                            className="gutenverse-icon-svg"
-                            dangerouslySetInnerHTML={{ __html: svgAtob(closeIconSVG) }}
-                        />
-                    ) : (
-                        <i className={closeIcon} />
-                    )}
+                    {renderIcon(closeIcon, closeIconType, closeIconSVG)}
                 </div>}
                 <div onClick={hideClickContainer} className={classnames(
                     'guten-popup-wrapper',
@@ -212,14 +205,7 @@ const PopupBuilder = (props) => {
                         !animationClass.animated && exitAnimation ? 'animated' : ''
                     )}>
                         {showCloseButton && closePosition === 'container' && <div className="guten-popup-close" onClick={hidePopup}>
-                            {closeIconType === 'svg' && closeIconSVG ? (
-                                <div
-                                    className="gutenverse-icon-svg"
-                                    dangerouslySetInnerHTML={{ __html: svgAtob(closeIconSVG) }}
-                                />
-                            ) : (
-                                <i className={closeIcon} />
-                            )}
+                            {renderIcon(closeIcon, closeIconType, closeIconSVG)}
                         </div>}
                         {renderContent()}
                     </div>

@@ -1,6 +1,6 @@
 import { Fragment } from '@wordpress/element';
 import { dummyText } from 'gutenverse-core/helper';
-import { renderIcon } from './icon-renderer';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const PostBlockContent = (props) => {
     const {

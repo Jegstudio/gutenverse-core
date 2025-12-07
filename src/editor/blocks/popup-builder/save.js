@@ -6,7 +6,7 @@ import { classnames } from 'gutenverse-core/components';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
-import { svgAtob } from 'gutenverse-core/helper';
+import { renderIcon } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
 
 const save = compose(
@@ -130,14 +130,7 @@ const save = compose(
                 <div className="guten-popup-overlay"></div>
                 {showCloseButton && closePosition === 'overlay' && (
                     <div className="guten-popup-close">
-                        {closeIconType === 'svg' && closeIconSVG ? (
-                            <div
-                                className="gutenverse-icon-svg"
-                                dangerouslySetInnerHTML={{ __html: svgAtob(closeIconSVG) }}
-                            />
-                        ) : (
-                            <i className={closeIcon}></i>
-                        )}
+                        {renderIcon(closeIcon, closeIconType, closeIconSVG)}
                     </div>
                 )}
                 <div
@@ -154,14 +147,7 @@ const save = compose(
                     >
                         {showCloseButton && closePosition === 'container' && (
                             <div className="guten-popup-close">
-                                {closeIconType === 'svg' && closeIconSVG ? (
-                                    <div
-                                        className="gutenverse-icon-svg"
-                                        dangerouslySetInnerHTML={{ __html: svgAtob(closeIconSVG) }}
-                                    />
-                                ) : (
-                                    <i className={closeIcon}></i>
-                                )}
+                                {renderIcon(closeIcon, closeIconType, closeIconSVG)}
                             </div>
                         )}
                         {renderContent()}

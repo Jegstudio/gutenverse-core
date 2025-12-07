@@ -127,52 +127,54 @@ class Frontend_Assets {
 				}
 				break;
 			case 'gutenverse/portfolio-gallery':
-				if ( ! isset( $attrs['linkIconType'] ) || 'icon' === $attrs['linkIconType'] ) {
-					$this->icon_conditional_load( $conditions );
+				if ( ! isset( $attrs['showLink'] ) ) {
+					if ( ! isset( $attrs['linkIconType'] ) || 'icon' === $attrs['linkIconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
 				}
 				break;
 			case 'gutenverse/post-block':
-				// Check quote icon. readmoreEnabled default nya true, readmoreIconType juga default nya icon.
-				if ( ! isset( $attrs['readmoreEnabled'] ) && ! isset( $attrs['readmoreIconType'] ) ) {
-					$this->icon_conditional_load( $conditions );
-				}
-
-				// Check comment icon (requires commentEnabled).
-				if ( isset( $attrs['commentEnabled'] ) && $attrs['commentEnabled'] ) {
-					if ( ! isset( $attrs['commentIconType'] ) ) {
+				// Check readmore icon.
+				if ( ! isset( $attrs['readmoreEnabled'] ) || $attrs['readmoreEnabled'] ) {
+					if ( ! isset( $attrs['readmoreIconType'] ) || 'icon' === $attrs['readmoreIconType'] ) {
 						$this->icon_conditional_load( $conditions );
 					}
 				}
 
-				// Check meta author icon (requires metaEnabled AND metaAuthorEnabled).
-				if ( ! isset( $attrs['metaEnabled'] ) ) {
-					if ( ! isset( $attrs['metaAuthorEnabled'] ) ) {
-						if ( ! isset( $attrs['metaAuthorIconType'] ) ) {
-							$this->icon_conditional_load( $conditions );
-						}
-					}
-
-					// Check meta date icon (requires metaEnabled AND metaDateEnabled).
-					if ( ! isset( $attrs['metaDateEnabled'] ) ) {
-						if ( ! isset( $attrs['metaDateIconType'] ) ) {
-							$this->icon_conditional_load( $conditions );
-						}
+				// Check comment icon.
+				if ( isset( $attrs['commentEnabled'] ) && $attrs['commentEnabled'] ) {
+					if ( ! isset( $attrs['commentIconType'] ) || 'icon' === $attrs['commentIconType'] ) {
+						$this->icon_conditional_load( $conditions );
 					}
 				}
 
-				// Check rating icons. icons (always shown when pagination is enabled).
+				// Check meta author icon.
+				if ( ( ! isset( $attrs['metaEnabled'] ) || $attrs['metaEnabled'] ) && ( ! isset( $attrs['metaAuthorEnabled'] ) || $attrs['metaAuthorEnabled'] ) ) {
+					if ( ! isset( $attrs['metaAuthorIconType'] ) || 'icon' === $attrs['metaAuthorIconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+
+				// Check meta date icon.
+				if ( ( ! isset( $attrs['metaEnabled'] ) || $attrs['metaEnabled'] ) && ( ! isset( $attrs['metaDateEnabled'] ) || $attrs['metaDateEnabled'] ) ) {
+					if ( ! isset( $attrs['metaDateIconType'] ) || 'icon' === $attrs['metaDateIconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+
+				// Check pagination icons.
 				if ( isset( $attrs['paginationMode'] ) ) {
 					if ( in_array( $attrs['paginationMode'], array( 'loadmore', 'scrollload' ), true ) ) {
-						if ( ! isset( $attrs['paginationIconType'] ) ) {
+						if ( ! isset( $attrs['paginationIconType'] ) || 'icon' === $attrs['paginationIconType'] ) {
 							$this->icon_conditional_load( $conditions );
 						}
 					}
 
 					if ( in_array( $attrs['paginationMode'], array( 'prevnext', 'number', 'normal-prevnext', 'normal-number' ), true ) ) {
-						if ( ! isset( $attrs['paginationPrevIconType'] ) ) {
+						if ( ! isset( $attrs['paginationPrevIconType'] ) || 'icon' === $attrs['paginationPrevIconType'] ) {
 							$this->icon_conditional_load( $conditions );
 						}
-						if ( ! isset( $attrs['paginationNextIconType'] ) ) {
+						if ( ! isset( $attrs['paginationNextIconType'] ) || 'icon' === $attrs['paginationNextIconType'] ) {
 							$this->icon_conditional_load( $conditions );
 						}
 					}

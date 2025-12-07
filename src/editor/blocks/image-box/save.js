@@ -8,7 +8,7 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
-import { svgAtob } from 'gutenverse-core/helper';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const WrapAHref = ({ attributes, children }) => {
     const {
@@ -91,30 +91,16 @@ const save = compose(
                                 'body-title',
                                 `icon-position-${titleIconPosition}`
                             )}>
-                                {titleIconPosition === 'before' && titleIcon !== '' && (
-                                    titleIconType === 'svg' && titleIconSVG ? (
-                                        <div
-                                            className="gutenverse-icon-svg"
-                                            dangerouslySetInnerHTML={{ __html: svgAtob(titleIconSVG) }}
-                                        />
-                                    ) : (
-                                        <i className={titleIcon} />
-                                    )
-                                )}
+                                {titleIconPosition === 'before' && <span className="image-box-icon icon-position-before">
+                                    {renderIcon(titleIcon, titleIconType, titleIconSVG)}
+                                </span>}
                                 <RichText.Content
                                     value={title}
                                     tagName="span"
                                 />
-                                {titleIconPosition === 'after' && titleIcon !== '' && (
-                                    titleIconType === 'svg' && titleIconSVG ? (
-                                        <div
-                                            className="gutenverse-icon-svg"
-                                            dangerouslySetInnerHTML={{ __html: svgAtob(titleIconSVG) }}
-                                        />
-                                    ) : (
-                                        <i className={titleIcon} />
-                                    )
-                                )}
+                                {titleIconPosition === 'after' && <span className="image-box-icon icon-position-after">
+                                    {renderIcon(titleIcon, titleIconType, titleIconSVG)}
+                                </span>}
                             </TitleTag>
                         }
                         {

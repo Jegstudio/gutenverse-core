@@ -1,7 +1,7 @@
 
 
 import { RichText } from '@wordpress/block-editor';
-import { renderIcon } from '../icon-renderer';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const ContentItem = (data) => {
     let {

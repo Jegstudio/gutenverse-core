@@ -1,4 +1,4 @@
-import { renderIcon } from './icon-renderer';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const PostBlockPagination = (props) => {
     const {
