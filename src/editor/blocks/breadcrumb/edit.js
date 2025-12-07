@@ -10,7 +10,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { svgAtob } from 'gutenverse-core/helper';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const BreadcrumbBlock = compose(
     withPartialRender,
@@ -95,14 +95,7 @@ const BreadcrumbBlock = compose(
                                 </li>
                                 {!isLast && (
                                     <li className="separator">
-                                        {separatorIconType === 'svg' && separatorIconSVG ? (
-                                            <div
-                                                className="gutenverse-icon-svg"
-                                                dangerouslySetInnerHTML={{ __html: svgAtob(separatorIconSVG) }}
-                                            />
-                                        ) : (
-                                            <i className={separatorIcon}></i>
-                                        )}
+                                        {renderIcon(separatorIcon, separatorIconType, separatorIconSVG)}
                                     </li>
                                 )}
                             </>

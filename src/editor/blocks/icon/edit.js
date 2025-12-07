@@ -8,7 +8,7 @@ import { panelList } from './panels/panel-list';
 import { ToolbarGroup } from '@wordpress/components';
 import { URLToolbar } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
-import { svgAtob } from 'gutenverse-core/helper';
+import { renderIcon } from 'gutenverse-core/helper';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
@@ -159,14 +159,7 @@ const IconBlock = compose(
         </BlockControls>
         <div {...blockProps}>
             <div {...wrapperProps}>
-                {iconType === 'svg' && iconSVG ? (
-                    <div
-                        className="gutenverse-icon-svg"
-                        dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
-                    />
-                ) : (
-                    <i className={`${icon}`} />
-                )}
+                {renderIcon(icon, iconType, iconSVG)}
             </div>
         </div>
     </>;

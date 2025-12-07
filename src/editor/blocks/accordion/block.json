@@ -32,7 +32,8 @@
 			"default": "icon"
 		},
 		"iconOpenSVG": {
-			"type": "string"
+			"type": "string",
+			"default": "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNjQwIj48cGF0aCBkPSJNOTYgMzIwQzk2IDMwMi4zIDExMC4zIDI4OCAxMjggMjg4TDUxMiAyODhDNTI5LjcgMjg4IDU0NCAzMDIuMyA1NDQgMzIwQzU0NCAzMzcuNyA1MjkuNyAzNTIgNTEyIDM1MkwxMjggMzUyQzExMC4zIDM1MiA5NiAzMzcuNyA5NiAzMjB6Ii8+PC9zdmc+"
 		},
 		"iconClosed": {
 			"type": "string",
@@ -43,9 +44,9 @@
 			"default": "icon"
 		},
 		"iconClosedSVG": {
-			"type": "string"
+			"type": "string",
+			"default": "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNjQwIj48cGF0aCBkPSJNMzUyIDEyOEMzNTIgMTEwLjMgMzM3LjcgOTYgMzIwIDk2QzMwMi4zIDk2IDI4OCAxMTAuMyAyODggMTI4TDI4OCAyODhMMTI4IDI4OEMxMTAuMyAyODggOTYgMzAyLjMgOTYgMzIwQzk2IDMzNy43IDExMC4zIDM1MiAxMjggMzUyTDI4OCAzNTJMMjg4IDUxMkMyODggNTI5LjcgMzAyLjMgNTQ0IDMyMCA1NDRDMzM3LjcgNTQ0IDM1MiA1MjkuNyAzNTIgNTEyTDM1MiAzNTJMNTEyIDM1MkM1MjkuNyAzNTIgNTQ0IDMzNy43IDU0NCAzMjBDNTQ0IDMwMi4zIDUyOS43IDI4OCA1MTIgMjg4TDM1MiAyODhMMzUyIDEyOHoiLz48L3N2Zz4="
 		},
-
 		"dynamicDataList": {
 			"type": "array",
 			"default": []

@@ -74,7 +74,8 @@
 			"default": "icon"
 		},
 		"separatorIconSVG": {
-			"type": "string"
+			"type": "string",
+			"default": "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNjQwIj48cGF0aCBkPSJNNDcxLjEgMjk3LjRDNDgzLjYgMzA5LjkgNDgzLjYgMzMwLjIgNDcxLjEgMzQyLjdMMjc5LjEgNTM0LjdDMjY2LjYgNTQ3LjIgMjQ2LjMgNTQ3LjIgMjMzLjggNTM0LjdDMjIxLjMgNTIyLjIgMjIxLjMgNTAxLjkgMjMzLjggNDg5LjRMNDAzLjIgMzIwTDIzMy45IDE1MC42QzIyMS40IDEzOC4xIDIyMS40IDExNy44IDIzMy45IDEwNS4zQzI0Ni40IDkyLjggMjY2LjcgOTIuOCAyNzkuMiAxMDUuM0w0NzEuMiAyOTcuM3oiLz48L3N2Zz4="
 		},
 		"typography": {
 			"type": "object",

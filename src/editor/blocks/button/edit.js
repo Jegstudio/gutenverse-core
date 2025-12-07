@@ -15,7 +15,7 @@ import { isOnEditor } from 'gutenverse-core/helper';
 import getBlockStyle from './styles/block-style';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { BlockPanelController } from 'gutenverse-core/controls';
-import { useRichTextParameter, svgAtob } from 'gutenverse-core/helper';
+import { useRichTextParameter, renderIcon } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
@@ -190,16 +190,7 @@ const ButtonBlock = compose(
     };
 
     const buttonText = <>
-        {showIcon && iconPosition === 'before' && (
-            iconType === 'svg' && iconSVG ? (
-                <div
-                    className="gutenverse-icon-svg"
-                    dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
-                />
-            ) : (
-                <i className={`fa-lg ${icon}`} />
-            )
-        )}
+        {showIcon && iconPosition === 'before' && renderIcon(icon, iconType, iconSVG)}
         <RichText
             tagName={'span'}
             value={content}
@@ -210,16 +201,7 @@ const ButtonBlock = compose(
             identifier="content"
             ref={textRef}
         />
-        {showIcon && iconPosition === 'after' && (
-            iconType === 'svg' && iconSVG ? (
-                <div
-                    className="gutenverse-icon-svg"
-                    dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
-                />
-            ) : (
-                <i className={`fa-lg ${icon}`} />
-            )
-        )}
+        {showIcon && iconPosition === 'after' && renderIcon(icon, iconType, iconSVG)}
     </>;
 
     const ButtonURLToolbar = () => {

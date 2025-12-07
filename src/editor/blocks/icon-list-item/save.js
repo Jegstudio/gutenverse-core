@@ -1,7 +1,7 @@
 
 import { classnames } from 'gutenverse-core/components';
 import { RichText, useBlockProps } from '@wordpress/block-editor';
-import { svgAtob } from 'gutenverse-core/helper';
+import { renderIcon } from 'gutenverse-core/helper';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
@@ -43,16 +43,7 @@ const save = ({ attributes }) => {
         <div {...useBlockProps.save({ className })}>
             <div className="list-divider"></div>
             <a id={elementId} href={href} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
-                {!hideIcon && (
-                    iconType === 'svg' && iconSVG ? (
-                        <div
-                            className="gutenverse-icon-svg"
-                            dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
-                        />
-                    ) : (
-                        <i className={icon} />
-                    )
-                )}
+                {!hideIcon && renderIcon(icon, iconType, iconSVG)}
                 <RichText.Content
                     className={`list-text ${hideIcon ? 'no-icon' : ''}`}
                     value={text}

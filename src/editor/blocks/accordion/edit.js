@@ -12,30 +12,16 @@ import { BlockPanelController, PanelTutorial } from 'gutenverse-core/controls';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
-import { useRichTextParameter, svgAtob } from 'gutenverse-core/helper';
+import { useRichTextParameter, renderIcon } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 
 export const AccordionIcon = ({ iconOpen, iconOpenType, iconOpenSVG, iconClosed, iconClosedType, iconClosedSVG }) => {
     return <div className={'accordion-icon'}>
         <span className={'accordion-icon-open'}>
-            {iconOpenType === 'svg' && iconOpenSVG ? (
-                <div
-                    className="gutenverse-icon-svg"
-                    dangerouslySetInnerHTML={{ __html: svgAtob(iconOpenSVG) }}
-                />
-            ) : (
-                <i className={iconOpen} />
-            )}
+            {renderIcon(iconOpen, iconOpenType, iconOpenSVG)}
         </span>
         <span className={'accordion-icon-closed'}>
-            {iconClosedType === 'svg' && iconClosedSVG ? (
-                <div
-                    className="gutenverse-icon-svg"
-                    dangerouslySetInnerHTML={{ __html: svgAtob(iconClosedSVG) }}
-                />
-            ) : (
-                <i className={iconClosed} />
-            )}
+            {renderIcon(iconClosed, iconClosedType, iconClosedSVG)}
         </span>
     </div>;
 };

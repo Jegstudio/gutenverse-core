@@ -6,7 +6,7 @@ import { panelList } from './panels/panel-list';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { useState } from '@wordpress/element';
 import * as divider from './data/divider-style';
-import { svgAtob } from 'gutenverse-core/helper';
+import { renderIcon } from 'gutenverse-core/helper';
 import { useRef } from '@wordpress/element';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -39,15 +39,7 @@ const DividerContent = (props) => {
                     identifier="text"
                 />;
             case 'icon':
-                if (iconType === 'svg' && iconSVG) {
-                    return <div
-                        className="gutenverse-icon-svg"
-                        dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
-                    />;
-                }
-                return <i
-                    className={`${icon}`}
-                />;
+                return renderIcon(icon, iconType, iconSVG);
             default:
                 return null;
         }
@@ -140,7 +132,7 @@ const DividerBlock = compose(
     };
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             <Component {...theProps} />

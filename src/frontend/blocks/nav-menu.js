@@ -47,7 +47,7 @@ class GutenverseNavMenu extends Default {
             if (indicatorType === 'svg' && indicatorSvg) {
                 try {
                     const svgContent = atob(indicatorSvg);
-                    u(node).append(svgContent);
+                    u(node).append(`<div class='gutenverse-icon-svg'>${svgContent}</div>`);
                 } catch (e) {
                     u(node).append(`<i class='${indicator}'></i>`);
                 }

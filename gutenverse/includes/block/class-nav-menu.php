@@ -17,6 +17,24 @@ use Gutenverse\Framework\Block\Block_Abstract;
  * @package gutenverse\block
  */
 class Nav_Menu extends Block_Abstract {
+
+	/**
+	 * Get SVG Indicator
+	 *
+	 * @return string
+	 */
+	public function svg_indicator_svg() {
+		try {
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+			$decoded = base64_decode( $this->attributes['submenuItemIndicatorSVG'], true );
+			$html    = '<div class="gutenverse-icon-svg">' . $decoded . '</div>';
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+			return base64_encode( $html );
+		} catch ( \Exception $e ) {
+			return '';
+		}
+	}
+
 	/**
 	 * Render Content
 	 *
@@ -55,15 +73,7 @@ class Nav_Menu extends Block_Abstract {
 
 		// Handle submenu indicator SVG.
 		$submenu_indicator_type        = isset( $this->attributes['submenuItemIndicatorType'] ) ? $this->attributes['submenuItemIndicatorType'] : 'icon';
-		$submenu_indicator_svg         = isset( $this->attributes['submenuItemIndicatorSVG'] ) ? $this->attributes['submenuItemIndicatorSVG'] : array();
-		$submenu_indicator_svg_encoded = '';
-
-		if ( 'svg' === $submenu_indicator_type && ! empty( $submenu_indicator_svg ) ) {
-			$svg_content = $this->render_icon( $submenu_indicator_type, '', $submenu_indicator_svg );
-			if ( ! empty( $svg_content ) ) {
-				$submenu_indicator_svg_encoded = base64_encode( $svg_content );
-			}
-		}
+		$submenu_indicator_svg_encoded = isset( $this->attributes['submenuItemIndicatorSVG'] ) ? $this->attributes['submenuItemIndicatorSVG'] : '';
 
 		if ( $remove_link ) {
 			$menu = str_replace( 'href', 'href="javascript:void(0);" data-href', $menu );

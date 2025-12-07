@@ -4,7 +4,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { gutenverseRoot, svgAtob } from 'gutenverse-core/helper';
+import { gutenverseRoot, renderIcon } from 'gutenverse-core/helper';
 import { createPortal } from 'react-dom';
 import GalleryPopup from './components/gallery-popup';
 import GalleryItem from './components/gallery-item';
@@ -246,25 +246,11 @@ const GalleryBlock = compose(
                         setShowedItems(parseInt(showedItems) + parseInt(itemsPerLoad));
                     }}>
                         {enableLoadIcon && enableLoadIconPosition === 'before' && <span className="load-more-icon icon-position-before" aria-hidden="true">
-                            {enableLoadIconType === 'svg' && enableLoadIconSVG ? (
-                                <div
-                                    className="gutenverse-icon-svg"
-                                    dangerouslySetInnerHTML={{ __html: svgAtob(enableLoadIconSVG) }}
-                                />
-                            ) : (
-                                <i className={enableLoadIcon}></i>
-                            )}
+                            {renderIcon(enableLoadIcon, enableLoadIconType, enableLoadIconSVG)}
                         </span>}
                         <span className="load-more-text">{enableLoadText}</span>
                         {enableLoadIcon && enableLoadIconPosition === 'after' && <span className="load-more-icon icon-position-after" aria-hidden="true">
-                            {enableLoadIconType === 'svg' && enableLoadIconSVG ? (
-                                <div
-                                    className="gutenverse-icon-svg"
-                                    dangerouslySetInnerHTML={{ __html: svgAtob(enableLoadIconSVG) }}
-                                />
-                            ) : (
-                                <i className={enableLoadIcon}></i>
-                            )}
+                            {renderIcon(enableLoadIcon, enableLoadIconType, enableLoadIconSVG)}
                         </span>}
                     </a>
                 </div>

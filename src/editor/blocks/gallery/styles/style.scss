@@ -31,7 +31,7 @@
 
         svg {
             cursor: pointer;
-            color: var(--guten-border-color);
+            fill: var(--guten-border-color);
             margin: 10px;
             stroke-width: 2;
         }
@@ -398,9 +398,7 @@
                             line-height: 0;
 
                             svg {
-                                display: flex;
-                                height: auto;
-                                width: 1em;
+                                fill: var(--guten-element-bg-color);
                             }
                         }
                     }
@@ -421,9 +419,7 @@
                             line-height: 0;
 
                             svg {
-                                display: flex;
-                                height: auto;
-                                width: 1em;
+                                fill: var(--guten-element-bg-color);
                             }
                         }
                     }
@@ -585,9 +581,7 @@
                 display: flex;
 
                 svg {
-                    display: flex;
-                    height: auto;
-                    width: 1em;
+                    fill: var(--guten-bg-color);
                 }
             }
         }

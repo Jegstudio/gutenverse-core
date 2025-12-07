@@ -6,7 +6,7 @@ import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import { applyFilters } from '@wordpress/hooks';
-import { svgAtob } from 'gutenverse-core/helper';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const save = compose(
     withAnimationAdvanceScript('buttons'),
@@ -74,29 +74,11 @@ const save = compose(
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
             <ButtonElement>
-                {showIcon && iconPosition === 'before' && (
-                    iconType === 'svg' && iconSVG ? (
-                        <div
-                            className="gutenverse-icon-svg"
-                            dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
-                        />
-                    ) : (
-                        <i className={`fa-lg ${icon}`} />
-                    )
-                )}
+                {showIcon && iconPosition === 'before' && renderIcon(icon, iconType, iconSVG)}
                 <span>
                     <RichText.Content value={content} />
                 </span>
-                {showIcon && iconPosition === 'after' && (
-                    iconType === 'svg' && iconSVG ? (
-                        <div
-                            className="gutenverse-icon-svg"
-                            dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
-                        />
-                    ) : (
-                        <i className={`fa-lg ${icon}`} />
-                    )
-                )}
+                {showIcon && iconPosition === 'after' && renderIcon(icon, iconType, iconSVG)}
             </ButtonElement>
         </div>
     );

@@ -14,10 +14,11 @@
         color: var(--guten-bg-color);
     }
 
-    svg {
-        width: 50px;
-        height: auto;
-        fill: var(--guten-bg-color);
+    .gutenverse-icon-svg {
+        svg {
+            width: 62px;
+            fill: var(--guten-bg-color);
+        }
     }
 
     &.rounded {

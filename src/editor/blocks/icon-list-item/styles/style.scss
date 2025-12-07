@@ -6,20 +6,17 @@
     .list-text {
         white-space: pre-wrap;
     }
-    .list-divider{
+
+    .list-divider {
         display: flex;
     }
+
     a {
         display: flex;
 
-        i, svg{
+        i {
             display: flex;
             align-items: center;
-        }
-
-        svg {
-            width: 15px;
-            height: auto;
         }
     }
 }

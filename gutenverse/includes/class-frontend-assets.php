@@ -110,8 +110,10 @@ class Frontend_Assets {
 				if ( ! isset( $attrs['linkIconType'] ) || 'icon' === $attrs['linkIconType'] ) {
 					$this->icon_conditional_load( $conditions );
 				}
-				if ( ! isset( $attrs['enableLoadIconType'] ) || 'icon' === $attrs['enableLoadIconType'] ) {
-					$this->icon_conditional_load( $conditions );
+				if ( isset( $attrs['enableLoadMore'] ) && $attrs['enableLoadMore'] ) {
+					if ( ! isset( $attrs['enableLoadIconType'] ) || 'icon' === $attrs['enableLoadIconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
 				}
 				break;
 			case 'gutenverse/image-box':

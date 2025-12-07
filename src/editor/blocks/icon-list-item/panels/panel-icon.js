@@ -46,7 +46,7 @@ export const panelIcon = (props) => {
                     'responsive': true,
                     'properties': [
                         {
-                            'name': 'line-height',
+                            'name': 'height',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {
@@ -56,7 +56,7 @@ export const panelIcon = (props) => {
                             }
                         }
                     ],
-                    'selector': `.${elementId}.guten-icon-list-item svg`,
+                    'selector': `.${elementId}.guten-icon-list-item .gutenverse-icon-svg`,
                 }
             ]
         },

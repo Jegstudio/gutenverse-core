@@ -35,11 +35,6 @@
                     display: flex;
                     align-items: center;
 
-                    svg {
-                        width: 16px;
-                        height: auto;
-                    }
-
                     i {
                         &.fab {
                             font-family: 'Font Awesome 6 Brands' !important;
@@ -48,6 +43,10 @@
                         &:not(.gtn):not(.fab) {
                             font-family: 'Font Awesome 6 Free' !important;
                         }
+                    }
+
+                    svg {
+                        fill: #aaa;
                     }
                 }
             }

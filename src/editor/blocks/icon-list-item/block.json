@@ -71,7 +71,8 @@
 			"default": "icon"
 		},
 		"iconSVG": {
-			"type": "string"
+			"type": "string",
+			"default": "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNjQwIj48cGF0aCBkPSJNNTMwLjggMTM0LjFDNTQ1LjEgMTQ0LjUgNTQ4LjMgMTY0LjUgNTM3LjkgMTc4LjhMMjgxLjkgNTMwLjhDMjc2LjQgNTM4LjQgMjY3LjkgNTQzLjEgMjU4LjUgNTQzLjlDMjQ5LjEgNTQ0LjcgMjQwIDU0MS4yIDIzMy40IDUzNC42TDEwNS40IDQwNi42QzkyLjkgMzk0LjEgOTIuOSAzNzMuOCAxMDUuNCAzNjEuM0MxMTcuOSAzNDguOCAxMzguMiAzNDguOCAxNTAuNyAzNjEuM0wyNTIuMiA0NjIuOEw0ODYuMiAxNDEuMUM0OTYuNiAxMjYuOCA1MTYuNiAxMjMuNiA1MzAuOSAxMzR6Ii8+PC9zdmc+"
 		},
 		"hideIcon": {
 			"type": "boolean",

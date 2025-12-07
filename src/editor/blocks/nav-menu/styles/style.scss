@@ -2,13 +2,7 @@
 @import "gutenverse-core/src/assets/variables";
 @import "gutenverse-core/src/assets/wp-fix";
 
-.guten-nav-menu {
-  svg {
-    width: 24px;
-    height: auto;
-    box-sizing: content-box;
-  }
-
+.guten-nav-menu {  
   * {
     transition: background-color 0.4s ease 0s, border 0.4s ease 0s, border-radius 0.4s ease 0s, box-shadow 0.4s ease 0s, color 0.4s ease 0s, height 0.4s ease 0s;
   }
@@ -204,6 +198,7 @@
           overflow-y: auto;
 
           li.menu-item-has-children {
+
             >a i,
             >a svg {
               margin-left: auto;
