@@ -1,6 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
-import { AlertControl, ColorControl, IconControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
+import { AlertControl, ColorControl, IconSVGControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
 
 export const iconPanel = (props) => {
     const {
@@ -22,7 +22,7 @@ export const iconPanel = (props) => {
             id: 'icon',
             show: showIcon,
             label: __('Icon', 'gutenverse'),
-            component: IconControl
+            component: IconSVGControl
         },
         {
             id: 'iconSpace',

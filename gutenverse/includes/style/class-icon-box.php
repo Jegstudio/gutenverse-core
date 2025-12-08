@@ -815,6 +815,17 @@ class Icon_Box extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-icon-box.{$this->element_id} .hover-watermark svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['watermarkColor'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['watermarkSize'] ) ) {
@@ -823,6 +834,17 @@ class Icon_Box extends Style_Abstract {
 					'selector'       => ".guten-icon-box.{$this->element_id} .hover-watermark i",
 					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['watermarkSize'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-icon-box.{$this->element_id} .hover-watermark svg",
+					'property'       => function ( $value ) {
+						return "width: {$value}px;";
 					},
 					'value'          => $this->attrs['watermarkSize'],
 					'device_control' => true,

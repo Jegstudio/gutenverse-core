@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { CheckboxControl, ImageControl, RangeControl, SelectControl, TextControl, IconControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ImageControl, RangeControl, SelectControl, TextControl, IconSVGControl } from 'gutenverse-core/controls';
 
 export const panelIcon = (props) => {
     const {
@@ -37,7 +37,7 @@ export const panelIcon = (props) => {
         {
             id: 'icon',
             label: __('Icon', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl,
             show: iconType && (iconType === 'icon' || iconType === 'svg'),
         },
         {

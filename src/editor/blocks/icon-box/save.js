@@ -1,7 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
 import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
-import { svgAtob } from 'gutenverse-core/helper';
+import { svgAtob, renderIcon } from 'gutenverse-core/helper';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
@@ -55,6 +55,8 @@ const save = compose(
         iconPosition,
         iconStyleMode = 'color',
         watermarkIcon,
+        watermarkIconType,
+        watermarkIconSVG,
         watermarkShow,
         badgeShow,
         badge,
@@ -140,7 +142,7 @@ const save = compose(
                 />
             </div>}
             {watermarkShow && <div className="hover-watermark">
-                <i className={watermarkIcon}></i>
+                {renderIcon(watermarkIcon, watermarkIconType, watermarkIconSVG)}
             </div>}
         </div>
     );

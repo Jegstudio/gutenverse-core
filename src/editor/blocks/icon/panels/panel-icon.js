@@ -1,7 +1,7 @@
 
 import { __ } from '@wordpress/i18n';
 import { AlignLeft, AlignRight, AlignCenter } from 'gutenverse-core/components';
-import { DimensionControl, IconControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TextControl } from 'gutenverse-core/controls';
+import { DimensionControl, IconSVGControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TextControl } from 'gutenverse-core/controls';
 import { handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadius, iconShape, removeStyle }) => {
@@ -9,7 +9,7 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
         {
             id: 'icon',
             label: __('Icon', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl,
         },
         {
             id: 'iconAlign',

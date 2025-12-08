@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { AlertControl, BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, HeadingControl, IconControl, RangeControl, SelectControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
+import { AlertControl, BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, HeadingControl, IconSVGControl, RangeControl, SelectControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const filterSearchPanel = (props) => {
@@ -137,7 +137,7 @@ export const filterSearchPanel = (props) => {
         {
             id: 'filterSearchIcon',
             label: __('Icon', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl,
         },
         {
             id: 'filterSearchIconPosition',
@@ -178,7 +178,7 @@ export const filterSearchPanel = (props) => {
                     'type': 'unitPoint',
                     'id': 'fitlerSearchIconSpacing',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-gallery .search-filter-trigger.icon-position-after i`,
+                    'selector': `.${elementId}.guten-gallery .search-filter-trigger.icon-position-after i, .${elementId}.guten-gallery .search-filter-trigger.icon-position-after svg`,
                     'properties': [
                         {
                             'name': 'margin-left',
@@ -190,7 +190,7 @@ export const filterSearchPanel = (props) => {
                     'type': 'unitPoint',
                     'id': 'fitlerSearchIconSpacing',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-gallery .search-filter-trigger.icon-position-before i`,
+                    'selector': `.${elementId}.guten-gallery .search-filter-trigger.icon-position-before i, .${elementId}.guten-gallery .search-filter-trigger.icon-position-before svg`,
                     'properties': [
                         {
                             'name': 'margin-right',
@@ -228,6 +228,18 @@ export const filterSearchPanel = (props) => {
                     'properties': [
                         {
                             'name': 'font-size',
+                            'valueType': 'direct'
+                        }
+                    ]
+                },
+                {
+                    'type': 'unitPoint',
+                    'id': 'fitlerSearchIconSize',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-gallery .search-filter-trigger svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
                             'valueType': 'direct'
                         }
                     ]

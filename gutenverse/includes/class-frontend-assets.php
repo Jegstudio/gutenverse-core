@@ -94,7 +94,12 @@ class Frontend_Assets {
 				}
 				break;
 			case 'gutenverse/icon-box':
-				if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
+				if ( isset( $attrs['watermarkShow'] ) && $attrs['watermarkShow'] ) {
+					if ( ! isset( $attrs['watermarkIconType'] ) || 'icon' === $attrs['watermarkIconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+				if ( ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) ) {
 					$this->icon_conditional_load( $conditions );
 				}
 				break;

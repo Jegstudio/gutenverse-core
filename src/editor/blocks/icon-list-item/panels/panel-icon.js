@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconControl, RangeControl, TextControl } from 'gutenverse-core/controls';
+import { IconSVGControl, RangeControl, TextControl } from 'gutenverse-core/controls';
 
 export const panelIcon = (props) => {
     const {
@@ -10,7 +10,7 @@ export const panelIcon = (props) => {
         {
             id: 'icon',
             label: __('Icon', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl,
         },
         {
             id: 'iconLineHeight',

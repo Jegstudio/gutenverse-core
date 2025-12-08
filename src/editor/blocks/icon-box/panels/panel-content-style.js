@@ -168,6 +168,17 @@ export const panelContentStyle = (props) => {
                             'valueType': 'direct'
                         }
                     ],
+                },
+                {
+                    'type': 'color',
+                    'id': 'watermarkColor',
+                    'selector': `.${elementId} .hover-watermark svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
             ],
         },
@@ -188,6 +199,23 @@ export const panelContentStyle = (props) => {
                     'properties': [
                         {
                             'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    'type': 'plain',
+                    'id': 'watermarkSize',
+                    'selector': `.${elementId} .hover-watermark svg`,
+                    'properties': [
+                        {
+                            'name': 'width',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

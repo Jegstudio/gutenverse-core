@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarGroup } from '@wordpress/components';
-import { svgAtob } from 'gutenverse-core/helper';
+import { svgAtob, renderIcon } from 'gutenverse-core/helper';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
@@ -66,6 +66,8 @@ const IconBoxBlock = compose(
         iconPosition,
         iconStyleMode = 'color',
         watermarkIcon,
+        watermarkIconType,
+        watermarkIconSVG,
         watermarkShow,
         badgeShow,
         badgePosition,
@@ -325,7 +327,7 @@ const IconBoxBlock = compose(
                     />
                 </div>}
                 {watermarkShow && <div className="hover-watermark">
-                    <i className={watermarkIcon}></i>
+                    {renderIcon(watermarkIcon, watermarkIconType, watermarkIconSVG)}
                 </div>}
             </div>
         </div>

@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { ColorControl, IconControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, IconSVGControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const contentPanel = (props) => {
     const {
@@ -123,7 +123,7 @@ export const contentPanel = (props) => {
             id: 'icon',
             label: __('Divider Icon', 'gutenverse'),
             show: content === 'icon',
-            component: IconControl,
+            component: IconSVGControl,
         },
         {
             id: 'iconSize',

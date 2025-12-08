@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, DimensionControl, IconControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
+import { CheckboxControl, DimensionControl, IconSVGControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const contentPanel = (props) => {
     const {
@@ -13,7 +13,7 @@ export const contentPanel = (props) => {
         {
             id: 'icon',
             label: __('Icon', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl,
         },
         {
             id: 'iconSize',

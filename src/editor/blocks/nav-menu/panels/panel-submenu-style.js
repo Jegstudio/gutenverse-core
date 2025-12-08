@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { HeadingControl, BackgroundControl, ColorControl, DimensionControl, IconControl, SwitchControl, TypographyControl, BorderControl, BorderResponsiveControl, RangeControl } from 'gutenverse-core/controls';
+import { HeadingControl, BackgroundControl, ColorControl, DimensionControl, IconSVGControl, SwitchControl, TypographyControl, BorderControl, BorderResponsiveControl, RangeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const SubmenuItemStyle = (props) => {
@@ -15,7 +15,7 @@ export const SubmenuItemStyle = (props) => {
         {
             id: 'submenuItemIndicator',
             label: __('Indicator Item', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl,
         },
         {
             id: 'SubmenuIndicatorSize',

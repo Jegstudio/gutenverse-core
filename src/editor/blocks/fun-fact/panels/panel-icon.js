@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, IconControl, ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconSVGControl, ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isNotEmpty } from 'gutenverse-core/helper';
 
@@ -33,7 +33,7 @@ export const iconPanel = ({ elementId, iconType, imageSize, imageSizeResponsive 
             id: 'icon',
             show: iconType === 'icon' || iconType === 'svg',
             label: __('Select Icon', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl,
         },
         {
             id: 'image',

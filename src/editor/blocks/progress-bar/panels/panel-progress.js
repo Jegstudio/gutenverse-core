@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { IconSVGControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
 export const progressPanel = (props) => {
     const { style } = props;
@@ -56,7 +56,7 @@ export const progressPanel = (props) => {
         {
             id: 'arrowIcon',
             label: __('Progress Icon', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl,
             show: style === 'inner-content'
         },
         {

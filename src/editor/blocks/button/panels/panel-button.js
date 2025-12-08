@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { CheckboxControl, DimensionControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TextControl, IconControl } from 'gutenverse-core/controls';
+import { CheckboxControl, DimensionControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TextControl, IconSVGControl } from 'gutenverse-core/controls';
 import { isNotEmpty } from 'gutenverse-core/helper';
 
 export const buttonPanel = (props) => {
@@ -184,7 +184,7 @@ export const buttonPanel = (props) => {
         {
             id: 'icon',
             label: __('Icon', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl,
             show: showIcon,
         },
         {

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconControl, NumberControl, RangeControl, SelectControl, TextControl, CheckboxControl } from 'gutenverse-core/controls';
+import { IconSVGControl, NumberControl, RangeControl, SelectControl, TextControl, CheckboxControl } from 'gutenverse-core/controls';
 import { paginationSwitcher } from '../data/data';
 
 export const paginationPanel = (props) => {
@@ -79,12 +79,12 @@ export const paginationPanel = (props) => {
         {
             id: 'paginationPrevIcon',
             show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext' || paginationMode === 'normal-prevnext' || paginationMode === 'normal-number'),
-            component: IconControl
+            component: IconSVGControl
         },
         {
             id: 'paginationNextIcon',
             show: paginationMode && (paginationMode === 'number' || paginationMode === 'prevnext' || paginationMode === 'normal-prevnext' || paginationMode === 'normal-number'),
-            component: IconControl
+            component: IconSVGControl
         },
         {
             id: 'paginationLoadmoreText',
@@ -122,7 +122,7 @@ export const paginationPanel = (props) => {
         {
             id: 'paginationIcon',
             show: paginationMode && (paginationMode === 'loadmore' || paginationMode === 'scrollload'),
-            component: IconControl
+            component: IconSVGControl
         },
         {
             id: 'paginationIconPosition',

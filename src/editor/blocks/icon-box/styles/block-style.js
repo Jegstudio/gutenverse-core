@@ -802,6 +802,18 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['watermarkColor']) && data.push({
+        'type': 'color',
+        'id': 'watermarkColor',
+        'selector': `.guten-icon-box.${elementId} .hover-watermark svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['watermarkSize']) && data.push({
         'type': 'plain',
         'id': 'watermarkSize',
@@ -810,6 +822,26 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+
+                }
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['watermarkSize']) && data.push({
+        'type': 'plain',
+        'id': 'watermarkSize',
+        'responsive': true,
+        'selector': `.guten-icon-box.${elementId} .hover-watermark svg`,
+        'properties': [
+            {
+                'name': 'width',
                 'valueType': 'pattern',
                 'pattern': '{value}px',
                 'patternValues': {

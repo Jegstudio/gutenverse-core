@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ColorControl, IconControl, RangeControl, SizeControl, SelectControl, DimensionControl, BackgroundControl, BorderControl, SwitchControl, BoxShadowControl, BorderResponsiveControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, IconSVGControl, RangeControl, SizeControl, SelectControl, DimensionControl, BackgroundControl, BorderControl, SwitchControl, BoxShadowControl, BorderResponsiveControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const closePanel = (props) => {
@@ -45,7 +45,7 @@ export const closePanel = (props) => {
             id: 'closeIcon',
             label: __('Close Icon', 'gutenverse'),
             show: showCloseButton,
-            component: IconControl,
+            component: IconSVGControl,
         },
         {
             id: 'closeButtonSize',
