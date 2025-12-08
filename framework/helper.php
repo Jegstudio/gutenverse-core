@@ -1324,3 +1324,41 @@ if ( ! function_exists( 'gutenverse_home_url_multilang' ) ) {
 		return home_url( $path, $scheme );
 	}
 }
+
+if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
+	/**
+	 * Method gutenverse_unused_cache_file_size
+	 *
+	 * @return string
+	 */
+	function gutenverse_unused_cache_file_size() {
+		$cache_id = get_option( 'gutenverse-style-cache-id', 'initial-cache' );
+		$paths    = array(
+			gutenverse_css_path(),
+			gutenverse_conditional_path(),
+		);
+
+		$total_in_bytes = 0;
+
+		foreach ( $paths as $path ) {
+			if ( ! is_dir( $path ) ) {
+				continue;
+			}
+
+			$files = list_files( $path );
+
+			if ( ! empty( $files ) ) {
+				foreach ( $files as $cf ) {
+					if ( is_file( $cf ) ) {
+						$filename = basename( $cf );
+						if ( false === strpos( $filename, $cache_id ) ) {
+							$total_in_bytes += filesize( $cf );
+						}
+					}
+				}
+			}
+		}
+
+		return size_format( $total_in_bytes );
+	}
+}
