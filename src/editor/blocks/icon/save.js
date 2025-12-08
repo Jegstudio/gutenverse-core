@@ -11,7 +11,7 @@ import { isEmpty } from 'gutenverse-core/helper';
 const save = compose(
     withAnimationAdvanceScript('icon'),
     withMouseMoveEffectScript,
-    withTooltipScript ? withTooltipScript('.guten-icon-wrapper') : (BlockElement) => (props) => <BlockElement {...props} />
+    // withTooltipScript ? withTooltipScript('.guten-icon-wrapper') : (BlockElement) => (props) => <BlockElement {...props} />
 )((props) => {
     const {
         attributes,

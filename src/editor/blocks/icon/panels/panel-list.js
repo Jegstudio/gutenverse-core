@@ -18,13 +18,13 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        tooltipPanel ? {
-            title: __('Tooltip', 'gutenverse'),
-            initialOpen: false,
-            panelArray: tooltipPanel,
-            tabRole: TabSetting,
-            pro: true
-        } : {},
+        // tooltipPanel ? {
+        //     title: __('Tooltip', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelArray: tooltipPanel,
+        //     tabRole: TabSetting,
+        //     pro: true
+        // } : {},
         {
             title: __('Mouse Move Effect', 'gutenverse'),
             initialOpen: false,
