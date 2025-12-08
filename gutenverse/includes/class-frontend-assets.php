@@ -218,6 +218,13 @@ class Frontend_Assets {
 					}
 				}
 				break;
+			case 'gutenverse/chart':
+				if ( isset( $attrs['chartContent'] ) && 'icon' === $attrs['chartContent'] ) {
+					if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+				break;
 		}
 
 		return $conditions;
