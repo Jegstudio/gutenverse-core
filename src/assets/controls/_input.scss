@@ -1616,6 +1616,8 @@
         transition: all 0.3s ease 0s;
         color: #fff;
         display: flex;
+        justify-content: center;
+        align-items: center;
 
         >div {
           flex: 1;
