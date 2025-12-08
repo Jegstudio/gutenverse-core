@@ -348,11 +348,12 @@
 
         .icon-content {
             position: static;
+            line-height: 1;
+            display: inline-flex;
+
             svg {
                 fill: $color-grey-200;
             }
-            line-height: 1;
-            display: inline-flex;
 
             &.quote-override {
                 position: absolute !important;

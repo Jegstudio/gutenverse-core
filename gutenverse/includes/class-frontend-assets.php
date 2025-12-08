@@ -225,6 +225,36 @@ class Frontend_Assets {
 					}
 				}
 				break;
+			case 'gutenverse/post-list':
+				if ( isset( $attrs['metaEnabled'] ) && $attrs['metaEnabled'] ) {
+					if ( ! isset( $attrs['metaDateIconType'] ) || 'icon' === $attrs['metaDateIconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+				if ( isset( $attrs['metaEnabled'] ) && $attrs['metaEnabled'] ) {
+					if ( ! isset( $attrs['metaCategoryIconType'] ) || 'icon' === $attrs['metaCategoryIconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+
+				// Check pagination icons.
+				if ( isset( $attrs['paginationMode'] ) ) {
+					if ( in_array( $attrs['paginationMode'], array( 'loadmore', 'scrollload' ), true ) ) {
+						if ( ! isset( $attrs['paginationIconType'] ) || 'icon' === $attrs['paginationIconType'] ) {
+							$this->icon_conditional_load( $conditions );
+						}
+					}
+
+					if ( in_array( $attrs['paginationMode'], array( 'prevnext', 'number', 'normal-prevnext', 'normal-number' ), true ) ) {
+						if ( ! isset( $attrs['paginationPrevIconType'] ) || 'icon' === $attrs['paginationPrevIconType'] ) {
+							$this->icon_conditional_load( $conditions );
+						}
+						if ( ! isset( $attrs['paginationNextIconType'] ) || 'icon' === $attrs['paginationNextIconType'] ) {
+							$this->icon_conditional_load( $conditions );
+						}
+					}
+				}
+				break;
 		}
 
 		return $conditions;

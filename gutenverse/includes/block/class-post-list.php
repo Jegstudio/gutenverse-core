@@ -144,13 +144,16 @@ class Post_List extends Post_Abstract {
 
 		if ( $this->attr_is_true( $this->attributes['metaEnabled'] ) ) {
 			if ( $this->attr_is_true( $this->attributes['metaDateEnabled'] ) ) {
-				$date_icon = $this->attributes['metaDateIcon'];
-				$date      = esc_attr( $this->format_date( $post ) );
+				$date_icon      = $this->attributes['metaDateIcon'];
+				$date_icon_type = isset( $this->attributes['metaDateIconType'] ) ? esc_attr( $this->attributes['metaDateIconType'] ) : 'icon';
+				$date_icon_svg  = isset( $this->attributes['metaDateIconSVG'] ) ? $this->attributes['metaDateIconSVG'] : '';
+
+				$date = esc_attr( $this->format_date( $post ) );
 
 				if ( $date_icon || $date ) {
 					$meta_date = $date;
 					if ( $date_icon ) {
-						$icon_html = '<i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i>';
+						$icon_html = $this->render_icon( $date_icon, $date_icon_type, $date_icon_svg );
 					} else {
 						$icon_html = '';
 					}
@@ -170,11 +173,14 @@ class Post_List extends Post_Abstract {
 			}
 
 			if ( $this->attr_is_true( $this->attributes['metaCategoryEnabled'] ) ) {
-				$category_icon = $this->attributes['metaCategoryIcon'];
+				$category_icon      = $this->attributes['metaCategoryIcon'];
+				$category_icon_type = isset( $this->attributes['metaCategoryIconType'] ) ? esc_attr( $this->attributes['metaCategoryIconType'] ) : 'icon';
+				$category_icon_svg  = isset( $this->attributes['metaCategoryIconSVG'] ) ? $this->attributes['metaCategoryIconSVG'] : '';
+
 				$category      = get_category( $this->get_primary_category( $post->ID ) );
 				$meta_category = isset( $category->name ) ? $category->name : '';
 				if ( $category_icon ) {
-					$icon_html = '<i aria-hidden="true" class="' . esc_attr( $category_icon ) . '"></i>';
+					$icon_html = $this->render_icon( $category_icon, $category_icon_type, $category_icon_svg );
 				} else {
 					$icon_html = '';
 				}
@@ -254,5 +260,22 @@ class Post_List extends Post_Abstract {
 		$custom_classes  = $this->get_custom_classes();
 
 		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' layout-' . $layout . ' guten-post-list guten-element">' . $this->render_content() . '</div>';
+	}
+
+	/**
+	 * Render icon (font icon or SVG)
+	 *
+	 * @param string $icon Icon class name.
+	 * @param string $icon_type Type of icon ('icon' or 'svg').
+	 * @param string $icon_svg Base64 encoded SVG data.
+	 *
+	 * @return string
+	 */
+	protected function render_icon( $icon, $icon_type = 'icon', $icon_svg = '' ) {
+		if ( 'svg' === $icon_type && ! empty( $icon_svg ) ) {
+			$svg_data = base64_decode( $icon_svg );
+			return '<div class="gutenverse-icon-svg">' . $svg_data . '</div>';
+		}
+		return '<i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i>';
 	}
 }
