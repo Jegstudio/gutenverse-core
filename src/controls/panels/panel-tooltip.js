@@ -2,7 +2,7 @@ import { applyFilters } from '@wordpress/hooks';
 import { LockedTooltipControl } from 'gutenverse-core/controls';
 
 export const tooltipPanel = (props) => {
-    return applyFilters(
+    const result = applyFilters(
         'gutenverse.tooltip-options',
         [{
             component: LockedTooltipControl,
@@ -10,4 +10,5 @@ export const tooltipPanel = (props) => {
         props,
         ''
     );
+    return result ? result : [];
 };
