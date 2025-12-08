@@ -11,11 +11,11 @@ import { isEmpty } from 'gutenverse-core/helper';
 const save = compose(
     withAnimationAdvanceScript('icon'),
     withMouseMoveEffectScript,
-    withTooltipScript('.guten-icon-wrapper')
+    withTooltipScript ? withTooltipScript('.guten-icon-wrapper') : (BlockElement) => (props) => <BlockElement {...props} />
 )((props) => {
     const {
         attributes,
-        tooltipData,
+        tooltipData = {},
     } = props;
 
     const {
@@ -57,10 +57,10 @@ const save = compose(
         );
 
         const iconElement = !isEmpty(url) ?
-            <a className={wrapperClass} href={href} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
-                <i className={`${icon}`}/>
+            <a className={wrapperClass} href={href} target={linkTarget} rel={rel} aria-label={ariaLabel}>
+                <i className={`${icon}`} />
             </a> : <span className={wrapperClass}>
-                <i className={`${icon}`}/>
+                <i className={`${icon}`} />
             </span>;
 
         return iconElement;

@@ -32,7 +32,7 @@ const IconBlock = compose(
     withPassRef,
     withAnimationAdvanceV2('icon'),
     withMouseMoveEffect,
-    withTooltip('.guten-icon-wrapper'),
+    withTooltip ? withTooltip('.guten-icon-wrapper') : (BlockElement) => (props) => <BlockElement {...props} />,
 )((props) => {
     const {
         attributes,
@@ -138,7 +138,7 @@ const IconBlock = compose(
     }, [elementRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         <BlockControls>
             <ToolbarGroup>
@@ -156,7 +156,7 @@ const IconBlock = compose(
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
-                    {...props, setPanelState},
+                    { ...props, setPanelState },
                     iconPanelState
                 )}
                 <ToolbarButton
