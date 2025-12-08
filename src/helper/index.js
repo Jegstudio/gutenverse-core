@@ -968,7 +968,7 @@ export const svgAtob = (encodedSVG) => {
  * @param {string} iconSVG - Base64 encoded SVG data
  * @returns {JSX.Element|null} - Rendered icon element
  */
-export const renderIcon = (icon, iconType = 'icon', iconSVG = '') => {
+export const renderIcon = (icon, iconType = 'icon', iconSVG = '', showAriaHidden = false) => {
     if (iconType === 'svg' && iconSVG) {
         try {
             const svgData = atob(iconSVG);
@@ -984,7 +984,12 @@ export const renderIcon = (icon, iconType = 'icon', iconSVG = '') => {
     }
 
     if (icon) {
-        return <i className={icon}></i>;
+        if (showAriaHidden) {
+            return <i aria-hidden="true" className={icon}></i>;
+        } else {
+            return <i className={icon}></i>;
+        }
+
     }
 
     return null;
