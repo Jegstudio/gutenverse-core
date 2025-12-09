@@ -277,8 +277,12 @@ abstract class Style_Interface {
 				$value    = $this->sanitize_value( $data['value'] );
 				$property = call_user_func( $data['property'], $data['value'] );
 				$selector = $data['selector'];
-
+			if ( isset( $data['specific_device'] ) ) {
+				$device                                    = $data['specific_device'];
+				$this->generated[ $device ][ $selector ][] = $property;
+			} else {
 				$this->generated['Desktop'][ $selector ][] = $property;
+			}
 		}
 	}
 
