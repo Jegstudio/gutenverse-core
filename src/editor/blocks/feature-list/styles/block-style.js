@@ -138,7 +138,7 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
-    isNotEmpty(attributes['contentPosition']) && attributes['contentPosition'] === 'start'  && data.push({
+    isNotEmpty(attributes['contentPosition']) && attributes['contentPosition'] === 'start' && data.push({
         'type': 'plain',
         'id': 'contentPosition',
         'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-top`,
@@ -177,7 +177,7 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
-    isNotEmpty(attributes['contentPosition']) && attributes['contentPosition'] === 'end'  && data.push({
+    isNotEmpty(attributes['contentPosition']) && attributes['contentPosition'] === 'end' && data.push({
         'type': 'plain',
         'id': 'contentPosition',
         'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector-bottom`,
@@ -411,6 +411,18 @@ const getBlockStyle = (elementId, attributes) => {
                     'valueType': 'direct'
                 }
             ]
+        },
+        {
+            'type': 'unitPoint',
+            'id': 'iconSize',
+            'responsive': true,
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon svg`,
+            'properties': [
+                {
+                    'name': 'width',
+                    'valueType': 'direct'
+                }
+            ]
         }
     );
 
@@ -426,6 +438,18 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['iconColor']) && data.push({
+        'type': 'color',
+        'id': 'iconColor',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['iconColorHover']) && data.push({
         'type': 'color',
         'id': 'iconColorHover',
@@ -433,6 +457,18 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['iconColorHover']) && data.push({
+        'type': 'color',
+        'id': 'iconColorHover',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon svg`,
+        'properties': [
+            {
+                'name': 'fill',
                 'valueType': 'direct'
             }
         ]
@@ -875,6 +911,18 @@ export const featureListGetBlockStyle = (elementId, attribute) => {
                         'valueType': 'direct'
                     }
                 ]
+            },
+            {
+                'type': 'unitPoint',
+                'id': 'iconSize',
+                'responsive': true,
+                'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon svg`,
+                'properties': [
+                    {
+                        'name': 'width',
+                        'valueType': 'direct'
+                    }
+                ]
             }
         );
 
@@ -920,6 +968,18 @@ export const featureListGetBlockStyle = (elementId, attribute) => {
             ]
         });
 
+        isNotEmpty(el['iconColor']) && arrOpt.push({
+            'type': 'color',
+            'id': 'iconColor',
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon svg`,
+            'properties': [
+                {
+                    'name': 'fill',
+                    'valueType': 'direct'
+                }
+            ]
+        });
+
         isNotEmpty(el['iconColorHover']) && arrOpt.push({
             'type': 'color',
             'id': 'iconColorHover',
@@ -927,6 +987,18 @@ export const featureListGetBlockStyle = (elementId, attribute) => {
             'properties': [
                 {
                     'name': 'color',
+                    'valueType': 'direct'
+                }
+            ]
+        });
+
+        isNotEmpty(el['iconColorHover']) && arrOpt.push({
+            'type': 'color',
+            'id': 'iconColorHover',
+            'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}):hover .icon svg`,
+            'properties': [
+                {
+                    'name': 'fill',
                     'valueType': 'direct'
                 }
             ]

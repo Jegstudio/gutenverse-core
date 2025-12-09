@@ -55,9 +55,24 @@ const save = compose(
             case 'number':
                 return <div className="icon-wrapper">
                     <div className="icon">
-                        <span className="icon-number">{typeof item.number === 'number' && !Number.isNaN(item.number) ? item.number : index + 1 }</span>
+                        <span className="icon-number">{typeof item.number === 'number' && !Number.isNaN(item.number) ? item.number : index + 1}</span>
                     </div>
                 </div>;
+            case 'svg':
+                try {
+                    const svgData = atob(item.svg);
+                    return <div className="icon-wrapper">
+                        <div className="icon">
+                            <div
+                                className="gutenverse-icon-svg"
+                                dangerouslySetInnerHTML={{ __html: svgData }}
+                            />
+                        </div>
+                    </div>;
+                } catch (error) {
+                    console.log(error);
+                    return null;
+                }
             default:
                 return null;
         }
@@ -72,7 +87,7 @@ const save = compose(
                             {showConnector && index != featureList.length - 1 && <span className={`connector-bottom icon-position-${iconPosition}`}></span>}
                             {iconContent(el, index)}
                             <div className="feature-list-content">
-                                { el.link ? <a href={el.link} target="_blank" rel="noreferrer" aria-label={el.title}><h2 className="feature-list-title">{el.title}</h2></a> : <h2 className="feature-list-title">{el.title}</h2>}
+                                {el.link ? <a href={el.link} target="_blank" rel="noreferrer" aria-label={el.title}><h2 className="feature-list-title">{el.title}</h2></a> : <h2 className="feature-list-title">{el.title}</h2>}
                                 <p className="feature-list-desc">{el.content}</p>
                             </div>
                         </div>;

@@ -255,6 +255,22 @@ class Frontend_Assets {
 					}
 				}
 				break;
+			case 'gutenverse/feature-list':
+				if ( isset( $attrs['featureList'] ) && $attrs['featureList'] ) {
+					$feature_list = $attrs['featureList'];
+					if ( is_string( $feature_list ) ) {
+						$feature_list = json_decode( $feature_list, true );
+					}
+
+					if ( is_array( $feature_list ) || is_object( $feature_list ) ) {
+						foreach ( $feature_list as $feature ) {
+							if ( 'icon' === $feature['type'] ) {
+								$this->icon_conditional_load( $conditions );
+							}
+						}
+					}
+				}
+				break;
 		}
 
 		return $conditions;
