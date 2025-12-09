@@ -17,6 +17,7 @@ export { default as DividerAnimatedControl } from './controls/divider-animated/d
 export { default as FontControl } from './controls/font/font-control';
 export { default as IconControl, IconLibrary } from './controls/icon/icon-control';
 export { default as IconSVGControl } from './controls/icon/icon-svg-control';
+export { default as SVGControl } from './controls/icon/svg-control';
 export { default as IconRadioControl } from './controls/icon-radio/icon-radio-control';
 export { default as ImageControl } from './controls/image/image-control';
 export { default as ImageSizeControl } from './controls/image-size/image-size-control';
