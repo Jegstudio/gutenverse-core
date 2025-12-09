@@ -267,7 +267,7 @@ abstract class Block_Abstract {
 	protected function render_icon( $type, $icon, $svg ) {
 		if ( 'svg' === $type && ! empty( $svg ) ) {
 			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
-			return base64_decode( $svg, true );
+			return '<div class="gutenverse-icon-svg">' . base64_decode( $svg, true ) . '</div>';
 		}
 		return '<i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i>';
 	}

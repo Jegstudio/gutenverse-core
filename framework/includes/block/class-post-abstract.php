@@ -357,9 +357,11 @@ abstract class Post_Abstract extends Block_Abstract {
 		$result           = array();
 		$args             = array();
 
-		$args['post_type'] = $attr['postType'];
+		$args['post_type']   = $attr['postType'];
+		$args['post_status'] = 'publish';
 
 		$is_normal_mode = isset( $attr['paginationMode'] ) && in_array( $attr['paginationMode'], array( 'normal-prevnext', 'normal-number' ), true );
+
 		// For native pagination modes, read from URL query parameter.
 		if ( $is_normal_mode ) {
 			$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : get_query_var( 'page' );
@@ -533,8 +535,6 @@ abstract class Post_Abstract extends Block_Abstract {
 		if ( isset( $attr['monthnum'] ) ) {
 			$args['monthnum'] = $attr['monthnum'];
 		}
-
-		$args['post_status'] = 'publish';
 
 		$args = apply_filters( 'gutenverse_default_query_args', $args, $attr );
 
@@ -734,7 +734,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			$output = '<span data-load="' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '" data-loading="' . esc_attr( $this->attributes['paginationLoadingText'] ) . '"> ' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '</span>';
 
 			if ( ! empty( $icon ) || 'svg' === $icon_type ) {
-				$icon_html = $this->render_icon( $icon, $icon_type, $icon_svg );
+				$icon_html = $this->render_icon( $icon_type, $icon, $icon_svg );
 				if ( 'before' === $icon_position ) {
 					$output = $icon_html . $output;
 				} else {
@@ -750,12 +750,12 @@ abstract class Post_Abstract extends Block_Abstract {
 			$next = $next ? '' : 'disabled';
 			$prev = $prev ? '' : 'disabled';
 
-			$prev_text = $this->render_icon( $prev_icon, $prev_icon_type, $prev_icon_svg );
-			$next_text = $this->render_icon( $next_icon, $next_icon_type, $next_icon_svg );
+			$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg );
+			$next_text = $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 
 			if ( $pre_next_text && 'false' !== $pre_next_text ) {
-				$prev_text = $this->render_icon( $prev_icon, $prev_icon_type, $prev_icon_svg ) . ' ' . $prev_inner_text;
-				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon, $next_icon_type, $next_icon_svg );
+				$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg ) . ' ' . $prev_inner_text;
+				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 			}
 
 			$prev_link = 1 === $page ? '' : '<a href="#" class="btn-pagination prev ' . esc_attr( $prev ) . '" title="' . $prev_inner_text . '">' . $prev_text . '</a>';
@@ -769,12 +769,12 @@ abstract class Post_Abstract extends Block_Abstract {
 		}
 
 		if ( 'number' === $this->attributes['paginationMode'] && $total > 1 ) {
-			$prev_text = $this->render_icon( $prev_icon, $prev_icon_type, $prev_icon_svg );
-			$next_text = $this->render_icon( $next_icon, $next_icon_type, $next_icon_svg );
+			$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg );
+			$next_text = $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 
 			if ( $pre_next_text && 'false' !== $pre_next_text ) {
-				$prev_text = $this->render_icon( $prev_icon, $prev_icon_type, $prev_icon_svg ) . ' ' . esc_html__( 'Prev', '--gctd--' );
-				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon, $next_icon_type, $next_icon_svg );
+				$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg ) . ' ' . esc_html__( 'Prev', '--gctd--' );
+				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 			}
 
 			$output = '<div class="guten_block_nav" data-page="' . $page . '">';
@@ -822,12 +822,12 @@ abstract class Post_Abstract extends Block_Abstract {
 			$prev_class = $prev ? '' : 'disabled';
 			$next_class = $next ? '' : 'disabled';
 
-			$prev_text = $this->render_icon( $prev_icon, $prev_icon_type, $prev_icon_svg );
-			$next_text = $this->render_icon( $next_icon, $next_icon_type, $next_icon_svg );
+			$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg );
+			$next_text = $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 
 			if ( $pre_next_text && 'false' !== $pre_next_text ) {
-				$prev_text = $this->render_icon( $prev_icon, $prev_icon_type, $prev_icon_svg ) . ' ' . $prev_inner_text;
-				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon, $next_icon_type, $next_icon_svg );
+				$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg ) . ' ' . $prev_inner_text;
+				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 			}
 
 			$prev_link = 1 === $page ? '' : sprintf(
@@ -859,11 +859,11 @@ abstract class Post_Abstract extends Block_Abstract {
 
 		// Normal Number Pagination (Native).
 		if ( 'normal-number' === $this->attributes['paginationMode'] && $total > 1 ) {
-			$prev_text = $this->render_icon( $prev_icon, $prev_icon_type, $prev_icon_svg );
-			$next_text = $this->render_icon( $next_icon, $next_icon_type, $next_icon_svg );
+			$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg );
+			$next_text = $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 
 			if ( $pre_next_text && 'false' !== $pre_next_text ) {
-				$prev_text = $this->render_icon( $prev_icon, $prev_icon_type, $prev_icon_svg ) . ' ' . esc_html__( 'Prev', '--gctd--' );
+				$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg ) . ' ' . esc_html__( 'Prev', '--gctd--' );
 				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon, $next_icon_type, $next_icon_svg );
 			}
 
