@@ -26,7 +26,7 @@ export const panelIcon = (props) => {
                 {
                     'type': 'color',
                     'id': 'iconColor',
-                    'selector': `.${elementId} .guten-icon-list-item svg`,
+                    'selector': `.${elementId}.guten-icon-list .guten-icon-list-item svg`,
                     'properties': [
                         {
                             'name': 'fill',
@@ -79,7 +79,7 @@ export const panelIcon = (props) => {
                     'type': 'plain',
                     'id': 'iconSize',
                     'responsive': true,
-                    'selector': `.${elementId} .guten-icon-list-item i, .${elementId} .guten-icon-list-item svg`,
+                    'selector': `.${elementId} .guten-icon-list-item i, .${elementId}.guten-icon-list .guten-icon-list-item svg`,
                     'properties': [
                         {
                             'name': 'font-size',

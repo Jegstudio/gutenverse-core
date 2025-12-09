@@ -162,7 +162,7 @@ class Icon_List extends Style_Abstract {
 		if ( isset( $this->attrs['iconColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-list-item svg",
+					'selector'       => ".{$this->element_id}.guten-icon-list .guten-icon-list-item svg",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'fill' );
 					},
@@ -188,7 +188,7 @@ class Icon_List extends Style_Abstract {
 		if ( isset( $this->attrs['iconColorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-list-item:hover svg",
+					'selector'       => ".{$this->element_id}.guten-icon-list .guten-icon-list-item:hover svg",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'fill' );
 					},
@@ -214,7 +214,7 @@ class Icon_List extends Style_Abstract {
 		if ( isset( $this->attrs['iconSize'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-icon-list-item svg",
+					'selector'       => ".{$this->element_id}.guten-icon-list .guten-icon-list-item svg",
 					'property'       => function ( $value ) {
 						return "width: {$value}px;";
 					},

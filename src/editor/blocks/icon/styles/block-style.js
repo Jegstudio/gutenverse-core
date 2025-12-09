@@ -42,7 +42,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} svg`,
+        'selector': `.${elementId} .gutenverse-icon-svg svg`,
         'responsive': true
     });
 
