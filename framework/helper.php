@@ -920,8 +920,9 @@ if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 			if ( isset( $font['transform'] ) ) {
 				$transform = $font['transform'];
 				if ( $transform && 'default' !== $transform ) {
+					$temp_transform = ( 'normal' === $transform ) ? 'none' : $transform;
 					gutenverse_normal_appender(
-						gutenverse_variable_font_name( $id, 'transform' ) . ':' . $transform . ';',
+						gutenverse_variable_font_name( $id, 'transform' ) . ':' . $temp_transform . ';',
 						$variable_style
 					);
 				}
