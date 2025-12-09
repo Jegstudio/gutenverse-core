@@ -96,13 +96,13 @@ export const panelList = () => {
             panelArray: contentColor,
             tabRole: TabStyle
         },
-        {
-            title: __('Tooltip Style', 'gutenverse'),
-            initialOpen: false,
-            panelArray: tooltipStylePanel,
-            tabRole: TabStyle,
-            pro: true
-        },
+        // {
+        //     title: __('Tooltip Style', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelArray: tooltipStylePanel,
+        //     tabRole: TabStyle,
+        //     pro: true
+        // },
         {
             title: __('Background', 'gutenverse'),
             initialOpen: false,
