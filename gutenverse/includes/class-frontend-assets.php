@@ -226,6 +226,12 @@ class Frontend_Assets {
 				}
 				break;
 			case 'gutenverse/post-list':
+				if ( isset( $attrs['iconEnabled'] ) && $attrs['iconEnabled'] ) {
+					if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
+						$this->icon_conditional_load( $conditions );
+					}
+				}
+
 				if ( isset( $attrs['metaEnabled'] ) && $attrs['metaEnabled'] ) {
 					if ( ! isset( $attrs['metaDateIconType'] ) || 'icon' === $attrs['metaDateIconType'] ) {
 						$this->icon_conditional_load( $conditions );

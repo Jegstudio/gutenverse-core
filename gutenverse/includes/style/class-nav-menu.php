@@ -386,7 +386,7 @@ class Nav_Menu extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > svg",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'fill' );
 					},
@@ -411,8 +411,8 @@ class Nav_Menu extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a > svg,
-						#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu> ul > li > a > svg",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a svg,
+						#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu> ul > li > a svg",
 					'property'       => function ( $value ) {
 						return "width: {$value}px;";
 					},
@@ -436,7 +436,7 @@ class Nav_Menu extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a > svg",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a svg",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'fill' );
 					},
@@ -460,7 +460,7 @@ class Nav_Menu extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a > svg",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a svg",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'fill' );
 					},

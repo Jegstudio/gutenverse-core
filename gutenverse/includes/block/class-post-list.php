@@ -153,7 +153,7 @@ class Post_List extends Post_Abstract {
 				if ( $date_icon || $date ) {
 					$meta_date = $date;
 					if ( $date_icon ) {
-						$icon_html = $this->render_icon( $date_icon, $date_icon_type, $date_icon_svg );
+						$icon_html = $this->render_icon( $date_icon_type, $date_icon, $date_icon_svg );
 					} else {
 						$icon_html = '';
 					}
@@ -180,7 +180,7 @@ class Post_List extends Post_Abstract {
 				$category      = get_category( $this->get_primary_category( $post->ID ) );
 				$meta_category = isset( $category->name ) ? $category->name : '';
 				if ( $category_icon ) {
-					$icon_html = $this->render_icon( $category_icon, $category_icon_type, $category_icon_svg );
+					$icon_html = $this->render_icon( $category_icon_type, $category_icon, $category_icon_svg );
 				} else {
 					$icon_html = '';
 				}
@@ -219,10 +219,12 @@ class Post_List extends Post_Abstract {
 			if ( $this->attr_is_true( $this->attributes['imageEnabled'] ) ) {
 				$thumbnail = get_the_post_thumbnail( $post->ID, $image_size );
 			} elseif ( $this->attr_is_true( $this->attributes['iconEnabled'] ) ) {
-				$icon = $this->attributes['icon'];
+				$icon      = $this->attributes['icon'];
+				$icon_type = $this->attributes['iconType'];
+				$icon_svg  = $this->attributes['iconSVG'];
 
 				if ( $icon ) {
-					$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i></span>';
+					$thumbnail = '<span class="icon-list">' . $this->render_icon( $icon_type, $icon, $icon_svg ) . '</span>';
 				}
 			}
 
@@ -260,22 +262,5 @@ class Post_List extends Post_Abstract {
 		$custom_classes  = $this->get_custom_classes();
 
 		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' layout-' . $layout . ' guten-post-list guten-element">' . $this->render_content() . '</div>';
-	}
-
-	/**
-	 * Render icon (font icon or SVG)
-	 *
-	 * @param string $icon Icon class name.
-	 * @param string $icon_type Type of icon ('icon' or 'svg').
-	 * @param string $icon_svg Base64 encoded SVG data.
-	 *
-	 * @return string
-	 */
-	protected function render_icon( $icon, $icon_type = 'icon', $icon_svg = '' ) {
-		if ( 'svg' === $icon_type && ! empty( $icon_svg ) ) {
-			$svg_data = base64_decode( $icon_svg );
-			return '<div class="gutenverse-icon-svg">' . $svg_data . '</div>';
-		}
-		return '<i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i>';
 	}
 }

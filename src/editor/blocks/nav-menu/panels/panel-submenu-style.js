@@ -49,7 +49,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'plain',
                     'id': 'SubmenuIndicatorSize',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a > svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a > svg`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a svg`,
                     'properties': [
                         {
                             'name': 'width',

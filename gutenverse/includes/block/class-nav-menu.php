@@ -17,24 +17,6 @@ use Gutenverse\Framework\Block\Block_Abstract;
  * @package gutenverse\block
  */
 class Nav_Menu extends Block_Abstract {
-
-	/**
-	 * Get SVG Indicator
-	 *
-	 * @return string
-	 */
-	public function svg_indicator_svg() {
-		try {
-			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
-			$decoded = base64_decode( $this->attributes['submenuItemIndicatorSVG'], true );
-			$html    = '<div class="gutenverse-icon-svg">' . $decoded . '</div>';
-			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
-			return base64_encode( $html );
-		} catch ( \Exception $e ) {
-			return '';
-		}
-	}
-
 	/**
 	 * Render Content
 	 *

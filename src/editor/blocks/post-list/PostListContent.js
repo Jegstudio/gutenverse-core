@@ -16,9 +16,6 @@ const PostListContent = (props) => {
         iconSVG,
         metaEnabled,
         metaDateEnabled,
-        // metaDateType, // Unused
-        metaDateFormat,
-        // metaDateFormatCustom, // Unused
         metaDateIcon,
         metaDateIconType,
         metaDateIconSVG,

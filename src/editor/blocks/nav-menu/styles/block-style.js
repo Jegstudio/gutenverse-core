@@ -252,27 +252,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'SubmenuIndicatorSize',
         'responsive': true,
-        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a > svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a > svg`,
-        'properties': [
-            {
-                'name': 'font-size',
-                'valueType': 'pattern',
-                'pattern': '{value}px',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct',
-                    },
-
-                }
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['SubmenuIndicatorSize']) && data.push({
-        'type': 'plain',
-        'id': 'SubmenuIndicatorSize',
-        'responsive': true,
-        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a > svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a > svg`,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a svg`,
         'properties': [
             {
                 'name': 'width',
@@ -311,7 +291,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > svg`,
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg`,
     });
 
     isNotEmpty(attributes['submenuIndicatorMargin']) && data.push({
@@ -426,7 +406,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'submenuIndicatorColor',
         'responsive': true,
-        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > svg`,
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg`,
         'properties': [
             {
                 'name': 'fill',
@@ -471,7 +451,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'submenuIndicatorHoverColor',
         'responsive': true,
-        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a > svg`,
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a svg`,
         'properties': [
             {
                 'name': 'fill',
@@ -516,7 +496,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'submenuIndicatorActiveColor',
         'responsive': true,
-        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a > svg`,
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a svg`,
         'properties': [
             {
                 'name': 'fill',

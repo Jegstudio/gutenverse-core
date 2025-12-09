@@ -203,7 +203,7 @@ class Post_Block extends Post_Abstract {
 				$icon_svg      = isset( $this->attributes['metaAuthorIconSVG'] ) ? $this->attributes['metaAuthorIconSVG'] : '';
 				$icon_position = esc_attr( $this->attributes['metaAuthorIconPosition'] );
 
-				$icon_html = $this->render_icon( $icon, $icon_type, $icon_svg );
+				$icon_html = $this->render_icon( $icon_type, $icon, $icon_svg );
 
 				if ( 'before' === $icon_position ) {
 					$author_output = '<div class="guten-meta-author icon-position-' . $icon_position . '">' . $icon_html . '<span class="by">' . $author_by . '</span> <a href="' . $author_url . '">' . $author_name . '</a></div>';
@@ -218,7 +218,7 @@ class Post_Block extends Post_Abstract {
 				$icon_svg      = isset( $this->attributes['metaDateIconSVG'] ) ? $this->attributes['metaDateIconSVG'] : '';
 				$icon_position = esc_attr( $this->attributes['metaDateIconPosition'] );
 
-				$icon_html = $this->render_icon( $icon, $icon_type, $icon_svg );
+				$icon_html = $this->render_icon( $icon_type, $icon, $icon_svg );
 
 				if ( 'before' === $icon_position ) {
 					$date_output = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $icon_html . $this->format_date( $post ) . '</div>';
@@ -231,23 +231,6 @@ class Post_Block extends Post_Abstract {
 		}
 
 		return apply_filters( 'gutenverse_post_block_meta', $meta, $post, $this );
-	}
-
-	/**
-	 * Render icon (font icon or SVG)
-	 *
-	 * @param string $icon Icon class name.
-	 * @param string $icon_type Type of icon ('icon' or 'svg').
-	 * @param string $icon_svg Base64 encoded SVG data.
-	 *
-	 * @return string
-	 */
-	protected function render_icon( $icon, $icon_type = 'icon', $icon_svg = '' ) {
-		if ( 'svg' === $icon_type && ! empty( $icon_svg ) ) {
-			$svg_data = base64_decode( $icon_svg );
-			return '<div class="gutenverse-icon-svg">' . $svg_data . '</div>';
-		}
-		return '<i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i>';
 	}
 
 	/**
@@ -291,7 +274,7 @@ class Post_Block extends Post_Abstract {
 			$icon_position = esc_attr( $this->attributes['readmoreIconPosition'] );
 			$text          = esc_attr( $this->attributes['readmoreText'] );
 
-			$icon_html = $this->render_icon( $icon, $icon_type, $icon_svg );
+			$icon_html = $this->render_icon( $icon_type, $icon, $icon_svg );
 
 			if ( 'before' === $icon_position ) {
 				$readmore = $icon_html . $text;
@@ -346,7 +329,7 @@ class Post_Block extends Post_Abstract {
 			$icon_svg      = isset( $this->attributes['commentIconSVG'] ) ? $this->attributes['commentIconSVG'] : '';
 			$icon_position = esc_attr( $this->attributes['commentIconPosition'] );
 
-			$icon_html = $this->render_icon( $icon, $icon_type, $icon_svg );
+			$icon_html = $this->render_icon( $icon_type, $icon, $icon_svg );
 
 			$inner_comment_content = '';
 			if ( 'before' === $icon_position ) {

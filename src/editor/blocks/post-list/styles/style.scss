@@ -45,6 +45,8 @@
             }
 
             .meta-lists {
+                display: flex;
+
                 span {
                     color: var(--guten-txt-m-color);
                     font-size: 12px;
