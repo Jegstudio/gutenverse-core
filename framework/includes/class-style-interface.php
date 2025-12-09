@@ -1347,16 +1347,7 @@ abstract class Style_Interface {
 			);
 		}
 		if ( isset( $tltp_attrs['tooltipBackground'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip, .guten-tooltip-{$this->element_id}.guten-tooltip.arrow:before",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'background-color' );
-					},
-					'value'          => $tltp_attrs['tooltipBackground'],
-					'device_control' => false,
-				)
-			);
+			$this->handle_background( ".guten-tooltip-{$this->element_id}.guten-tooltip:before", $tltp_attrs['tooltipBackground'] );
 		}
 		if ( isset( $tltp_attrs['tooltipTextAlign'] ) ) {
 			$this->inject_style(
@@ -1382,6 +1373,18 @@ abstract class Style_Interface {
 				)
 			);
 		}
+		if ( isset( $tltp_attrs['arrowColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip:after",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background' );
+					},
+					'value'          => $tltp_attrs['arrowColor'],
+					'device_control' => false,
+				)
+			);
+		}
 		if ( isset( $tltp_attrs['tooltipIconColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -1397,7 +1400,7 @@ abstract class Style_Interface {
 		if ( isset( $tltp_attrs['tooltipIconSize'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip .guten-tooltip-text .guten-tooltip-icon",
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip .guten-tooltip-text .guten-tooltip-icon i",
 					'property'       => function ( $value ) {
 						return "font-size: {$value}px";
 					},
@@ -1466,7 +1469,7 @@ abstract class Style_Interface {
 		if ( isset( $tltp_attrs['tooltipBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip",
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip:before",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},

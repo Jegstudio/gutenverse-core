@@ -29,15 +29,9 @@ export const tooltipCSS = (attribute, selector, handler) => {
     });
 
     isNotEmpty(attribute['tooltipBackground']) && data.push({
-        'type': 'color',
+        'type': 'background',
         'id': 'tooltipBackground',
-        'selector': `${selector}, ${selector}.arrow:before`,
-        'properties': [
-            {
-                'name': 'background',
-                'valueType': 'direct'
-            }
-        ],
+        'selector': `${selector}:before`,
     });
 
     isNotEmpty(attribute['tooltipTextAlign']) && data.push({
@@ -80,7 +74,7 @@ export const tooltipCSS = (attribute, selector, handler) => {
     isNotEmpty(attribute['tooltipIconSize']) && data.push({
         'type': 'plain',
         'id': 'tooltipIconSize',
-        'selector': `${selector} .guten-tooltip-text .guten-tooltip-icon`,
+        'selector': `${selector} .guten-tooltip-text .guten-tooltip-icon i`,
         'properties': [
             {
                 'name': 'font-size',
@@ -95,40 +89,42 @@ export const tooltipCSS = (attribute, selector, handler) => {
         ],
     });
 
-    isNotEmpty(attribute['tooltipIconSpacing']) && data.push({
-        'type': 'plain',
-        'id': 'tooltipIconSpacing',
-        'selector': `${selector} .guten-tooltip-text .guten-tooltip-icon.before`,
-        'properties': [
-            {
-                'name': 'margin-right',
-                'valueType': 'pattern',
-                'pattern': '{value}px',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct',
-                    },
+    isNotEmpty(attribute['tooltipIconSpacing']) && data.push(
+        {
+            'type': 'plain',
+            'id': 'tooltipIconSpacing',
+            'selector': `${selector} .guten-tooltip-text .guten-tooltip-icon.before`,
+            'properties': [
+                {
+                    'name': 'margin-right',
+                    'valueType': 'pattern',
+                    'pattern': '{value}px',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct',
+                        },
+                    }
                 }
-            }
-        ],
-    },
-    {
-        'type': 'plain',
-        'id': 'tooltipIconSpacing',
-        'selector': `${selector} .guten-tooltip-text .guten-tooltip-icon.after`,
-        'properties': [
-            {
-                'name': 'margin-left',
-                'valueType': 'pattern',
-                'pattern': '{value}px',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct',
-                    },
+            ],
+        },
+        {
+            'type': 'plain',
+            'id': 'tooltipIconSpacing',
+            'selector': `${selector} .guten-tooltip-text .guten-tooltip-icon.after`,
+            'properties': [
+                {
+                    'name': 'margin-left',
+                    'valueType': 'pattern',
+                    'pattern': '{value}px',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct',
+                        },
+                    }
                 }
-            }
-        ],
-    });
+            ],
+        }
+    );
 
     isNotEmpty(attribute['tooltipTypography']) && data.push({
         'type': 'typography',
@@ -165,8 +161,20 @@ export const tooltipCSS = (attribute, selector, handler) => {
     isNotEmpty(attribute['tooltipBorderResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'tooltipBorderResponsive',
-        'selector': selector,
+        'selector': `${selector}:before`,
         'responsive': true,
+    });
+
+    isNotEmpty(attribute['arrowColor']) && data.push({
+        'type': 'color',
+        'id': 'arrowColor',
+        'selector': `${selector}:after`,
+        'properties': [
+            {
+                'name': 'background',
+                'valueType': 'direct'
+            }
+        ],
     });
 
     data.forEach((dt) => {
