@@ -10,6 +10,9 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import { svgAtob, gutenverseRoot } from 'gutenverse-core/helper';
 import { IconLibrary } from './icon-control';
+import { isEmpty } from 'lodash';
+import { libraryApi } from 'gutenverse-core/config';
+import axios from 'axios';
 
 const IconSVGControl = (props) => {
     const {
@@ -67,7 +70,6 @@ const IconSVGControl = (props) => {
                 })
                 .catch((error) => {
                     console.error('Failed to fetch SVG content:', error);
-                    // Fallback: store empty string
                     updateAttributes({ [svgAttribute]: '' });
                 });
         }
@@ -76,6 +78,25 @@ const IconSVGControl = (props) => {
     const setType = (type) => {
         if (typeAttribute) {
             updateAttributes({ [typeAttribute]: type });
+
+            if ('svg' === type && isEmpty(svgValue) && !isEmpty(value)) {
+                axios.get(libraryApi + '/get-svg-font', {
+                    params: {
+                        name: value
+                    }
+                }).then(response => {
+                    const { data } = response;
+                    if (false !== data.data) {
+                        const encodedSVG = btoa(data.data);
+                        updateAttributes({ [svgAttribute]: encodedSVG });
+                    } else {
+                        console.error('cannot find the icon', value);
+                    }
+                }).catch(error => {
+                    console.error('Failed to fetch SVG content:', error);
+                    updateAttributes({ [svgAttribute]: '' });
+                });
+            }
         }
     };
 
