@@ -972,7 +972,7 @@ class Api {
 					'filename' => 'layout/categories',
 				),
 				array(
-					'version'  => 'v5',
+					'version'  => 'v6',
 					'endpoint' => 'theme/data',
 					'filename' => 'theme/data',
 				),

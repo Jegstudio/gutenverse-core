@@ -387,10 +387,6 @@ const ThemeListPage = (props) => {
             label: 'All Plans'
         },
         {
-            value: 'general',
-            label: 'Free'
-        },
-        {
             value: 'basic',
             label: 'Basic'
         },
