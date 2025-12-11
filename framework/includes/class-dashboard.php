@@ -879,27 +879,37 @@ class Dashboard {
 			2
 		);
 
-		if ( 'unibiz' !== $active_theme || ! $companion ) {
-			add_submenu_page(
-				self::TYPE,
-				esc_html__( 'Themes', '--gctd--' ),
-				esc_html__( 'Themes', '--gctd--' ),
-				'manage_options',
-				$path . 'themes',
-				null,
-				3
-			);
-		} elseif ( ! $companion ) {
-			add_submenu_page(
-				self::TYPE,
-				esc_html__( 'Themes', '--gctd--' ),
-				esc_html__( 'Themes', '--gctd--' ),
-				'manage_options',
-				admin_url() . '/admin.php?page=gutenverse-companion-dashboard&path=demo',
-				null,
-				3
-			);
-		}
+		// if ( 'unibiz' !== $active_theme || ! $companion ) {
+		// 	add_submenu_page(
+		// 		self::TYPE,
+		// 		esc_html__( 'Themes', '--gctd--' ),
+		// 		esc_html__( 'Themes', '--gctd--' ),
+		// 		'manage_options',
+		// 		$path . 'themes',
+		// 		null,
+		// 		3
+		// 	);
+		// } elseif ( ! $companion ) {
+		// 	add_submenu_page(
+		// 		self::TYPE,
+		// 		esc_html__( 'Themes', '--gctd--' ),
+		// 		esc_html__( 'Themes', '--gctd--' ),
+		// 		'manage_options',
+		// 		admin_url() . '/admin.php?page=gutenverse-companion-dashboard&path=demo',
+		// 		null,
+		// 		3
+		// 	);
+		// }
+
+		add_submenu_page(
+			self::TYPE,
+			esc_html__( 'Theme List', '--gctd--' ),
+			esc_html__( 'Theme List', '--gctd--' ),
+			'manage_options',
+			$path . 'theme-list',
+			null,
+			3
+		);
 
 		add_submenu_page(
 			self::TYPE,

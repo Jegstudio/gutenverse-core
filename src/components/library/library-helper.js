@@ -304,26 +304,12 @@ const sectionFilter = (sectionData, filter) => {
 };
 
 const themeFilter = (themeData, filter) => {
-    const { keyword, license, status: postStatus } = filter ?? {};
+    const { keyword, license, status: postStatus, filter: filterOption, pro } = filter ?? {};
 
     themeData = themeData.filter((layout) => {
-        const { data } = layout;
-        const { name, pro, status } = data;
+        const { data, categories } = layout;
+        const { name, pro, status, tier } = data;
         const dev = '--dev_mode--';
-
-        if (keyword) {
-            if (!name.toLowerCase().includes(keyword.toLowerCase())) {
-                return false;
-            }
-        }
-
-        if (license) {
-            const proState = pro === '0' ? 'free' : 'pro';
-
-            if (proState !== license) {
-                return false;
-            }
-        }
 
         if ('true' === dev) {
             if (postStatus) {
@@ -333,6 +319,51 @@ const themeFilter = (themeData, filter) => {
             }
         }
 
+        // --- SEARCH TERM LOGIC ---
+        if (keyword.trim() !== '') {
+            const term = keyword.toLowerCase();
+
+            // 1. Check demo.title
+            if (name && name.toLowerCase().includes(term)) {
+                return true;
+            }
+
+            // 2. Check categories
+            if (Array.isArray(categories)) {
+                categories.forEach(el => {
+                    if (el.slug && el.slug.toLowerCase().includes(term)) {
+                        return true;
+                    }
+                });
+            }
+            return false;
+        }
+
+        // --- PRO / FREE FILTER ---
+        if (filterOption.proFilter) {
+            if('general' === filterOption.proFilter && '0' === pro ){
+                return true;
+            }
+            // demo.tier is string "standard,personal,agency"
+            const tiers = tier.map(s => s.trim());
+            if (!tiers.includes(filterOption.proFilter)) {
+                return false;
+            }
+        }
+
+        // --- CATEGORY FILTER ---
+        if (filterOption.categoryFilter) {
+            if (Array.isArray(categories)) {
+                categories.forEach(el => {
+                    if (el.slug === filterOption.categoryFilter) {
+                        return true;
+                    }
+                });
+            }
+            return false;
+        }
+
+        // Passed all filters
         return true;
     });
 
@@ -344,7 +375,7 @@ export const filterTheme = (themeData, filter, perPage) => {
 
     const data = themeFilter(themeData, filter).map((layout) => {
         const { id, name, data, author, customAPI, customArgs } = layout;
-        const { pro, tier, slug, cover, host, demo, compatible_version: compatibleVersion, requirements, status } = data;
+        const { pro, tier, slug, cover, host, demo, compatible_version: compatibleVersion, requirements, status, current_used = false } = data;
 
         return {
             id,
@@ -360,7 +391,8 @@ export const filterTheme = (themeData, filter, perPage) => {
             customAPI,
             customArgs,
             author,
-            status
+            status,
+            current_used
         };
     });
 
@@ -497,4 +529,21 @@ export const ImportNotice = (props) => {
         onClose={cancelImport}
     />;
 
+};
+
+export const formatArray = (arr) => {
+    if (!arr) {
+        return '';
+    }
+    const len = arr.length;
+    if (len === 0) return '';
+    if (len === 1) return arr[0].toString().charAt(0).toUpperCase() + arr[0].slice(1);
+    if (len === 2) return arr[0].charAt(0).toUpperCase() + arr[0].slice(1) + ', or ' + arr[1].charAt(0).toUpperCase() + arr[1].slice(1);
+
+    const last = arr[len - 1].toString().charAt(0).toUpperCase() + arr[len - 1].slice(1);
+    let rest = arr.slice(0, len - 1);
+    rest = rest.map(el => {
+        return el.charAt(0).toUpperCase() + el.slice(1);
+    });
+    return rest.join(', ') + ', or ' + last;
 };
