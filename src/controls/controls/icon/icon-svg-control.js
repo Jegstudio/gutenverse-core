@@ -137,6 +137,9 @@ const IconSVGControl = (props) => {
                     value={undefined}
                     render={({ open }) => (
                         <div className={'icon-wrapper'}>
+                            {iconType === 'svg' && <div className={'svg-tag'}>
+                                {__('SVG', '--gctd--')}
+                            </div>}
                             {svgValue && <div className={'icon-remove'} onClick={e => removeSVG(e)}>
                                 <Trash />
                             </div>}

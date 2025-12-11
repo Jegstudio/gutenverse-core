@@ -1610,7 +1610,6 @@
         bottom: 0;
         width: 100%;
         text-align: center;
-        background: rgba(0, 0, 0, 0.5);
         font-size: 11px;
         line-height: 30px;
         transition: all 0.3s ease 0s;
@@ -1621,11 +1620,25 @@
 
         >div {
           flex: 1;
+          background: rgba(30, 30, 30, 0.7);
         }
 
         >.active {
-          background: rgba(0, 0, 0, 0.5);
+          background: rgba(30, 30, 30, 0.85);
         }
+      }
+
+      .svg-tag {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        border-radius: 3px;
+        background-color: rgba(#99ada9, 0.85);
+        color: #fff;
+        font-size: 10px;
+        font-family: "Roboto", serif;
+        padding: 4px 6px;
+        line-height: 1em;
       }
 
       .icon-warning {
