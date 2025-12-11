@@ -15,10 +15,6 @@ class GutenverseAnimationBasic extends Default {
          */
         let elementObj = u(element);
 
-        if (elementObj.hasClass('guten-button-wrapper')) {
-            elementObj = u(element).find('.guten-button');
-        }
-
         if (elementObj.hasClass('guten-advance-button-wrapper')) {
             elementObj = u(element).find('.guten-advance-button');
         }
