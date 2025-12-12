@@ -407,7 +407,7 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon img`,
             'properties': [
                 {
-                    'name': 'font-size',
+                    'name': 'width',
                     'valueType': 'direct'
                 }
             ]
@@ -907,7 +907,7 @@ export const featureListGetBlockStyle = (elementId, attribute) => {
                 'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index + 1}) .icon img`,
                 'properties': [
                     {
-                        'name': 'font-size',
+                        'name': 'width',
                         'valueType': 'direct'
                     }
                 ]

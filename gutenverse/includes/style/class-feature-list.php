@@ -470,7 +470,7 @@ class Feature_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item .icon svg",
 					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'width' );
+						return $this->handle_unit_point( $value, 'font-size' );
 					},
 					'value'          => $this->attrs['iconSize'],
 					'device_control' => true,
@@ -624,7 +624,7 @@ class Feature_List extends Style_Abstract {
 						array(
 							'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child({$index}) .icon svg",
 							'property'       => function ( $value ) {
-								return $this->handle_unit_point( $value, 'width' );
+								return $this->handle_unit_point( $value, 'font-size' );
 							},
 							'value'          => $list['iconSize'],
 							'device_control' => true,
