@@ -82,7 +82,7 @@ const IconSVGControl = (props) => {
             if ('svg' === type && isEmpty(svgValue) && !isEmpty(value)) {
                 axios.get(libraryApi + '/get-svg-font', {
                     params: {
-                        name: value
+                        name: value.toLowerCase()
                     }
                 }).then(response => {
                     const { data } = response;
