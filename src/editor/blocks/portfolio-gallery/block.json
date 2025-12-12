@@ -83,8 +83,7 @@
 			"default": "icon"
 		},
 		"linkIconSVG": {
-			"type": "string",
-			"default": "PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik02OTAgMTYzcS0xMS0xMS0yNi0xMXQtMjYgMTFxLTExIDEwLTExIDI1dDExIDI2bDI2MiAyNjJIMzZxLTE1IDAtMjUuNSAxMC41VDAgNTEydDEwLjUgMjUuNVQzNiA1NDhoODY0TDYzOCA4MTBxLTExIDEwLTExIDI1LjV0MTEgMjUuNXExMSAxMSAyNiAxMXQyNi0xMWwzMjMtMzIzcTExLTExIDExLTI2dC0xMS0yNnoiLz48L3N2Zz4="
+			"type": "string"
 		},
 		"linkIconPosition": {
 			"type": "string",

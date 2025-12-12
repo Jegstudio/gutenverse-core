@@ -47,7 +47,7 @@ const metaStyle = (elementId, attributes, data) => {
         'selector': `.${elementId} .guten-postlist .guten-post a .meta-lists svg`,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'pattern',
                 'pattern' : '{value}px',
                 'patternValues' : {

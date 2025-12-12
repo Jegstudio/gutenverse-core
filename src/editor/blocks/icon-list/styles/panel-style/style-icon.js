@@ -76,7 +76,7 @@ const panelIconStyle = (elementId, attributes, data) => {
         'selector': `.${elementId}.guten-icon-list .guten-icon-list-item svg`,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'pattern',
                 'pattern': '{value}px',
                 'patternValues': {

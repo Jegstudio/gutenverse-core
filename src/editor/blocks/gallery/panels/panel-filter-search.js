@@ -239,7 +239,7 @@ export const filterSearchPanel = (props) => {
                     'selector': `.${elementId}.guten-gallery .search-filter-trigger svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct'
                         }
                     ]

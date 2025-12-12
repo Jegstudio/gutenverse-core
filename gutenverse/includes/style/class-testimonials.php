@@ -679,7 +679,7 @@ class Testimonials extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item .testimonial-box .icon-content svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['quoteSize'],
 					'device_control' => true,
@@ -1028,7 +1028,7 @@ class Testimonials extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item ul.rating-stars li .gutenverse-icon-svg svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['ratingIconSize'],
 					'device_control' => true,

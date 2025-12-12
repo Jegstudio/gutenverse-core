@@ -101,7 +101,7 @@ export const hamburgerStyle = (props) => {
                         'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu svg`,
                         'properties': [
                             {
-                                'name': 'width',
+                                'name': 'font-size',
                                 'valueType': 'pattern',
                                 'pattern': '{value}px',
                                 'patternValues': {
@@ -395,7 +395,7 @@ export const hamburgerStyle = (props) => {
                     'responsive': true,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

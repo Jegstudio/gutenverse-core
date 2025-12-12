@@ -689,7 +689,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon svg`,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'pattern',
                 'pattern': '{value}px',
                 'patternValues': {

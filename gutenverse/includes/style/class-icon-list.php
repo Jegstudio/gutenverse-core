@@ -216,7 +216,7 @@ class Icon_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-icon-list .guten-icon-list-item svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['iconSize'],
 					'device_control' => true,

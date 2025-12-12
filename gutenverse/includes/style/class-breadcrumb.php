@@ -175,7 +175,7 @@ class Breadcrumb extends Style_Abstract {
 				array(
 					'selector'       => ".guten-element.{$this->element_id}.guten-breadcrumb .breadcrumb-nav li.separator svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['iconSize'],
 					'device_control' => false,

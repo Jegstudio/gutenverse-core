@@ -72,7 +72,7 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
                     'responsive': true,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct'
                         }
                     ],

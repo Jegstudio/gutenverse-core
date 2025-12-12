@@ -103,7 +103,7 @@ const ratingStyle = (elementId, attributes, data) => {
         'selector': `.${elementId} .guten-testimonial-item ul.rating-stars li .gutenverse-icon-svg svg`,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'pattern',
                 'pattern' : '{value}px',
                 'patternValues' : {

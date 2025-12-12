@@ -144,7 +144,7 @@ const stylingStyle = (props) => {
         'type': 'plain',
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'pattern',
                 'pattern': '{value}px',
                 'patternValues': {

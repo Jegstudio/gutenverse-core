@@ -95,7 +95,7 @@ export const postmetaPanel = (props) => {
                     'selector': `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

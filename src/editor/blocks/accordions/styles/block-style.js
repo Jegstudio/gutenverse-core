@@ -252,7 +252,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId} .accordion-item .accordion-icon svg`,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'pattern',
                 'pattern': '{value}px',
                 'patternValues': {
@@ -346,7 +346,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId} .accordion-item.active .accordion-icon svg`,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'pattern',
                 'pattern': '{value}px',
                 'patternValues': {

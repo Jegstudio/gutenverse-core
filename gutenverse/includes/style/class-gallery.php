@@ -599,7 +599,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span svg, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['iconSize'],
 					'device_control' => true,
@@ -1118,7 +1118,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .load-more-items .load-more-icon svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['loadMoreIconSize'],
 					'device_control' => true,

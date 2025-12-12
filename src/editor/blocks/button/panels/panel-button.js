@@ -274,7 +274,7 @@ export const buttonPanel = (props) => {
                     'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct'
                         }
                     ]

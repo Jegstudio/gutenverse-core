@@ -74,7 +74,7 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'direct'
             }
         ]

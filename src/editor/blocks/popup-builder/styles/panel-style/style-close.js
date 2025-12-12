@@ -26,7 +26,7 @@ const panelCloseStyle = (elementId, attributes, data) => {
         'responsive' : true,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'pattern',
                 'pattern' : '{value}px',
                 'patternValues' : {

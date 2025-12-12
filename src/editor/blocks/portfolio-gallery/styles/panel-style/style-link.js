@@ -80,7 +80,7 @@ const panelLinkStyle = (elementId, attributes, data) => {
         'responsive' : true,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'direct',
             }
         ],

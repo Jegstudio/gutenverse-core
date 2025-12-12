@@ -111,7 +111,7 @@ export const panelContentTypography = props => {
                     'selector': `.${elementId} .guten-testimonial-item .testimonial-box .icon-content svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

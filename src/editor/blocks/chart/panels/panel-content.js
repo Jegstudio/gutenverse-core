@@ -98,7 +98,7 @@ export const contentPanel = (props) => {
                     'selector': `.editor-styles-wrapper .${elementId} .chart-content .chart-inside svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct'
                         }
                     ]

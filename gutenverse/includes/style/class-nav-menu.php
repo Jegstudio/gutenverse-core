@@ -414,7 +414,7 @@ class Nav_Menu extends Style_Abstract {
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a svg,
 						#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu> ul > li > a svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['SubmenuIndicatorSize'],
 					'device_control' => true,
@@ -817,7 +817,7 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['hamburgerSize'],
 					'device_control' => true,
@@ -976,7 +976,7 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['closeSize'],
 					'device_control' => true,

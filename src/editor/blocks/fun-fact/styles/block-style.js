@@ -168,7 +168,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon svg`,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'pattern',
                 'pattern': '{value}px',
                 'patternValues': {

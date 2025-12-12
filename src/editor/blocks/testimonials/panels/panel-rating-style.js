@@ -119,7 +119,7 @@ export const panelRatingStyle = ({ elementId }) => {
                     'selector': `.${elementId} ul.rating-stars li svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

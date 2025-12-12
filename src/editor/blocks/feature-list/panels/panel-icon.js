@@ -51,7 +51,7 @@ export const iconPanel = (props) => {
                     'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon img`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct'
                         }
                     ]
@@ -63,7 +63,7 @@ export const iconPanel = (props) => {
                     'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct'
                         }
                     ]

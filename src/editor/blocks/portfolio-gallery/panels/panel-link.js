@@ -181,7 +181,7 @@ export const linkPanel = (props) => {
                     'responsive': true,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct',
                         }
                     ],

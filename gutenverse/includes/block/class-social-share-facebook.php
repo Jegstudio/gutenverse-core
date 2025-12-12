@@ -29,8 +29,8 @@ class Social_Share_Facebook extends Block_Abstract {
 
 		return '<div class="gutenverse-share-icon">
 			<div class="gutenverse-icon-svg">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-					<path d="M240 363.3L240 576L356 576L356 363.3L442.5 363.3L460.5 265.5L356 265.5L356 230.9C356 179.2 376.3 159.4 428.7 159.4C445 159.4 458.1 159.8 465.7 160.6L465.7 71.9C451.4 68 416.4 64 396.2 64C289.3 64 240 114.5 240 223.4L240 265.5L174 265.5L174 363.3L240 363.3z"/>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+					<path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"/>
 				</svg>
 			</div>
 		</div>' . $share_text;

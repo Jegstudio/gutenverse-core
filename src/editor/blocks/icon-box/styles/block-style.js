@@ -196,7 +196,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper .icon-box-header.icon-box .icon svg`,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'pattern',
                 'pattern': '{value}px',
                 'patternValues': {
@@ -841,7 +841,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.guten-icon-box.${elementId} .hover-watermark svg`,
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'pattern',
                 'pattern': '{value}px',
                 'patternValues': {

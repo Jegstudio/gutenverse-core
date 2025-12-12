@@ -252,8 +252,7 @@
 			"default": "icon"
 		},
 		"closeIconSVG": {
-			"type": "string",
-			"default": "PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0yNTYgNzkycS0zIDAtNS41LS41dC01LTItNC41LTMuNXEtNi02LTYtMTV0Ni0xNWw1MTItNTEycTYtNiAxNS02dDE1IDYgNiAxNS02IDE1TDI3MSA3ODZxLTIgMi00LjUgMy41dC01IDItNS41LjV6bTUxMiAwcS05IDAtMTUtNkwyNDEgMjc0cS02LTYtNi0xNXQ2LTE1IDE1LTYgMTUgNmw1MTIgNTEycTYgNiA2IDE1dC02IDE1cS0xIDItMyAzbC00IDItNCAxaC00eiIvPjwvc3ZnPg=="
+			"type": "string"
 		},
 		"closeIconColor": {
 			"type": "object",

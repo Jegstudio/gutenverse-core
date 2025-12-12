@@ -59,7 +59,7 @@ const panelLoadMoreStyle = (elementId, attributes, data) => {
         'selector': `.${elementId}.guten-gallery .load-more-items .load-more-icon svg`,
         'properties' : [
             {
-                'name' : 'width',
+                'name' : 'font-size',
                 'valueType' : 'pattern',
                 'pattern': '{value}px',
                 'patternValues' : {

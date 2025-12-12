@@ -215,7 +215,7 @@ export const panelContentStyle = (props) => {
                     'selector': `.${elementId} .hover-watermark svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

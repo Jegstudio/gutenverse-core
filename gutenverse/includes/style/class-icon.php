@@ -87,7 +87,7 @@ class Icon extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-wrapper svg",
 					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'width' );
+						return $this->handle_unit_point( $value, 'font-size' );
 					},
 					'value'          => $this->attrs['iconSize'],
 					'device_control' => true,

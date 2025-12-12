@@ -226,7 +226,7 @@ class Accordions extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-icon svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px; height: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['iconSize'],
 					'device_control' => true,
@@ -534,7 +534,7 @@ class Accordions extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-icon svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px; height: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['iconActiveSize'],
 					'device_control' => true,

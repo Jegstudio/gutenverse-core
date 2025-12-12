@@ -363,7 +363,7 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'indicatorIconSize',
         'properties': [
             {
-                'name': 'width',
+                'name': 'font-size',
                 'valueType': 'direct'
             }
         ],

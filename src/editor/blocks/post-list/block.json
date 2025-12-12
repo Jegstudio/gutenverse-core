@@ -95,8 +95,7 @@
 			"default": "icon"
 		},
 		"iconSVG": {
-			"type": "string",
-			"default": ""
+			"type": "string"
 		},
 		"noContentText": {
 			"type": "string",
@@ -131,11 +130,11 @@
 			"default": "icon"
 		},
 		"metaDateIconSVG": {
-			"type": "string",
-			"default": "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNjQwIj48cGF0aCBkPSJNMzIwIDY0QzQ2MS40IDY0IDU3NiAxNzguNiA1NzYgMzIwQzU3NiA0NjEuNCA0NjEuNCA1NzYgMzIwIDU3NkMxNzguNiA1NzYgNjQgNDYxLjQgNjQgMzIwQzY0IDE3OC42IDE3OC42IDY0IDMyMCA2NHpNMjk2IDE4NEwyOTYgMzIwQzI5NiAzMjggMzAwIDMzNS41IDMwNi43IDM0MEw0MDIuNyA0MDRDNDEzLjcgNDExLjQgNDI4LjYgNDA4LjQgNDM2IDM5Ny4zQzQ0My40IDM4Ni4yIDQ0MC40IDM3MS40IDQyOS4zIDM2NEwzNDQgMzA3LjJMMzQ0IDE4NEMzNDQgMTcwLjcgMzMzLjMgMTYwIDMyMCAxNjBDMzA2LjcgMTYwIDI5NiAxNzAuNyAyOTYgMTg0eiIvPjwvc3ZnPg=="
+			"type": "string"
 		},
 		"metaDateIconPosition": {
-			"type": "string"
+			"type": "string",
+			"default": "before"
 		},
 		"metaCategoryEnabled": {
 			"type": "boolean",
@@ -150,8 +149,7 @@
 			"default": "icon"
 		},
 		"metaCategoryIconSVG": {
-			"type": "string",
-			"default": "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNjQwIj48cGF0aCBkPSJNOTYuNSAxNjBMOTYuNSAzMDkuNUM5Ni41IDMyNi41IDEwMy4yIDM0Mi44IDExNS4yIDM1NC44TDMwNy4yIDU0Ni44QzMzMi4yIDU3MS44IDM3Mi43IDU3MS44IDM5Ny43IDU0Ni44TDU0Ny4yIDM5Ny4zQzU3Mi4yIDM3Mi4zIDU3Mi4yIDMzMS44IDU0Ny4yIDMwNi44TDM1NS4yIDExNC44QzM0My4yIDEwMi43IDMyNyA5NiAzMTAgOTZMMTYwLjUgOTZDMTI1LjIgOTYgOTYuNSAxMjQuNyA5Ni41IDE2MHpNMjA4LjUgMTc2QzIyNi4yIDE3NiAyNDAuNSAxOTAuMyAyNDAuNSAyMDhDMjQwLjUgMjI1LjcgMjI2LjIgMjQwIDIwOC41IDI0MEMxOTAuOCAyNDAgMTc2LjUgMjI1LjcgMTc2LjUgMjA4QzE3Ni41IDE5MC4zIDE5MC44IDE3NiAyMDguNSAxNzZ6Ii8+PC9zdmc+"
+			"type": "string"
 		},
 		"metaPosition": {
 			"type": "string",
@@ -190,8 +188,7 @@
 			"default": "icon"
 		},
 		"paginationIconSVG": {
-			"type": "string",
-			"default": ""
+			"type": "string"
 		},
 		"paginationIconPosition": {
 			"type": "string",
@@ -630,8 +627,7 @@
 			"default": "icon"
 		},
 		"paginationPrevIconSVG": {
-			"type": "string",
-			"default": ""
+			"type": "string"
 		},
 		"paginationNextIcon": {
 			"type": "string",
@@ -642,8 +638,7 @@
 			"default": "icon"
 		},
 		"paginationNextIconSVG": {
-			"type": "string",
-			"default": ""
+			"type": "string"
 		},
 		"editParam": {
 			"type": "object",

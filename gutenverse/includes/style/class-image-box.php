@@ -362,7 +362,7 @@ class Image_Box extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .inner-container .image-box-body .body-title svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['titleIconSize'],
 					'device_control' => true,

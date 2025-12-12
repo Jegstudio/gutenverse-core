@@ -399,7 +399,7 @@ class Portfolio_Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a svg",
 					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'width' );
+						return $this->handle_unit_point( $value, 'font-size' );
 					},
 					'value'          => $this->attrs['linkIconSize'],
 					'device_control' => true,

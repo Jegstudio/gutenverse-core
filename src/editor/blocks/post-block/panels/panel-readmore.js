@@ -147,7 +147,7 @@ export const readmorePanel = (props) => {
                     'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct',
                         }
                     ]

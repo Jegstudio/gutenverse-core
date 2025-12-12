@@ -238,7 +238,7 @@ class Popup_Builder extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup-close svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['closeButtonSize'],
 					'device_control' => true,

@@ -180,7 +180,7 @@ export const paginationStylePanel = (props) => {
                     'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-before svg, .${elementId} .guten-postlist .guten_block_nav .btn-pagination.prev svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct',
                         }
                     ],
@@ -204,7 +204,7 @@ export const paginationStylePanel = (props) => {
                     'selector': `.${elementId} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-after svg, .${elementId} .guten-postlist .guten_block_nav .btn-pagination.next svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct',
                         }
                     ],

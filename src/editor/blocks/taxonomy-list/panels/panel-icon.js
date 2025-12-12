@@ -117,7 +117,7 @@ export const iconPanel = (props) => {
                     'selector': `.${elementId} .taxonomy-list-wrapper .icon-list svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct'
                         }
                     ]

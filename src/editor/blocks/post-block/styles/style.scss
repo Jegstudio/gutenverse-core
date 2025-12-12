@@ -86,6 +86,13 @@
         color: var(--guten-txt-m-color, #96989B);
         font-size: 0.75rem;
 
+        >div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3px;
+        }
+
         a {
             color: var(--guten-txt-h-color, #181D23);
             text-transform: uppercase;
@@ -142,6 +149,8 @@
 
     .guten-meta-comment a {
         color: var(--guten-txt-h-color, #181D23);
+        display: flex;
+        align-items: center;
     }
 
     .guten-posts {
@@ -185,9 +194,11 @@
             }
 
             .gutenverse-icon-svg {
-                display: inline-flex;
-                vertical-align: sub;
+                display: flex;
                 margin-right: 5px;
+                vertical-align: sub;
+                justify-content: center;
+                align-items: center;
 
                 svg {
                     fill: currentColor;
@@ -201,9 +212,11 @@
             }
 
             .gutenverse-icon-svg {
-                display: inline-flex;
-                vertical-align: sub;
+                display: flex;
                 margin-left: 5px;
+                vertical-align: sub;
+                justify-content: center;
+                align-items: center;
 
                 svg {
                     fill: currentColor;

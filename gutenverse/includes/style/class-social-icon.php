@@ -71,7 +71,7 @@ class Social_Icon extends Style_Abstract {
 				array(
 					'selector'       => ".guten-social-icon #{$this->element_id} svg",
 					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'width' );
+						return $this->handle_unit_point( $value, 'font-size' );
 					},
 					'value'          => $this->attrs['iconSize'],
 					'device_control' => true,

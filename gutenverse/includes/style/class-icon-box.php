@@ -229,7 +229,7 @@ class Icon_Box extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id}.guten-icon-box .guten-icon-box-wrapper .icon-box .icon svg",
 						'property'       => function ( $value ) {
-							return "width: {$value}px;";
+							return "font-size: {$value}px;";
 						},
 						'value'          => $this->attrs['iconSize'],
 						'device_control' => true,
@@ -844,7 +844,7 @@ class Icon_Box extends Style_Abstract {
 				array(
 					'selector'       => ".guten-icon-box.{$this->element_id} .hover-watermark svg",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['watermarkSize'],
 					'device_control' => true,

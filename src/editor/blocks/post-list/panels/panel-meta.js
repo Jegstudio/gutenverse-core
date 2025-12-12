@@ -77,7 +77,7 @@ export const metaPanel = (props) => {
                     'selector': `.${elementId} .guten-postlist .guten-post a .meta-lists svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

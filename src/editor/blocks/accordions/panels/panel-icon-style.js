@@ -106,7 +106,7 @@ export const panelIconStyle = (props) => {
                     'selector': `.${elementId} .accordion-item .accordion-icon svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {
@@ -248,7 +248,7 @@ export const panelIconStyle = (props) => {
                     'selector': `.${elementId} .accordion-item.active .accordion-icon svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

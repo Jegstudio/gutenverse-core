@@ -70,7 +70,7 @@ export const panelTitleStyle = props => {
                     'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

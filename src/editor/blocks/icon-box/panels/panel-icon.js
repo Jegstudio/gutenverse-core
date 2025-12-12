@@ -77,7 +77,7 @@ export const panelIcon = (props) => {
                     'selector': `.${elementId} .guten-icon-box-wrapper .icon-box-header.icon-box .icon svg`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {
