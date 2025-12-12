@@ -485,7 +485,7 @@ class Api {
 		}
 
 		$dev_param = $request->get_param( 'dev' );
-			// $this->update_library_data();
+			$this->update_library_data();
 
 		if ( 'true' === $dev_param ) {
 			$this->update_library_data();
@@ -643,7 +643,7 @@ class Api {
 					'name'         => $current_theme->get( 'Name' ),
 					'version'      => $current_theme->get( 'Version' ),
 					'current_used' => true,
-
+					'tier'		   => [''],
 					// Add screenshot as cover
 					'cover'        => array(
 						$screenshot,
@@ -1989,9 +1989,14 @@ class Api {
 
 		if ( $check_theme->exists() ) {
 			switch_theme( $stylesheet );
+			$target_redirect = admin_url( 'admin.php?page=' . $stylesheet . '-wizard' );
+			if ( get_option( $stylesheet . '_lite_plus_wizard_setup_done' ) ) {
+				$target_redirect = admin_url( 'admin.php?page=' . $stylesheet . '-dashboard' );
+			}
 
 			return array(
 				'status' => 200,
+				'redirect' => $target_redirect
 			);
 		}
 

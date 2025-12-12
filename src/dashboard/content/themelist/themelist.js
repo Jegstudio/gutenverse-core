@@ -1,7 +1,7 @@
 import { useEffect, useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import axios from 'axios';
-import { IconCloseSVG, IconNotFoundSVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
+import { IconCloseSVG, IconNotFoundSVG, IconInfoYellowSVG, CheckedIcon, UncheckedIcon, InfoIcon, CloseIcon } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
 import queryString from 'query-string';
 import isEmpty from 'lodash/isEmpty';
@@ -28,6 +28,68 @@ const urlData = () => {
     return urlString;
 };
 
+const InstallationPopup = ({ onClose, onConfirm, title, isInstalling, popupAction }) => {
+    const [isChecked, setIsChecked] = useState(false);
+
+    return (
+        <div className="gutenverse-popup-overlay installation-popup">
+            <div className="gutenverse-popup-content">
+                <div className="popup-header">
+                    <h3>{title}</h3>
+                    <div className="close-icon" onClick={onClose}>
+                        <CloseIcon />
+                    </div>
+                </div>
+                <div className="popup-body">
+                    <div className="warning-box">
+                        <div className="icon"><InfoIcon /></div>
+                        <p>{__('This action will replace your active theme. Please read the information below and strongly recommended back up your site first.', '--gtb-theme-namespace--')}</p>
+                    </div>
+                    <p className="list-intro">{__('Here\'s what happens when you ' + popupAction + ' the theme:', '--gtb-theme-namespace--')}</p>
+                    <ul className="info-list">
+                        <li>
+                            <div className="icon"><InfoIcon /></div>
+                            <div className="text">
+                                <h4>{__('All Pages & Contents will be replaced', '--gtb-theme-namespace--')}</h4>
+                                <p>{__('All demo pages with the same slug, patterns and other content, will be replaced on your site.', '--gtb-theme-namespace--')}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="icon"><InfoIcon /></div>
+                            <div className="text">
+                                <h4>{__('Templates or Template Part will be replaced', '--gtb-theme-namespace--')}</h4>
+                                <p>{__('All templates or template parts will be replaced during theme ' + popupAction === 'install' ? 'installation' : 'activation' + '.', '--gtb-theme-namespace--')}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="icon"><InfoIcon /></div>
+                            <div className="text">
+                                <h4>{__('Global Styles will be replaced', '--gtb-theme-namespace--')}</h4>
+                                <p>{__('Global style settings from the previous themes will be replaced.', '--gtb-theme-namespace--')}</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div className="confirmation-section">
+                        <label className="checkbox-label" onClick={() => setIsChecked(!isChecked)}>
+                            {isChecked ? <CheckedIcon /> : <UncheckedIcon />}
+                            {__('I understand that my current theme and some content will be replaced.', '--gtb-theme-namespace--')}
+                        </label>
+                    </div>
+                </div>
+                <div className="popup-footer">
+                    <button
+                        className="button-install"
+                        onClick={onConfirm}
+                        disabled={!isChecked || isInstalling}
+                    >
+                        {popupAction === 'install' ? isInstalling ? __('Installing...', '--gtb-theme-namespace--') : __('Install Theme', '--gtb-theme-namespace--') : isInstalling ? __('Activating...', '--gtb-theme-namespace--') : __('Activate Theme', '--gtb-theme-namespace--')}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const ThemeItem = (props) => {
     let exist = false;
     let active = false;
@@ -40,6 +102,10 @@ const ThemeItem = (props) => {
         initialAction,
         setInitialAction,
         themeSlug,
+        setCurrentItem,
+        setShowInstallationPopup,
+        setConfirmCallback,
+        setIsInstalling
     } = props;
     const { host, slug, demo, customAPI, customArgs, pro, status: postStatus, licenseType } = theme;
     const [status, setStatus] = useState(false);
@@ -67,7 +133,10 @@ const ThemeItem = (props) => {
                 stylesheet: slug,
             },
         })
-            .then(() => { })
+            .then((res) => {
+                const redirect = res?.redirect;
+                window.location.href = redirect;
+            })
             .catch(() => { })
             .finally(() => {
                 getInstalledThemes(() => {
@@ -79,10 +148,13 @@ const ThemeItem = (props) => {
                         isDismissible: true,
                     });
                 });
+                setIsInstalling(false);
+                setShowInstallationPopup(false);
             });
     };
 
     const installTheme = () => {
+        setIsInstalling(true);
         let response = null;
 
         if ('wporg' === host) {
@@ -136,7 +208,10 @@ const ThemeItem = (props) => {
                     });
                 }
             })
-            .catch();
+            .catch().finally(() => {
+                setIsInstalling(false);
+                setShowInstallationPopup(false);
+            });
     };
 
     installed.map((file) => {
@@ -151,6 +226,12 @@ const ThemeItem = (props) => {
         }
     });
 
+    const handleOpenPopup = (callback = () => { }) => {
+        setCurrentItem(theme);
+        setConfirmCallback(() => callback);
+        setShowInstallationPopup(true);
+    };
+
     const loadButton = (exist) => {
         if (status === slug) {
             return (
@@ -163,14 +244,14 @@ const ThemeItem = (props) => {
 
         if (exist) {
             return (
-                <span className="activate theme-button" onClick={() => activateTheme()}>
+                <span className="activate theme-button" onClick={() => handleOpenPopup(activateTheme)}>
                     {__('Activate Theme', '--gctd--')}
                 </span>
             );
         }
 
         return (
-            <span className="install theme-button" onClick={() => installTheme()}>
+            <span className="install theme-button" onClick={() => handleOpenPopup(installTheme)}>
                 {__('Install Now', '--gctd--')}
             </span>
         );
@@ -191,7 +272,7 @@ const ThemeItem = (props) => {
                     <img src={theme['cover'][0]} />
                 </a>
                 {
-                    licenseType.length > 0 && pro && !active ? applyFilters('gutenverse-companion.demo-overlay', () => {
+                    licenseType.length > 0 && pro === '1' && !active ? applyFilters('gutenverse-companion.demo-overlay', () => {
                         return <><div className="thumbnail-overlay"></div>
                             <div className="required-wrapper">
                                 <p className="required-title">Required License</p>
@@ -304,7 +385,11 @@ const ThemesData = (props) => {
         installPlugin,
         setInitialAction,
         setCurrentItem,
-        setPluginInstallMode
+        setPluginInstallMode,
+        setShowInstallationPopup,
+        setConfirmCallback,
+        setIsInstalling,
+        setPopupAction
     } = props;
     if (loading) {
         return (
@@ -353,6 +438,10 @@ const ThemesData = (props) => {
                     installPlugin={installPlugin}
                     activatePlugin={installPlugin}
                     updatePlugin={installPlugin}
+                    setShowInstallationPopup={setShowInstallationPopup}
+                    setConfirmCallback={setConfirmCallback}
+                    setIsInstalling={setIsInstalling}
+                    setPopupAction={setPopupAction}
                 />;
             });
         }
@@ -377,10 +466,16 @@ const ThemeListPage = (props) => {
     const [currentItem, setCurrentItem] = useState(null);
     const [pluginInstallMode, setPluginInstallMode] = useState(false);
     const [selectedFilter, setSelectedFilter] = useState('');
+    const [showInstallationPopup, setShowInstallationPopup] = useState(false);
+    const [confimCallBack, setConfirmCallback] = useState(() => { });
+    const [isInstalling, setIsInstalling] = useState(false);
+    const [popupAction, setPopupAction] = useState('install');
     const [filter, setFilter] = useState({
         proFilter: '',
         categoryFilter: ''
     });
+
+    console.log(library);
     const plans = [
         {
             value: '',
@@ -514,6 +609,10 @@ const ThemeListPage = (props) => {
         plugins,
         setCurrentItem,
         setPluginInstallMode,
+        setShowInstallationPopup,
+        setConfirmCallback,
+        setIsInstalling,
+        setPopupAction
     };
 
     const handleOpened = (type) => {
@@ -536,6 +635,9 @@ const ThemeListPage = (props) => {
             activatePlugin={activatePlugin}
             updatePlugin={updatePlugin}
         />}
+        {
+            showInstallationPopup && <InstallationPopup onClose={() => setShowInstallationPopup(false)} onConfirm={confimCallBack} title={currentItem?.title} isInstalling={isInstalling} popupAction={popupAction} />
+        }
         <DashboardContent>
             <DashboardHeader>
                 <div className="filter-wrapper">
