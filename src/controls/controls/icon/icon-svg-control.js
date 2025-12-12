@@ -75,7 +75,7 @@ const IconSVGControl = (props) => {
         }
     };
 
-    const setType = (type) => {
+    const setType = async (type, retries = 2, delay = 50) => {
         if (typeAttribute) {
             updateAttributes({ [typeAttribute]: type });
 
@@ -93,8 +93,14 @@ const IconSVGControl = (props) => {
                         console.error('cannot find the icon', value);
                     }
                 }).catch(error => {
-                    console.error('Failed to fetch SVG content:', error);
-                    updateAttributes({ [svgAttribute]: '' });
+                    if (0 === retries) {
+                        updateAttributes({ [svgAttribute]: '' });
+                        console.error('Failed to fetch SVG content:', error);
+                    } else {
+                        setTimeout(() => {
+                            setType(type, retries - 1);
+                        }, delay);
+                    }
                 });
             }
         }
