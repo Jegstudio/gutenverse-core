@@ -1,5 +1,6 @@
 import { select, dispatch } from '@wordpress/data';
 import { libraryApi } from 'gutenverse-core/config';
+import { store as editorStore } from '@wordpress/editor';
 import axios from 'axios';
 
 /**
@@ -78,8 +79,41 @@ const processBlockAttributes = async (block) => {
                     updatedAttributes[typeAttrName] = 'svg';
                     updatedAttributes[svgAttrName] = svgContent;
                     hasChanges = true;
+                    const styles = {
+                        reset: 'color: inherit',
+                        green: 'color: #4caf50; font-weight: bold',
+                        cyan: 'color: #00bcd4; font-weight: bold',
+                        yellow: 'color: #ff9800; font-weight: bold',
+                        dim: 'color: #9e9e9e',
+                        red: 'color: #f44336; font-weight: bold',
+                    };
+
                     // eslint-disable-next-line no-console
-                    console.log(`[ConvertToSVG] Found icon "${attrName}" with value "${attrValue}" in block ${clientId} - Converting to SVG`);
+                    console.log(
+                        `%c[Success]%c ${attrName} (${attrValue})\n%c         └─ from: %c${block.name} (${clientId})\n`,
+                        styles.green,
+                        styles.cyan,
+                        styles.dim,
+                        styles.yellow
+                    );
+                } else {
+                    const styles = {
+                        reset: 'color: inherit',
+                        green: 'color: #4caf50; font-weight: bold',
+                        cyan: 'color: #00bcd4; font-weight: bold',
+                        yellow: 'color: #ff9800; font-weight: bold',
+                        dim: 'color: #9e9e9e',
+                        red: 'color: #f44336; font-weight: bold',
+                    };
+
+                    // eslint-disable-next-line no-console
+                    console.log(
+                        `%c[Failed]%c ${attrName} (${attrValue})\n%c         └─ from: %c${block.name} (${clientId})\n`,
+                        styles.red,
+                        styles.cyan,
+                        styles.dim,
+                        styles.yellow
+                    );
                 }
             }
         }
@@ -127,47 +161,56 @@ const convertToSvg = async () => {
         errors: []
     };
 
+    const doConvertion = async () => {
+        // Get all blocks from the editor
+        const blocks = select('core/block-editor').getBlocks();
+
+        if (!blocks || blocks.length === 0) {
+            // eslint-disable-next-line no-console
+            console.log('[ConvertToSVG] No blocks found in the editor');
+            result.success = true;
+            return result;
+        }
+
+        // eslint-disable-next-line no-console
+        console.log(`[ConvertToSVG] Starting conversion... Found ${blocks.length} top-level blocks`);
+
+        // Process all blocks recursively
+        const updates = await processBlocksRecursively(blocks);
+
+        // Apply all updates
+        const { updateBlockAttributes } = dispatch('core/block-editor');
+
+        for (const update of updates) {
+            try {
+                updateBlockAttributes(update.clientId, update.updatedAttributes);
+                result.convertedCount++;
+            } catch (error) {
+                result.errors.push({
+                    clientId: update.clientId,
+                    error: error.message
+                });
+            }
+        }
+
+        result.success = true;
+        // eslint-disable-next-line no-console
+        console.log(`[ConvertToSVG] Conversion complete. Converted ${result.convertedCount} icon(s) to SVG.`);
+    };
+
     try {
+        const renderingMode = select(editorStore).getRenderingMode();
         // Set rendering mode to 'post-only' to ensure we can get all content blocks
         const { setRenderingMode } = dispatch('core/editor');
         setRenderingMode('post-only');
 
-        setTimeout(async () => {
-            // Get all blocks from the editor
-            const blocks = select('core/block-editor').getBlocks();
-
-            if (!blocks || blocks.length === 0) {
-                // eslint-disable-next-line no-console
-                console.log('[ConvertToSVG] No blocks found in the editor');
-                result.success = true;
-                return result;
-            }
-
-            // eslint-disable-next-line no-console
-            console.log(`[ConvertToSVG] Starting conversion... Found ${blocks.length} top-level blocks`);
-
-            // Process all blocks recursively
-            const updates = await processBlocksRecursively(blocks);
-
-            // Apply all updates
-            const { updateBlockAttributes } = dispatch('core/block-editor');
-
-            for (const update of updates) {
-                try {
-                    updateBlockAttributes(update.clientId, update.updatedAttributes);
-                    result.convertedCount++;
-                } catch (error) {
-                    result.errors.push({
-                        clientId: update.clientId,
-                        error: error.message
-                    });
-                }
-            }
-
-            result.success = true;
-            // eslint-disable-next-line no-console
-            console.log(`[ConvertToSVG] Conversion complete. Converted ${result.convertedCount} icon(s) to SVG.`);
-        }, 2500);
+        if ('post-only' === renderingMode) {
+            doConvertion();
+        } else {
+            setTimeout(async () => {
+                doConvertion();
+            }, 2500);
+        }
     } catch (error) {
         result.errors.push({
             error: error.message
