@@ -73,7 +73,7 @@ export const contentPanel = (props) => {
                     'responsive': true,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct'
                         }
                     ],

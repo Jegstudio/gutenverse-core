@@ -24,4 +24,23 @@
       font-size: 16px;
     }
   }
+
+  .gutenverse-icon-svg {
+    display: none;
+
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  &.svg {
+    .gutenverse-icon-svg {
+      display: flex;
+    }
+
+    i {
+      display: none;
+    }
+  }
 }

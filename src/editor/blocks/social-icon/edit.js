@@ -25,7 +25,7 @@ import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenve
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
-import { renderIcon } from 'gutenverse-core/helper';
+import { renderIcon } from './render-icon';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -67,6 +67,7 @@ const SocialIcon = compose(
     const socialType = getSocialType(icon);
     const elementRef = useRef();
     const [dynamicHref, setDynamicHref] = useState();
+    const iconClass = iconType === 'svg' ? 'svg' : '';
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -75,6 +76,7 @@ const SocialIcon = compose(
             'no-margin',
             elementId,
             socialType,
+            iconClass,
             animationClass,
             displayClass,
         ),

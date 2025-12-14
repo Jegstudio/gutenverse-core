@@ -6,7 +6,7 @@ import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import { applyFilters } from '@wordpress/hooks';
-import { renderIcon } from 'gutenverse-core/helper';
+import { renderIcon } from './render-icon';
 
 const save = compose(
     withAnimationAdvanceScript('buttons'),

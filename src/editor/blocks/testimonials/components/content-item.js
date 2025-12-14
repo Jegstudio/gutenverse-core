@@ -77,7 +77,7 @@ const ContentItem = (data) => {
                     </div>
                     <div className="comment-content">
                         {showQuote && <div className={`${overrideQuote} icon-content`}>
-                            {renderIcon(iconQuote, iconQuoteType, iconQuoteSVG)}
+                            {renderIcon(iconQuote, iconQuoteType, iconQuoteSVG, true)}
                         </div>}
                         {contentRichText(comment, 'p', 'profile-comment','comment', index )}
                     </div>
@@ -96,14 +96,14 @@ const ContentItem = (data) => {
                                 {contentRichText(description, 'p', 'profile-des','description', index )}
                             </span>
                         </div>
-                        {showQuote && <div className={`${overrideQuote} icon-content`}>{renderIcon(iconQuote, iconQuoteType, iconQuoteSVG)}</div>}
+                        {showQuote && <div className={`${overrideQuote} icon-content`}>{renderIcon(iconQuote, iconQuoteType, iconQuoteSVG, true)}</div>}
                     </div>
                     {(contentPosition === undefined || contentPosition === 'below-image') && commentContent}
                     {starPosition !== undefined && starPosition === 'below-image' && <div className="comment-header"><ul className="rating-stars">{starRating}</ul></div>}
                 </div>;
             case 3:
                 return <div className="testimonial-content" >
-                    {showQuote && <div className={`${overrideQuote} icon-content`}>{renderIcon(iconQuote, iconQuoteType, iconQuoteSVG)}</div>}
+                    {showQuote && <div className={`${overrideQuote} icon-content`}>{renderIcon(iconQuote, iconQuoteType, iconQuoteSVG, true)}</div>}
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     {starPosition !== undefined && starPosition === 'above-image' && <ul className="rating-stars">{starRating}</ul>}
                     <div className="comment-bio">
@@ -122,7 +122,7 @@ const ContentItem = (data) => {
                 </div>;
             case 4:
                 return <div className="testimonial-content" >
-                    {showQuote && <div className={`${overrideQuote} icon-content`}>{renderIcon(iconQuote, iconQuoteType, iconQuoteSVG)}</div>}
+                    {showQuote && <div className={`${overrideQuote} icon-content`}>{renderIcon(iconQuote, iconQuoteType, iconQuoteSVG, true)}</div>}
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     <div className="comment-bio">
                         <div className="bio-details">

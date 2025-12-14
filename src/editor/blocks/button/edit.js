@@ -15,8 +15,9 @@ import { isOnEditor } from 'gutenverse-core/helper';
 import getBlockStyle from './styles/block-style';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { BlockPanelController } from 'gutenverse-core/controls';
-import { useRichTextParameter, renderIcon } from 'gutenverse-core/helper';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import { renderIcon } from './render-icon';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
