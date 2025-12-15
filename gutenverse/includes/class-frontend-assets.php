@@ -56,87 +56,87 @@ class Frontend_Assets {
 		switch ( $block_name ) {
 			case 'gutenverse/nav-menu':
 				if ( ! isset( $attrs['mobileIconType'] ) || ! isset( $attrs['mobileCloseIconType'] ) || ! isset( $attrs['submenuItemIndicatorType'] ) ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['mobileIcon'] && $this->icon_conditional_load( $conditions );
 				}
 				break;
 			case 'gutenverse/divider':
 				if ( isset( $attrs['content'] ) && 'icon' === $attrs['content'] ) {
 					if ( ! isset( $attrs['iconType'] ) ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['icon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 				break;
 			case 'gutenverse/accordions':
 				if ( ( ! isset( $attrs['iconOpenType'] ) || 'icon' === $attrs['iconOpenType'] ) || ( ! isset( $attrs['iconClosedType'] ) || 'icon' === $attrs['iconClosedType'] ) ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['iconOpen'] && $this->icon_conditional_load( $conditions );
 				}
 				break;
 			case 'gutenverse/button':
 				if ( isset( $attrs['showIcon'] ) && $attrs['showIcon'] ) {
 					if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['icon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 				break;
 			case 'gutenverse/breadcrumb':
 				if ( ! isset( $attrs['separatorIconType'] ) || 'icon' === $attrs['separatorIconType'] ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['separatorIcon'] && $this->icon_conditional_load( $conditions );
 				}
 				break;
 			case 'gutenverse/fun-fact':
 				if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['icon'] && $this->icon_conditional_load( $conditions );
 				}
 				break;
 			case 'gutenverse/icon':
 				if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['icon'] && $this->icon_conditional_load( $conditions );
 				}
 				break;
 			case 'gutenverse/icon-box':
 				if ( isset( $attrs['watermarkShow'] ) && $attrs['watermarkShow'] ) {
 					if ( ! isset( $attrs['watermarkIconType'] ) || 'icon' === $attrs['watermarkIconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['watermarkIcon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 				if ( ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['icon'] && $this->icon_conditional_load( $conditions );
 				}
 				break;
 			case 'gutenverse/icon-list-item':
 				if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
 					if ( isset( $attrs['icon'] ) ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['icon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 				break;
 			case 'gutenverse/gallery':
 				if ( ! isset( $attrs['zoomIconType'] ) || 'icon' === $attrs['zoomIconType'] ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['zoomIcon'] && $this->icon_conditional_load( $conditions );
 				}
 				if ( ! isset( $attrs['linkIconType'] ) || 'icon' === $attrs['linkIconType'] ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['linkIcon'] && $this->icon_conditional_load( $conditions );
 				}
 				if ( isset( $attrs['enableLoadMore'] ) && $attrs['enableLoadMore'] ) {
 					if ( ! isset( $attrs['enableLoadIconType'] ) || 'icon' === $attrs['enableLoadIconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['enableLoadIcon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 				break;
 			case 'gutenverse/image-box':
 				if ( ! isset( $attrs['titleIconType'] ) || 'icon' === $attrs['titleIconType'] ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['titleIcon'] && $this->icon_conditional_load( $conditions );
 				}
 				break;
 			case 'gutenverse/popup-builder':
 				if ( ! isset( $attrs['closeIconType'] ) || 'icon' === $attrs['closeIconType'] ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['closeIcon'] && $this->icon_conditional_load( $conditions );
 				}
 				break;
 			case 'gutenverse/portfolio-gallery':
 				if ( ! isset( $attrs['showLink'] ) ) {
 					if ( ! isset( $attrs['linkIconType'] ) || 'icon' === $attrs['linkIconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['linkIcon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 				break;
@@ -144,28 +144,28 @@ class Frontend_Assets {
 				// Check readmore icon.
 				if ( ! isset( $attrs['readmoreEnabled'] ) || $attrs['readmoreEnabled'] ) {
 					if ( ! isset( $attrs['readmoreIconType'] ) || 'icon' === $attrs['readmoreIconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['readmoreIcon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 
 				// Check comment icon.
 				if ( isset( $attrs['commentEnabled'] ) && $attrs['commentEnabled'] ) {
 					if ( ! isset( $attrs['commentIconType'] ) || 'icon' === $attrs['commentIconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['commentIcon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 
 				// Check meta author icon.
 				if ( ( ! isset( $attrs['metaEnabled'] ) || $attrs['metaEnabled'] ) && ( ! isset( $attrs['metaAuthorEnabled'] ) || $attrs['metaAuthorEnabled'] ) ) {
 					if ( ! isset( $attrs['metaAuthorIconType'] ) || 'icon' === $attrs['metaAuthorIconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['metaAuthorIcon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 
 				// Check meta date icon.
 				if ( ( ! isset( $attrs['metaEnabled'] ) || $attrs['metaEnabled'] ) && ( ! isset( $attrs['metaDateEnabled'] ) || $attrs['metaDateEnabled'] ) ) {
 					if ( ! isset( $attrs['metaDateIconType'] ) || 'icon' === $attrs['metaDateIconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['metaDateIcon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 
@@ -173,75 +173,75 @@ class Frontend_Assets {
 				if ( isset( $attrs['paginationMode'] ) ) {
 					if ( in_array( $attrs['paginationMode'], array( 'loadmore', 'scrollload' ), true ) ) {
 						if ( ! isset( $attrs['paginationIconType'] ) || 'icon' === $attrs['paginationIconType'] ) {
-							$this->icon_conditional_load( $conditions );
+							'' !== $attrs['paginationIcon'] && $this->icon_conditional_load( $conditions );
 						}
 					}
 
 					if ( in_array( $attrs['paginationMode'], array( 'prevnext', 'number', 'normal-prevnext', 'normal-number' ), true ) ) {
 						if ( ! isset( $attrs['paginationPrevIconType'] ) || 'icon' === $attrs['paginationPrevIconType'] ) {
-							$this->icon_conditional_load( $conditions );
+							'' !== $attrs['paginationPrevIcon'] && $this->icon_conditional_load( $conditions );
 						}
 						if ( ! isset( $attrs['paginationNextIconType'] ) || 'icon' === $attrs['paginationNextIconType'] ) {
-							$this->icon_conditional_load( $conditions );
+							'' !== $attrs['paginationNextIcon'] && $this->icon_conditional_load( $conditions );
 						}
 					}
 				}
 				break;
 			case 'gutenverse/search':
 				if ( ! isset( $attrs['closeIconType'] ) || 'icon' === $attrs['closeIconType'] ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['closeIcon'] && $this->icon_conditional_load( $conditions );
 				}
 				break;
 			case 'gutenverse/social-icon':
 				if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
-					$this->icon_conditional_load( $conditions );
+					'' !== $attrs['icon'] && $this->icon_conditional_load( $conditions );
 				}
 				break;
 			case 'gutenverse/taxonomy-list':
 				if ( isset( $attrs['showIcon'] ) && $attrs['showIcon'] ) {
 					if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['icon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 				break;
 			case 'gutenverse/testimonials':
 				if ( isset( $attrs['showQuote'] ) && $attrs['showQuote'] ) {
 					if ( ! isset( $attrs['iconQuoteType'] ) || 'icon' === $attrs['iconQuoteType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['iconQuote'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 
 				if ( isset( $attrs['showRating'] ) && $attrs['showRating'] ) {
 					if ( ! isset( $attrs['iconRatingFullType'] ) || 'icon' === $attrs['iconRatingFullType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['iconRatingFull'] && $this->icon_conditional_load( $conditions );
 					}
 					if ( ! isset( $attrs['iconRatingHalfType'] ) || 'icon' === $attrs['iconRatingHalfType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['iconRatingHalf'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 				break;
 			case 'gutenverse/chart':
 				if ( isset( $attrs['chartContent'] ) && 'icon' === $attrs['chartContent'] ) {
 					if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['icon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 				break;
 			case 'gutenverse/post-list':
 				if ( isset( $attrs['iconEnabled'] ) && $attrs['iconEnabled'] ) {
 					if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['icon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 
 				if ( isset( $attrs['metaEnabled'] ) && $attrs['metaEnabled'] ) {
 					if ( ! isset( $attrs['metaDateIconType'] ) || 'icon' === $attrs['metaDateIconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['metaDateIcon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 				if ( isset( $attrs['metaEnabled'] ) && $attrs['metaEnabled'] ) {
 					if ( ! isset( $attrs['metaCategoryIconType'] ) || 'icon' === $attrs['metaCategoryIconType'] ) {
-						$this->icon_conditional_load( $conditions );
+						'' !== $attrs['metaCategoryIcon'] && $this->icon_conditional_load( $conditions );
 					}
 				}
 
@@ -249,16 +249,16 @@ class Frontend_Assets {
 				if ( isset( $attrs['paginationMode'] ) ) {
 					if ( in_array( $attrs['paginationMode'], array( 'loadmore', 'scrollload' ), true ) ) {
 						if ( ! isset( $attrs['paginationIconType'] ) || 'icon' === $attrs['paginationIconType'] ) {
-							$this->icon_conditional_load( $conditions );
+							'' !== $attrs['paginationIcon'] && $this->icon_conditional_load( $conditions );
 						}
 					}
 
 					if ( in_array( $attrs['paginationMode'], array( 'prevnext', 'number', 'normal-prevnext', 'normal-number' ), true ) ) {
 						if ( ! isset( $attrs['paginationPrevIconType'] ) || 'icon' === $attrs['paginationPrevIconType'] ) {
-							$this->icon_conditional_load( $conditions );
+							'' !== $attrs['paginationPrevIcon'] && $this->icon_conditional_load( $conditions );
 						}
 						if ( ! isset( $attrs['paginationNextIconType'] ) || 'icon' === $attrs['paginationNextIconType'] ) {
-							$this->icon_conditional_load( $conditions );
+							'' !== $attrs['paginationNextIcon'] && $this->icon_conditional_load( $conditions );
 						}
 					}
 				}
