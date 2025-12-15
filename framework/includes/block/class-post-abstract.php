@@ -780,7 +780,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			$output = '<div class="guten_block_nav" data-page="' . $page . '">';
 
 			if ( $page > 1 ) {
-				$output .= '<a href="#" class="btn-pagination prev" title="' . $prev_inner_text . "\">{ $prev_text}</a> ";
+				$output .= '<a href="#" class="btn-pagination prev" title="' . $prev_inner_text . "\">{$prev_text}</a> ";
 			}
 
 			if ( $page > 2 ) {
@@ -808,7 +808,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			}
 
 			if ( $page < $total ) {
-				$output .= '<a href="#" class="btn-pagination next" title="' . esc_html__( 'Next', '--gctd--' ) . "\">{ $next_text}</a>";
+				$output .= '<a href="#" class="btn-pagination next" title="' . esc_html__( 'Next', '--gctd--' ) . "\">{$next_text}</a>";
 			}
 
 			$output .= '</div>';
