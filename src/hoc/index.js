@@ -22,3 +22,5 @@ export { withPassRef } from './with-pass-ref';
 export { withAnimationAdvanceV2 } from './with-animation-advance-v2';
 export { withAnimationBackgroundV2 } from './with-animation-background-v2';
 export { withAnimationStickyV2 } from './with-animation-sticky-v2';
+export { withTooltip } from './with-tooltip';
+export { withTooltipScript } from './with-tooltip-script';

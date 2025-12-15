@@ -48,6 +48,10 @@ class Wrapper extends Style_Abstract {
 				'pointer'           => null,
 				'cursor-effect'     => null,
 				'background-effect' => ".{$this->element_id}> .guten-inner-wrap> .guten-background-effect",
+				'transform'   => array(
+					'normal' => ".{$this->element_id} > *",
+					'hover'  => ".{$this->element_id}:hover > *",
+				),
 			)
 		);
 	}

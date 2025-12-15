@@ -76,6 +76,7 @@ export { default as LockedConditionControl } from './controls/locked/locked-cond
 export { default as LockedProPanel } from './controls/locked/locked-pro-panel';
 export { default as LockedDynamicContentControl } from './controls/locked/locked-dynamic-content-control';
 export { default as LockedHeaderFilterControl } from './controls/locked/locked-header-filter-control';
+export { default as LockedTooltipControl } from './controls/locked/locked-tooltip-control';
 
 
 export { default as ControlDevices } from './controls/part/control-devices';
@@ -114,6 +115,8 @@ export { PanelSequence, TabSetting, TabStyle, TabAdvance, TabPro } from './panel
 export { conditionPanel } from './panels/panel-condition';
 export { dynamicContentPanel } from './panels/panel-dynamic-content';
 export { textStrokePanel } from './panels/panel-text-stroke';
+export { tooltipPanel } from './panels/panel-tooltip';
+export { tooltipStylePanel } from './panels/panel-tooltip-style';
 
 // Export General Style for block style
 export { backgroundStyle } from './panel-styles/style-backround';

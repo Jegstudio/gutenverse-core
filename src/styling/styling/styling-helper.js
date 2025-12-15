@@ -26,6 +26,7 @@ import { v4 } from 'uuid';
 import { buildGlobalStyle, getGlobalVariable } from './global-style';
 import memoize from 'lodash/memoize';
 import { slideshowGenerator } from './generator/generator-slideshow';
+import { tooltipStyleGenerator } from './generator/generator-tooltip';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -117,6 +118,10 @@ const generateCSSString = (attribute, style) => {
 
         case 'slideshow':
             css = slideshowGenerator(attribute, style, css);
+            break;
+
+        case 'tooltip':
+            css = tooltipStyleGenerator(attribute, style, css, generateCSSString);
             break;
 
         case 'boxShadow':
@@ -520,6 +525,7 @@ export const updateLiveStyle = (props) => {
     //add styleId to keep the style
     const { elementId, attributes, styles: liveStyles, elementRef, timeout = true, styleId = null } = props;
     if (!elementRef) {
+        //eslint-disable-next-line no-console
         console.warn('ElementRef is Missing!');
         return;
     }
@@ -660,6 +666,7 @@ export const skipDevice = (attributes, name, callback) => {
 
         return devices;
     } else {
+        //eslint-disable-next-line no-console
         console.log('make sure the attribute is using device control : ', name);
     }
 };
