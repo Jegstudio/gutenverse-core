@@ -72,7 +72,7 @@ const processBlockAttributes = async (block) => {
             const currentSvg = attributes[svgAttrName];
 
             // Only convert if not already svg type or if SVG content is empty
-            if (currentType !== 'svg' || !currentSvg) {
+            if (currentType === 'icon' && !currentSvg) {
                 // Fetch SVG content from server
                 const svgContent = await fetchSvgContent(attrValue);
                 if (svgContent) {
