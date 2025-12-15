@@ -106,6 +106,7 @@ const ButtonBlock = compose(
             'no-margin',
             elementId,
             displayClass,
+            animationClass,
         ),
         ref: elementRef
     });
@@ -113,7 +114,6 @@ const ButtonBlock = compose(
     const buttonProps = {
         className: classnames(
             'guten-button',
-            animationClass,
             {
                 [`guten-button-${buttonType}`]: buttonType && buttonType !== 'default',
                 [`guten-button-${buttonSize}`]: buttonSize,
@@ -254,11 +254,11 @@ const ButtonBlock = compose(
     }, [dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         <BlockControls>
             <ToolbarGroup>
-                {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, {...props, setPanelState}, buttonPanelState)}
+                {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, { ...props, setPanelState }, buttonPanelState)}
                 {!allowLink && <ToolbarButton
                     name="link"
                     icon={link}

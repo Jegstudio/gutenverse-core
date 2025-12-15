@@ -11,7 +11,7 @@ import { useCallback } from '@wordpress/element';
 import { renderIcon } from 'gutenverse-core/helper';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef, withTooltip } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -27,7 +27,8 @@ const IconBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('icon'),
-    withMouseMoveEffect
+    withMouseMoveEffect,
+    // withTooltip ? withTooltip('.guten-icon-wrapper') : (BlockElement) => (props) => <BlockElement {...props} />,
 )((props) => {
     const {
         attributes,
@@ -134,7 +135,7 @@ const IconBlock = compose(
     }, [elementRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         <BlockControls>
             <ToolbarGroup>
@@ -152,7 +153,7 @@ const IconBlock = compose(
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
-                    {...props, setPanelState},
+                    { ...props, setPanelState },
                     iconPanelState
                 )}
             </ToolbarGroup>

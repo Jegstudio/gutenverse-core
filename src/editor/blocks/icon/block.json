@@ -106,6 +106,17 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"tooltip": {
+			"type": "object",
+			"default": {
+				"textContent": "This is tooltip",
+				"arrow": true,
+				"position": {
+					"Desktop": "top"
+				}
+			},
+			"copyStyle": true
+		},
 		"hideDesktop": {
 			"type": "boolean",
 			"copyStyle": true
