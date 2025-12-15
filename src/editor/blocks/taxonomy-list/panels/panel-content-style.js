@@ -13,7 +13,7 @@ import {
     BorderResponsiveControl
 } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { theDeviceType } from 'gutenverse-core/helper';
 
 export const contentStylePanel = (props) => {
     const {
@@ -26,7 +26,7 @@ export const contentStylePanel = (props) => {
         countJustify
     } = props;
 
-    const deviceType = getDeviceType();
+    const deviceType = theDeviceType();
 
     const optionJustify = () => {
         if (layout !== 'column') {
@@ -343,13 +343,13 @@ export const contentStylePanel = (props) => {
             id: 'contentBorder',
             label: __('Content Border', 'gutenverse'),
             component: BorderControl,
-            show: !switcher.contentSwitch || switcher.contentSwitch === 'normal' && deviceType === 'Desktop',
+            show: (!switcher.contentSwitch || switcher.contentSwitch === 'normal') && deviceType === 'Desktop',
         },
         {
             id: 'contentBorderResponsive',
             label: __('Content Border', 'gutenverse'),
             component: BorderResponsiveControl,
-            show: !switcher.contentSwitch || switcher.contentSwitch === 'normal' && deviceType !== 'Desktop',
+            show: (!switcher.contentSwitch || switcher.contentSwitch === 'normal') && deviceType !== 'Desktop',
         },
         // Hover
         {
@@ -394,7 +394,7 @@ export const contentStylePanel = (props) => {
             id: 'contentBorderHover',
             label: __('Content Border', 'gutenverse'),
             component: BorderControl,
-            show: switcher.contentSwitch === 'hover' && deviceType !== 'Desktop',
+            show: switcher.contentSwitch === 'hover' && deviceType === 'Desktop',
         },
         {
             id: 'contentBorderHoverResponsive',
