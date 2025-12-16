@@ -32,6 +32,10 @@ class Section extends Style_Abstract {
 	public function __construct( $attrs ) {
 		parent::__construct( $attrs );
 
+		if ( empty( $this->element_id ) ) {
+			return;
+		}
+		
 		$element_id = explode( '-', $this->element_id )[1];
 
 		$this->set_feature(
@@ -48,6 +52,10 @@ class Section extends Style_Abstract {
 				'pointer'           => ".section-wrapper[data-id=\"{$element_id}\"]",
 				'cursor-effect'     => null,
 				'background-effect' => null,
+				'transform'   => array(
+					'normal' => ".section-wrapper:has(.{$this->element_id})",
+					'hover'  => ".section-wrapper:has(.{$this->element_id}):hover",
+				),
 			)
 		);
 	}

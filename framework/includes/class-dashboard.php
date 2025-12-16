@@ -528,6 +528,15 @@ class Dashboard {
 					'plugin_version'    => '3.3.0',
 					'framework_version' => '2.3.0',
 				),
+				array(
+					'plugin_version'    => '3.3.1',
+					'framework_version' => '2.3.1',
+				),
+
+				array(
+					'plugin_version'    => '3.3.2',
+					'framework_version' => '2.3.2',
+				),
 			),
 			'gutenverse-form' => array(
 				array(
@@ -662,6 +671,14 @@ class Dashboard {
 					'plugin_version'    => '2.3.0',
 					'framework_version' => '2.3.0',
 				),
+				array(
+					'plugin_version'    => '2.3.1',
+					'framework_version' => '2.3.1',
+				),
+				array(
+					'plugin_version'    => '2.3.2',
+					'framework_version' => '2.3.2',
+				),
 			),
 			'gutenverse-news' => array(
 				array(
@@ -774,6 +791,14 @@ class Dashboard {
 					'plugin_version'    => '2.3.0',
 					'framework_version' => '2.3.0',
 				),
+				array(
+					'plugin_version'    => '2.3.1',
+					'framework_version' => '2.3.1',
+				),
+				array(
+					'plugin_version'    => '2.3.2',
+					'framework_version' => '2.3.2',
+				),
 			),
 		);
 
@@ -789,7 +814,10 @@ class Dashboard {
 		$upload_path = wp_upload_dir();
 
 		$config                    = array();
-		$config['settingsData']    = apply_filters( 'gutenverse_settings_data', get_option( 'gutenverse-settings', array() ) );
+
+		$settings_data = apply_filters( 'gutenverse_settings_data', get_option( 'gutenverse-settings', array() ) );
+		$settings_data['frontend_settings']['unused_size'] = gutenverse_unused_cache_file_size();
+		$config['settingsData']    = $settings_data;
 		$config['blockCategories'] = Init::instance()->blocks->gutenverse_categories();
 		$config['uploadPath']      = $upload_path['basedir'];
 		$config['renderSchedule']  = gmdate( 'Y-m-d H:i:s', wp_next_scheduled( 'gutenverse_cleanup_cached_style' ) );

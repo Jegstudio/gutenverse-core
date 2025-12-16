@@ -1,5 +1,4 @@
 import { SandBox } from '@wordpress/components';
-import { getDeviceType } from '../../editor-helper';
 
 const VideoPreviewer = ({ videoSrc, start, end, hideControls, playing, loop, muted, width, height, classNames, styles, wrapperStyles=[], videoRef=null }) => {
     if (!videoSrc) return null;
@@ -95,7 +94,7 @@ const VideoPreviewer = ({ videoSrc, start, end, hideControls, playing, loop, mut
 
     // Build iframe HTML
     const iframeHtml = `
-		<iframe
+		<div style="display: flex;"><iframe
 			class="${classNames}"
 			src="${embedUrl}"
 			width="${width}"
@@ -105,7 +104,7 @@ const VideoPreviewer = ({ videoSrc, start, end, hideControls, playing, loop, mut
 			referrerpolicy="strict-origin-when-cross-origin"
 			allowfullscreen
 			title="Embedded Video"
-		></iframe>
+		></iframe></div>
 	`;
 
     return (

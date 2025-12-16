@@ -5,13 +5,16 @@ import { handleFilterImage, customHandleBackground } from '../styling-helper';
 import { applyFilters } from '@wordpress/hooks';
 
 const cssGenerator = (attribute, style, css) => {
-    const { selector, responsive = false, otherAttribute, responsiveSelector = false, properties = [{}],  skip_device = [] } = style;
+    const { selector, responsive = false, otherAttribute, responsiveSelector = false, properties = [{}], skip_device = [], specificDevice = '' } = style;
     if (!responsive) {
         const value = multiProperty(attribute, style, otherAttribute);
-        if (isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
+        if (isNotEmpty(specificDevice)) {
+            if (isNotEmpty(value)) css[specificDevice] += ` ${selector} { ${value} } `;
+        } else {
+            if (isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
+        }
     }
-
-    const {functionName = null} = properties[0];
+    const { functionName = null } = properties[0];
     const exceptionForConditional = 'handleSimpleCondition' === functionName; //bypass false value from checkbox
 
     if (responsive) {
