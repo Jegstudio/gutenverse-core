@@ -205,11 +205,14 @@ const convertToSvg = async () => {
         setRenderingMode('post-only');
 
         if ('post-only' === renderingMode) {
-            doConvertion();
+            await doConvertion();
         } else {
-            setTimeout(async () => {
-                doConvertion();
-            }, 2500);
+            await new Promise(resolve => {
+                setTimeout(async () => {
+                    await doConvertion();
+                    resolve();
+                }, 2500);
+            });
         }
     } catch (error) {
         result.errors.push({
