@@ -35,6 +35,13 @@
     &:focus {
         box-shadow: none;
     }
+
+    .gutenverse-icon-svg {
+        svg {
+            height: 1.25em;
+            width: auto;
+        }
+    }
 }
 
 .guten-button-xs {
@@ -65,18 +72,18 @@
     border-radius: 6px;
 }
 
-.guten-button-info{
+.guten-button-info {
     background-color: var(--guten-btn-bg-info);
 }
 
-.guten-button-success{
+.guten-button-success {
     background-color: var(--guten-btn-bg-success);
 }
 
-.guten-button-warning{
+.guten-button-warning {
     background-color: var(--guten-btn-bg-warning);
 }
 
-.guten-button-danger{
+.guten-button-danger {
     background-color: var(--guten-btn-bg-danger);
 }
