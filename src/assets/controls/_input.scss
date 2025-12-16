@@ -1563,7 +1563,7 @@
     /** Icon Chooser **/
     &icon {
       .icon-wrapper {
-        padding-bottom: 56%;
+        padding-bottom: 60%;
         position: relative;
         height: 0;
         background-image: linear-gradient(45deg, #ddd 25%, transparent 0, transparent 75%, #ddd 0, #ddd),
@@ -1610,7 +1610,7 @@
         bottom: 0;
         width: 100%;
         text-align: center;
-        font-size: 11px;
+        font-size: 10px;
         line-height: 30px;
         transition: all 0.3s ease 0s;
         color: #fff;
@@ -1665,9 +1665,61 @@
         }
       }
 
+      .icon-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 30px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(30,30,30,0.4);
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+        z-index: 5;
+
+        &.always-show {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .gutenverse-button {
+          padding: 6px 12px;
+          background: #fff;
+          color: #333;
+          border: 1px solid #ddd;
+          border-radius: 3px;
+          font-size: 10px;
+          cursor: pointer;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          pointer-events: auto;
+
+          &:hover {
+            background: #f0f0f0;
+          }
+        }
+
+        .button-group {
+          display: flex;
+          gap: 5px;
+
+          .gutenverse-button {
+            padding: 6px 8px;
+          }
+        }
+      }
+
       &:hover {
+        .icon-overlay {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
         .icon-remove {
           opacity: 1;
+          z-index: 10;
         }
 
         .icon-change {

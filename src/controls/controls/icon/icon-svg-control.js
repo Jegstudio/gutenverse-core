@@ -3,7 +3,7 @@ import { createPortal } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { __ } from '@wordpress/i18n';
-import { Trash, X } from 'react-feather';
+import { Trash2 } from 'react-feather';
 import { MediaUpload } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
@@ -75,11 +75,11 @@ const IconSVGControl = (props) => {
         }
     };
 
-    const setType = async (type, retries = 2, delay = 50) => {
+    const setType = async (type, retries = 2, delay = 50, force = false) => {
         if (typeAttribute) {
             updateAttributes({ [typeAttribute]: type });
 
-            if ('svg' === type && isEmpty(svgValue) && !isEmpty(value)) {
+            if ('svg' === type && (isEmpty(svgValue) || force) && !isEmpty(value)) {
                 axios.get(libraryApi + '/get-svg-font', {
                     params: {
                         name: value.toLowerCase()
@@ -98,7 +98,7 @@ const IconSVGControl = (props) => {
                         console.error('Failed to fetch SVG content:', error);
                     } else {
                         setTimeout(() => {
-                            setType(type, retries - 1);
+                            setType(type, retries - 1, delay, force);
                         }, delay);
                     }
                 });
@@ -119,17 +119,33 @@ const IconSVGControl = (props) => {
                 <div>
                     <div className={'icon-wrapper'}>
                         {value !== '' && <div className={'icon-remove'} onClick={e => removeIcon(e)}>
-                            <Trash />
+                            <Trash2 />
                         </div>}
-                        <div className={'icon-preview'} onClick={() => setOpenIconLibrary(true)}>
+                        <div className={'icon-preview'}>
                             <i className={value} />
+                        </div>
+                        <div className={`icon-overlay ${value === '' ? 'always-show' : ''}`}>
+                            {value === '' ? (
+                                <button className={'gutenverse-button'} onClick={() => setOpenIconLibrary(true)}>
+                                    {__('Choose Icon', '--gctd--')}
+                                </button>
+                            ) : (
+                                <div className={'button-group'}>
+                                    <button className={'gutenverse-button'} onClick={() => setOpenIconLibrary(true)}>
+                                        {__('Change Icon', '--gctd--')}
+                                    </button>
+                                    <button className={'gutenverse-button'} onClick={() => setType('svg', 2, 50, true)}>
+                                        {__('Convert to SVG', '--gctd--')}
+                                    </button>
+                                </div>
+                            )}
                         </div>
                         <div className={'icon-change'}>
                             <div className={'choose-icon active'} onClick={() => setType('icon')}>
-                                {__('Choose Icon', '--gctd--')}
+                                {__('Icon Library', '--gctd--')}
                             </div>
                             <div className={'upload-svg'} onClick={() => setType('svg')}>
-                                {__('Upload SVG', '--gctd--')}
+                                {__('SVG File', '--gctd--')}
                             </div>
                         </div>
                     </div>
@@ -147,9 +163,9 @@ const IconSVGControl = (props) => {
                                 {__('SVG', '--gctd--')}
                             </div>}
                             {svgValue && <div className={'icon-remove'} onClick={e => removeSVG(e)}>
-                                <Trash />
+                                <Trash2 />
                             </div>}
-                            <div className={'icon-preview'} onClick={open} style={{
+                            <div className={'icon-preview'} style={{
                                 backgroundSize: '20px 20px',
                                 backgroundPosition: '0 0, 10px 10px',
                                 display: 'flex',
@@ -158,12 +174,17 @@ const IconSVGControl = (props) => {
                             }}>
                                 {svgValue ? <div dangerouslySetInnerHTML={{ __html: svgAtob(svgValue) }} style={{ display: 'flex' }} /> : null}
                             </div>
+                            <div className={`icon-overlay ${!svgValue ? 'always-show' : ''}`}>
+                                <button className={'gutenverse-button'} onClick={open}>
+                                    {__('Upload SVG', '--gctd--')}
+                                </button>
+                            </div>
                             <div className={'icon-change'}>
                                 <div className={'choose-icon'} onClick={() => setType('icon')}>
-                                    {__('Choose Icon', '--gctd--')}
+                                    {__('Icon Library', '--gctd--')}
                                 </div>
                                 <div className={'upload-svg active'} onClick={() => setType('svg')}>
-                                    {__('Upload SVG', '--gctd--')}
+                                    {__('SVG File', '--gctd--')}
                                 </div>
                             </div>
                         </div>
