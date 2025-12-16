@@ -554,7 +554,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			'next'       => self::has_next_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $total_next ),
 			'prev'       => self::has_prev_page( $args['paged'] ),
 			'page'       => $args['paged'],
-			'total_page' => self::count_total_page( $attr['paginationMode'], $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] > 0 ? $attr['paginationNumberPost'] : 1 ),
+			'total_page' => self::count_total_page( isset( $attr['paginationMode'] ) ? $attr['paginationMode'] : '', $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] > 0 ? $attr['paginationNumberPost'] : 1 ),
 		);
 	}
 
