@@ -22,7 +22,7 @@ const SectionVideoContainer = ({ attributes }) => {
         overflow: 'hidden',
         pointerEvents: 'none',
         opacity: 1,
-        width:'100%',
+        width: '100%',
         height: '100%'
     };
 
@@ -66,7 +66,11 @@ const SectionVideoContainer = ({ attributes }) => {
                     }
                     body > div {
                         height: inherit;
-                    }`
+                    }
+                    body > div > div {
+                        height: 100%;
+                    }
+                `
             ]}
         />
     );
