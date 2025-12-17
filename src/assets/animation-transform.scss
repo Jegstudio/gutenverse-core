@@ -1,0 +1,259 @@
+@-webkit-keyframes fadeInTransform {
+    0% {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInTransform {
+    0% {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeInDownTransform {
+    0% {
+        opacity: 0;
+        translate: 0 -40px 0;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0 0;
+    }
+}
+
+@keyframes fadeInDownTransform {
+    0% {
+        opacity: 0;
+        translate: 0 -40px 0;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0 0;
+    }
+}
+
+.animated.fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    -webkit-animation-name: var(--guten-use-animation, fadeInDown);
+    animation-name: var(--guten-use-animation, fadeInDown);
+}
+
+@-webkit-keyframes fadeInLeftTransform {
+    0% {
+        opacity: 0;
+        translate: -40px 0 0;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0 0;
+    }
+}
+
+@keyframes fadeInLeftTransform {
+    0% {
+        opacity: 0;
+        translate: -40px 0 0;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0 0;
+    }
+}
+
+.animated.fadeInLeft {
+    -webkit-animation-name: fadeInLeft;
+    animation-name: fadeInLeft;
+    -webkit-animation-name: var(--guten-use-animation, fadeInLeft);
+    animation-name: var(--guten-use-animation, fadeInLeft);
+}
+
+@-webkit-keyframes fadeInRightTransform {
+    0% {
+        opacity: 0;
+        translate: 40px 0 0;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0 0;
+    }
+}
+
+@keyframes fadeInRightTransform {
+    0% {
+        opacity: 0;
+        translate: 40px 0 0;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0 0;
+    }
+}
+
+.animated.fadeInRight {
+    -webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+    -webkit-animation-name: var(--guten-use-animation, fadeInRight);
+    animation-name: var(--guten-use-animation, fadeInRight);
+}
+
+@-webkit-keyframes fadeInUpTransform {
+    0% {
+        opacity: 0;
+        translate: 0 40px 0;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0 0;
+    }
+}
+
+@keyframes fadeInUpTransform {
+    0% {
+        opacity: 0;
+        translate: 0 40px 0;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0 0;
+    }
+}
+
+.animated.fadeInUp {
+    -webkit-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+    -webkit-animation-name: var(--guten-use-animation, fadeInUp);
+    animation-name: var(--guten-use-animation, fadeInUp);
+}
+
+@-webkit-keyframes slideInDownTransform {
+    0% {
+        visibility: visible;
+        translate: 0 -40px 0;
+    }
+
+    to {
+        translate: 0 0 0;
+    }
+}
+
+@keyframes slideInDownTransform {
+    0% {
+        visibility: visible;
+        translate: 0 -40px 0;
+    }
+
+    to {
+        translate: 0 0 0;
+    }
+}
+
+.animated.slideInDown {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-name: var(--guten-use-animation, slideInDown);
+    animation-name: var(--guten-use-animation, slideInDown);
+}
+
+@-webkit-keyframes slideInLeftTransform {
+    0% {
+        visibility: visible;
+        translate: -100% 0 0;
+    }
+
+    to {
+        translate: 0 0 0;
+    }
+}
+
+@keyframes slideInLeftTransform {
+    0% {
+        visibility: visible;
+        translate: -100% 0 0;
+    }
+
+    to {
+        translate: 0 0 0;
+    }
+}
+
+.animated.slideInLeft {
+    -webkit-animation-name: slideInLeft;
+    animation-name: slideInLeft;
+    -webkit-animation-name: var(--guten-use-animation, slideInLeft);
+    animation-name: var(--guten-use-animation, slideInLeft);
+}
+
+@-webkit-keyframes slideInRightTransform {
+    0% {
+        visibility: visible;
+        translate: 100% 0 0;
+    }
+
+    to {
+        translate: 0 0 0;
+    }
+}
+
+@keyframes slideInRightTransform {
+    0% {
+        visibility: visible;
+        translate: 100% 0 0;
+    }
+
+    to {
+        translate: 0 0 0;
+    }
+}
+
+.animated.slideInRight {
+    -webkit-animation-name: slideInRight;
+    animation-name: slideInRight;
+    -webkit-animation-name: var(--guten-use-animation, slideInRightTransform);
+    animation-name: var(--guten-use-animation, slideInRightTransform);
+}
+
+@-webkit-keyframes slideInUpTransform {
+    0% {
+        visibility: visible;
+        translate: 0 40px 0;
+    }
+
+    to {
+        translate: 0 0 0;
+    }
+}
+
+@keyframes slideInUpTransform {
+    0% {
+        visibility: visible;
+        translate: 0 40px 0;
+    }
+
+    to {
+        translate: 0 0 0;
+    }
+}
+
+.animated.slideInUp {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-name: var(--guten-use-animation, slideInUp);
+    animation-name: var(--guten-use-animation, slideInUp);
+}
