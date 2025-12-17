@@ -50,6 +50,7 @@ export { default as TimeRangeControl } from './controls/time-range/time-range-co
 export { default as MaskControl } from './controls/mask/mask-control';
 export { default as DateTimeControl } from './controls/date-time/date-time-control';
 export { default as TextStrokeControl } from './controls/text-stroke/text-stroke-control';
+export { default as PreviewControl } from './controls/preview/preview-control';
 
 // Locked Controls
 export { default as LockedControl } from './controls/locked/locked-control';
