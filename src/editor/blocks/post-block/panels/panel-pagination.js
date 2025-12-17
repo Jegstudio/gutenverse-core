@@ -25,28 +25,28 @@ export const paginationPanel = (props) => {
                     value: 'disable'
                 },
                 {
-                    label: __('Load More'),
-                    value: 'loadmore'
-                },
-                {
-                    label: __('Auto Load on Scroll'),
-                    value: 'scrollload'
-                },
-                {
-                    label: __('Prev Next'),
-                    value: 'prevnext'
-                },
-                {
-                    label: __('Number'),
-                    value: 'number'
-                },
-                {
-                    label: __('Normal Prev Next'),
+                    label: __('Normal Prev Next (Best for SEO)'),
                     value: 'normal-prevnext'
                 },
                 {
-                    label: __('Normal Number'),
+                    label: __('Normal Number (Best for SEO)'),
                     value: 'normal-number'
+                },
+                {
+                    label: __('Load More (Ajax)'),
+                    value: 'loadmore'
+                },
+                {
+                    label: __('Auto Load on Scroll (Ajax)'),
+                    value: 'scrollload'
+                },
+                {
+                    label: __('Prev Next (Ajax)'),
+                    value: 'prevnext'
+                },
+                {
+                    label: __('Number (Ajax)'),
+                    value: 'number'
                 },
             ],
             onChange: ({ paginationMode, __paginationHover }) => {
