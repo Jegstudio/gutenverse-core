@@ -27,10 +27,11 @@
 
   .gutenverse-icon-svg {
     display: none;
+    min-width: 1em;
 
     svg {
-      width: 1em;
       height: 1em;
+      width: fit-content;
     }
   }
 
