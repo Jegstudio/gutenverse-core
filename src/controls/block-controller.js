@@ -9,6 +9,8 @@ const BlockController = (props) => {
         panelIndex
     } = props;
 
+    const { clientId, setAttributes, elementId, setLiveAttr, liveAttr, setPreviewOpen } = panelProps;
+
     let timeoutRef = useRef(null);
 
     useEffect(() => {
@@ -20,7 +22,6 @@ const BlockController = (props) => {
     }, []);
     return panelArray(panelProps).map((item) => {
         const { id, show, onChange, component: Component, proLabel, forceType, liveStyle = [] } = item;
-        const { clientId, setAttributes, elementId, setLiveAttr, liveAttr, setPreviewOpen } = panelProps;
 
         const onValueChange = (value) => {
 
