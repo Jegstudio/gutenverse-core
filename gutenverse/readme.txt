@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 3.3.2
+Stable tag: 3.4.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,6 +298,13 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.4.0 =
+##### New & Improvemenets
+* Add option to convert Webfont to SVG icon for improved SEO
+
+##### Bug Fixes
+* Fix issue with global styles fetch in editor
+
 = 3.3.2 =
 ##### New & Improvemenets
 * improve styling cache mechanism
