@@ -46,10 +46,6 @@ class Archive_Title extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
-				'transform'   => array(
-					'normal' => ".{$this->element_id} > *",
-					'hover'  => ".{$this->element_id}:hover > *",
-				),
 				'mask'        => null,
 			)
 		);

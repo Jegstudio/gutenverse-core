@@ -47,8 +47,8 @@ class Countdown extends Style_Abstract {
 				'animation'   => ".{$this->element_id}.guten-countdown",
 				'advance'     => null,
 				'transform'   => array(
-					'normal' => ".{$this->element_id} .guten-countdown-wrapper",
-					'hover'  => ".{$this->element_id}:hover .guten-countdown-wrapper",
+					'normal' => ".{$this->element_id}",
+					'hover'  => ".{$this->element_id}:hover",
 				),
 				'mask'        => ".{$this->element_id}.guten-countdown",
 			)

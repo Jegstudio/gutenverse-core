@@ -47,7 +47,7 @@ class Button extends Style_Abstract {
 				'animation'   => ".{$this->element_id}.guten-button-wrapper .guten-button",
 				'advance'     => null,
 				'transform'   => array(
-					'normal' => ".{$this->element_id}.guten-button-wrapper",
+					'normal' => ".{$this->element_id}.guten-button-wrapper .guten-button",
 					'hover'  => ".{$this->element_id}.guten-button-wrapper .guten-button:hover",
 				),
 				'mask'        => ".{$this->element_id} .guten-button",
