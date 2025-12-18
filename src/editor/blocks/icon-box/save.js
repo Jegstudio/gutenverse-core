@@ -101,17 +101,11 @@ const save = compose(
                             className="gutenverse-icon-svg"
                             dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
                         />
-                        {iconGradient && (
+                        {(iconGradient || iconGradientHover) && (
                             <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
                                 <defs>
-                                    {renderGradientElement(iconGradient, `iconGradient-${elementId}`)}
-                                </defs>
-                            </svg>
-                        )}
-                        {iconGradientHover && (
-                            <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
-                                <defs>
-                                    {renderGradientElement(iconGradientHover, `iconGradientHover-${elementId}`)}
+                                    {iconGradient && renderGradientElement(iconGradient, `iconGradient-${elementId}`)}
+                                    {iconGradientHover && renderGradientElement(iconGradientHover, `iconGradientHover-${elementId}`)}
                                 </defs>
                             </svg>
                         )}

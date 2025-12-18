@@ -45,7 +45,7 @@ class Accordions extends Style_Abstract {
 				'border'      => null,
 				'positioning' => null,
 				'animation'   => null,
-				'advance'     => null,
+				'advance'     => ".{$this->element_id}",
 				'mask'        => null,
 			)
 		);
