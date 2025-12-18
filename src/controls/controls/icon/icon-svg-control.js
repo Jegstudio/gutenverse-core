@@ -24,6 +24,8 @@ const IconSVGControl = (props) => {
         setAttributes,
         id,
         values,
+        isSubAttribute = false,
+        parentAttribute,
     } = props;
 
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
@@ -32,12 +34,17 @@ const IconSVGControl = (props) => {
     const typeAttribute = id ? `${id}Type` : '';
     const svgAttribute = id ? `${id}SVG` : '';
 
-    const iconType = (attributes && attributes[typeAttribute]) ? attributes[typeAttribute] : (values && values[typeAttribute] ? values[typeAttribute] : 'icon');
-    const svgValue = (attributes && attributes[svgAttribute]) ? attributes[svgAttribute] : (values && values[svgAttribute] ? values[svgAttribute] : {});
+    const iconType = (attributes && attributes[typeAttribute]) ? attributes[typeAttribute] : (values && values[typeAttribute] ? values[typeAttribute] : (isSubAttribute && parentAttribute && parentAttribute[typeAttribute]) ? parentAttribute[typeAttribute] : 'icon');
+    const svgValue = (attributes && attributes[svgAttribute]) ? attributes[svgAttribute] : (values && values[svgAttribute] ? values[svgAttribute] : (isSubAttribute && parentAttribute && parentAttribute[svgAttribute]) ? parentAttribute[svgAttribute] : {});
 
     const updateAttributes = (newAttributes) => {
         if (setAttributes) {
-            setAttributes(newAttributes);
+            if (isSubAttribute && parentAttribute?.id) {
+                setAttributes({[parentAttribute.id]: {
+                    ...parentAttribute,
+                    ...newAttributes
+                } });
+            } else setAttributes(newAttributes);
         } else if (values && values.setAttributes) {
             values.setAttributes(newAttributes);
         }
