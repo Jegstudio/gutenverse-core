@@ -91,7 +91,7 @@ class Frontend_Assets {
 			case 'gutenverse/icon':
 				if ( ! isset( $attrs['iconType'] ) || 'icon' === $attrs['iconType'] ) {
 					// PHP do not serialize default value so if value not exist it mean they use icon.
-					! isset( $attrs['icon'] ) && $this->icon_conditional_load( $conditions );
+					( ! isset( $attrs['icon'] ) || ( isset( $attrs['icon'] ) && '' !== $attrs['icon'] ) ) && $this->icon_conditional_load( $conditions );
 				}
 				break;
 			case 'gutenverse/icon-box':
