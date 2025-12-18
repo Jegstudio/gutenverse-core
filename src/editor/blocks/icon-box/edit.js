@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarGroup } from '@wordpress/components';
-import { svgAtob, renderIcon } from 'gutenverse-core/helper';
+import { svgAtob, renderIcon, renderGradientElement } from 'gutenverse-core/helper';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
@@ -144,42 +144,14 @@ const IconBoxBlock = compose(
                         {iconGradient && (
                             <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
                                 <defs>
-                                    <linearGradient
-                                        id={`iconGradient-${elementId}`}
-                                        x1={`${50 - 50 * Math.sin(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                        y1={`${50 + 50 * Math.cos(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                        x2={`${50 + 50 * Math.sin(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                        y2={`${50 - 50 * Math.cos(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                    >
-                                        {iconGradient?.gradientColor?.map((color, index) => (
-                                            <stop
-                                                key={index}
-                                                offset={color.offset}
-                                                stopColor={color.color}
-                                            />
-                                        ))}
-                                    </linearGradient>
+                                    {renderGradientElement(iconGradient, `iconGradient-${elementId}`)}
                                 </defs>
                             </svg>
                         )}
                         {iconGradientHover && (
                             <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
                                 <defs>
-                                    <linearGradient
-                                        id={`iconGradientHover-${elementId}`}
-                                        x1={`${50 - 50 * Math.sin(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                        y1={`${50 + 50 * Math.cos(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                        x2={`${50 + 50 * Math.sin(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                        y2={`${50 - 50 * Math.cos(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                    >
-                                        {iconGradientHover?.gradientColor?.map((color, index) => (
-                                            <stop
-                                                key={index}
-                                                offset={color.offset}
-                                                stopColor={color.color}
-                                            />
-                                        ))}
-                                    </linearGradient>
+                                    {renderGradientElement(iconGradientHover, `iconGradientHover-${elementId}`)}
                                 </defs>
                             </svg>
                         )}
