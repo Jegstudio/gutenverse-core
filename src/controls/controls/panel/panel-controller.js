@@ -51,14 +51,25 @@ const PanelController = ({ ...props }) => {
         elementRef,
         panelState = { panel: null, section: 0 },
         setPanelIsClicked = () => {},
+        setAttributes
     } = props;
 
     const [switcher, setSwitcher] = useState({});
     const [activeTab, setActiveTab] = useState(null);
     const [openTab, setOpenTab] = useState(0);
+    const [previewOpen, setPreviewOpen] = useState(-1);
+
     useEffect(() => {
         setOpenTab(0);
     }, [activeTab]);
+
+    useEffect(() => {
+        if (previewOpen >= 0 && openTab !== previewOpen) {
+            setAttributes({
+                gutenversePreviewBlock: ''
+            });
+        }
+    }, [openTab]);
 
     useEffect(() => {
         const { panel, section } = panelState;
@@ -131,6 +142,7 @@ const PanelController = ({ ...props }) => {
         clientId,
         switcher,
         setSwitcher,
+        setPreviewOpen
     };
 
     return <>
@@ -179,6 +191,7 @@ const PanelController = ({ ...props }) => {
                                 panelArray={panel.panelArray}
                                 panelProps={thePanelProps}
                                 elementRef={elementRef}
+                                panelIndex={index}
                             />
                         </PanelBody>;
                     })}
@@ -202,6 +215,7 @@ const PanelController = ({ ...props }) => {
                             panelArray={panel.panelArray}
                             panelProps={thePanelProps}
                             elementRef={elementRef}
+                            panelIndex={index}
                         />
                     </PanelBody>;
                 })}
