@@ -67,7 +67,7 @@ const frontendModular = {
                         "./gutenverse/assets/js/frontend/chunk-shufflejs.js*",
                         "./gutenverse/assets/js/frontend/chunk-swiper.js*",
                         "./gutenverse/assets/js/frontend/chunk-swiper-modules.js*",
-                        "./gutenverse/assets/js/frontend/vendors-node_modules_pnpm_swiper_https_gitpkg_vercel_app_Jegstudio_swiper-for-gutenverse_*.js*",
+                        "./gutenverse/assets/js/frontend/vendors-node_modules_pnpm_swiper_*.js*",
                         "./gutenverse/assets/js/frontend/vendors-node_modules_swiper_shared_utils_mjs.js*"
                     ]
                 },
@@ -83,7 +83,7 @@ const frontendModular = {
                             destination: "./gutenverse/assets/js/frontend/",
                         },
                         {
-                            source: process.env.NODE_ENV === 'development' ? "./build/vendors-node_modules_pnpm_swiper_https_gitpkg_vercel_app_Jegstudio_swiper-for-gutenverse_*.js*" : "./build/vendors-node_modules_pnpm_swiper_https_gitpkg_vercel_app_Jegstudio_swiper-for-gutenverse_*.js",
+                            source: process.env.NODE_ENV === 'development' ? "./build/vendors-node_modules_pnpm_swiper_*.js*" : "./build/vendors-node_modules_pnpm_swiper_*.js",
                             destination: "./gutenverse/assets/js/frontend/",
                         },
                         {
