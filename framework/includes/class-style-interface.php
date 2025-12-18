@@ -2544,7 +2544,7 @@ abstract class Style_Interface {
 			if ( isset( $this->attrs['animation']['type'] ) && is_array( $this->attrs['animation']['type'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => $selector,
+						'selector'       => "{$selector}:not([class*=\"__tablet-\"]):not([class*=\"__desktop-\"]):not([class*=\"__mobile-\"])",
 						'property'       => function ( $value ) {
 							if ( 'none' === $value ) {
 								return 'animation-name: none;';
