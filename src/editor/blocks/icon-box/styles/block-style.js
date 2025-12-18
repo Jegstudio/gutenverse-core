@@ -557,6 +557,32 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon .icon-style-gradient`,
     });
 
+    isNotEmpty(attributes['iconGradient']) && data.push({
+        'type': 'plain',
+        'id': 'iconGradient',
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'pattern',
+                'pattern': `url(#iconGradient-${elementId})`
+            }
+        ],
+        'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon .gutenverse-icon-svg svg`,
+    });
+
+    isNotEmpty(attributes['iconGradientHover']) && data.push({
+        'type': 'plain',
+        'id': 'iconGradientHover',
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'pattern',
+                'pattern': `url(#iconGradientHover-${elementId})`
+            }
+        ],
+        'selector': `.guten-icon-box.${elementId}:hover .icon-box.icon-box-header .icon .gutenverse-icon-svg svg`,
+    });
+
     isNotEmpty(attributes['iconGradientHover']) && data.push({
         'type': 'plain',
         'id': 'iconGradientHover',

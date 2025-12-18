@@ -499,10 +499,32 @@ class Icon_Box extends Style_Abstract {
 
 		if ( isset( $this->attrs['iconGradient'] ) ) {
 			$this->custom_handle_background( ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon .icon-style-gradient", $this->attrs['iconGradient'] );
+
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-icon-box.{$this->element_id} .icon-box.icon-box-header .icon svg",
+					'property'       => function () {
+						return "fill: url(#iconGradient-{$this->element_id});";
+					},
+					'value'          => $this->attrs['iconGradient'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconGradientHover'] ) ) {
 			$this->custom_handle_background( ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-header .icon .icon-style-gradient", $this->attrs['iconGradientHover'] );
+
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-icon-box.{$this->element_id}:hover .icon-box.icon-box-header .icon svg",
+					'property'       => function () {
+						return "fill: url(#iconGradientHover-{$this->element_id});";
+					},
+					'value'          => $this->attrs['iconGradientHover'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconBgGradient'] ) ) {

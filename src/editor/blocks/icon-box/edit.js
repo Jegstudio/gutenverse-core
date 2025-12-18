@@ -77,7 +77,9 @@ const IconBoxBlock = compose(
         hoverWithParent,
         parentSelector,
         showTitle,
-        showDesc
+        showDesc,
+        iconGradient,
+        iconGradientHover
     } = attributes;
 
     const {
@@ -139,6 +141,48 @@ const IconBoxBlock = compose(
                             className="gutenverse-icon-svg"
                             dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
                         />
+                        {iconGradient && (
+                            <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
+                                <defs>
+                                    <linearGradient
+                                        id={`iconGradient-${elementId}`}
+                                        x1={`${50 - 50 * Math.sin(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                        y1={`${50 + 50 * Math.cos(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                        x2={`${50 + 50 * Math.sin(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                        y2={`${50 - 50 * Math.cos(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                    >
+                                        {iconGradient?.gradientColor?.map((color, index) => (
+                                            <stop
+                                                key={index}
+                                                offset={color.offset}
+                                                stopColor={color.color}
+                                            />
+                                        ))}
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        )}
+                        {iconGradientHover && (
+                            <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
+                                <defs>
+                                    <linearGradient
+                                        id={`iconGradientHover-${elementId}`}
+                                        x1={`${50 - 50 * Math.sin(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                        y1={`${50 + 50 * Math.cos(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                        x2={`${50 + 50 * Math.sin(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                        y2={`${50 - 50 * Math.cos(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                    >
+                                        {iconGradientHover?.gradientColor?.map((color, index) => (
+                                            <stop
+                                                key={index}
+                                                offset={color.offset}
+                                                stopColor={color.color}
+                                            />
+                                        ))}
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        )}
                     </div>
                 </div>;
             case 'image':
@@ -247,7 +291,7 @@ const IconBoxBlock = compose(
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
-                    {...props, setPanelState},
+                    { ...props, setPanelState },
                     iconBoxPanelState
                 )}
             </ToolbarGroup>
