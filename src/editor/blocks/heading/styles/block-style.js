@@ -352,6 +352,19 @@ const getBlockStyle = (elementId, attributes) => {
         'attributeType': 'custom',
     });
 
+    isNotEmpty(attributes['textWritingMode']) && data.push({
+        'type': 'plain',
+        'id': 'textWritingMode',
+        'properties': [
+            {
+                'name': 'writing-mode',
+                'valueType': 'direct'
+            }
+        ],
+        'responsive': true,
+        'selector': `.${elementId}.guten-element`,
+    });
+
     return [
         ...data,
         ...applyFilters(

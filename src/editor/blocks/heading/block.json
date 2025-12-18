@@ -218,7 +218,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-
 		"textClip": {
 			"type": "object",
 			"default": {},
@@ -227,6 +226,11 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"textWritingMode": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
 		}
 	},
 	"supports": {
@@ -234,6 +238,12 @@
 		"reusable": false,
 		"html": false
 	},
-	"keywords": ["heading", "texts", "title"],
-	"style": ["gutenverse-frontend-heading-style"]
+	"keywords": [
+		"heading",
+		"texts",
+		"title"
+	],
+	"style": [
+		"gutenverse-frontend-heading-style"
+	]
 }
