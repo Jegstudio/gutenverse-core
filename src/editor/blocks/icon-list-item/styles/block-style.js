@@ -26,6 +26,25 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId} i`,
     });
 
+    isNotEmpty(attributes['iconLineHeight']) && data.push({
+        'type': 'plain',
+        'id': 'iconLineHeight',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ],
+        'selector': `.${elementId} .gutenverse-icon-svg`,
+    });
+
     /**Panel List */
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',

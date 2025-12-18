@@ -6,6 +6,7 @@ import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import { applyFilters } from '@wordpress/hooks';
+import { renderIcon } from './render-icon';
 
 const save = compose(
     withAnimationAdvanceScript('buttons'),
@@ -21,6 +22,8 @@ const save = compose(
         buttonSize,
         showIcon,
         icon,
+        iconType,
+        iconSVG,
         iconPosition,
         role,
         ariaLabel
@@ -71,11 +74,11 @@ const save = compose(
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
             <ButtonElement>
-                {showIcon && iconPosition === 'before' && <i className={`fa-lg ${icon}`} />}
+                {showIcon && iconPosition === 'before' && renderIcon(icon, iconType, iconSVG)}
                 <span>
                     <RichText.Content value={content} />
                 </span>
-                {showIcon && iconPosition === 'after' && <i className={`fa-lg ${icon}`} />}
+                {showIcon && iconPosition === 'after' && renderIcon(icon, iconType, iconSVG)}
             </ButtonElement>
         </div>
     );

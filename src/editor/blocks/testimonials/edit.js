@@ -37,12 +37,18 @@ const TestimonialsBlock = compose(
         contentType,
         showQuote,
         iconQuote,
+        iconQuoteType,
+        iconQuoteSVG,
         quoteOverride,
         contentPosition,
         showRating,
         showClientImage,
         iconRatingHalf,
+        iconRatingHalfType,
+        iconRatingHalfSVG,
         iconRatingFull,
+        iconRatingFullType,
+        iconRatingFullSVG,
         starPosition,
     } = attributes;
 
@@ -85,12 +91,18 @@ const TestimonialsBlock = compose(
                             contentType={contentType}
                             showQuote={showQuote}
                             iconQuote={iconQuote}
+                            iconQuoteType={iconQuoteType}
+                            iconQuoteSVG={iconQuoteSVG}
                             quoteOverride={quoteOverride}
                             contentPosition={contentPosition}
                             showRating={showRating}
                             showClientImage={showClientImage}
                             iconRatingFull={iconRatingFull}
+                            iconRatingFullType={iconRatingFullType}
+                            iconRatingFullSVG={iconRatingFullSVG}
                             iconRatingHalf={iconRatingHalf}
+                            iconRatingHalfType={iconRatingHalfType}
+                            iconRatingHalfSVG={iconRatingHalfSVG}
                             starPosition={starPosition}
                             frontEnd={false}
                             setAttributes={setAttributes}

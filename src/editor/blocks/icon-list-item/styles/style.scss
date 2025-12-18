@@ -6,14 +6,18 @@
     .list-text {
         white-space: pre-wrap;
     }
-    .list-divider{
+
+    .list-divider {
         display: flex;
     }
+
     a {
         display: flex;
-        i{
+
+        i {
             display: flex;
             align-items: center;
+            height: 1em;
         }
     }
 }

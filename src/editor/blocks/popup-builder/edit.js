@@ -12,6 +12,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 import PopupVideoContent from './components/popup-video';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const PopupBuilder = (props) => {
     const {
@@ -27,6 +28,8 @@ const PopupBuilder = (props) => {
         closePopupOverlay,
         showCloseButton,
         closeIcon,
+        closeIconType,
+        closeIconSVG,
         closePosition,
         exitAnimation,
         exitAnimationDuration,
@@ -189,7 +192,7 @@ const PopupBuilder = (props) => {
             )}>
                 <div className="guten-popup-overlay" onClick={overlayClicked}></div>
                 {showCloseButton && closePosition === 'overlay' && <div className="guten-popup-close" onClick={hidePopup}>
-                    <i className={closeIcon} />
+                    {renderIcon(closeIcon, closeIconType, closeIconSVG)}
                 </div>}
                 <div onClick={hideClickContainer} className={classnames(
                     'guten-popup-wrapper',
@@ -202,7 +205,7 @@ const PopupBuilder = (props) => {
                         !animationClass.animated && exitAnimation ? 'animated' : ''
                     )}>
                         {showCloseButton && closePosition === 'container' && <div className="guten-popup-close" onClick={hidePopup}>
-                            <i className={closeIcon} />
+                            {renderIcon(closeIcon, closeIconType, closeIconSVG)}
                         </div>}
                         {renderContent()}
                     </div>

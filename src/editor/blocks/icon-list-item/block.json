@@ -66,6 +66,13 @@
 			"attribute": "class",
 			"default": ""
 		},
+		"iconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"iconSVG": {
+			"type": "string"
+		},
 		"hideIcon": {
 			"type": "boolean",
 			"default": false,

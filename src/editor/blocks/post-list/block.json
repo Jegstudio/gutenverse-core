@@ -90,6 +90,13 @@
 			"type": "string",
 			"default": "fas fa-circle"
 		},
+		"iconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"iconSVG": {
+			"type": "string"
+		},
 		"noContentText": {
 			"type": "string",
 			"default": ""
@@ -118,8 +125,16 @@
 			"type": "string",
 			"default": "fas fa-clock"
 		},
-		"metaDateIconPosition": {
+		"metaDateIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"metaDateIconSVG": {
 			"type": "string"
+		},
+		"metaDateIconPosition": {
+			"type": "string",
+			"default": "before"
 		},
 		"metaCategoryEnabled": {
 			"type": "boolean",
@@ -128,6 +143,13 @@
 		"metaCategoryIcon": {
 			"type": "string",
 			"default": "fas fa-tag"
+		},
+		"metaCategoryIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"metaCategoryIconSVG": {
+			"type": "string"
 		},
 		"metaPosition": {
 			"type": "string",
@@ -160,6 +182,13 @@
 		"paginationIcon": {
 			"type": "string",
 			"default": ""
+		},
+		"paginationIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"paginationIconSVG": {
+			"type": "string"
 		},
 		"paginationIconPosition": {
 			"type": "string",
@@ -593,9 +622,23 @@
 			"type": "string",
 			"default": "fas fa-chevron-left"
 		},
+		"paginationPrevIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"paginationPrevIconSVG": {
+			"type": "string"
+		},
 		"paginationNextIcon": {
 			"type": "string",
 			"default": "fas fa-chevron-right"
+		},
+		"paginationNextIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"paginationNextIconSVG": {
+			"type": "string"
 		},
 		"editParam": {
 			"type": "object",

@@ -109,6 +109,13 @@
 		"titleIcon": {
 			"type": "string"
 		},
+		"titleIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"titleIconSVG": {
+			"type": "string"
+		},
 		"titleIconPosition": {
 			"type": "string",
 			"default": "before"

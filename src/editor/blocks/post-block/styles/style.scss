@@ -24,6 +24,16 @@
         visibility: hidden;
         @include transform(false, translate3d(0, -15px, 0));
         @include transition(false, false, .25s ease);
+        display: flex;
+        align-items: center;
+
+        svg {
+            fill: var(--guten-txt-alt-color, #ffffff);
+            font-size: 12px;
+            height: 1em;
+            margin-right: 2px;
+            opacity: 0.6;
+        }
 
         i {
             margin-right: 2px;
@@ -86,6 +96,13 @@
         color: var(--guten-txt-m-color, #96989B);
         font-size: 0.75rem;
 
+        >div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3px;
+        }
+
         a {
             color: var(--guten-txt-h-color, #181D23);
             text-transform: uppercase;
@@ -142,6 +159,8 @@
 
     .guten-meta-comment a {
         color: var(--guten-txt-h-color, #181D23);
+        display: flex;
+        align-items: center;
     }
 
     .guten-posts {
@@ -155,6 +174,7 @@
         .thumbnail-container {
             img[loading="lazy"] {
                 opacity: 0;
+
                 &.lazyloaded {
                     transition: opacity .4s ease;
                     opacity: 1;
@@ -178,12 +198,40 @@
             visibility: visible;
         }
 
-        .icon-position-before i {
-            margin-right: 5px;
+        .icon-position-before {
+            i {
+                margin-right: 5px;
+            }
+
+            .gutenverse-icon-svg {
+                display: flex;
+                margin-right: 5px;
+                vertical-align: sub;
+                justify-content: center;
+                align-items: center;
+
+                svg {
+                    fill: currentColor;
+                }
+            }
         }
 
-        .icon-position-after i {
-            margin-left: 5px;
+        .icon-position-after {
+            i {
+                margin-left: 5px;
+            }
+
+            .gutenverse-icon-svg {
+                display: flex;
+                margin-left: 5px;
+                vertical-align: sub;
+                justify-content: center;
+                align-items: center;
+
+                svg {
+                    fill: currentColor;
+                }
+            }
         }
     }
 
@@ -452,6 +500,15 @@
             i {
                 padding-top: 4px;
             }
+
+            .gutenverse-icon-svg {
+                display: inline-flex;
+                vertical-align: sub;
+
+                svg {
+                    fill: currentColor;
+                }
+            }
         }
     }
 
@@ -482,8 +539,13 @@
                 transition: none;
             }
 
-            i {
-                transition: none;
+            .gutenverse-icon-svg {
+                display: inline-flex;
+                vertical-align: sub;
+
+                svg {
+                    fill: currentColor;
+                }
             }
 
             &.disabled {

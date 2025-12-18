@@ -27,11 +27,24 @@
 			"type": "string",
 			"default": "fas fa-minus"
 		},
+		"iconOpenType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"iconOpenSVG": {
+			"type": "string"
+		},
 		"iconClosed": {
 			"type": "string",
 			"default": "fas fa-plus"
 		},
-
+		"iconClosedType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"iconClosedSVG": {
+			"type": "string"
+		},
 		"dynamicDataList": {
 			"type": "array",
 			"default": []

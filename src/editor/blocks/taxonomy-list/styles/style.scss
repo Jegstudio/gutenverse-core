@@ -4,19 +4,20 @@
     width: 100%;
     gap: 10px;
 
-    a{
+    a {
         display: flex;
         width: fit-content;
         justify-content: center;
         align-items: center;
         transition: all .1s;
-        .icon-list{
+
+        .icon-list {
             transition: all 0.05s;
         }
     }
 }
-    
-.taxonomy-list-wrapper{
+
+.taxonomy-list-wrapper {
     display: flex;
     flex-direction: column;
     align-items: start;

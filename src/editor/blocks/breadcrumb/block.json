@@ -69,6 +69,13 @@
 			"type": "string",
 			"default": "fas fa-chevron-right"
 		},
+		"separatorIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"separatorIconSVG": {
+			"type": "string"
+		},
 		"typography": {
 			"type": "object",
 			"copyStyle": true

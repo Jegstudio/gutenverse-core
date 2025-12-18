@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 3.3.2
+Stable tag: 3.4.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,8 +298,15 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.4.0 =
+##### New & Improvements
+* Add option to convert Webfont to SVG icon for improved SEO
+
+##### Bug Fixes
+* Fix issue with global styles fetch in editor
+
 = 3.3.2 =
-##### New & Improvemenets
+##### New & Improvements
 * improve styling cache mechanism
 
 ##### Bug Fixes
@@ -313,14 +320,14 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix social icons vertical layout
 
 = 3.3.1 =
-##### New & Improvemenets
+##### New & Improvements
 * improve post block pagination
 
 ##### Bug Fixes
 * fix taxonomy list
 
 = 3.3.0 =
-##### New & Improvemenets
+##### New & Improvements
 * Improve CSS & JS files to load only if block/feature exist
 * add animation in post block load more pagination
 * add option for width and height in popup video
@@ -332,7 +339,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix security issue. credit: Patchstack.
 
 = 3.2.1 =
-##### New & Improvemenets
+##### New & Improvements
 * improve UI, show which current demo is active
 
 ##### Bug Fixes
@@ -342,7 +349,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix issue with global color on older block themes
 
 = 3.2.0 =
-##### New & Improvemenets
+##### New & Improvements
 * add toggle avatar (image) to testimonials block
 * add notification center for Gutenverse notices
 * add Custom Page CSS & JS
@@ -380,7 +387,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix icon box preview frontend and editor
 
 = 3.1.1 =
-##### New & Improvemenets
+##### New & Improvements
 * add default spacing  in paragraph block
 
 ##### Bug Fixes
@@ -393,7 +400,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix security issue. credit: Wordfence.
 
 = 3.1.0 =
-##### New & Improvemenets
+##### New & Improvements
 * improve progress bar block styles
 * add accordion item wrapper background
 * add text indent on text editor
@@ -405,7 +412,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix blocklist enable/disable option for wrapper block
 
 = 3.0.7 =
-##### New & Improvemenets
+##### New & Improvements
 * add icon box height option
 
 ##### Bug Fixes
@@ -415,7 +422,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix archive title block issue
 
 = 3.0.6 =
-##### New & Improvemenets
+##### New & Improvements
 * new block: chart block
 * add px unit for line width and height for advance heading block
 * add filter on hover option for logo slider block
@@ -440,7 +447,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix border color issue
 
 = 3.0.5 =
-##### New & Improvemenets
+##### New & Improvements
 * add description in gallery lightbox popup
 
 ##### Bug Fixes
@@ -491,7 +498,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix missing function
 
 = 3.0.1 =
-##### New & Improvemenets
+##### New & Improvements
 * update border control ui when clicked and filled
 
 ##### Bug Fixes

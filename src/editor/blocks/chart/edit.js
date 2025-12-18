@@ -8,7 +8,7 @@ import generateChart from './data/generateChart';
 import getBlockStyle from './styles/block-style';
 import { getColor } from 'gutenverse-core/styling';
 import { displayShortcut } from '@wordpress/keycodes';
-import { gutenverseRoot } from 'gutenverse-core/helper';
+import { gutenverseRoot, renderIcon } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
@@ -63,6 +63,8 @@ const ChartBlock = compose(
         url,
         rel,
         icon,
+        iconType,
+        iconSVG,
         cutout,
         minValue,
         elementId,
@@ -82,7 +84,6 @@ const ChartBlock = compose(
         enableContentParsed
     } = attributes;
 
-    const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const multiValue = chartItems.length > 1;
@@ -137,15 +138,19 @@ const ChartBlock = compose(
 
     useEffect(() => {
         if (enableContent[deviceType] === true) {
-            setAttributes({enableContentParsed : {
-                ...enableContentParsed,
-                [deviceType] : 'true'
-            }});
+            setAttributes({
+                enableContentParsed: {
+                    ...enableContentParsed,
+                    [deviceType]: 'true'
+                }
+            });
         } else {
-            setAttributes({enableContentParsed : {
-                ...enableContentParsed,
-                [deviceType] : 'false'
-            }});
+            setAttributes({
+                enableContentParsed: {
+                    ...enableContentParsed,
+                    [deviceType]: 'false'
+                }
+            });
         }
     }, [enableContent]);
 
@@ -211,7 +216,7 @@ const ChartBlock = compose(
         {
             'percentage' === chartContent || 'number' === chartContent ?
                 <span ref={numberRef} >{multiValue || 'number' === chartContent ? '0' : '0%'}</span>
-                : <i className={icon} onClick={() => setOpenIconLibrary(true)} />
+                : renderIcon(icon, iconType, iconSVG)
         }
     </div>;
 
@@ -219,26 +224,7 @@ const ChartBlock = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
-        <BlockControls>
-            <ToolbarGroup>
-                {'icon' === chartContent && <ToolbarButton
-                    name="icon"
-                    icon={<LogoCircleColor24SVG />}
-                    title={__('Choose Icon', 'gutenverse')}
-                    shortcut={displayShortcut.primary('i')}
-                    onClick={() => setOpenIconLibrary(true)}
-                />}
-            </ToolbarGroup>
-        </BlockControls>
-        {openIconLibrary && createPortal(
-            <IconLibrary
-                closeLibrary={() => setOpenIconLibrary(false)}
-                value={icon}
-                onChange={icon => setAttributes({ icon })}
-            />,
-            gutenverseRoot
-        )}
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps} >
             <div className="guten-chart-wrapper">
                 {enableContent[deviceType] && <div className="chart-content content-card">
@@ -254,14 +240,14 @@ const ChartBlock = compose(
                         attributes={attributes}
                         clientId={clientId}
                         contentAttribute={'title'}
-                        // panelDynamic={{ panel: 'setting', section: 3 }}
-                        // panelPosition={{ panel: 'style', section: 1 }}
-                        // setPanelState={setPanelState}
-                        // textChilds={'titleChilds'}
-                        // dynamicList={'titleDynamicList'}
-                        // isUseDinamic={true}
-                        // isUseHighlight={true}
-                        // parentHasLink={isGlobalLinkSet}
+                    // panelDynamic={{ panel: 'setting', section: 3 }}
+                    // panelPosition={{ panel: 'style', section: 1 }}
+                    // setPanelState={setPanelState}
+                    // textChilds={'titleChilds'}
+                    // dynamicList={'titleDynamicList'}
+                    // isUseDinamic={true}
+                    // isUseHighlight={true}
+                    // parentHasLink={isGlobalLinkSet}
                     />
                     {'doughnut' !== chartType && 'none' !== chartContent ? insideChart : ''}
                     <RichTextComponent
@@ -276,19 +262,19 @@ const ChartBlock = compose(
                         attributes={attributes}
                         clientId={clientId}
                         contentAttribute={'description'}
-                        // panelDynamic={{ panel: 'setting', section: 3 }}
-                        // panelPosition={{ panel: 'style', section: 1 }}
-                        // setPanelState={setPanelState}
-                        // textChilds={'descriptionChilds'}
-                        // dynamicList={'descriptionDynamicList'}
-                        // isUseDinamic={true}
-                        // isUseHighlight={true}
-                        // parentHasLink={isGlobalLinkSet}
+                    // panelDynamic={{ panel: 'setting', section: 3 }}
+                    // panelPosition={{ panel: 'style', section: 1 }}
+                    // setPanelState={setPanelState}
+                    // textChilds={'descriptionChilds'}
+                    // dynamicList={'descriptionDynamicList'}
+                    // isUseDinamic={true}
+                    // isUseHighlight={true}
+                    // parentHasLink={isGlobalLinkSet}
                     />
                 </div>}
                 <div className="chart-content content-chart">
                     <div className="chart-container">
-                        <div ref={canvasRef} id={`chart-${elementId}`} style={{boxSizing:'border-box', lineHeight:'0'}}></div>
+                        <div ref={canvasRef} id={`chart-${elementId}`} style={{ boxSizing: 'border-box', lineHeight: '0' }}></div>
                     </div>
                     {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
                 </div>

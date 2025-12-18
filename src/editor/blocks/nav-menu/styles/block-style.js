@@ -248,6 +248,26 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['SubmenuIndicatorSize']) && data.push({
+        'type': 'plain',
+        'id': 'SubmenuIndicatorSize',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a svg, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a svg`,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+
+                }
+            }
+        ],
+    });
+
     isNotEmpty(attributes['submenuIndicatorPadding']) && data.push({
         'type': 'dimension',
         'id': 'submenuIndicatorPadding',
@@ -259,6 +279,19 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > i`,
+    });
+
+    isNotEmpty(attributes['submenuIndicatorPadding']) && data.push({
+        'type': 'dimension',
+        'id': 'submenuIndicatorPadding',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'padding',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg`,
     });
 
     isNotEmpty(attributes['submenuIndicatorMargin']) && data.push({
@@ -274,16 +307,41 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
     });
 
+    isNotEmpty(attributes['submenuIndicatorMargin']) && data.push({
+        'type': 'dimension',
+        'id': 'submenuIndicatorMargin',
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'margin',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg`,
+    });
+
     isNotEmpty(attributes['submenuIndicatorBorder']) && data.push({
         'type': 'border',
         'id': 'submenuIndicatorBorder',
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
     });
 
+    isNotEmpty(attributes['submenuIndicatorBorder']) && data.push({
+        'type': 'border',
+        'id': 'submenuIndicatorBorder',
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg`,
+    });
+
     isNotEmpty(attributes['submenuIndicatorBorderResponsive']) && device !== 'Desktop' && data.push({
         'type': 'borderResponsive',
         'id': 'submenuIndicatorBorderResponsive',
         'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
+    });
+
+    isNotEmpty(attributes['submenuIndicatorBorderResponsive']) && device !== 'Desktop' && data.push({
+        'type': 'borderResponsive',
+        'id': 'submenuIndicatorBorderResponsive',
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg`,
     });
 
     isNotEmpty(attributes['submenuTypography']) && data.push({
@@ -344,6 +402,19 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['submenuIndicatorColor']) && data.push({
+        'type': 'color',
+        'id': 'submenuIndicatorColor',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['submenuTextNormalBg']) && data.push({
         'type': 'background',
         'id': 'submenuTextNormalBg',
@@ -376,6 +447,19 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['submenuIndicatorHoverColor']) && data.push({
+        'type': 'color',
+        'id': 'submenuIndicatorHoverColor',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['submenuTextNormalBg']) && data.push({
         'id': 'submenuTextHoverBg',
         'type': 'background',
@@ -403,6 +487,19 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['submenuIndicatorActiveColor']) && data.push({
+        'type': 'color',
+        'id': 'submenuIndicatorActiveColor',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a svg`,
+        'properties': [
+            {
+                'name': 'fill',
                 'valueType': 'direct'
             }
         ]
@@ -574,6 +671,26 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['hamburgerSize']) && data.push({
+        'type': 'plain',
+        'id': 'hamburgerSize',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu svg`,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+
+                }
+            }
+        ],
+    });
+
     isNotEmpty(attributes['hamburgerPadding']) && data.push({
         'type': 'dimension',
         'id': 'hamburgerPadding',
@@ -613,6 +730,19 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['hamburgerColorNormal']) && data.push({
+        'type': 'color',
+        'id': 'hamburgerColorNormal',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['hamburgerBgNormal']) && data.push({
         'type': 'background',
         'id': 'hamburgerBgNormal',
@@ -639,6 +769,19 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['hamburgerColorHover']) && data.push({
+        'type': 'color',
+        'id': 'hamburgerColorHover',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover svg`,
+        'properties': [
+            {
+                'name': 'fill',
                 'valueType': 'direct'
             }
         ]
@@ -694,6 +837,27 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
     });
+
+    isNotEmpty(attributes['closeSize']) && data.push({
+        'type': 'plain',
+        'id': 'closeSize',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu svg`,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+
+                }
+            }
+        ],
+    });
+
     isNotEmpty(attributes['closePadding']) && data.push({
         'type': 'dimension',
         'id': 'closePadding',
@@ -733,6 +897,19 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['closeColorNormal']) && data.push({
+        'type': 'color',
+        'id': 'closeColorNormal',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['closeBgNormal']) && data.push({
         'type': 'background',
         'id': 'closeBgNormal',
@@ -759,6 +936,19 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['closeColorHover']) && data.push({
+        'type': 'color',
+        'id': 'closeColorHover',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover svg`,
+        'properties': [
+            {
+                'name': 'fill',
                 'valueType': 'direct'
             }
         ]

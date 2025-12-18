@@ -40,6 +40,9 @@
 			"type": "string",
 			"default": "fas fa-grip-horizontal"
 		},
+		"iconSVG": {
+			"type": "string"
+		},
 		"iconColor": {
 			"type": "object",
 			"copyStyle": true

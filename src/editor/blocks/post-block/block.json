@@ -101,6 +101,13 @@
 			"type": "string",
 			"default": "fas fa-arrow-right"
 		},
+		"readmoreIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"readmoreIconSVG": {
+			"type": "string"
+		},
 		"readmoreIconPosition": {
 			"type": "string",
 			"default": "after"
@@ -116,6 +123,13 @@
 		"commentIcon": {
 			"type": "string",
 			"default": "fas fa-comment"
+		},
+		"commentIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"commentIconSVG": {
+			"type": "string"
 		},
 		"commentIconPosition": {
 			"type": "string",
@@ -136,6 +150,13 @@
 		"metaAuthorIcon": {
 			"type": "string",
 			"default": "fas fa-user"
+		},
+		"metaAuthorIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"metaAuthorIconSVG": {
+			"type": "string"
 		},
 		"metaAuthorIconPosition": {
 			"type": "string",
@@ -160,6 +181,13 @@
 		"metaDateIcon": {
 			"type": "string",
 			"default": "fas fa-clock"
+		},
+		"metaDateIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"metaDateIconSVG": {
+			"type": "string"
 		},
 		"metaDateIconPosition": {
 			"type": "string",
@@ -202,6 +230,14 @@
 			"default": 0
 		},
 		"paginationIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"paginationIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"paginationIconSVG": {
 			"type": "string",
 			"default": ""
 		},
@@ -813,9 +849,23 @@
 			"type": "string",
 			"default": "fas fa-chevron-left"
 		},
+		"paginationPrevIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"paginationPrevIconSVG": {
+			"type": "string"
+		},
 		"paginationNextIcon": {
 			"type": "string",
 			"default": "fas fa-chevron-right"
+		},
+		"paginationNextIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"paginationNextIconSVG": {
+			"type": "string"
 		},
 		"editParam": {
 			"type": "object",

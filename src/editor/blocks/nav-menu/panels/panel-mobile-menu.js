@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, IconControl, ImageSizeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconSVGControl, ImageSizeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
 export const mobileMenuPanel = (props) => {
     const {
@@ -36,12 +36,12 @@ export const mobileMenuPanel = (props) => {
         {
             id: 'mobileIcon',
             label: __('Mobile Icon', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl,
         },
         {
             id: 'mobileCloseIcon',
             label: __('Close Icon', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl,
         },
         {
             id: 'mobileSubmenuClick',
