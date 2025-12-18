@@ -300,6 +300,47 @@ abstract class Block_Abstract {
 	 * @return string
 	 */
 	protected function create_gradient_svg( $gradient, $id ) {
+		$stops = '';
+		if ( isset( $gradient['gradientColor'] ) && is_array( $gradient['gradientColor'] ) ) {
+			foreach ( $gradient['gradientColor'] as $color ) {
+				$stops .= '<stop offset="' . esc_attr( $color['offset'] ) . '" stop-color="' . esc_attr( $color['color'] ) . '"/>';
+			}
+		}
+
+		$type = isset( $gradient['gradientType'] ) ? $gradient['gradientType'] : 'linear';
+
+		if ( 'radial' === $type ) {
+			$radial_pos = isset( $gradient['gradientRadial'] ) ? $gradient['gradientRadial'] : 'center center';
+			$pos        = explode( ' ', $radial_pos );
+			$cx         = '50%';
+			$cy         = '50%';
+			$map        = array(
+				'left'   => '0%',
+				'center' => '50%',
+				'right'  => '100%',
+				'top'    => '0%',
+				'bottom' => '100%',
+			);
+
+			foreach ( $pos as $p ) {
+				if ( isset( $map[ $p ] ) ) {
+					if ( in_array( $p, array( 'left', 'right' ), true ) ) {
+						$cx = $map[ $p ];
+					} elseif ( in_array( $p, array( 'top', 'bottom' ), true ) ) {
+						$cy = $map[ $p ];
+					}
+				}
+			}
+
+			return '<svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
+			<defs>
+				<radialGradient id="' . esc_attr( $id ) . '" cx="' . $cx . '" cy="' . $cy . '" r="50%" fx="' . $cx . '" fy="' . $cy . '">
+					' . $stops . '
+				</radialGradient>
+			</defs>
+		</svg>';
+		}
+
 		$angle = isset( $gradient['gradientAngle'] ) ? (float) $gradient['gradientAngle'] : 180;
 		$rad   = ( $angle * pi() ) / 180;
 
@@ -307,13 +348,6 @@ abstract class Block_Abstract {
 		$y1 = ( 50 + 50 * cos( $rad ) ) . '%';
 		$x2 = ( 50 + 50 * sin( $rad ) ) . '%';
 		$y2 = ( 50 - 50 * cos( $rad ) ) . '%';
-
-		$stops = '';
-		if ( isset( $gradient['gradientColor'] ) && is_array( $gradient['gradientColor'] ) ) {
-			foreach ( $gradient['gradientColor'] as $color ) {
-				$stops .= '<stop offset="' . esc_attr( $color['offset'] ) . '" stop-color="' . esc_attr( $color['color'] ) . '"/>';
-			}
-		}
 
 		return '<svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
 			<defs>

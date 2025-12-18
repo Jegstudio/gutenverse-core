@@ -968,6 +968,50 @@ export const svgAtob = (encodedSVG) => {
  * @param {string} iconSVG - Base64 encoded SVG data
  * @returns {JSX.Element|null} - Rendered icon element
  */
+export const renderGradientElement = (gradient, id) => {
+    const stops = gradient?.gradientColor?.map((color, index) => (
+        <stop key={index} offset={color.offset} stopColor={color.color} />
+    ));
+
+    if (gradient.gradientType === 'radial') {
+        const positions = (gradient.gradientRadial || 'center center').split(' ');
+        let cx = '50%';
+        let cy = '50%';
+        const map = {
+            'left': '0%',
+            'center': '50%',
+            'right': '100%',
+            'top': '0%',
+            'bottom': '100%',
+        };
+
+        positions.forEach(pos => {
+            if (map[pos]) {
+                if (['left', 'right'].includes(pos)) cx = map[pos];
+                if (['top', 'bottom'].includes(pos)) cy = map[pos];
+            }
+        });
+
+        return (
+            <radialGradient id={id} cx={cx} cy={cy} r="50%" fx={cx} fy={cy}>
+                {stops}
+            </radialGradient>
+        );
+    }
+
+    return (
+        <linearGradient
+            id={id}
+            x1={`${50 - 50 * Math.sin(((gradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+            y1={`${50 + 50 * Math.cos(((gradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+            x2={`${50 + 50 * Math.sin(((gradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+            y2={`${50 - 50 * Math.cos(((gradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+        >
+            {stops}
+        </linearGradient>
+    );
+};
+
 export const renderIcon = (icon, iconType = 'icon', iconSVG = '', showAriaHidden = false, elementId = '', iconGradient = false, iconGradientHover = false) => {
     if (iconType === 'svg' && iconSVG) {
         try {
@@ -981,42 +1025,14 @@ export const renderIcon = (icon, iconType = 'icon', iconSVG = '', showAriaHidden
                     {iconGradient && (
                         <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
                             <defs>
-                                <linearGradient
-                                    id={`iconGradient-${elementId}`}
-                                    x1={`${50 - 50 * Math.sin(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                    y1={`${50 + 50 * Math.cos(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                    x2={`${50 + 50 * Math.sin(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                    y2={`${50 - 50 * Math.cos(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                >
-                                    {iconGradient?.gradientColor?.map((color, index) => (
-                                        <stop
-                                            key={index}
-                                            offset={color.offset}
-                                            stopColor={color.color}
-                                        />
-                                    ))}
-                                </linearGradient>
+                                {renderGradientElement(iconGradient, `iconGradient-${elementId}`)}
                             </defs>
                         </svg>
                     )}
                     {iconGradientHover && (
                         <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
                             <defs>
-                                <linearGradient
-                                    id={`iconGradientHover-${elementId}`}
-                                    x1={`${50 - 50 * Math.sin(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                    y1={`${50 + 50 * Math.cos(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                    x2={`${50 + 50 * Math.sin(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                    y2={`${50 - 50 * Math.cos(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
-                                >
-                                    {iconGradientHover?.gradientColor?.map((color, index) => (
-                                        <stop
-                                            key={index}
-                                            offset={color.offset}
-                                            stopColor={color.color}
-                                        />
-                                    ))}
-                                </linearGradient>
+                                {renderGradientElement(iconGradientHover, `iconGradientHover-${elementId}`)}
                             </defs>
                         </svg>
                     )}
