@@ -968,15 +968,59 @@ export const svgAtob = (encodedSVG) => {
  * @param {string} iconSVG - Base64 encoded SVG data
  * @returns {JSX.Element|null} - Rendered icon element
  */
-export const renderIcon = (icon, iconType = 'icon', iconSVG = '', showAriaHidden = false) => {
+export const renderIcon = (icon, iconType = 'icon', iconSVG = '', showAriaHidden = false, elementId = '', iconGradient = false, iconGradientHover = false) => {
     if (iconType === 'svg' && iconSVG) {
         try {
             const svgData = atob(iconSVG);
             return (
-                <div
-                    className="gutenverse-icon-svg"
-                    dangerouslySetInnerHTML={{ __html: svgData }}
-                />
+                <>
+                    <div
+                        className="gutenverse-icon-svg"
+                        dangerouslySetInnerHTML={{ __html: svgData }}
+                    />
+                    {iconGradient && (
+                        <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
+                            <defs>
+                                <linearGradient
+                                    id={`iconGradient-${elementId}`}
+                                    x1={`${50 - 50 * Math.sin(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                    y1={`${50 + 50 * Math.cos(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                    x2={`${50 + 50 * Math.sin(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                    y2={`${50 - 50 * Math.cos(((iconGradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                >
+                                    {iconGradient?.gradientColor?.map((color, index) => (
+                                        <stop
+                                            key={index}
+                                            offset={color.offset}
+                                            stopColor={color.color}
+                                        />
+                                    ))}
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    )}
+                    {iconGradientHover && (
+                        <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
+                            <defs>
+                                <linearGradient
+                                    id={`iconGradientHover-${elementId}`}
+                                    x1={`${50 - 50 * Math.sin(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                    y1={`${50 + 50 * Math.cos(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                    x2={`${50 + 50 * Math.sin(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                    y2={`${50 - 50 * Math.cos(((iconGradientHover.gradientAngle || 180) * Math.PI) / 180)}%`}
+                                >
+                                    {iconGradientHover?.gradientColor?.map((color, index) => (
+                                        <stop
+                                            key={index}
+                                            offset={color.offset}
+                                            stopColor={color.color}
+                                        />
+                                    ))}
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    )}
+                </>
             );
         } catch (e) {
             return null;

@@ -258,17 +258,69 @@ abstract class Block_Abstract {
 	/**
 	 * Render Icon
 	 *
-	 * @param string $type Icon type.
-	 * @param string $icon Icon class.
-	 * @param string $svg  SVG data.
+	 * @param string $type                Icon type.
+	 * @param string $icon                Icon class.
+	 * @param string $svg                 SVG data.
+	 * @param string $element_id          Element ID.
+	 * @param array  $icon_gradient       Icon Gradient.
+	 * @param array  $icon_gradient_hover Icon Gradient Hover.
 	 *
 	 * @return string
 	 */
-	protected function render_icon( $type, $icon, $svg ) {
+	protected function render_icon( $type, $icon, $svg, $element_id = '', $icon_gradient = false, $icon_gradient_hover = false ) {
 		if ( 'svg' === $type && ! empty( $svg ) ) {
 			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
-			return '<div class="gutenverse-icon-svg">' . base64_decode( $svg, true ) . '</div>';
+			$svg_data = base64_decode( $svg, true );
+
+			if ( $icon_gradient || $icon_gradient_hover ) {
+				if ( empty( $element_id ) ) {
+					$element_id = $this->get_element_id();
+				}
+
+				if ( $icon_gradient ) {
+					$svg_data .= $this->create_gradient_svg( $icon_gradient, 'iconGradient-' . $element_id );
+				}
+
+				if ( $icon_gradient_hover ) {
+					$svg_data .= $this->create_gradient_svg( $icon_gradient_hover, 'iconGradientHover-' . $element_id );
+				}
+			}
+
+			return '<div class="gutenverse-icon-svg">' . $svg_data . '</div>';
 		}
 		return '<i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i>';
+	}
+
+	/**
+	 * Create Gradient SVG
+	 *
+	 * @param array  $gradient Gradient data.
+	 * @param string $id       Gradient ID.
+	 *
+	 * @return string
+	 */
+	protected function create_gradient_svg( $gradient, $id ) {
+		$angle = isset( $gradient['gradientAngle'] ) ? (float) $gradient['gradientAngle'] : 180;
+		$rad   = ( $angle * pi() ) / 180;
+
+		$x1 = ( 50 - 50 * sin( $rad ) ) . '%';
+		$y1 = ( 50 + 50 * cos( $rad ) ) . '%';
+		$x2 = ( 50 + 50 * sin( $rad ) ) . '%';
+		$y2 = ( 50 - 50 * cos( $rad ) ) . '%';
+
+		$stops = '';
+		if ( isset( $gradient['gradientColor'] ) && is_array( $gradient['gradientColor'] ) ) {
+			foreach ( $gradient['gradientColor'] as $color ) {
+				$stops .= '<stop offset="' . esc_attr( $color['offset'] ) . '" stop-color="' . esc_attr( $color['color'] ) . '"/>';
+			}
+		}
+
+		return '<svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
+			<defs>
+				<linearGradient id="' . esc_attr( $id ) . '" x1="' . $x1 . '" y1="' . $y1 . '" x2="' . $x2 . '" y2="' . $y2 . '">
+					' . $stops . '
+				</linearGradient>
+			</defs>
+		</svg>';
 	}
 }

@@ -75,11 +75,11 @@ const IconSVGControl = (props) => {
         }
     };
 
-    const setType = async (type, retries = 2, delay = 50, force = false) => {
+    const setType = async (type, retries = 2, delay = 50, force = false, justAttr = true ) => {
         if (typeAttribute) {
             updateAttributes({ [typeAttribute]: type });
 
-            if ('svg' === type && (isEmpty(svgValue) || force) && !isEmpty(value)) {
+            if ('svg' === type && (isEmpty(svgValue) || force) && !isEmpty(value) && !justAttr ) {
                 axios.get(libraryApi + '/get-svg-font', {
                     params: {
                         name: value.toLowerCase()
@@ -134,7 +134,7 @@ const IconSVGControl = (props) => {
                                     <button className={'gutenverse-button'} onClick={() => setOpenIconLibrary(true)}>
                                         {__('Change Icon', '--gctd--')}
                                     </button>
-                                    <button className={'gutenverse-button'} onClick={() => setType('svg', 2, 50, true)}>
+                                    <button className={'gutenverse-button'} onClick={() => setType('svg', 2, 50, true, false)}>
                                         {__('Convert to SVG', '--gctd--')}
                                     </button>
                                 </div>
