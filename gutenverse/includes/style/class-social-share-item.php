@@ -80,7 +80,7 @@ class Social_Share_Item extends Style_Abstract {
 		if ( isset( $this->attrs['iconColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.gutenverse-share-item .gutenverse-share-icon i",
+					'selector'       => "#{$this->element_id}.gutenverse-share-item .gutenverse-share-icon svg",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -152,7 +152,7 @@ class Social_Share_Item extends Style_Abstract {
 		if ( isset( $this->attrs['iconColorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.gutenverse-share-item:hover .gutenverse-share-icon i",
+					'selector'       => "#{$this->element_id}.gutenverse-share-item:hover .gutenverse-share-icon svg",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -235,7 +235,7 @@ class Social_Share_Item extends Style_Abstract {
 		if ( isset( $this->attrs['iconSize'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.gutenverse-share-item i",
+					'selector'       => "#{$this->element_id}.gutenverse-share-item svg",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'font-size' );
 					},
@@ -246,7 +246,7 @@ class Social_Share_Item extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.gutenverse-share-item i",
+					'selector'       => "#{$this->element_id}.gutenverse-share-item svg",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
