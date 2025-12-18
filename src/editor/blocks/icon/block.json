@@ -113,7 +113,9 @@
 				"arrow": true,
 				"position": {
 					"Desktop": "top"
-				}
+				},
+				"textIconType": "icon",
+				"textIconSVG": ""
 			},
 			"copyStyle": true
 		},

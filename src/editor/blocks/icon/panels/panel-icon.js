@@ -76,7 +76,7 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .gutenverse-icon-svg svg`,
+                    'selector': `.${elementId} .guten-icon-wrapper .gutenverse-icon-svg svg`,
                 }
             ]
         },
