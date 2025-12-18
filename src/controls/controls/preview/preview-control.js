@@ -45,7 +45,7 @@ const PreviewControl = (props) => {
             </div>
             <div className="control-preview">
                 {children}
-                <button className="preview-button" onClick={() => onPreviewChange()}> {value === previewName ? __('Exit Preview', '--gctd---') : label}</button>
+                <button className="preview-button" onClick={() => onPreviewChange()}> {value === previewName ? __('Exit Preview', '--gctd--') : label}</button>
             </div>
         </div>
     </div>;
