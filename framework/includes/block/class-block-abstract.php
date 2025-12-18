@@ -272,18 +272,23 @@ abstract class Block_Abstract {
 			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 			$svg_data = base64_decode( $svg, true );
 
+			$gradients = '';
 			if ( $icon_gradient || $icon_gradient_hover ) {
 				if ( empty( $element_id ) ) {
 					$element_id = $this->get_element_id();
 				}
 
 				if ( $icon_gradient ) {
-					$svg_data .= $this->create_gradient_svg( $icon_gradient, 'iconGradient-' . $element_id );
+					$gradients .= $this->create_gradient_svg( $icon_gradient, 'iconGradient-' . $element_id );
 				}
 
 				if ( $icon_gradient_hover ) {
-					$svg_data .= $this->create_gradient_svg( $icon_gradient_hover, 'iconGradientHover-' . $element_id );
+					$gradients .= $this->create_gradient_svg( $icon_gradient_hover, 'iconGradientHover-' . $element_id );
 				}
+			}
+
+			if ( ! empty( $gradients ) ) {
+				$svg_data .= '<svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false"><defs>' . $gradients . '</defs></svg>';
 			}
 
 			return '<div class="gutenverse-icon-svg">' . $svg_data . '</div>';
@@ -332,13 +337,9 @@ abstract class Block_Abstract {
 				}
 			}
 
-			return '<svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
-			<defs>
-				<radialGradient id="' . esc_attr( $id ) . '" cx="' . $cx . '" cy="' . $cy . '" r="50%" fx="' . $cx . '" fy="' . $cy . '">
+			return '<radialGradient id="' . esc_attr( $id ) . '" cx="' . $cx . '" cy="' . $cy . '" r="50%" fx="' . $cx . '" fy="' . $cy . '">
 					' . $stops . '
-				</radialGradient>
-			</defs>
-		</svg>';
+				</radialGradient>';
 		}
 
 		$angle = isset( $gradient['gradientAngle'] ) ? (float) $gradient['gradientAngle'] : 180;
@@ -349,12 +350,8 @@ abstract class Block_Abstract {
 		$x2 = ( 50 + 50 * sin( $rad ) ) . '%';
 		$y2 = ( 50 - 50 * cos( $rad ) ) . '%';
 
-		return '<svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
-			<defs>
-				<linearGradient id="' . esc_attr( $id ) . '" x1="' . $x1 . '" y1="' . $y1 . '" x2="' . $x2 . '" y2="' . $y2 . '">
+		return '<linearGradient id="' . esc_attr( $id ) . '" x1="' . $x1 . '" y1="' . $y1 . '" x2="' . $x2 . '" y2="' . $y2 . '">
 					' . $stops . '
-				</linearGradient>
-			</defs>
-		</svg>';
+				</linearGradient>';
 	}
 }
