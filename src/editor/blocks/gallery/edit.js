@@ -132,19 +132,35 @@ const GalleryBlock = compose(
 
     // Initialize Shuffle.js
     const initializeShuffle = () => {
-        shuffleInstance.current = new Shuffle(elementRef.current.querySelector('.gallery-items'), {
-            itemSelector: `.${elementId} .gallery-item-wrap`,
-            sizer: `.${elementId} .gallery-sizer-element`,
-            speed: 500
-        });
+        if (shuffleInstance.current) {
+            shuffleInstance.current.update();
+        } else {
+            shuffleInstance.current = new Shuffle(elementRef.current.querySelector('.gallery-items'), {
+                itemSelector: `.${elementId} .gallery-item-wrap`,
+                sizer: `.${elementId} .gallery-sizer-element`,
+                speed: 500
+            });
+        }
     };
 
     // Wait for images to load
     const waitForImages = (images) => Promise.all(
         images.map((img) =>
-            img.complete
-                ? Promise.resolve()
-                : new Promise((resolve) => (img.onload = img.onerror = resolve))
+            new Promise((resolve) => {
+                if (img.complete && img.naturalHeight !== 0) {
+                    resolve(img);
+                    return;
+                }
+                img.onload = () => resolve(img);
+                img.onerror = () => resolve(img);
+                if (img.src) {
+                    const src = img.src;
+                    img.src = '';
+                    img.src = src;
+                } else {
+                    resolve(img);
+                }
+            })
         )
     );
 
