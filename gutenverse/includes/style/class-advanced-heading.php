@@ -47,10 +47,6 @@ class Advanced_Heading extends Style_Abstract {
 				'animation'   => null,
 				'advance'     => null,
 				'mask'        => null,
-				'transform'   => array(
-					'normal' => ".{$this->element_id} > *",
-					'hover'  => ".{$this->element_id}:hover > *",
-				),
 			)
 		);
 	}

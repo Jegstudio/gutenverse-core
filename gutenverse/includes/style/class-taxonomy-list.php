@@ -46,10 +46,6 @@ class Taxonomy_List extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
-				'transform'   => array(
-					'normal' => ".{$this->element_id}.guten-element > *",
-					'hover'  => ".{$this->element_id}.guten-element:hover > *",
-				),
 				'mask'        => null,
 			)
 		);
