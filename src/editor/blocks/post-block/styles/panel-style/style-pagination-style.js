@@ -69,7 +69,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         'type': 'plain',
         'id': 'paginationHeight',
         'responsive': true,
-        'selector': `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev)`,
+        'selector': `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .${elementId} .guten-postblock.guten-pagination-normal-number .guten_block_nav .btn-pagination:not(.next):not(.prev)`,
         'properties': [
             {
                 'name': 'height',
@@ -89,7 +89,8 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         'id': 'paginationNavigationWidth',
         'responsive': true,
         'selector': `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
-                        .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
+                        .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev,
+                            .${elementId} .guten-postblock.guten-pagination-normal-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-normal-number .guten_block_nav .btn-pagination.prev`,
         'properties': [
             {
                 'name': 'width',
@@ -103,7 +104,8 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         'id': 'paginationNavigationHeight',
         'responsive': true,
         'selector': `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
-                        .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
+                        .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev,
+                            .${elementId} .guten-postblock.guten-pagination-normal-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-normal-number .guten_block_nav .btn-pagination.prev`,
         'properties': [
             {
                 'name': 'height',

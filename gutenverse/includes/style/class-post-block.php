@@ -1095,7 +1095,8 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
-                        .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev",
+                        .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev,
+                        .{$this->element_id} .guten-postblock.guten-pagination-normal-number .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-normal-number .guten_block_nav .btn-pagination.prev",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
@@ -1108,7 +1109,7 @@ class Post_Block extends Style_Abstract {
 		if ( isset( $this->attrs['paginationHeight'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav span",
+					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav span, .{$this->element_id} .guten-postblock.guten-pagination-normal-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .{$this->element_id} .guten-postblock.guten-pagination-normal-number .guten_block_nav span",
 					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
@@ -1122,7 +1123,8 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
-                        .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev",
+                        .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev,
+                        .{$this->element_id} .guten-postblock.guten-pagination-normal-number .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-normal-number .guten_block_nav .btn-pagination.prev",
 					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
