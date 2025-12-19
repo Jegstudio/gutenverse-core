@@ -1,5 +1,5 @@
 
-import {useInstanceId} from '@wordpress/compose';
+import { useInstanceId } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import ControlHeadingSimple from '../part/control-heading-simple';
@@ -33,8 +33,8 @@ const CheckboxControl = (props) => {
     };
 
     const checkboxContent = <>
-        <input id={`${id}-checkbox`} checked={checked} ref={inputRef} type="checkbox" defaultChecked={checked} onClick={e => onChange(e.target.checked)} hidden disabled={proLabel}/>
-        <span className="switch"/>
+        <input id={`${id}-checkbox`} checked={checked} ref={inputRef} type="checkbox" onChange={e => onChange(e.target.checked)} hidden disabled={proLabel} />
+        <span className="switch" />
     </>;
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-checkbox'}>

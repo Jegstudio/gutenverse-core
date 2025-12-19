@@ -22,7 +22,7 @@
   position: absolute;
   right: 5px;
   top: 5px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.8);
   cursor: pointer;
   width: 21px;
   line-height: 21px;
@@ -30,6 +30,7 @@
   transition: all 0.3s ease 0s;
   z-index: 999;
   border-radius: 100%;
+  color: #fff;
 
   svg {
     width: 12px;

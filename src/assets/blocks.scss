@@ -16,7 +16,7 @@
     // &:not(.guten-column) {
     //     width: 100%;
     // }
-    
+
     .hover-from-left,
     .hover-from-right,
     .hover-from-top,
@@ -129,6 +129,19 @@
     align-items: center;
     padding: 12px;
 }
-:root :where(.editor-styles-wrapper) :where(.is-layout-flow) .wp-block{
+
+.gutenverse-icon-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: auto;
+        height: 1em;
+        fill: currentColor;
+    }
+}
+
+:root :where(.editor-styles-wrapper) :where(.is-layout-flow) .wp-block {
     margin-block-start: 0;
 }
