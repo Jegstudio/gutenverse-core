@@ -308,6 +308,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix issue with animation effect when combined with transform effect
 * fix issue with section background type video
 * fix accordion block padding
+* fix gallery load more not working
 
 = 3.3.2 =
 ##### New & Improvements
