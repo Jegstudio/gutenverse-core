@@ -1035,7 +1035,7 @@ abstract class Style_Interface {
 
 						$this->inject_style(
 							array(
-								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-icon",
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-icon, .{$this->element_id}-cursor-effect.cursor-effect .cursor-content .gutenverse-icon-svg",
 								'property'       => function ( $value ) {
 									return $this->handle_unit_point( $value, 'font-size' );
 								},
