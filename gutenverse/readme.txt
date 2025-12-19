@@ -300,10 +300,14 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 == Changelog ==
 = 3.4.0 =
 ##### New & Improvements
-* Add option to convert Webfont to SVG icon for improved SEO
+* add option to convert Webfont to SVG icon for improved SEO
 
 ##### Bug Fixes
-* Fix issue with global styles fetch in editor
+* fix issue with global styles fetch in editor
+* fix issue with animation effect not running on tablet/mobile
+* fix issue with animation effect when combined with transform effect
+* fix issue with section background type video
+* fix accordion block padding
 
 = 3.3.2 =
 ##### New & Improvements
