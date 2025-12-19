@@ -124,7 +124,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         'type': 'plain',
         'id': 'paginationIconSpacing',
         'responsive': true,
-        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.prev i`,
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.prev i, .${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before svg, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.prev svg`,
         'properties': [
             {
                 'name': 'margin-right',
@@ -143,7 +143,7 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         'type': 'plain',
         'id': 'paginationIconSpacing',
         'responsive': true,
-        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.next i`,
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.next i, .${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after svg, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.next svg`,
         'properties': [
             {
                 'name': 'margin-left',
@@ -184,6 +184,34 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         ]
     });
 
+
+    isNotEmpty(attributes['paginationIconSize']) && data.push({
+        'type': 'unitPoint',
+        'id': 'paginationIconSize',
+        'responsive': true,
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before svg, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.prev svg`,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'direct',
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['paginationIconSize']) && data.push({
+        'type': 'unitPoint',
+        'id': 'paginationIconSize',
+        'responsive': true,
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after svg, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.next svg`,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'direct',
+            }
+        ]
+    });
+
+
     isNotEmpty(attributes['paginationAlign']) && data.push({
         'type': 'plain',
         'id': 'paginationAlign',
@@ -223,6 +251,18 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         ],
     });
 
+    isNotEmpty(attributes['paginationColor']) && data.push({
+        'type': 'color',
+        'id': 'paginationColor',
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore svg, .${elementId} .guten-postblock .guten_block_nav .btn-pagination svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
     isNotEmpty(attributes['paginationCurrentColor']) && data.push({
         'type': 'color',
         'id': 'paginationCurrentColor',
@@ -230,6 +270,18 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         'properties': [
             {
                 'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['paginationCurrentColor']) && data.push({
+        'type': 'color',
+        'id': 'paginationCurrentColor',
+        'selector': `.${elementId} .guten-postblock .guten_block_nav .btn-pagination.current svg`,
+        'properties': [
+            {
+                'name': 'fill',
                 'valueType': 'direct'
             }
         ],
@@ -247,6 +299,18 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         ],
     });
 
+    isNotEmpty(attributes['paginationDisabledColor']) && data.push({
+        'type': 'color',
+        'id': 'paginationDisabledColor',
+        'selector': `.${elementId} .guten-postblock .guten_block_nav .btn-pagination.disabled svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
     isNotEmpty(attributes['paginationHoverColor']) && data.push({
         'type': 'color',
         'id': 'paginationHoverColor',
@@ -254,6 +318,18 @@ const panelPaginationStyle = (elementId, attributes, data) => {
         'properties': [
             {
                 'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['paginationHoverColor']) && data.push({
+        'type': 'color',
+        'id': 'paginationHoverColor',
+        'selector': `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover svg, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:not(.disabled):not(.current):hover svg`,
+        'properties': [
+            {
+                'name': 'fill',
                 'valueType': 'direct'
             }
         ],

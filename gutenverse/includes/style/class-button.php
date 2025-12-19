@@ -102,7 +102,7 @@ class Button extends Style_Abstract {
 			if ( 'before' === $this->attrs['iconPosition'] ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button i",
+						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button i, .{$this->element_id}.guten-button-wrapper .guten-button svg",
 						'property'       => function ( $value ) {
 							return "margin-right: {$value}px;";
 						},
@@ -115,7 +115,7 @@ class Button extends Style_Abstract {
 			if ( 'after' === $this->attrs['iconPosition'] ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button i",
+						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button i, .{$this->element_id}.guten-button-wrapper .guten-button svg",
 						'property'       => function ( $value ) {
 							return "margin-left: {$value}px;";
 						},
@@ -130,6 +130,16 @@ class Button extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button i",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'font-size' );
+					},
+					'value'          => $this->attrs['iconSize'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button svg",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'font-size' );
 					},
@@ -189,6 +199,16 @@ class Button extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['iconColor'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( $this->attrs['hoverWithParent'] && isset( $this->attrs['parentSelector'] ) ) {
@@ -211,6 +231,16 @@ class Button extends Style_Abstract {
 						'selector'       => $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button i",
 						'property'       => function ( $value ) {
 							return $this->handle_color( $value, 'color' );
+						},
+						'value'          => $this->attrs['hoverIconColor'],
+						'device_control' => false,
+					)
+				);
+				$this->inject_style(
+					array(
+						'selector'       => $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button svg",
+						'property'       => function ( $value ) {
+							return $this->handle_color( $value, 'fill' );
 						},
 						'value'          => $this->attrs['hoverIconColor'],
 						'device_control' => false,
@@ -296,6 +326,16 @@ class Button extends Style_Abstract {
 						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button:hover i",
 						'property'       => function ( $value ) {
 							return $this->handle_color( $value, 'color' );
+						},
+						'value'          => $this->attrs['hoverIconColor'],
+						'device_control' => false,
+					)
+				);
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button:hover svg",
+						'property'       => function ( $value ) {
+							return $this->handle_color( $value, 'fill' );
 						},
 						'value'          => $this->attrs['hoverIconColor'],
 						'device_control' => false,

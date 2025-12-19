@@ -1,4 +1,4 @@
-import { ColorControl, IconControl, IconRadioControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, IconSVGControl, IconRadioControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 import { AlignLeft, AlignCenter, AlignRight } from 'gutenverse-core/components';
 
@@ -82,6 +82,23 @@ export const stylePanel = (props) => {
                         },
                     ],
                     'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li.separator i`,
+                },
+                {
+                    'id': 'iconSize',
+                    'type': 'plain',
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                }
+                            }
+                        },
+                    ],
+                    'selector': `.guten-element.${elementId}.guten-breadcrumb .breadcrumb-nav li.separator svg`,
                 }
             ]
         },
@@ -127,7 +144,7 @@ export const stylePanel = (props) => {
         {
             id: 'separatorIcon',
             label: __('Separator Icon', 'gutenverse'),
-            component: IconControl
+            component: IconSVGControl
         },
     ];
 };

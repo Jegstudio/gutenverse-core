@@ -8,6 +8,7 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
+import { renderIcon } from './render-icon';
 
 const save = compose(
     withAnimationAdvanceScript('social-icon'),
@@ -19,6 +20,8 @@ const save = compose(
     const {
         elementId,
         icon,
+        iconType,
+        iconSVG,
         text,
         url,
         linkTarget,
@@ -30,12 +33,14 @@ const save = compose(
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
     const socialType = getSocialType(icon);
+    const iconClass = iconType === 'svg' ? 'svg' : '';
 
     const className = classnames(
         'guten-element',
         'guten-social-icon',
         elementId,
         socialType,
+        iconClass,
         animationClass,
         displayClass,
     );
@@ -49,8 +54,8 @@ const save = compose(
     );
 
     return <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-        <a id={elementId} href={href} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
-            <i className={icon}/>
+        <a id={elementId} href={href} target={linkTarget} rel={rel} aria-label={ariaLabel}>
+            {renderIcon(icon, iconType, iconSVG)}
             {
                 text && <RichText.Content
                     value={text}

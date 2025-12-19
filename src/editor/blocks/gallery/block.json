@@ -25,12 +25,26 @@
 			"type": "string",
 			"default": "fas fa-search-plus"
 		},
+		"zoomIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"zoomIconSVG": {
+			"type": "string"
+		},
 		"zoomText": {
 			"type": "string"
 		},
 		"linkIcon": {
 			"type": "string",
 			"default": "fas fa-link"
+		},
+		"linkIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"linkIconSVG": {
+			"type": "string"
 		},
 
 		"linkText": {
@@ -444,6 +458,13 @@
 			"default": "No More Item"
 		},
 		"enableLoadIcon": {
+			"type": "string"
+		},
+		"enableLoadIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"enableLoadIconSVG": {
 			"type": "string"
 		},
 		"enableLoadIconPosition": {

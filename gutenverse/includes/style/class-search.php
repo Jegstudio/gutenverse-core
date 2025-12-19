@@ -425,6 +425,17 @@ class Search extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search-form .search-input-container .close-icon svg",
+					'property'       => function ( $value ) {
+						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['closeIconSize'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['closeIconRotate'] ) ) {
@@ -477,6 +488,17 @@ class Search extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search-form .search-input-container .close-icon svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['closeIconColor'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['closeIconColorHover'] ) ) {
@@ -485,6 +507,17 @@ class Search extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .gutenverse-search-form .search-input-container:hover .close-icon",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['closeIconColorHover'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search-form .search-input-container:hover .close-icon svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
 					},
 					'value'          => $this->attrs['closeIconColorHover'],
 					'device_control' => true,

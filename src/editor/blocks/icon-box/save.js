@@ -1,6 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
 import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
+import { svgAtob, renderIcon, renderGradientElement } from 'gutenverse-core/helper';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
@@ -49,10 +50,13 @@ const save = compose(
         image,
         imageAlt,
         icon,
+        iconSVG,
         iconType,
         iconPosition,
         iconStyleMode = 'color',
         watermarkIcon,
+        watermarkIconType,
+        watermarkIconSVG,
         watermarkShow,
         badgeShow,
         badge,
@@ -61,7 +65,9 @@ const save = compose(
         lazyLoad,
         hasInnerBlocks,
         showTitle,
-        showDesc
+        showDesc,
+        iconGradient,
+        iconGradientHover
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -86,6 +92,23 @@ const save = compose(
                 return <div className="icon-box icon-box-header">
                     <div className={`icon bg-style-${iconStyleMode}`}>
                         <i className={`${icon} icon-style-${iconStyleMode}`}></i>
+                    </div>
+                </div>;
+            case 'svg':
+                return <div className="icon-box icon-box-header">
+                    <div className={`icon bg-style-${iconStyleMode}`}>
+                        <div
+                            className="gutenverse-icon-svg"
+                            dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
+                        />
+                        {(iconGradient || iconGradientHover) && (
+                            <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
+                                <defs>
+                                    {iconGradient && renderGradientElement(iconGradient, `iconGradient-${elementId}`)}
+                                    {iconGradientHover && renderGradientElement(iconGradientHover, `iconGradientHover-${elementId}`)}
+                                </defs>
+                            </svg>
+                        )}
                     </div>
                 </div>;
             case 'image':
@@ -129,7 +152,7 @@ const save = compose(
                 />
             </div>}
             {watermarkShow && <div className="hover-watermark">
-                <i className={watermarkIcon}></i>
+                {renderIcon(watermarkIcon, watermarkIconType, watermarkIconSVG)}
             </div>}
         </div>
     );

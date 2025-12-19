@@ -17,7 +17,7 @@ import { dispatch, useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
-import { useRichTextParameter, isEmpty, isOnEditor } from 'gutenverse-core/helper';
+import { useRichTextParameter, isEmpty, isOnEditor, renderIcon } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
@@ -103,6 +103,8 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) =>
         titleTag: TitleTag,
         titleIconPosition,
         titleIcon,
+        titleIconType,
+        titleIconSVG,
         hoverBottom,
         hoverBottomDirection,
         url,
@@ -159,7 +161,9 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) =>
                 'body-title',
                 `icon-position-${titleIconPosition}`
             )}>
-                {titleIconPosition === 'before' && titleIcon !== '' && <i className={titleIcon} />}
+                {titleIconPosition === 'before' && <span className="image-box-icon icon-position-before">
+                    {renderIcon(titleIcon, titleIconType, titleIconSVG)}
+                </span>}
                 <RichTextComponent
                     tagName={'span'}
                     aria-label={__('Image Box Title', 'gutenverse')}
@@ -179,7 +183,9 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) =>
                     isUseHighlight={true}
                     parentHasLink={isGlobalLinkSet}
                 />
-                {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
+                {titleIconPosition === 'after' && <span className="image-box-icon icon-position-after">
+                    {renderIcon(titleIcon, titleIconType, titleIconSVG)}
+                </span>}
             </TitleTag>
             <RichTextComponent
                 classNames={'body-description'}

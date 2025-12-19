@@ -463,7 +463,6 @@ const drawBarChart = (props) => {
         .attr('height', d => chartHeight - y(d.value));
 
     bars.on('mouseover', function (event, d) {
-        console.log('kehover');
 
         tooltip?.show(`${d.label}: ${d.value}`, event);
     })

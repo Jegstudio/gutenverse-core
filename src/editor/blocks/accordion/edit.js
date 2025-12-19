@@ -12,16 +12,16 @@ import { BlockPanelController, PanelTutorial } from 'gutenverse-core/controls';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
-import { useRichTextParameter } from 'gutenverse-core/helper';
+import { useRichTextParameter, renderIcon } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 
-export const AccordionIcon = ({ iconOpen, iconClosed }) => {
+export const AccordionIcon = ({ iconOpen, iconOpenType, iconOpenSVG, iconClosed, iconClosedType, iconClosedSVG }) => {
     return <div className={'accordion-icon'}>
         <span className={'accordion-icon-open'}>
-            <i className={iconOpen} />
+            {renderIcon(iconOpen, iconOpenType, iconOpenSVG)}
         </span>
         <span className={'accordion-icon-closed'}>
-            <i className={iconClosed} />
+            {renderIcon(iconClosed, iconClosedType, iconClosedSVG)}
         </span>
     </div>;
 };
@@ -48,7 +48,11 @@ const Accordion = props => {
     const {
         iconPosition,
         iconOpen,
+        iconOpenType,
+        iconOpenSVG,
         iconClosed,
+        iconClosedType,
+        iconClosedSVG,
         titleTag,
         first,
         elementId
@@ -165,14 +169,22 @@ const Accordion = props => {
 
         let {
             iconOpen,
+            iconOpenType,
+            iconOpenSVG,
             iconClosed,
+            iconClosedType,
+            iconClosedSVG,
             iconPosition,
             titleTag,
         } = attributes;
 
         setAttributes({
             iconOpen,
+            iconOpenType,
+            iconOpenSVG,
             iconClosed,
+            iconClosedType,
+            iconClosedSVG,
             iconPosition,
             titleTag
         });
@@ -182,7 +194,11 @@ const Accordion = props => {
             parent = null;
             attributes = null;
             iconOpen = null;
+            iconOpenType = null;
+            iconOpenSVG = null;
             iconClosed = null;
+            iconClosedType = null;
+            iconClosedSVG = null;
             iconPosition = null;
             titleTag = null;
         };
@@ -224,7 +240,7 @@ const Accordion = props => {
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} />
         <div {...blockProps}>
             <div className="accordion-heading" onClick={setFirstActive}>
-                {iconPosition === 'left' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
+                {iconPosition === 'left' && <AccordionIcon iconClosed={iconClosed} iconClosedType={iconClosedType} iconClosedSVG={iconClosedSVG} iconOpen={iconOpen} iconOpenType={iconOpenType} iconOpenSVG={iconOpenSVG} />}
                 <RichTextComponent
                     classNames={'accordion-text'}
                     tagName={titleTag}
@@ -244,7 +260,7 @@ const Accordion = props => {
                     isUseDinamic={true}
                     isUseHighlight={true}
                 />
-                {iconPosition === 'right' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
+                {iconPosition === 'right' && <AccordionIcon iconClosed={iconClosed} iconClosedType={iconClosedType} iconClosedSVG={iconClosedSVG} iconOpen={iconOpen} iconOpenType={iconOpenType} iconOpenSVG={iconOpenSVG} />}
             </div>
             <div className="accordion-body">
                 <div {...innerBlocksProps} />

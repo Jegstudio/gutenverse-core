@@ -242,6 +242,17 @@ class Chart extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .chart-content .chart-inside svg",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'Width' );
+					},
+					'value'          => $this->attrs['indicatorIconSize'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['cardBoxShadow'] ) ) {

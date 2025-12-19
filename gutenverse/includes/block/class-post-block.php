@@ -127,12 +127,18 @@ class Post_Block extends Post_Abstract {
 			'paginationNumberPost',
 			'paginationScrollLimit',
 			'paginationIcon',
+			'paginationIconType',
+			'paginationIconSVG',
 			'paginationIconPosition',
 			'paginationPrevNextText',
 			'paginationPrevText',
 			'paginationNextText',
 			'paginationPrevIcon',
+			'paginationPrevIconType',
+			'paginationPrevIconSVG',
 			'paginationNextIcon',
+			'paginationNextIconType',
+			'paginationNextIconSVG',
 			'contentOrder',
 			'paginationLoadmoreAnimation',
 			'paginationLoadmoreAnimationSequence',
@@ -193,23 +199,31 @@ class Post_Block extends Post_Abstract {
 				$author_by   = esc_attr( $this->attributes['metaAuthorByText'] );
 
 				$icon          = esc_attr( $this->attributes['metaAuthorIcon'] );
+				$icon_type     = isset( $this->attributes['metaAuthorIconType'] ) ? esc_attr( $this->attributes['metaAuthorIconType'] ) : 'icon';
+				$icon_svg      = isset( $this->attributes['metaAuthorIconSVG'] ) ? $this->attributes['metaAuthorIconSVG'] : '';
 				$icon_position = esc_attr( $this->attributes['metaAuthorIconPosition'] );
 
+				$icon_html = $this->render_icon( $icon_type, $icon, $icon_svg );
+
 				if ( 'before' === $icon_position ) {
-					$author_output = '<div class="guten-meta-author icon-position-' . $icon_position . '"><i aria-hidden="true" class="' . $icon . '"></i><span class="by">' . $author_by . '</span> <a href="' . $author_url . '">' . $author_name . '</a></div>';
+					$author_output = '<div class="guten-meta-author icon-position-' . $icon_position . '">' . $icon_html . '<span class="by">' . $author_by . '</span> <a href="' . $author_url . '">' . $author_name . '</a></div>';
 				} else {
-					$author_output = '<div class="guten-meta-author icon-position-' . $icon_position . '"><span class="by">' . $author_by . '</span><a href="' . $author_url . '">' . $author_name . '</a><i aria-hidden="true" class="' . $icon . '"></i></div>';
+					$author_output = '<div class="guten-meta-author icon-position-' . $icon_position . '"><span class="by">' . $author_by . '</span><a href="' . $author_url . '">' . $author_name . '</a>' . $icon_html . '</div>';
 				}
 			}
 
 			if ( $this->attr_is_true( $this->attributes['metaDateEnabled'] ) ) {
 				$icon          = esc_attr( $this->attributes['metaDateIcon'] );
+				$icon_type     = isset( $this->attributes['metaDateIconType'] ) ? esc_attr( $this->attributes['metaDateIconType'] ) : 'icon';
+				$icon_svg      = isset( $this->attributes['metaDateIconSVG'] ) ? $this->attributes['metaDateIconSVG'] : '';
 				$icon_position = esc_attr( $this->attributes['metaDateIconPosition'] );
 
+				$icon_html = $this->render_icon( $icon_type, $icon, $icon_svg );
+
 				if ( 'before' === $icon_position ) {
-					$date_output = '<div class="guten-meta-date icon-position-' . $icon_position . '"><i aria-hidden="true" class="' . $icon . '"></i>' . $this->format_date( $post ) . '</div>';
+					$date_output = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $icon_html . $this->format_date( $post ) . '</div>';
 				} else {
-					$date_output = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $this->format_date( $post ) . '<i aria-hidden="true" class="' . $icon . '"></i></div>';
+					$date_output = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $this->format_date( $post ) . $icon_html . '</div>';
 				}
 			}
 
@@ -255,13 +269,17 @@ class Post_Block extends Post_Abstract {
 
 		if ( $this->attr_is_true( $this->attributes['readmoreEnabled'] ) ) {
 			$icon          = esc_attr( $this->attributes['readmoreIcon'] );
+			$icon_type     = isset( $this->attributes['readmoreIconType'] ) ? esc_attr( $this->attributes['readmoreIconType'] ) : 'icon';
+			$icon_svg      = isset( $this->attributes['readmoreIconSVG'] ) ? $this->attributes['readmoreIconSVG'] : '';
 			$icon_position = esc_attr( $this->attributes['readmoreIconPosition'] );
 			$text          = esc_attr( $this->attributes['readmoreText'] );
 
+			$icon_html = $this->render_icon( $icon_type, $icon, $icon_svg );
+
 			if ( 'before' === $icon_position ) {
-				$readmore = '<i aria-hidden="true" class="' . $icon . '"></i>' . $text;
+				$readmore = $icon_html . $text;
 			} else {
-				$readmore = $text . '<i aria-hidden="true" class="' . $icon . '"></i>';
+				$readmore = $text . $icon_html;
 			}
 
 			$readmore =
@@ -307,18 +325,23 @@ class Post_Block extends Post_Abstract {
 		if ( $this->attr_is_true( $this->attributes['commentEnabled'] ) ) {
 			$number        = $this->guten_get_comments_number( $post->ID );
 			$icon          = esc_attr( $this->attributes['commentIcon'] );
+			$icon_type     = isset( $this->attributes['commentIconType'] ) ? esc_attr( $this->attributes['commentIconType'] ) : 'icon';
+			$icon_svg      = isset( $this->attributes['commentIconSVG'] ) ? $this->attributes['commentIconSVG'] : '';
 			$icon_position = esc_attr( $this->attributes['commentIconPosition'] );
 
+			$icon_html = $this->render_icon( $icon_type, $icon, $icon_svg );
+
+			$inner_comment_content = '';
 			if ( 'before' === $icon_position ) {
-				$comment = '<i aria-hidden="true" class="' . $icon . '"></i><span>' . $number . '</span>';
+				$inner_comment_content = $icon_html . '<span>' . $number . '</span>';
 			} else {
-				$comment = '<span>' . $number . '</span><i aria-hidden="true" class="' . $icon . '"></i>';
+				$inner_comment_content = '<span>' . $number . '</span>' . $icon_html;
 			}
 
 			$comment =
 			'<div class="guten-meta-comment icon-position-' . $icon_position . '">
                 <a href="' . $this->guten_get_respond_link( $post->ID ) . '" >
-                    ' . $comment . '
+                    ' . $inner_comment_content . '
                 </a>
             </div>';
 		}
@@ -364,7 +387,10 @@ class Post_Block extends Post_Abstract {
 			$url = get_edit_post_link( $post_id );
 
 			return '<a class="guten-edit-post ' . $position . '" href="' . $url . '" target="_blank">
-				<i class="fas fa-pencil-alt"></i>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+					<!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+					<path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/>
+				</svg>
 				<span>' . esc_html__( 'edit post', 'gutenverse' ) . '</span>
 			</a>';
 		}

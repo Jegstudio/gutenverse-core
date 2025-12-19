@@ -8,6 +8,7 @@ import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenvers
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { svgAtob } from 'gutenverse-core/helper';
 
 const save = compose(
     withAnimationAdvanceScript('gallery'),
@@ -31,6 +32,8 @@ const save = compose(
         layout,
         enableLoadText,
         enableLoadIcon,
+        enableLoadIconType,
+        enableLoadIconSVG,
         enableLoadIconPosition,
         filterSearchIcon,
         filterSearchIconPosition,
@@ -131,11 +134,25 @@ const save = compose(
                 <div className="guten-gallery-loadmore">
                     <a href="#" className="guten-gallery-load-more">
                         {enableLoadIcon && enableLoadIconPosition === 'before' && <span className="load-more-icon icon-position-before" aria-hidden="true">
-                            <i className={enableLoadIcon}></i>
+                            {enableLoadIconType === 'svg' && enableLoadIconSVG ? (
+                                <div
+                                    className="gutenverse-icon-svg"
+                                    dangerouslySetInnerHTML={{ __html: svgAtob(enableLoadIconSVG) }}
+                                />
+                            ) : (
+                                <i className={enableLoadIcon}></i>
+                            )}
                         </span>}
                         <span className="load-more-text">{enableLoadText}</span>
                         {enableLoadIcon && enableLoadIconPosition === 'after' && <span className="load-more-icon icon-position-after" aria-hidden="true">
-                            <i className={enableLoadIcon}></i>
+                            {enableLoadIconType === 'svg' && enableLoadIconSVG ? (
+                                <div
+                                    className="gutenverse-icon-svg"
+                                    dangerouslySetInnerHTML={{ __html: svgAtob(enableLoadIconSVG) }}
+                                />
+                            ) : (
+                                <i className={enableLoadIcon}></i>
+                            )}
                         </span>}
                     </a>
                 </div>

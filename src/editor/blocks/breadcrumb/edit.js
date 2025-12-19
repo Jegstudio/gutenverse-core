@@ -10,6 +10,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const BreadcrumbBlock = compose(
     withPartialRender,
@@ -22,6 +23,8 @@ const BreadcrumbBlock = compose(
     const {
         elementId,
         separatorIcon,
+        separatorIconType,
+        separatorIconSVG,
         hideCurrentTitle,
     } = attributes;
 
@@ -92,7 +95,7 @@ const BreadcrumbBlock = compose(
                                 </li>
                                 {!isLast && (
                                     <li className="separator">
-                                        <i className={separatorIcon}></i>
+                                        {renderIcon(separatorIcon, separatorIconType, separatorIconSVG)}
                                     </li>
                                 )}
                             </>

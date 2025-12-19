@@ -51,11 +51,23 @@ export const iconPanel = (props) => {
                     'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon img`,
                     'properties': [
                         {
-                            'name': 'width',
+                            'name': 'font-size',
                             'valueType': 'direct'
                         }
                     ]
-                }
+                },
+                {
+                    'type': 'unitPoint',
+                    'id': 'iconSize',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon svg`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'direct'
+                        }
+                    ]
+                },
             ]
         },
         {
@@ -90,6 +102,17 @@ export const iconPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'iconColor',
+                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -106,6 +129,17 @@ export const iconPanel = (props) => {
                     'properties': [
                         {
                             'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                },
+                {
+                    'type': 'color',
+                    'id': 'iconColorHover',
+                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
                             'valueType': 'direct'
                         }
                     ]

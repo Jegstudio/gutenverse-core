@@ -8,7 +8,7 @@ const getBlockStyle = (elementId, attributes) => {
         attributes,
         data,
         elementId,
-        backgroundSelector:`.editor-styles-wrapper .is-root-container .${elementId}`,
+        backgroundSelector: `.editor-styles-wrapper .is-root-container .${elementId}`,
         backgroundHoverSelector: `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
@@ -245,6 +245,25 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['iconSize']) && data.push({
+        'type': 'plain',
+        'id': 'iconSize',
+        'responsive': true,
+        'selector': `.${elementId} .accordion-item .accordion-icon svg`,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    }
+                }
+            },
+        ],
+    });
+
     isNotEmpty(attributes['iconColor']) && data.push({
         'type': 'color',
         'id': 'iconColor',
@@ -252,6 +271,18 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['iconColor']) && data.push({
+        'type': 'color',
+        'id': 'iconColor',
+        'selector': `.${elementId} .accordion-item .accordion-icon svg`,
+        'properties': [
+            {
+                'name': 'fill',
                 'valueType': 'direct'
             }
         ],
@@ -308,6 +339,25 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['iconActiveSize']) && data.push({
+        'type': 'plain',
+        'id': 'iconActiveSize',
+        'responsive': true,
+        'selector': `.${elementId} .accordion-item.active .accordion-icon svg`,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    }
+                }
+            },
+        ],
+    });
+
     isNotEmpty(attributes['iconActiveColor']) && data.push({
         'type': 'color',
         'id': 'iconActiveColor',
@@ -315,6 +365,18 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['iconActiveColor']) && data.push({
+        'type': 'color',
+        'id': 'iconActiveColor',
+        'selector': `.${elementId} .accordion-item.active .accordion-icon svg`,
+        'properties': [
+            {
+                'name': 'fill',
                 'valueType': 'direct'
             }
         ],

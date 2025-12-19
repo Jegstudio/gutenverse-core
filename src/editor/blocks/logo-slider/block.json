@@ -133,14 +133,6 @@
 			"type": "boolean",
 			"default": false
 		},
-		"leftArrow": {
-			"type": "string",
-			"default": "fa fa-angle-left"
-		},
-		"rightArrow": {
-			"type": "string",
-			"default": "fa fa-angle-right"
-		},
 		"arrowPosition": {
 			"type": "string",
 			"default": "bottom-edge"

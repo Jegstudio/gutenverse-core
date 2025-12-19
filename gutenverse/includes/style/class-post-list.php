@@ -487,12 +487,34 @@ class Post_List extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post a .meta-lists svg",
+					'property'       => function ( $value ) {
+						return "width: {$value}px;";
+					},
+					'value'          => $this->attrs['metaIconSize'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['metaIconSpacing'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .meta-lists i",
+					'property'       => function ( $value ) {
+						return "margin-right: {$value}px;";
+					},
+					'value'          => $this->attrs['metaIconSpacing'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post a .meta-lists svg",
 					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
@@ -539,6 +561,17 @@ class Post_List extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post a .meta-lists svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['metaColor'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['metaColorHover'] ) ) {
@@ -547,6 +580,17 @@ class Post_List extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .guten-post:hover a .meta-lists span",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['metaColorHover'],
+					'device_control' => false,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post:hover a .meta-lists svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
 					},
 					'value'          => $this->attrs['metaColorHover'],
 					'device_control' => false,
@@ -653,7 +697,7 @@ class Post_List extends Style_Abstract {
 		if ( isset( $this->attrs['paginationIconSpacing'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-before i, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.prev i",
+					'selector'       => ".{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-before i, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.prev i, .{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-before svg, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.prev svg",
 					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
@@ -664,7 +708,7 @@ class Post_List extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-after i, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.next i",
+					'selector'       => ".{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-after i, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.next i, .{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-after svg, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.next svg",
 					'property'       => function ( $value ) {
 						return "margin-left: {$value}px;";
 					},
@@ -688,9 +732,31 @@ class Post_List extends Style_Abstract {
 
 			$this->inject_style(
 				array(
+					'selector'       => ".{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-before svg, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.prev svg",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'width' );
+					},
+					'value'          => $this->attrs['paginationIconSize'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
 					'selector'       => ".{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-after i, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.next i",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'font-size' );
+					},
+					'value'          => $this->attrs['paginationIconSize'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore.icon-position-after svg, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.next svg",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'width' );
 					},
 					'value'          => $this->attrs['paginationIconSize'],
 					'device_control' => true,
@@ -722,6 +788,17 @@ class Post_List extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore svg, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['paginationColor'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['paginationCurrentColor'] ) ) {
@@ -730,6 +807,17 @@ class Post_List extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.current",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['paginationCurrentColor'],
+					'device_control' => false,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.current svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
 					},
 					'value'          => $this->attrs['paginationCurrentColor'],
 					'device_control' => false,
@@ -748,6 +836,17 @@ class Post_List extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination.disabled svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['paginationDisabledColor'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['paginationHoverColor'] ) ) {
@@ -756,6 +855,17 @@ class Post_List extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination:not(.disabled):not(.current):hover",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['paginationHoverColor'],
+					'device_control' => false,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postlist .guten-block-pagination .guten-block-loadmore:hover svg, .{$this->element_id} .guten-postlist .guten_block_nav .btn-pagination:not(.disabled):not(.current):hover svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
 					},
 					'value'          => $this->attrs['paginationHoverColor'],
 					'device_control' => false,

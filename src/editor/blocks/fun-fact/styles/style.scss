@@ -31,6 +31,10 @@
                 font-size: 40px;
                 color: var(--guten-txt-color);
 
+                svg {
+                    fill: var(--guten-txt-color);
+                }
+
                 i {
                     display: block;
                 }

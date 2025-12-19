@@ -17,6 +17,13 @@
 			"type": "string",
 			"default": "fab fa-wordpress"
 		},
+		"iconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"iconSVG": {
+			"type": "string"
+		},
 		"iconAlign": {
 			"type": "object",
 			"copyStyle": true
@@ -106,7 +113,9 @@
 				"arrow": true,
 				"position": {
 					"Desktop": "top"
-				}
+				},
+				"textIconType": "icon",
+				"textIconSVG": ""
 			},
 			"copyStyle": true
 		},

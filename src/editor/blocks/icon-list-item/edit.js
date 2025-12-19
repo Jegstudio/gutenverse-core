@@ -9,7 +9,7 @@ import { displayShortcut } from '@wordpress/keycodes';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
-import { gutenverseRoot } from 'gutenverse-core/helper';
+import { gutenverseRoot, renderIcon } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
@@ -37,6 +37,8 @@ const IconListItemBlock = (props) => {
     const {
         elementId,
         icon,
+        iconType,
+        iconSVG,
         rel,
         url,
         linkTarget,
@@ -165,7 +167,7 @@ const IconListItemBlock = (props) => {
         <li {...blockProps}>
             <div className="list-divider"></div>
             <a id={elementId}>
-                {!hideIcon && <i className={icon} />}
+                {!hideIcon && renderIcon(icon, iconType, iconSVG)}
                 <RichTextComponent
                     classNames={`list-text ${hideIcon ? 'no-icon' : ''}`}
                     tagName={'span'}

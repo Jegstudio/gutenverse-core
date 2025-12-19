@@ -132,9 +132,19 @@
 			"type": "string",
 			"default": "far fa-map"
 		},
+		"watermarkIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"watermarkIconSVG": {
+			"type": "string"
+		},
 		"iconType": {
 			"type": "string",
 			"default": "icon"
+		},
+		"iconSVG": {
+			"type": "string"
 		},
 		"icon": {
 			"type": "string",

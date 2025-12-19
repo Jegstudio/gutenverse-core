@@ -7,6 +7,7 @@ import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenvers
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const save = compose(
     withAnimationAdvanceScript('fun-fact'),
@@ -20,6 +21,7 @@ const save = compose(
         elementId,
         icon,
         iconType,
+        iconSVG,
         prefix,
         suffix,
         title,
@@ -59,8 +61,9 @@ const save = compose(
     const headerContent = () => {
         switch (iconType) {
             case 'icon':
+            case 'svg':
                 return <div className="icon-box">
-                    <div className="icon"><i className={icon}></i></div>
+                    <div className="icon">{renderIcon(icon, iconType, iconSVG)}</div>
                 </div>;
             case 'image':
                 return <div className="icon-box">

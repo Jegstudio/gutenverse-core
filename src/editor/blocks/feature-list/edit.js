@@ -73,9 +73,24 @@ const FeatureListBlock = compose(
             case 'number':
                 return <div className="icon-wrapper">
                     <div className="icon">
-                        <span className="icon-number">{typeof item.number === 'number' && !Number.isNaN(item.number) ? item.number : index + 1 }</span>
+                        <span className="icon-number">{typeof item.number === 'number' && !Number.isNaN(item.number) ? item.number : index + 1}</span>
                     </div>
                 </div>;
+            case 'svg':
+                try {
+                    const svgData = atob(item.svg);
+                    return <div className="icon-wrapper">
+                        <div className="icon">
+                            <div
+                                className="gutenverse-icon-svg"
+                                dangerouslySetInnerHTML={{ __html: svgData }}
+                            />
+                        </div>
+                    </div>;
+                } catch (error) {
+                    console.log(error);
+                    return null;
+                }
             default:
                 return null;
         }

@@ -25,6 +25,13 @@
 			"type": "string",
 			"default": "fas fa-arrow-right"
 		},
+		"arrowIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"arrowIconSVG": {
+			"type": "string"
+		},
 		"percentage": {
 			"type": "integer",
 			"default": 75
