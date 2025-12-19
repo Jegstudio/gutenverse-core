@@ -25,7 +25,7 @@ const isIconValue = (value) => {
  * @param {number} delay - Delay in ms between retries (default: 50)
  * @returns {Promise<string|null>} - Base64 encoded SVG or null if failed
  */
-const fetchSvgContent = async (iconName, retries = 2, delay = 50) => {
+const fetchSvgContent = async (iconName, retries = 5, delay = 50) => {
     try {
         const response = await axios.get(libraryApi + '/get-svg-font', {
             params: {
