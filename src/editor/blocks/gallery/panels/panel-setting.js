@@ -97,7 +97,7 @@ export const settingPanel = ({ elementId, grid }) => {
                 {
                     'type': 'plain',
                     'id': 'height',
-                    'responsive' : true,
+                    'responsive': true,
                     'selector': `.${elementId}:not([data-grid="masonry"]) .gallery-items .gallery-item-wrap .thumbnail-wrap`,
                     'properties': [
                         {
@@ -128,6 +128,41 @@ export const settingPanel = ({ elementId, grid }) => {
                     label: __('Card')
                 },
             ]
+        },
+        {
+            id: 'titleHeadingType',
+            label: __('Title Heading Type', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: __('H1'),
+                    value: 'h1'
+                },
+                {
+                    label: __('H2'),
+                    value: 'h2'
+                },
+                {
+                    label: __('H3'),
+                    value: 'h3'
+                },
+                {
+                    label: __('H4'),
+                    value: 'h4'
+                },
+                {
+                    label: __('H5'),
+                    value: 'h5'
+                },
+                {
+                    label: __('H6'),
+                    value: 'h6'
+                },
+                {
+                    label: __('SPAN'),
+                    value: 'span'
+                },
+            ],
         },
         {
             id: 'hover',

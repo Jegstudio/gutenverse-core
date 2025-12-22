@@ -51,6 +51,7 @@ const GalleryBlock = compose(
         filterSearchIcon,
         filterSearchIconPosition,
         filterSearchFormText,
+        titleHeadingType = 'h5'
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -211,9 +212,9 @@ const GalleryBlock = compose(
     }, [elementRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} liveAttr={liveAttr} setLiveAttr={setLiveAttr} />
-        {showPopup && createPortal(<GalleryPopup elementId={elementId} currentSearch={currentSearch} currentFilter={currentFilter} activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
+        {showPopup && createPortal(<GalleryPopup titleHeadingType={titleHeadingType} elementId={elementId} currentSearch={currentSearch} currentFilter={currentFilter} activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
         <div  {...blockProps} data-grid={grid}>
             {filter && (
                 filterType === 'tab' ? <div className="filter-controls">

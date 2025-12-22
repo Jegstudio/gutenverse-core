@@ -16,7 +16,8 @@ const GalleryItem = (attributes) => {
         zoomText,
         linkText,
         onZoom = () => { },
-        zoomOptions = 'item'
+        zoomOptions = 'item',
+        titleHeadingType: HtmlTag = 'h5'
     } = attributes;
 
     const hoverClass = () => {
@@ -53,7 +54,7 @@ const GalleryItem = (attributes) => {
                 {!galleryItem.disableLightbox && <>
                     <div className="item-hover-bg"></div>
                     <div className="item-caption-over">
-                        <h5 className="item-title">{galleryItem.title}</h5>
+                        <HtmlTag className="item-title">{galleryItem.title}</HtmlTag>
                         <div className="item-content">{galleryItem.content}</div>
                         <div className="item-buttons">
                             {(zoomOptions !== 'disable' && (zoomIcon || undefined !== zoomText)) && <div className={`gallery-link zoom ${'none' !== zoomText && 'with-text'}`}>

@@ -40,6 +40,7 @@ const save = compose(
         filterSearchFormText,
         itemsPerLoad,
         zoomOptions,
+        titleHeadingType: HtmlTag = 'h5'
     } = attributes;
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
@@ -80,7 +81,7 @@ const save = compose(
                                     <div className="content-image swiper-zoom-container">
                                         {image && imageCondition(image)}
                                         {image?.lightboxDescription ? <div className="content-description-wrapper">
-                                            <h5 className="content-title">{image.title}</h5>
+                                            <HtmlTag className="content-title">{image.title}</HtmlTag>
                                             <div className="content-description">
                                                 <p>{image.content}</p>
                                             </div>
