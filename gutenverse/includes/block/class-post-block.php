@@ -406,16 +406,17 @@ class Post_Block extends Post_Abstract {
 	 * @return string
 	 */
 	public function build_column( $results ) {
-		$block      = '';
-		$html_tag   = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h3' ) );
-		$type       = esc_attr( $this->attributes['postblockType'] );
-		$orders     = $this->attributes['contentOrder'];
-		$add_class  = '';
-		$pagination = $this->attributes['paginationMode'] ?? '';
-		$load_anim  = $this->attributes['paginationLoadmoreAnimation'] ?? '';
-		$anim_mode  = $this->attributes['paginationLoadmoreAnimationSequence'] ?? '';
-		$from_pag   = $this->attributes['fromPagination'] ?? false;
-		$last_idx   = $this->attributes['alreadyFetch'] ?? 0;
+		$block          = '';
+		$html_tag       = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h3' ) );
+		$type           = esc_attr( $this->attributes['postblockType'] );
+		$orders         = $this->attributes['contentOrder'];
+		$add_class      = '';
+		$pagination     = $this->attributes['paginationMode'] ?? '';
+		$load_anim      = $this->attributes['paginationLoadmoreAnimation'] ?? '';
+		$anim_mode      = $this->attributes['paginationLoadmoreAnimationSequence'] ?? '';
+		$from_pag       = $this->attributes['fromPagination'] ?? false;
+		$last_idx       = $this->attributes['alreadyFetch'] ?? 0;
+		$thumbnail_size = $this->attributes['thumbnailSize'];
 
 		if ( ( 'loadmore' === $pagination || 'scrollload' === $pagination ) && ( $load_anim && 'none' != $load_anim ) && $from_pag ) {
 			$add_class = " animated {$load_anim} initial-hide loadmore-animation";
@@ -424,7 +425,7 @@ class Post_Block extends Post_Abstract {
 		$loadmore_delay_last_idx = 1;
 
 		foreach ( $results as $idx => $post ) {
-			$thumbnail        = $this->get_thumbnail( $post->ID, 'post-thumbnail' );
+			$thumbnail        = $this->get_thumbnail( $post->ID, $thumbnail_size['value'] );
 			$primary_category = $this->get_primary_category( $post->ID );
 			$post_url         = esc_url( get_the_permalink( $post ) );
 			$post_title       = esc_attr( get_the_title( $post ) );

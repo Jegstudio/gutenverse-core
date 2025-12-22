@@ -1,6 +1,8 @@
 import { Fragment } from '@wordpress/element';
 import { dummyText } from 'gutenverse-core/helper';
 import { renderIcon } from 'gutenverse-core/helper';
+import { useSelect } from '@wordpress/data';
+import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 
 const PostBlockContent = (props) => {
     const {
@@ -39,7 +41,9 @@ const PostBlockContent = (props) => {
         metaDateIconSVG,
         metaDateIconPosition,
         postblockType,
-        contentOrder = []
+        contentOrder = [],
+        thumbnailSize,
+        postType
     } = attributes;
 
     const formatDate = (post) => {
@@ -195,6 +199,26 @@ const PostBlockContent = (props) => {
         const postClasses = post?.classes || `guten-post post-${index} post type-post status-publish format-standard has-post-thumbnail hentry category-category tag-tag`;
         const category = renderCategory(post);
 
+        const [featuredImage] = useEntityProp('postType', postType, 'featured_media', post?.id);
+
+        const { media } = useSelect(
+            (select) => {
+                const { getMedia, getPostType } = select(coreStore);
+                return {
+                    media:
+                        featuredImage &&
+                        getMedia(featuredImage, {
+                            context: 'view',
+                        }),
+                    postType: postType && getPostType(postType),
+                };
+            },
+            [featuredImage, postType]
+        );
+
+        const mediaUrl = media?.media_details?.sizes?.[thumbnailSize.value]?.source_url;
+        console.log(thumbnailSize);
+
         return (
             <article key={post?.id || index} className={postClasses}>
                 <div className="guten-thumb">
@@ -204,7 +228,7 @@ const PostBlockContent = (props) => {
                                 loading="eager"
                                 width={post?.thumbnail?.width || 400}
                                 height={post?.thumbnail?.height || 400}
-                                src={post?.thumbnail?.url || `https://picsum.photos/400/400?random=${index + 1}`}
+                                src={mediaUrl}
                                 className="attachment-post-thumbnail size-post-thumbnail wp-post-image"
                                 alt={post?.title || ''}
                                 decoding="async"

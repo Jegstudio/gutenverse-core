@@ -59,6 +59,7 @@ const PostBlockBlock = compose(
         paginationPrevIconSVG,
         paginationNextIconType,
         paginationNextIconSVG,
+        thumbnailSize
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
