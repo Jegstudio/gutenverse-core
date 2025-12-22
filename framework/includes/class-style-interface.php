@@ -1035,7 +1035,7 @@ abstract class Style_Interface {
 
 						$this->inject_style(
 							array(
-								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-icon",
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-icon, .{$this->element_id}-cursor-effect.cursor-effect .cursor-content .gutenverse-icon-svg",
 								'property'       => function ( $value ) {
 									return $this->handle_unit_point( $value, 'font-size' );
 								},
@@ -2544,7 +2544,7 @@ abstract class Style_Interface {
 			if ( isset( $this->attrs['animation']['type'] ) && is_array( $this->attrs['animation']['type'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => $selector,
+						'selector'       => "{$selector}:not([class*=\"__tablet-\"]):not([class*=\"__desktop-\"]):not([class*=\"__mobile-\"])",
 						'property'       => function ( $value ) {
 							if ( 'none' === $value ) {
 								return 'animation-name: none;';
