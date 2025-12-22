@@ -58,7 +58,6 @@ export const buttonPanel = (props) => {
         {
             id: 'ariaLabel',
             label: __('Aria Label', 'gutenverse'),
-            show: role === 'link',
             component: TextControl,
         },
         {
