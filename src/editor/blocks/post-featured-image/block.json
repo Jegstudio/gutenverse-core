@@ -51,6 +51,30 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"imageSize": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {
+				"label": "Full",
+				"value": "full"
+			}
+		},
+		"imageFit": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"imageRatio": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"imageRatioCustom": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"imagePosition": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"imageLazy": {
 			"type": "boolean",
 			"default": false,

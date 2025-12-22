@@ -2,7 +2,6 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, IconSVGControl, IconRadioControl, SelectControl, AlertControl, SizeControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { handleAlign } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const panelGeneral = (props) => {

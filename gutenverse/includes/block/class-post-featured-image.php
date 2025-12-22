@@ -31,7 +31,11 @@ class Post_Featured_Image extends Block_Abstract {
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
 		$post_url        = get_permalink( $post_id );
-		$post_featured   = get_the_post_thumbnail_url( $post_id, 'full' );
+		$image_size      = ! empty( $this->attributes['imageSize'] ) ? $this->attributes['imageSize'] : array(
+			'label' => 'full',
+			'value' => 'full',
+		);
+		$post_featured   = get_the_post_thumbnail_url( $post_id, $image_size['value'] );
 		$custom_classes  = $this->get_custom_classes();
 		$content         = '';
 
