@@ -444,7 +444,7 @@ class Post_Block extends Post_Abstract {
 				if ( 'title' === $order['value'] ) {
 					$content .=
 						'<' . $html_tag . ' class="guten-post-title">
-							<a href="' . $post_url . '">' . $post_title . '</a>
+							<a aria-label="' . $post_title .'" href="' . $post_url . '">' . $post_title . '</a>
 						</' . $html_tag . '>';
 				}
 
