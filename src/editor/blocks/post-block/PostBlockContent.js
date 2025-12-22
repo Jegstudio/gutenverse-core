@@ -101,7 +101,7 @@ const PostBlockContent = (props) => {
             <div className="guten-post-meta-bottom">
                 {readmoreEnabled && (
                     <div className={`guten-meta-readmore icon-position-${readmoreIconPosition}`}>
-                        <a href="#" className="guten-readmore">
+                        <a href="#" aria-label={`Read more about ${post?.title}`} className="guten-readmore">
                             {readmoreIconPosition === 'before' && renderIcon(readmoreIcon, readmoreIconType, readmoreIconSVG)}
                             {readmoreText}
                             {readmoreIconPosition === 'after' && renderIcon(readmoreIcon, readmoreIconType, readmoreIconSVG)}

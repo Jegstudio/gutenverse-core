@@ -262,9 +262,10 @@ class Post_Block extends Post_Abstract {
 	 * Get post read more button
 	 *
 	 * @param  int|\WP_Post $post Post object.
+	 * @param  string       $post_title Post Title.
 	 * @return mixed
 	 */
-	protected function get_readmore( $post ) {
+	protected function get_readmore( $post, $post_title ) {
 		$readmore = null;
 
 		if ( $this->attr_is_true( $this->attributes['readmoreEnabled'] ) ) {
@@ -284,7 +285,7 @@ class Post_Block extends Post_Abstract {
 
 			$readmore =
 			'<div class="guten-meta-readmore icon-position-' . $icon_position . '">
-                <a href="' . esc_url( get_the_permalink( $post ) ) . '" class="guten-readmore">' . $readmore . '</a>
+                <a aria-label="Read more about ' . $post_title . '" href="' . esc_url( get_the_permalink( $post ) ) . '" class="guten-readmore">' . $readmore . '</a>
             </div>';
 		}
 
@@ -457,7 +458,7 @@ class Post_Block extends Post_Abstract {
 				if ( 'read' === $order['value'] ) {
 					$content .=
 						'<div class="guten-post-meta-bottom">
-							' . $this->get_readmore( $post ) . $this->get_comment_bubble( $post ) . '
+							' . $this->get_readmore( $post, $post_title ) . $this->get_comment_bubble( $post ) . '
 						</div>';
 				}
 			}
