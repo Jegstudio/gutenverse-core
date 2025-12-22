@@ -528,16 +528,27 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     }, [iframeWindowRef.current]);
 };
 
+// Cache for regex patterns to avoid recreation
+const regexCache = new Map();
+
+const getEscapedRegex = (currentStyleId) => {
+    if (!regexCache.has(currentStyleId)) {
+        const escapedId = currentStyleId.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+        regexCache.set(currentStyleId, new RegExp(escapedId + '(.+?)' + escapedId, 's'));
+    }
+    return regexCache.get(currentStyleId);
+};
+
 const populateStyle = (cssElement, currentStyleId, generatedCSS) => {
     const wrapCurrentStyle = '' === generatedCSS ? '' : `${currentStyleId}\n ${generatedCSS}\n ${currentStyleId} `;
-
-    const escapedId = currentStyleId.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
-    const regex = new RegExp(escapedId + '(.+?)' + escapedId, 's');
-
-    if (regex.test(cssElement.innerHTML)) {
-        cssElement.innerHTML = cssElement.innerHTML.replace(regex, wrapCurrentStyle);
+    const regex = getEscapedRegex(currentStyleId);
+    const currentHTML = cssElement.innerHTML;
+    const newHTML = currentHTML.replace(regex, wrapCurrentStyle);
+    // Only update if regex matched, otherwise append
+    if (newHTML !== currentHTML) {
+        cssElement.innerHTML = newHTML;
     } else {
-        cssElement.innerHTML += wrapCurrentStyle;
+        cssElement.innerHTML = currentHTML + wrapCurrentStyle;
     }
 };
 

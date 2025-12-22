@@ -7,7 +7,7 @@ import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
-import { dispatch, select, useSelect } from '@wordpress/data';
+import { dispatch, useSelect } from '@wordpress/data';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -61,7 +61,11 @@ const onResizeStart = (props, p) => {
         editorDom,
         setOpenTool,
         setTotalWidth,
-        deviceType
+        deviceType,
+        elementId,
+        elementRef,
+        setCurrentElementCache,
+        setTargetElementCache
     } = props;
 
     const parentClientId = getBlockParents(clientId, true)[0];
@@ -86,6 +90,16 @@ const onResizeStart = (props, p) => {
     const domParentWidth = parentElement?.offsetWidth;
     const currentWidth = attributes.width[deviceType] ? attributes.width[deviceType] : attributes.width['Desktop'];
 
+    // Cache element references for fast access during resize
+    const currentElement = elementRef.current?.querySelector(`.${elementId}`) || elementRef.current;
+    setCurrentElementCache(currentElement);
+
+    if (targetBlock) {
+        const targetColumnElementId = targetBlock.attributes.elementId;
+        const targetElement = elementRef.current?.ownerDocument?.querySelector(`.${targetColumnElementId}`);
+        setTargetElementCache(targetElement);
+    }
+
     setCurentBlockWidth(currentWidth);
     setParentBlockWidth(domParentWidth);
     setParentId(parentClientId);
@@ -104,111 +118,76 @@ const onResizeStart = (props, p) => {
     }
 };
 
+// Use requestAnimationFrame for smooth updates
+let rafId = null;
+let pendingUpdate = null;
+
 const onResize = (props, off) => {
     const {
-        clientId,
         elementId,
         targetBlock,
-        getBlock,
         parentBlockWidth,
         curentBlockWidth,
-        targetId,
-        setNewWidth,
         totalWidth,
         deviceType,
-        elementRef
+        targetWidth,
+        currentWidth,
+        blockIndex,
+        blockOrderLength,
+        elementRef,
+        targetColumnElementId
     } = props;
 
-    const validTargetBlock = targetBlock != null ? targetBlock : 0;
-    const minWidth = {
-        Desktop: 5,
-        Tablet: 10,
-        Mobile: 15,
-    };
+    // Pre-computed constants
+    const minWidthValue = deviceType === 'Desktop' ? 5 : (deviceType === 'Tablet' ? 10 : 15);
+    const validTargetBlock = targetBlock ?? 0;
 
-    const {
-        getBlockParents,
-        getBlockOrder,
-    } = select('core/block-editor');
+    // Simplified percentage calculation
+    const pxToPercent = (px) => (px / parentBlockWidth) * 100;
 
-    const parentId = getBlockParents(clientId, true)[0];
-    const blockOrder = getBlockOrder(parentId);
-    const blockIndex = blockOrder.findIndex((id) => id === clientId);
-
-    const targetWidth = targetId ? getBlock(targetId).attributes.width : null;
-    const currentWidth = clientId ? getBlock(clientId).attributes.width : null;
-    const targetColumnElementId = targetId ? getBlock(targetId).attributes.elementId : null;
-    const targetBlockPx = (validTargetBlock / 100) * parentBlockWidth;
     const curentBlockPx = (curentBlockWidth / 100) * parentBlockWidth;
-    const curentModPx = curentBlockPx + off;
-    const curentModPercent = ((((curentModPx / parentBlockWidth) * 100) * 100) / 100).toFixed(1);
-    const targetModPx = targetBlockPx - off;
-    const targetModPercent = ((((targetModPx / parentBlockWidth) * 100) * 100) / 100).toFixed(1);
-    const bothModPercent = parseFloat((parseFloat(curentModPercent) + parseFloat(targetModPercent))).toFixed(1);
+    const targetBlockPx = (validTargetBlock / 100) * parentBlockWidth;
 
-    let calcCurentModPercent = curentModPercent;
-    let calcTargetModPercent = targetModPercent;
+    // Calculate new percentages directly
+    let calcCurentModPercent = pxToPercent(curentBlockPx + off);
+    let calcTargetModPercent = pxToPercent(targetBlockPx - off);
 
-    if (calcCurentModPercent < minWidth[deviceType]) {
-        calcCurentModPercent = minWidth[deviceType];
-        calcTargetModPercent = bothModPercent - minWidth[deviceType];
+    // Apply constraints
+    const max = (deviceType === 'Desktop') && !(blockIndex === 0 && blockOrderLength === 1)
+        ? totalWidth - 5
+        : 100;
+
+    calcCurentModPercent = Math.max(minWidthValue, Math.min(max, calcCurentModPercent));
+
+    // Clamp target width if needed
+    if (deviceType === 'Desktop' && calcTargetModPercent < minWidthValue) {
+        calcTargetModPercent = minWidthValue;
+        calcCurentModPercent = Math.min(totalWidth - minWidthValue, calcCurentModPercent);
     }
 
-    if (calcTargetModPercent < minWidth[deviceType]) {
-        calcTargetModPercent = minWidth[deviceType];
-        calcCurentModPercent = bothModPercent - minWidth[deviceType];
-    }
+    // Round to 1 decimal place
+    calcCurentModPercent = Math.round(calcCurentModPercent * 10) / 10;
+    calcTargetModPercent = Math.round(calcTargetModPercent * 10) / 10;
 
-    calcCurentModPercent = curentModPercent;
-
-    if (calcCurentModPercent < minWidth[deviceType]) {
-        calcCurentModPercent = minWidth[deviceType];
-    }
-
-    if (calcCurentModPercent > 100) {
-        calcCurentModPercent = 100;
-    }
-
-    const max = (deviceType === 'Desktop') && !(blockIndex === 0 && blockOrder.length === 1) ? totalWidth - minWidth['Desktop'] : 100;
-    if (calcCurentModPercent > max) {
-        calcCurentModPercent = max;
-    } else if (calcCurentModPercent < minWidth['Desktop']) {
-        calcCurentModPercent = minWidth['Desktop'];
-    }
-
-    calcCurentModPercent = parseFloat(calcCurentModPercent);
-    calcTargetModPercent = parseFloat(calcTargetModPercent);
-
-    if (calcCurentModPercent + calcTargetModPercent > totalWidth) {
-        calcTargetModPercent = calcTargetModPercent - 0.1;
-    }
-
+    // Update width objects
     currentWidth[deviceType] = calcCurentModPercent;
-    const attributes = {
-        currentWidth
-    };
-    const styles = [
-        {
-            'type': 'plain',
-            'id': 'currentWidth',
-            'responsive': true,
-            'selector': `.${elementId}`,
-            'properties': [
-                {
-                    'name': 'width',
-                    'valueType': 'pattern',
-                    'pattern': '{value}%',
-                    'patternValues': {
-                        'value': {
-                            'type': 'direct',
-                        },
-                    }
-                }
-            ],
-        }
-    ];
 
-    if (deviceType === 'Desktop') {
+    // Build attributes and styles
+    const attributes = { currentWidth };
+    const styles = [{
+        'type': 'plain',
+        'id': 'currentWidth',
+        'responsive': true,
+        'selector': `.${elementId}`,
+        'properties': [{
+            'name': 'width',
+            'valueType': 'pattern',
+            'pattern': '{value}%',
+            'patternValues': { 'value': { 'type': 'direct' } }
+        }]
+    }];
+
+    if (deviceType === 'Desktop' && targetColumnElementId) {
         targetWidth[deviceType] = calcTargetModPercent;
         attributes.targetWidth = targetWidth;
         styles.push({
@@ -216,35 +195,34 @@ const onResize = (props, off) => {
             'id': 'targetWidth',
             'responsive': true,
             'selector': `.${targetColumnElementId}`,
-            'properties': [
-                {
-                    'name': 'width',
-                    'valueType': 'pattern',
-                    'pattern': '{value}%',
-                    'patternValues': {
-                        'value': {
-                            'type': 'direct',
-                        },
-                    }
-                }
-            ],
+            'properties': [{
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '{value}%',
+                'patternValues': { 'value': { 'type': 'direct' } }
+            }]
         });
     }
 
-    updateLiveStyle({
-        styleId: 'guten-column-editor',
-        elementId,
-        attributes,
-        styles,
-        elementRef,
-        timeout: false
-    });
+    // Store pending update
+    pendingUpdate = { elementId, attributes, styles, elementRef };
 
-    setNewWidth({
-        current: calcCurentModPercent,
-        target: calcTargetModPercent,
-        targetColumnElementId,
-        targetWidth
+    // Cancel previous frame if exists
+    if (rafId) {
+        cancelAnimationFrame(rafId);
+    }
+
+    // Schedule update on next animation frame
+    rafId = requestAnimationFrame(() => {
+        if (pendingUpdate) {
+            updateLiveStyle({
+                styleId: 'guten-column-editor',
+                ...pendingUpdate,
+                timeout: false
+            });
+            pendingUpdate = null;
+        }
+        rafId = null;
     });
 };
 
@@ -253,16 +231,18 @@ const onResizeStop = (props) => {
         elementId,
         parentId,
         getBlock,
-        newWidth,
         setAttributes,
         updateBlockAttributes,
         targetId,
         editorDom,
         setOpenTool,
         deviceType,
-        elementRef
+        elementRef,
+        targetWidth,
+        currentWidth
     } = props;
 
+    // Remove live styles (like range control does)
     removeLiveStyle('guten-column-editor', elementRef, elementId);
 
     const parentBlock = getBlock(parentId);
@@ -275,12 +255,13 @@ const onResizeStop = (props) => {
 
     setOpenTool(false);
 
-    if (newWidth.current) {
-        setAttributes({ width: { ...props.attributes.width, [deviceType]: newWidth.current } });
+    // Apply final width values from the resize operation
+    if (currentWidth && currentWidth[deviceType]) {
+        setAttributes({ width: { ...props.attributes.width, [deviceType]: currentWidth[deviceType] } });
 
-        if (deviceType === 'Desktop' && newWidth.target) {
+        if (deviceType === 'Desktop' && targetWidth && targetWidth[deviceType] && targetId) {
             const nextColumnWidthAttr = getBlock(targetId).attributes.width;
-            updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidth.target } });
+            updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: targetWidth[deviceType] } });
         }
     }
 };
@@ -320,17 +301,17 @@ const ColumnPlaceholder = (props) => {
         ), [sticky, stickyPosition]
     );
 
-    const resizeStart = (e, p) => {
+    const resizeStart = useCallback((e, p) => {
         onResizeStart(props, p);
-    };
+    }, [props]);
 
-    const resize = (e, p, t, d) => {
+    const resize = useCallback((e, p, t, d) => {
         onResize(props, d.width);
-    };
+    }, [props]);
 
-    const resizeStop = () => {
+    const resizeStop = useCallback(() => {
         onResizeStop(props);
-    };
+    }, [props]);
 
     const {
         getBlock,
@@ -871,6 +852,8 @@ const ColumnBlock = compose(
     const [openTool, setOpenTool] = useState(false);
     const [editorDom, setEditorDom] = useState(null);
     const [totalWidth, setTotalWidth] = useState(0);
+    const [currentElementCache, setCurrentElementCache] = useState(null);
+    const [targetElementCache, setTargetElementCache] = useState(null);
 
     useEffect(() => {
         let timeout = null;
@@ -949,6 +932,13 @@ const ColumnBlock = compose(
         onMouseLeave,
     });
 
+    // Pre-compute expensive lookups to avoid Redux store calls during resize
+    const blockOrder = getBlockOrder(rootClientId);
+    const blockIndex = blockOrder.findIndex((id) => id === clientId);
+    const targetWidth = targetId ? getBlock(targetId)?.attributes?.width : null;
+    const currentWidth = attributes.width;
+    const targetColumnElementId = targetId ? getBlock(targetId)?.attributes?.elementId : null;
+
     const theProps = {
         ...props,
         attributes,
@@ -988,7 +978,18 @@ const ColumnBlock = compose(
         totalWidth,
         deviceType: delayedDeviceType,
         elementId,
-        elementRef
+        elementRef,
+        // Pre-computed values for onResize optimization
+        targetWidth,
+        currentWidth,
+        targetColumnElementId,
+        blockIndex,
+        blockOrderLength: blockOrder.length,
+        // Element cache for instant resize feedback
+        currentElementCache,
+        setCurrentElementCache,
+        targetElementCache,
+        setTargetElementCache
     };
 
     const Component = hasChildBlocks ? ColumnWrapper : ColumnPlaceholder;
