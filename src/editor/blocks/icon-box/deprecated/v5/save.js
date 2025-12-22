@@ -63,6 +63,7 @@ const save = compose(
         badgePosition,
         iconBoxOverlayDirection = 'left',
         lazyLoad,
+        hasInnerBlocks,
         showTitle,
         showDesc,
         iconGradient,
@@ -122,50 +123,44 @@ const save = compose(
     };
     const ContentBody = () => (
         <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
-            {iconPosition !== 'bottom' && <WrapAHref {...props}>{iconContent()}</WrapAHref>}
+            {iconPosition !== 'bottom' && iconContent()}
             {
                 (title || description) && <div className="icon-box icon-box-body">
                     {
-                        showTitle && title && title !== '' && <WrapAHref {...props}>
-                            <RichText.Content
-                                className={'title'}
-                                value={title}
-                                tagName={titleTag}
-                            />
-                        </WrapAHref>
+                        showTitle && title && title !== '' && <RichText.Content
+                            className={'title'}
+                            value={title}
+                            tagName={titleTag}
+                        />
                     }
                     {
-                        showDesc && description && description !== '' && <WrapAHref {...props}>
-                            <RichText.Content
-                                className="icon-box-description"
-                                value={description}
-                                tagName="p"
-                            />
-                        </WrapAHref>
+                        showDesc && description && description !== '' && <RichText.Content
+                            className="icon-box-description"
+                            value={description}
+                            tagName="p"
+                        />
                     }
                     <InnerBlocks.Content />
                 </div>
             }
-            {iconPosition === 'bottom' && <WrapAHref {...props}>{iconContent()}</WrapAHref>}
-            {badgeShow && <WrapAHref {...props}>
-                <div className={`icon-box-badge ${badgePosition}`}>
-                    <RichText.Content
-                        className={'badge-text'}
-                        value={badge}
-                        tagName={'span'}
-                    />
-                </div>
-            </WrapAHref>}
-            {watermarkShow && <WrapAHref {...props}>
-                <div className="hover-watermark">
-                    {renderIcon(watermarkIcon, watermarkIconType, watermarkIconSVG)}
-                </div>
-            </WrapAHref>}
+            {iconPosition === 'bottom' && iconContent()}
+            {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
+                <RichText.Content
+                    className={'badge-text'}
+                    value={badge}
+                    tagName={'span'}
+                />
+            </div>}
+            {watermarkShow && <div className="hover-watermark">
+                {renderIcon(watermarkIcon, watermarkIconType, watermarkIconSVG)}
+            </div>}
         </div>
     );
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
-            <ContentBody />
+        <div className={className} {...advanceAnimationData}>
+            {hasInnerBlocks ? <ContentBody /> : <WrapAHref {...props}>
+                <ContentBody />
+            </WrapAHref>}
         </div>
     );
 });

@@ -219,9 +219,9 @@ class Post_List extends Post_Abstract {
 			if ( $this->attr_is_true( $this->attributes['imageEnabled'] ) ) {
 				$thumbnail = get_the_post_thumbnail( $post->ID, $image_size );
 			} elseif ( $this->attr_is_true( $this->attributes['iconEnabled'] ) ) {
-				$icon      = $this->attributes['icon'];
-				$icon_type = $this->attributes['iconType'];
-				$icon_svg  = $this->attributes['iconSVG'];
+				$icon      = isset( $this->attributes['icon'] ) ? $this->attributes['icon'] : '';
+				$icon_type = isset( $this->attributes['iconType'] ) ? $this->attributes['iconType'] : 'icon';
+				$icon_svg  = isset( $this->attributes['iconSVG'] ) ? $this->attributes['iconSVG'] : '';
 
 				if ( $icon ) {
 					$thumbnail = '<span class="icon-list">' . $this->render_icon( $icon_type, $icon, $icon_svg ) . '</span>';
