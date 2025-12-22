@@ -159,7 +159,7 @@ const PostBlockContent = (props) => {
                 const HtmlTag = htmlTag;
                 content.push(
                     <HtmlTag key={`title-${index}`} className="guten-post-title">
-                        <a href="#">
+                        <a aria-label={post?.title} href="#">
                             {post?.title || dummyText(5, 10)}
                         </a>
                     </HtmlTag>
