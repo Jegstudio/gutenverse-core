@@ -167,6 +167,16 @@ class Api {
 			)
 		);
 
+		register_rest_route(
+			self::ENDPOINT,
+			'image-sizes',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_image_sizes' ),
+				'permission_callback' => 'gutenverse_permission_check_author',
+			)
+		);
+
 		// Template Library.
 		register_rest_route(
 			self::ENDPOINT,
@@ -1904,5 +1914,29 @@ class Api {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get Image Sizes.
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function get_image_sizes() {
+		$sizes       = wp_get_registered_image_subsizes();
+		$image_sizes = array();
+
+		foreach ( $sizes as $slug => $size ) {
+			$image_sizes[] = array(
+				'label' => ucwords( str_replace( '-', ' ', $slug ) ) . ' (' . $size['width'] . 'x' . $size['height'] . ')',
+				'value' => $slug,
+			);
+		}
+
+		$image_sizes[] = array(
+			'label' => 'Full',
+			'value' => 'full',
+		);
+
+		return new \WP_REST_Response( $image_sizes, 200 );
 	}
 }

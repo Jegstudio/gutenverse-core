@@ -7,7 +7,7 @@ import { addQueryArgs } from '@wordpress/url';
 export const httpClient = (api = null) => {
     const baseURL = !isEmpty(api) ? api.url + api.endpoint : libraryApi;
 
-    return axios.create({baseURL});
+    return axios.create({ baseURL });
 };
 
 export const searchTermsTaxonomy = (input, values) => new Promise(resolve => {
@@ -466,6 +466,19 @@ export const fetchLibraryData = (dev) => {
     return new Promise((resolve, reject) => {
         apiFetch({
             path: `gutenverse-client/v1/library/data?dev=${dev}`,
+            method: 'GET'
+        }).then(response => {
+            resolve(response);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+};
+
+export const fetchImageSizes = () => {
+    return new Promise((resolve, reject) => {
+        apiFetch({
+            path: 'gutenverse-client/v1/image-sizes',
             method: 'GET'
         }).then(response => {
             resolve(response);

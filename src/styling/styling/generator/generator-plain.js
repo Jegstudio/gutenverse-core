@@ -140,6 +140,9 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}, otherA
         case 'handleDefaultValue':
             value = attribute !== 'default' && attribute;
             break;
+        case 'handleImageRatio':
+            value = attribute && attribute !== 0 ? attribute : 'auto';
+            break;
         case 'handleGradient':
             const { angle } = functionProps;
             if (isNotEmpty(attribute)) {
