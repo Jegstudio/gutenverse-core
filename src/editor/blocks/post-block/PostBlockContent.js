@@ -217,7 +217,6 @@ const PostBlockContent = (props) => {
         );
 
         const mediaUrl = media?.media_details?.sizes?.[thumbnailSize.value]?.source_url;
-        console.log(thumbnailSize);
 
         return (
             <article key={post?.id || index} className={postClasses}>
