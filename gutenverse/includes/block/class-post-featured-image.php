@@ -40,9 +40,9 @@ class Post_Featured_Image extends Block_Abstract {
 		$content         = '';
 
 		if ( ! empty( $post_featured ) ) {
-			$content = '<img alt="" src="' . $post_featured . '"/>';
+			$content = get_the_post_thumbnail( $post_id, $image_size['value'] );
 			if ( $this->attributes['imageLazy'] ) {
-				$content = '<img alt="" src="' . $post_featured . '" loading="lazy" />';
+				$content = get_the_post_thumbnail( $post_id, $image_size['value'], array( 'loading' => 'lazy' ) );
 			}
 		} elseif ( ! empty( $placeholder_img ) ) {
 			$content = '<img alt="" src="' . esc_url( GUTENVERSE_URL . '/assets/img/img-placeholder.jpg' ) . '"/>';
