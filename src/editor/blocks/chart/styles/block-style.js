@@ -21,8 +21,8 @@ const getBlockStyle = (elementId, attributes) => {
     if (isNotEmpty(attributes['contentOrder'])) {
         let orders = attributes['contentOrder'].split(',');
 
-        if(orders.length !== 3) {
-            orders = [1,2,3];
+        if (orders.length !== 3) {
+            orders = [1, 2, 3];
         }
 
         data.push(
@@ -355,6 +355,19 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
         'selector': `.editor-styles-wrapper .${elementId} .chart-content .chart-inside > i`,
+        'responsive': true
+    });
+
+    isNotEmpty(attributes['indicatorIconSize']) && data.push({
+        'type': 'unitPoint',
+        'id': 'indicatorIconSize',
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .${elementId} .chart-content .chart-inside svg`,
         'responsive': true
     });
 

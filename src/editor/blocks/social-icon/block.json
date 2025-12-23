@@ -47,6 +47,13 @@
 			"attribute": "class",
 			"default": "fab fa-wordpress"
 		},
+		"iconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"iconSVG": {
+			"type": "string"
+		},
 		"text": {
 			"type": "string",
 			"source": "html",
@@ -65,6 +72,10 @@
 			"copyStyle": true
 		},
 		"border": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderRadius": {
 			"type": "object",
 			"copyStyle": true
 		},

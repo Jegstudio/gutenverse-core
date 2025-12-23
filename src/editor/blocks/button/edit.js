@@ -4,14 +4,9 @@ import { withPartialRender, withPassRef, withAnimationAdvanceV2, withMouseMoveEf
 import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
 import { classnames, link } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { IconLibrary } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { createPortal } from 'react-dom';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { URLToolbar } from 'gutenverse-core/toolbars';
-import { displayShortcut } from '@wordpress/keycodes';
-import { gutenverseRoot } from 'gutenverse-core/helper';
-import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect, dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
@@ -22,6 +17,7 @@ import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenve
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { useRichTextParameter } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import { renderIcon } from './render-icon';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -58,6 +54,8 @@ const ButtonBlock = compose(
         buttonSize,
         showIcon,
         icon,
+        iconType,
+        iconSVG,
         url,
         rel,
         linkTarget,
@@ -93,7 +91,7 @@ const ButtonBlock = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
     useDynamicScript(elementRef);
 
-    const [openIconLibrary, setOpenIconLibrary] = useState(false);
+    useDynamicScript(elementRef);
     const placeholder = showIcon ? '' : __('Button Text...');
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -193,7 +191,7 @@ const ButtonBlock = compose(
     };
 
     const buttonText = <>
-        {showIcon && iconPosition === 'before' && <i className={`fa-lg ${icon}`} onClick={() => setOpenIconLibrary(true)} />}
+        {showIcon && iconPosition === 'before' && renderIcon(icon, iconType, iconSVG)}
         <RichText
             tagName={'span'}
             value={content}
@@ -204,7 +202,7 @@ const ButtonBlock = compose(
             identifier="content"
             ref={textRef}
         />
-        {showIcon && iconPosition === 'after' && <i className={`fa-lg ${icon}`} onClick={() => setOpenIconLibrary(true)} />}
+        {showIcon && iconPosition === 'after' && renderIcon(icon, iconType, iconSVG)}
     </>;
 
     const ButtonURLToolbar = () => {
@@ -258,14 +256,6 @@ const ButtonBlock = compose(
     return <>
         <CopyElementToolbar {...props} />
         <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
-        {openIconLibrary && createPortal(
-            <IconLibrary
-                closeLibrary={() => setOpenIconLibrary(false)}
-                value={icon}
-                onChange={icon => setAttributes({ icon })}
-            />,
-            gutenverseRoot
-        )}
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, { ...props, setPanelState }, buttonPanelState)}
@@ -278,13 +268,7 @@ const ButtonBlock = compose(
                         selectBlock(rootId);
                     }}
                 />}
-                <ToolbarButton
-                    name="icon"
-                    icon={<LogoCircleColor24SVG />}
-                    title={__('Choose Icon', 'gutenverse')}
-                    shortcut={displayShortcut.primary('i')}
-                    onClick={() => setOpenIconLibrary(true)}
-                />
+
             </ToolbarGroup>
         </BlockControls>
         <span ref={elementRef} style={{ display: 'none' }}></span>

@@ -53,10 +53,21 @@ export const panelIconStyle = (props) => {
                 {
                     'type': 'color',
                     'id': 'iconColor',
-                    'selector': `.${elementId} .icon-box.icon-box-header .icon i`,
+                    'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon i`,
                     'properties': [
                         {
                             'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                },
+                {
+                    'type': 'color',
+                    'id': 'iconColor',
+                    'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
                             'valueType': 'direct'
                         }
                     ],
@@ -72,10 +83,21 @@ export const panelIconStyle = (props) => {
                 {
                     'type': 'color',
                     'id': 'iconHoverColor',
-                    'selector': `.${elementId}:hover .icon-box.icon-box-header .icon i`,
+                    'selector': `.guten-icon-box.${elementId}:hover .icon-box.icon-box-header .icon i`,
                     'properties': [
                         {
                             'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                },
+                {
+                    'type': 'color',
+                    'id': 'iconHoverColor',
+                    'selector': `.guten-icon-box.${elementId}:hover .icon-box.icon-box-header .icon svg`,
+                    'properties': [
+                        {
+                            'name': 'fill',
                             'valueType': 'direct'
                         }
                     ],

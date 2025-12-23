@@ -46,10 +46,6 @@ class Taxonomy_List extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
-				'transform'   => array(
-					'normal' => ".{$this->element_id}.guten-element > *",
-					'hover'  => ".{$this->element_id}.guten-element:hover > *",
-				),
 				'mask'        => null,
 			)
 		);
@@ -73,6 +69,17 @@ class Taxonomy_List extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item a .icon-list svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['iconColor'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconColorHover'] ) ) {
@@ -86,12 +93,34 @@ class Taxonomy_List extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item a:hover .icon-list svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['iconColorHover'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconSize'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item a .icon-list",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'font-size' );
+					},
+					'value'          => $this->attrs['iconSize'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item a .icon-list svg",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'font-size' );
 					},

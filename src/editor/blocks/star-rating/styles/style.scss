@@ -13,7 +13,7 @@
             &.full {
                 color: #f0ad4e;
             }
-        
+
             &.empty {
                 color: #999;
             }
@@ -31,7 +31,32 @@
     .unicode-sharp::before {
         content: "★";
     }
+
     .unicode-sharp-hollow::before {
         content: "☆";
+    }
+
+    .rating-icons {
+        display: flex;
+
+        .gutenverse-icon-svg {
+            padding: 1px;
+        }
+
+        .full {
+            svg {
+                fill: #f0ad4e;
+            }
+        }
+
+        .empty {
+            svg {
+                fill: #999;
+            }
+        }
+
+        .thumbs-down {
+            transform: translateY(25%);
+        }
     }
 }

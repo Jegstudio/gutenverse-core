@@ -1,6 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
 import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
+import { svgAtob, renderIcon, renderGradientElement } from 'gutenverse-core/helper';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
@@ -49,19 +50,23 @@ const save = compose(
         image,
         imageAlt,
         icon,
+        iconSVG,
         iconType,
         iconPosition,
         iconStyleMode = 'color',
         watermarkIcon,
+        watermarkIconType,
+        watermarkIconSVG,
         watermarkShow,
         badgeShow,
         badge,
         badgePosition,
         iconBoxOverlayDirection = 'left',
         lazyLoad,
-        hasInnerBlocks,
         showTitle,
-        showDesc
+        showDesc,
+        iconGradient,
+        iconGradientHover
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -88,6 +93,23 @@ const save = compose(
                         <i className={`${icon} icon-style-${iconStyleMode}`}></i>
                     </div>
                 </div>;
+            case 'svg':
+                return <div className="icon-box icon-box-header">
+                    <div className={`icon bg-style-${iconStyleMode}`}>
+                        <div
+                            className="gutenverse-icon-svg"
+                            dangerouslySetInnerHTML={{ __html: svgAtob(iconSVG) }}
+                        />
+                        {(iconGradient || iconGradientHover) && (
+                            <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
+                                <defs>
+                                    {iconGradient && renderGradientElement(iconGradient, `iconGradient-${elementId}`)}
+                                    {iconGradientHover && renderGradientElement(iconGradientHover, `iconGradientHover-${elementId}`)}
+                                </defs>
+                            </svg>
+                        )}
+                    </div>
+                </div>;
             case 'image':
                 return <div className="icon-box icon-box-header">
                     <div className={`icon bg-style-${iconStyleMode} type-image`}>
@@ -100,44 +122,50 @@ const save = compose(
     };
     const ContentBody = () => (
         <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
-            {iconPosition !== 'bottom' && iconContent()}
+            {iconPosition !== 'bottom' && <WrapAHref {...props}>{iconContent()}</WrapAHref>}
             {
                 (title || description) && <div className="icon-box icon-box-body">
                     {
-                        showTitle && title && title !== '' && <RichText.Content
-                            className={'title'}
-                            value={title}
-                            tagName={titleTag}
-                        />
+                        showTitle && title && title !== '' && <WrapAHref {...props}>
+                            <RichText.Content
+                                className={'title'}
+                                value={title}
+                                tagName={titleTag}
+                            />
+                        </WrapAHref>
                     }
                     {
-                        showDesc && description && description !== '' && <RichText.Content
-                            className="icon-box-description"
-                            value={description}
-                            tagName="p"
-                        />
+                        showDesc && description && description !== '' && <WrapAHref {...props}>
+                            <RichText.Content
+                                className="icon-box-description"
+                                value={description}
+                                tagName="p"
+                            />
+                        </WrapAHref>
                     }
                     <InnerBlocks.Content />
                 </div>
             }
-            {iconPosition === 'bottom' && iconContent()}
-            {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
-                <RichText.Content
-                    className={'badge-text'}
-                    value={badge}
-                    tagName={'span'}
-                />
-            </div>}
-            {watermarkShow && <div className="hover-watermark">
-                <i className={watermarkIcon}></i>
-            </div>}
+            {iconPosition === 'bottom' && <WrapAHref {...props}>{iconContent()}</WrapAHref>}
+            {badgeShow && <WrapAHref {...props}>
+                <div className={`icon-box-badge ${badgePosition}`}>
+                    <RichText.Content
+                        className={'badge-text'}
+                        value={badge}
+                        tagName={'span'}
+                    />
+                </div>
+            </WrapAHref>}
+            {watermarkShow && <WrapAHref {...props}>
+                <div className="hover-watermark">
+                    {renderIcon(watermarkIcon, watermarkIconType, watermarkIconSVG)}
+                </div>
+            </WrapAHref>}
         </div>
     );
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
-            {hasInnerBlocks ? <ContentBody /> : <WrapAHref {...props}>
-                <ContentBody />
-            </WrapAHref>}
+            <ContentBody />
         </div>
     );
 });

@@ -25,6 +25,13 @@
 			"type": "string",
 			"default": "fas fa-search-plus"
 		},
+		"zoomIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"zoomIconSVG": {
+			"type": "string"
+		},
 		"zoomText": {
 			"type": "string"
 		},
@@ -32,7 +39,13 @@
 			"type": "string",
 			"default": "fas fa-link"
 		},
-
+		"linkIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"linkIconSVG": {
+			"type": "string"
+		},
 		"linkText": {
 			"type": "string"
 		},
@@ -277,7 +290,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-
 		"itemCardTitleMargin": {
 			"type": "object",
 			"copyStyle": true
@@ -444,6 +456,13 @@
 			"default": "No More Item"
 		},
 		"enableLoadIcon": {
+			"type": "string"
+		},
+		"enableLoadIconType": {
+			"type": "string",
+			"default": "icon"
+		},
+		"enableLoadIconSVG": {
 			"type": "string"
 		},
 		"enableLoadIconPosition": {
@@ -922,13 +941,28 @@
 			"type": "object",
 			"default": {},
 			"copyStyle": true
+		},
+		"titleHeadingType": {
+			"type": "string",
+			"default": "h5",
+			"copyStyle": true
 		}
 	},
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["gallery", "images", "carousel", "grid", "showcase"],
-	"viewScript": ["gutenverse-frontend-gallery-script"],
-	"style": ["gutenverse-frontend-gallery-style"]
+	"keywords": [
+		"gallery",
+		"images",
+		"carousel",
+		"grid",
+		"showcase"
+	],
+	"viewScript": [
+		"gutenverse-frontend-gallery-script"
+	],
+	"style": [
+		"gutenverse-frontend-gallery-style"
+	]
 }

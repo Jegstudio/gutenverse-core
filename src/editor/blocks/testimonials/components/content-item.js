@@ -1,6 +1,7 @@
 
 
 import { RichText } from '@wordpress/block-editor';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const ContentItem = (data) => {
     let {
@@ -14,11 +15,17 @@ const ContentItem = (data) => {
         showQuote,
         showClientImage,
         iconQuote,
+        iconQuoteType,
+        iconQuoteSVG,
         quoteOverride,
         contentPosition,
         showRating,
         iconRatingFull,
+        iconRatingFullType,
+        iconRatingFullSVG,
         iconRatingHalf,
+        iconRatingHalfType,
+        iconRatingHalfSVG,
         starPosition,
         frontEnd,
         setAttributes,
@@ -51,8 +58,8 @@ const ContentItem = (data) => {
     const content = () => {
         const commentContent = <div className="comment-content">{contentRichText(comment, 'p', 'profile-comment','comment', index )}</div>;
         const starRating = showRating && <>
-            {Array.from({ length: rating }, (i) => <li key={i}><i className={iconRatingFull}></i></li>)}
-            {parseFloat(rating) !== Math.floor(rating) ? <li><i className={iconRatingHalf}></i></li> : null}
+            {Array.from({ length: rating }, (i) => <li key={i}>{renderIcon(iconRatingFull, iconRatingFullType, iconRatingFullSVG)}</li>)}
+            {parseFloat(rating) !== Math.floor(rating) ? <li>{renderIcon(iconRatingHalf, iconRatingHalfType, iconRatingHalfSVG)}</li> : null}
         </>;
 
         switch (contentType) {
@@ -70,7 +77,7 @@ const ContentItem = (data) => {
                     </div>
                     <div className="comment-content">
                         {showQuote && <div className={`${overrideQuote} icon-content`}>
-                            <i aria-hidden="true" className={`${iconQuote}`}></i>
+                            {renderIcon(iconQuote, iconQuoteType, iconQuoteSVG, true)}
                         </div>}
                         {contentRichText(comment, 'p', 'profile-comment','comment', index )}
                     </div>
@@ -89,14 +96,14 @@ const ContentItem = (data) => {
                                 {contentRichText(description, 'p', 'profile-des','description', index )}
                             </span>
                         </div>
-                        {showQuote && <div className={`${overrideQuote} icon-content`}><i aria-hidden="true" className={`${iconQuote}`}></i></div>}
+                        {showQuote && <div className={`${overrideQuote} icon-content`}>{renderIcon(iconQuote, iconQuoteType, iconQuoteSVG, true)}</div>}
                     </div>
                     {(contentPosition === undefined || contentPosition === 'below-image') && commentContent}
                     {starPosition !== undefined && starPosition === 'below-image' && <div className="comment-header"><ul className="rating-stars">{starRating}</ul></div>}
                 </div>;
             case 3:
                 return <div className="testimonial-content" >
-                    {showQuote && <div className={`${overrideQuote} icon-content`}><i aria-hidden="true" className={`${iconQuote}`}></i></div>}
+                    {showQuote && <div className={`${overrideQuote} icon-content`}>{renderIcon(iconQuote, iconQuoteType, iconQuoteSVG, true)}</div>}
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     {starPosition !== undefined && starPosition === 'above-image' && <ul className="rating-stars">{starRating}</ul>}
                     <div className="comment-bio">
@@ -115,7 +122,7 @@ const ContentItem = (data) => {
                 </div>;
             case 4:
                 return <div className="testimonial-content" >
-                    {showQuote && <div className={`${overrideQuote} icon-content`}><i aria-hidden="true" className={`${iconQuote}`}></i></div>}
+                    {showQuote && <div className={`${overrideQuote} icon-content`}>{renderIcon(iconQuote, iconQuoteType, iconQuoteSVG, true)}</div>}
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     <div className="comment-bio">
                         <div className="bio-details">

@@ -75,10 +75,48 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['iconSize']) && data.push({
+        'type': 'plain',
+        'id': 'iconSize',
+        'selector': `.${elementId} .rating-icons svg`,
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ]
+    });
+
     isNotEmpty(attributes['iconGap']) && data.push({
         'type': 'plain',
         'id': 'iconGap',
         'selector': `.${elementId} .rating-icons i`,
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'margin-right',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['iconGap']) && data.push({
+        'type': 'plain',
+        'id': 'iconGap',
+        'selector': `.${elementId} .gutenverse-icon-svg`,
         'responsive': true,
         'properties': [
             {
@@ -106,6 +144,18 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['iconColorMarked']) && data.push({
+        'type': 'color',
+        'id': 'iconColorMarked',
+        'selector': `.${elementId} .gutenverse-icon-svg.full svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['iconColorUnmarked']) && data.push({
         'type': 'color',
         'id': 'iconColorUnmarked',
@@ -113,6 +163,18 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'color',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['iconColorUnmarked']) && data.push({
+        'type': 'color',
+        'id': 'iconColorUnmarked',
+        'selector': `.${elementId} .gutenverse-icon-svg.empty svg`,
+        'properties': [
+            {
+                'name': 'fill',
                 'valueType': 'direct'
             }
         ]

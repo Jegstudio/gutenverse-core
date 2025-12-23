@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl, RangeControl, CheckboxControl, AlertControl, SizeControl } from 'gutenverse-core/controls';
+import { SelectControl, RangeControl, CheckboxControl, AlertControl, SizeControl, IconSVGControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const contentPanel = (props) => {
@@ -53,6 +53,12 @@ export const contentPanel = (props) => {
             ],
         },
         {
+            id: 'icon',
+            label: __('Icon', 'gutenverse'),
+            component: IconSVGControl,
+            show: chartContent === 'icon',
+        },
+        {
             id: 'indicatorIconSize',
             label: __('Icon Size', 'gutenverse'),
             component: SizeControl,
@@ -78,6 +84,18 @@ export const contentPanel = (props) => {
                     'id': 'indicatorIconSize',
                     'responsive': true,
                     'selector': `.editor-styles-wrapper .${elementId} .chart-content .chart-inside > i`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'direct'
+                        }
+                    ]
+                },
+                {
+                    'type': 'unitPoint',
+                    'id': 'indicatorIconSize',
+                    'responsive': true,
+                    'selector': `.editor-styles-wrapper .${elementId} .chart-content .chart-inside svg`,
                     'properties': [
                         {
                             'name': 'font-size',

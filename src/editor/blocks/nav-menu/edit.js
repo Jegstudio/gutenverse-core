@@ -35,11 +35,17 @@ const NavMenuBlock = compose(
         mobileMenuLink,
         mobileMenuURL,
         mobileIcon,
+        mobileIconType,
+        mobileIconSVG,
         mobileCloseIcon,
+        mobileCloseIconType,
+        mobileCloseIconSVG,
         submenuClick,
         mobileSubmenuClick,
         mobileCloseOnClick,
         submenuItemIndicator,
+        submenuItemIndicatorType,
+        submenuItemIndicatorSVG,
         transform,
         mobileEnableOverlay,
     } = attributes;
@@ -81,13 +87,19 @@ const NavMenuBlock = compose(
                         mobileMenuLink,
                         mobileMenuURL,
                         mobileIcon,
+                        mobileIconType,
+                        mobileIconSVG,
                         mobileCloseIcon,
+                        mobileCloseIconType,
+                        mobileCloseIconSVG,
                         submenuClick,
                         mobileSubmenuClick,
                         mobileCloseOnClick,
                         submenuItemIndicator,
+                        submenuItemIndicatorType,
+                        submenuItemIndicatorSVG,
                         transform,
-                        mobileEnableOverlay
+                        mobileEnableOverlay,
                     },
                 }),
             }).then((data) => {
@@ -122,11 +134,17 @@ const NavMenuBlock = compose(
         mobileMenuLink,
         mobileMenuURL,
         mobileIcon,
+        mobileIconType,
+        mobileIconSVG,
         mobileCloseIcon,
+        mobileCloseIconType,
+        mobileCloseIconSVG,
         submenuClick,
         mobileSubmenuClick,
         mobileCloseOnClick,
         submenuItemIndicator,
+        submenuItemIndicatorType,
+        submenuItemIndicatorSVG,
         transform,
         mobileEnableOverlay
     ]);
@@ -160,14 +178,16 @@ const NavMenuBlock = compose(
             deviceType?.toLowerCase(),
             `${breakpoint}-breakpoint`,
         ),
-        ['data-item-indicator']: submenuItemIndicator
+        ['data-item-indicator']: submenuItemIndicator,
+        ['data-item-indicator-type']: submenuItemIndicatorType,
+        ['data-item-indicator-svg']: submenuItemIndicatorSVG,
     });
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             {!loading && response ? <RawHTML key="html">

@@ -4,7 +4,7 @@ import { imagePlaceholder } from 'gutenverse-core/config';
 import { Maximize, Minimize, X, ZoomIn } from 'gutenverse-core/components';
 import { swiperSettings } from '../../../components/swiper/helper';
 
-const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSearch, elementId }) => {
+const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSearch, elementId, titleHeadingType: HtmlTag = 'h5' }) => {
     const [zoomIn, setZoomIn] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
     const popupRef = useRef();
@@ -28,7 +28,7 @@ const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSear
     const requestFullscreen = element => {
         if (element.requestFullscreen) {
             element.requestFullscreen();
-        } else if (element.webkitRequestFullscreen ) {
+        } else if (element.webkitRequestFullscreen) {
             element.webkitRequestFullscreen();
         } else if (element.mozRequestFullScreen) {
             element.mozRequestFullScreen();
@@ -59,7 +59,7 @@ const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSear
             </div>
             <div className="right-header">
                 {fullscreen ? <Minimize onClick={exitFullscreen} /> : <Maximize onClick={() => requestFullscreen(popupRef.current)} />}
-                <ZoomIn onClick={() => toggleZoom(sliderRef.current)}/>
+                <ZoomIn onClick={() => toggleZoom(sliderRef.current)} />
                 <X onClick={onClose} />
             </div>
         </div>
@@ -67,7 +67,7 @@ const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSear
             <div className="images">
                 <WPSwiper
                     {...swiperSettings({
-                        initialSlide : activeIndex,
+                        initialSlide: activeIndex,
                         loop: true,
                         showArrow: true,
                         zoom: true,
@@ -79,7 +79,7 @@ const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSear
                         <div className="content-image swiper-zoom-container">
                             {image && <img className="main-image" src={image?.src?.image || imagePlaceholder} {...(image.lazyLoad && { loading: 'lazy' })} />}
                             {image?.lightboxDescription ? <div className="content-description-wrapper">
-                                <h5 className="content-title">{image.title}</h5>
+                                <HtmlTag className="content-title">{image.title}</HtmlTag>
                                 <div className="content-description">
                                     <p>{image.content}</p>
                                 </div>

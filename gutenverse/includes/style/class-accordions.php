@@ -145,6 +145,17 @@ class Accordions extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item .accordion-icon svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
+					},
+					'value'          => $this->attrs['iconColor'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconActiveColor'] ) ) {
@@ -153,6 +164,17 @@ class Accordions extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-icon i",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['iconActiveColor'],
+					'device_control' => false,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-icon svg",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'fill' );
 					},
 					'value'          => $this->attrs['iconActiveColor'],
 					'device_control' => false,
@@ -192,6 +214,17 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-icon",
+					'property'       => function ( $value ) {
+						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['iconSize'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item .accordion-icon svg",
 					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
@@ -489,6 +522,17 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-icon",
+					'property'       => function ( $value ) {
+						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['iconActiveSize'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-icon svg",
 					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},

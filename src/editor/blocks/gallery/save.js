@@ -8,6 +8,7 @@ import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenvers
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { svgAtob } from 'gutenverse-core/helper';
 
 const save = compose(
     withAnimationAdvanceScript('gallery'),
@@ -31,12 +32,15 @@ const save = compose(
         layout,
         enableLoadText,
         enableLoadIcon,
+        enableLoadIconType,
+        enableLoadIconSVG,
         enableLoadIconPosition,
         filterSearchIcon,
         filterSearchIconPosition,
         filterSearchFormText,
         itemsPerLoad,
         zoomOptions,
+        titleHeadingType: HtmlTag = 'h5'
     } = attributes;
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
@@ -77,7 +81,7 @@ const save = compose(
                                     <div className="content-image swiper-zoom-container">
                                         {image && imageCondition(image)}
                                         {image?.lightboxDescription ? <div className="content-description-wrapper">
-                                            <h5 className="content-title">{image.title}</h5>
+                                            <HtmlTag className="content-title">{image.title}</HtmlTag>
                                             <div className="content-description">
                                                 <p>{image.content}</p>
                                             </div>
@@ -129,13 +133,27 @@ const save = compose(
             </div>
             {enableLoadMore && (showed < images.length) && <div className="load-more-items">
                 <div className="guten-gallery-loadmore">
-                    <a href="#" className="guten-gallery-load-more">
+                    <a aria-label="Load more" href="#" className="guten-gallery-load-more">
                         {enableLoadIcon && enableLoadIconPosition === 'before' && <span className="load-more-icon icon-position-before" aria-hidden="true">
-                            <i className={enableLoadIcon}></i>
+                            {enableLoadIconType === 'svg' && enableLoadIconSVG ? (
+                                <div
+                                    className="gutenverse-icon-svg"
+                                    dangerouslySetInnerHTML={{ __html: svgAtob(enableLoadIconSVG) }}
+                                />
+                            ) : (
+                                <i className={enableLoadIcon}></i>
+                            )}
                         </span>}
                         <span className="load-more-text">{enableLoadText}</span>
                         {enableLoadIcon && enableLoadIconPosition === 'after' && <span className="load-more-icon icon-position-after" aria-hidden="true">
-                            <i className={enableLoadIcon}></i>
+                            {enableLoadIconType === 'svg' && enableLoadIconSVG ? (
+                                <div
+                                    className="gutenverse-icon-svg"
+                                    dangerouslySetInnerHTML={{ __html: svgAtob(enableLoadIconSVG) }}
+                                />
+                            ) : (
+                                <i className={enableLoadIcon}></i>
+                            )}
                         </span>}
                     </a>
                 </div>

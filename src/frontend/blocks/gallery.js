@@ -5,24 +5,22 @@ class GutenverseGallery extends Default {
     init() {
         const $this = this;
 
-        window.onload = function () {
-            if ($this._elements.length > 0) {
-                const promiseShuffle = import(/* webpackChunkName: "chunk-shufflejs" */'shufflejs');
-                const promiseSwiper = import(/* webpackChunkName: "chunk-swiper" */'swiper');
-                const promiseSwiperModule = import(/* webpackChunkName: "chunk-swiper-modules" */'swiper/modules');
+        if ($this._elements.length > 0) {
+            const promiseShuffle = import(/* webpackChunkName: "chunk-shufflejs" */'shufflejs');
+            const promiseSwiper = import(/* webpackChunkName: "chunk-swiper" */'swiper');
+            const promiseSwiperModule = import(/* webpackChunkName: "chunk-swiper-modules" */'swiper/modules');
 
-                Promise.all([promiseShuffle, promiseSwiper, promiseSwiperModule])
-                    .then((result) => {
-                        const { default: Shuffle } = result[0];
-                        const { default: Swiper } = result[1];
-                        const { Navigation, Pagination, Zoom } = result[2];
+            Promise.all([promiseShuffle, promiseSwiper, promiseSwiperModule])
+                .then((result) => {
+                    const { default: Shuffle } = result[0];
+                    const { default: Swiper } = result[1];
+                    const { Navigation, Pagination, Zoom } = result[2];
 
-                        Swiper.use([Navigation, Pagination, Zoom]);
+                    Swiper.use([Navigation, Pagination, Zoom]);
 
-                        $this._loadGallery({Shuffle, Swiper});
-                    });
-            }
-        };
+                    $this._loadGallery({Shuffle, Swiper});
+                });
+        }
     }
 
     /* private */
@@ -30,22 +28,22 @@ class GutenverseGallery extends Default {
     _loadGallery({Shuffle, Swiper}) {
         const $this = this;
         $this._elements.map(element => {
-            const promiseImages = u(element).find('.gallery-item-wrap img').nodes.map((img) =>
-                new Promise((resolve, reject) => {
-                    img.onload = () => {
-                        if (img.complete && img.naturalHeight !== 0) {
-                            resolve(img);
-                        } else {
-                            reject(new Error('Image is not completely loaded or has a height of zero.'));
-                        }
-                    };
-                    img.onerror = () => {
-                        reject(new Error('Failed to load image.'));
-                    };
+            const promiseImages = u(element).find('.gallery-item-wrap:not(.item-hidden) img').nodes.map((img) =>
+                new Promise((resolve) => {
+                    if (img.complete && img.naturalHeight !== 0) {
+                        resolve(img);
+                        return;
+                    }
+
+                    img.onload = () => resolve(img);
+                    img.onerror = () => resolve(img);
+
                     if (img.src) {
                         const src = img.src;
                         img.src = '';
                         img.src = src;
+                    } else {
+                        resolve(img);
                     }
                 })
             );
@@ -121,7 +119,6 @@ class GutenverseGallery extends Default {
         const sliderContainer = thisElement.find('.swiper-container');
         const popupMinimize = galleryPopup.find('.gallery-header .icon-minimize');
         const popupFullscreen = galleryPopup.find('.gallery-header .icon-fullscreen');
-        const id = sliderContainer.attr('id');
         let swiper = null;
 
         galleryItems.map(item => {
@@ -150,12 +147,15 @@ class GutenverseGallery extends Default {
 
                 });
 
+                const nextEl = galleryPopup.find('.swiper-button-next').nodes[0];
+                const prevEl = galleryPopup.find('.swiper-button-prev').nodes[0];
+
                 const settings = {
                     initialSlide: parseInt(activeIndex),
                     loop: true,
                     navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
+                        nextEl: nextEl,
+                        prevEl: prevEl,
                     },
                     zoom: {
                         maxRatio: 2,
@@ -166,10 +166,8 @@ class GutenverseGallery extends Default {
                     observeParents: true,
                 };
 
-                swiper = new Swiper(`.${id} .swiper-container`, settings);
-                setTimeout(() => {
-                    galleryPopup.hasClass('hidden') ? galleryPopup.removeClass('hidden') : galleryPopup.addClass('hidden');
-                },100);
+                galleryPopup.removeClass('hidden');
+                swiper = new Swiper(sliderContainer.nodes[0], settings);
 
             });
         });
@@ -262,12 +260,38 @@ class GutenverseGallery extends Default {
             const max = parseInt(gallery.data('max'));
             const total = loaded + more;
             const items = gallery.find('.gallery-item-wrap');
+            const newItems = [];
+
             if (total - more <= max) {
                 items.map((item, index) => {
                     if (index >= loaded && index < total) {
                         u(item).removeClass('item-hidden');
-                        shuffle.update();
+                        newItems.push(item);
                     }
+                });
+
+                const promiseImages = newItems.map(item => {
+                    return u(item).find('img').nodes.map(img =>
+                        new Promise((resolve) => {
+                            if (img.complete && img.naturalHeight !== 0) {
+                                resolve(img);
+                                return;
+                            }
+                            img.onload = () => resolve(img);
+                            img.onerror = () => resolve(img);
+                            if (img.src) {
+                                const src = img.src;
+                                img.src = '';
+                                img.src = src;
+                            } else {
+                                resolve(img);
+                            }
+                        })
+                    );
+                }).flat();
+
+                Promise.allSettled(promiseImages).then(() => {
+                    shuffle.update();
                 });
 
                 gallery.data('loaded', total);

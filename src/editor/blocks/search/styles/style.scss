@@ -1,11 +1,13 @@
-.gutenverse-search-form{
+.gutenverse-search-form {
     display: flex;
     flex-wrap: wrap;
 
-    .guten-search-button-wrapper, .guten-button-wrapper{
-        display: inline-flex!important;
+    .guten-search-button-wrapper,
+    .guten-button-wrapper {
+        display: inline-flex !important;
         flex-grow: unset !important;
     }
+
     .search-input-container-outer {
         display: flex;
         align-items: center;
@@ -18,7 +20,7 @@
             position: relative;
             width: 100%;
 
-            .gutenverse-search.gutenverse-search-input{
+            .gutenverse-search.gutenverse-search-input {
                 border: none;
                 padding-right: 26px;
                 background-color: inherit;
@@ -36,7 +38,13 @@
                 i {
                     display: block;
                 }
-                i:hover {
+
+                .gutenverse-icon-svg {
+                    display: flex;
+                }
+
+                i:hover,
+                .gutenverse-icon-svg:hover {
                     cursor: pointer;
                 }
             }

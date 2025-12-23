@@ -9,6 +9,7 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import { renderIcon } from 'gutenverse-core/helper';
 
 const SearchBlock = compose(
     withPartialRender,
@@ -20,6 +21,8 @@ const SearchBlock = compose(
     } = props;
     const {
         closeIcon,
+        closeIconType,
+        closeIconSVG,
         showButton,
         inputPlaceholder,
         elementId,
@@ -91,7 +94,7 @@ const SearchBlock = compose(
                             }}
                         />
                         <div className="close-icon" ref={closeIconRef} onClick={() => setInputValue('')}>
-                            <i className={closeIcon}></i>
+                            {renderIcon(closeIcon, closeIconType, closeIconSVG)}
                         </div>
                     </div>
                 </div>

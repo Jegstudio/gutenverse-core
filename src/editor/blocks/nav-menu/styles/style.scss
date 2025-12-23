@@ -2,11 +2,11 @@
 @import "gutenverse-core/src/assets/variables";
 @import "gutenverse-core/src/assets/wp-fix";
 
-.guten-nav-menu {
-
+.guten-nav-menu {  
   * {
-      transition: background-color 0.4s ease 0s, border 0.4s ease 0s, border-radius 0.4s ease 0s, box-shadow 0.4s ease 0s, color 0.4s ease 0s, height 0.4s ease 0s;
+    transition: background-color 0.4s ease 0s, border 0.4s ease 0s, border-radius 0.4s ease 0s, box-shadow 0.4s ease 0s, color 0.4s ease 0s, height 0.4s ease 0s;
   }
+
   .gutenverse-hamburger-wrapper {
     display: flex;
   }
@@ -23,19 +23,23 @@
 
   .gutenverse-menu-wrapper {
     z-index: 1000;
+
     .gutenverse-nav-identity-panel {
       .gutenverse-nav-site-title {
         display: none;
+
         .gutenverse-nav-logo {
           margin: 5px 0px 5px 0px;
           padding: 5px 5px 5px 5px;
           display: block;
+
           img {
             height: auto;
             width: 120px;
           }
         }
       }
+
       .gutenverse-close-menu {
         float: right;
         display: none;
@@ -51,7 +55,9 @@
         cursor: pointer;
       }
     }
-    .gutenverse-menu, .gutenverse-menu > ul {
+
+    .gutenverse-menu,
+    .gutenverse-menu>ul {
       display: flex;
       padding-left: 0;
       margin-bottom: 0;
@@ -60,11 +66,12 @@
       margin: 0;
       align-items: center;
 
-      > li {
+      >li {
         margin: 0;
         padding: 0;
         list-style: none;
-        > a {
+
+        >a {
           color: #707070;
           padding: 0px 15px 0px 15px;
           font-size: 15px;
@@ -77,9 +84,11 @@
           text-decoration: none;
         }
       }
+
       li {
         position: relative;
         @include displayflex();
+
         a {
           padding: 15px 15px 15px 15px;
           color: #000000;
@@ -90,6 +99,7 @@
           justify-content: space-between;
         }
       }
+
       li.menu-item-has-children {
         .sub-menu {
           box-shadow: 0 10px 30px 0 rgba(45, 45, 45, 0.2);
@@ -100,17 +110,21 @@
           max-height: none;
           margin: 0px;
         }
-        &:hover > .sub-menu {
+
+        &:hover>.sub-menu {
           opacity: 1;
           visibility: visible;
         }
-        > a i {
+
+        >a i,
+        >a svg {
           margin-left: 5px;
           display: flex;
           align-items: center;
           cursor: pointer;
         }
       }
+
       .sub-menu {
         border-radius: 0px 0px 0px 0px;
         padding: 0px 0px 0px 0px;
@@ -119,7 +133,8 @@
         opacity: 0;
         visibility: hidden;
         z-index: 1000;
-        > li > .sub-menu {
+
+        >li>.sub-menu {
           left: 100%;
           top: 0;
         }
@@ -130,18 +145,20 @@
 
 @keyframes slideLeftToRight {
   0% {
-      transform: translateX(-100%);
+    transform: translateX(-100%);
   }
+
   100% {
-      transform: translateX(0);
+    transform: translateX(0);
   }
 }
 
 @keyframes slideRightToLeft {
   0% {
-      transform: translateX(0);
+    transform: translateX(0);
   }
+
   100% {
-      transform: translateX(-100%);
+    transform: translateX(-100%);
   }
 }

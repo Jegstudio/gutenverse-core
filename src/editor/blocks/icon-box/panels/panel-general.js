@@ -1,8 +1,7 @@
 
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, IconControl, IconRadioControl, SelectControl, AlertControl, SizeControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconSVGControl, IconRadioControl, SelectControl, AlertControl, SizeControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { handleAlign } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const panelGeneral = (props) => {
@@ -36,7 +35,7 @@ export const panelGeneral = (props) => {
             id: 'watermarkIcon',
             show: watermarkShow,
             label: __('Hover Watermark Icon', 'gutenverse'),
-            component: IconControl,
+            component: IconSVGControl
         },
         {
             id: 'iconPosition',

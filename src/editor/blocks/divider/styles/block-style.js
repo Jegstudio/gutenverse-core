@@ -17,11 +17,23 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['contentColor']) && data.push({
+        'type': 'color',
+        'id': 'contentColor',
+        'selector': `.${elementId} .guten-divider-content svg`,
+        'properties': [
+            {
+                'name': 'fill',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['contentSpacing']) && data.push({
         'type': 'plain',
         'id': 'contentSpacing',
         'responsive': true,
-        'selector': `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i`,
+        'selector': `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i, .${elementId} .guten-divider-content svg`,
         'properties': [
             {
                 'name': 'margin',
@@ -46,6 +58,19 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'unitPoint',
         'id': 'iconSize',
         'selector': `.${elementId} .guten-divider-content i`,
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['iconSize']) && data.push({
+        'type': 'unitPoint',
+        'id': 'iconSize',
+        'selector': `.${elementId} .guten-divider-content svg`,
         'responsive': true,
         'properties': [
             {

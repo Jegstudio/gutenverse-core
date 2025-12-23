@@ -4,7 +4,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { gutenverseRoot } from 'gutenverse-core/helper';
+import { gutenverseRoot, renderIcon } from 'gutenverse-core/helper';
 import { createPortal } from 'react-dom';
 import GalleryPopup from './components/gallery-popup';
 import GalleryItem from './components/gallery-item';
@@ -45,10 +45,13 @@ const GalleryBlock = compose(
         itemsPerLoad,
         enableLoadText,
         enableLoadIcon,
+        enableLoadIconType,
+        enableLoadIconSVG,
         enableLoadIconPosition,
         filterSearchIcon,
         filterSearchIconPosition,
         filterSearchFormText,
+        titleHeadingType = 'h5'
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -130,19 +133,35 @@ const GalleryBlock = compose(
 
     // Initialize Shuffle.js
     const initializeShuffle = () => {
-        shuffleInstance.current = new Shuffle(elementRef.current.querySelector('.gallery-items'), {
-            itemSelector: `.${elementId} .gallery-item-wrap`,
-            sizer: `.${elementId} .gallery-sizer-element`,
-            speed: 500
-        });
+        if (shuffleInstance.current) {
+            shuffleInstance.current.update();
+        } else {
+            shuffleInstance.current = new Shuffle(elementRef.current.querySelector('.gallery-items'), {
+                itemSelector: `.${elementId} .gallery-item-wrap`,
+                sizer: `.${elementId} .gallery-sizer-element`,
+                speed: 500
+            });
+        }
     };
 
     // Wait for images to load
     const waitForImages = (images) => Promise.all(
         images.map((img) =>
-            img.complete
-                ? Promise.resolve()
-                : new Promise((resolve) => (img.onload = img.onerror = resolve))
+            new Promise((resolve) => {
+                if (img.complete && img.naturalHeight !== 0) {
+                    resolve(img);
+                    return;
+                }
+                img.onload = () => resolve(img);
+                img.onerror = () => resolve(img);
+                if (img.src) {
+                    const src = img.src;
+                    img.src = '';
+                    img.src = src;
+                } else {
+                    resolve(img);
+                }
+            })
         )
     );
 
@@ -193,9 +212,9 @@ const GalleryBlock = compose(
     }, [elementRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} liveAttr={liveAttr} setLiveAttr={setLiveAttr} />
-        {showPopup && createPortal(<GalleryPopup elementId={elementId} currentSearch={currentSearch} currentFilter={currentFilter} activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
+        {showPopup && createPortal(<GalleryPopup titleHeadingType={titleHeadingType} elementId={elementId} currentSearch={currentSearch} currentFilter={currentFilter} activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
         <div  {...blockProps} data-grid={grid}>
             {filter && (
                 filterType === 'tab' ? <div className="filter-controls">
@@ -239,16 +258,16 @@ const GalleryBlock = compose(
             <div className="gallery-sizer-element" ref={sizerRef}></div>
             {enableLoadMore && (showedItems < images.length) && <div className="load-more-items">
                 <div className="guten-gallery-loadmore">
-                    <a href="#" className="guten-gallery-load-more" onClick={(e) => {
+                    <a aria-label="Load more" href="#" className="guten-gallery-load-more" onClick={(e) => {
                         e.preventDefault();
                         setShowedItems(parseInt(showedItems) + parseInt(itemsPerLoad));
                     }}>
                         {enableLoadIcon && enableLoadIconPosition === 'before' && <span className="load-more-icon icon-position-before" aria-hidden="true">
-                            <i className={enableLoadIcon}></i>
+                            {renderIcon(enableLoadIcon, enableLoadIconType, enableLoadIconSVG)}
                         </span>}
                         <span className="load-more-text">{enableLoadText}</span>
                         {enableLoadIcon && enableLoadIconPosition === 'after' && <span className="load-more-icon icon-position-after" aria-hidden="true">
-                            <i className={enableLoadIcon}></i>
+                            {renderIcon(enableLoadIcon, enableLoadIconType, enableLoadIconSVG)}
                         </span>}
                     </a>
                 </div>
