@@ -7,9 +7,11 @@ import { __ } from '@wordpress/i18n';
 import { panelList } from './panels/panel-list';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { URLToolbar } from 'gutenverse-core/toolbars';
-import { useAnimationEditor, useDisplayEditor, useDynamicContent, useDynamicUrl } from 'gutenverse-core/hooks';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect, dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
+import isEmpty from 'lodash/isEmpty';
+import { isOnEditor } from 'gutenverse-core/helper';
 import getBlockStyle from './styles/block-style';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -94,6 +96,8 @@ const ButtonBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [allowLink, setAllowLink] = useState(true);
+    const [dynamicText, setDynamicText] = useState();
+    const [dynamicHref, setDynamicHref] = useState();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -217,20 +221,37 @@ const ButtonBlock = compose(
         />;
     };
 
-    const { dynamicText } = useDynamicContent(dynamicContent);
-    const { dynamicHref } = useDynamicUrl(dynamicUrl);
-
     useEffect(() => {
+        const dynamicUrlcontent = isEmpty(dynamicUrl) || !isOnEditor() ? dynamicUrl : applyFilters(
+            'gutenverse.dynamic.fetch-url',
+            dynamicUrl
+        );
+
+        const dynamicTextContent = isEmpty(dynamicContent) || !isOnEditor() ? dynamicContent : applyFilters(
+            'gutenverse.dynamic.fetch-text',
+            dynamicContent
+        );
+
+        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
+            .then(result => {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
+                    setDynamicHref(result);
+                } else if (result !== dynamicHref) setDynamicHref(undefined);
+            }).catch(() => { });
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
-        } else {
-            setAttributes({ url: url });
-        }
+        } else { setAttributes({ url: url }); }
 
+        (typeof dynamicTextContent.then === 'function') && !isEmpty(dynamicContent) && dynamicTextContent
+            .then(result => {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicText) {
+                    setDynamicText(result);
+                }
+            }).catch(() => { });
         if (dynamicText !== undefined) {
             setAttributes({ content: dynamicText });
         }
-    }, [dynamicText, dynamicHref]);
+    }, [dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
 
     return <>
         <CopyElementToolbar {...props} />
