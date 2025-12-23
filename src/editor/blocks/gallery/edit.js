@@ -258,7 +258,7 @@ const GalleryBlock = compose(
             <div className="gallery-sizer-element" ref={sizerRef}></div>
             {enableLoadMore && (showedItems < images.length) && <div className="load-more-items">
                 <div className="guten-gallery-loadmore">
-                    <a href="#" className="guten-gallery-load-more" onClick={(e) => {
+                    <a aria-label="Load more" href="#" className="guten-gallery-load-more" onClick={(e) => {
                         e.preventDefault();
                         setShowedItems(parseInt(showedItems) + parseInt(itemsPerLoad));
                     }}>

@@ -40,7 +40,6 @@ const save = compose(
         filterSearchFormText,
         itemsPerLoad,
         zoomOptions,
-        titleHeadingType: HtmlTag = 'h5'
     } = attributes;
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
@@ -81,7 +80,7 @@ const save = compose(
                                     <div className="content-image swiper-zoom-container">
                                         {image && imageCondition(image)}
                                         {image?.lightboxDescription ? <div className="content-description-wrapper">
-                                            <HtmlTag className="content-title">{image.title}</HtmlTag>
+                                            <h5 className="content-title">{image.title}</h5>
                                             <div className="content-description">
                                                 <p>{image.content}</p>
                                             </div>
@@ -133,7 +132,7 @@ const save = compose(
             </div>
             {enableLoadMore && (showed < images.length) && <div className="load-more-items">
                 <div className="guten-gallery-loadmore">
-                    <a aria-label="Load more" href="#" className="guten-gallery-load-more">
+                    <a href="#" className="guten-gallery-load-more">
                         {enableLoadIcon && enableLoadIconPosition === 'before' && <span className="load-more-icon icon-position-before" aria-hidden="true">
                             {enableLoadIconType === 'svg' && enableLoadIconSVG ? (
                                 <div
