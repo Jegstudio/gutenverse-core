@@ -168,6 +168,7 @@ class Init {
 		add_filter( 'after_setup_theme', array( $this, 'init_settings' ) );
 		add_filter( 'upload_mimes', array( $this, 'add_fonts_to_allowed_mimes' ) );
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'update_mime_types' ), 10, 3 );
+		add_filter( 'wp_handle_upload_prefilter', array( $this, 'sanitize_svg_upload' ), 10, 1 );
 		/**
 		 * These functions used to be called inside init hook.
 		 * But because framework called using init hook.
@@ -175,6 +176,20 @@ class Init {
 		 */
 		$this->register_menu_position();
 		$this->import_mechanism();
+	}
+
+	public function sanitize_svg_upload( $file ) {
+		$svg = file_get_contents( $file['tmp_name'] );
+
+		if ( false === $svg ) {
+			$file['error'] = __( 'Unable to read SVG file.', 'gutenverse' );
+			return $file;
+		}
+		if ( ! gutenverse_is_svg_safe( $svg ) ) {
+			$file['error'] = __( 'SVG file contains disallowed or unsafe elements.', 'gutenverse' );
+		}
+
+		return $file;
 	}
 
 	/**

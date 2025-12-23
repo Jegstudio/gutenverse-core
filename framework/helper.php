@@ -6,6 +6,71 @@
  * @since 1.0.0
  * @package gutenverse-framework
  */
+if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
+	/**
+	 * Sanitizer SVG Content
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_is_svg_safe( $svg ) {
+		libxml_use_internal_errors( true );
+
+		// Prevent XXE attacks
+		$svg = preg_replace( '/<!DOCTYPE.+?>/i', '', $svg );
+
+		$dom = new DOMDocument();
+
+		if ( ! $dom->loadXML( $svg, LIBXML_NONET | LIBXML_NOENT | LIBXML_COMPACT ) ) {
+			return false;
+		}
+
+		$xpath = new DOMXPath( $dom );
+
+		/**
+		 * ❌ Forbidden SVG elements
+		 */
+		$forbidden_tags = array(
+			'script',
+			'foreignObject',
+			'iframe',
+			'object',
+			'embed',
+			'audio',
+			'video',
+		);
+
+		foreach ( $forbidden_tags as $tag ) {
+			if ( $xpath->query( '//*[local-name()="' . $tag . '"]' )->length > 0 ) {
+				return false;
+			}
+		}
+
+		/**
+		 * ❌ Forbidden attributes
+		 * - Event handlers (onload, onclick, etc)
+		 * - javascript: URLs
+		 */
+		foreach ( $xpath->query( '//@*' ) as $attr ) {
+			if (
+			preg_match( '/^on/i', $attr->nodeName ) ||
+			preg_match( '/javascript:/i', $attr->nodeValue )
+			) {
+				return false;
+			}
+		}
+
+		/**
+		 * ❌ Disallow external references
+		 */
+		foreach ( $xpath->query( '//@*' ) as $attr ) {
+			if ( preg_match( '/^(https?:)?\/\//i', trim( $attr->nodeValue ) ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+}
 
 if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	/**
