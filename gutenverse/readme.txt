@@ -301,6 +301,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 = 3.4.0 =
 ##### New & Improvements
 * add option to convert Webfont to SVG icon for improved SEO
+* add image data option for post featured image block
 
 ##### Bug Fixes
 * fix issue with global styles fetch in editor

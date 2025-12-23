@@ -73,6 +73,65 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['imageRatio']) && data.push({
+        'type': 'plain',
+        'id': 'imageRatio',
+        'selector': `.${elementId} img`,
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'aspect-ratio',
+                'valueType': 'function',
+                'functionName': 'handleImageRatio'
+            }
+        ],
+    });
+
+    if ('custom' === attributes['imageRatio']) {
+        isNotEmpty(attributes['imageRatioCustom']) && data.push({
+            'type': 'plain',
+            'id': 'imageRatioCustom',
+            'selector': `.${elementId} img`,
+            'responsive': true,
+            'properties': [
+                {
+                    'name': 'aspect-ratio',
+                    'valueType': 'function',
+                    'functionName': 'handleImageRatio'
+                }
+            ],
+        });
+    }
+
+
+    isNotEmpty(attributes['imageFit']) && data.push({
+        'type': 'plain',
+        'id': 'imageFit',
+        'selector': `.${elementId} img`,
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'object-fit',
+                'valueType': 'function',
+                'functionName': 'handleDefaultValue'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['imagePosition']) && data.push({
+        'type': 'plain',
+        'id': 'imagePosition',
+        'selector': `.${elementId} img`,
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'object-position',
+                'valueType': 'function',
+                'functionName': 'handleDefaultValue'
+            }
+        ],
+    });
+
     isNotEmpty(attributes['imageBorder']) && data.push({
         'type': 'border',
         'id': 'imageBorder',

@@ -278,6 +278,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"thumbnailSize": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {
+				"label": "Full",
+				"value": "full"
+			}
+		},
 		"thumbnailWidth": {
 			"type": "object",
 			"copyStyle": true

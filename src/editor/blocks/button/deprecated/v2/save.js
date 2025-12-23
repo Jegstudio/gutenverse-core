@@ -68,7 +68,7 @@ const save = compose(
 
         return role === 'link' ?
             <a className={buttonClass} href={href} target={linkTarget} aria-label={ariaLabel} rel={rel}>{title}</a> :
-            <button className={buttonClass} aria-label={ariaLabel} type="submit">{title}</button>;
+            <button className={buttonClass} type="submit">{title}</button>;
     };
 
     return (

@@ -26,10 +26,11 @@
         @include transition(false, false, .25s ease);
         display: flex;
         align-items: center;
+        gap: 5px;
 
         svg {
             fill: var(--guten-txt-alt-color, #ffffff);
-            font-size: 12px;
+            font-size: 10px;
             height: 1em;
             margin-right: 2px;
             opacity: 0.6;
