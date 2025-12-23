@@ -369,7 +369,7 @@ class Gutenverse {
 		$notices = array();
 		foreach ( $checks as $plugin ) {
 			if ( isset( $plugins[ $plugin ] ) ) {
-				$form = $plugins[ $plugin ];
+				$form             = $plugins[ $plugin ];
 				$plugin_name      = '';
 				$required_version = '1.0.0';
 				$plugin_arr       = explode( '/', $plugin );
@@ -416,7 +416,6 @@ class Gutenverse {
 
 		$this->load_textdomain();
 		$this->init_instance();
-		$this->init_post_type();
 	}
 
 	/**
@@ -438,16 +437,10 @@ class Gutenverse {
 	}
 
 	/**
-	 * Initialize Dashboard
-	 */
-	public function init_post_type() {
-		$this->dashboard = new Dashboard();
-	}
-
-	/**
 	 * Initialize Instance
 	 */
 	public function init_instance() {
+		$this->dashboard       = new Dashboard();
 		$this->blocks          = new Blocks();
 		$this->frontend_assets = new Frontend_Assets();
 		$this->editor_assets   = new Editor_Assets();
