@@ -157,7 +157,7 @@ const GalleryItem = (attributes) => {
         </div>
         <div className="caption-wrap style-card">
             <div className="item-caption-over">
-                <h5 className="item-title">{galleryItem.title}</h5>
+                <HtmlTag className="item-title">{galleryItem.title}</HtmlTag>
                 <div className="item-content">
                     <p>{galleryItem.content}</p>
                 </div>
