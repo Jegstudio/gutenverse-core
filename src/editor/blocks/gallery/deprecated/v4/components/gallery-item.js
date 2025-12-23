@@ -71,7 +71,7 @@ const GalleryItem = (attributes) => {
                                     )}
                                 </span>}
                             </div>}
-                            {(!galleryItem.disableLink && (linkIcon || undefined !== linkText)) && <a aria-label={`Link to ${galleryItem.title}`} href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`} onClick={e => e.preventDefault()}>
+                            {(!galleryItem.disableLink && (linkIcon || undefined !== linkText)) && <a href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`} onClick={e => e.preventDefault()}>
                                 {undefined !== linkText && <p className="item-icon-text link-text">
                                     {linkText}
                                 </p>}
@@ -131,7 +131,7 @@ const GalleryItem = (attributes) => {
                                     )}
                                 </span>
                             </div>}
-                            {(!galleryItem.disableLink && linkIcon) && <a aria-label={`Link to ${galleryItem.title}`} href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`}>
+                            {(!galleryItem.disableLink && linkIcon) && <a href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`}>
                                 {undefined !== linkText && <p className="item-icon-text link-text">
                                     {linkText}
                                 </p>}

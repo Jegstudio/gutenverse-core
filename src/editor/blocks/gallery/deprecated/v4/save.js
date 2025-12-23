@@ -132,7 +132,7 @@ const save = compose(
             </div>
             {enableLoadMore && (showed < images.length) && <div className="load-more-items">
                 <div className="guten-gallery-loadmore">
-                    <a aria-label="Load more" href="#" className="guten-gallery-load-more">
+                    <a href="#" className="guten-gallery-load-more">
                         {enableLoadIcon && enableLoadIconPosition === 'before' && <span className="load-more-icon icon-position-before" aria-hidden="true">
                             {enableLoadIconType === 'svg' && enableLoadIconSVG ? (
                                 <div
