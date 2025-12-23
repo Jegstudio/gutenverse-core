@@ -460,7 +460,7 @@ class Frontend_Generator {
 	 *
 	 * @since 2.3.0
 	 *
-	 * @param array  $attrs attributes data
+	 * @param array  $attrs attributes data.
 	 * @param string $block_name block name.
 	 */
 	public function check_attributes( $attrs, $block_name ) {
@@ -640,10 +640,14 @@ class Frontend_Generator {
 	 * @since 2.3.0
 	 */
 	public function load_conditional_scripts() {
+		$include = array(
+			'gutenverse-frontend-event',
+		);
+
 		wp_register_script(
 			'gutenverse-core-frontend-animation-basic-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/animation-basic.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
@@ -651,7 +655,7 @@ class Frontend_Generator {
 		wp_register_script(
 			'gutenverse-core-frontend-bg-featured-image-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/bg-featured-image.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
@@ -659,7 +663,7 @@ class Frontend_Generator {
 		wp_register_script(
 			'gutenverse-core-frontend-bg-slideshow-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/slideshow.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
@@ -667,14 +671,14 @@ class Frontend_Generator {
 		wp_register_script(
 			'gutenverse-core-frontend-bg-video-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/video.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
 
 		$script_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
 
-		// remove duplicates
+		// remove duplicates.
 		$script_handles = array_values( array_unique( $this->script_list ) );
 
 		if ( ! empty( $script_handles ) ) {
