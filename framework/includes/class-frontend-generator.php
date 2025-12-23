@@ -460,7 +460,7 @@ class Frontend_Generator {
 	 *
 	 * @since 2.3.0
 	 *
-	 * @param array  $attrs attributes data
+	 * @param array  $attrs attributes data.
 	 * @param string $block_name block name.
 	 */
 	public function check_attributes( $attrs, $block_name ) {
@@ -540,55 +540,55 @@ class Frontend_Generator {
 	 * @param array $args The script configuration array, including 'attr', 'allow_if', and 'script'.
 	 */
 	public function add_script( array $args ) {
-		$can_load = true;
-
-		if ( ! isset( $args['attr'], $args['allow_if'], $args['script'] ) ) {
-			return;
-		}
-
-		$attrs         = $args['attr'];
-		$conditions    = $args['allow_if'];
+		$can_load      = true;
 		$script_handle = isset( $args['script'] ) ? $args['script'] : false;
 		$style_handle  = isset( $args['style'] ) ? $args['style'] : false;
 
-		foreach ( $conditions as $condition ) {
-			$id       = $condition['id'];
-			$operator = $condition['operator'];
-			$value    = $condition['value'];
+		if ( isset( $args['attr'], $args['allow_if'] ) ) {
+			$attrs      = $args['attr'];
+			$conditions = $args['allow_if'];
 
-			if ( ! isset( $attrs[ $id ] ) ) {
-				$can_load = false;
-				break;
-			}
+			foreach ( $conditions as $condition ) {
+				$id       = $condition['id'];
+				$operator = $condition['operator'];
+				$value    = $condition['value'];
 
-			$attr_value = $attrs[ $id ];
-
-			if ( isset( $condition['device'] ) ) {
-				$device_condition_met = false;
-
-				if ( is_array( $attr_value ) ) {
-					foreach ( $attr_value as $device_setting_value ) {
-
-						if ( $this->check_condition( $device_setting_value, $operator, $value ) ) {
-							$device_condition_met = true;
-							break;
-						}
-					}
-				}
-
-				if ( ! $device_condition_met ) {
+				if ( ! isset( $attrs[ $id ] ) ) {
 					$can_load = false;
 					break;
 				}
-			} elseif ( ! $this->check_condition( $attr_value, $operator, $value ) ) {
-				$can_load = false;
-				break;
+
+				$attr_value = $attrs[ $id ];
+
+				if ( isset( $condition['device'] ) ) {
+					$device_condition_met = false;
+
+					if ( is_array( $attr_value ) ) {
+						foreach ( $attr_value as $device_setting_value ) {
+
+							if ( $this->check_condition( $device_setting_value, $operator, $value ) ) {
+								$device_condition_met = true;
+								break;
+							}
+						}
+					}
+
+					if ( ! $device_condition_met ) {
+						$can_load = false;
+						break;
+					}
+				} elseif ( ! $this->check_condition( $attr_value, $operator, $value ) ) {
+					$can_load = false;
+					break;
+				}
+			}
+
+			if ( ! $can_load ) {
+				return;
 			}
 		}
 
-		if ( ! $can_load ) {
-			return;
-		}
+		// Asumsikan pengecekan ada di element itu sendiri.
 
 		if ( ! empty( $script_handle ) ) {
 			$this->script_list[] = $script_handle;
@@ -640,10 +640,14 @@ class Frontend_Generator {
 	 * @since 2.3.0
 	 */
 	public function load_conditional_scripts() {
+		$include = array(
+			'gutenverse-frontend-event',
+		);
+
 		wp_register_script(
 			'gutenverse-core-frontend-animation-basic-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/animation-basic.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
@@ -651,7 +655,7 @@ class Frontend_Generator {
 		wp_register_script(
 			'gutenverse-core-frontend-bg-featured-image-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/bg-featured-image.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
@@ -659,7 +663,7 @@ class Frontend_Generator {
 		wp_register_script(
 			'gutenverse-core-frontend-bg-slideshow-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/slideshow.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
@@ -667,14 +671,14 @@ class Frontend_Generator {
 		wp_register_script(
 			'gutenverse-core-frontend-bg-video-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/video.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
 
 		$script_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
 
-		// remove duplicates
+		// remove duplicates.
 		$script_handles = array_values( array_unique( $this->script_list ) );
 
 		if ( ! empty( $script_handles ) ) {

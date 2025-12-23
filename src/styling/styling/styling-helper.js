@@ -9,7 +9,7 @@ import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
-import { recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
+import { isNotEmpty, recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
 import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
@@ -27,6 +27,7 @@ import { buildGlobalStyle, getGlobalVariable } from './global-style';
 import memoize from 'lodash/memoize';
 import { slideshowGenerator } from './generator/generator-slideshow';
 import { tooltipStyleGenerator } from './generator/generator-tooltip';
+import { DeviceLoop, deviceStyleValue } from './styling-utility';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -356,6 +357,25 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
 
     if (typeof arrStyle === 'function') {
         blockStyles = arrStyle(elementId, attributes);
+    }
+
+    if (isNotEmpty(attributes?.['animation']?.['type']) && isNotEmpty(attributes['transform'])) {
+        const animationTypes = attributes?.['animation']?.['type'] ?? [];
+        DeviceLoop(device => {
+            const type = deviceStyleValue(device, animationTypes);
+            if (type) {
+                switch (device) {
+                    case 'Tablet':
+                        deviceTypeTablet.push(`.${elementId}: { --guten-use-animation: ${type}Transform; }`);
+                        break;
+                    case 'Mobile':
+                        deviceTypeMobile.push(`.${elementId}: { --guten-use-animation: ${type}Transform; }`);
+                        break;
+                    default:
+                        deviceTypeDesktop.push(`.${elementId} { --guten-use-animation: ${type}Transform; }`);
+                }
+            }
+        });
     }
 
     for (let index = 0; index < blockStyles.length; index++) {

@@ -1,7 +1,7 @@
 @import "./lib/animate.compat";
+@import "./animation-transform.scss";
 
-$animations:
-    fadeIn,
+$animations: fadeIn,
     fadeInLeft,
     fadeInDown,
     fadeInRight,
@@ -12,22 +12,26 @@ $animations:
     slideInUp;
 
 @each $animation in $animations {
+
     // Desktop
     .__desktop-#{$animation} {
         animation-name: $animation;
+        animation-name: var(--guten-use-animation, $animation);
     }
 
     // Tablet
     @media (max-width: 780px) {
         .__tablet-#{$animation} {
-            animation-name: $animation;
+            animation-name: var(--guten-use-animation, $animation);
+            animation-name: var(--guten-use-animation, $animation);
         }
     }
 
     // Mobile
     @media only screen and (max-width: 425px) {
         .__mobile-#{$animation} {
-            animation-name: $animation;
+            animation-name: var(--guten-use-animation, $animation);
+            animation-name: var(--guten-use-animation, $animation);
         }
     }
 }

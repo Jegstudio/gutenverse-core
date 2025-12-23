@@ -118,7 +118,7 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Condition', 'gutenverse'),
+            title: __('Condition', '--gctd--'),
             panelArray: conditionPanel,
             initialOpen: false,
             pro: true
