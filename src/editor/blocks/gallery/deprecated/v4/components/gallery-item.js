@@ -16,8 +16,7 @@ const GalleryItem = (attributes) => {
         zoomText,
         linkText,
         onZoom = () => { },
-        zoomOptions = 'item',
-        titleHeadingType: HtmlTag = 'h5'
+        zoomOptions = 'item'
     } = attributes;
 
     const hoverClass = () => {
@@ -54,7 +53,7 @@ const GalleryItem = (attributes) => {
                 {!galleryItem.disableLightbox && <>
                     <div className="item-hover-bg"></div>
                     <div className="item-caption-over">
-                        <HtmlTag className="item-title">{galleryItem.title}</HtmlTag>
+                        <h5 className="item-title">{galleryItem.title}</h5>
                         <div className="item-content">{galleryItem.content}</div>
                         <div className="item-buttons">
                             {(zoomOptions !== 'disable' && (zoomIcon || undefined !== zoomText)) && <div className={`gallery-link zoom ${'none' !== zoomText && 'with-text'}`}>
@@ -72,7 +71,7 @@ const GalleryItem = (attributes) => {
                                     )}
                                 </span>}
                             </div>}
-                            {(!galleryItem.disableLink && (linkIcon || undefined !== linkText)) && <a aria-label={`Link to ${galleryItem.title}`} href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`} onClick={e => e.preventDefault()}>
+                            {(!galleryItem.disableLink && (linkIcon || undefined !== linkText)) && <a href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`} onClick={e => e.preventDefault()}>
                                 {undefined !== linkText && <p className="item-icon-text link-text">
                                     {linkText}
                                 </p>}
@@ -132,7 +131,7 @@ const GalleryItem = (attributes) => {
                                     )}
                                 </span>
                             </div>}
-                            {(!galleryItem.disableLink && linkIcon) && <a aria-label={`Link to ${galleryItem.title}`} href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`}>
+                            {(!galleryItem.disableLink && linkIcon) && <a href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`}>
                                 {undefined !== linkText && <p className="item-icon-text link-text">
                                     {linkText}
                                 </p>}
@@ -157,7 +156,7 @@ const GalleryItem = (attributes) => {
         </div>
         <div className="caption-wrap style-card">
             <div className="item-caption-over">
-                <HtmlTag className="item-title">{galleryItem.title}</HtmlTag>
+                <h5 className="item-title">{galleryItem.title}</h5>
                 <div className="item-content">
                     <p>{galleryItem.content}</p>
                 </div>

@@ -46,7 +46,6 @@
 		"linkIconSVG": {
 			"type": "string"
 		},
-
 		"linkText": {
 			"type": "string"
 		},
@@ -291,7 +290,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-
 		"itemCardTitleMargin": {
 			"type": "object",
 			"copyStyle": true
@@ -943,13 +941,28 @@
 			"type": "object",
 			"default": {},
 			"copyStyle": true
+		},
+		"titleHeadingType": {
+			"type": "string",
+			"default": "h5",
+			"copyStyle": true
 		}
 	},
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["gallery", "images", "carousel", "grid", "showcase"],
-	"viewScript": ["gutenverse-frontend-gallery-script"],
-	"style": ["gutenverse-frontend-gallery-style"]
+	"keywords": [
+		"gallery",
+		"images",
+		"carousel",
+		"grid",
+		"showcase"
+	],
+	"viewScript": [
+		"gutenverse-frontend-gallery-script"
+	],
+	"style": [
+		"gutenverse-frontend-gallery-style"
+	]
 }

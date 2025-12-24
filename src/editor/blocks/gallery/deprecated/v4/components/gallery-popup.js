@@ -4,7 +4,7 @@ import { imagePlaceholder } from 'gutenverse-core/config';
 import { Maximize, Minimize, X, ZoomIn } from 'gutenverse-core/components';
 import { swiperSettings } from '../../../components/swiper/helper';
 
-const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSearch, elementId, titleHeadingType: HtmlTag = 'h5' }) => {
+const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSearch, elementId }) => {
     const [zoomIn, setZoomIn] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
     const popupRef = useRef();
@@ -79,7 +79,7 @@ const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSear
                         <div className="content-image swiper-zoom-container">
                             {image && <img className="main-image" src={image?.src?.image || imagePlaceholder} {...(image.lazyLoad && { loading: 'lazy' })} />}
                             {image?.lightboxDescription ? <div className="content-description-wrapper">
-                                <HtmlTag className="content-title">{image.title}</HtmlTag>
+                                <h5 className="content-title">{image.title}</h5>
                                 <div className="content-description">
                                     <p>{image.content}</p>
                                 </div>
