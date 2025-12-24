@@ -102,15 +102,26 @@ class Nav_Menu extends Block_Abstract {
 
 			$attachment = wp_get_attachment_image_src( $image_id, $size );
 			$src        = '';
+			$width      = '';
+			$height     = '';
+
 			if ( ! empty( $media['sizes'][ $size ]['url'] ) ) {
 				$src = $media['sizes'][ $size ]['url'];
+				if ( ! empty( $media['sizes'][ $size ]['width'] ) ) {
+					$width = $media['sizes'][ $size ]['width'];
+				}
+				if ( ! empty( $media['sizes'][ $size ]['height'] ) ) {
+					$height = $media['sizes'][ $size ]['height'];
+				}
 			}
 
 			if ( ! empty( $attachment ) && ! empty( $media['sizes'][ $size ]['url'] ) && $attachment[0] === $media['sizes'][ $size ]['url'] ) {
-				$src = $attachment[0];
+				$src    = $attachment[0];
+				$width  = $attachment[1];
+				$height = $attachment[2];
 			}
 
-			return '<img src="' . esc_url( $src ) . '" alt="' . $alt . '">';
+			return '<img src="' . esc_url( $src ) . '" alt="' . $alt . '" width="' . esc_attr( $width ) . '" height="' . esc_attr( $height ) . '">';
 		} else {
 			return null;
 		}
