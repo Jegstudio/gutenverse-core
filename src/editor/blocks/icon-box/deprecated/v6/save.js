@@ -83,12 +83,7 @@ const save = compose(
         `icon-position-${iconPosition}`
     );
 
-    const imageLazyLoad = () => {
-        const height = image?.height;
-        const width = image?.width;
-
-        return <img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} {...(height && { height })} {...(width && { width })} />;
-    };
+    const imageLazyLoad = () => <img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />;
 
     const iconContent = () => {
         switch (iconType) {

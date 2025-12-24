@@ -30,24 +30,19 @@ const TeamProfile = (props) => {
         hoverBottomDirection,
     } = attributes;
 
-    const lazyLoad = () => {
-        const height = src?.height;
-        const width = src?.width;
+    const lazyLoad = () => <img src={getImageSrc(src)} alt={name} {...(lazy && { loading: 'lazy' })} />;
 
-        return <img src={getImageSrc(src)} alt={name} {...(lazy && { loading: 'lazy' })} {...(height && { height })} {...(width && { width })} />;
-    };
-
-    const contentDesc = (classnames, ariaLabel, identifier, data, tag) => {
-        if (showDesc) {
-            if (frontEnd) {
+    const contentDesc = (classnames, ariaLabel, identifier, data, tag ) => {
+        if(showDesc){
+            if(frontEnd){
                 return <RichText.Content
                     className={classnames}
                     tagName={tag}
                     aria-label={ariaLabel}
                     value={data}
                 />;
-            } else {
-                return (
+            }else{
+                return(
                     <RichTextComponent
                         classNames={classnames}
                         tagName={tag}
@@ -57,8 +52,8 @@ const TeamProfile = (props) => {
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
-                        panelDynamic={{ panel: 'setting', section: 1 }}
-                        panelPosition={{ panel: 'style', section: 1 }}
+                        panelDynamic={{panel : 'setting', section : 1}}
+                        panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={identifier}
                         setPanelState={setPanelState}
                         textChilds={identifier + 'Childs'}
@@ -68,16 +63,16 @@ const TeamProfile = (props) => {
                     />
                 );
             }
-        } else if (!showDesc && identifier !== 'description') {
-            if (frontEnd) {
+        }else if(!showDesc && identifier !== 'description'){
+            if(frontEnd){
                 return <RichText.Content
                     className={classnames}
                     tagName={tag}
                     aria-label={ariaLabel}
                     value={data}
                 />;
-            } else {
-                return (
+            }else{
+                return(
                     <RichTextComponent
                         classNames={classnames}
                         tagName={tag}
@@ -87,8 +82,8 @@ const TeamProfile = (props) => {
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
-                        panelDynamic={{ panel: 'setting', section: 1 }}
-                        panelPosition={{ panel: 'style', section: 1 }}
+                        panelDynamic={{panel : 'setting', section : 1}}
+                        panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={identifier}
                         setPanelState={setPanelState}
                         textChilds={identifier + 'Childs'}
@@ -102,13 +97,13 @@ const TeamProfile = (props) => {
     };
 
     const contentType = () => {
-        switch (profileType) {
+        switch(profileType) {
             case 'overlay':
                 return (
                     <div className={`profile-card card-overlay ${overlayType}`}>
                         {lazyLoad()}
                         <div className={`profile-body ${overlayPosition}`}>
-                            {contentDesc(`profile-title ${addPopup ? 'popup' : ''}`, __('Profile Name', 'gutenverse'), 'name', name, NameTag)}
+                            {contentDesc(`profile-title ${addPopup ? 'popup' : ''}`,__('Profile Name', 'gutenverse'), 'name', name, NameTag )}
                             {contentDesc('profile-sub', __('Profile Job', 'gutenverse'), 'job', job, 'p')}
                             {contentDesc('profile-desc', __('Team Description', 'gutenverse'), 'description', description, 'p')}
                             {showSocial && <div className="socials-wrapper">
@@ -124,7 +119,7 @@ const TeamProfile = (props) => {
                             {lazyLoad()}
                         </div>
                         <div className={'profile-body'}>
-                            {contentDesc(`profile-title ${addPopup ? 'popup' : ''}`, __('Profile Name', 'gutenverse'), 'name', name, NameTag)}
+                            {contentDesc(`profile-title ${addPopup ? 'popup' : ''}`,__('Profile Name', 'gutenverse'), 'name', name, NameTag )}
                             {contentDesc('profile-sub', __('Profile Job', 'gutenverse'), 'job', job, 'p')}
                             {contentDesc('profile-desc', __('Team Description', 'gutenverse'), 'description', description, 'p')}
                             {showSocial && <div className="socials-wrapper">
@@ -141,7 +136,7 @@ const TeamProfile = (props) => {
                     <div className={'profile-card card-title-social-horizontal'}>
                         {lazyLoad()}
                         <div className="profile-body">
-                            {contentDesc(`profile-title ${addPopup ? 'popup' : ''}`, __('Profile Name', 'gutenverse'), 'name', name, NameTag)}
+                            {contentDesc(`profile-title ${addPopup ? 'popup' : ''}`,__('Profile Name', 'gutenverse'), 'name', name, NameTag )}
                             {contentDesc('profile-sub', __('Profile Job', 'gutenverse'), 'job', job, 'p')}
                             {contentDesc('profile-desc', __('Team Description', 'gutenverse'), 'description', description, 'p')}
                             {showSocial && <div className="socials-wrapper">
@@ -157,7 +152,7 @@ const TeamProfile = (props) => {
                             {lazyLoad()}
                         </div>
                         <div className={'profile-body'}>
-                            {contentDesc(`profile-title ${addPopup ? 'popup' : ''}`, __('Profile Name', 'gutenverse'), 'name', name, NameTag)}
+                            {contentDesc(`profile-title ${addPopup ? 'popup' : ''}`,__('Profile Name', 'gutenverse'), 'name', name, NameTag )}
                             {contentDesc('profile-sub', __('Profile Job', 'gutenverse'), 'job', job, 'p')}
                             {contentDesc('profile-desc', __('Team Description', 'gutenverse'), 'description', description, 'p')}
                         </div>
