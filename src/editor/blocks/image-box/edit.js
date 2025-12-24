@@ -10,14 +10,14 @@ import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/too
 import { useCallback } from '@wordpress/element';
 import { Image } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
-import { useRef, useState } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { useAnimationEditor, useDisplayEditor, useDynamicUrl } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
-import { useRichTextParameter, isEmpty, isOnEditor, renderIcon } from 'gutenverse-core/helper';
+import { useRichTextParameter, isEmpty, renderIcon } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
@@ -251,7 +251,7 @@ const ImageBoxBlock = compose(
     const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const [dynamicHref, setDynamicHref] = useState();
+    const { dynamicHref } = useDynamicUrl(dynamicUrl);
 
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
@@ -299,21 +299,10 @@ const ImageBoxBlock = compose(
     };
 
     useEffect(() => {
-        const dynamicUrlcontent = isEmpty(dynamicUrl) || !isOnEditor() ? dynamicUrl : applyFilters(
-            'gutenverse.dynamic.fetch-url',
-            dynamicUrl
-        );
-
-        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
-            .then(result => {
-                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
-                    setDynamicHref(result);
-                } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => { });
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
-    }, [dynamicUrl, dynamicHref]);
+    }, [dynamicHref]);
 
     useEffect(() => {
         if (elementRef) {
