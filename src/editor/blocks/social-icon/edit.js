@@ -7,7 +7,7 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
-import { getSocialType, gutenverseRoot } from 'gutenverse-core/helper';
+import { getSocialType, gutenverseRoot, renderIcon } from 'gutenverse-core/helper';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
 import { URLToolbar } from 'gutenverse-core/toolbars';
@@ -25,7 +25,6 @@ import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenve
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
-import { renderIcon } from './render-icon';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 

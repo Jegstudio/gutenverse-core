@@ -106,9 +106,7 @@ class Frontend_Assets {
 				$this->icon_conditional_load_by_value( $attrs, 'icon', $conditions );
 				break;
 			case 'gutenverse/icon-list-item':
-				if ( ! isset( $attrs['iconType'] ) ) {
-					$this->icon_conditional_load( $conditions );
-				}
+				$this->icon_conditional_load_by_value( $attrs, 'icon', $conditions );
 				break;
 			case 'gutenverse/gallery':
 				$this->icon_conditional_load_by_value( $attrs, 'zoomIcon', $conditions );
@@ -177,9 +175,7 @@ class Frontend_Assets {
 				$this->icon_conditional_load_by_value( $attrs, 'closeIcon', $conditions );
 				break;
 			case 'gutenverse/social-icon':
-				if ( ! isset( $attrs['iconType'] ) ) {
-					$this->icon_conditional_load( $conditions );
-				}
+				$this->icon_conditional_load_by_value( $attrs, 'icon', $conditions );
 				break;
 			case 'gutenverse/taxonomy-list':
 				if ( isset( $attrs['showIcon'] ) && $attrs['showIcon'] ) {
