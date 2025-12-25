@@ -57,25 +57,36 @@ class GutenverseNavMenu extends Default {
         });
     }
 
-    _handleSubMenuOverflow(element) {
-        const item = element;
-        const rect = item.getBoundingClientRect();
+    _handleSubMenusOverflow(submenus) {
         const viewportWidth = window.innerWidth;
-        const leftVal = window.getComputedStyle(item).left;
+        const updates = [];
 
-        if (rect.right > viewportWidth) {
-            if (leftVal === '0px') {
-                u(item).attr('style', 'left: -120%;');
-                return;
+        submenus.forEach(submenu => {
+            const rect = submenu.getBoundingClientRect();
+            if (rect.right > viewportWidth) {
+                const leftVal = window.getComputedStyle(submenu).left;
+                updates.push({ submenu, leftVal });
             }
-            u(item).attr('style', 'left: auto; right: 100%;');
-        }
+        });
+
+        updates.forEach(({ submenu, leftVal }) => {
+            if (leftVal === '0px') {
+                u(submenu).attr('style', 'left: -120%;');
+            } else {
+                u(submenu).attr('style', 'left: auto; right: 100%;');
+            }
+        });
     }
 
     _toggleMenu(item) {
-        item.hasChildren.map((item) => {
-            this._handleSubMenuOverflow(u(item).find('.sub-menu').first());
+        const submenus = [];
+        item.hasChildren.each((node) => {
+            const submenu = u(node).find('.sub-menu').first();
+            if (submenu) {
+                submenus.push(submenu);
+            }
         });
+        this._handleSubMenusOverflow(submenus);
         item.openToggle.off('click').on('click', function () {
             if (item.container.hasClass('active')) {
                 item.container.removeClass('active');
