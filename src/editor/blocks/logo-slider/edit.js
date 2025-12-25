@@ -15,12 +15,14 @@ import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 
 export const logoNormalLazyLoad = (logo) => {
-    return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} {...(logo.lazyLoad && { loading: 'lazy' })} />;
+    return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} {...(logo.lazyLoad && { loading: 'lazy' })} width={logo.src?.width} height={logo.src?.height} />;
 };
 
 export const logoHoverLazyLoad = (logo) => {
     const hoverSrc = !isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src);
-    return <img className="hover-image" src={hoverSrc} alt={logo.title} {...(logo.lazyLoad && { loading: 'lazy' })} />;
+    const width = !isEmpty(logo.hoverSrc) ? logo.hoverSrc?.width : logo.src?.width;
+    const height = !isEmpty(logo.hoverSrc) ? logo.hoverSrc?.height : logo.src?.height;
+    return <img className="hover-image" src={hoverSrc} alt={logo.title} {...(logo.lazyLoad && { loading: 'lazy' })} width={width} height={height} />;
 };
 
 const LogoSlider = compose(

@@ -42,9 +42,6 @@
 		},
 		"icon": {
 			"type": "string",
-			"source": "attribute",
-			"selector": "i",
-			"attribute": "class",
 			"default": "fab fa-wordpress"
 		},
 		"iconType": {
