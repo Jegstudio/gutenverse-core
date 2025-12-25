@@ -61,6 +61,21 @@ class Frontend_Assets {
 	}
 
 	/**
+	 * Icon conditional load by value. This will only work if the icon type is 'icon' and icon default is font icon.
+	 *
+	 * @param mixed $attrs The value from the attributes array.
+	 * @param mixed $name The value from the attributes array.
+	 * @param mixed $conditions The value from the attributes array.
+	 */
+	public function icon_conditional_load_by_empty_value( $attrs, $name, &$conditions ) {
+		if ( ! isset( $attrs[ $name . 'Type' ] ) ) {
+			if ( isset( $attrs[ $name ] ) ) {
+				'' !== $attrs[ $name ] && $this->icon_conditional_load( $conditions );
+			}
+		}
+	}
+
+	/**
 	 * Load the font icon
 	 *
 	 * @param mixed  $conditions The value from the attributes array.
@@ -106,25 +121,21 @@ class Frontend_Assets {
 				$this->icon_conditional_load_by_value( $attrs, 'icon', $conditions );
 				break;
 			case 'gutenverse/icon-list-item':
-				$this->icon_conditional_load_by_value( $attrs, 'icon', $conditions );
+				if ( isset( $attrs['hideIcon'] ) ) {
+					! $attrs['hideIcon'] && $this->icon_conditional_load_by_empty_value( $attrs, 'icon', $conditions );
+				} else {
+					$this->icon_conditional_load_by_empty_value( $attrs, 'icon', $conditions );
+				}
 				break;
 			case 'gutenverse/gallery':
 				$this->icon_conditional_load_by_value( $attrs, 'zoomIcon', $conditions );
 				$this->icon_conditional_load_by_value( $attrs, 'linkIcon', $conditions );
 				if ( isset( $attrs['enableLoadMore'] ) && $attrs['enableLoadMore'] ) {
-					if ( ! isset( $attrs['enableLoadIconType'] ) ) {
-						if ( isset( $attrs['enableLoadIcon'] ) ) {
-							'' !== $attrs['enableLoadIcon'] && $this->icon_conditional_load( $conditions );
-						}
-					}
+					$this->icon_conditional_load_by_empty_value( $attrs, 'enableLoadIcon', $conditions );
 				}
 				break;
 			case 'gutenverse/image-box':
-				if ( ! isset( $attrs['titleIconType'] ) ) {
-					if ( isset( $attrs['titleIcon'] ) ) {
-						'' !== $attrs['titleIcon'] && $this->icon_conditional_load( $conditions );
-					}
-				}
+				$this->icon_conditional_load_by_empty_value( $attrs, 'titleIcon', $conditions );
 				break;
 			case 'gutenverse/popup-builder':
 				$this->icon_conditional_load_by_value( $attrs, 'closeIcon', $conditions );
@@ -158,11 +169,7 @@ class Frontend_Assets {
 				// Check pagination icons.
 				if ( isset( $attrs['paginationMode'] ) ) {
 					if ( in_array( $attrs['paginationMode'], array( 'loadmore', 'scrollload' ), true ) ) {
-						if ( ! isset( $attrs['paginationIconType'] ) ) {
-							if ( isset( $attrs['paginationIcon'] ) ) {
-								'' !== $attrs['paginationIcon'] && $this->icon_conditional_load( $conditions );
-							}
-						}
+						$this->icon_conditional_load_by_empty_value( $attrs, 'paginationIcon', $conditions );
 					}
 
 					if ( in_array( $attrs['paginationMode'], array( 'prevnext', 'number', 'normal-prevnext', 'normal-number' ), true ) ) {
@@ -214,11 +221,7 @@ class Frontend_Assets {
 				// Check pagination icons.
 				if ( isset( $attrs['paginationMode'] ) ) {
 					if ( in_array( $attrs['paginationMode'], array( 'loadmore', 'scrollload' ), true ) ) {
-						if ( ! isset( $attrs['paginationIconType'] ) ) {
-							if ( isset( $attrs['paginationIcon'] ) ) {
-								'' !== $attrs['paginationIcon'] && $this->icon_conditional_load( $conditions );
-							}
-						}
+						$this->icon_conditional_load_by_empty_value( $attrs, 'paginationIcon', $conditions );
 					}
 
 					if ( in_array( $attrs['paginationMode'], array( 'prevnext', 'number', 'normal-prevnext', 'normal-number' ), true ) ) {
