@@ -18,6 +18,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
         old_render_deletion_schedule = 'daily',
         remove_template_part_margin = true,
         remove_wp_emoji_script = false,
+        disable_wp_lazyload = true,
         file_delete_mechanism = 'manual',
         unused_size = '0 B',
     } = frontend_settings;
@@ -160,6 +161,13 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
                 title={__('Remove Template Parts Margin', '--gctd--')}
                 description={__('This will remove margin styling added to template parts from WordPress by default.', '--gctd--')}
                 value={remove_template_part_margin}
+                updateValue={updateValue}
+            />
+            <ControlCheckbox
+                id={'disable_wp_lazyload'}
+                title={__('Disable WordPress Lazy Load', '--gctd--')}
+                description={__('Our plugin already have lazyload functionality that is fully compatible with all our blocks.', '--gctd--')}
+                value={disable_wp_lazyload}
                 updateValue={updateValue}
             />
             <ControlCheckbox
