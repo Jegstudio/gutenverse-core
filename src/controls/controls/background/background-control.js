@@ -590,6 +590,14 @@ const BackgroundControl = (props) => {
                 ]}
                 onValueChange={slideImage => onValueChange({ ...value, slideImage })}
             />
+            {!isEmpty(value.slideImage) &&
+                <CheckboxControl
+                    label={__('Fetch Priority High', '--gctd--')}
+                    value={value.fetchPriorityHigh}
+                    onValueChange={fetchPriorityHigh => onValueChange({ ...value, fetchPriorityHigh })}
+                    help={__('Signals the browser to prioritize fetching this image. Use this only for the LCP (Largest Contentful Paint) element.', '--gctd--')}
+                />
+            }
             <CheckboxControl
                 label={__('Infinite Loop', '--gctd--')}
                 value={value.infiniteLoop}

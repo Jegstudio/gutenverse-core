@@ -345,32 +345,46 @@ class Frontend_Generator {
 			// Check for Background Attribute with fetchPriorityHigh.
 			if ( ! empty( $block['attrs']['background']['fetchPriorityHigh'] ) ) {
 				$bg        = $block['attrs']['background'];
-				$image_url = '';
+				$image_urls = array();
 
 				if ( ! empty( $bg['useFeaturedImage'] ) && has_post_thumbnail() ) {
 					$use_featured = $bg['useFeaturedImage'];
 					if ( is_array( $use_featured ) ) {
 						if ( ! empty( $use_featured['Desktop'] ) ) {
-							$image_url = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+							$image_urls[] = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 						}
 					} else { // Boolean or simple value.
-						$image_url = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+						$image_urls[] = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+					}
+				} elseif ( ! empty( $bg['type'] ) && 'slide' === $bg['type'] && ! empty( $bg['slideImage'] ) ) {
+					$slide_images = $bg['slideImage'];
+
+					if ( is_array( $slide_images ) ) {
+						foreach ( $slide_images as $slide ) {
+							if ( isset( $slide['image']['image'] ) ) {
+								$image_urls[] = $slide['image']['image'];
+							}
+						}
 					}
 				} elseif ( ! empty( $bg['image'] ) ) {
 					$image = $bg['image'];
 					if ( isset( $image['image'] ) ) {
-						$image_url = $image['image'];
+						$image_urls[] = $image['image'];
 					} elseif ( isset( $image['url'] ) ) {
-						$image_url = $image['url'];
+						$image_urls[] = $image['url'];
 					} elseif ( isset( $image['Desktop']['image'] ) ) {
-						$image_url = $image['Desktop']['image'];
+						$image_urls[] = $image['Desktop']['image'];
 					} elseif ( isset( $image['Desktop']['url'] ) ) {
-						$image_url = $image['Desktop']['url'];
+						$image_urls[] = $image['Desktop']['url'];
 					}
 				}
 
-				if ( $image_url ) {
-					$this->preload_images[] = $image_url;
+				if ( ! empty( $image_urls ) ) {
+					foreach ( $image_urls as $url ) {
+						if ( $url ) {
+							$this->preload_images[] = $url;
+						}
+					}
 				}
 			}
 
