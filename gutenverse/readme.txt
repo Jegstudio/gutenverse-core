@@ -301,6 +301,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 = 3.4.1 =
 ##### Bug Fixes
 * fix issue with social icon block back to default
+* fix issue with button animation class
 
 = 3.4.0 =
 ##### New & Improvements
