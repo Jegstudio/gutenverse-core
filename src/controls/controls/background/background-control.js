@@ -277,7 +277,7 @@ const BackgroundControl = (props) => {
                     label={__('Fetch Priority High', '--gctd--')}
                     value={value.fetchPriorityHigh}
                     onValueChange={fetchPriorityHigh => onValueChange({ ...value, fetchPriorityHigh })}
-                    help={__('Signals the browser to prioritize fetching this image. Use this only for the LCP (Largest Contentful Paint) element.', '--gctd--')}
+                    description={__('Signals the browser to prioritize fetching this image. Use this only for the LCP (Largest Contentful Paint) element.', '--gctd--')}
                 />
             }
             <SelectControl
@@ -595,7 +595,7 @@ const BackgroundControl = (props) => {
                     label={__('Fetch Priority High', '--gctd--')}
                     value={value.fetchPriorityHigh}
                     onValueChange={fetchPriorityHigh => onValueChange({ ...value, fetchPriorityHigh })}
-                    help={__('Signals the browser to prioritize fetching this image. Use this only for the LCP (Largest Contentful Paint) element.', '--gctd--')}
+                    description={__('Signals the browser to prioritize fetching this image. Use this only for the LCP (Largest Contentful Paint) element.', '--gctd--')}
                 />
             }
             <CheckboxControl
