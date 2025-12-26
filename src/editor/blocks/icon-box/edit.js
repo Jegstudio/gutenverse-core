@@ -57,6 +57,7 @@ const IconBoxBlock = compose(
         titleTag,
         image,
         imageAlt,
+        altType,
         icon,
         iconSVG,
         iconType,
@@ -86,7 +87,6 @@ const IconBoxBlock = compose(
         panelIsClicked
     } = useRichTextParameter();
 
-    const imageAltText = imageAlt || null;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const elementRef = useRef();
@@ -94,6 +94,16 @@ const IconBoxBlock = compose(
     const { dynamicHref } = useDynamicUrl(dynamicUrl);
     const isGlobalLinkSet = url !== undefined && url !== '';
     const deviceType = getDeviceType();
+    let imageAltText = imageAlt || null;
+
+    switch (altType) {
+        case 'original':
+            imageAltText = image.altOriginal;
+            break;
+        case 'custom':
+            imageAltText = imageAlt;
+            break;
+    }
 
     const hasInnerBlocks = useSelect(select => {
         const block = select('core/block-editor').getBlock(props.clientId);
@@ -121,7 +131,10 @@ const IconBoxBlock = compose(
         ref: elementRef
     });
 
-    const imageLazyLoad = () => <img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />;
+    const imageLazyLoad = () => {
+
+        return <img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />
+    };
 
     const iconContent = () => {
         switch (iconType) {

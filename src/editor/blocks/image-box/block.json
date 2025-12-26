@@ -90,6 +90,13 @@
 		"image": {
 			"type": "object"
 		},
+		"altType": {
+			"type": "string",
+			"default": "none"
+		},
+		"altOriginal": {
+			"type": "string"
+		},
 		"imageAlt": {
 			"type": "string"
 		},

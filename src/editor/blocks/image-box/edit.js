@@ -23,11 +23,20 @@ import { CopyElementToolbar } from 'gutenverse-core/components';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 export const ImageBoxFigure = attributes => {
-    const { image, imageAlt, lazyLoad } = attributes;
+    const { image, imageAlt, altType, altOriginal, lazyLoad } = attributes;
     const { media = {}, size } = image || {};
     const { imageId, sizes = {} } = media || {};
 
-    const imageAltText = imageAlt || null;
+    let imageAltText = imageAlt || null;
+
+    switch (altType) {
+        case 'original':
+            imageAltText = altOriginal;
+            break;
+        case 'custom':
+            imageAltText = imageAlt;
+            break;
+    }
 
     // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
     const imageLazyLoad = () => <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />;
@@ -72,7 +81,8 @@ const ImageBoxPicker = (props) => {
                     sizes: media.sizes
                 },
                 size: 'full'
-            }
+            },
+            altOriginal: media.alt,
         });
     };
 

@@ -1,7 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ImageSizeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
-export const panelImage = () => {
+export const panelImage = (props) => {
+    const { altType } = props;
     return [
         {
             id: 'image',
@@ -14,8 +15,28 @@ export const panelImage = () => {
             component: CheckboxControl,
         },
         {
+            id: 'altType',
+            label: __('Alt Type', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: 'None',
+                    value: 'none'
+                },
+                {
+                    label: 'Alt from Image',
+                    value: 'original'
+                },
+                {
+                    label: 'Custom Alt',
+                    value: 'custom'
+                },
+            ]
+        },
+        {
             id: 'imageAlt',
-            label: __('Image Alt', 'gutenverse'),
+            show: altType === 'custom',
+            label: __('Custom Caption', 'gutenverse'),
             component: TextControl,
         },
         {

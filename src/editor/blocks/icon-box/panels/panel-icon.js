@@ -6,6 +6,7 @@ export const panelIcon = (props) => {
     const {
         elementId,
         iconType,
+        altType,
     } = props;
 
     const deviceType = getDeviceType();
@@ -104,8 +105,27 @@ export const panelIcon = (props) => {
             component: CheckboxControl,
         },
         {
+            id: 'altType',
+            label: __('Alt Type', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: 'None',
+                    value: 'none'
+                },
+                {
+                    label: 'Alt from Image',
+                    value: 'original'
+                },
+                {
+                    label: 'Custom Alt',
+                    value: 'custom'
+                },
+            ]
+        },
+        {
             id: 'imageAlt',
-            show: iconType && iconType === 'image',
+            show: iconType && iconType === 'image' && altType === 'custom',
             label: __('Image Alt', 'gutenverse'),
             component: TextControl,
         },

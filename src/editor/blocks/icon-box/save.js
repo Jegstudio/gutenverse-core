@@ -49,6 +49,7 @@ const save = compose(
         description,
         image,
         imageAlt,
+        altType,
         icon,
         iconSVG,
         iconType,
@@ -70,9 +71,18 @@ const save = compose(
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
-    const imageAltText = imageAlt || null;
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
+    let imageAltText = imageAlt || null;
+
+    switch (altType) {
+        case 'original':
+            imageAltText = image.altOriginal;
+            break;
+        case 'custom':
+            imageAltText = imageAlt;
+            break;
+    }
 
     const className = classnames(
         'guten-element',

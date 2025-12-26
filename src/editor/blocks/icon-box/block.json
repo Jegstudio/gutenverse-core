@@ -190,6 +190,10 @@
 		"image": {
 			"type": "object"
 		},
+		"altType": {
+			"type": "string",
+			"default": "none"
+		},
 		"imageAlt": {
 			"type": "string"
 		},
