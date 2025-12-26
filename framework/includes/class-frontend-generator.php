@@ -56,6 +56,13 @@ class Frontend_Generator {
 	protected $style_list = array();
 
 	/**
+	 * List of images required to preload
+	 *
+	 * @var array
+	 */
+	protected $preload_images = array();
+
+	/**
 	 * Init constructor.
 	 * priority change to 10 and embed font after style generator with priority 11.
 	 * to fix font not loaded in frontend for section that imported from libary.
@@ -69,6 +76,7 @@ class Frontend_Generator {
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_scripts' ), 51 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_styles' ), 51 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'block_styles' ) );
+		add_action( 'wp_head', array( $this, 'render_preload_images' ), 5 );
 	}
 
 	/**
@@ -333,7 +341,52 @@ class Frontend_Generator {
 					}
 				}
 			}
+
+			// Check for Background Attribute with fetchPriorityHigh.
+			if ( ! empty( $block['attrs']['background']['fetchPriorityHigh'] ) ) {
+				$bg        = $block['attrs']['background'];
+				$image_url = '';
+
+				if ( ! empty( $bg['useFeaturedImage'] ) && has_post_thumbnail() ) {
+					$use_featured = $bg['useFeaturedImage'];
+					if ( is_array( $use_featured ) ) {
+						if ( ! empty( $use_featured['Desktop'] ) ) {
+							$image_url = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+						}
+					} else { // Boolean or simple value.
+						$image_url = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+					}
+				} elseif ( ! empty( $bg['image'] ) ) {
+					$image = $bg['image'];
+					if ( isset( $image['image'] ) ) {
+						$image_url = $image['image'];
+					} elseif ( isset( $image['url'] ) ) {
+						$image_url = $image['url'];
+					} elseif ( isset( $image['Desktop']['image'] ) ) {
+						$image_url = $image['Desktop']['image'];
+					} elseif ( isset( $image['Desktop']['url'] ) ) {
+						$image_url = $image['Desktop']['url'];
+					}
+				}
+
+				if ( $image_url ) {
+					$this->preload_images[] = $image_url;
+				}
+			}
+
 			do_action_ref_array( 'gutenverse_loop_blocks', array( $block, &$style, $this ) );
+		}
+	}
+
+	/**
+	 * Render Preload Images
+	 */
+	public function render_preload_images() {
+		if ( ! empty( $this->preload_images ) ) {
+			$this->preload_images = array_unique( $this->preload_images );
+			foreach ( $this->preload_images as $image_url ) {
+				printf( '<link rel="preload" fetchpriority="high" as="image" href="%s">', esc_url( $image_url ) );
+			}
 		}
 	}
 
