@@ -1,6 +1,6 @@
 
 import { classnames } from 'gutenverse-core/components';
-import { RichText, useBlockProps } from '@wordpress/block-editor';
+import { RichText } from '@wordpress/block-editor';
 import { renderIcon } from 'gutenverse-core/helper';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
@@ -40,7 +40,7 @@ const save = ({ attributes }) => {
     );
 
     return (
-        <div {...useBlockProps.save({ className })}>
+        <div className={className}>
             <div className="list-divider"></div>
             <a id={elementId} href={href} target={linkTarget} rel={rel} aria-label={ariaLabel}>
                 {!hideIcon && renderIcon(icon, iconType, iconSVG)}
