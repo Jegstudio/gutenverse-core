@@ -1,7 +1,8 @@
 import { compose } from '@wordpress/compose';
+
 import { classnames } from 'gutenverse-core/components';
 import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
-import { ImageBoxFigure } from './edit';
+import { ImageBoxFigure } from '../../edit';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
@@ -55,7 +56,9 @@ const save = compose(
         titleIconSVG,
         hoverBottom,
         hoverBottomDirection,
+        hasInnerBlocks,
         includeButton,
+        buttonUrl
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -74,40 +77,38 @@ const save = compose(
     const ContentBody = () => (
         <div className="inner-container">
             <div className="image-box-header">
-                <WrapAHref {...props}>
-                    <ImageBoxFigure {...attributes} />
-                </WrapAHref>
+                {
+                    buttonUrl ?
+                        <a href={buttonUrl} ><ImageBoxFigure {...attributes} /></a> :
+                        <ImageBoxFigure {...attributes} />
+                }
             </div>
             <div className="image-box-body">
                 {
                     <div className="body-inner">
                         {
-                            title && <WrapAHref {...props}>
-                                <TitleTag className={classnames(
-                                    'body-title',
-                                    `icon-position-${titleIconPosition}`
-                                )}>
-                                    {titleIconPosition === 'before' && <span className="image-box-icon icon-position-before">
-                                        {renderIcon(titleIcon, titleIconType, titleIconSVG)}
-                                    </span>}
-                                    <RichText.Content
-                                        value={title}
-                                        tagName="span"
-                                    />
-                                    {titleIconPosition === 'after' && <span className="image-box-icon icon-position-after">
-                                        {renderIcon(titleIcon, titleIconType, titleIconSVG)}
-                                    </span>}
-                                </TitleTag>
-                            </WrapAHref>
+                            title && <TitleTag className={classnames(
+                                'body-title',
+                                `icon-position-${titleIconPosition}`
+                            )}>
+                                {titleIconPosition === 'before' && <span className="image-box-icon icon-position-before">
+                                    {renderIcon(titleIcon, titleIconType, titleIconSVG)}
+                                </span>}
+                                <RichText.Content
+                                    value={title}
+                                    tagName="span"
+                                />
+                                {titleIconPosition === 'after' && <span className="image-box-icon icon-position-after">
+                                    {renderIcon(titleIcon, titleIconType, titleIconSVG)}
+                                </span>}
+                            </TitleTag>
                         }
                         {
-                            description && <WrapAHref {...props}>
-                                <RichText.Content
-                                    className="body-description"
-                                    value={description}
-                                    tagName="p"
-                                />
-                            </WrapAHref>
+                            description && <RichText.Content
+                                className="body-description"
+                                value={description}
+                                tagName="p"
+                            />
                         }
                         {includeButton && <InnerBlocks.Content />}
                         {hoverBottom && <div className={'border-bottom'}>
@@ -121,7 +122,9 @@ const save = compose(
 
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <ContentBody />
+            {hasInnerBlocks && includeButton ? <ContentBody /> : <WrapAHref {...props}>
+                <ContentBody />
+            </WrapAHref>}
         </div>
     );
 });
