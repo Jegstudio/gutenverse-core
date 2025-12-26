@@ -52,7 +52,7 @@ const save = compose(
         elementId
     );
 
-    return <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
+    return <div className={className} {...advanceAnimationData}>
         <a id={elementId} href={href} target={linkTarget} rel={rel} aria-label={ariaLabel}>
             {renderIcon(icon, iconType, iconSVG)}
             {
