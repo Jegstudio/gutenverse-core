@@ -447,6 +447,18 @@ export const IconArrowRightSVG = ({ fill = '#00223D' }) => {
 
 };
 
+export const IconArrowUpSVG = ({ size = 16, ...props }) => {
+    return <svg {...props} width={size} height={size} viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+        <path fillRule="evenodd" clipRule="evenodd" d="M8 3.56L3.8 7.708l.707.707 4.147-4.146V14h1V4.269l4.146 4.146.707-.707L8 3.56z" />
+    </svg>;
+};
+
+export const IconArrowDownSVG = ({ size = 16, ...props }) => {
+    return <svg {...props} width={size} height={size} viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+        <path fillRule="evenodd" clipRule="evenodd" d="M8 12.44l4.2-4.148-.707-.707-4.147 4.146V2h-1v9.731L2.146 7.585l-.707.707L8 12.44z" />
+    </svg>;
+};
+
 export const IconLoadingSVG = () => {
     return <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8.69737 1V2.89873M8.69737 12.962V16M3.76316 8.40506H1M16 8.40506H14.8158M13.7951 13.3092L13.2368 12.7722M13.9586 3.40439L12.8421 4.47848M3.10914 13.7811L5.34211 11.6329M3.27264 3.2471L4.94737 4.85823" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
