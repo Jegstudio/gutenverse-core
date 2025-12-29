@@ -81,7 +81,6 @@ const save = compose(
                                 frontEnd={true}
                                 index={index}
                                 src={getImageSrc(data.src)}
-                                imgDetail={data.src}
                             />
                         </div>)}
                     </div>

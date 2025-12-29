@@ -78,7 +78,7 @@ const TestimonialsBlock = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             <div className="testimonials-list" onClick={focusBlock}>
@@ -109,6 +109,7 @@ const TestimonialsBlock = compose(
                             index={index}
                             testimonialData={testimonialData}
                             src={getImageSrc(data.src)}
+                            imgDetail={data.src}
                         />
                     </div>)}
                 </WPSwiper>
