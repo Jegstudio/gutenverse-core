@@ -192,7 +192,7 @@
 		},
 		"altType": {
 			"type": "string",
-			"default": "none"
+			"default": "custom"
 		},
 		"imageAlt": {
 			"type": "string"

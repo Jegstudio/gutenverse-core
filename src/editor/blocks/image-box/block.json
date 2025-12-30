@@ -92,7 +92,7 @@
 		},
 		"altType": {
 			"type": "string",
-			"default": "none"
+			"default": "custom"
 		},
 		"altOriginal": {
 			"type": "string"
