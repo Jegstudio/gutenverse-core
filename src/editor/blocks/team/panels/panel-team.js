@@ -18,6 +18,30 @@ export const teamPanel = (props) => {
             component: ImageControl
         },
         {
+            id: 'altType',
+            label: __('Alt Type', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: 'None',
+                    value: 'none'
+                },
+                {
+                    label: 'Alt from Image',
+                    value: 'original'
+                },
+                {
+                    label: 'Custom Alt',
+                    value: 'custom'
+                },
+            ]
+        },
+        {
+            id: 'imageAlt',
+            label: __('Image Alt', 'gutenverse'),
+            component: TextControl,
+        },
+        {
             id: 'lazy',
             label: __('Set Lazy Load', 'gutenverse'),
             component: CheckboxControl,
