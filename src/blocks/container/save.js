@@ -1,6 +1,6 @@
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import classnames from 'classnames';
-import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
 
 const save = ({ attributes }) => {
     const {
@@ -8,22 +8,23 @@ const save = ({ attributes }) => {
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
+    const displayClass = useDisplayFrontend(attributes);
 
     const className = classnames(
         'guten-element',
-        'guten-container',
+        'guten-flex-container',
         elementId,
         animationClass,
+        displayClass,
     );
 
     return (
         <div {...useBlockProps.save({ className })}>
             <div className="guten-background-overlay" />
-            <div className="guten-container-inner">
-                <InnerBlocks.Content />
-            </div>
+            <InnerBlocks.Content />
         </div>
     );
 };
 
 export default save;
+

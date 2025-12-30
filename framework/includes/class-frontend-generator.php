@@ -11,6 +11,7 @@ namespace Gutenverse\Framework;
 
 use WP_Block_Patterns_Registry;
 use Gutenverse\Framework\Style\Column;
+use Gutenverse\Framework\Style\Container;
 use Gutenverse\Framework\Style\Wrapper;
 use Gutenverse\Framework\Style\Section;
 
@@ -423,6 +424,9 @@ class Frontend_Generator {
 			case 'gutenverse/wrapper':
 				$instance = new Wrapper( $attrs );
 				break;
+			case 'gutenverse/container':
+				$instance = new Container( $attrs );
+				break;
 		}
 
 		$instance = apply_filters( 'gutenverse_block_style_instance', $instance, $name, $attrs );
@@ -714,6 +718,7 @@ class Frontend_Generator {
 	public function block_styles() {
 		$blocks = array(
 			'column',
+			'container',
 			'section',
 			'wrapper',
 		);

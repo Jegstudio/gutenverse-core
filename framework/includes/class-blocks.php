@@ -78,5 +78,6 @@ class Blocks {
 		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/section/block.json' );
 		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/column/block.json' );
 		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/wrapper/block.json' );
+		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/container/block.json' );
 	}
 }

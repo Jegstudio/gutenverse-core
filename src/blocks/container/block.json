@@ -16,12 +16,7 @@
 		},
 		"containerWidth": {
 			"type": "object",
-			"default": {
-				"Desktop": {
-					"point": "1140",
-					"unit": "px"
-				}
-			},
+			"default": {},
 			"copyStyle": true
 		},
 		"minHeight": {
@@ -31,23 +26,17 @@
 		},
 		"flexDirection": {
 			"type": "object",
-			"default": {
-				"Desktop": "row"
-			},
+			"default": {},
 			"copyStyle": true
 		},
 		"justifyContent": {
 			"type": "object",
-			"default": {
-				"Desktop": "flex-start"
-			},
+			"default": {},
 			"copyStyle": true
 		},
 		"alignItems": {
 			"type": "object",
-			"default": {
-				"Desktop": "flex-start"
-			},
+			"default": {},
 			"copyStyle": true
 		},
 		"columnGap": {
@@ -62,9 +51,7 @@
 		},
 		"flexWrap": {
 			"type": "object",
-			"default": {
-				"Desktop": "nowrap"
-			},
+			"default": {},
 			"copyStyle": true
 		},
 		"alignContent": {
@@ -103,6 +90,10 @@
 		"backgroundOverlayHover": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"backgroundAnimated": {
+			"type": "object",
+			"default": {}
 		},
 		"opacityHover": {
 			"type": "string",
