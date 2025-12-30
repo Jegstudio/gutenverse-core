@@ -1,0 +1,228 @@
+{
+	"apiVersion": 3,
+	"name": "gutenverse/container",
+	"title": "Container",
+	"description": "Add a Container with flexbox layout controls similar to Elementor.",
+	"category": "gutenverse-structure",
+	"allowCopyStyle": true,
+	"attributes": {
+		"elementId": {
+			"type": "string"
+		},
+		"contentWidth": {
+			"type": "string",
+			"default": "boxed",
+			"copyStyle": true
+		},
+		"containerWidth": {
+			"type": "object",
+			"default": {
+				"Desktop": {
+					"point": "1140",
+					"unit": "px"
+				}
+			},
+			"copyStyle": true
+		},
+		"minHeight": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"flexDirection": {
+			"type": "object",
+			"default": {
+				"Desktop": "row"
+			},
+			"copyStyle": true
+		},
+		"justifyContent": {
+			"type": "object",
+			"default": {
+				"Desktop": "flex-start"
+			},
+			"copyStyle": true
+		},
+		"alignItems": {
+			"type": "object",
+			"default": {
+				"Desktop": "flex-start"
+			},
+			"copyStyle": true
+		},
+		"columnGap": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"rowGap": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"flexWrap": {
+			"type": "object",
+			"default": {
+				"Desktop": "nowrap"
+			},
+			"copyStyle": true
+		},
+		"alignContent": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"overflow": {
+			"type": "string",
+			"default": "visible",
+			"copyStyle": true
+		},
+		"background": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"backgroundHover": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"backgroundTransition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"backgroundOverlay": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"opacity": {
+			"type": "string",
+			"copyStyle": true
+		},
+		"backgroundOverlayHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"opacityHover": {
+			"type": "string",
+			"copyStyle": true
+		},
+		"border": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "border",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
+		"boxShadow": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderHoverResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
+		"boxShadowHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"margin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"padding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"zIndex": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"animation": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"hideDesktop": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideTablet": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideMobile": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"positioningType": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningWidth": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningAlign": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningLocation": {
+			"type": "string",
+			"copyStyle": true
+		},
+		"positioningLeft": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningRight": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningTop": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningBottom": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"advanceAnimation": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"transform": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mask": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"className": false,
+		"anchor": true
+	},
+	"keywords": ["container", "flexbox", "layout", "structure"],
+	"style": ["gutenverse-core-frontend-container-style"]
+}
