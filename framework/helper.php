@@ -480,11 +480,12 @@ if ( ! function_exists( 'gutenverse_get_json' ) ) {
 	 * @param string $path .
 	 */
 	function gutenverse_get_json( $path ) {
-		ob_start();
-		include $path;
-		$data = ob_get_clean();
-
-		return json_decode( $data, true );
+		if ( file_exists( $path ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			$data = file_get_contents( $path );
+			return json_decode( $data, true );
+		}
+		return array();
 	}
 }
 
