@@ -49,6 +49,8 @@ const save = compose(
                             src={getImageSrc(item.image)}
                             alt={item.title}
                             {...(item.lazyLoad && { loading: 'lazy' })}
+                            width={item.image?.width}
+                            height={item.image?.height}
                         />
                     </div>
                 </div>;

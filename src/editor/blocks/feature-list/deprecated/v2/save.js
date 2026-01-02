@@ -1,27 +1,18 @@
 import { compose } from '@wordpress/compose';
-import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
-import { panelList } from './panels/panel-list';
-import { useEffect, useRef } from '@wordpress/element';
+import { useBlockProps } from '@wordpress/block-editor';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
-import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
+import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
+import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 
-const FeatureListBlock = compose(
-    withPartialRender,
-    withPassRef,
-    withAnimationAdvanceV2('feature-list'),
-    withMouseMoveEffect
+const save = compose(
+    withAnimationAdvanceScript('icon-box'),
+    withMouseMoveEffectScript
 )((props) => {
     const {
-        attributes,
-        clientId,
-        setBlockRef,
+        attributes
     } = props;
 
     const {
@@ -31,26 +22,17 @@ const FeatureListBlock = compose(
         showConnector
     } = attributes;
 
-    const animationClass = useAnimationEditor(attributes);
-    const displayClass = useDisplayEditor(attributes);
-    const elementRef = useRef(null);
-    const deviceType = getDeviceType();
+    const advanceAnimationData = useAnimationAdvanceData(attributes);
+    const animationClass = useAnimationFrontend(attributes);
+    const displayClass = useDisplayFrontend(attributes);
 
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-    useDynamicScript(elementRef);
-
-    const blockProps = useBlockProps({
-        className: classnames(
-            'guten-element',
-            'guten-feature-list',
-            'no-margin',
-            elementId,
-            animationClass,
-            displayClass,
-        ),
-        ref: elementRef
-    });
+    const className = classnames(
+        'guten-element',
+        elementId,
+        animationClass,
+        displayClass,
+        'guten-feature-list',
+    );
 
     const iconContent = (item, index) => {
         switch (item.type) {
@@ -67,8 +49,6 @@ const FeatureListBlock = compose(
                             src={getImageSrc(item.image)}
                             alt={item.title}
                             {...(item.lazyLoad && { loading: 'lazy' })}
-                            width={item.image?.width}
-                            height={item.image?.height}
                         />
                     </div>
                 </div>;
@@ -97,17 +77,8 @@ const FeatureListBlock = compose(
                 return null;
         }
     };
-
-    useEffect(() => {
-        if (elementRef) {
-            setBlockRef(elementRef);
-        }
-    }, [elementRef]);
-
-    return <>
-        <CopyElementToolbar {...props} />
-        <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} elementRef={elementRef} />
-        <div  {...blockProps}>
+    return (
+        <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
             <div className="feature-list-wrapper">
                 {
                     featureList.map((el, index) => {
@@ -124,7 +95,7 @@ const FeatureListBlock = compose(
                 }
             </div>
         </div>
-    </>;
+    );
 });
 
-export default FeatureListBlock;
+export default save;
