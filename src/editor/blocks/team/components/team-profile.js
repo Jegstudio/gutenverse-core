@@ -16,6 +16,8 @@ const TeamProfile = (props) => {
     const {
         profileType,
         src,
+        altType,
+        imageAlt,
         lazy,
         addPopup,
         overlayType,
@@ -33,8 +35,18 @@ const TeamProfile = (props) => {
     const lazyLoad = () => {
         const height = src?.height;
         const width = src?.width;
+        let imageAltText = name || null;
 
-        return <img src={getImageSrc(src)} alt={name} {...(lazy && { loading: 'lazy' })} {...(height && { height })} {...(width && { width })} />;
+        switch (altType) {
+            case 'original':
+                imageAltText = src?.altOriginal;
+                break;
+            case 'custom':
+                imageAltText = imageAlt;
+                break;
+        }
+
+        return <img src={getImageSrc(src)} alt={imageAltText} {...(lazy && { loading: 'lazy' })} {...(height && { height })} {...(width && { width })} />;
     };
 
     const contentDesc = (classnames, ariaLabel, identifier, data, tag) => {

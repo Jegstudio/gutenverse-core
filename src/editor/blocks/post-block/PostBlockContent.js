@@ -221,7 +221,7 @@ const PostBlockContent = (props) => {
         return (
             <article key={post?.id || index} className={postClasses}>
                 <div className="guten-thumb">
-                    <a href="#">
+                    <a href="javascript:void(0);">
                         <div className="thumbnail-container">
                             <img
                                 loading="eager"
