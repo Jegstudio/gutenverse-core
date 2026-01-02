@@ -16,7 +16,6 @@ const WrapAHref = ({ attributes, children }) => {
         rel,
         buttonClass = '',
         elementId,
-        anchorAriaLabel
     } = attributes;
 
     if (url !== undefined && url !== '') {
@@ -27,8 +26,7 @@ const WrapAHref = ({ attributes, children }) => {
             attributes,
             elementId
         );
-        const ariaLabelContent = anchorAriaLabel ? anchorAriaLabel : null;
-        return <a aria-label={ariaLabelContent} className={buttonClass} href={href} target={linkTarget} rel={rel}>
+        return <a className={buttonClass} href={href} target={linkTarget} rel={rel}>
             {children}
         </a>;
     } else {

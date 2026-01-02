@@ -1,6 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, IconSVGControl, IconRadioControl, SelectControl, AlertControl, SizeControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconSVGControl, IconRadioControl, SelectControl, AlertControl, SizeControl, TextControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
@@ -9,7 +9,8 @@ export const panelGeneral = (props) => {
         elementId,
         watermarkShow,
         badgeShow,
-        heightControl
+        heightControl,
+        url
     } = props;
     const deviceType = getDeviceType();
 
@@ -251,6 +252,12 @@ export const panelGeneral = (props) => {
                     value: 'bottomright'
                 },
             ]
+        },
+        {
+            id: 'anchorAriaLabel',
+            label: __('Aria Label', 'gutenverse'),
+            component: TextControl,
+            show: url !== undefined && url !== ''
         }
     ];
 };

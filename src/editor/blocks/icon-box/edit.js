@@ -98,7 +98,7 @@ const IconBoxBlock = compose(
 
     switch (altType) {
         case 'original':
-            imageAltText = image.altOriginal;
+            imageAltText = image?.altOriginal;
             break;
         case 'custom':
             imageAltText = imageAlt;
@@ -132,8 +132,7 @@ const IconBoxBlock = compose(
     });
 
     const imageLazyLoad = () => {
-
-        return <img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />
+        return <img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} />;
     };
 
     const iconContent = () => {

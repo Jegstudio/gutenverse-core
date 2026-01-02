@@ -568,12 +568,24 @@
 		"hasInnerBlocks": {
 			"type": "boolean",
 			"default": false
+		},
+		"anchorAriaLabel": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
 		"className": false,
 		"anchor": true
 	},
-	"keywords": ["icon", "box", "image", "symbol", "logo"],
-	"style": ["gutenverse-frontend-icon-box-style"]
+	"keywords": [
+		"icon",
+		"box",
+		"image",
+		"symbol",
+		"logo"
+	],
+	"style": [
+		"gutenverse-frontend-icon-box-style"
+	]
 }

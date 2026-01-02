@@ -464,7 +464,7 @@ class Post_Block extends Post_Abstract {
 				}
 			}
 
-			$thumb = $this->guten_edit_post( $post->ID ) . '<a href="' . $post_url . '">' . $thumbnail . '</a>';
+			$thumb = $this->guten_edit_post( $post->ID ) . '<a aria-label="' . $post_title . '" href="' . $post_url . '">' . $thumbnail . '</a>';
 
 			if ( 'type-3' === $type ) {
 				$block = $block .
