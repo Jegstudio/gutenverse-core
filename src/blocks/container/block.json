@@ -9,6 +9,11 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mode": {
+			"type": "string",
+			"default": "initial",
+			"copyStyle": true
+		},
 		"contentWidth": {
 			"type": "string",
 			"default": "boxed",

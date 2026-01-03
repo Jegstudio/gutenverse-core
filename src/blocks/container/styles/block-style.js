@@ -1,9 +1,16 @@
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
+import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
+    data = backgroundStyle({
+        attributes,
+        data,
+        backgroundSelector: `.${elementId}:not(.background-animated), .${elementId}.background-animated > .guten-background-animated .animated-layer`,
+        backgroundHoverSelector: `.${elementId}:not(.background-animated):hover, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer`,
+    });
     const device = getDeviceType();
     const selector = `.guten-flex-container.${elementId}`;
 
@@ -15,7 +22,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': selector,
         'properties': [
             {
-                'name': 'max-width',
+                'name': 'width',
                 'valueType': 'direct'
             }
         ],

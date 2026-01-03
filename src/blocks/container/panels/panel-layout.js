@@ -333,7 +333,7 @@ export const layoutPanel = (props) => {
                     'selector': selector,
                     'properties': [
                         {
-                            'name': 'max-width',
+                            'name': 'width',
                             'valueType': 'direct'
                         }
                     ],
