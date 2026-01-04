@@ -1,4 +1,9 @@
 /** Editor Style **/
+.guten-container,
+.guten-flex-container {
+    transition: none !important;
+}
+
 .guten-container {
     &.initial {
         text-align: center;
@@ -124,6 +129,91 @@
                     box-shadow: none;
                     border: 1px dashed #737373;
                 }
+            }
+        }
+    }
+
+    &.is-hovered,
+    &.is-selected {
+        >.guten-container-resizeable {
+            >.container-resize {
+                svg {
+                    opacity: 1;
+                    transition: opacity 0.2s ease-in-out;
+                    z-index: 20;
+                }
+            }
+
+            >div {
+                >.components-resizable-box__handle:before,
+                >.components-resizable-box__handle:after {
+                    content: "";
+                    border: 2px solid #3B57F7;
+                    cursor: inherit;
+                    display: block;
+                    position: absolute;
+                    right: 0;
+                    width: 0;
+                    top: 5px;
+                    height: calc(100% - 12px);
+                    border-radius: 0;
+                }
+            }
+        }
+    }
+
+    &:not(.is-selected),
+    &:not(.is-hovered) {
+
+        .components-resizable-box__handle:before,
+        .components-resizable-box__handle:after {
+            display: none;
+        }
+    }
+
+    .container-resize {
+        position: absolute;
+        top: calc( 50% - 10px);
+        right: 50px;
+
+        svg {
+            position: absolute;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        &:hover,
+        &.dragging {
+            svg {
+                opacity: 1;
+            }
+
+            .container-popup {
+                display: flex;
+                transition: opacity 0.2s linear;
+            }
+        }
+
+        .container-popup {
+            display: none;
+            position: absolute;
+            background: #000;
+            color: #fff;
+            z-index: 999;
+            border-radius: 0 0 3px 3px;
+            overflow: hidden;
+
+            input.container-next {
+                color: #fff;
+                font-size: 10px;
+                line-height: 11px;
+                min-height: unset;
+                padding: unset;
+                text-align: center;
+                width: 50px;
+                height: 18px;
+                background: #000;
+                border: none;
             }
         }
     }
