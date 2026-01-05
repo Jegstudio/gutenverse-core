@@ -303,8 +303,11 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * add aria label to icon box image, post block image, advanced button, and nav menu
 * add width & height image property for team block, logo slider block, testimonial block, and feature list block
 * add option to choose alt text from image for team block, icon box block, and image box block
+* add option for aria label in heading block’s link
+* add option fetch priority high for background image
 
 ##### Bug Fixes
+* fix background slideshow style overwritten by default
 * fix issue with glitching background image for background slider mode
 
 = 3.4.1 =
