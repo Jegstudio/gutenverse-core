@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 3.4.1
+Stable tag: 3.4.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,6 +298,15 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.4.3 =
+##### New & Improvements
+* add aria label to icon box image, post block image, advanced button, and nav menu
+* add width & height image property for team block, logo slider block, testimonial block, and feature list block
+* add option to choose alt text from image for team block, icon box block, and image box block
+
+##### Bug Fixes
+* fix issue with glitching background image for background slider mode
+
 = 3.4.1 =
 ##### Bug Fixes
 * fix issue with social icon block back to default
