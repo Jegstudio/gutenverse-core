@@ -17,24 +17,8 @@ const companionActive = plugins['gutenverse-companion']?.active;
 
 let initLibraryState = {
     attributes: {emptyLicense, companionActive},
-    active: 'themes',
+    active: 'layout',
     tabs: [
-        ...(activeTheme !== 'unibiz' || !companionActive ? [
-            {
-                id: 'themes',
-                icon: <IconBlocksSVG />,
-                label: __('Themes','--gctd--'),
-            },
-        ] : companionActive && emptyLicense ?
-            [
-                {
-                    id: 'themes',
-                    icon: <IconBlocksSVG />,
-                    label: __('Prebuilt Sites','--gctd--'),
-                },
-            ]
-            :
-            []),
         {
             id: 'layout',
             icon: <IconLayoutsSVG />,
@@ -53,9 +37,6 @@ let initLibraryState = {
     ],
 };
 
-if (activeTheme === 'unibiz' && ( !emptyLicense && companionActive )) {
-    initLibraryState.active = 'layout';
-}
 
 const initLayoutState = {
     categories: [],

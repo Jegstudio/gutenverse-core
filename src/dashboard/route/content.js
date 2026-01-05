@@ -14,7 +14,6 @@ import { compose } from '@wordpress/compose';
 import { fetchLibraryData } from 'gutenverse-core/requests';
 import Ecosystem from '../content/ecosystem/ecosystem';
 import Themelist from '../content/themelist/themelist';
-import ThemesContent from '../../components/library/themes-content';
 
 const Content = ({ initialLibraryData, initialPluginData, location }) => {
     const { createInfoNotice, createErrorNotice } = useDispatch(noticesStore);
@@ -122,9 +121,9 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
 
     if (homeSlug === page) {
         switch (path) {
-            case 'theme-list':
-                routePage = <Themelist {...props} />;
-                break;
+            // case 'theme-list':
+            //     routePage = <Themelist {...props} />;
+            //     break;
             case 'block-list':
                 routePage = <BlockList {...props} />;
                 break;
@@ -133,9 +132,6 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
                 break;
             case 'update-notice':
                 routePage = <UpdateNotice {...props} />;
-                break;
-            case 'themes' :
-                routePage = <ThemesContent {...props} />;
                 break;
             case 'system':
                 routePage = <SystemRequirement {...props} />;

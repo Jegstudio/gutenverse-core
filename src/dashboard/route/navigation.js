@@ -296,12 +296,6 @@ const Navigation = ({ location }) => {
                 priority: 2
             },
             {
-                name: __('Themes', '--gctd--'),
-                slug: homeSlug,
-                path: 'themes',
-                priority: 3
-            },
-            {
                 name: __('Settings', '--gctd--'),
                 slug: homeSlug,
                 path: 'settings',
@@ -366,12 +360,6 @@ const Navigation = ({ location }) => {
                     param += menu.pathDetail;
                 }
 
-                if (menu?.path === 'themes' && activeTheme === 'unibiz' && companionActive !== 'false') {
-                    return (<li key={menu.path}><a  className="navigation-item" href={`${adminUrl}admin.php?page=gutenverse-companion-dashboard&path=demo`}>
-                        {menu.name}
-                    </a></li>);
-                }
-
                 return <li key={menu.path} className={`${menu.path === path ? 'current' : ''}`}>
                     {
                         menu.external ? <a className="button-upgrade-pro-sidebar" href={menu.link} target="_blank" rel="noreferrer">{menu.name}</a> : <Link
@@ -407,11 +395,6 @@ const Navigation = ({ location }) => {
 
                         if (menu.pathDetail) {
                             param += menu.pathDetail;
-                        }
-                        if (menu?.path === 'themes' && activeTheme === 'unibiz' && companionActive !== 'false') {
-                            return (<a key={menu.path} className="navigation-item" href={`${adminUrl}admin.php?page=gutenverse-companion-dashboard&path=demo`}>
-                                {menu.name}
-                            </a>);
                         }
 
                         return <Link
