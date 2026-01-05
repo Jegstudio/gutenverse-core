@@ -359,12 +359,8 @@ class Frontend_Generator {
 				} elseif ( ! empty( $bg['type'] ) && 'slide' === $bg['type'] && ! empty( $bg['slideImage'] ) ) {
 					$slide_images = $bg['slideImage'];
 
-					if ( is_array( $slide_images ) ) {
-						foreach ( $slide_images as $slide ) {
-							if ( isset( $slide['image']['image'] ) ) {
-								$image_urls[] = $slide['image']['image'];
-							}
-						}
+					if ( is_array( $slide_images ) && isset( $slide_images[0]['image']['image'] ) ) {
+						$image_urls[] = $slide_images[0]['image']['image'];
 					}
 				} elseif ( ! empty( $bg['image'] ) ) {
 					$image = $bg['image'];
