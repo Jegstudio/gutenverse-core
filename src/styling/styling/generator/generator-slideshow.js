@@ -88,7 +88,7 @@ const slideshowStyle = (attribute, elementId) => {
         default: {
             styles += `
             .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                ${`animation: fade ${transitionDuration}s ease-in-out forwards;`}
+                ${`animation: previous-fade ${transitionDuration}s ease-in-out forwards;`}
             }`;
             break;
         }
@@ -98,7 +98,7 @@ const slideshowStyle = (attribute, elementId) => {
 };
 
 export const slideshowGenerator = (attribute, style, css) => {
-    const {selector} = style;
+    const { selector } = style;
 
     const slideshowCss = slideshowStyle(attribute, selector);
     css.Desktop = slideshowCss;

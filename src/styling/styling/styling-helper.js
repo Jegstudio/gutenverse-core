@@ -730,6 +730,7 @@ const injectScriptTag = (tagId, theWindow, src) => {
         scriptTag = theWindow.document.createElement('script');
         scriptTag.id = tagId;
         scriptTag.src = src;
+        scriptTag.async = false;
         theWindow.document.head.appendChild(scriptTag);
     }
 };

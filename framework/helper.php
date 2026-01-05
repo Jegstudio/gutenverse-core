@@ -480,11 +480,12 @@ if ( ! function_exists( 'gutenverse_get_json' ) ) {
 	 * @param string $path .
 	 */
 	function gutenverse_get_json( $path ) {
-		ob_start();
-		include $path;
-		$data = ob_get_clean();
-
-		return json_decode( $data, true );
+		if ( file_exists( $path ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			$data = file_get_contents( $path );
+			return json_decode( $data, true );
+		}
+		return array();
 	}
 }
 
@@ -736,6 +737,18 @@ if ( ! function_exists( 'gutenverse_get_menu' ) ) {
 				'menu_class'      => 'gutenverse-menu',
 				'container_class' => 'gutenverse-menu-container',
 				'echo'            => false,
+				'walker' => new class extends Walker_Nav_Menu {
+					public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
+						$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+						$class_names = implode( ' ', array_map( 'esc_attr', $classes ) );
+						
+						$output .= '<li id="menu-item-' . $item->ID . '" class="menu-item-' . $item->ID . ' ' . $class_names . '">';
+						$output .= '<a aria-label="' . $item->title .'" href="' . esc_url( $item->url ) . '">';
+						$output .= esc_html( $item->title );
+						$output .= '</a>';
+					}
+
+				},
 			)
 		);
 	}
