@@ -32,6 +32,7 @@
             object-fit: cover;
             display: none;
             overflow: hidden;
+            transition: none;
 
             &.current {
                 display: block;
