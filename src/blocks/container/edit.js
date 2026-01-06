@@ -97,9 +97,7 @@ const onResize = (props, off) => {
 
     setNewWidth(newPercent);
 
-    // Live Style
-    // Use a unique ID and key to avoid conflict with the existing complex 'containerWidth' attribute logic
-    // and ensuring specificity matches or exceeds the default styles.
+    // Live Style.
     const styles = [{
         type: 'plain',
         id: 'resizeContainerWidth',
@@ -156,13 +154,14 @@ const onResizeStop = (props) => {
     }
 };
 
-const EmptyContainer = (props) => {
+const ContainerResizeWrapper = (props) => {
     const {
-        blockProps,
-        clientId,
         isSelected,
         isHovered,
         attributes,
+        setAttributes,
+        innerBlocksProps,
+        children,
     } = props;
 
     const [isHoveredState, setIsHoveredState] = useState(false);
@@ -182,14 +181,6 @@ const EmptyContainer = (props) => {
         const widthAttr = attributes?.containerWidth?.[deviceType];
         if (widthAttr) {
             if (typeof widthAttr === 'object') {
-                // If it's an object, we try to show the point value.
-                // Note: If unit is NOT %, this might look weird if we interpret it as % visually here without conversion,
-                // but usually the user sees what they set.
-                // However, the resizing tool logic converts everything to % upon START.
-                // So for display purposes before interaction, we just show the point value.
-                // If unit is different, it might be misleading if we just say "%" next to it.
-                // The prompt says: "when dragged it will change value of containerWidth with percentage."
-                // So defaulting to showing the point is fine as long as we assume it's valid.
                 displayWidth = parseFloat(widthAttr.point) || 100;
             } else {
                 displayWidth = parseFloat(widthAttr) || 100;
@@ -202,18 +193,19 @@ const EmptyContainer = (props) => {
     const mergedRef = useCallback((node) => {
         ref.current = node;
         elementRef.current = node;
-        if (blockProps.ref) {
-            if (typeof blockProps.ref === 'function') {
-                blockProps.ref(node);
+        if (innerBlocksProps.ref) {
+            if (typeof innerBlocksProps.ref === 'function') {
+                innerBlocksProps.ref(node);
             } else {
-                blockProps.ref.current = node;
+                innerBlocksProps.ref.current = node;
             }
         }
-    }, [blockProps.ref]);
+    }, [innerBlocksProps.ref]);
 
     const resizeStart = (e, p) => {
         onResizeStart({
-            ...props,
+            attributes,
+            setAttributes,
             setInitialWidth,
             setParentWidth,
             setOpenTool,
@@ -224,7 +216,6 @@ const EmptyContainer = (props) => {
 
     const resize = (e, p, t, d) => {
         onResize({
-            ...props,
             initialWidth,
             parentWidth,
             setNewWidth,
@@ -236,9 +227,10 @@ const EmptyContainer = (props) => {
 
     const resizeStop = () => {
         onResizeStop({
-            ...props,
             elementId: attributes.elementId,
             elementRef,
+            setAttributes,
+            attributes,
             newWidth,
             deviceType,
             setOpenTool,
@@ -252,7 +244,7 @@ const EmptyContainer = (props) => {
 
     return (
         <div
-            {...blockProps}
+            {...innerBlocksProps}
             ref={mergedRef}
             onMouseEnter={() => setIsHoveredState(true)}
             onMouseLeave={() => setIsHoveredState(false)}
@@ -274,11 +266,7 @@ const EmptyContainer = (props) => {
                 onResize={resize}
                 onResizeStop={resizeStop}
             >
-                <InnerBlocks
-                    renderAppender={InnerBlocks.ButtonBlockAppender}
-                    clientId={clientId}
-                />
-
+                {children}
                 {(isSelected || isHovered || isHoveredState) && (
                     <div className={`container-resize ${openTool ? 'dragging' : ''}`}>
                         <div
@@ -305,9 +293,55 @@ const EmptyContainer = (props) => {
     );
 };
 
+const EmptyContainer = (props) => {
+    const {
+        innerBlocksProps,
+        clientId,
+        isSelected,
+        isHovered,
+        attributes,
+        setAttributes,
+    } = props;
+
+    return (
+        <ContainerResizeWrapper
+            isSelected={isSelected}
+            isHovered={isHovered}
+            attributes={attributes}
+            setAttributes={setAttributes}
+            innerBlocksProps={innerBlocksProps}
+        >
+            <InnerBlocks
+                renderAppender={InnerBlocks.ButtonBlockAppender}
+                clientId={clientId}
+            />
+        </ContainerResizeWrapper>
+    );
+};
+
 const Container = (props) => {
-    const { innerBlocksProps } = props;
-    return <div {...innerBlocksProps} />;
+    const {
+        innerBlocksProps,
+        isSelected,
+        isHovered,
+        attributes,
+        setAttributes,
+        innerChildren
+    } = props;
+
+    return (
+        <ContainerResizeWrapper
+            isSelected={isSelected}
+            isHovered={isHovered}
+            attributes={attributes}
+            setAttributes={setAttributes}
+            innerBlocksProps={innerBlocksProps}
+        >
+            <div className={'guten-inner-container'}>
+                {innerChildren}
+            </div>
+        </ContainerResizeWrapper>
+    );
 };
 
 const ContainerBlock = compose(
@@ -340,6 +374,7 @@ const ContainerBlock = compose(
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
+    const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -350,6 +385,8 @@ const ContainerBlock = compose(
             displayClass,
             {
                 'empty-container': !hasChildBlocks,
+                'filled-container': hasChildBlocks,
+                'is-hovered': isHovered,
             }
         ),
         ref: elementRef,
@@ -357,8 +394,14 @@ const ContainerBlock = compose(
         onMouseLeave,
     });
 
-    const innerBlocksProps = useInnerBlocksProps(blockProps, {
-        renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender
+    // Determine orientation based on flexDirection attribute
+    const currentFlexDirection = attributes?.flexDirection?.[deviceType] || attributes?.flexDirection?.Desktop || 'column';
+    const orientation = currentFlexDirection.includes('column') ? 'vertical' : 'horizontal';
+
+    /** orientation untuk menghilangkan row */
+    const { children, ...innerBlocksProps } = useInnerBlocksProps(blockProps, {
+        renderAppender: false,
+        orientation,
     });
 
     const Component = hasChildBlocks ? Container : EmptyContainer;
@@ -377,7 +420,11 @@ const ContainerBlock = compose(
                 {...props}
                 blockProps={blockProps}
                 innerBlocksProps={innerBlocksProps}
+                innerChildren={children}
                 isHovered={isHovered}
+                animationClass={animationClass}
+                displayClass={displayClass}
+                hasChildBlocks={hasChildBlocks}
             />}
     </>;
 });

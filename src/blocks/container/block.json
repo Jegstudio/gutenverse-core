@@ -217,7 +217,9 @@
 	},
 	"supports": {
 		"className": false,
-		"anchor": true
+		"anchor": true,
+		"__experimentalLayout": false,
+		"layout": false
 	},
 	"keywords": ["container", "flexbox", "layout", "structure"],
 	"style": ["gutenverse-core-frontend-container-style"]
