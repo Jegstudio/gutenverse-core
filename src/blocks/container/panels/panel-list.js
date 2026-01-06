@@ -20,6 +20,8 @@ export const panelList = () => {
                 styleId: 'container-background',
                 normalOptions: ['default', 'gradient'],
                 hoverOptions: ['default', 'gradient'],
+                normalSelector: `.${props.elementId}:not(.background-animated) .guten-inner-container, .${props.elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container, .${props.elementId}.empty-container`,
+                hoverSelector: `.${props.elementId}:not(.background-animated):hover .guten-inner-container, .${props.elementId}.background-animated:hover > .guten-background-animated .animated-layer .guten-inner-container, .${props.elementId}.empty-container:hover`,
             }),
             tabRole: TabStyle
         },

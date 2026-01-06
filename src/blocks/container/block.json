@@ -14,9 +14,9 @@
 			"default": "initial",
 			"copyStyle": true
 		},
-		"contentWidth": {
+		"containerLayout": {
 			"type": "string",
-			"default": "boxed",
+			"default": "full-width",
 			"copyStyle": true
 		},
 		"containerWidth": {

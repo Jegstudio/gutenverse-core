@@ -275,7 +275,8 @@ export const layoutPanel = (props) => {
     const {
         elementId,
         flexWrap = {},
-        flexDirection = {}
+        flexDirection = {},
+        containerLayout
     } = props;
 
     const deviceType = getDeviceType();
@@ -285,8 +286,8 @@ export const layoutPanel = (props) => {
 
     return [
         {
-            id: 'contentWidth',
-            label: __('Content Width', 'gutenverse'),
+            id: 'containerLayout',
+            label: __('Container Layout', 'gutenverse'),
             component: SelectControl,
             options: [
                 {
@@ -324,13 +325,12 @@ export const layoutPanel = (props) => {
                     step: 1
                 },
             },
-            show: props.contentWidth === 'boxed',
             liveStyle: [
                 {
                     'type': 'unitPoint',
                     'id': 'containerWidth',
                     'responsive': true,
-                    'selector': selector,
+                    'selector': containerLayout === 'full-width' ? selector : `${selector} .guten-inner-container`,
                     'properties': [
                         {
                             'name': 'width',

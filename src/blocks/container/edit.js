@@ -164,6 +164,9 @@ const ContainerResizeWrapper = (props) => {
         children,
     } = props;
 
+    const { containerLayout } = attributes;
+    const isDragDisabled = containerLayout !== 'boxed';
+
     const [isHoveredState, setIsHoveredState] = useState(false);
     const [openTool, setOpenTool] = useState(false);
     const [initialWidth, setInitialWidth] = useState(100);
@@ -252,7 +255,7 @@ const ContainerResizeWrapper = (props) => {
             <ResizableBox
                 enable={{
                     top: false,
-                    right: true,
+                    right: isDragDisabled,
                     bottom: false,
                     left: false,
                     topRight: false,
@@ -260,14 +263,14 @@ const ContainerResizeWrapper = (props) => {
                     bottomLeft: false,
                     topLeft: false,
                 }}
-                showHandle={isSelected || isHovered || isHoveredState}
+                showHandle={isDragDisabled && (isSelected || isHovered || isHoveredState)}
                 className="guten-container-resizeable"
                 onResizeStart={resizeStart}
                 onResize={resize}
                 onResizeStop={resizeStop}
             >
                 {children}
-                {(isSelected || isHovered || isHoveredState) && (
+                {isDragDisabled && (isSelected || isHovered || isHoveredState) && (
                     <div className={`container-resize ${openTool ? 'dragging' : ''}`}>
                         <div
                             className={'container-popup'}
@@ -360,7 +363,8 @@ const ContainerBlock = compose(
 
     const {
         elementId,
-        mode
+        mode,
+        containerLayout
     } = attributes;
 
     const [isHovered, setIsHovered] = useState(false);
@@ -380,13 +384,14 @@ const ContainerBlock = compose(
         className: classnames(
             'guten-element',
             'guten-flex-container',
+            containerLayout,
             elementId,
             animationClass,
             displayClass,
             {
                 'empty-container': !hasChildBlocks,
                 'filled-container': hasChildBlocks,
-                'is-hovered': isHovered,
+                'is-hovered': isHovered
             }
         ),
         ref: elementRef,
@@ -395,7 +400,7 @@ const ContainerBlock = compose(
     });
 
     // Determine orientation based on flexDirection attribute
-    const currentFlexDirection = attributes?.flexDirection?.[deviceType] || attributes?.flexDirection?.Desktop || 'column';
+    const currentFlexDirection = attributes?.flexDirection?.[deviceType] || attributes?.flexDirection?.Desktop || 'row';
     const orientation = currentFlexDirection.includes('column') ? 'vertical' : 'horizontal';
 
     /** orientation untuk menghilangkan row */

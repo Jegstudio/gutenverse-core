@@ -5,44 +5,30 @@ import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
+    const selector = `.guten-flex-container.${elementId}`;
+    const device = getDeviceType();
+
     data = backgroundStyle({
         attributes,
         data,
-        backgroundSelector: `.${elementId}:not(.background-animated), .${elementId}.background-animated > .guten-background-animated .animated-layer`,
-        backgroundHoverSelector: `.${elementId}:not(.background-animated):hover, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer`,
+        backgroundSelector: `.${elementId}:not(.background-animated) .guten-inner-container, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container, .${elementId}.empty-container`,
+        backgroundHoverSelector: `.${elementId}:not(.background-animated):hover .guten-inner-container, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer .guten-inner-container, .${elementId}.empty-container:hover`,
     });
-    const device = getDeviceType();
-    const selector = `.guten-flex-container.${elementId}`;
 
-    // Container Width (when boxed)
-    isNotEmpty(attributes['contentWidth']) && attributes['contentWidth'] === 'boxed' && isNotEmpty(attributes['containerWidth']) && data.push({
+    const {
+        containerLayout
+    } = attributes;
+
+    // Container Width (when full width)
+    isNotEmpty(attributes['containerLayout']) && isNotEmpty(attributes['containerWidth']) && data.push({
         'type': 'unitPoint',
         'id': 'containerWidth',
         'responsive': true,
-        'selector': selector,
+        'selector': containerLayout === 'full-width' ? selector : `${selector} .guten-inner-container`,
         'properties': [
             {
                 'name': 'width',
                 'valueType': 'direct'
-            }
-        ],
-    });
-
-    // Full Width
-    isNotEmpty(attributes['contentWidth']) && attributes['contentWidth'] === 'full-width' && data.push({
-        'type': 'plain',
-        'id': 'contentWidth',
-        'selector': selector,
-        'properties': [
-            {
-                'name': 'width',
-                'valueType': 'pattern',
-                'pattern': '100%',
-            },
-            {
-                'name': 'max-width',
-                'valueType': 'pattern',
-                'pattern': '100%',
             }
         ],
     });
