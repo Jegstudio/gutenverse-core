@@ -540,6 +540,14 @@ class Dashboard {
 					'plugin_version'    => '3.4.0',
 					'framework_version' => '2.4.0',
 				),
+				array(
+					'plugin_version'    => '3.4.1',
+					'framework_version' => '2.4.0',
+				),
+				array(
+					'plugin_version'    => '3.4.3',
+					'framework_version' => '2.4.3',
+				),
 			),
 			'gutenverse-form' => array(
 				array(
@@ -686,6 +694,10 @@ class Dashboard {
 					'plugin_version'    => '2.4.0',
 					'framework_version' => '2.4.0',
 				),
+				array(
+					'plugin_version'    => '2.4.3',
+					'framework_version' => '2.4.3',
+				),
 			),
 			'gutenverse-news' => array(
 				array(
@@ -809,6 +821,10 @@ class Dashboard {
 				array(
 					'plugin_version'    => '2.4.0',
 					'framework_version' => '2.4.0',
+				),
+				array(
+					'plugin_version'    => '2.4.3',
+					'framework_version' => '2.4.3',
 				),
 			),
 		);

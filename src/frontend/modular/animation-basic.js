@@ -47,6 +47,22 @@ class GutenverseAnimationBasic extends Default {
 
             window.addEventListener('load', playAnimation);
             window.addEventListener('scroll', playAnimation);
+        } else {
+            if (elementObj.hasClass('guten-button-wrapper')) {
+                //add fallback to old animation
+                const ele = u(element).find('.guten-button');
+                if (ele) {
+                    this.playAnimationOnView(ele.first());
+                }
+            }
+
+            if (elementObj.hasClass('guten-advance-button-wrapper')) {
+                //add fallback to old animation
+                const ele = u(element).find('.guten-advance-button');
+                if (ele) {
+                    this.playAnimationOnView(ele.first());
+                }
+            }
         }
     }
 }

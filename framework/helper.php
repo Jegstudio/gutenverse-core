@@ -6,6 +6,71 @@
  * @since 1.0.0
  * @package gutenverse-framework
  */
+if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
+	/**
+	 * Sanitizer SVG Content
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_is_svg_safe( $svg ) {
+		libxml_use_internal_errors( true );
+
+		// Prevent XXE attacks
+		$svg = preg_replace( '/<!DOCTYPE.+?>/i', '', $svg );
+
+		$dom = new DOMDocument();
+
+		if ( ! $dom->loadXML( $svg, LIBXML_NONET | LIBXML_NOENT | LIBXML_COMPACT ) ) {
+			return false;
+		}
+
+		$xpath = new DOMXPath( $dom );
+
+		/**
+		 * ❌ Forbidden SVG elements
+		 */
+		$forbidden_tags = array(
+			'script',
+			'foreignObject',
+			'iframe',
+			'object',
+			'embed',
+			'audio',
+			'video',
+		);
+
+		foreach ( $forbidden_tags as $tag ) {
+			if ( $xpath->query( '//*[local-name()="' . $tag . '"]' )->length > 0 ) {
+				return false;
+			}
+		}
+
+		/**
+		 * ❌ Forbidden attributes
+		 * - Event handlers (onload, onclick, etc)
+		 * - javascript: URLs
+		 */
+		foreach ( $xpath->query( '//@*' ) as $attr ) {
+			if (
+			preg_match( '/^on/i', $attr->nodeName ) ||
+			preg_match( '/javascript:/i', $attr->nodeValue )
+			) {
+				return false;
+			}
+		}
+
+		/**
+		 * ❌ Disallow external references
+		 */
+		foreach ( $xpath->query( '//@*' ) as $attr ) {
+			if ( preg_match( '/^(https?:)?\/\//i', trim( $attr->nodeValue ) ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+}
 
 if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	/**
@@ -415,11 +480,12 @@ if ( ! function_exists( 'gutenverse_get_json' ) ) {
 	 * @param string $path .
 	 */
 	function gutenverse_get_json( $path ) {
-		ob_start();
-		include $path;
-		$data = ob_get_clean();
-
-		return json_decode( $data, true );
+		if ( file_exists( $path ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			$data = file_get_contents( $path );
+			return json_decode( $data, true );
+		}
+		return array();
 	}
 }
 
@@ -671,6 +737,18 @@ if ( ! function_exists( 'gutenverse_get_menu' ) ) {
 				'menu_class'      => 'gutenverse-menu',
 				'container_class' => 'gutenverse-menu-container',
 				'echo'            => false,
+				'walker' => new class extends Walker_Nav_Menu {
+					public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
+						$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+						$class_names = implode( ' ', array_map( 'esc_attr', $classes ) );
+						
+						$output .= '<li id="menu-item-' . $item->ID . '" class="menu-item-' . $item->ID . ' ' . $class_names . '">';
+						$output .= '<a aria-label="' . $item->title .'" href="' . esc_url( $item->url ) . '">';
+						$output .= esc_html( $item->title );
+						$output .= '</a>';
+					}
+
+				},
 			)
 		);
 	}

@@ -24,6 +24,8 @@ const IconSVGControl = (props) => {
         setAttributes,
         id,
         values,
+        isSubAttribute = false,
+        parentAttribute,
     } = props;
 
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
@@ -32,12 +34,19 @@ const IconSVGControl = (props) => {
     const typeAttribute = id ? `${id}Type` : '';
     const svgAttribute = id ? `${id}SVG` : '';
 
-    const iconType = (attributes && attributes[typeAttribute]) ? attributes[typeAttribute] : (values && values[typeAttribute] ? values[typeAttribute] : 'icon');
-    const svgValue = (attributes && attributes[svgAttribute]) ? attributes[svgAttribute] : (values && values[svgAttribute] ? values[svgAttribute] : {});
+    const iconType = (attributes && attributes[typeAttribute]) ? attributes[typeAttribute] : (values && values[typeAttribute] ? values[typeAttribute] : (isSubAttribute && parentAttribute && parentAttribute[typeAttribute]) ? parentAttribute[typeAttribute] : 'icon');
+    const svgValue = (attributes && attributes[svgAttribute]) ? attributes[svgAttribute] : (values && values[svgAttribute] ? values[svgAttribute] : (isSubAttribute && parentAttribute && parentAttribute[svgAttribute]) ? parentAttribute[svgAttribute] : {});
 
     const updateAttributes = (newAttributes) => {
         if (setAttributes) {
-            setAttributes(newAttributes);
+            if (isSubAttribute && parentAttribute?.id) {
+                setAttributes({
+                    [parentAttribute.id]: {
+                        ...parentAttribute,
+                        ...newAttributes
+                    }
+                });
+            } else setAttributes(newAttributes);
         } else if (values && values.setAttributes) {
             values.setAttributes(newAttributes);
         }
@@ -75,11 +84,11 @@ const IconSVGControl = (props) => {
         }
     };
 
-    const setType = async (type, retries = 2, delay = 50, force = false, justAttr = true ) => {
+    const setType = async (type, retries = 5, delay = 50, force = false, justAttr = true) => {
         if (typeAttribute) {
             updateAttributes({ [typeAttribute]: type });
 
-            if ('svg' === type && (isEmpty(svgValue) || force) && !isEmpty(value) && !justAttr ) {
+            if ('svg' === type && (isEmpty(svgValue) || force) && !isEmpty(value) && !justAttr) {
                 axios.get(libraryApi + '/get-svg-font', {
                     params: {
                         name: value.toLowerCase()
@@ -92,14 +101,12 @@ const IconSVGControl = (props) => {
                     } else {
                         console.error('cannot find the icon', value);
                     }
-                }).catch(error => {
+                }).catch(() => {
                     if (0 === retries) {
                         updateAttributes({ [svgAttribute]: '' });
-                        console.error('Failed to fetch SVG content:', error);
+                        alert('Cannot Fetch Related SVG');
                     } else {
-                        setTimeout(() => {
-                            setType(type, retries - 1, delay, force);
-                        }, delay);
+                        setTimeout(() => setType(type, retries - 1, delay, force, justAttr), delay);
                     }
                 });
             }
@@ -134,7 +141,7 @@ const IconSVGControl = (props) => {
                                     <button className={'gutenverse-button'} onClick={() => setOpenIconLibrary(true)}>
                                         {__('Change Icon', '--gctd--')}
                                     </button>
-                                    <button className={'gutenverse-button'} onClick={() => setType('svg', 2, 50, true, false)}>
+                                    <button className={'gutenverse-button'} onClick={() => setType('svg', 5, 50, true, false)}>
                                         {__('Convert to SVG', '--gctd--')}
                                     </button>
                                 </div>

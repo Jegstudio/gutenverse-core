@@ -5,11 +5,11 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { blurPanel } from './panel-blur';
 import { displayPanel } from './panel-display';
 import { positionPanel } from './panel-position';
+import { panelLink } from './panel-link';
 
 export const panelList = () => {
     return [
         // Settings
-
         {
             title: __('Wrapper Display', '--gctd--'),
             initialOpen: false,
@@ -20,6 +20,12 @@ export const panelList = () => {
             title: __('Position', '--gctd--'),
             initialOpen: false,
             panelArray: positionPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Wrapper Link', 'gutenverse'),
+            initialOpen: false,
+            panelArray: panelLink,
             tabRole: TabSetting
         },
         {

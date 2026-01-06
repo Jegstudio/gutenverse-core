@@ -1,17 +1,14 @@
 import { compose } from '@wordpress/compose';
-import { useBlockProps, InnerBlocks, BlockControls } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import { withPartialRender, withPassRef, withAnimationAdvanceV2, withAnimationBackgroundV2, withMouseMoveEffect, withBackgroundSlideshow, withBackgroundEffect, withCursorEffect } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect, useRef } from '@wordpress/element';
-import { useCallback } from '@wordpress/element';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
 import { isAnimationActive } from 'gutenverse-core/helper';
 import { FluidCanvas } from 'gutenverse-core/components';
-import { ToolbarGroup } from '@wordpress/components';
-import { URLToolbar } from 'gutenverse-core/toolbars';
 import isEmpty from 'lodash/isEmpty';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
@@ -19,7 +16,6 @@ import { useRichTextParameter } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 import SectionVideoContainer from '../section/components/section-video-container';
 
-const NEW_TAB_REL = 'noreferrer noopener';
 const WrapperContainer = ({ attributes, blockProps, slideElement }) => {
     const {
         elementId,
@@ -81,8 +77,6 @@ const FlexibleWrapper = compose(
     const {
         clientId,
         attributes,
-        isSelected,
-        setAttributes,
         slideElement,
         setBlockRef,
     } = props;
@@ -92,14 +86,10 @@ const FlexibleWrapper = compose(
         displayType,
         backgroundAnimated = {},
         backgroundEffect,
-        url,
-        rel,
-        linkTarget,
         background
     } = attributes;
 
     const {
-        panelIsClicked,
         setPanelIsClicked
     } = useRichTextParameter();
 
@@ -113,24 +103,6 @@ const FlexibleWrapper = compose(
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
     const isSlideShow = background?.slideImage?.length > 0;
 
-    const onToggleOpenInNewTab = useCallback(
-        (value) => {
-            const newLinkTarget = value ? '_blank' : '_self';
-
-            let updatedRel = rel;
-            if (newLinkTarget && !rel) {
-                updatedRel = NEW_TAB_REL;
-            } else if (!newLinkTarget && rel === NEW_TAB_REL) {
-                updatedRel = undefined;
-            }
-
-            setAttributes({
-                linkTarget: newLinkTarget,
-                rel: updatedRel,
-            });
-        },
-        [rel, setAttributes]
-    );
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -159,20 +131,6 @@ const FlexibleWrapper = compose(
     return <>
         <CopyElementToolbar {...props}/>
         <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} setPanelIsClicked={setPanelIsClicked}/>
-        <BlockControls>
-            <ToolbarGroup>
-                <URLToolbar
-                    url={url}
-                    setAttributes={setAttributes}
-                    isSelected={isSelected}
-                    opensInNewTab={linkTarget === '_blank'}
-                    anchorRef={blockProps.ref}
-                    onToggleOpenInNewTab={onToggleOpenInNewTab}
-                    panelIsClicked={panelIsClicked}
-                    setPanelIsClicked={setPanelIsClicked}
-                />
-            </ToolbarGroup>
-        </BlockControls>
         <Component blockProps={blockProps} attributes={attributes} slideElement={slideElement} clientId={clientId} />
     </>;
 });
