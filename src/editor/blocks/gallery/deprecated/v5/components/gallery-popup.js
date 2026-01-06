@@ -4,7 +4,7 @@ import { imagePlaceholder } from 'gutenverse-core/config';
 import { Maximize, Minimize, X, ZoomIn } from 'gutenverse-core/components';
 import { swiperSettings } from '../../../components/swiper/helper';
 
-const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSearch, elementId }) => {
+const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSearch, elementId, titleHeadingType: HtmlTag = 'h5' }) => {
     const [zoomIn, setZoomIn] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
     const popupRef = useRef();
@@ -77,9 +77,9 @@ const GalleryPopup = ({ activeIndex, images, onClose, currentFilter, currentSear
                     ref={sliderRef}>
                     {slides.map((image, index) => <div data-filter={image.id} data-category={image.category} data-title={image.title} data-content={image.content} data-index={index} className={`image-list image-list-${index}`} key={index}>
                         <div className="content-image swiper-zoom-container">
-                            {image && <img className="main-image" src={image?.src?.image || imagePlaceholder} {...(image.lazyLoad && { loading: 'lazy' })} {...(image?.src?.height && { height: image?.src?.height })} {...(image?.src?.width && { width: image?.src?.width })} />}
+                            {image && <img className="main-image" src={image?.src?.image || imagePlaceholder} {...(image.lazyLoad && { loading: 'lazy' })} />}
                             {image?.lightboxDescription ? <div className="content-description-wrapper">
-                                <h5 className="content-title">{image.title}</h5>
+                                <HtmlTag className="content-title">{image.title}</HtmlTag>
                                 <div className="content-description">
                                     <p>{image.content}</p>
                                 </div>
