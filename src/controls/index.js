@@ -79,6 +79,7 @@ export { default as LockedProPanel } from './controls/locked/locked-pro-panel';
 export { default as LockedDynamicContentControl } from './controls/locked/locked-dynamic-content-control';
 export { default as LockedHeaderFilterControl } from './controls/locked/locked-header-filter-control';
 export { default as LockedTooltipControl } from './controls/locked/locked-tooltip-control';
+export { default as LockedGalleryPostFormat } from './controls/locked/locked-gallery-post-format';
 
 
 export { default as ControlDevices } from './controls/part/control-devices';
