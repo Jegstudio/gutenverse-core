@@ -18,4 +18,12 @@ module.exports = [
     notifications,
     coreFrontendModular,
     coredeps,
-];
+].map((config) => ({
+    ...config,
+    cache: {
+        type: 'filesystem',
+        buildDependencies: {
+            config: [__filename],
+        },
+    },
+}));

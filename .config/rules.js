@@ -2,15 +2,21 @@ module.exports = [
     {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        use: {
-            loader: "babel-loader",
+        loader: "esbuild-loader",
+        options: {
+            loader: "jsx",
+            target: "es2015",
         },
     },
     {
         test: /\.svg$/,
         use: [
             {
-                loader: "babel-loader",
+                loader: "esbuild-loader",
+                options: {
+                    loader: "jsx",
+                    target: "es2015",
+                },
             },
             {
                 loader: "@svgr/webpack",
