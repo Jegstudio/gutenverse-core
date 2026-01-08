@@ -338,7 +338,6 @@ class Frontend_Cache {
 				wp_schedule_event( $midnight, isset( $options['frontend_settings']['old_render_deletion_schedule'] ) ? $options['frontend_settings']['old_render_deletion_schedule'] : 'daily', 'gutenverse_cleanup_cached_style' );
 			} else {
 				wp_clear_scheduled_hook( 'gutenverse_cleanup_cached_style' );
-				$this->cleanup_cached_style();
 			}
 		}
 	}
@@ -355,7 +354,6 @@ class Frontend_Cache {
 		if ( ! is_dir( $folder_path ) ) {
 			return;
 		}
-
 		$files = list_files( $folder_path );
 
 		foreach ( $files as $file ) {
