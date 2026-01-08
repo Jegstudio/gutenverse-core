@@ -304,7 +304,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i, .${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg`,
     });
 
     isNotEmpty(attributes['submenuIndicatorMargin']) && data.push({
@@ -323,7 +323,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuIndicatorBorder']) && data.push({
         'type': 'border',
         'id': 'submenuIndicatorBorder',
-        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i, .${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg`,
     });
 
     isNotEmpty(attributes['submenuIndicatorBorder']) && data.push({
@@ -335,7 +335,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['submenuIndicatorBorderResponsive']) && device !== 'Desktop' && data.push({
         'type': 'borderResponsive',
         'id': 'submenuIndicatorBorderResponsive',
-        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
+        'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i, .${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg`,
     });
 
     isNotEmpty(attributes['submenuIndicatorBorderResponsive']) && device !== 'Desktop' && data.push({

@@ -473,7 +473,7 @@ class Nav_Menu extends Style_Abstract {
 		if ( isset( $this->attrs['submenuIndicatorMargin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i, #{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
@@ -497,7 +497,7 @@ class Nav_Menu extends Style_Abstract {
 		if ( isset( $this->attrs['submenuIndicatorPadding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i, , #{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -526,7 +526,7 @@ class Nav_Menu extends Style_Abstract {
 		if ( isset( $this->attrs['submenuIndicatorBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i, , #{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -1002,7 +1002,8 @@ class Nav_Menu extends Style_Abstract {
 					display: block;
 					overflow-y: auto;
 				}
-				.guten-nav-menu.break-point-tablet .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i {
+				.guten-nav-menu.break-point-tablet .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i,
+				.guten-nav-menu.break-point-tablet .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg {
 					margin-left: auto;
 					padding: 4px 15px;
 					border: 1px solid var(--guten-border-color);
@@ -1033,7 +1034,7 @@ class Nav_Menu extends Style_Abstract {
 				.guten-nav-menu.break-point-tablet .gutenverse-menu-wrapper .gutenverse-menu li a {
 					display: block;
 				}
-				.guten-nav-menu.break-point-tablet .gutenverse-menu-wrapper .gutenverse-menu li a i {
+				.guten-nav-menu.break-point-tablet .gutenverse-menu-wrapper .gutenverse-menu li a i, .guten-nav-menu.break-point-tablet .gutenverse-menu-wrapper .gutenverse-menu li a .gutenverse-icon-svg {
 					float: right;
 				}
 				.guten-nav-menu.break-point-tablet .guten-nav-overlay {
@@ -1110,7 +1111,8 @@ class Nav_Menu extends Style_Abstract {
 					display: block;
 					overflow-y: auto;
 				}
-				.guten-nav-menu.break-point-mobile .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i {
+				.guten-nav-menu.break-point-mobile .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i,
+				.guten-nav-menu.break-point-mobile .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg {
 					margin-left: auto;
 					padding: 4px 15px;
 					border: 1px solid var(--guten-border-color);
@@ -1141,7 +1143,7 @@ class Nav_Menu extends Style_Abstract {
 				.guten-nav-menu.break-point-mobile .gutenverse-menu-wrapper .gutenverse-menu li a {
 					display: block;
 				}
-				.guten-nav-menu.break-point-mobile .gutenverse-menu-wrapper .gutenverse-menu li a i {
+				.guten-nav-menu.break-point-mobile .gutenverse-menu-wrapper .gutenverse-menu li a i, .guten-nav-menu.break-point-mobile .gutenverse-menu-wrapper .gutenverse-menu li a .gutenverse-icon-svg {
 					float: right;
 				}
 				.guten-nav-menu.break-point-mobile .guten-nav-overlay {
