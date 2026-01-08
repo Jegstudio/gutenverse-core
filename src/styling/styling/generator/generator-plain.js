@@ -77,10 +77,14 @@ const multiProperty = (attribute, props, otherAttribute, device) => {
 
 const generateValue = (attribute, props, type, otherAttribute, deviceType = null) => {
     let value = null;
-    const { pattern, patternValues, valueType, functionName, functionProps, excludeValue = [], staticValue } = props;
+    const { pattern, patternValues, valueType, functionName, functionProps, excludeValue = [], staticValue, valueFunc } = props;
     switch (valueType) {
         case 'function':
-            value = renderFunctionValue(functionName, attribute, functionProps, otherAttribute, deviceType);
+            if (typeof valueFunc === 'function') {
+                value = valueFunc(attribute, deviceType, otherAttribute);
+            } else {
+                value = renderFunctionValue(functionName, attribute, functionProps, otherAttribute, deviceType);
+            }
             break;
         case 'pattern':
             value = renderPatternValues(pattern, patternValues, attribute);

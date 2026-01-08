@@ -9,13 +9,13 @@ import { childPanel } from './panel-child';
 export const panelList = () => {
     return [
         {
-            title: __('Layout', 'gutenverse'),
-            panelArray: layoutPanel,
+            title: __('Inner Container', 'gutenverse'),
+            panelArray: childPanel,
             tabRole: TabSetting
         },
         {
-            title: __('Inner Container', 'gutenverse'),
-            panelArray: childPanel,
+            title: __('Layout', 'gutenverse'),
+            panelArray: layoutPanel,
             tabRole: TabSetting
         },
         {

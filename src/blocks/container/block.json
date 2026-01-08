@@ -71,18 +71,32 @@
 			"default": "visible",
 			"copyStyle": true
 		},
-
-		"alignSelf": {
+		"flexAlignSelf": {
 			"type": "object",
 			"default": {},
 			"copyStyle": true
 		},
-		"order": {
+		"flexOrder": {
 			"type": "object",
 			"default": {},
 			"copyStyle": true
 		},
-		"customOrder": {
+		"flexCustomOrder": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"flexSize": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"flexSizeGrow": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"flexSizeShrink": {
 			"type": "object",
 			"default": {},
 			"copyStyle": true
