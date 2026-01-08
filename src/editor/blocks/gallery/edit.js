@@ -49,6 +49,8 @@ const GalleryBlock = compose(
         enableLoadIconSVG,
         enableLoadIconPosition,
         filterSearchIcon,
+        filterSearchIconType,
+        filterSearchIconSVG,
         filterSearchIconPosition,
         filterSearchFormText,
         titleHeadingType = 'h5'
@@ -227,9 +229,9 @@ const GalleryBlock = compose(
                 </div> : <div className="search-filters-wrap">
                     <div className="filter-wrap">
                         <button id="search-filter-trigger" data-flag-all={currentFilter === 'All'} className={`search-filter-trigger icon-position-${filterSearchIconPosition}`} onClick={() => setShowFilter(!showFilter)}>
-                            {filterSearchIconPosition === 'before' && <i aria-hidden="true" className={filterSearchIcon}></i>}
+                            {filterSearchIconPosition === 'before' && renderIcon(filterSearchIcon, filterSearchIconType, filterSearchIconSVG)}
                             <span>{currentFilter === 'All' ? filterAll : currentFilter}</span>
-                            {filterSearchIconPosition === 'after' && <i aria-hidden="true" className={filterSearchIcon}></i>}
+                            {filterSearchIconPosition === 'after' && renderIcon(filterSearchIcon, filterSearchIconType, filterSearchIconSVG)}
                         </button>
                         <ul className={`search-filter-controls ${showFilter ? 'open-controls' : ''}`}>
                             <li className={`guten-gallery-control ${'All' === currentFilter ? 'active' : ''}`} data-flag-all={true} data-filter={filterAll} onClick={() => changeFilter('All')}>{filterAll}</li>

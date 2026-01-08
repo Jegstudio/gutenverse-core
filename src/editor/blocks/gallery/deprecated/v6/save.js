@@ -36,8 +36,6 @@ const save = compose(
         enableLoadIconSVG,
         enableLoadIconPosition,
         filterSearchIcon,
-        filterSearchIconSVG,
-        filterSearchIconType,
         filterSearchIconPosition,
         filterSearchFormText,
         itemsPerLoad,
@@ -108,15 +106,9 @@ const save = compose(
                 </div> : <div className="search-filters-wrap">
                     <div className="filter-wrap">
                         <button id="search-filter-trigger" data-flag-all={true} className={`search-filter-trigger icon-position-${filterSearchIconPosition}`}>
-                            {filterSearchIconPosition === 'before' && (filterSearchIconSVG && filterSearchIconType === 'svg' ? <div
-                                className="gutenverse-icon-svg"
-                                dangerouslySetInnerHTML={{ __html: svgAtob(filterSearchIconSVG) }}
-                            /> : <i aria-hidden="true" className={filterSearchIcon}></i>)}
+                            {filterSearchIconPosition === 'before' && <i aria-hidden="true" className={filterSearchIcon}></i>}
                             <span>{filterAll}</span>
-                            {filterSearchIconPosition === 'after' && (filterSearchIconSVG && filterSearchIconType === 'svg' ? <div
-                                className="gutenverse-icon-svg"
-                                dangerouslySetInnerHTML={{ __html: svgAtob(filterSearchIconSVG) }}
-                            /> : <i aria-hidden="true" className={filterSearchIcon}></i>)}
+                            {filterSearchIconPosition === 'after' && <i aria-hidden="true" className={filterSearchIcon}></i>}
                         </button>
                         <ul className={'search-filter-controls'}>
                             <li className={'guten-gallery-control active'} data-flag-all={true} data-filter={filterAll}>{filterAll}</li>
