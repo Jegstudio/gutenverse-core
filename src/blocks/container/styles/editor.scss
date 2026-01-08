@@ -1,3 +1,9 @@
+.guten-flex-container.full-width {
+    margin: 0 auto;
+}
+
+
+
 /** Editor Style **/
 .guten-container,
 .guten-flex-container,
@@ -5,7 +11,8 @@
     transition: none !important;
 }
 
-/** here where flex actually happened **/
+/** 
+here where flex actually happened **/
 .guten-inner-container {
     display: flex;
     align-self: auto;
@@ -21,6 +28,10 @@
     >* {
         flex-grow: 0;
         flex-shrink: 0;
+    }
+
+    > .guten-flex-container {
+        margin: initial;
     }
 }
 
@@ -279,3 +290,8 @@
         }
     }
 }
+
+
+@media only screen and (max-width: 780px) {}
+
+@media only screen and (max-width: 425px) {}

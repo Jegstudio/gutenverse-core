@@ -330,7 +330,7 @@ export const layoutPanel = (props) => {
                     'type': 'unitPoint',
                     'id': 'containerWidth',
                     'responsive': true,
-                    'selector': containerLayout === 'full-width' ? selector : `${selector} .guten-inner-container`,
+                    'selector': containerLayout === 'full-width' ? selector : `${selector} > .guten-container-resizeable > .guten-inner-container`,
                     'properties': [
                         {
                             'name': 'width',
@@ -445,6 +445,12 @@ export const layoutPanel = (props) => {
                     max: 10,
                     step: 0.1
                 },
+                '%': {
+                    text: '%',
+                    min: 0,
+                    max: 100,
+                    step: 1
+                },
             },
             liveStyle: [
                 {
@@ -478,6 +484,12 @@ export const layoutPanel = (props) => {
                     min: 0,
                     max: 10,
                     step: 0.1
+                },
+                '%': {
+                    text: '%',
+                    min: 0,
+                    max: 100,
+                    step: 1
                 },
             },
             liveStyle: [

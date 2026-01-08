@@ -4,12 +4,18 @@ import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { conditionPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { layoutPanel } from './panel-layout';
+import { childPanel } from './panel-child';
 
 export const panelList = () => {
     return [
         {
             title: __('Layout', 'gutenverse'),
             panelArray: layoutPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Inner Container', 'gutenverse'),
+            panelArray: childPanel,
             tabRole: TabSetting
         },
         {

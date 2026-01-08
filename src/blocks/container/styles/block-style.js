@@ -24,7 +24,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'unitPoint',
         'id': 'containerWidth',
         'responsive': true,
-        'selector': containerLayout === 'full-width' ? selector : `${selector} .guten-inner-container`,
+        'selector': containerLayout === 'full-width' ? selector : `${selector} > div > .guten-inner-container`,
         'properties': [
             {
                 'name': 'width',
@@ -52,7 +52,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'flexDirection',
         'responsive': true,
-        'selector': `${selector} .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container`,
         'properties': [
             {
                 'name': 'flex-direction',
@@ -66,7 +66,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'justifyContent',
         'responsive': true,
-        'selector': `${selector} .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container`,
         'properties': [
             {
                 'name': 'justify-content',
@@ -80,7 +80,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'alignItems',
         'responsive': true,
-        'selector': `${selector} .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container`,
         'properties': [
             {
                 'name': 'align-items',
@@ -94,7 +94,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'unitPoint',
         'id': 'columnGap',
         'responsive': true,
-        'selector': `${selector} .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container`,
         'properties': [
             {
                 'name': 'column-gap',
@@ -108,7 +108,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'unitPoint',
         'id': 'rowGap',
         'responsive': true,
-        'selector': `${selector} .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container`,
         'properties': [
             {
                 'name': 'row-gap',
@@ -122,7 +122,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'flexWrap',
         'responsive': true,
-        'selector': `${selector} .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container`,
         'properties': [
             {
                 'name': 'flex-wrap',
@@ -136,7 +136,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'alignContent',
         'responsive': true,
-        'selector': `${selector} .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container`,
         'properties': [
             {
                 'name': 'align-content',

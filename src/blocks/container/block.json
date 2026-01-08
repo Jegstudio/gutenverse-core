@@ -21,7 +21,9 @@
 		},
 		"containerWidth": {
 			"type": "object",
-			"default": {},
+			"default": {
+				"Desktop": { "unit": "%", "point": "100" }
+			},
 			"copyStyle": true
 		},
 		"minHeight": {
@@ -67,6 +69,22 @@
 		"overflow": {
 			"type": "string",
 			"default": "visible",
+			"copyStyle": true
+		},
+
+		"alignSelf": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"order": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"customOrder": {
+			"type": "object",
+			"default": {},
 			"copyStyle": true
 		},
 		"background": {
