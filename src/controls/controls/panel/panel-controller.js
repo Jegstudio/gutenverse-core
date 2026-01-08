@@ -165,7 +165,17 @@ const PanelController = ({ ...props }) => {
                     <PanelTabPro activeTab={activeTab} />
                     {panelList().filter(panel => {
                         let active = activeTab === null ? tabPanel[0].id : activeTab;
-                        const { tabRole } = panel;
+                        const { tabRole, show } = panel;
+
+                        if (show !== undefined) {
+                            if (typeof show === 'function') {
+                                if (!show(thePanelProps)) {
+                                    return false;
+                                }
+                            } else if (!show) {
+                                return false;
+                            }
+                        }
 
                         if (tabRole) {
                             const { id: tabId } = tabRole;

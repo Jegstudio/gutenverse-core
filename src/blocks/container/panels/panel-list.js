@@ -9,13 +9,13 @@ import { childPanel } from './panel-child';
 export const panelList = () => {
     return [
         {
-            title: __('Inner Container', 'gutenverse'),
-            panelArray: childPanel,
+            title: __('Layout', 'gutenverse'),
+            panelArray: layoutPanel,
             tabRole: TabSetting
         },
         {
-            title: __('Layout', 'gutenverse'),
-            panelArray: layoutPanel,
+            title: __('As Container Inner', 'gutenverse'),
+            panelArray: childPanel,
             tabRole: TabSetting
         },
         {
@@ -26,8 +26,23 @@ export const panelList = () => {
                 styleId: 'container-background',
                 normalOptions: ['default', 'gradient'],
                 hoverOptions: ['default', 'gradient'],
-                normalSelector: `.${props.elementId}:not(.background-animated) .guten-inner-container, .${props.elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container, .${props.elementId}.empty-container`,
-                hoverSelector: `.${props.elementId}:not(.background-animated):hover .guten-inner-container, .${props.elementId}.background-animated:hover > .guten-background-animated .animated-layer .guten-inner-container, .${props.elementId}.empty-container:hover`,
+                normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-background-animated .animated-layer, .${props.elementId}.empty-container`,
+                hoverSelector: `.${props.elementId}:not(.background-animated):hover, .${props.elementId}.background-animated:hover > .guten-background-animated .animated-layer, .${props.elementId}.empty-container:hover`,
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Boxed Background', 'gutenverse'),
+            initialOpen: false,
+            show: (props) => props.containerLayout === 'boxed',
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                styleId: 'boxed-background',
+                optionaName: 'boxedBackground',
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
+                normalSelector: `.${props.elementId} .guten-inner-container`,
+                hoverSelector: `.${props.elementId}:hover .guten-inner-container`,
             }),
             tabRole: TabStyle
         },

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
-import { ChromePicker } from 'react-color';
+import { ChromePicker } from '@hello-pangea/color-picker';
 import { GradientPicker } from 'react-linear-gradient-picker';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { useInstanceId } from '@wordpress/compose';

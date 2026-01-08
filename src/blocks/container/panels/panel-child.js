@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { SVGRadioControl, TextControl } from 'gutenverse-core/controls';
+import { NumberControl, SVGRadioControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import {
     IconAlignSelfStart,
@@ -81,8 +81,9 @@ export const childPanel = (props) => {
             id: 'flexCustomOrder',
             label: __('Custom Order', '--gctd--'),
             allowDeviceControl: true,
-            component: TextControl,
+            component: NumberControl,
             show: isOrderCustom,
+            step: 1
         },
         {
             id: 'flexSize',
@@ -116,15 +117,19 @@ export const childPanel = (props) => {
             id: 'flexSizeGrow',
             label: __('Flex Grow', '--gctd--'),
             allowDeviceControl: true,
-            component: TextControl,
+            component: NumberControl,
             show: isSizeCustom,
+            min: 0,
+            step: 1
         },
         {
             id: 'flexSizeShrink',
             label: __('Flex Shrink', '--gctd--'),
             allowDeviceControl: true,
-            component: TextControl,
+            component: NumberControl,
             show: isSizeCustom,
+            min: 0,
+            step: 1
         },
     ];
 };

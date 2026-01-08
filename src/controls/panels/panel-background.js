@@ -13,6 +13,7 @@ export const backgroundPanel = (props) => {
         switcher,
         setSwitcher,
         blockType = '',
+        optionaName = 'background'
     } = props;
 
     return [{
@@ -31,7 +32,7 @@ export const backgroundPanel = (props) => {
         onChange: ({__bgHover}) => setSwitcher({...switcher, layout: __bgHover})
     },
     {
-        id: 'background',
+        id: optionaName,
         show: !switcher.layout || switcher.layout === 'normal',
         component: BackgroundControl,
         allowDeviceControl: true,
@@ -47,13 +48,13 @@ export const backgroundPanel = (props) => {
         liveStyle: [
             {
                 'type': 'background',
-                'id': 'background',
+                'id': optionaName,
                 'selector': normalSelector ? normalSelector : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
             }
         ],
     },
     {
-        id: 'backgroundHover',
+        id: `${optionaName}Hover`,
         show: switcher.layout === 'hover',
         component: BackgroundControl,
         allowDeviceControl: true,
@@ -61,7 +62,7 @@ export const backgroundPanel = (props) => {
         liveStyle: [
             {
                 'type': 'background',
-                'id': 'backgroundHover',
+                'id': `${optionaName}Hover`,
                 'selector': hoverSelector ? hoverSelector : `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
             }
         ],
@@ -74,7 +75,7 @@ export const backgroundPanel = (props) => {
         ]
     },
     {
-        id: 'backgroundTransition',
+        id: `${optionaName}Transition`,
         label: __('Background Transition', '--gctd--'),
         show: switcher.layout === 'hover',
         component: SizeControl,
@@ -97,7 +98,7 @@ export const backgroundPanel = (props) => {
         liveStyle: [
             {
                 'type': 'unitPoint',
-                'id': 'backgroundTransition',
+                'id': `${optionaName}Transition`,
                 'selector': normalSelector ? normalSelector : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
                 'properties': [
                     {

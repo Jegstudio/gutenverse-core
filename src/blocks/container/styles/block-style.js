@@ -11,13 +11,44 @@ const getBlockStyle = (elementId, attributes) => {
     data = backgroundStyle({
         attributes,
         data,
-        backgroundSelector: `.${elementId}:not(.background-animated) .guten-inner-container, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container, .${elementId}.empty-container`,
-        backgroundHoverSelector: `.${elementId}:not(.background-animated):hover .guten-inner-container, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer .guten-inner-container, .${elementId}.empty-container:hover`,
+        backgroundSelector: `.${elementId}:not(.background-animated), .${elementId}.background-animated > .guten-background-animated .animated-layer, .${elementId}.empty-container`,
+        backgroundHoverSelector: `.${elementId}:not(.background-animated):hover, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer, .${elementId}.empty-container:hover`,
     });
 
     const {
         containerLayout
     } = attributes;
+
+    // Boxed Background
+    isNotEmpty(attributes['background']) && data.push({
+        'type': 'background',
+        'id': 'boxedBackground',
+        'selector': `.${elementId}:not(.background-animated) .guten-inner-container, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container`,
+    });
+
+    isNotEmpty(attributes['backgroundHover']) && data.push({
+        'type': 'background',
+        'id': 'boxedBackgroundHover',
+        backgroundHoverSelector: `.${elementId}:not(.background-animated):hover .guten-inner-container, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer .guten-inner-container`,
+    });
+
+    isNotEmpty(attributes['backgroundTransition']) && data.push({
+        'type': 'unitPoint',
+        'id': 'boxedBackgroundTransition',
+        'selector': `.${elementId}:not(.background-animated) .guten-inner-container, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container`,
+        'properties': [
+            {
+                'name': 'transition',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            },
+        ],
+    });
 
     // Container Width (when full width)
     isNotEmpty(attributes['containerLayout']) && isNotEmpty(attributes['containerWidth']) && data.push({

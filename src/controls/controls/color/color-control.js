@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
-import { ChromePicker } from 'react-color';
+import { ChromePicker } from '@hello-pangea/color-picker';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';

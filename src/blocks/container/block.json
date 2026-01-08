@@ -136,6 +136,41 @@
 			"type": "string",
 			"copyStyle": true
 		},
+		"boxedBackground": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"boxedBackgroundHover": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"boxedBackgroundTransition": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {}
+		},
+		"boxedBackgroundOverlay": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"boxedOpacity": {
+			"type": "string",
+			"copyStyle": true
+		},
+		"boxedBackgroundOverlayHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"boxedBackgroundAnimated": {
+			"type": "object",
+			"default": {}
+		},
+		"boxedOpacityHover": {
+			"type": "string",
+			"copyStyle": true
+		},
 		"border": {
 			"type": "object",
 			"copyStyle": true

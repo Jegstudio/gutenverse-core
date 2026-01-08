@@ -9,7 +9,7 @@ import { slugify } from 'gutenverse-core/helper';
 import classnames from 'classnames';
 import { FontControl, RangeControl, SizeControl, SelectControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
-import { ChromePicker } from 'react-color';
+import { ChromePicker } from '@hello-pangea/color-picker';
 import { hexToRgb, renderColor } from 'gutenverse-core/editor-helper';
 import { useEffect } from 'react';
 
