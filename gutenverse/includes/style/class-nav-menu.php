@@ -386,7 +386,7 @@ class Nav_Menu extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'fill' );
 					},
@@ -411,8 +411,8 @@ class Nav_Menu extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a svg,
-						#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu> ul > li > a svg",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a .gutenverse-icon-svg,
+						#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu> ul > li > a .gutenverse-icon-svg",
 					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
@@ -436,7 +436,7 @@ class Nav_Menu extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a svg",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a .gutenverse-icon-svg",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'fill' );
 					},
@@ -460,7 +460,7 @@ class Nav_Menu extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a svg",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a .gutenverse-icon-svg",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'fill' );
 					},
@@ -481,34 +481,12 @@ class Nav_Menu extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
-
-			$this->inject_style(
-				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg",
-					'property'       => function ( $value ) {
-						return $this->handle_dimension( $value, 'margin' );
-					},
-					'value'          => $this->attrs['submenuIndicatorMargin'],
-					'device_control' => true,
-				)
-			);
 		}
 
 		if ( isset( $this->attrs['submenuIndicatorPadding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i, , #{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg",
-					'property'       => function ( $value ) {
-						return $this->handle_dimension( $value, 'padding' );
-					},
-					'value'          => $this->attrs['submenuIndicatorPadding'],
-					'device_control' => true,
-				)
-			);
-
-			$this->inject_style(
-				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i, #{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -520,27 +498,13 @@ class Nav_Menu extends Style_Abstract {
 
 		if ( isset( $this->attrs['submenuIndicatorBorder'] ) ) {
 			$this->handle_border( 'submenuIndicatorBorder', "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i" );
-			$this->handle_border( 'submenuIndicatorBorder', "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg" );
+			$this->handle_border( 'submenuIndicatorBorder', "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg" );
 		}
 
 		if ( isset( $this->attrs['submenuIndicatorBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i, , #{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg",
-					'property'       => function ( $value ) {
-						return $this->handle_border_responsive( $value );
-					},
-					'value'          => $this->attrs['submenuIndicatorBorderResponsive'],
-					'device_control' => true,
-					'skip_device'    => array(
-						'Desktop',
-					),
-				)
-			);
-
-			$this->inject_style(
-				array(
-					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a svg",
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i, #{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a .gutenverse-icon-svg",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
