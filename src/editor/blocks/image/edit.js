@@ -199,9 +199,9 @@ const ImageBlock = compose(
 
     const urlAriaLabel = () => {
         if (ariaLabel) {
-            return <a className="guten-image-wrapper" aria-label={ariaLabel} href={url} target={linkTarget} rel={rel} ><ImageBoxFigure {...attributes} /></a>;
+            return <a className="guten-image-wrapper" aria-label={ariaLabel} href="javascript:void(0);" target={linkTarget} rel={rel} ><ImageBoxFigure {...attributes} /></a>;
         } else {
-            return <a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel}><ImageBoxFigure {...attributes} /></a>;
+            return <a className="guten-image-wrapper" href="javascript:void(0);" target={linkTarget} rel={rel}><ImageBoxFigure {...attributes} /></a>;
         }
     };
 
@@ -243,7 +243,7 @@ const ImageBlock = compose(
                 panelIsClicked={panelIsClicked}
                 setPanelIsClicked={setPanelIsClicked}
             />,
-            {...props, setPanelState},
+            { ...props, setPanelState },
             imagePanelState
         );
     };
