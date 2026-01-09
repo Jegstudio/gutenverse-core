@@ -28,7 +28,7 @@ const ContainerPlaceholder = ({ clientId, blockProps, setAttributes }) => {
 
     return <div {...blockProps}>
         <ContainerVariation
-            wrapper={'guten-container initial'}
+            wrapper={'guten-initial-container'}
             onSelect={handleVariation}
         />
     </div>;
@@ -273,7 +273,7 @@ const ContainerResizeWrapper = (props) => {
                 {isDragDisabled && (isSelected || isHovered || isHoveredState) && (
                     <div className={`container-resize ${openTool ? 'dragging' : ''}`}>
                         <div
-                            className={'container-popup'}
+                            className={'container-size-popup'}
                             onMouseEnter={() => setOpenTool(true)}
                             onMouseLeave={() => !openTool && setOpenTool(false)}
                         >
@@ -296,32 +296,6 @@ const ContainerResizeWrapper = (props) => {
     );
 };
 
-const EmptyContainer = (props) => {
-    const {
-        innerBlocksProps,
-        clientId,
-        isSelected,
-        isHovered,
-        attributes,
-        setAttributes,
-    } = props;
-
-    return (
-        <ContainerResizeWrapper
-            isSelected={isSelected}
-            isHovered={isHovered}
-            attributes={attributes}
-            setAttributes={setAttributes}
-            innerBlocksProps={innerBlocksProps}
-        >
-            <InnerBlocks
-                renderAppender={InnerBlocks.ButtonBlockAppender}
-                clientId={clientId}
-            />
-        </ContainerResizeWrapper>
-    );
-};
-
 const Container = (props) => {
     const {
         innerBlocksProps,
@@ -329,7 +303,8 @@ const Container = (props) => {
         isHovered,
         attributes,
         setAttributes,
-        innerChildren
+        innerChildren,
+        hasChildBlocks
     } = props;
 
     return (
@@ -341,7 +316,9 @@ const Container = (props) => {
             innerBlocksProps={innerBlocksProps}
         >
             <div className={'guten-inner-container'}>
-                {innerChildren}
+                {hasChildBlocks ? innerChildren : <InnerBlocks
+                    renderAppender={InnerBlocks.ButtonBlockAppender}
+                />}
             </div>
         </ContainerResizeWrapper>
     );
@@ -409,7 +386,7 @@ const ContainerBlock = compose(
         orientation,
     });
 
-    const Component = hasChildBlocks ? Container : EmptyContainer;
+    const Component = Container;
 
     return <>
         <CopyElementToolbar {...props} />

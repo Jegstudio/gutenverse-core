@@ -1,9 +1,3 @@
-.guten-flex-container.full-width {
-    margin: 0 auto;
-}
-
-
-
 /** Editor Style **/
 .guten-container,
 .guten-flex-container,
@@ -11,8 +5,6 @@
     transition: none !important;
 }
 
-/** 
-here where flex actually happened **/
 .guten-inner-container {
     display: flex;
     align-self: auto;
@@ -26,19 +18,65 @@ here where flex actually happened **/
     margin: 0 auto;
 
     >* {
-        flex-grow: 0;
-        flex-shrink: 0;
+        flex-grow: 1;
+        flex-shrink: 1;
     }
 
-    > .guten-flex-container {
+    >.guten-flex-container {
         margin: initial;
     }
 }
 
 .guten-flex-container {
+    &.boxed {
+        width: 100%;
+    }
+
+    &.full-width {
+        margin: 0 auto;
+    }
+}
+
+
+@media (max-width: 781px) {
+
+    .guten-flex-container.full-width,
+    .guten-flex-container>div>.guten-inner-container {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 425px) {
+
+    .guten-flex-container.full-width,
+    .guten-flex-container>div>.guten-inner-container {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .guten-flex-container>div>.guten-inner-container {
+        flex-wrap: wrap;
+    }
+
+    .guten-inner-container {
+        >* {
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+
+        >.guten-flex-container.guten-element {
+            width: 100%;
+        }
+    }
+}
+
+
+/** Meta helper (for initial, resize) **/
+.guten-flex-container {
     &.empty-container {
         padding: 10px;
 
+        .guten-inner-container,
         .block-editor-inner-blocks,
         .block-editor-block-list__layout,
         .block-list-appender,
@@ -48,49 +86,10 @@ here where flex actually happened **/
             height: 100%;
         }
 
-        .guten-container-resizeable {
-            display: flex;
-            height: 100% !important;
-            max-width: none !important;
-            width: 100% !important;
-        }
-
-        .block-list-appender {
-            margin: 0 !important;
-
-            .block-editor-inserter {
-                .block-editor-button-block-appender {
-                    box-shadow: none;
-                    border: 1px dashed #737373;
-                }
-            }
-        }
-    }
-
-    .guten-container-resizeable {
-        height: 100% !important;
-        width: 100% !important;
-    }
-
-    >.guten-container-resizeable {
-        >div {
-            >.components-resizable-box__handle-right {
-                right: -10px;
-            }
-
-            >.components-resizable-box__handle:before,
-            >.components-resizable-box__handle:after {
-                content: "";
-                border: 2px solid #3B57F7;
-                cursor: inherit;
-                display: none;
-                position: absolute;
-                right: 0;
-                width: 0;
-                top: 2px;
-                height: calc(100% - 4px);
-                border-radius: 0;
-            }
+        .block-editor-button-block-appender {
+            box-shadow: none;
+            border: 1px dashed #737373;
+            height: 100%;
         }
     }
 
@@ -145,6 +144,34 @@ here where flex actually happened **/
         border: none !important;
     }
 
+    /** resizeable **/
+    .guten-container-resizeable {
+        height: 100% !important;
+        width: 100% !important;
+    }
+
+    >.guten-container-resizeable {
+        >div {
+            >.components-resizable-box__handle-right {
+                right: -10px;
+            }
+
+            >.components-resizable-box__handle:before,
+            >.components-resizable-box__handle:after {
+                content: "";
+                border: 2px solid #3B57F7;
+                cursor: inherit;
+                display: none;
+                position: absolute;
+                right: 0;
+                width: 0;
+                top: 2px;
+                height: calc(100% - 4px);
+                border-radius: 0;
+            }
+        }
+    }
+
     .container-resize {
         position: absolute;
         top: calc(50% - 10px);
@@ -162,13 +189,13 @@ here where flex actually happened **/
                 opacity: 1;
             }
 
-            .container-popup {
+            .container-size-popup {
                 display: flex;
                 transition: opacity 0.2s linear;
             }
         }
 
-        .container-popup {
+        .container-size-popup {
             display: none;
             position: absolute;
             background: #000;
@@ -194,104 +221,97 @@ here where flex actually happened **/
 }
 
 /** Initial Container **/
-.guten-container {
-    &.initial {
-        text-align: center;
-        width: 100%;
+.guten-initial-container {
+    text-align: center;
+    width: 100%;
 
-        .container-variation {
-            border: 2px dashed #ddd;
-            margin: 10px;
-            padding: 50px 0;
+    .container-variation {
+        border: 2px dashed #ddd;
+        margin: 10px;
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+
+        h3 {
+            color: #888;
+            font-size: 14px !important;
+            letter-spacing: 4px;
+            margin: 0 0 25px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        ul.container-variation-picker-list {
             display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 20px;
             justify-content: center;
-            flex-direction: column;
-            align-items: center;
+            margin: 20px 0;
+            max-width: 600px;
+            padding: 0;
+            text-align: center;
 
-            h3 {
-                color: #888;
-                font-size: 14px !important;
-                letter-spacing: 4px;
-                margin: 0 0 25px;
-                text-align: center;
-                text-transform: uppercase;
-            }
-
-            ul.container-variation-picker-list {
+            .container-variation-picker-item-button {
+                border: 1px solid #eaeaea;
+                border-radius: 4px;
+                cursor: pointer;
                 display: flex;
+                gap: 4px;
+                width: 120px;
+                height: 70px;
+                padding: 5px;
                 flex-direction: row;
                 flex-wrap: wrap;
-                gap: 20px;
-                justify-content: center;
-                margin: 20px 0;
-                max-width: 600px;
-                padding: 0;
-                text-align: center;
 
-                .container-variation-picker-item-button {
-                    border: 1px solid #eaeaea;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    display: flex;
+                .inner-container {
                     gap: 4px;
-                    width: 120px;
-                    height: 70px;
-                    padding: 5px;
-                    flex-direction: row;
+                    display: flex;
                     flex-wrap: wrap;
+                }
 
-                    .inner-container {
-                        gap: 4px;
-                        display: flex;
-                        flex-wrap: wrap;
-                    }
+                .column-icon {
+                    background: #EAEAEA;
+                }
 
-                    .column-icon {
-                        background: #EAEAEA;
-                    }
+                &:hover {
+                    border-color: #3b57f7;
+                }
 
-                    &:hover {
-                        border-color: #3b57f7;
-                    }
+                .col-width-100 {
+                    flex: 0 0 100%;
+                }
 
-                    .col-width-100 {
-                        flex: 0 0 100%;
-                    }
+                .col-width-75 {
+                    flex: 0 0 calc(75% - 3px);
+                }
 
-                    .col-width-75 {
-                        flex: 0 0 calc(75% - 3px);
-                    }
+                .col-width-66 {
+                    flex: 0 0 calc(66.666% - 2px);
+                }
 
-                    .col-width-66 {
-                        flex: 0 0 calc(66.666% - 2px);
-                    }
+                .col-width-50 {
+                    flex: 0 0 calc(50% - 2px);
+                }
 
-                    .col-width-50 {
-                        flex: 0 0 calc(50% - 2px);
-                    }
+                .col-width-33 {
+                    flex: 0 0 calc(33.333% - 3px);
+                }
 
-                    .col-width-33 {
-                        flex: 0 0 calc(33.333% - 3px);
-                    }
+                .col-width-25 {
+                    flex: 0 0 calc(25% - 3px);
+                }
 
-                    .col-width-25 {
-                        flex: 0 0 calc(25% - 3px);
-                    }
+                .col-height-100 {
+                    height: 100%;
+                }
 
-                    .col-height-100 {
-                        height: 100%;
-                    }
-
-                    .col-height-50 {
-                        height: calc(50% - 2px);
-                    }
+                .col-height-50 {
+                    height: calc(50% - 2px);
                 }
             }
         }
     }
 }
-
-
-@media only screen and (max-width: 780px) {}
-
-@media only screen and (max-width: 425px) {}

@@ -15,17 +15,23 @@ export const unitPointGenerator = (attribute, style, css) => {
         let valueCSS = multiProperty(attribute, style, otherAttribute);
         if (isNotEmpty(valueCSS)) css.Desktop = ` ${selector} { ${valueCSS} } `;
     } else {
+        const selectors = typeof selector === 'object' ? selector : {
+            'Desktop': selector,
+            'Tablet': selector,
+            'Mobile': selector,
+        };
+
         if (attribute['Desktop']) {
             let valueCSS = multiProperty(attribute['Desktop'], style, otherAttribute, 'Desktop');
-            if (isNotEmpty(valueCSS)) css.Desktop = `${selector} { ` + valueCSS + ' }';
+            if (isNotEmpty(valueCSS)) css.Desktop = `${selectors['Desktop']} { ` + valueCSS + ' }';
         }
         if (attribute['Tablet']) {
             let valueCSS = multiProperty(attribute['Tablet'], style, otherAttribute, 'Tablet');
-            if (isNotEmpty(valueCSS)) css.Tablet = `${selector} { ` + valueCSS + ' }';
+            if (isNotEmpty(valueCSS)) css.Tablet = `${selectors['Tablet']} { ` + valueCSS + ' }';
         }
         if (attribute['Mobile']) {
             let valueCSS = multiProperty(attribute['Mobile'], style, otherAttribute, 'Mobile');
-            if (isNotEmpty(valueCSS)) css.Mobile = `${selector} { ` + valueCSS + ' }';
+            if (isNotEmpty(valueCSS)) css.Mobile = `${selectors['Mobile']} { ` + valueCSS + ' }';
         }
     }
     return css;

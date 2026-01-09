@@ -55,7 +55,11 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'unitPoint',
         'id': 'containerWidth',
         'responsive': true,
-        'selector': containerLayout === 'full-width' ? selector : `${selector} > div > .guten-inner-container`,
+        'selector': {
+            'Desktop': containerLayout === 'full-width' ? selector : `${selector} > div > .guten-inner-container`,
+            'Tablet': containerLayout === 'full-width' ? `.guten-flex-container.full-width${selector}` : `.guten-flex-container>div>.guten-inner-container${selector} > div > .guten-inner-container`,
+            'Mobile': containerLayout === 'full-width' ? `.guten-flex-container.guten-element.wp-block${selector}` : `.guten-flex-container.guten-element.wp-block${selector} > div > .guten-inner-container`,
+        },
         'properties': [
             {
                 'name': 'width',
