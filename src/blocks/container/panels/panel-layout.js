@@ -281,7 +281,7 @@ export const layoutPanel = (props) => {
 
     const deviceType = getDeviceType();
     const isWrapEnabled = flexWrap[deviceType] === 'wrap';
-    const selector = `.guten-flex-container.${elementId}`;
+    const selector = `.guten-flex-container-editor.${elementId}`;
     const direction = !isEmpty(flexDirection[deviceType]) ? flexDirection[deviceType] : 'row';
 
     return [
@@ -306,16 +306,16 @@ export const layoutPanel = (props) => {
             component: SizeControl,
             allowDeviceControl: true,
             units: {
-                px: {
-                    text: 'px',
-                    min: 0,
-                    max: 2800,
-                    step: 1
-                },
                 '%': {
                     text: '%',
                     min: 0,
                     max: 100,
+                    step: 1
+                },
+                px: {
+                    text: 'px',
+                    min: 0,
+                    max: 2800,
                     step: 1
                 },
                 vw: {
@@ -331,9 +331,9 @@ export const layoutPanel = (props) => {
                     'id': 'containerWidth',
                     'responsive': true,
                     'selector': {
-                        'Desktop': containerLayout === 'full-width' ? selector : `${selector} > div > .guten-inner-container`,
-                        'Tablet': containerLayout === 'full-width' ? `.guten-flex-container.full-width${selector}` : `.guten-flex-container>div>.guten-inner-container${selector} > div > .guten-inner-container`,
-                        'Mobile': containerLayout === 'full-width' ? `.guten-flex-container.guten-element.wp-block${selector}` : `.guten-flex-container.guten-element.wp-block${selector} > div > .guten-inner-container`,
+                        'Desktop': containerLayout === 'full-width' ? selector : `${selector} > div > .guten-inner-container-editor`,
+                        'Tablet': containerLayout === 'full-width' ? selector : `${selector} > div > .guten-inner-container-editor`,
+                        'Mobile': containerLayout === 'full-width' ? `.guten-flex-container-editor > div > .guten-inner-container-editor > ${selector}` : `${selector} > div > .guten-inner-container-editor`,
                     },
                     'properties': [
                         {

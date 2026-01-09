@@ -1,11 +1,57 @@
-// .guten-flex-container {
-//     display: flex;
-//     align-self: auto;
-//     flex-basis: auto;
-//     flex-grow: 0;
-//     flex-shrink: 0;
-//     flex-wrap: initial;
-//     justify-content: initial;
-//     align-content: initial;
-//     align-items: initial;
-// }
+// Shared flex container styles
+%flex-container-base {
+    display: flex;
+    align-self: auto;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-wrap: initial;
+    justify-content: initial;
+    align-content: initial;
+    align-items: initial;
+    margin: 0 auto;
+
+    >* {
+        flex-grow: 0;
+        flex-shrink: 1;
+    }
+}
+
+.guten-flex-container {
+    &.boxed {
+        width: 100%;
+    }
+
+    &.boxed>.guten-inner-container,
+    &.full-width {
+        @extend %flex-container-base;
+    }
+
+    >.guten-inner-container {
+        >.guten-flex-container.full-width {
+            margin: initial;
+        }
+    }
+}
+
+@media (max-width: 781px) {
+
+    .guten-flex-container.full-width,
+    .guten-flex-container>.guten-inner-container {
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 425px) {
+
+    .guten-flex-container.full-width,
+    .guten-flex-container>.guten-inner-container {
+        max-width: 100% !important;
+        flex-wrap: wrap;
+    }
+
+    .guten-flex-container>.guten-inner-container>.guten-flex-container {
+        max-width: 100% !important;
+        width: 100%;
+    }
+}

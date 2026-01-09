@@ -1841,8 +1841,9 @@ abstract class Style_Interface {
 	 * @since 3.0.3 add attribute backgroundTransition.
 	 *
 	 * @param string $selector Selector.
+	 * @param string $name     Background attribute name.
 	 */
-	protected function feature_background( $selector ) {
+	protected function feature_background( $selector, $name = 'background' ) {
 		if ( empty( $selector ) ) {
 			$selector = array(
 				'normal' => ".{$this->element_id}",
@@ -1850,22 +1851,22 @@ abstract class Style_Interface {
 			);
 		}
 
-		if ( isset( $this->attrs['background'] ) ) {
-			$this->handle_background( $selector['normal'], $this->attrs['background'] );
+		if ( isset( $this->attrs[ $name ] ) ) {
+			$this->handle_background( $selector['normal'], $this->attrs[ $name ] );
 		}
 
-		if ( isset( $this->attrs['backgroundHover'] ) ) {
-			$this->handle_background( $selector['hover'], $this->attrs['backgroundHover'] );
+		if ( isset( $this->attrs[ $name . 'Hover' ] ) ) {
+			$this->handle_background( $selector['hover'], $this->attrs[ $name . 'Hover' ] );
 		}
 
-		if ( isset( $this->attrs['backgroundTransition'] ) ) {
+		if ( isset( $this->attrs[ $name . 'Transition' ] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => $selector['normal'],
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'transition' );
 					},
-					'value'          => $this->attrs['backgroundTransition'],
+					'value'          => $this->attrs[ $name . 'Transition' ],
 					'device_control' => false,
 				)
 			);

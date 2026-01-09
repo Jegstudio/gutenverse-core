@@ -102,7 +102,7 @@ const onResize = (props, off) => {
         type: 'plain',
         id: 'resizeContainerWidth',
         responsive: true,
-        selector: `.guten-flex-container.${elementId}`,
+        selector: `.guten-flex-container-editor.${elementId}`,
         properties: [{
             name: 'width',
             valueType: 'pattern',
@@ -315,7 +315,7 @@ const Container = (props) => {
             setAttributes={setAttributes}
             innerBlocksProps={innerBlocksProps}
         >
-            <div className={'guten-inner-container'}>
+            <div className={'guten-inner-container-editor'}>
                 {hasChildBlocks ? innerChildren : <InnerBlocks
                     renderAppender={InnerBlocks.ButtonBlockAppender}
                 />}
@@ -360,7 +360,7 @@ const ContainerBlock = compose(
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
-            'guten-flex-container',
+            'guten-flex-container-editor',
             containerLayout,
             elementId,
             animationClass,

@@ -1,33 +1,11 @@
 /** Editor Style **/
 .guten-container,
-.guten-flex-container,
+.guten-flex-container-editor,
 .guten-container-resizeable {
     transition: none !important;
 }
 
-.guten-inner-container {
-    display: flex;
-    align-self: auto;
-    flex-basis: auto;
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-wrap: initial;
-    justify-content: initial;
-    align-content: initial;
-    align-items: initial;
-    margin: 0 auto;
-
-    >* {
-        flex-grow: 1;
-        flex-shrink: 1;
-    }
-
-    >.guten-flex-container {
-        margin: initial;
-    }
-}
-
-.guten-flex-container {
+.guten-flex-container-editor {
     &.boxed {
         width: 100%;
     }
@@ -37,46 +15,63 @@
     }
 }
 
+.guten-inner-container-editor {
+    display: flex;
+    align-self: auto;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-wrap: initial;
+    justify-content: initial;
+    align-content: initial;
+    align-items: initial;
+    margin: 0 auto;
+
+    >* {
+        flex-grow: 0;
+        flex-shrink: 1;
+    }
+
+    >.guten-flex-container-editor.guten-flex-container-editor.full-width {
+        margin: initial;
+    }
+}
 
 @media (max-width: 781px) {
 
-    .guten-flex-container.full-width,
-    .guten-flex-container>div>.guten-inner-container {
-        max-width: 100%;
+    .guten-flex-container-editor.full-width,
+    .guten-flex-container-editor>div>.guten-inner-container-editor {
+        max-width: 100% !important;
     }
 }
 
 @media (max-width: 425px) {
-
-    .guten-flex-container.full-width,
-    .guten-flex-container>div>.guten-inner-container {
-        max-width: 100%;
-        width: 100%;
-    }
-
-    .guten-flex-container>div>.guten-inner-container {
-        flex-wrap: wrap;
-    }
-
-    .guten-inner-container {
+    .guten-inner-container-editor {
         >* {
             flex-grow: 0;
             flex-shrink: 0;
         }
+    }
 
-        >.guten-flex-container.guten-element {
-            width: 100%;
-        }
+    .guten-flex-container-editor.full-width,
+    .guten-flex-container-editor>div>.guten-inner-container-editor {
+        max-width: 100% !important;
+        flex-wrap: wrap;
+    }
+
+    .guten-flex-container-editor>div>.guten-inner-container-editor>.guten-flex-container-editor {
+        max-width: 100% !important;
+        width: 100%;
     }
 }
 
 
 /** Meta helper (for initial, resize) **/
-.guten-flex-container {
+.guten-flex-container-editor {
     &.empty-container {
         padding: 10px;
 
-        .guten-inner-container,
+        .guten-inner-container-editor,
         .block-editor-inner-blocks,
         .block-editor-block-list__layout,
         .block-list-appender,

@@ -5,7 +5,7 @@ import { backgroundStyle } from 'gutenverse-core/controls';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
-    const selector = `.guten-flex-container.${elementId}`;
+    const selector = `.guten-flex-container-editor.${elementId}`;
     const device = getDeviceType();
 
     data = backgroundStyle({
@@ -23,19 +23,19 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',
         'id': 'boxedBackground',
-        'selector': `.${elementId}:not(.background-animated) .guten-inner-container, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container`,
+        'selector': `.${elementId}:not(.background-animated) .guten-inner-container-editor, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container-editor`,
     });
 
     isNotEmpty(attributes['backgroundHover']) && data.push({
         'type': 'background',
         'id': 'boxedBackgroundHover',
-        backgroundHoverSelector: `.${elementId}:not(.background-animated):hover .guten-inner-container, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer .guten-inner-container`,
+        backgroundHoverSelector: `.${elementId}:not(.background-animated):hover .guten-inner-container-editor, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer .guten-inner-container-editor`,
     });
 
     isNotEmpty(attributes['backgroundTransition']) && data.push({
         'type': 'unitPoint',
         'id': 'boxedBackgroundTransition',
-        'selector': `.${elementId}:not(.background-animated) .guten-inner-container, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container`,
+        'selector': `.${elementId}:not(.background-animated) .guten-inner-container-editor, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container-editor`,
         'properties': [
             {
                 'name': 'transition',
@@ -56,9 +56,9 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'containerWidth',
         'responsive': true,
         'selector': {
-            'Desktop': containerLayout === 'full-width' ? selector : `${selector} > div > .guten-inner-container`,
-            'Tablet': containerLayout === 'full-width' ? `.guten-flex-container.full-width${selector}` : `.guten-flex-container>div>.guten-inner-container${selector} > div > .guten-inner-container`,
-            'Mobile': containerLayout === 'full-width' ? `.guten-flex-container.guten-element.wp-block${selector}` : `.guten-flex-container.guten-element.wp-block${selector} > div > .guten-inner-container`,
+            'Desktop': containerLayout === 'full-width' ? selector : `${selector} > div > .guten-inner-container-editor`,
+            'Tablet': containerLayout === 'full-width' ? selector : `${selector} > div > .guten-inner-container-editor`,
+            'Mobile': containerLayout === 'full-width' ? `.guten-flex-container-editor > div > .guten-inner-container-editor > ${selector}` : `${selector} > div > .guten-inner-container-editor`,
         },
         'properties': [
             {
@@ -87,7 +87,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'flexDirection',
         'responsive': true,
-        'selector': `${selector} > div > .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container-editor`,
         'properties': [
             {
                 'name': 'flex-direction',
@@ -101,7 +101,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'justifyContent',
         'responsive': true,
-        'selector': `${selector} > div > .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container-editor`,
         'properties': [
             {
                 'name': 'justify-content',
@@ -115,7 +115,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'alignItems',
         'responsive': true,
-        'selector': `${selector} > div > .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container-editor`,
         'properties': [
             {
                 'name': 'align-items',
@@ -129,7 +129,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'unitPoint',
         'id': 'columnGap',
         'responsive': true,
-        'selector': `${selector} > div > .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container-editor`,
         'properties': [
             {
                 'name': 'column-gap',
@@ -143,7 +143,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'unitPoint',
         'id': 'rowGap',
         'responsive': true,
-        'selector': `${selector} > div > .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container-editor`,
         'properties': [
             {
                 'name': 'row-gap',
@@ -157,7 +157,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'flexWrap',
         'responsive': true,
-        'selector': `${selector} > div > .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container-editor`,
         'properties': [
             {
                 'name': 'flex-wrap',
@@ -171,7 +171,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'alignContent',
         'responsive': true,
-        'selector': `${selector} > div > .guten-inner-container`,
+        'selector': `${selector} > div > .guten-inner-container-editor`,
         'properties': [
             {
                 'name': 'align-content',

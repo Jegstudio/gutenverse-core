@@ -5,6 +5,7 @@ import { useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks'
 const save = ({ attributes }) => {
     const {
         elementId,
+        containerLayout,
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -13,6 +14,7 @@ const save = ({ attributes }) => {
     const className = classnames(
         'guten-element',
         'guten-flex-container',
+        containerLayout,
         elementId,
         animationClass,
         displayClass,
@@ -20,8 +22,9 @@ const save = ({ attributes }) => {
 
     return (
         <div {...useBlockProps.save({ className })}>
-            <div className="guten-background-overlay" />
-            <InnerBlocks.Content />
+            {'boxed' === containerLayout ? <div className="guten-inner-container">
+                <InnerBlocks.Content />
+            </div> : <InnerBlocks.Content />}
         </div>
     );
 };

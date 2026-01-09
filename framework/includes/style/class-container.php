@@ -55,30 +55,34 @@ class Container extends Style_Abstract {
 	 * Generate style base on attribute.
 	 */
 	public function generate() {
-		// Container Width (when boxed).
-		if ( isset( $this->attrs['containerWidth'] ) && isset( $this->attrs['contentWidth'] ) && 'boxed' === $this->attrs['contentWidth'] ) {
-			$this->inject_style(
+		$container_layout = isset( $this->attrs['containerLayout'] ) ? $this->attrs['containerLayout'] : 'full-width';
+
+		// Min Height.
+		if ( isset( $this->attrs['minHeight'] ) ) {
+			$this->feature_background(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
-					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'max-width' );
-					},
-					'value'          => $this->attrs['containerWidth'],
-					'device_control' => true,
-				)
+					'normal' => ".guten-flex-container.{$this->element_id} .guten-inner-container",
+					'hover'  => ".guten-flex-container.{$this->element_id}:hover .guten-inner-container",
+				),
+				'boxedBackground'
 			);
 		}
 
-		// Full Width.
-		if ( isset( $this->attrs['contentWidth'] ) && 'full-width' === $this->attrs['contentWidth'] ) {
+		// Container Width.
+		if ( isset( $this->attrs['containerWidth'] ) ) {
+			// For boxed layout, target the inner container.
+			$width_selector = 'boxed' === $container_layout
+				? ".guten-flex-container.{$this->element_id} > .guten-inner-container"
+				: ".guten-flex-container.{$this->element_id}";
+
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
-					'property'       => function () {
-						return 'width: 100%; max-width: 100%;';
+					'selector'       => $width_selector,
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'width' );
 					},
-					'value'          => $this->attrs['contentWidth'],
-					'device_control' => false,
+					'value'          => $this->attrs['containerWidth'],
+					'device_control' => true,
 				)
 			);
 		}
