@@ -45,7 +45,8 @@
 @media (max-width: 425px) {
 
     .guten-flex-container.full-width,
-    .guten-flex-container>.guten-inner-container {
+    .guten-flex-container>.guten-inner-container,
+    .guten-flex-container.boxed>.guten-inner-container {
         max-width: 100% !important;
         flex-wrap: wrap;
     }

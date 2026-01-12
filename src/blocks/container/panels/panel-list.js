@@ -1,3 +1,4 @@
+import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
@@ -14,9 +15,16 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('As Container Inner', 'gutenverse'),
+            title: __('Flex Item', 'gutenverse'),
             panelArray: childPanel,
-            tabRole: TabSetting
+            tabRole: TabSetting,
+            show: (props) => {
+                const { clientId } = props;
+                const parents = select('core/block-editor').getBlockParents(clientId);
+                const parentId = parents[parents.length - 1];
+                const parentBlock = select('core/block-editor').getBlock(parentId);
+                return parentBlock?.name === 'gutenverse/container';
+            }
         },
         {
             title: __('Background', 'gutenverse'),

@@ -57,6 +57,11 @@ class Container extends Style_Abstract {
 	public function generate() {
 		$container_layout = isset( $this->attrs['containerLayout'] ) ? $this->attrs['containerLayout'] : 'full-width';
 
+		// For boxed layout, target the inner container.
+		$content_selector = 'boxed' === $container_layout
+			? ".guten-flex-container.{$this->element_id} > .guten-inner-container"
+			: ".guten-flex-container.{$this->element_id}";
+
 		// Min Height.
 		if ( isset( $this->attrs['minHeight'] ) ) {
 			$this->feature_background(
@@ -70,14 +75,9 @@ class Container extends Style_Abstract {
 
 		// Container Width.
 		if ( isset( $this->attrs['containerWidth'] ) ) {
-			// For boxed layout, target the inner container.
-			$width_selector = 'boxed' === $container_layout
-				? ".guten-flex-container.{$this->element_id} > .guten-inner-container"
-				: ".guten-flex-container.{$this->element_id}";
-
 			$this->inject_style(
 				array(
-					'selector'       => $width_selector,
+					'selector'       => $content_selector,
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
@@ -105,7 +105,7 @@ class Container extends Style_Abstract {
 		if ( isset( $this->attrs['flexDirection'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => $content_selector,
 					'property'       => function ( $value ) {
 						return "flex-direction: {$value};";
 					},
@@ -119,7 +119,7 @@ class Container extends Style_Abstract {
 		if ( isset( $this->attrs['justifyContent'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => $content_selector,
 					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},
@@ -133,7 +133,7 @@ class Container extends Style_Abstract {
 		if ( isset( $this->attrs['alignItems'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => $content_selector,
 					'property'       => function ( $value ) {
 						return "align-items: {$value};";
 					},
@@ -147,7 +147,7 @@ class Container extends Style_Abstract {
 		if ( isset( $this->attrs['columnGap'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => $content_selector,
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'column-gap' );
 					},
@@ -161,7 +161,7 @@ class Container extends Style_Abstract {
 		if ( isset( $this->attrs['rowGap'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => $content_selector,
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'row-gap' );
 					},
@@ -175,7 +175,7 @@ class Container extends Style_Abstract {
 		if ( isset( $this->attrs['flexWrap'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => $content_selector,
 					'property'       => function ( $value ) {
 						return "flex-wrap: {$value};";
 					},
@@ -189,7 +189,7 @@ class Container extends Style_Abstract {
 		if ( isset( $this->attrs['alignContent'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => $content_selector,
 					'property'       => function ( $value ) {
 						return "align-content: {$value};";
 					},
@@ -203,7 +203,7 @@ class Container extends Style_Abstract {
 		if ( isset( $this->attrs['overflow'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => $content_selector,
 					'property'       => function ( $value ) {
 						return "overflow: {$value};";
 					},
@@ -212,6 +212,119 @@ class Container extends Style_Abstract {
 				)
 			);
 		}
+
+		/**
+		 * Child
+		 */
+
+		// Flex Align Self.
+		if ( isset( $this->attrs['flexAlignSelf'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return "align-self: {$value};";
+					},
+					'value'          => $this->attrs['flexAlignSelf'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Order.
+		if ( isset( $this->attrs['flexOrder'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						if ( 'start' === $value ) {
+							return 'order: -9999;';
+						}
+						if ( 'end' === $value ) {
+							return 'order: 9999;';
+						}
+						return '';
+					},
+					'value'          => $this->attrs['flexOrder'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Custom Order.
+		if ( isset( $this->attrs['flexCustomOrder'] ) && isset( $this->attrs['flexOrder'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value, $device ) {
+						if ( isset( $this->attrs['flexOrder'][ $device ] ) && 'custom' === $this->attrs['flexOrder'][ $device ] ) {
+							return "order: {$value};";
+						}
+						return '';
+					},
+					'value'          => $this->attrs['flexCustomOrder'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Size (Grow/Shrink Presets).
+		if ( isset( $this->attrs['flexSize'] ) ) {
+			// Grow preset.
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return 'grow' === $value ? 'flex-grow: 1;' : '';
+					},
+					'value'          => $this->attrs['flexSize'],
+					'device_control' => true,
+				)
+			);
+			// Shrink preset.
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return 'shrink' === $value ? 'flex-shrink: 1;' : '';
+					},
+					'value'          => $this->attrs['flexSize'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Size Grow (Custom).
+		if ( isset( $this->attrs['flexSizeGrow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return "flex-grow: {$value};";
+					},
+					'value'          => $this->attrs['flexSizeGrow'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Size Shrink (Custom).
+		if ( isset( $this->attrs['flexSizeShrink'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return "flex-shrink: {$value};";
+					},
+					'value'          => $this->attrs['flexSizeShrink'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		/**
+		 * Overlay.
+		 */
 
 		// Background Overlay.
 		if ( isset( $this->attrs['backgroundOverlay'] ) ) {
