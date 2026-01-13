@@ -44,10 +44,21 @@ class Post_Featured_Image extends Block_Abstract {
 			if ( $this->attributes['imageLazy'] ) {
 				$content = get_the_post_thumbnail( $post_id, $image_size['value'], array( 'loading' => 'lazy' ) );
 			}
+			if (isset($this->attributes['imageLoad'])) {
+				if ($this->attributes['imageLoad'] == 'lazy') {
+					$content = get_the_post_thumbnail( $post_id, $image_size['value'], array( 'loading' => 'lazy' ) );
+				}
+			}
+
 		} elseif ( ! empty( $placeholder_img ) ) {
 			$content = '<img alt="" src="' . esc_url( GUTENVERSE_URL . '/assets/img/img-placeholder.jpg' ) . '"/>';
 			if ( $this->attributes['imageLazy'] ) {
 				$content = '<img alt="" src="' . esc_url( GUTENVERSE_URL . '/assets/img/img-placeholder.jpg' ) . '" loading="lazy"/>';
+			}
+			if (isset($this->attributes['imageLoad'])) {
+				if ($this->attributes['imageLoad'] == 'lazy') {
+					$content = '<img alt="" src="' . esc_url( GUTENVERSE_URL . '/assets/img/img-placeholder.jpg' ) . '" loading="lazy"/>';
+				}
 			}
 		}
 
