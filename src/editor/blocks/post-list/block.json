@@ -159,6 +159,9 @@
 			"type": "boolean",
 			"default": false
 		},
+		"imageLoad": {
+			"type": "string"
+		},
 		"paginationMode": {
 			"type": "string",
 			"default": "disable"

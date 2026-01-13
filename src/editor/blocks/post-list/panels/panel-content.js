@@ -221,7 +221,23 @@ export const contentPanel = (props) => {
         {
             id: 'lazyLoad',
             label: __('Set Lazy Load', 'gutenverse'),
+            show: false,
             component: CheckboxControl,
         },
+        {
+            id: 'imageLoad',
+            label: __('Image Load', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: __('Normal Load', 'gutenverse'),
+                    value: 'normal'
+                },
+                {
+                    label: __('Lazy Load', 'gutenverse'),
+                    value: 'lazy'
+                },
+            ]
+        }
     ];
 };
