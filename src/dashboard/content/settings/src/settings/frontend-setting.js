@@ -21,6 +21,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
         disable_wp_lazyload = true,
         file_delete_mechanism = 'manual',
         unused_size = '0 B',
+        default_image_load = 'normal'
     } = frontend_settings;
 
     const updateValue = (id, value) => {
@@ -150,6 +151,23 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
                             ]}
                         />
                     }
+                    <ControlSelect
+                        id={'default_image_load'}
+                        title={__('Default Image Load Mechanism', '--gctd--')}
+                        description={__('Set the default loading image mechanism on Gutenverse Block. ', '--gctd--')}
+                        value={default_image_load}
+                        updateValue={updateValue}
+                        options={[
+                            {
+                                label: __('Normal Load', '--gctd--'),
+                                value: 'normal',
+                            },
+                            {
+                                label: __('Lazy Load', '--gctd--'),
+                                value: 'lazy'
+                            },
+                        ]}
+                    />
                 </div>
             </>
             }
