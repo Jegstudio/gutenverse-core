@@ -41,6 +41,14 @@ class Post_Block extends Post_Abstract {
 			$content = preg_replace( '/<img(.*?)>/', '<img loading="eager" $1>', $content );
 		}
 
+		if (isset($this->attributes['imageLoad'])) {
+			if ($this->attributes['imageLoad'] === 'lazy') {
+				$content = preg_replace( '/<img(.*?)>/', '<img loading="lazy" $1>', $content );
+			} else {
+				$content = preg_replace( '/<img(.*?)>/', '<img loading="eager" $1>', $content );
+			}
+		}
+
 		$breakpoint     = 'type-1' === $this->attributes['postblockType'] || 'type-4' === $this->attributes['postblockType'] ? 'break-point-' . esc_attr( $this->attributes['breakpoint'] ) : '';
 		$postblock_type = 'postblock-' . esc_attr( $this->attributes['postblockType'] );
 		$pagination     = 'guten-pagination-' . esc_attr( $this->attributes['paginationMode'] );
