@@ -593,6 +593,9 @@
 			"type": "boolean",
 			"default": false
 		},
+		"imageLoad": {
+			"type": "string"
+		},
 		"paginationPadding": {
 			"type": "object",
 			"copyStyle": true

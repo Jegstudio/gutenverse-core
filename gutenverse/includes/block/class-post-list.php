@@ -44,6 +44,14 @@ class Post_List extends Post_Abstract {
 			$content = preg_replace( '/<img(.*?)>/', '<img loading="eager" $1>', $content );
 		}
 
+		if ( isset( $this->attributes['imageLoad'] ) ) {
+			if ($this->attributes['imageLoad'] == 'lazy') {
+				$content = preg_replace( '/<img(.*?)>/', '<img loading="lazy" $1>', $content );
+			} else {
+				$content = preg_replace( '/<img(.*?)>/', '<img loading="eager" $1>', $content );
+			}
+		}
+
 		return $this->render_wrapper(
 			'postlist',
 			$content,
