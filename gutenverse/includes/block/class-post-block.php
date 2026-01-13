@@ -10,6 +10,7 @@
 namespace Gutenverse\Block;
 
 use Gutenverse\Framework\Block\Post_Abstract;
+use Gutenverse\Utils\Options;
 
 /**
  * Class Post Block
@@ -34,8 +35,9 @@ class Post_Block extends Post_Abstract {
 		if ( $remove_link ) {
 			$content = str_replace( 'href', 'href="javascript:void(0);" data-href', $content );
 		}
+		$image_load = Options::get_instance()->get_image_load( 'lazy', $this->attributes['lazyLoad'], $this->attributes['imageLoad'] );
 
-		if ( $this->attributes['lazyLoad'] ) {
+		if ( 'lazy' === $image_load ) {
 			$content = preg_replace( '/<img(.*?)>/', '<img loading="lazy" $1>', $content );
 		} else {
 			$content = preg_replace( '/<img(.*?)>/', '<img loading="eager" $1>', $content );

@@ -3,7 +3,33 @@ import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { CheckboxControl, IconSVGControl, IconRadioControl, ImageRadioControl, RangeControl, SelectControl, SelectSortableControl, TextControl } from 'gutenverse-core/controls';
 
+const defImageLoad = {
+    normal: {
+        label: 'Normal Load',
+        value: 'normal',
+    },
+    lazy: {
+        label: 'Lazy Load',
+        value: 'lazy',
+    }
+};
+
+const getDefaultImageLoad = (imageLoad, isLazy) => {
+    if (imageLoad.length > 1) {
+        return imageLoad
+    }
+    if (isLazy) {
+        return defImageLoad.lazy
+    }
+    const {
+        defaultImageLoad = 'normal'
+    } = window['GutenverseConfig'];
+    return defImageLoad[defaultImageLoad];
+}
+
 export const contentPanel = (props) => {
+
+
     const {
         elementId,
         postblockType,
@@ -14,8 +40,11 @@ export const contentPanel = (props) => {
         metaEnabled,
         metaAuthorEnabled,
         metaDateEnabled,
-        metaDateFormat
+        metaDateFormat,
+        imageLoad,
+        lazyLoad
     } = props;
+    const defaultImageLoad = getDefaultImageLoad(imageLoad, lazyLoad);
 
     const {
         gutenverseImgDir
@@ -375,9 +404,20 @@ export const contentPanel = (props) => {
             ]
         },
         {
-            id: 'lazyLoad',
-            label: __('Set Lazy Load', 'gutenverse'),
-            component: CheckboxControl,
+            id: 'imageLoad',
+            label: __('Image Load', 'gutenverse'),
+            component: SelectControl,
+            defaultValue: defaultImageLoad,
+            options: [
+                {
+                    label: __('Normal Load'),
+                    value: 'normal'
+                },
+                {
+                    label: __('Lazy Load'),
+                    value: 'lazy'
+                },
+            ],
         },
     ];
 };
