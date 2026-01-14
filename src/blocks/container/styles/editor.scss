@@ -22,6 +22,7 @@
     flex-grow: 0;
     flex-shrink: 1;
     flex-wrap: initial;
+    flex-direction: column;
     justify-content: initial;
     align-content: initial;
     align-items: initial;
@@ -94,7 +95,7 @@
         >.guten-container-resizeable {
             >div {
                 >.components-resizable-box__handle-right {
-                    right: -0;
+                    right: 0;
                 }
 
                 >.components-resizable-box__handle:before,
@@ -144,12 +145,13 @@
     .guten-container-resizeable {
         height: 100% !important;
         width: 100% !important;
+        position: static !important;
     }
 
     >.guten-container-resizeable {
         >div {
             >.components-resizable-box__handle-right {
-                right: -10px;
+                right: 0px;
             }
 
             >.components-resizable-box__handle:before,
@@ -161,8 +163,8 @@
                 position: absolute;
                 right: 0;
                 width: 0;
-                top: 2px;
-                height: calc(100% - 4px);
+                top: 10px;
+                height: calc(100% - 20px);
                 border-radius: 0;
             }
         }
@@ -223,7 +225,6 @@
 
     .container-variation {
         border: 2px dashed #ddd;
-        margin: 10px;
         padding: 50px 0;
         display: flex;
         justify-content: center;
@@ -270,6 +271,18 @@
 
                 .column-icon {
                     background: #EAEAEA;
+
+                    &.with-icon {
+                        justify-content: center;
+                        align-items: center;
+                        display: flex;
+
+                        svg {
+                            width: 12px;
+                            height: 12px;
+                            color: #99A2A9;
+                        }
+                    }
                 }
 
                 &:hover {

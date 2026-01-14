@@ -20,35 +20,38 @@ const getBlockStyle = (elementId, attributes) => {
     } = attributes;
 
     // Boxed Background
-    isNotEmpty(attributes['background']) && data.push({
-        'type': 'background',
-        'id': 'boxedBackground',
-        'selector': `.${elementId}:not(.background-animated) .guten-inner-container-editor, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container-editor`,
-    });
+    if (containerLayout !== 'full-width') {
+        isNotEmpty(attributes['boxedBackground']) && data.push({
+            'type': 'background',
+            'id': 'boxedBackground',
+            'selector': `.${elementId}:not(.background-animated) .guten-inner-container-editor, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container-editor`,
+        });
 
-    isNotEmpty(attributes['backgroundHover']) && data.push({
-        'type': 'background',
-        'id': 'boxedBackgroundHover',
-        backgroundHoverSelector: `.${elementId}:not(.background-animated):hover .guten-inner-container-editor, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer .guten-inner-container-editor`,
-    });
+        isNotEmpty(attributes['boxedBackgroundHover']) && data.push({
+            'type': 'background',
+            'id': 'boxedBackgroundHover',
+            backgroundHoverSelector: `.${elementId}:not(.background-animated):hover .guten-inner-container-editor, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer .guten-inner-container-editor`,
+        });
 
-    isNotEmpty(attributes['backgroundTransition']) && data.push({
-        'type': 'unitPoint',
-        'id': 'boxedBackgroundTransition',
-        'selector': `.${elementId}:not(.background-animated) .guten-inner-container-editor, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container-editor`,
-        'properties': [
-            {
-                'name': 'transition',
-                'valueType': 'pattern',
-                'pattern': '{value}',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct',
-                    },
-                }
-            },
-        ],
-    });
+        isNotEmpty(attributes['boxedBackgroundTransition']) && data.push({
+            'type': 'unitPoint',
+            'id': 'boxedBackgroundTransition',
+            'selector': `.${elementId}:not(.background-animated) .guten-inner-container-editor, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container-editor`,
+            'properties': [
+                {
+                    'name': 'transition',
+                    'valueType': 'pattern',
+                    'pattern': '{value}',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct',
+                        },
+                    }
+                },
+            ],
+        });
+    }
+
 
     // Container Width (when full width)
     isNotEmpty(attributes['containerLayout']) && isNotEmpty(attributes['containerWidth']) && data.push({
@@ -255,6 +258,190 @@ const getBlockStyle = (elementId, attributes) => {
         }
     }
 
+    /** Border **/
+    isNotEmpty(attributes['border']) && data.push({
+        'type': 'border',
+        'id': 'border',
+        'selector': `.${elementId}`,
+    });
+
+    isNotEmpty(attributes['borderHover']) && data.push({
+        'type': 'border',
+        'id': 'borderHover',
+        'selector': `.${elementId}:hover`,
+    });
+
+    isNotEmpty(attributes['borderResponsive']) && data.push({
+        'type': 'borderResponsive',
+        'id': 'borderResponsive',
+        'selector': `.${elementId}`,
+    });
+
+    isNotEmpty(attributes['borderResponsiveHover']) && data.push({
+        'type': 'borderResponsive',
+        'id': 'borderResponsiveHover',
+        'selector': `.${elementId}:hover`,
+    });
+
+    isNotEmpty(attributes['boxShadow']) && data.push({
+        'type': 'boxShadow',
+        'id': 'boxShadow',
+        'properties': [
+            {
+                'name': 'box-shadow',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId}`,
+    });
+
+    isNotEmpty(attributes['boxShadowHover']) && data.push({
+        'type': 'boxShadow',
+        'id': 'boxShadowHover',
+        'properties': [
+            {
+                'name': 'box-shadow',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId}:hover`,
+    });
+
+    /** Mask */
+    isNotEmpty(attributes['mask']) && data.push({
+        'type': 'mask',
+        'id': 'mask',
+        'responsive': true,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+    });
+
+    /** Positioning Panel */
+    isNotEmpty(attributes['positioningType']) && data.push({
+        'type': 'positioning',
+        'id': 'positioningType',
+        'selector': `.${elementId}.guten-element`,
+        'skipDeviceType': 'first',
+        'attributeType': 'type',
+        'multiAttr': {
+            'positioningType': attributes['positioningType'],
+            'inBlock': attributes['inBlock']
+        }
+    });
+    isNotEmpty(attributes['positioningType']) && isNotEmpty(attributes['positioningWidth']) && data.push({
+        'type': 'positioning',
+        'id': 'positioningType',
+        'selector': `.${elementId}.guten-element`,
+        'skipDeviceType': 'second',
+        'attributeType': 'type',
+        'multiAttr': {
+            'positioningWidth': attributes['positioningWidth'],
+            'positioningType': attributes['positioningType'],
+            'inBlock': attributes['inBlock']
+        }
+    });
+    isNotEmpty(attributes['positioningWidth']) && isNotEmpty(attributes['positioningType']) && data.push({
+        'type': 'positioning',
+        'id': 'positioningWidth',
+        'selector': `.${elementId}.guten-element`,
+        'skipDeviceType': 'first',
+        'attributeType': 'width',
+        'multiAttr': {
+            'positioningWidth': attributes['positioningWidth'],
+            'positioningType': attributes['positioningType'],
+            'inBlock': attributes['inBlock']
+        }
+    });
+    isNotEmpty(attributes['positioningAlign']) && data.push(
+        {
+            'type': 'plain',
+            'id': 'positioningAlign',
+            'responsive': true,
+            'properties': [
+                {
+                    'name': 'align-self',
+                    'valueType': 'direct'
+                }
+            ],
+            'selector': `.${elementId}.guten-element`,
+        },
+        {
+            'type': 'positioning',
+            'id': 'positioningAlign',
+            'properties': [
+                {
+                    'name': 'vertical-align',
+                    'valueType': 'direct'
+                }
+            ],
+            'attributeType': 'align',
+            'selector': `.${elementId}.guten-element`,
+        }
+    );
+    isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
+        'type': 'plain',
+        'id': 'positioningLocation',
+        'properties': [
+            {
+                'name': 'position',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId}.guten-element`,
+    });
+    isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
+        'type': 'positioning',
+        'id': 'positioningLeft',
+        'properties': [
+            {
+                'name': 'left',
+                'valueType': 'direct'
+            }
+        ],
+        'responsive': true,
+        'selector': `.${elementId}.guten-element`,
+        'attributeType': 'custom',
+    });
+    isNotEmpty(attributes['positioningRight']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
+        'type': 'positioning',
+        'id': 'positioningRight',
+        'properties': [
+            {
+                'name': 'right',
+                'valueType': 'direct'
+            }
+        ],
+        'responsive': true,
+        'selector': `.${elementId}.guten-element`,
+        'attributeType': 'custom',
+    });
+    isNotEmpty(attributes['positioningTop']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
+        'type': 'positioning',
+        'id': 'positioningTop',
+        'properties': [
+            {
+                'name': 'top',
+                'valueType': 'direct'
+            }
+        ],
+        'responsive': true,
+        'selector': `.${elementId}.guten-element`,
+        'attributeType': 'custom',
+    });
+    isNotEmpty(attributes['positioningBottom']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
+        'type': 'positioning',
+        'id': 'positioningBottom',
+        'properties': [
+            {
+                'name': 'bottom',
+                'valueType': 'direct'
+            }
+        ],
+        'responsive': true,
+        'selector': `.${elementId}.guten-element`,
+        'attributeType': 'custom',
+    });
+
+
     // Flex Size (grow/shrink) - responsive handling
     const flexSize = attributes['flexSize'];
     const flexSizeGrow = attributes['flexSizeGrow'];
@@ -319,145 +506,6 @@ const getBlockStyle = (elementId, attributes) => {
             });
         }
     }
-
-    /** Border **/
-    isNotEmpty(attributes['border']) && data.push({
-        'type': 'border',
-        'id': 'border',
-        'selector': `.${elementId}`,
-    });
-
-    isNotEmpty(attributes['borderHover']) && data.push({
-        'type': 'border',
-        'id': 'borderHover',
-        'selector': `.${elementId}:hover`,
-    });
-
-    isNotEmpty(attributes['borderResponsive']) && data.push({
-        'type': 'borderResponsive',
-        'id': 'borderResponsive',
-        'selector': `.${elementId}`,
-    });
-
-    isNotEmpty(attributes['borderResponsiveHover']) && data.push({
-        'type': 'borderResponsive',
-        'id': 'borderResponsiveHover',
-        'selector': `.${elementId}:hover`,
-    });
-
-    isNotEmpty(attributes['boxShadow']) && data.push({
-        'type': 'boxShadow',
-        'id': 'boxShadow',
-        'properties': [
-            {
-                'name': 'box-shadow',
-                'valueType': 'direct'
-            }
-        ],
-        'selector': `.${elementId}`,
-    });
-
-    isNotEmpty(attributes['boxShadowHover']) && data.push({
-        'type': 'boxShadow',
-        'id': 'boxShadowHover',
-        'properties': [
-            {
-                'name': 'box-shadow',
-                'valueType': 'direct'
-            }
-        ],
-        'selector': `.${elementId}:hover`,
-    });
-
-    /** Mask */
-    isNotEmpty(attributes['mask']) && data.push({
-        'type': 'mask',
-        'id': 'mask',
-        'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
-    });
-
-    /** Positioning Panel */
-    isNotEmpty(attributes['positionType']) && data.push({
-        'type': 'plain',
-        'id': 'positionType',
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'position',
-                'valueType': 'direct'
-            }
-        ],
-        'selector': `.${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['positionLeft']) && data.push({
-        'type': 'unitPoint',
-        'id': 'positionLeft',
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'left',
-                'valueType': 'function',
-                'functionName': 'handleWrapperPosition'
-            }
-        ],
-        'otherAttribute': {
-            'positionType': attributes['positionType']
-        },
-        'selector': `.${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['positionRight']) && data.push({
-        'type': 'unitPoint',
-        'id': 'positionRight',
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'right',
-                'valueType': 'function',
-                'functionName': 'handleWrapperPosition'
-            }
-        ],
-        'otherAttribute': {
-            'positionType': attributes['positionType']
-        },
-        'selector': `.${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['positionTop']) && data.push({
-        'type': 'unitPoint',
-        'id': 'positionTop',
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'top',
-                'valueType': 'function',
-                'functionName': 'handleWrapperPosition'
-            }
-        ],
-        'otherAttribute': {
-            'positionType': attributes['positionType']
-        },
-        'selector': `.${elementId}.guten-element`,
-    });
-
-    isNotEmpty(attributes['positionBottom']) && data.push({
-        'type': 'unitPoint',
-        'id': 'positionBottom',
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'bottom',
-                'valueType': 'function',
-                'functionName': 'handleWrapperPosition'
-            }
-        ],
-        'otherAttribute': {
-            'positionType': attributes['positionType']
-        },
-        'selector': `.${elementId}.guten-element`,
-    });
 
     /** spacing */
     isNotEmpty(attributes['padding']) && data.push({

@@ -1048,3 +1048,11 @@ export const renderIcon = (icon, iconType = 'icon', iconSVG = '', showAriaHidden
 
     return null;
 };
+
+
+export const checkIsParent = (clientId, parentBlockName) => {
+    const parents = select('core/block-editor').getBlockParents(clientId);
+    const parentId = parents[parents.length - 1];
+    const parentBlock = select('core/block-editor').getBlock(parentId);
+    return parentBlock?.name === parentBlockName;
+};

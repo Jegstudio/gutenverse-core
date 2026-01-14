@@ -1769,6 +1769,115 @@ abstract class Style_Interface {
 				}
 			}
 		}
+
+		/**
+		 * Child
+		 */
+
+		// Flex Align Self.
+		if ( isset( $this->attrs['flexAlignSelf'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return "align-self: {$value};";
+					},
+					'value'          => $this->attrs['flexAlignSelf'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Order.
+		if ( isset( $this->attrs['flexOrder'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						if ( 'start' === $value ) {
+							return 'order: -9999;';
+						}
+						if ( 'end' === $value ) {
+							return 'order: 9999;';
+						}
+						return '';
+					},
+					'value'          => $this->attrs['flexOrder'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Custom Order.
+		if ( isset( $this->attrs['flexCustomOrder'] ) && isset( $this->attrs['flexOrder'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value, $device ) {
+						if ( isset( $this->attrs['flexOrder'][ $device ] ) && 'custom' === $this->attrs['flexOrder'][ $device ] ) {
+							return "order: {$value};";
+						}
+						return '';
+					},
+					'value'          => $this->attrs['flexCustomOrder'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Size (Grow/Shrink Presets).
+		if ( isset( $this->attrs['flexSize'] ) ) {
+			// Grow preset.
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return 'grow' === $value ? 'flex-grow: 1;' : '';
+					},
+					'value'          => $this->attrs['flexSize'],
+					'device_control' => true,
+				)
+			);
+			// Shrink preset.
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return 'shrink' === $value ? 'flex-shrink: 1;' : '';
+					},
+					'value'          => $this->attrs['flexSize'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Size Grow (Custom).
+		if ( isset( $this->attrs['flexSizeGrow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return "flex-grow: {$value};";
+					},
+					'value'          => $this->attrs['flexSizeGrow'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Size Shrink (Custom).
+		if ( isset( $this->attrs['flexSizeShrink'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return "flex-shrink: {$value};";
+					},
+					'value'          => $this->attrs['flexSizeShrink'],
+					'device_control' => true,
+				)
+			);
+		}
 	}
 
 	/**

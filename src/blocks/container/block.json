@@ -10,9 +10,7 @@
 			"type": "string"
 		},
 		"mode": {
-			"type": "string",
-			"default": "initial",
-			"copyStyle": true
+			"type": "string"
 		},
 		"containerLayout": {
 			"type": "string",
@@ -33,7 +31,9 @@
 		},
 		"flexDirection": {
 			"type": "object",
-			"default": {},
+			"default": {
+				"Desktop": "column"
+			},
 			"copyStyle": true
 		},
 		"justifyContent": {

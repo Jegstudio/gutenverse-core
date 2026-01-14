@@ -1,9 +1,7 @@
-import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { layoutPanel } from './panel-layout';
-import { childPanel } from './panel-child';
 
 export const panelList = () => {
     return [
@@ -13,16 +11,23 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Flex Item', 'gutenverse'),
-            panelArray: childPanel,
-            tabRole: TabSetting,
-            show: (props) => {
-                const { clientId } = props;
-                const parents = select('core/block-editor').getBlockParents(clientId);
-                const parentId = parents[parents.length - 1];
-                const parentBlock = select('core/block-editor').getBlock(parentId);
-                return parentBlock?.name === 'gutenverse/container';
-            }
+            title: __('Display', 'gutenverse'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+
+        {
+            title: __('Spacing', 'gutenverse'),
+            initialOpen: false,
+            panelArray: advancePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Positioning', 'gutenverse'),
+            initialOpen: false,
+            panelArray: positioningPanel,
+            tabRole: TabSetting
         },
         {
             title: __('Background', 'gutenverse'),
@@ -65,30 +70,12 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Display', 'gutenverse'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Positioning', 'gutenverse'),
-            initialOpen: false,
-            panelArray: positioningPanel,
-            tabRole: TabStyle
-        },
-        {
             title: __('Animation', 'gutenverse'),
             initialOpen: false,
             panelArray: (props) => animationPanel({
                 ...props,
                 styleId: 'container-animation'
             }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Spacing', 'gutenverse'),
-            initialOpen: false,
-            panelArray: advancePanel,
             tabRole: TabStyle
         },
     ];

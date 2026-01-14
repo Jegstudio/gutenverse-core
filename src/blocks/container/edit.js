@@ -7,13 +7,14 @@ import { useCallback, useRef, useState } from '@wordpress/element';
 import classnames from 'classnames';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
-import { determineLocation, theDeviceType } from 'gutenverse-core/helper';
+import { checkIsParent, determineLocation, theDeviceType } from 'gutenverse-core/helper';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { removeLiveStyle, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import ContainerVariation from './components/container-variation';
 import { panelList } from './panels/panel-list';
 import getBlockStyle from './styles/block-style';
+import { useEffect } from 'react';
 
 const ContainerPlaceholder = ({ clientId, blockProps, setAttributes }) => {
     const { replaceInnerBlocks } = dispatch('core/block-editor');
@@ -343,6 +344,13 @@ const ContainerBlock = compose(
         mode,
         containerLayout
     } = attributes;
+
+    useEffect(() => {
+        if (undefined === mode) {
+            const isParentContainer = checkIsParent(clientId, 'gutenverse/container');
+            setAttributes({ mode: isParentContainer ? 'content' : 'initial' });
+        }
+    }, [mode]);
 
     const [isHovered, setIsHovered] = useState(false);
     const onMouseEnter = useCallback(() => setIsHovered(true), []);

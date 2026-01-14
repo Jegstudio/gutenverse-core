@@ -14,8 +14,6 @@
 }
 
 .guten-flex-container {
-    box-sizing: border-box;
-
     &.boxed {
         width: 100%;
     }
@@ -25,15 +23,18 @@
         @extend %flex-container-base;
     }
 
-    >.guten-inner-container {
-        >.guten-flex-container.full-width {
-            margin: initial;
-        }
+    >.guten-flex-container.full-width,
+    >.guten-inner-container>.guten-flex-container.full-width {
+        margin: initial;
     }
 }
 
 .guten-flex-container,
 .guten-inner-container {
+    box-sizing: border-box;
+    position: relative;
+    flex-direction: column;
+
     >* {
         flex-grow: 0;
         flex-shrink: 1;
