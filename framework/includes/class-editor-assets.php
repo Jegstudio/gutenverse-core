@@ -161,7 +161,7 @@ class Editor_Assets {
 				return $default_image_load;
 			}
 		}
-		return 'normal';
+		return 'eager';
 	}
 
 	/**

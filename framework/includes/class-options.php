@@ -75,7 +75,7 @@ class Options {
 				$this->default_image_load = $default_image_load;
 			}
 		}
-		return 'normal';
+		return 'eager';
 	}
 
 	/**
@@ -99,7 +99,7 @@ class Options {
 		}
 
 		if ( 'normal' === $old_option && ! $old_option_value ) {
-			return 'normal';
+			return 'eager';
 		}
 		return $this->default_image_load;
 	}
