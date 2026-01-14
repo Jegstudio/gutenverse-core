@@ -301,6 +301,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 = 3.4.4-dev =
 ##### New & Improvements
 * add image width & height for gallery block
+* add aria label options in some blocks for SEO & accessibility
 
 ##### Bug Fixes
 * fix gallery search filter dropdown svg conversion
