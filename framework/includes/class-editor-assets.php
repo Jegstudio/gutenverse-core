@@ -155,8 +155,8 @@ class Editor_Assets {
 	 */
 	private function get_default_image_load_option() {
 		$options = get_option( 'gutenverse-settings' );
-		if ( isset( $options['frontend_settings']['default_image_load'] ) ) {
-			$default_image_load = $options['frontend_settings']['default_image_load'];
+		if ( isset( $options['performance']['default_image_load'] ) ) {
+			$default_image_load = $options['performance']['default_image_load'];
 			if ( ! empty( $default_image_load ) ) {
 				return $default_image_load;
 			}
