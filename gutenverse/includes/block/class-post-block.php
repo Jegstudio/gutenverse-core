@@ -10,7 +10,7 @@
 namespace Gutenverse\Block;
 
 use Gutenverse\Framework\Block\Post_Abstract;
-use Gutenverse\Utils\Options;
+use Gutenverse\Framework\Options;
 
 /**
  * Class Post Block
