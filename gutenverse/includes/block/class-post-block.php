@@ -43,6 +43,14 @@ class Post_Block extends Post_Abstract {
 			$content = preg_replace( '/<img(.*?)>/', '<img loading="eager" $1>', $content );
 		}
 
+		if (isset($this->attributes['imageLoad'])) {
+			if ($this->attributes['imageLoad'] === 'lazy') {
+				$content = preg_replace( '/<img(.*?)>/', '<img loading="lazy" $1>', $content );
+			} else {
+				$content = preg_replace( '/<img(.*?)>/', '<img loading="eager" $1>', $content );
+			}
+		}
+
 		$breakpoint     = 'type-1' === $this->attributes['postblockType'] || 'type-4' === $this->attributes['postblockType'] ? 'break-point-' . esc_attr( $this->attributes['breakpoint'] ) : '';
 		$postblock_type = 'postblock-' . esc_attr( $this->attributes['postblockType'] );
 		$pagination     = 'guten-pagination-' . esc_attr( $this->attributes['paginationMode'] );
@@ -287,8 +295,8 @@ class Post_Block extends Post_Abstract {
 
 			$readmore =
 			'<div class="guten-meta-readmore icon-position-' . $icon_position . '">
-                <a aria-label="Read more about ' . $post_title . '" href="' . esc_url( get_the_permalink( $post ) ) . '" class="guten-readmore">' . $readmore . '</a>
-            </div>';
+				<a href="' . esc_url( get_the_permalink( $post ) ) . '" class="guten-readmore">' . $readmore . '<span class="screen-reader-text">' . esc_html__( ' about ', 'gutenverse' ) . $post_title . '</span></a>
+			</div>';
 		}
 
 		return $readmore;
@@ -420,7 +428,7 @@ class Post_Block extends Post_Abstract {
 		$last_idx       = $this->attributes['alreadyFetch'] ?? 0;
 		$thumbnail_size = $this->attributes['thumbnailSize'];
 
-		if ( ( 'loadmore' === $pagination || 'scrollload' === $pagination ) && ( $load_anim && 'none' != $load_anim ) && $from_pag ) {
+		if ( ( 'loadmore' === $pagination || 'scrollload' === $pagination ) && ( $load_anim && 'none' !== $load_anim ) && $from_pag ) {
 			$add_class = " animated {$load_anim} initial-hide loadmore-animation";
 		}
 
@@ -446,7 +454,7 @@ class Post_Block extends Post_Abstract {
 				if ( 'title' === $order['value'] ) {
 					$content .=
 						'<' . $html_tag . ' class="guten-post-title">
-							<a aria-label="' . $post_title .'" href="' . $post_url . '">' . $post_title . '</a>
+							<a aria-label="' . $post_title . '" href="' . $post_url . '">' . $post_title . '</a>
 						</' . $html_tag . '>';
 				}
 

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl } from 'gutenverse-core/controls';
+import { CheckboxControl, SelectControl } from 'gutenverse-core/controls';
 
 export const settingPanel = () => {
     return [
@@ -18,6 +18,22 @@ export const settingPanel = () => {
             id: 'imageLazy',
             label: __('Set Lazy Load', 'gutenverse'),
             component: CheckboxControl,
+            show: false,
         },
+        {
+            id: 'imageLoad',
+            label: __('Image Load', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: __('Normal Load', 'gutenverse'),
+                    value: 'normal'
+                },
+                {
+                    label: __('LazyLoad', 'gutenverse'),
+                    value: 'lazy'
+                },
+            ],
+        }
     ];
 };

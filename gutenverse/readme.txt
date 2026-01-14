@@ -298,6 +298,20 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 3.4.4-dev =
+##### New & Improvements
+* add image width & height for gallery block
+
+##### Bug Fixes
+* fix gallery search filter dropdown svg conversion
+* fix issue with background featured image
+* fix link issue in image block
+* fix nav menu svg on frontend
+* update tabs dropdown icon to svg
+* fix issue with post comment reply
+* fix reactplayer dependency
+* fix issue with post list icon
+
 = 3.4.3 =
 ##### New & Improvements
 * add aria label to icon box image, post block image, advanced button, and nav menu

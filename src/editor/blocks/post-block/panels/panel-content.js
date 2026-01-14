@@ -419,5 +419,20 @@ export const contentPanel = (props) => {
                 },
             ],
         },
+        {
+            id: 'imageLoad',
+            label: __('Image Load', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: __('Normal Load', 'gutenverse'),
+                    value: 'normal'
+                },
+                {
+                    label: __('Lazy Load', 'gutenverse'),
+                    value: 'lazy'
+                },
+            ],
+        }
     ];
 };
