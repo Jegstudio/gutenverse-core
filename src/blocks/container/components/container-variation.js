@@ -5,17 +5,17 @@ import {
     variation_100_50_50,
     variation_25_25_25_25,
     variation_25_50_25,
-    variation_25_75,
     variation_25_75_75_25,
     variation_33_33_33,
     variation_33_33_33_33_33_33,
     variation_33_33_33_33_66,
+    variation_33_66,
     variation_50_50,
     variation_50_50_100,
     variation_50_50_100_2,
     variation_50_50_100_3,
     variation_50_50_50_50,
-    variation_75_25
+    variation_66_33
 } from '../data';
 
 const IconSide = () => {
@@ -63,16 +63,16 @@ const ContainerVariation = ({ onSelect, wrapper }) => {
                             <div className="column-icon col-width-33 col-height-100"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_25_75)}>
+                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_33_66)}>
                         <div className="container-variation-picker-item-button">
-                            <div className="column-icon col-width-25 col-height-100"></div>
-                            <div className="column-icon col-width-75 col-height-100"></div>
+                            <div className="column-icon col-width-33 col-height-100"></div>
+                            <div className="column-icon col-width-66 col-height-100"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_75_25)}>
+                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_66_33)}>
                         <div className="container-variation-picker-item-button">
-                            <div className="column-icon col-width-75 col-height-100"></div>
-                            <div className="column-icon col-width-25 col-height-100"></div>
+                            <div className="column-icon col-width-66 col-height-100"></div>
+                            <div className="column-icon col-width-33 col-height-100"></div>
                         </div>
                     </li>
                     <li className="container-variation-picker-item" onClick={() => onSelect(variation_25_50_25)}>

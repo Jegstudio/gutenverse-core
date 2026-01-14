@@ -1778,7 +1778,7 @@ abstract class Style_Interface {
 		if ( isset( $this->attrs['flexAlignSelf'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => ".guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return "align-self: {$value};";
 					},
@@ -1792,7 +1792,7 @@ abstract class Style_Interface {
 		if ( isset( $this->attrs['flexOrder'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => ".guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						if ( 'start' === $value ) {
 							return 'order: -9999;';
@@ -1812,7 +1812,7 @@ abstract class Style_Interface {
 		if ( isset( $this->attrs['flexCustomOrder'] ) && isset( $this->attrs['flexOrder'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => ".guten-element.{$this->element_id}",
 					'property'       => function ( $value, $device ) {
 						if ( isset( $this->attrs['flexOrder'][ $device ] ) && 'custom' === $this->attrs['flexOrder'][ $device ] ) {
 							return "order: {$value};";
@@ -1830,7 +1830,7 @@ abstract class Style_Interface {
 			// Grow preset.
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => ".guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return 'grow' === $value ? 'flex-grow: 1;' : '';
 					},
@@ -1841,7 +1841,7 @@ abstract class Style_Interface {
 			// Shrink preset.
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => ".guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return 'shrink' === $value ? 'flex-shrink: 1;' : '';
 					},
@@ -1855,7 +1855,7 @@ abstract class Style_Interface {
 		if ( isset( $this->attrs['flexSizeGrow'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => ".guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return "flex-grow: {$value};";
 					},
@@ -1869,7 +1869,7 @@ abstract class Style_Interface {
 		if ( isset( $this->attrs['flexSizeShrink'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => ".guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return "flex-shrink: {$value};";
 					},

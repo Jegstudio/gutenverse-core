@@ -35,18 +35,18 @@ export const variation_25_25_25_25 = {
     attributes: { mode: 'content', containerLayout: 'boxed', flexDirection: { Desktop: 'row' }, containerWidth: { Desktop: { unit: 'px', point: '1140' } } }
 };
 
-export const variation_25_75 = {
+export const variation_33_66 = {
     content: [
-        ['gutenverse/container', { containerWidth: { Desktop: { unit: '%', point: '25' } }, mode: 'content' }],
-        ['gutenverse/container', { containerWidth: { Desktop: { unit: '%', point: '75' } }, mode: 'content' }]
+        ['gutenverse/container', { containerWidth: { Desktop: { unit: '%', point: '33' } }, mode: 'content' }],
+        ['gutenverse/container', { containerWidth: { Desktop: { unit: '%', point: '66' } }, mode: 'content' }]
     ],
     attributes: { mode: 'content', containerLayout: 'boxed', flexDirection: { Desktop: 'row' }, containerWidth: { Desktop: { unit: 'px', point: '1140' } } }
 };
 
-export const variation_75_25 = {
+export const variation_66_33 = {
     content: [
-        ['gutenverse/container', { containerWidth: { Desktop: { unit: '%', point: '75' } }, mode: 'content' }],
-        ['gutenverse/container', { containerWidth: { Desktop: { unit: '%', point: '25' } }, mode: 'content' }]
+        ['gutenverse/container', { containerWidth: { Desktop: { unit: '%', point: '66' } }, mode: 'content' }],
+        ['gutenverse/container', { containerWidth: { Desktop: { unit: '%', point: '33' } }, mode: 'content' }]
     ],
     attributes: { mode: 'content', containerLayout: 'boxed', flexDirection: { Desktop: 'row' }, containerWidth: { Desktop: { unit: 'px', point: '1140' } } }
 };

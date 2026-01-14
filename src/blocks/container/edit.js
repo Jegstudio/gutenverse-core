@@ -93,7 +93,7 @@ const onResize = (props, off) => {
     let newPercent = (newPx / parentWidth) * 100;
 
     // Limits
-    if (newPercent < 10) newPercent = 10;
+    if (newPercent < 5) newPercent = 5;
     newPercent = parseFloat(newPercent.toFixed(1));
 
     setNewWidth(newPercent);
