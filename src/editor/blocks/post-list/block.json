@@ -160,7 +160,8 @@
 			"default": false
 		},
 		"imageLoad": {
-			"type": "string"
+			"type": "string",
+			"default": ""
 		},
 		"paginationMode": {
 			"type": "string",

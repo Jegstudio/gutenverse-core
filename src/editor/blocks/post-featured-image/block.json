@@ -82,7 +82,7 @@
 		},
 		"imageLoad": {
 			"type": "string",
-			"copyStyle": true
+			"default": ""
 		},
 		"imageBorder": {
 			"type": "object",

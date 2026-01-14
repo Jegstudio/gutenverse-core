@@ -594,7 +594,8 @@
 			"default": false
 		},
 		"imageLoad": {
-			"type": "string"
+			"type": "string",
+			"default": ""
 		},
 		"paginationPadding": {
 			"type": "object",

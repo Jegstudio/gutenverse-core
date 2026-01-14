@@ -1,7 +1,7 @@
 const defImageLoad = {
-    normal: {
+    eager: {
         label: 'Normal Load',
-        value: 'normal',
+        value: 'eager',
     },
     lazy: {
         label: 'Lazy Load',
@@ -23,7 +23,7 @@ export const getDefaultImageLoad = (imageLoad = '', isLazy = false) => {
         return defImageLoad.lazy
     }
     const {
-        defaultImageLoad = 'normal'
+        defaultImageLoad = 'eager'
     } = window['GutenverseConfig'];
     return defImageLoad[defaultImageLoad];
 }

@@ -388,7 +388,7 @@ export const contentPanel = (props) => {
             options: [
                 {
                     label: __('Normal Load', 'gutenverse'),
-                    value: 'normal'
+                    value: 'eager'
                 },
                 {
                     label: __('Lazy Load', 'gutenverse'),
