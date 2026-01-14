@@ -128,13 +128,18 @@ const SortableItem = SortableElement(props => {
                 } else {
                     showControl = item.show !== undefined ? item.show(items[index]) : true;
                 }
+                const defaultValue = item.defaultValue !== undefined ? item.defaultValue(items[index]) : null;
+                const itemProps = {
+                    ...item,
+                    defaultValue
+                }
                 return showControl && <RepeaterComponent
                     index={index}
                     component={item.component}
                     key={`${id}-${item.id}`}
                     id={item._key === undefined ? `${id}-${index}` : item._key}
                     value={items[index]}
-                    itemProps={item}
+                    itemProps={itemProps}
                     onValueChange={val => onUpdateIndexValue(val)}
                     onLocalChange={val => onUpdateIndexValueLocal(val)}
                 />;
