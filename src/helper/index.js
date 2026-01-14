@@ -7,7 +7,6 @@ import { useState, useEffect } from '@wordpress/element';
 import { useSetting, useSettings, store as blockEditorStore } from '@wordpress/block-editor';
 import { store as editorStore } from '@wordpress/editor';
 import apiFetch from '@wordpress/api-fetch';
-import { string } from 'prop-types';
 
 export const isEmpty = value => isEmptyLodash(value);
 
@@ -18,6 +17,12 @@ export const check = val => isArray(val) && !isEmptyLodash(val);
 export const getFixData = (value, index) => value[index()];
 
 export const getIndex = (value, mod, index) => value[index % mod];
+
+export const parseUnicode = (string) => {
+  const txt = document.createElement('textarea');
+  txt.innerHTML = string;
+  return txt.value;
+}
 
 export const checkEmpty = (value) => {
     let empty = true;
