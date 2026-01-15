@@ -548,8 +548,15 @@ export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {
                 count += 1;
             }
         }
-        if (block.innerBlocks.length > 0) {
-            count += recursiveDuplicateCheck(block.innerBlocks, clientId, elementId);
+        let innerBlocks = block.innerBlocks;
+
+        if ( ( block.name === 'core/post-content' || block.name === 'core/template-part' || block.name === 'gutenverse/post-content' ) && innerBlocks.length === 0 ) {
+            const { getBlocks } = select( 'core/block-editor' );
+            innerBlocks = getBlocks( block.clientId );
+        }
+
+        if (innerBlocks.length > 0) {
+            count += recursiveDuplicateCheck(innerBlocks, clientId, elementId);
         }
         if (count > 0) {
             return count;
