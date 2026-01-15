@@ -6,7 +6,7 @@ import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenvers
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
-import { getImageLoadValue } from "../../helper";
+import { getImageLoadValue } from '../../helper';
 
 const save = compose(
     withAnimationAdvanceScript('icon-box'),
