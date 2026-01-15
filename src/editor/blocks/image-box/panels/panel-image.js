@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { ImageSizeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
-import { getDefaultImageLoad } from "../../../helper";
+import { getDefaultImageLoad } from '../../../helper';
 
 export const panelImage = (props) => {
     const { altType, imageLoad, lazyLoad } = props;

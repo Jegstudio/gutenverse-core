@@ -8,7 +8,6 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { renderIcon } from 'gutenverse-core/helper';
-import { getImageLoadValue } from '../../helper';
 
 const save = compose(
     withAnimationAdvanceScript('fun-fact'),
@@ -36,7 +35,6 @@ const save = compose(
         hoverBottomDirection,
         image,
         imageAlt,
-        lazyLoad,
         contentDisplay,
         topIconContent,
         bottomIconContent,
@@ -69,7 +67,7 @@ const save = compose(
                 </div>;
             case 'image':
                 return <div className="icon-box">
-                    <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} {...('lazy' === getImageLoadValue(imageLoad, lazyLoad) && { loading: 'lazy' })} /></div>
+                    <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} {...('lazy' === imageLoad && { loading: 'lazy' })} /></div>
                 </div>;
             default:
                 return null;

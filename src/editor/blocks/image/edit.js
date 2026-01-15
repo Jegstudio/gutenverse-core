@@ -19,7 +19,7 @@ import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenve
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter, isEmpty } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
-import { getImageLoadValue } from "../../helper";
+import { getImageLoadValue } from '../../helper';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
