@@ -50,12 +50,18 @@ class GutenverseAnimationBasic extends Default {
         } else {
             if (elementObj.hasClass('guten-button-wrapper')) {
                 //add fallback to old animation
-                this.playAnimationOnView(u(element).find('.guten-button'));
+                const ele = u(element).find('.guten-button');
+                if (ele) {
+                    this.playAnimationOnView(ele.first());
+                }
             }
 
             if (elementObj.hasClass('guten-advance-button-wrapper')) {
                 //add fallback to old animation
-                this.playAnimationOnView(u(element).find('.guten-advance-button'));
+                const ele = u(element).find('.guten-advance-button');
+                if (ele) {
+                    this.playAnimationOnView(ele.first());
+                }
             }
         }
     }
