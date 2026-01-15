@@ -1,7 +1,6 @@
 
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { svgAtob } from 'gutenverse-core/helper';
-import { getImageLoadValue } from "../../../helper";
 
 const GalleryItem = (attributes) => {
     const {
@@ -21,7 +20,7 @@ const GalleryItem = (attributes) => {
         titleHeadingType: HtmlTag = 'h5'
     } = attributes;
 
-    const { imageLoad = '', lazyLoad = false } = galleryItem;
+    const { imageLoad = '' } = galleryItem;
 
     const hoverClass = () => {
         switch (hover) {
@@ -53,7 +52,7 @@ const GalleryItem = (attributes) => {
         const height = galleryItem.src?.height;
         const width = galleryItem.src?.width;
 
-        return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title} loading={getImageLoadValue(imageLoad, lazyLoad)} {...(height && { height })} {...(width && { width })} />;
+        return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title} {...('lazy' === imageLoad ? { loading: 'lazy' } : {})} {...(height && { height })} {...(width && { width })} />;
     };
 
     return layout === 'overlay' ? <div className="grid-item">

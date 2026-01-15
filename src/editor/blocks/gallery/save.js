@@ -9,7 +9,6 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { svgAtob } from 'gutenverse-core/helper';
-import { getImageLoadValue } from "../../helper";
 
 const save = compose(
     withAnimationAdvanceScript('gallery'),
@@ -61,8 +60,8 @@ const save = compose(
         [`grid-mobile-${column && column['Mobile'] ? column['Mobile'] : 2}`],
     );
     const imageCondition = (image) => {
-        const { imageLoad = '', lazyLoad = false } = image;
-        return <img loading={getImageLoadValue(imageLoad, lazyLoad)} className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title} {...(image?.src?.height && { height: image?.src?.height })} {...(image?.src?.width && { width: image?.src?.width })} />
+        const { imageLoad = '' } = image;
+        return <img className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title} {...('lazy' === imageLoad ? { loading: 'lazy' } : {})} {...(image?.src?.height && { height: image?.src?.height })} {...(image?.src?.width && { width: image?.src?.width })}/>;
     };
 
     return (

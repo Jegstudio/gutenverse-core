@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ImageControl, RangeControl, RepeaterControl, SelectControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
-import { getDefaultImageLoadRepeater } from "../../../helper";
+import { getDefaultImageLoadRepeater } from '../../../helper';
 
 export const galleryPanel = () => {
     return [

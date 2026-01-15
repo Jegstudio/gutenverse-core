@@ -9,7 +9,6 @@ import saveV2 from './deprecated/v2/save';
 import saveV3 from './deprecated/v3/save';
 import saveV4 from './deprecated/v4/save';
 import saveV5 from './deprecated/v5/save';
-import saveV6 from './deprecated/v6/save';
 
 const { name, attributes } = metadata;
 
@@ -120,9 +119,5 @@ export const settings = {
             attributes: attributes,
             save: saveV5
         },
-        {
-            attributes: attributes,
-            save: saveV6
-        }
     ]
 };

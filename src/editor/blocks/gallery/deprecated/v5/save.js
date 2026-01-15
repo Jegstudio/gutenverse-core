@@ -60,7 +60,7 @@ const save = compose(
     const imageCondition = (image) => <img className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title} {...(image.lazyLoad ? { loading: 'lazy' } : {})} />;
 
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })} data-grid={grid}>
+        <div className={className} {...advanceAnimationData} data-grid={grid}>
             <div className="gutenverse-popup-gallery hidden">
                 <div className="gallery-header">
                     <div className="left-header">
