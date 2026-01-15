@@ -50,7 +50,8 @@ const NavMenuBlock = compose(
         mobileEnableOverlay,
         hamburgerAriaLabel,
         mobileLogoAriaLabel,
-        closeAriaLabel
+        closeAriaLabel,
+        mobileMenuLogoLazyLoad,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -106,6 +107,7 @@ const NavMenuBlock = compose(
                         hamburgerAriaLabel,
                         mobileLogoAriaLabel,
                         closeAriaLabel,
+                        mobileMenuLogoLazyLoad,
                     },
                 }),
             }).then((data) => {
@@ -152,7 +154,8 @@ const NavMenuBlock = compose(
         submenuItemIndicatorType,
         submenuItemIndicatorSVG,
         transform,
-        mobileEnableOverlay
+        mobileEnableOverlay,
+        mobileMenuLogoLazyLoad,
     ]);
 
     useEffect(() => {
