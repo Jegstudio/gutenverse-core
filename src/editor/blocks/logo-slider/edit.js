@@ -13,7 +13,7 @@ import { Swiper, swiperSettings } from '../../components/swiper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
-import { getImageLoadValue } from "../../helper";
+import { getImageLoadValue } from '../../helper';
 
 export const logoNormalLazyLoad = (logo) => {
     const { imageLoad = '' } = logo;

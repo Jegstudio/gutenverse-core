@@ -8,7 +8,6 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { renderIcon } from 'gutenverse-core/helper';
-import { getImageLoadValue } from '../../helper';
 
 const save = compose(
     withAnimationAdvanceScript('fun-fact'),
@@ -41,8 +40,7 @@ const save = compose(
         topIconContent,
         bottomIconContent,
         numberFormat,
-        numberRightSpace,
-        imageLoad = '',
+        numberRightSpace
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -59,7 +57,6 @@ const save = compose(
         'align-center',
         'hover-from-left',
     );
-
     const headerContent = () => {
         switch (iconType) {
             case 'icon':
@@ -69,7 +66,7 @@ const save = compose(
                 </div>;
             case 'image':
                 return <div className="icon-box">
-                    <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} {...('lazy' === getImageLoadValue(imageLoad, lazyLoad) && { loading: 'lazy' })} /></div>
+                    <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} {...(lazyLoad && { loading: 'lazy' })} /></div>
                 </div>;
             default:
                 return null;
@@ -77,7 +74,7 @@ const save = compose(
     };
 
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
+        <div className={className} {...advanceAnimationData}>
             <div className="fun-fact-inner">
                 {topIconContent && headerContent()}
                 <div className={`content ${contentDisplay}`}>
