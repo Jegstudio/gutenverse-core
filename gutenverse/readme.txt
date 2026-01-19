@@ -303,6 +303,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * add image width & height for gallery block
 * add aria label options in some blocks for SEO & accessibility
 * add loading state when converting icon to svg for better ux
+* add lazy loading for nav menu mobile logo
 * update tabs dropdown icon to svg
 
 ##### Bug Fixes
