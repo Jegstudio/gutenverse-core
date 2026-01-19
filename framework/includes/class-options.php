@@ -98,7 +98,7 @@ class Options {
 			return 'lazy';
 		}
 
-		if ( 'normal' === $old_option && ! $old_option_value ) {
+		if ( 'normal' === $old_option && $old_option_value ) {
 			return 'eager';
 		}
 		return $this->default_image_load;
