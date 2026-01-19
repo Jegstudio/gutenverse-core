@@ -56,6 +56,13 @@ class Frontend_Generator {
 	protected $style_list = array();
 
 	/**
+	 * List of images required to preload
+	 *
+	 * @var array
+	 */
+	protected $preload_images = array();
+
+	/**
 	 * Init constructor.
 	 * priority change to 10 and embed font after style generator with priority 11.
 	 * to fix font not loaded in frontend for section that imported from libary.
@@ -69,6 +76,7 @@ class Frontend_Generator {
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_scripts' ), 51 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_styles' ), 51 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'block_styles' ) );
+		add_action( 'wp_head', array( $this, 'render_preload_images' ), 5 );
 	}
 
 	/**
@@ -333,7 +341,62 @@ class Frontend_Generator {
 					}
 				}
 			}
+
+			// Check for Background Attribute with fetchPriorityHigh.
+			if ( ! empty( $block['attrs']['background']['fetchPriorityHigh'] ) ) {
+				$bg        = $block['attrs']['background'];
+				$image_urls = array();
+
+				if ( ! empty( $bg['useFeaturedImage'] ) && has_post_thumbnail() ) {
+					$use_featured = $bg['useFeaturedImage'];
+					if ( is_array( $use_featured ) ) {
+						if ( ! empty( $use_featured['Desktop'] ) ) {
+							$image_urls[] = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+						}
+					} else { // Boolean or simple value.
+						$image_urls[] = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+					}
+				} elseif ( ! empty( $bg['type'] ) && 'slide' === $bg['type'] && ! empty( $bg['slideImage'] ) ) {
+					$slide_images = $bg['slideImage'];
+
+					if ( is_array( $slide_images ) && isset( $slide_images[0]['image']['image'] ) ) {
+						$image_urls[] = $slide_images[0]['image']['image'];
+					}
+				} elseif ( ! empty( $bg['image'] ) ) {
+					$image = $bg['image'];
+					if ( isset( $image['image'] ) ) {
+						$image_urls[] = $image['image'];
+					} elseif ( isset( $image['url'] ) ) {
+						$image_urls[] = $image['url'];
+					} elseif ( isset( $image['Desktop']['image'] ) ) {
+						$image_urls[] = $image['Desktop']['image'];
+					} elseif ( isset( $image['Desktop']['url'] ) ) {
+						$image_urls[] = $image['Desktop']['url'];
+					}
+				}
+
+				if ( ! empty( $image_urls ) ) {
+					foreach ( $image_urls as $url ) {
+						if ( $url ) {
+							$this->preload_images[] = $url;
+						}
+					}
+				}
+			}
+
 			do_action_ref_array( 'gutenverse_loop_blocks', array( $block, &$style, $this ) );
+		}
+	}
+
+	/**
+	 * Render Preload Images
+	 */
+	public function render_preload_images() {
+		if ( ! empty( $this->preload_images ) ) {
+			$this->preload_images = array_unique( $this->preload_images );
+			foreach ( $this->preload_images as $image_url ) {
+				printf( '<link rel="preload" fetchpriority="high" as="image" href="%s">', esc_url( $image_url ) );
+			}
 		}
 	}
 
@@ -460,7 +523,7 @@ class Frontend_Generator {
 	 *
 	 * @since 2.3.0
 	 *
-	 * @param array  $attrs attributes data
+	 * @param array  $attrs attributes data.
 	 * @param string $block_name block name.
 	 */
 	public function check_attributes( $attrs, $block_name ) {
@@ -540,55 +603,55 @@ class Frontend_Generator {
 	 * @param array $args The script configuration array, including 'attr', 'allow_if', and 'script'.
 	 */
 	public function add_script( array $args ) {
-		$can_load = true;
-
-		if ( ! isset( $args['attr'], $args['allow_if'], $args['script'] ) ) {
-			return;
-		}
-
-		$attrs         = $args['attr'];
-		$conditions    = $args['allow_if'];
+		$can_load      = true;
 		$script_handle = isset( $args['script'] ) ? $args['script'] : false;
 		$style_handle  = isset( $args['style'] ) ? $args['style'] : false;
 
-		foreach ( $conditions as $condition ) {
-			$id       = $condition['id'];
-			$operator = $condition['operator'];
-			$value    = $condition['value'];
+		if ( isset( $args['attr'], $args['allow_if'] ) ) {
+			$attrs      = $args['attr'];
+			$conditions = $args['allow_if'];
 
-			if ( ! isset( $attrs[ $id ] ) ) {
-				$can_load = false;
-				break;
-			}
+			foreach ( $conditions as $condition ) {
+				$id       = $condition['id'];
+				$operator = $condition['operator'];
+				$value    = $condition['value'];
 
-			$attr_value = $attrs[ $id ];
-
-			if ( isset( $condition['device'] ) ) {
-				$device_condition_met = false;
-
-				if ( is_array( $attr_value ) ) {
-					foreach ( $attr_value as $device_setting_value ) {
-
-						if ( $this->check_condition( $device_setting_value, $operator, $value ) ) {
-							$device_condition_met = true;
-							break;
-						}
-					}
-				}
-
-				if ( ! $device_condition_met ) {
+				if ( ! isset( $attrs[ $id ] ) ) {
 					$can_load = false;
 					break;
 				}
-			} elseif ( ! $this->check_condition( $attr_value, $operator, $value ) ) {
-				$can_load = false;
-				break;
+
+				$attr_value = $attrs[ $id ];
+
+				if ( isset( $condition['device'] ) ) {
+					$device_condition_met = false;
+
+					if ( is_array( $attr_value ) ) {
+						foreach ( $attr_value as $device_setting_value ) {
+
+							if ( $this->check_condition( $device_setting_value, $operator, $value ) ) {
+								$device_condition_met = true;
+								break;
+							}
+						}
+					}
+
+					if ( ! $device_condition_met ) {
+						$can_load = false;
+						break;
+					}
+				} elseif ( ! $this->check_condition( $attr_value, $operator, $value ) ) {
+					$can_load = false;
+					break;
+				}
+			}
+
+			if ( ! $can_load ) {
+				return;
 			}
 		}
 
-		if ( ! $can_load ) {
-			return;
-		}
+		// Asumsikan pengecekan ada di element itu sendiri.
 
 		if ( ! empty( $script_handle ) ) {
 			$this->script_list[] = $script_handle;
@@ -640,10 +703,14 @@ class Frontend_Generator {
 	 * @since 2.3.0
 	 */
 	public function load_conditional_scripts() {
+		$include = array(
+			'gutenverse-frontend-event',
+		);
+
 		wp_register_script(
 			'gutenverse-core-frontend-animation-basic-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/animation-basic.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
@@ -651,7 +718,7 @@ class Frontend_Generator {
 		wp_register_script(
 			'gutenverse-core-frontend-bg-featured-image-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/bg-featured-image.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
@@ -659,7 +726,7 @@ class Frontend_Generator {
 		wp_register_script(
 			'gutenverse-core-frontend-bg-slideshow-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/slideshow.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
@@ -667,14 +734,14 @@ class Frontend_Generator {
 		wp_register_script(
 			'gutenverse-core-frontend-bg-video-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/video.js',
-			array(),
+			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
 
 		$script_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
 
-		// remove duplicates
+		// remove duplicates.
 		$script_handles = array_values( array_unique( $this->script_list ) );
 
 		if ( ! empty( $script_handles ) ) {

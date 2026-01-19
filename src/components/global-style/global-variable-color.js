@@ -109,10 +109,11 @@ const GlobalCustomColor = (props) => {
         setCustomPalette(updatedCustoms);
     };
 
-    const deleteVariableColor = (index) => {
+    const deleteVariableColor = (index, callback = () => {}) => {
         const updatedCustoms = customPalette.filter((custom, idx) => index !== idx);
 
         setCustomPalette([...updatedCustoms]);
+        callback();
     };
 
     useEffect(() => {

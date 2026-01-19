@@ -563,7 +563,7 @@ export const SingleVariableColor = ({ value, updateColor, deleteColor, showDelet
             buttonText={__('Delete', '--gctd--')}
             cancelButtonText={__('Cancel', '--gctd--')}
             cancelButton={true}
-            onClick={() => deleteColor(value?.id)}
+            onClick={() => deleteColor(value?.id, setOpenPopup(false))}
             onClose={() => setOpenPopup(false)}
             scheme="danger"
         />}

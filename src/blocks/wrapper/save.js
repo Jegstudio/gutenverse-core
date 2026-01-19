@@ -68,7 +68,7 @@ const save = compose(
     });
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];
-    const newLinkTarget = undefined === linkTarget ? '_self' : linkTarget;
+    const newLinkTarget = (linkTarget === '_blank' || linkTarget === true) ? '_blank' : '_self';
     return (
         <div {...blockProps} onClick={url && `window.open('${url}', '${newLinkTarget}');`}>
             {(_isBgAnimated || isSlideShow) &&

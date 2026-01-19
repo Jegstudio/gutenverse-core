@@ -10,9 +10,11 @@
 namespace Gutenverse\Framework;
 
 use Automatic_Upgrader_Skin;
+use Exception;
 use Theme_Upgrader;
 use WP_Error;
 use WP_Query;
+use WP_REST_Response;
 
 /**
  * Class Api
@@ -161,6 +163,16 @@ class Api {
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( $this, 'get_singles' ),
+				'permission_callback' => 'gutenverse_permission_check_author',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
+			'image-sizes',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_image_sizes' ),
 				'permission_callback' => 'gutenverse_permission_check_author',
 			)
 		);
@@ -336,6 +348,16 @@ class Api {
 			)
 		);
 
+		register_rest_route(
+			self::ENDPOINT,
+			'settings/remove-cache',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'remove_cache_files' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
 		/** ----------------------------------------------------------------
 		 * Frontend/Global Routes
 		 */
@@ -360,6 +382,38 @@ class Api {
 		);
 	}
 
+	/**
+	 * Remove Frontend Cache Files
+	 *
+	 * since version 2.3.1
+	 *
+	 * @return WP_Rest
+	 */
+	public function remove_cache_files() {
+		try {
+			$options = get_option( 'gutenverse-settings' );
+
+			if ( ! isset( $options['frontend_settings']['file_delete_mechanism'] ) || 'manual' === $options['frontend_settings']['file_delete_mechanism'] ) {
+				Init::instance()->frontend_cache->cleanup_cached_style();
+				return new WP_REST_Response(
+					array(
+						'status' => 'success',
+					),
+					200
+				);
+			} else {
+				throw new Exception( 'Failed Request: Can Only used if Manual Deletion is Manual', 1 );
+			}
+		} catch ( \Throwable $th ) {
+			return new WP_REST_Response(
+				array(
+					'status'  => 'failed',
+					'message' => $th->getMessage(),
+				),
+				400
+			);
+		}
+	}
 	/**
 	 * Fetch Data
 	 *
@@ -1742,7 +1796,7 @@ class Api {
 				$url
 			)
 		);
-		
+
 		if ( is_wp_error( $response ) ) {
 			return false;
 		}
@@ -1860,5 +1914,32 @@ class Api {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get Image Sizes.
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function get_image_sizes() {
+		$sizes             = wp_get_registered_image_subsizes();
+		$image_sizes       = array();
+		$excluded_defaults = array( 'medium_large', '1536x1536', '2048x2048' );
+
+		foreach ( $sizes as $slug => $size ) {
+			if ( ! in_array( $slug, $excluded_defaults, true ) ) {
+				$image_sizes[] = array(
+					'label' => ucwords( str_replace( '-', ' ', $slug ) ) . ' (' . $size['width'] . 'x' . $size['height'] . ')',
+					'value' => $slug,
+				);
+			}
+		}
+
+		$image_sizes[] = array(
+			'label' => 'Full',
+			'value' => 'full',
+		);
+
+		return new \WP_REST_Response( $image_sizes, 200 );
 	}
 }

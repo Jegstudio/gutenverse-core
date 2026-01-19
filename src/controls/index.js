@@ -16,11 +16,14 @@ export { default as DividerControl } from './controls/divider/divider-control';
 export { default as DividerAnimatedControl } from './controls/divider-animated/divider-animated-control';
 export { default as FontControl } from './controls/font/font-control';
 export { default as IconControl, IconLibrary } from './controls/icon/icon-control';
+export { default as IconSVGControl } from './controls/icon/icon-svg-control';
+export { default as SVGControl } from './controls/icon/svg-control';
 export { default as IconRadioControl } from './controls/icon-radio/icon-radio-control';
 export { default as ImageControl } from './controls/image/image-control';
 export { default as ImageSizeControl } from './controls/image-size/image-size-control';
 export { default as ImageFilterControl } from './controls/image-filter/image-filter-control';
 export { default as ImageRadioControl } from './controls/image-radio/image-radio-control';
+export { default as SVGRadioControl } from './controls/svg-radio/svg-radio-control';
 export { default as NumberControl } from './controls/number/number-control';
 export { default as PointerControl } from './controls/pointer-event/pointer-event-control';
 export { default as RangeControl } from './controls/range/range-control';
@@ -50,6 +53,7 @@ export { default as TimeRangeControl } from './controls/time-range/time-range-co
 export { default as MaskControl } from './controls/mask/mask-control';
 export { default as DateTimeControl } from './controls/date-time/date-time-control';
 export { default as TextStrokeControl } from './controls/text-stroke/text-stroke-control';
+export { default as PreviewControl } from './controls/preview/preview-control';
 
 // Locked Controls
 export { default as LockedControl } from './controls/locked/locked-control';
@@ -74,6 +78,7 @@ export { default as LockedConditionControl } from './controls/locked/locked-cond
 export { default as LockedProPanel } from './controls/locked/locked-pro-panel';
 export { default as LockedDynamicContentControl } from './controls/locked/locked-dynamic-content-control';
 export { default as LockedHeaderFilterControl } from './controls/locked/locked-header-filter-control';
+export { default as LockedTooltipControl } from './controls/locked/locked-tooltip-control';
 
 
 export { default as ControlDevices } from './controls/part/control-devices';
@@ -112,6 +117,8 @@ export { PanelSequence, TabSetting, TabStyle, TabAdvance, TabPro } from './panel
 export { conditionPanel } from './panels/panel-condition';
 export { dynamicContentPanel } from './panels/panel-dynamic-content';
 export { textStrokePanel } from './panels/panel-text-stroke';
+export { tooltipPanel } from './panels/panel-tooltip';
+export { tooltipStylePanel } from './panels/panel-tooltip-style';
 
 // Export General Style for block style
 export { backgroundStyle } from './panel-styles/style-backround';

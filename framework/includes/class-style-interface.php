@@ -277,8 +277,12 @@ abstract class Style_Interface {
 				$value    = $this->sanitize_value( $data['value'] );
 				$property = call_user_func( $data['property'], $data['value'] );
 				$selector = $data['selector'];
-
+			if ( isset( $data['specific_device'] ) ) {
+				$device                                    = $data['specific_device'];
+				$this->generated[ $device ][ $selector ][] = $property;
+			} else {
 				$this->generated['Desktop'][ $selector ][] = $property;
+			}
 		}
 	}
 
@@ -705,6 +709,9 @@ abstract class Style_Interface {
 				case 'background-effect':
 					$this->feature_background_effect( $selector );
 					break;
+				case 'tooltip':
+					$this->tooltip_style( $selector );
+					break;
 			}
 		}
 	}
@@ -1028,7 +1035,7 @@ abstract class Style_Interface {
 
 						$this->inject_style(
 							array(
-								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-icon",
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-icon, .{$this->element_id}-cursor-effect.cursor-effect .cursor-content .gutenverse-icon-svg",
 								'property'       => function ( $value ) {
 									return $this->handle_unit_point( $value, 'font-size' );
 								},
@@ -1322,6 +1329,155 @@ abstract class Style_Interface {
 					)
 				);
 			}
+		}
+	}
+	/**
+	 * Handle Feature Tooltip.
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function tooltip_style( $selector ) {
+		$tltp_attrs = $this->attrs['tooltip'];
+		if ( isset( $tltp_attrs['tooltipMaxWidth'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip",
+					'property'       => function ( $value ) {
+						return "max-width: {$value}px;";
+					},
+					'value'          => $tltp_attrs['tooltipMaxWidth'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $tltp_attrs['tooltipBackground'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip, .guten-tooltip-{$this->element_id}.guten-tooltip.arrow:before",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $tltp_attrs['tooltipBackground'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $tltp_attrs['tooltipTextAlign'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip .guten-tooltip-text",
+					'property'       => function ( $value ) {
+						return "text-align: {$value};";
+					},
+					'value'          => $tltp_attrs['tooltipTextAlign'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $tltp_attrs['tooltipColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip .guten-tooltip-text",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $tltp_attrs['tooltipColor'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $tltp_attrs['tooltipIconColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip .guten-tooltip-text .guten-tooltip-icon",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $tltp_attrs['tooltipIconColor'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $tltp_attrs['tooltipIconSize'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip .guten-tooltip-text .guten-tooltip-icon",
+					'property'       => function ( $value ) {
+						return "font-size: {$value}px";
+					},
+					'value'          => $tltp_attrs['tooltipIconSize'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $tltp_attrs['tooltipIconSpacing'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip .guten-tooltip-text .guten-tooltip-icon.before",
+					'property'       => function ( $value ) {
+						return "margin-right: {$value}px";
+					},
+					'value'          => $tltp_attrs['tooltipIconSpacing'],
+					'device_control' => false,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip .guten-tooltip-text .guten-tooltip-icon.after",
+					'property'       => function ( $value ) {
+						return "margin-left: {$value}px";
+					},
+					'value'          => $tltp_attrs['tooltipIconSpacing'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $tltp_attrs['tooltipTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip .guten-tooltip-text",
+					'property'       => function ( $value ) {},
+					'value'          => $tltp_attrs['tooltipTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $tltp_attrs['tooltipPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $tltp_attrs['tooltipPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $tltp_attrs['tooltipMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $tltp_attrs['tooltipMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $tltp_attrs['tooltipBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $tltp_attrs['tooltipBorderResponsive'],
+					'device_control' => true,
+				)
+			);
 		}
 	}
 
@@ -2388,7 +2544,7 @@ abstract class Style_Interface {
 			if ( isset( $this->attrs['animation']['type'] ) && is_array( $this->attrs['animation']['type'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => $selector,
+						'selector'       => "{$selector}:not([class*=\"__tablet-\"]):not([class*=\"__desktop-\"]):not([class*=\"__mobile-\"])",
 						'property'       => function ( $value ) {
 							if ( 'none' === $value ) {
 								return 'animation-name: none;';

@@ -357,10 +357,33 @@ abstract class Post_Abstract extends Block_Abstract {
 		$result           = array();
 		$args             = array();
 
-		$args['post_type']           = $attr['postType'];
-		$args['paged']               = isset( $attr['paged'] ) ? $attr['paged'] : 1;
-		$args['offset']              = self::calculate_offset( $args['paged'], $attr['postOffset'], $attr['numberPost'], $attr['paginationNumberPost'] );
-		$args['posts_per_page']      = ( $args['paged'] > 1 ) ? $attr['paginationNumberPost'] : $attr['numberPost'];
+		$args['post_type']   = $attr['postType'];
+		$args['post_status'] = 'publish';
+
+		$is_normal_mode = isset( $attr['paginationMode'] ) && in_array( $attr['paginationMode'], array( 'normal-prevnext', 'normal-number' ), true );
+
+		// For native pagination modes, read from URL query parameter.
+		if ( $is_normal_mode ) {
+			$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : get_query_var( 'page' );
+			$paged = $paged ? $paged : 1;
+			$paged = max( 1, intval( $paged ) ); // Ensure positive integer.
+		} else {
+			// For AJAX modes, use attribute.
+			$paged = isset( $attr['paged'] ) ? $attr['paged'] : 1;
+		}
+		$args['paged'] = $paged;
+
+		// Calculate offset based on pagination mode.
+		if ( $is_normal_mode ) {
+			// Native pagination: simple offset calculation.
+			// offset = (page - 1) * posts_per_page + initial_offset.
+			$args['offset']         = ( ( $paged - 1 ) * $attr['numberPost'] ) + (int) $attr['postOffset'];
+			$args['posts_per_page'] = $attr['numberPost'];
+		} else {
+			// AJAX pagination: complex offset for different post counts per page.
+			$args['offset']         = self::calculate_offset( $args['paged'], $attr['postOffset'], $attr['numberPost'], $attr['paginationNumberPost'] );
+			$args['posts_per_page'] = ( $args['paged'] > 1 ) ? $attr['paginationNumberPost'] : $attr['numberPost'];
+		}
 		$args['no_found_rows']       = ! isset( $attr['paginationMode'] ) || 'disable' === $attr['paginationMode'];
 		$args['ignore_sticky_posts'] = 1;
 
@@ -513,8 +536,6 @@ abstract class Post_Abstract extends Block_Abstract {
 			$args['monthnum'] = $attr['monthnum'];
 		}
 
-		$args['post_status'] = 'publish';
-
 		$args = apply_filters( 'gutenverse_default_query_args', $args, $attr );
 
 		// Query.
@@ -526,12 +547,14 @@ abstract class Post_Abstract extends Block_Abstract {
 
 		wp_reset_postdata();
 
+		$total_next = $is_normal_mode ? $attr['numberPost'] : $attr['paginationNumberPost'];
+
 		return array(
 			'result'     => $result,
-			'next'       => self::has_next_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] ),
+			'next'       => self::has_next_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $total_next ),
 			'prev'       => self::has_prev_page( $args['paged'] ),
 			'page'       => $args['paged'],
-			'total_page' => self::count_total_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] > 0 ? $attr['paginationNumberPost'] : 1 ),
+			'total_page' => self::count_total_page( isset( $attr['paginationMode'] ) ? $attr['paginationMode'] : '', $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] > 0 ? $attr['paginationNumberPost'] : 1 ),
 		);
 	}
 
@@ -694,21 +717,28 @@ abstract class Post_Abstract extends Block_Abstract {
 	protected function render_pagination( $prev = false, $next = false, $total = 1, $page = 1 ) {
 		$output          = '';
 		$icon            = esc_attr( $this->attributes['paginationIcon'] ?? '' );
+		$icon_type       = isset( $this->attributes['paginationIconType'] ) ? esc_attr( $this->attributes['paginationIconType'] ) : 'icon';
+		$icon_svg        = isset( $this->attributes['paginationIconSVG'] ) ? $this->attributes['paginationIconSVG'] : '';
 		$icon_position   = esc_attr( $this->attributes['paginationIconPosition'] ?? null );
 		$pre_next_text   = esc_attr( $this->attributes['paginationPrevNextText'] ?? '' );
 		$prev_inner_text = esc_attr( $this->attributes['paginationPrevText'] ?? '' );
 		$next_innet_text = esc_attr( $this->attributes['paginationNextText'] ?? '' );
 		$prev_icon       = esc_attr( $this->attributes['paginationPrevIcon'] ?? '' );
+		$prev_icon_type  = isset( $this->attributes['paginationPrevIconType'] ) ? esc_attr( $this->attributes['paginationPrevIconType'] ) : 'icon';
+		$prev_icon_svg   = isset( $this->attributes['paginationPrevIconSVG'] ) ? $this->attributes['paginationPrevIconSVG'] : '';
 		$next_icon       = esc_attr( $this->attributes['paginationNextIcon'] ?? '' );
+		$next_icon_type  = isset( $this->attributes['paginationNextIconType'] ) ? esc_attr( $this->attributes['paginationNextIconType'] ) : 'icon';
+		$next_icon_svg   = isset( $this->attributes['paginationNextIconSVG'] ) ? $this->attributes['paginationNextIconSVG'] : '';
 
 		if ( in_array( $this->attributes['paginationMode'], array( 'loadmore', 'scrollload' ), true ) && $next ) {
 			$output = '<span data-load="' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '" data-loading="' . esc_attr( $this->attributes['paginationLoadingText'] ) . '"> ' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '</span>';
 
-			if ( ! empty( $icon ) ) {
+			if ( ! empty( $icon ) || 'svg' === $icon_type ) {
+				$icon_html = $this->render_icon( $icon_type, $icon, $icon_svg );
 				if ( 'before' === $icon_position ) {
-					$output = '<i aria-hidden="true" class="' . $icon . '"></i>' . $output;
+					$output = $icon_html . $output;
 				} else {
-					$output = $output . '<i aria-hidden="true" class="' . $icon . '"></i>';
+					$output = $output . $icon_html;
 				}
 			}
 
@@ -720,28 +750,31 @@ abstract class Post_Abstract extends Block_Abstract {
 			$next = $next ? '' : 'disabled';
 			$prev = $prev ? '' : 'disabled';
 
-			$prev_text = '<i class="' . $prev_icon . '"></i>';
-			$next_text = '<i class="' . $next_icon . '"></i>';
+			$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg );
+			$next_text = $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 
 			if ( $pre_next_text && 'false' !== $pre_next_text ) {
-				$prev_text = '<i class="' . $prev_icon . '"></i> ' . $prev_inner_text;
-				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
+				$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg ) . ' ' . $prev_inner_text;
+				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 			}
+
+			$prev_link = 1 === $page ? '' : '<a href="#" class="btn-pagination prev ' . esc_attr( $prev ) . '" title="' . $prev_inner_text . '">' . $prev_text . '</a>';
+			$next_link = $total <= $page ? '' : '<a href="#" class="btn-pagination next ' . esc_attr( $next ) . '" title="' . $next_innet_text . '">' . $next_text . '</a>';
 
 			$output =
 			'<div class="guten_block_nav ' . esc_attr( 'additional_class' ) . '" data-page="' . $page . '">
-                    <a href="#" class="btn-pagination prev ' . esc_attr( $prev ) . '" title="' . $prev_inner_text . "\">{$prev_text}</a>
-                    <a href=\"#\" class=\"btn-pagination next " . esc_attr( $next ) . '" title="' . $next_innet_text . "\">{$next_text}</a>
-                </div>";
+				' . $prev_link . '
+				' . $next_link . '
+			</div>';
 		}
 
 		if ( 'number' === $this->attributes['paginationMode'] && $total > 1 ) {
-			$prev_text = '<i class="' . $prev_icon . '"></i>';
-			$next_text = '<i class="' . $next_icon . '"></i>';
+			$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg );
+			$next_text = $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 
 			if ( $pre_next_text && 'false' !== $pre_next_text ) {
-				$prev_text = '<i class="' . $prev_icon . '"></i> ' . esc_html__( 'Prev', '--gctd--' );
-				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
+				$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg ) . ' ' . esc_html__( 'Prev', '--gctd--' );
+				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 			}
 
 			$output = '<div class="guten_block_nav" data-page="' . $page . '">';
@@ -781,9 +814,147 @@ abstract class Post_Abstract extends Block_Abstract {
 			$output .= '</div>';
 		}
 
+		// Normal Prev Next Pagination (Native).
+		if ( 'normal-prevnext' === $this->attributes['paginationMode'] && $total > 1 ) {
+			$prev_url = $prev ? $this->get_pagination_url( $page - 1 ) : '#';
+			$next_url = $next ? $this->get_pagination_url( $page + 1 ) : '#';
+
+			$prev_class = $prev ? '' : 'disabled';
+			$next_class = $next ? '' : 'disabled';
+
+			$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg );
+			$next_text = $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
+
+			if ( $pre_next_text && 'false' !== $pre_next_text ) {
+				$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg ) . ' ' . $prev_inner_text;
+				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
+			}
+
+			$prev_link = 1 === $page ? '' : sprintf(
+				'<a href="%s" class="btn-pagination prev %s" title="%s">%s</a>',
+				esc_url( $prev_url ),
+				esc_attr( $prev_class ),
+				esc_attr( $prev_inner_text ),
+				$prev_text
+			);
+
+			$next_link = $total <= $page ? '' : sprintf(
+				'<a href="%s" class="btn-pagination next %s" title="%s">%s</a>',
+				esc_url( $next_url ),
+				esc_attr( $next_class ),
+				esc_attr( $next_innet_text ),
+				$next_text
+			);
+
+			$output = sprintf(
+				'<div class="guten_block_nav native-pagination" data-page="%d">
+					%s
+					%s
+				</div>',
+				$page,
+				$prev_link,
+				$next_link
+			);
+		}
+
+		// Normal Number Pagination (Native).
+		if ( 'normal-number' === $this->attributes['paginationMode'] && $total > 1 ) {
+			$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg );
+			$next_text = $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
+
+			if ( $pre_next_text && 'false' !== $pre_next_text ) {
+				$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg ) . ' ' . esc_html__( 'Prev', '--gctd--' );
+				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
+			}
+
+			$output = '<div class="guten_block_nav native-pagination" data-page="' . $page . '">';
+
+			// Previous button.
+			if ( $page > 1 ) {
+				$prev_url = $this->get_pagination_url( $page - 1 );
+				$output  .= sprintf(
+					'<a href="%s" class="btn-pagination prev" title="%s">%s</a> ',
+					esc_url( $prev_url ),
+					esc_attr( $prev_inner_text ),
+					$prev_text
+				);
+			}
+
+			// First page + ellipsis.
+			if ( $page > 2 ) {
+				$output .= sprintf(
+					'<a href="%s" class="btn-pagination" data-page="1">1</a> ',
+					esc_url( $this->get_pagination_url( 1 ) )
+				);
+				if ( $page > 3 ) {
+					$output .= '<span class="pagination-elipsis">...</span>  ';
+				}
+			}
+
+			// Previous page number.
+			if ( $page > 1 ) {
+				$output .= sprintf(
+					'<a href="%s" class="btn-pagination" data-page="%d">%d</a> ',
+					esc_url( $this->get_pagination_url( $page - 1 ) ),
+					$page - 1,
+					$page - 1
+				);
+			}
+
+			// Current page.
+			$output .= '<span class="btn-pagination current">' . $page . '</span> ';
+
+			// Next page number.
+			if ( $page < $total ) {
+				$output .= sprintf(
+					'<a href="%s" class="btn-pagination" data-page="%d">%d</a> ',
+					esc_url( $this->get_pagination_url( $page + 1 ) ),
+					$page + 1,
+					$page + 1
+				);
+			}
+
+			// Last page + ellipsis.
+			if ( $page < $total - 1 ) {
+				if ( $page < $total - 2 ) {
+					$output .= '<span class="pagination-elipsis">...</span>  ';
+				}
+				$output .= sprintf(
+					'<a href="%s" class="btn-pagination" data-page="%d">%d</a> ',
+					esc_url( $this->get_pagination_url( $total ) ),
+					$total,
+					$total
+				);
+			}
+
+			// Next button.
+			if ( $page < $total ) {
+				$next_url = $this->get_pagination_url( $page + 1 );
+				$output  .= sprintf(
+					'<a href="%s" class="btn-pagination next" title="%s">%s</a>',
+					esc_url( $next_url ),
+					esc_html__( 'Next', '--gctd--' ),
+					$next_text
+				);
+			}
+
+			$output .= '</div>';
+		}
+
 		return $output;
 	}
 
+	/**
+	 * Get pagination URL for native pagination
+	 *
+	 * @param  int $page_num Page number.
+	 * @return string
+	 */
+	protected function get_pagination_url( $page_num ) {
+		// Use WordPress native function for proper URL generation
+		// This handles pretty permalinks correctly (e.g., /page/2/ instead of ?paged=2).
+		return get_pagenum_link( $page_num );
+	}
 
 	/**
 	 * Optimize query
@@ -897,15 +1068,20 @@ abstract class Post_Abstract extends Block_Abstract {
 	/**
 	 * Get total count of total page
 	 *
-	 * @param int $total Total number of query result.
-	 * @param int $curpage Current Page.
-	 * @param int $offset Offset post.
-	 * @param int $perpage Number post for first page.
-	 * @param int $perpage_ajax Number post for ajax request.
+	 * @param string $pagination_mode Mode Pagination.
+	 * @param int    $total Total number of query result.
+	 * @param int    $curpage Current Page.
+	 * @param int    $offset Offset post.
+	 * @param int    $perpage Number post for first page.
+	 * @param int    $perpage_ajax Number post for ajax request.
 	 *
 	 * @return int
 	 */
-	private static function count_total_page( $total, $curpage = 1, $offset = 0, $perpage = 2, $perpage_ajax = 2 ) {
+	private static function count_total_page( $pagination_mode, $total, $curpage = 1, $offset = 0, $perpage = 2, $perpage_ajax = 2 ) {
+		if ( ! in_array( $pagination_mode, array( 'loadmore', 'scrollload' ), true ) ) {
+			$perpage_ajax = $perpage;
+		}
+
 		$remain = (int) $total - ( (int) $offset + (int) $perpage );
 		while ( $remain > 0 ) {
 			$remain -= $perpage_ajax;

@@ -6,6 +6,71 @@
  * @since 1.0.0
  * @package gutenverse-framework
  */
+if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
+	/**
+	 * Sanitizer SVG Content
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_is_svg_safe( $svg ) {
+		libxml_use_internal_errors( true );
+
+		// Prevent XXE attacks
+		$svg = preg_replace( '/<!DOCTYPE.+?>/i', '', $svg );
+
+		$dom = new DOMDocument();
+
+		if ( ! $dom->loadXML( $svg, LIBXML_NONET | LIBXML_NOENT | LIBXML_COMPACT ) ) {
+			return false;
+		}
+
+		$xpath = new DOMXPath( $dom );
+
+		/**
+		 * ❌ Forbidden SVG elements
+		 */
+		$forbidden_tags = array(
+			'script',
+			'foreignObject',
+			'iframe',
+			'object',
+			'embed',
+			'audio',
+			'video',
+		);
+
+		foreach ( $forbidden_tags as $tag ) {
+			if ( $xpath->query( '//*[local-name()="' . $tag . '"]' )->length > 0 ) {
+				return false;
+			}
+		}
+
+		/**
+		 * ❌ Forbidden attributes
+		 * - Event handlers (onload, onclick, etc)
+		 * - javascript: URLs
+		 */
+		foreach ( $xpath->query( '//@*' ) as $attr ) {
+			if (
+			preg_match( '/^on/i', $attr->nodeName ) ||
+			preg_match( '/javascript:/i', $attr->nodeValue )
+			) {
+				return false;
+			}
+		}
+
+		/**
+		 * ❌ Disallow external references
+		 */
+		foreach ( $xpath->query( '//@*' ) as $attr ) {
+			if ( preg_match( '/^(https?:)?\/\//i', trim( $attr->nodeValue ) ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+}
 
 if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	/**
@@ -415,11 +480,12 @@ if ( ! function_exists( 'gutenverse_get_json' ) ) {
 	 * @param string $path .
 	 */
 	function gutenverse_get_json( $path ) {
-		ob_start();
-		include $path;
-		$data = ob_get_clean();
-
-		return json_decode( $data, true );
+		if ( file_exists( $path ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			$data = file_get_contents( $path );
+			return json_decode( $data, true );
+		}
+		return array();
 	}
 }
 
@@ -671,6 +737,18 @@ if ( ! function_exists( 'gutenverse_get_menu' ) ) {
 				'menu_class'      => 'gutenverse-menu',
 				'container_class' => 'gutenverse-menu-container',
 				'echo'            => false,
+				'walker' => new class extends Walker_Nav_Menu {
+					public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
+						$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+						$class_names = implode( ' ', array_map( 'esc_attr', $classes ) );
+						
+						$output .= '<li id="menu-item-' . $item->ID . '" class="menu-item-' . $item->ID . ' ' . $class_names . '">';
+						$output .= '<a aria-label="' . $item->title .'" href="' . esc_url( $item->url ) . '">';
+						$output .= esc_html( $item->title );
+						$output .= '</a>';
+					}
+
+				},
 			)
 		);
 	}
@@ -920,8 +998,9 @@ if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 			if ( isset( $font['transform'] ) ) {
 				$transform = $font['transform'];
 				if ( $transform && 'default' !== $transform ) {
+					$temp_transform = ( 'normal' === $transform ) ? 'none' : $transform;
 					gutenverse_normal_appender(
-						gutenverse_variable_font_name( $id, 'transform' ) . ':' . $transform . ';',
+						gutenverse_variable_font_name( $id, 'transform' ) . ':' . $temp_transform . ';',
 						$variable_style
 					);
 				}
@@ -1322,5 +1401,43 @@ if ( ! function_exists( 'gutenverse_home_url_multilang' ) ) {
 			return home_url( $current_lang . $path, $scheme );
 		}
 		return home_url( $path, $scheme );
+	}
+}
+
+if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
+	/**
+	 * Method gutenverse_unused_cache_file_size
+	 *
+	 * @return string
+	 */
+	function gutenverse_unused_cache_file_size() {
+		$cache_id = get_option( 'gutenverse-style-cache-id', 'initial-cache' );
+		$paths    = array(
+			gutenverse_css_path(),
+			gutenverse_conditional_path(),
+		);
+
+		$total_in_bytes = 0;
+
+		foreach ( $paths as $path ) {
+			if ( ! is_dir( $path ) ) {
+				continue;
+			}
+
+			$files = list_files( $path );
+
+			if ( ! empty( $files ) ) {
+				foreach ( $files as $cf ) {
+					if ( is_file( $cf ) ) {
+						$filename = basename( $cf );
+						if ( false === strpos( $filename, $cache_id ) ) {
+							$total_in_bytes += filesize( $cf );
+						}
+					}
+				}
+			}
+		}
+
+		return size_format( $total_in_bytes );
 	}
 }

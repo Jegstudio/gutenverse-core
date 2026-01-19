@@ -334,10 +334,10 @@ class Frontend_Cache {
 
 		if ( ! wp_next_scheduled( 'gutenverse_cleanup_cached_style' ) ) {
 			$midnight = strtotime( 'tomorrow 00:00:00' );
-			if ( isset( $options['frontend_settings']['render_mechanism'] ) && 'file' === $options['frontend_settings']['render_mechanism'] ) {
+			if ( isset( $options['frontend_settings']['render_mechanism'] ) && isset( $options['frontend_settings']['file_delete_mechanism'] ) && 'file' === $options['frontend_settings']['render_mechanism'] &&  'auto' === $options['frontend_settings']['file_delete_mechanism']) {
 				wp_schedule_event( $midnight, isset( $options['frontend_settings']['old_render_deletion_schedule'] ) ? $options['frontend_settings']['old_render_deletion_schedule'] : 'daily', 'gutenverse_cleanup_cached_style' );
 			} else {
-				$this->cleanup_cached_style();
+				wp_clear_scheduled_hook( 'gutenverse_cleanup_cached_style' );
 			}
 		}
 	}
@@ -354,7 +354,6 @@ class Frontend_Cache {
 		if ( ! is_dir( $folder_path ) ) {
 			return;
 		}
-
 		$files = list_files( $folder_path );
 
 		foreach ( $files as $file ) {
