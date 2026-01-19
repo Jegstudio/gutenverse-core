@@ -78,6 +78,7 @@ class GutenverseFeaturedBg extends Default {
             }
 
             const backgroundImage = window.getComputedStyle(newElement).getPropertyValue('background-image');
+            const hasImageUrl = /url\(".*?"\)/.test(backgroundImage);
             const regex = /#gutenFeaturedImage/;
             const hasFeaturedImage = regex.test(backgroundImage);
             const { featuredImage } = window['GutenverseData'];
@@ -112,7 +113,18 @@ class GutenverseFeaturedBg extends Default {
                     break;
             }
 
-            if (hasFeaturedImage) {
+            if (hasImageUrl && featuredImage && u(newElement).hasClass('guten-using-featured-image')) {
+                let styleElement = document.createElement('style');
+                styleElement.id = styleId;
+                document.head.appendChild(styleElement);
+
+                const customStyles = `
+                    ${newSelector} {
+                        background-image: url('${featuredImage}');
+                    }
+                `;
+                styleElement.textContent = customStyles;
+            } else if (hasFeaturedImage) {
                 let styleElement = document.createElement('style');
                 styleElement.id = styleId;
                 document.head.appendChild(styleElement);
