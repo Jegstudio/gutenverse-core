@@ -31,7 +31,8 @@ class Nav_Menu extends Block_Abstract {
 		$mobile_close_icon    = esc_attr( $this->attributes['mobileCloseIcon'] );
 		$enable_overlay       = esc_attr( $this->attributes['mobileEnableOverlay'] );
 		$mobile_logo          = isset( $this->attributes['mobileMenuLogo'] ) ? $this->attributes['mobileMenuLogo'] : null;
-		$mobile_logo_image    = $this->render_image( $mobile_logo );
+		$mobile_logo_load     = isset( $this->attributes['mobileMenuLogoLazyLoad'] ) ? $this->attributes['mobileMenuLogoLazyLoad'] : false;
+		$mobile_logo_image    = $this->render_image( $mobile_logo, $mobile_logo_load );
 		$submenu_click        = $this->attributes['mobileSubmenuClick'] ? 'submenu-click-title' : 'submenu-click-icon';
 		$closeon_click        = $this->attributes['mobileCloseOnClick'];
 		$item_indicator       = esc_attr( $this->attributes['submenuItemIndicator'] );
@@ -94,7 +95,7 @@ class Nav_Menu extends Block_Abstract {
 	 *
 	 * @return string
 	 */
-	public function render_image( $image ) {
+	public function render_image( $image, $lazy = false ) {
 		if ( $image ) {
 			$media    = $image['media'];
 			$size     = $image['size'];
@@ -105,6 +106,7 @@ class Nav_Menu extends Block_Abstract {
 			$src        = '';
 			$width      = '';
 			$height     = '';
+			$loading    = $lazy ? 'lazy' : 'eager';
 
 			if ( ! empty( $media['sizes'][ $size ]['url'] ) ) {
 				$src = $media['sizes'][ $size ]['url'];
@@ -122,7 +124,7 @@ class Nav_Menu extends Block_Abstract {
 				$height = $attachment[2];
 			}
 
-			return '<img src="' . esc_url( $src ) . '" alt="' . $alt . '" width="' . esc_attr( $width ) . '" height="' . esc_attr( $height ) . '">';
+			return '<img loading="' . $loading . '" src="' . esc_url( $src ) . '" alt="' . $alt . '" width="' . esc_attr( $width ) . '" height="' . esc_attr( $height ) . '">';
 		} else {
 			return null;
 		}
