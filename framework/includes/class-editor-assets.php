@@ -141,12 +141,27 @@ class Editor_Assets {
 		$config['clientUrl']           = get_site_url();
 		$config['activeTheme']         = get_option( 'stylesheet' );
 		$config['supportGlobalImport'] = $this->check_theme_support_global();
+		$config['defaultImageLoad']    = $this->get_default_image_load_option();
 
 		if ( defined( 'GUTENVERSE' ) ) {
 			$config['oldImagePlaceholder'] = plugins_url( GUTENVERSE ) . '/assets/img/img-placeholder.jpg';
 		}
 
 		return apply_filters( 'gutenverse_block_config', $config );
+	}
+
+	/**
+	 * Get default image load setting.
+	 */
+	private function get_default_image_load_option() {
+		$options = get_option( 'gutenverse-settings' );
+		if ( isset( $options['performance']['default_image_load'] ) ) {
+			$default_image_load = $options['performance']['default_image_load'];
+			if ( ! empty( $default_image_load ) ) {
+				return $default_image_load;
+			}
+		}
+		return 'eager';
 	}
 
 	/**
