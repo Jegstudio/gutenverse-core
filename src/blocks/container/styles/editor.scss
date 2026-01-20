@@ -28,7 +28,8 @@
     align-items: initial;
     margin: 0 auto;
     max-width: 100%;
-    height: 100%;;
+    height: 100%;
+    ;
 
     >* {
         flex-grow: 0;
@@ -37,6 +38,23 @@
 
     >.guten-flex-container-editor.guten-flex-container-editor.full-width {
         margin: initial;
+    }
+}
+
+.guten-video-bg-wrapper {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+
+    video {
+        object-fit: cover;
+    }
+
+    &.loaded {
+        opacity: 1;
+    }
+
+    iframe {
+        height: 100%;
     }
 }
 

@@ -5,35 +5,20 @@ import { compose } from '@wordpress/compose';
 import { dispatch, useSelect } from '@wordpress/data';
 import { useCallback, useRef, useState } from '@wordpress/element';
 import classnames from 'classnames';
+import isEmpty from 'lodash/isEmpty';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
-import { checkIsParent, determineLocation, theDeviceType } from 'gutenverse-core/helper';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { checkIsParent, determineLocation, isAnimationActive, theDeviceType } from 'gutenverse-core/helper';
+import { withAnimationAdvance, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { removeLiveStyle, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { FluidCanvas } from 'gutenverse-core/components';
+import { withBackgroundSlideshow } from 'gutenverse-core/hoc';
+import { useEffect } from 'react';
+import SectionVideoContainer from '../section/components/section-video-container';
 import ContainerVariation from './components/container-variation';
 import { panelList } from './panels/panel-list';
 import getBlockStyle from './styles/block-style';
-import { useEffect } from 'react';
-
-const ContainerPlaceholder = ({ clientId, blockProps, setAttributes }) => {
-    const { replaceInnerBlocks } = dispatch('core/block-editor');
-
-    const handleVariation = useCallback(({ content, attributes }) => {
-        if (content) {
-            const variation = createBlocksFromInnerBlocksTemplate(content);
-            replaceInnerBlocks(clientId, variation, true);
-        }
-        setAttributes(attributes);
-    }, [clientId]);
-
-    return <div {...blockProps}>
-        <ContainerVariation
-            wrapper={'guten-initial-container'}
-            onSelect={handleVariation}
-        />
-    </div>;
-};
 
 const onResizeStart = (props) => {
     const {
@@ -163,7 +148,17 @@ const ContainerResizeWrapper = (props) => {
         setAttributes,
         innerBlocksProps,
         children,
+        slideElement,
+        mode,
+        handleVariation
     } = props;
+
+    const {
+        backgroundAnimated,
+        background,
+        elementId,
+        backgroundOverlay
+    } = attributes;
 
     const { containerLayout } = attributes;
     const isDragDisabled = containerLayout !== 'boxed';
@@ -253,46 +248,64 @@ const ContainerResizeWrapper = (props) => {
             onMouseEnter={() => setIsHoveredState(true)}
             onMouseLeave={() => setIsHoveredState(false)}
         >
-            <ResizableBox
-                enable={{
-                    top: false,
-                    right: isDragDisabled,
-                    bottom: false,
-                    left: false,
-                    topRight: false,
-                    bottomRight: false,
-                    bottomLeft: false,
-                    topLeft: false,
-                }}
-                showHandle={isDragDisabled && (isSelected || isHovered || isHoveredState)}
-                className="guten-container-resizeable"
-                onResizeStart={resizeStart}
-                onResize={resize}
-                onResizeStop={resizeStop}
-            >
-                {children}
-                {isDragDisabled && (isSelected || isHovered || isHoveredState) && (
-                    <div className={`container-resize ${openTool ? 'dragging' : ''}`}>
-                        <div
-                            className={'container-size-popup'}
-                            onMouseEnter={() => setOpenTool(true)}
-                            onMouseLeave={() => !openTool && setOpenTool(false)}
-                        >
-                            <input
-                                type="text"
-                                className="container-next"
-                                value={parseFloat(displayWidth).toFixed(1).toString() + '%'}
-                                onChange={() => { }} // Read-only
-                                onKeyDown={(event) => {
-                                    if (event.key === 'Enter') {
-                                        onClose();
-                                    }
-                                }}
-                            />
-                        </div>
+
+            {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
+            <FluidCanvas attributes={attributes} />
+            {isAnimationActive(backgroundAnimated) &&
+                <div className={'guten-background-animated'}>
+                    <div className={`animated-layer animated-${elementId ? elementId.split('-')[1] : ''}`}>
+                        {background?.slideImage?.length > 0 && slideElement}
                     </div>
-                )}
-            </ResizableBox>
+                </div>}
+            <SectionVideoContainer attributes={attributes} />
+            {!isEmpty(backgroundOverlay) && <div className="guten-background-overlay" />}
+
+            {mode === 'initial' ?
+                <ContainerVariation
+                    wrapper={'guten-initial-container'}
+                    onSelect={handleVariation}
+                /> :
+                <ResizableBox
+                    enable={{
+                        top: false,
+                        right: isDragDisabled,
+                        bottom: false,
+                        left: false,
+                        topRight: false,
+                        bottomRight: false,
+                        bottomLeft: false,
+                        topLeft: false,
+                    }}
+                    showHandle={isDragDisabled && (isSelected || isHovered || isHoveredState)}
+                    className="guten-container-resizeable"
+                    onResizeStart={resizeStart}
+                    onResize={resize}
+                    onResizeStop={resizeStop}
+                >
+                    {children}
+                    {isDragDisabled && (isSelected || isHovered || isHoveredState) && (
+                        <div className={`container-resize ${openTool ? 'dragging' : ''}`}>
+                            <div
+                                className={'container-size-popup'}
+                                onMouseEnter={() => setOpenTool(true)}
+                                onMouseLeave={() => !openTool && setOpenTool(false)}
+                            >
+                                <input
+                                    type="text"
+                                    className="container-next"
+                                    value={parseFloat(displayWidth).toFixed(1).toString() + '%'}
+                                    onChange={() => { }} // Read-only
+                                    onKeyDown={(event) => {
+                                        if (event.key === 'Enter') {
+                                            onClose();
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    )}
+                </ResizableBox>
+            }
         </div>
     );
 };
@@ -305,8 +318,21 @@ const Container = (props) => {
         attributes,
         setAttributes,
         innerChildren,
-        hasChildBlocks
+        hasChildBlocks,
+        slideElement,
+        mode,
+        clientId
     } = props;
+
+    const { replaceInnerBlocks } = dispatch('core/block-editor');
+
+    const handleVariation = useCallback(({ content, attributes }) => {
+        if (content) {
+            const variation = createBlocksFromInnerBlocksTemplate(content);
+            replaceInnerBlocks(clientId, variation, true);
+        }
+        setAttributes(attributes);
+    }, [clientId]);
 
     return (
         <ContainerResizeWrapper
@@ -315,6 +341,9 @@ const Container = (props) => {
             attributes={attributes}
             setAttributes={setAttributes}
             innerBlocksProps={innerBlocksProps}
+            slideElement={slideElement}
+            mode={mode}
+            handleVariation={handleVariation}
         >
             <div className={'guten-inner-container-editor'}>
                 {hasChildBlocks ? innerChildren : <InnerBlocks
@@ -327,6 +356,8 @@ const Container = (props) => {
 
 const ContainerBlock = compose(
     withAnimationAdvance('container'),
+    withPassRef,
+    withBackgroundSlideshow
 )((props) => {
     const {
         getBlockOrder
@@ -336,13 +367,16 @@ const ContainerBlock = compose(
         clientId,
         attributes,
         setAttributes,
-        name,
+        setBlockRef,
+        slideElement
     } = props;
 
     const {
         elementId,
         mode,
-        containerLayout
+        containerLayout,
+        backgroundAnimated = {},
+        background
     } = attributes;
 
     useEffect(() => {
@@ -360,6 +394,12 @@ const ContainerBlock = compose(
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
+
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
@@ -376,7 +416,10 @@ const ContainerBlock = compose(
             {
                 'empty-container': !hasChildBlocks,
                 'filled-container': hasChildBlocks,
-                'is-hovered': isHovered
+                'is-hovered': isHovered,
+                'background-animated': (!hasChildBlocks && isAnimationActive(backgroundAnimated)) || (hasChildBlocks && isAnimationActive(backgroundAnimated)),
+                'guten-video-background': background?.backgroundType === 'video' && background?.videoUrl,
+                'guten-background-slideshow': background?.backgroundType === 'slide' && background?.slideImage?.length > 0
             }
         ),
         ref: elementRef,
@@ -394,28 +437,24 @@ const ContainerBlock = compose(
         orientation,
     });
 
-    const Component = Container;
-
     return <>
         <CopyElementToolbar {...props} />
         <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} />
-        {mode === 'initial' ?
-            <ContainerPlaceholder
-                blockProps={blockProps}
-                clientId={clientId}
-                name={name}
-                setAttributes={setAttributes}
-            /> :
-            <Component
-                {...props}
-                blockProps={blockProps}
-                innerBlocksProps={innerBlocksProps}
-                innerChildren={children}
-                isHovered={isHovered}
-                animationClass={animationClass}
-                displayClass={displayClass}
-                hasChildBlocks={hasChildBlocks}
-            />}
+        <Container
+            {...props}
+            blockProps={blockProps}
+            innerBlocksProps={innerBlocksProps}
+            isHovered={isHovered}
+            animationClass={animationClass}
+            displayClass={displayClass}
+            hasChildBlocks={hasChildBlocks}
+            slideElement={slideElement}
+            mode={mode}
+            clientId={clientId}
+            innerChildren={<>
+                {children}
+            </>}
+        />
     </>;
 });
 

@@ -13,6 +13,8 @@ class GutenverseSlideshow extends Default {
             dataId = u(element).find('.guten-inner-wrap').data('id');
         } else if (u(element).hasClass('guten-column')) {
             dataId = u(element).find('.guten-column-wrapper').data('id');
+        } else if (u(element).hasClass('guten-flex-container')) {
+            dataId = u(element).data('id');
         } else {
             dataId = u(element).parent().data('id');
         }

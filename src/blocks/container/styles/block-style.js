@@ -196,6 +196,42 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['backgroundOverlay']) && data.push({
+        'type': 'background',
+        'id': 'backgroundOverlay',
+        'selector': `.${elementId} > .guten-background-overlay`,
+    });
+
+    isNotEmpty(attributes['backgroundOverlayHover']) && data.push({
+        'type': 'background',
+        'id': 'backgroundOverlayHover',
+        'selector': `.${elementId}:hover > .guten-background-overlay`,
+    });
+
+    isNotEmpty(attributes['opacity']) && data.push({
+        'type': 'plain',
+        'id': 'opacity',
+        'selector': `.${elementId} > .guten-background-overlay`,
+        'properties': [
+            {
+                'name': 'opacity',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['opacityHover']) && data.push({
+        'type': 'plain',
+        'id': 'opacityHover',
+        'selector': `.${elementId}:hover > .guten-background-overlay`,
+        'properties': [
+            {
+                'name': 'opacity',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
     /** Border **/
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',

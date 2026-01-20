@@ -41,6 +41,36 @@
     }
 }
 
+.guten-video-bg-wrapper {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+
+    video {
+        object-fit: cover;
+    }
+
+    &.loaded {
+        opacity: 1;
+    }
+
+    div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
 @media (max-width: 781px) {
 
     .guten-flex-container.full-width,

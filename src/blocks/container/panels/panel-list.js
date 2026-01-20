@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { layoutPanel } from './panel-layout';
 
@@ -16,7 +16,15 @@ export const panelList = () => {
             panelArray: responsivePanel,
             tabRole: TabSetting
         },
-
+        {
+            title: __('Animation Effects', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
+                ...props,
+                styleId: 'container-animation'
+            }),
+            tabRole: TabSetting
+        },
         {
             title: __('Spacing', 'gutenverse'),
             initialOpen: false,
@@ -35,10 +43,20 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 styleId: 'container-background',
-                normalOptions: ['default', 'gradient'],
+                normalOptions: ['default', 'gradient', 'video', 'fluid', 'slide'],
                 hoverOptions: ['default', 'gradient'],
                 normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-background-animated .animated-layer, .${props.elementId}.empty-container`,
                 hoverSelector: `.${props.elementId}:not(.background-animated):hover, .${props.elementId}.background-animated:hover > .guten-background-animated .animated-layer, .${props.elementId}.empty-container:hover`,
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Background Overlay', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => backgroundOverlayPanel({
+                ...props,
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
             }),
             tabRole: TabStyle
         },
@@ -67,15 +85,6 @@ export const panelList = () => {
             title: __('Masking', 'gutenverse'),
             initialOpen: false,
             panelArray: maskPanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Animation', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => animationPanel({
-                ...props,
-                styleId: 'container-animation'
-            }),
             tabRole: TabStyle
         },
     ];
