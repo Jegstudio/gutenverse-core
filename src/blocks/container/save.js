@@ -1,21 +1,22 @@
-import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { compose } from '@wordpress/compose';
 import classnames from 'classnames';
-import isEmpty from 'lodash/isEmpty';
+import { FluidCanvasSave } from 'gutenverse-core/components';
+import { isEmptyValue } from 'gutenverse-core/editor-helper';
+import { isAnimationActive } from 'gutenverse-core/helper';
+import { withAnimationAdvanceScript, withBackgroundEffectScript, withBackgroundSlideshowScript, withCursorEffectScript, withMouseMoveEffectScript, withVideoBackground } from 'gutenverse-core/hoc';
 import { useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
-import { withVideoBackground, withBackgroundSlideshowScript, withCursorEffectScript, withBackgroundEffectScript, withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import isEmpty from 'lodash/isEmpty';
 import { SectionDividerBottom, SectionDividerTop } from '../section/components/section-divider';
 import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from '../section/components/section-divider-animated';
-import { isEmptyValue } from 'gutenverse-core/editor-helper';
-import { compose } from '@wordpress/compose';
-import { FluidCanvasSave } from 'gutenverse-core/components';
-import { isAnimationActive } from 'gutenverse-core/helper';
 
 const save = compose(
     withAnimationAdvanceScript('container'),
     withVideoBackground,
-    withBackgroundSlideshowScript,
     withCursorEffectScript,
-    withBackgroundEffectScript
+    withMouseMoveEffectScript,
+    withBackgroundEffectScript,
+    withBackgroundSlideshowScript,
 )(({ attributes, videoContainer, slideElements }) => {
     const {
         elementId,

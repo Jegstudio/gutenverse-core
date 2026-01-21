@@ -26,18 +26,18 @@ export const panelList = () => {
             tabRole: TabSetting,
             pro: true,
         },
-        // {
-        //     title: __('Background Animated', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: backgroundAnimatedPanel,
-        //     pro: true,
-        // },
-        // {
-        //     title: __('Shape Divider', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: dividerPanel,
-        //     tabRole: TabSetting
-        // },
+        {
+            title: __('Background Animated', 'gutenverse'),
+            initialOpen: false,
+            panelArray: backgroundAnimatedPanel,
+            pro: true,
+        },
+        {
+            title: __('Shape Divider', 'gutenverse'),
+            initialOpen: false,
+            panelArray: dividerPanel,
+            tabRole: TabSetting
+        },
         // {
         //     title: __('Shape Divider Animated', 'gutenverse'),
         //     initialOpen: false,

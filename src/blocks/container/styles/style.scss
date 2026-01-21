@@ -72,7 +72,7 @@
 }
 
 .guten-flex-container {
-    .guten-fluid-background {
+    > .guten-fluid-background {
         position: absolute;
         top: 0;
         left: 0;
@@ -80,7 +80,7 @@
         height: 100%;
     }
 
-    .guten-shape-divider {
+    > .guten-shape-divider {
         overflow: hidden;
         position: absolute;
         left: 0;

@@ -1,17 +1,14 @@
-import classnames from 'classnames';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
-import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundEffectScript, withBackgroundSlideshowScript } from 'gutenverse-core/hoc';
-import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
 import { compose } from '@wordpress/compose';
-import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
-import { useAnimationFrontend } from 'gutenverse-core/hooks';
-import { useDisplayFrontend } from 'gutenverse-core/hooks';
-import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
-import { isEmptyValue } from 'gutenverse-core/editor-helper';
-import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from './components/section-divider-animated';
+import classnames from 'classnames';
 import { FluidCanvasSave } from 'gutenverse-core/components';
+import { isEmptyValue } from 'gutenverse-core/editor-helper';
+import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
+import { withAnimationAdvanceScript, withBackgroundEffectScript, withBackgroundSlideshowScript, withCursorEffectScript, withMouseMoveEffectScript, withVideoBackground } from 'gutenverse-core/hoc';
+import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
 import isEmpty from 'lodash/isEmpty';
+import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
+import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from './components/section-divider-animated';
 
 const save = compose(
     withAnimationAdvanceScript('section'),

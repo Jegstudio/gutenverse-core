@@ -13,6 +13,56 @@
     &.full-width {
         margin: 0 auto;
     }
+
+    >.guten-shape-divider {
+        overflow: hidden;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        line-height: 0;
+        direction: ltr;
+
+        svg {
+            display: block;
+            width: calc(100% + 1.3px);
+            position: relative;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+        }
+
+        &.guten-shape-divider-top {
+            top: -1px;
+
+            &.guten-shape-flip>svg {
+                transform: translateX(-50%) rotateY(180deg);
+            }
+
+            &.guten-shape-zindex {
+                z-index: 2;
+            }
+        }
+
+        &.guten-shape-divider-bottom {
+            bottom: -1px;
+            -webkit-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
+
+            &.guten-shape-flip>svg {
+                transform: translateX(-50%) rotateY(180deg);
+            }
+
+            &.guten-shape-zindex {
+                z-index: 2;
+            }
+        }
+
+        .guten-shape-fill {
+            fill: #eee;
+        }
+    }
 }
 
 .guten-inner-container-editor {

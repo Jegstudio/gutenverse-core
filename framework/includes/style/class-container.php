@@ -39,8 +39,8 @@ class Container extends Style_Abstract {
 		$this->set_feature(
 			array(
 				'background'  => array(
-					'normal' => ".guten-flex-container.{$this->element_id}",
-					'hover'  => ".guten-flex-container.{$this->element_id}:hover",
+					'normal' => ".guten-flex-container.{$this->element_id}:not(.background-animated), .guten-flex-container.{$this->element_id}.background-animated > .guten-background-animated .animated-layer",
+					'hover'  => ".guten-flex-container.{$this->element_id}:not(.background-animated):hover, .guten-flex-container.{$this->element_id}.background-animated:hover > .guten-background-animated .animated-layer",
 				),
 				'border'      => null,
 				'animation'   => null,
