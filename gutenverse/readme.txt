@@ -304,6 +304,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * add aria label options in some blocks for SEO & accessibility
 * add loading state when converting icon to svg for better ux
 * add lazy loading for nav menu mobile logo
+* add show notice on gutenverse dashboard setting
 * update tabs dropdown icon to svg
 
 ##### Bug Fixes
@@ -315,6 +316,8 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix reactplayer dependency
 * fix issue with post list icon
 * fix issue with elementId when duplicating block inside post content or template part
+* fix post block error when `number of post initially showed` changed
+* fix gallery item bug in editor
 
 = 3.4.3 =
 ##### New & Improvements
