@@ -207,6 +207,37 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"topDivider": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"bottomDivider": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"topDividerAnimated": {
+			"type": "object",
+			"default": {
+				"type": "none",
+				"loadOn": "pageload",
+				"colorMode": "default",
+				"pauseOnLeave": true,
+				"loop": true
+			},
+			"copyStyle": true
+		},
+		"bottomDividerAnimated": {
+			"type": "object",
+			"default": {
+				"type": "none",
+				"loadOn": "pageload",
+				"colorMode": "default",
+				"pauseOnLeave": true
+			},
+			"copyStyle": true
+		},
 		"padding": {
 			"type": "object",
 			"copyStyle": true
@@ -280,6 +311,12 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"cursorEffect": {
+			"type": "object"
+		},
+		"backgroundEffect": {
+			"type": "object"
 		}
 	},
 	"supports": {

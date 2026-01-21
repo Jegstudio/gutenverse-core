@@ -1,5 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, positioningPanel, responsivePanel, backgroundEffectPanel, backgroundAnimatedPanel } from 'gutenverse-core/controls';
+import { dividerPanel } from '../../section/panels/panel-divider';
+import { dividerPanelAnimated } from '../../section/panels/panel-divider-animated';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { layoutPanel } from './panel-layout';
 
@@ -10,6 +12,38 @@ export const panelList = () => {
             panelArray: layoutPanel,
             tabRole: TabSetting
         },
+        {
+            title: __('Cursor Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: cursorEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Background Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: backgroundEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        // {
+        //     title: __('Background Animated', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelArray: backgroundAnimatedPanel,
+        //     pro: true,
+        // },
+        // {
+        //     title: __('Shape Divider', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelArray: dividerPanel,
+        //     tabRole: TabSetting
+        // },
+        // {
+        //     title: __('Shape Divider Animated', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelArray: dividerPanelAnimated,
+        //     pro: true,
+        // },
         {
             title: __('Display', 'gutenverse'),
             initialOpen: false,
@@ -57,21 +91,6 @@ export const panelList = () => {
                 ...props,
                 normalOptions: ['default', 'gradient'],
                 hoverOptions: ['default', 'gradient']
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Boxed Background', 'gutenverse'),
-            initialOpen: false,
-            show: (props) => props.containerLayout === 'boxed',
-            panelArray: (props) => backgroundPanel({
-                ...props,
-                styleId: 'boxed-background',
-                optionaName: 'boxedBackground',
-                normalOptions: ['default', 'gradient'],
-                hoverOptions: ['default', 'gradient'],
-                normalSelector: `.${props.elementId} .guten-inner-container`,
-                hoverSelector: `.${props.elementId}:hover .guten-inner-container`,
             }),
             tabRole: TabStyle
         },

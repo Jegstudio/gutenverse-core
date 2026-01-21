@@ -62,17 +62,6 @@ class Container extends Style_Abstract {
 			? ".guten-flex-container.{$this->element_id} > .guten-inner-container"
 			: ".guten-flex-container.{$this->element_id}";
 
-		// Min Height.
-		if ( isset( $this->attrs['boxedBackground'] ) && 'boxed' === $container_layout ) {
-			$this->feature_background(
-				array(
-					'normal' => ".guten-flex-container.{$this->element_id} .guten-inner-container",
-					'hover'  => ".guten-flex-container.{$this->element_id}:hover .guten-inner-container",
-				),
-				'boxedBackground'
-			);
-		}
-
 		// Container Width.
 		if ( isset( $this->attrs['containerWidth'] ) ) {
 			$this->inject_style(

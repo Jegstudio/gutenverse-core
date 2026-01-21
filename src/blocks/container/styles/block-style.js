@@ -19,40 +19,6 @@ const getBlockStyle = (elementId, attributes) => {
         containerLayout
     } = attributes;
 
-    // Boxed Background
-    if (containerLayout !== 'full-width') {
-        isNotEmpty(attributes['boxedBackground']) && data.push({
-            'type': 'background',
-            'id': 'boxedBackground',
-            'selector': `.${elementId}:not(.background-animated) .guten-inner-container-editor, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container-editor`,
-        });
-
-        isNotEmpty(attributes['boxedBackgroundHover']) && data.push({
-            'type': 'background',
-            'id': 'boxedBackgroundHover',
-            backgroundHoverSelector: `.${elementId}:not(.background-animated):hover .guten-inner-container-editor, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer .guten-inner-container-editor`,
-        });
-
-        isNotEmpty(attributes['boxedBackgroundTransition']) && data.push({
-            'type': 'unitPoint',
-            'id': 'boxedBackgroundTransition',
-            'selector': `.${elementId}:not(.background-animated) .guten-inner-container-editor, .${elementId}.background-animated > .guten-background-animated .animated-layer .guten-inner-container-editor`,
-            'properties': [
-                {
-                    'name': 'transition',
-                    'valueType': 'pattern',
-                    'pattern': '{value}',
-                    'patternValues': {
-                        'value': {
-                            'type': 'direct',
-                        },
-                    }
-                },
-            ],
-        });
-    }
-
-
     // Container Width (when full width)
     isNotEmpty(attributes['containerLayout']) && isNotEmpty(attributes['containerWidth']) && data.push({
         'type': 'unitPoint',

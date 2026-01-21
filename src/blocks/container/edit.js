@@ -9,13 +9,16 @@ import isEmpty from 'lodash/isEmpty';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { checkIsParent, determineLocation, isAnimationActive, theDeviceType } from 'gutenverse-core/helper';
-import { withAnimationAdvance, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCursorEffect, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { removeLiveStyle, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { FluidCanvas } from 'gutenverse-core/components';
-import { withBackgroundSlideshow } from 'gutenverse-core/hoc';
+import { withBackgroundSlideshow, withBackgroundEffect } from 'gutenverse-core/hoc';
 import { useEffect } from 'react';
 import SectionVideoContainer from '../section/components/section-video-container';
+import { SectionDividerBottom, SectionDividerTop } from '../section/components/section-divider';
+import { SectionDividerAnimatedBottom, SectionDividerAnimatedTop } from '../section/components/section-divider-animated';
+import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import ContainerVariation from './components/container-variation';
 import { panelList } from './panels/panel-list';
 import getBlockStyle from './styles/block-style';
@@ -241,14 +244,16 @@ const ContainerResizeWrapper = (props) => {
         setOpenTool(false);
     };
 
+    const dataId = elementId ? elementId.split('-')[1] : '';
+
     return (
         <div
             {...innerBlocksProps}
             ref={mergedRef}
             onMouseEnter={() => setIsHoveredState(true)}
             onMouseLeave={() => setIsHoveredState(false)}
+            data-id={dataId}
         >
-
             {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
             <FluidCanvas attributes={attributes} />
             {isAnimationActive(backgroundAnimated) &&
@@ -334,6 +339,16 @@ const Container = (props) => {
         setAttributes(attributes);
     }, [clientId]);
 
+    const {
+        topDivider,
+        bottomDivider,
+        topDividerAnimated,
+        bottomDividerAnimated,
+        backgroundEffect
+    } = attributes;
+
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
+
     return (
         <ContainerResizeWrapper
             isSelected={isSelected}
@@ -345,11 +360,16 @@ const Container = (props) => {
             mode={mode}
             handleVariation={handleVariation}
         >
+            {!isEmpty(topDivider) && <SectionDividerTop {...props} />}
+            {(!isEmptyValue(topDividerAnimated) && topDividerAnimated.type !== 'none') && <SectionDividerAnimatedTop {...props} />}
+            {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
             <div className={'guten-inner-container-editor'}>
                 {hasChildBlocks ? innerChildren : <InnerBlocks
                     renderAppender={InnerBlocks.ButtonBlockAppender}
                 />}
             </div>
+            {!isEmpty(bottomDivider) && <SectionDividerBottom {...props} />}
+            {(!isEmptyValue(bottomDividerAnimated) && bottomDividerAnimated.type !== 'none') && <SectionDividerAnimatedBottom {...props} />}
         </ContainerResizeWrapper>
     );
 };
@@ -357,7 +377,9 @@ const Container = (props) => {
 const ContainerBlock = compose(
     withAnimationAdvance('container'),
     withPassRef,
-    withBackgroundSlideshow
+    withBackgroundSlideshow,
+    withBackgroundEffect('container'),
+    withCursorEffect,
 )((props) => {
     const {
         getBlockOrder
@@ -376,8 +398,11 @@ const ContainerBlock = compose(
         mode,
         containerLayout,
         backgroundAnimated = {},
-        background
+        background,
+        cursorEffect,
+        backgroundEffect
     } = attributes;
+
 
     useEffect(() => {
         if (undefined === mode) {
@@ -404,6 +429,7 @@ const ContainerBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -419,7 +445,9 @@ const ContainerBlock = compose(
                 'is-hovered': isHovered,
                 'background-animated': (!hasChildBlocks && isAnimationActive(backgroundAnimated)) || (hasChildBlocks && isAnimationActive(backgroundAnimated)),
                 'guten-video-background': background?.backgroundType === 'video' && background?.videoUrl,
-                'guten-background-slideshow': background?.backgroundType === 'slide' && background?.slideImage?.length > 0
+                'guten-background-slideshow': background?.backgroundType === 'slide' && background?.slideImage?.length > 0,
+                'guten-cursor-effect': cursorEffect?.show,
+                'guten-background-effect-active': isBackgroundEffect,
             }
         ),
         ref: elementRef,
