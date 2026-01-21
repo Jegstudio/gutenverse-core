@@ -1,4 +1,4 @@
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
 import { isAlignStickyColumn, isSticky } from 'gutenverse-core/helper';
@@ -41,14 +41,14 @@ const save = compose(
         stickyClass,
     );
 
-    const blockProps = useBlockProps.save({
+    const blockProps = {
         className: wrapperClasses,
         ...(
             isCanSticky
                 ? {'data-id': elementId?.split('-')[1]}
                 : {}
         )
-    });
+    };
 
     return (
         <div {...blockProps}>

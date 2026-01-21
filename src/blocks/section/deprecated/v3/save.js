@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks } from '@wordpress/block-editor';
 import { withVideoBackground } from 'gutenverse-core/hoc';
 import { SectionDividerBottom, SectionDividerTop } from '../../components/section-divider';
 import { compose } from '@wordpress/compose';
@@ -54,7 +54,7 @@ const save = compose(
 
     return (
         <div className={wrapperClassName} data-id={dataId}>
-            <section { ...useBlockProps.save({ className })}>
+            <section className={className}>
                 <div className="guten-background-overlay"></div>
                 {topDivider && <SectionDividerTop {...props} />}
                 {bottomDivider && <SectionDividerBottom {...props} />}

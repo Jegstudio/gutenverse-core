@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks } from '@wordpress/block-editor';
 import { withVideoBackground } from 'gutenverse-core/hoc';
 import { SectionDividerBottom, SectionDividerTop } from '../../components/section-divider';
 import { compose } from '@wordpress/compose';
@@ -83,7 +83,7 @@ const save = compose(
                 })}`}
             </script>}
             <script>{`var top${elementId?.split('-')[1]} = ${JSON.stringify(topSticky)};var bottom${elementId?.split('-')[1]} = ${JSON.stringify(bottomSticky)};`}</script>
-            <section {...useBlockProps.save({ className })}>
+            <section className={className}>
                 {isAnimationActive(backgroundAnimated) && <div className="guten-background-animated"><div className="animated-layer"></div></div>}
                 <div className="guten-background-overlay"></div>
                 {topDivider && <SectionDividerTop {...props} />}

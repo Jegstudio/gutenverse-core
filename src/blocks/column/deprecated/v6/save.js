@@ -1,4 +1,4 @@
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
 import { isAlignStickyColumn, isAnimationActive, isSticky } from 'gutenverse-core/helper';
@@ -64,7 +64,7 @@ const save = compose(
         }
     );
 
-    const blockProps = useBlockProps.save({
+    const blockProps = {
         className: wrapperClasses,
         id: anchor,
         ...advanceAnimationData,
@@ -73,7 +73,7 @@ const save = compose(
                 ? { 'data-id': elementId?.split('-')[1] }
                 : {}
         ),
-    });
+    };
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];
 

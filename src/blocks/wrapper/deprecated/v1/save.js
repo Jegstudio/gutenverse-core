@@ -1,6 +1,5 @@
 
 import classnames from 'classnames';
-import { useBlockProps } from '@wordpress/block-editor';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
 import { compose } from '@wordpress/compose';
@@ -30,23 +29,7 @@ const save = compose(
         ['guten-cursor-effect']: cursorEffect?.show
     };
 
-    const blockProps = useBlockProps.save({
-        className: classnames(
-            'guten-element',
-            'guten-wrap-helper',
-            'no-margin',
-            elementId,
-            animationClass,
-            displayType,
-            displayClass,
-            cursorEffectClass,
-            {
-                'background-animated': isAnimationActive(backgroundAnimated),
-                'with-url' :  url
-            }
-        ),
-        ...advanceAnimationData
-    });
+
 
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];

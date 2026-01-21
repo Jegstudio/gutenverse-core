@@ -1,4 +1,4 @@
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
 import { isAlignStickyColumn, isAnimationActive, isSticky } from 'gutenverse-core/helper';
@@ -60,7 +60,7 @@ const save = compose(
         },
     );
 
-    const blockProps = useBlockProps.save({
+    const blockProps = {
         className: wrapperClasses,
         ...(anchor ? { id: anchor } : {}), //if colum v3 have anchor, add id. automatic anchor from WordPress is not exist in deprecated
         ...advanceAnimationData,
@@ -69,7 +69,7 @@ const save = compose(
                 ? { 'data-id': elementId?.split('-')[1] }
                 : {}
         ),
-    });
+    };
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     return (
         <div {...blockProps}>
