@@ -134,14 +134,14 @@
                     display: flex;
                     justify-content: flex-start;
                     border: 1px solid transparent;
-                    background: 
+                    background:
                         linear-gradient(to right, #343a6d, #343a6d),
                         linear-gradient(101deg, rgba(158, 112, 255, 0.63) 6%, #90d9ff 58%, rgba(123, 131, 255, 0.5) 100%);
                     background-clip: padding-box, border-box;
                     background-origin: padding-box, border-box;
                     border-radius: 3px;
 
-                    a{
+                    a {
                         flex-grow: 0;
                         display: flex;
                         justify-content: flex-start;
@@ -163,7 +163,7 @@
                             color: #fff;
                             text-decoration: none;
                         }
-                        
+
                         .star-rating {
                             display: flex;
                             gap: 4px;
@@ -185,7 +185,7 @@
                     line-height: 18px;
                     letter-spacing: 0em;
                     text-align: left;
-                  
+
                     .tech-support-pro {
                         font-family: "Roboto", serif;
                         font-size: 10px;
@@ -196,14 +196,14 @@
                         letter-spacing: 0.42px;
                         justify-content: flex-start;
                         border: 1px solid transparent;
-                        background: 
+                        background:
                             linear-gradient(to right, #343a6d, #343a6d),
                             linear-gradient(101deg, rgba(158, 112, 255, 0.63) 6%, #90d9ff 58%, rgba(123, 131, 255, 0.5) 100%);
                         background-clip: padding-box, border-box;
                         background-origin: padding-box, border-box;
                         border-radius: 3px;
-                  
-                      .container {
+
+                        .container {
                             align-items: center;
                             display: flex;
                             gap: 6px;
@@ -211,7 +211,7 @@
                             background-image: linear-gradient(139deg, rgba(59, 88, 247, 0.33) 17%, rgba(143, 244, 255, 0.16) 73%);
                         }
                     }
-                }  
+                }
             }
         }
     }
@@ -776,219 +776,249 @@
 @media only screen and (max-width: 1024px) {
     #gutenverse-dashboard {
         .plugin-item {
-			gap: 20px;
-			justify-content: start;
-			
-			.plugin-actions {
-				margin-left: auto;
-			}
-		}
-		.subscribe-panel {
-			padding: 0 25px;
-			border-radius: 5px;
+            gap: 20px;
+            justify-content: start;
 
-			&>div:last-child {
-				top: 25px;
+            .plugin-actions {
+                margin-left: auto;
+            }
+        }
 
-				&>div {
-					padding: 25px;
-				}
-			}
-		}
+        .subscribe-panel {
+            padding: 0 25px;
+            border-radius: 5px;
+
+            &>div:last-child {
+                top: 25px;
+
+                &>div {
+                    padding: 25px;
+                }
+            }
+        }
+
         .content-wrapper {
             &.dashboard {
                 padding: 28px 30px 66px 30px;
             }
-			.dashboard-content {
-				.content-body {
-					padding: 30px;
 
-					.banner-pro {
-						padding: 26px;
+            .dashboard-content {
+                .content-body {
+                    padding: 30px;
 
-						.title {
-							font-size: 25px;
-							min-width: 386px;
-							line-height: 120%;
-						}
-						.buttons {
-							padding-top: 16px;
+                    .banner-pro {
+                        padding: 26px;
 
-							.button-upgrade-pro {
-								font-size: 10px;
+                        .title {
+                            font-size: 25px;
+                            min-width: 386px;
+                            line-height: 120%;
+                        }
 
-								svg {
-									width: 10px !important;
-									height: 10px !important;
-								}
-							}
-						}
-					}
-				}
-				.content-header {
-					margin-bottom: 0;
-					padding: 20px 30px;
+                        .buttons {
+                            padding-top: 16px;
 
-					h2 {
-						margin: 0;
-					}
-				}
-			}
+                            .button-upgrade-pro {
+                                font-size: 10px;
+
+                                svg {
+                                    width: 10px !important;
+                                    height: 10px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .content-header {
+                    margin-bottom: 0;
+                    padding: 20px 30px;
+
+                    h2 {
+                        margin: 0;
+                    }
+                }
+            }
         }
-		.feature-panel {
-			.join-community-button {
-				border-radius: 50px;
-				.circle {
-					border-radius: 50px;
-				}
-			}
-			span.description {
-				margin-bottom: 24px;
-			}
-		}
-		.box-panel.support-panel {
-			max-width: 300px;
-		}
+
+        .feature-panel {
+            .join-community-button {
+                border-radius: 50px;
+
+                .circle {
+                    border-radius: 50px;
+                }
+            }
+
+            span.description {
+                margin-bottom: 24px;
+            }
+        }
+
+        .box-panel.support-panel {
+            max-width: 300px;
+        }
     }
 }
 
 @media only screen and (max-width: 767px) {
     #gutenverse-dashboard {
         .plugin-item {
-			flex-direction: column;
-			margin: 0;
-			margin-bottom: 16px;
+            flex-direction: column;
+            margin: 0;
+            margin-bottom: 16px;
 
-			.details {
-				width: 100%;
-			}
-			.plugin-actions {
-				margin-left: 0;
-				margin-right: auto;
-			}
-			.icon-wrapper {
-				display: block;
+            .details {
+                width: 100%;
+            }
 
-				.icon-plugin {
-					width: 48px;
-					height: 48px;
-				}
-			}
-		}
-		.plugins {
-			gap: 0;
+            .plugin-actions {
+                margin-left: 0;
+                margin-right: auto;
+            }
 
-			h3 {
-				margin-bottom: 8px;
-			}
-			.plugins-desc {
-				margin-bottom: 24px;
-			}
-		}
-		#subcription-email {
-			.input {
-				padding: 10px 14px;
-				input {
-					font-size: 12px;
-				}
-			}
-		}
-		.content-wrapper.ecosystem {
-			.content-header {
-				display: none;
-			}
-		}
-		.content-wrapper {
+            .icon-wrapper {
+                display: block;
+
+                .icon-plugin {
+                    width: 48px;
+                    height: 48px;
+                }
+            }
+        }
+
+        .plugins {
+            gap: 0;
+
+            h3 {
+                margin-bottom: 8px;
+            }
+
+            .plugins-desc {
+                margin-bottom: 24px;
+            }
+        }
+
+        #subcription-email {
+            .input {
+                padding: 10px 14px;
+
+                input {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .content-wrapper.ecosystem {
+            .content-header {
+                display: none;
+            }
+        }
+
+        .content-wrapper {
             &.dashboard {
                 padding: 20px 20px 35px 20px;
             }
-			.dashboard-content {
-				.content-body {
-					padding: 20px;
 
-					.ecosystem-wrapper {
-						width: 100%;
-						margin-left: 0;
-					}
+            .dashboard-content {
+                .content-body {
+                    padding: 20px;
 
-					.banner-pro {
-						max-width: 100%;
-						padding: 24px;
-						overflow: hidden;
-						.title {
-							font-size: 16px;
-							min-width: 100%;
-							line-height: 110%;
-						}
-						.buttons {
-							padding-top: 27px;
+                    .ecosystem-wrapper {
+                        width: 100%;
+                        margin-left: 0;
+                    }
 
-							a {
-								padding: 8px 11px;
-							}
-						}
-					}
-				}
-			}
+                    .banner-pro {
+                        max-width: 100%;
+                        padding: 24px;
+                        overflow: hidden;
+
+                        .title {
+                            font-size: 16px;
+                            min-width: 100%;
+                            line-height: 110%;
+                        }
+
+                        .buttons {
+                            padding-top: 27px;
+
+                            a {
+                                padding: 8px 11px;
+                            }
+                        }
+                    }
+                }
+            }
         }
-		.subscribe-panel {
-			padding: 0 20px;
-			&>div:last-child {
-				top: 20px;
-				&>div{
-					padding: 20px;
 
-					h2 {
-						font-size: 18px;
-					}
+        .subscribe-panel {
+            padding: 0 20px;
 
-					.description {
-						margin-bottom: 16px;
-						margin-top: 15px;
-					}
-					.btn {
-						padding-top: 10px;
-						padding-bottom: 10px;
-					}
-					.input {
-						input {
-							min-height: 17px;
-						}
-					}
-				}
-			}
-		}
-		.panel-wrapper {
-			&.first-wrapper {
-				gap: 32px;
-			}
-			.feature-panel {
-				.illustration {
-					margin-bottom: 30px;
-				}
-				&>div:first-child>div {
-					margin-right: 0;
+            &>div:last-child {
+                top: 20px;
 
-					.welcome-to {
-						margin-top: 0;
-						margin-bottom: 8px;
-					}
+                &>div {
+                    padding: 20px;
 
-					h2 {
-						font-size: 28px;
-						margin-bottom: 10px;
-					}
-				}
-				.join-community-button {
-					span {
-						font-size: 12px;
-					}
-					i {
-						font-size: 14px;
-					}
-				}
-			}
-		}
+                    h2 {
+                        font-size: 18px;
+                    }
+
+                    .description {
+                        margin-bottom: 16px;
+                        margin-top: 15px;
+                    }
+
+                    .btn {
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                    }
+
+                    .input {
+                        input {
+                            min-height: 17px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .panel-wrapper {
+            &.first-wrapper {
+                gap: 32px;
+            }
+
+            .feature-panel {
+                .illustration {
+                    margin-bottom: 30px;
+                }
+
+                &>div:first-child>div {
+                    margin-right: 0;
+
+                    .welcome-to {
+                        margin-top: 0;
+                        margin-bottom: 8px;
+                    }
+
+                    h2 {
+                        font-size: 28px;
+                        margin-bottom: 10px;
+                    }
+                }
+
+                .join-community-button {
+                    span {
+                        font-size: 12px;
+                    }
+
+                    i {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -1080,6 +1110,10 @@
 
 body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.theme-upgrade-notice) {
     display: none;
+}
+
+.notice.notice-info:has(+ #gutenverse-dashboard) {
+    margin-bottom: 30px;
 }
 
 #gutenverse-library-themes-content-wrapper {
@@ -1199,7 +1233,7 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
                     display: flex;
                     gap: 20px;
                     margin-top: 32px;
-                    margin-bottom : 15px;
+                    margin-bottom: 15px;
 
                     .button-install-theme {
                         cursor: pointer;
@@ -1221,7 +1255,8 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
                         svg {
                             animation: infinite rotate 2s linear;
                         }
-                        &:hover{
+
+                        &:hover {
                             color: hsla(0, 0%, 100%, .75);
                             transform: scale(0.94);
                         }
@@ -1239,7 +1274,7 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
                         transition: color 0.3s ease;
                         text-decoration: none;
 
-                        &:hover{
+                        &:hover {
                             color: #3B57F7;
                         }
                     }
@@ -1316,7 +1351,7 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
     }
 }
 
-.notice ~ #gutenverse-dashboard .navigation-wrapper {
+.notice~#gutenverse-dashboard .navigation-wrapper {
     border-radius: 5px !important;
 }
 
@@ -1332,12 +1367,12 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
     background-size: cover;
     position: relative;
 
-    &.notice {
-        border: none;
-        padding: 0;
-        border-radius: 5px;
-        margin-bottom: 30px;
-    }
+    // &.notice {
+    //     border: none;
+    //     padding: 0;
+    //     border-radius: 5px;
+    //     margin-bottom: 30px;
+    // }
 
     .unibiz-gutenverse-badge {
         position: absolute;
@@ -1541,10 +1576,11 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
 }
 
 @media only screen and (max-width: 1024px) {
-    .gutenverse-unibiz-notice .content-wrapper .col-1 .content{
+    .gutenverse-unibiz-notice .content-wrapper .col-1 .content {
         margin: 48px 0px 48px 40px;
     }
 }
+
 @media only screen and (max-width: 767px) {
     .gutenverse-unibiz-notice {
         .unibiz-gutenverse-badge {
@@ -1607,7 +1643,9 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
     .gutenverse-unibiz-notice {
         .content-wrapper {
             .col-1 {
-                .title, .description {
+
+                .title,
+                .description {
                     max-width: unset;
                 }
 

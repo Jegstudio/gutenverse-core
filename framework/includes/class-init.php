@@ -252,10 +252,20 @@ class Init {
 				width: 121px;
 				margin: 0 15px 15px 0;
 			}
-			.notice.gutenverse-unibiz-notice{
+			.notice.gutenverse-unibiz-notice.notice{
 				border: none;
 				padding: 0px;
+				border-radius: 5px;
+				margin-bottom: 30px;
 			}
+
+			.notice.gutenverse-unibiz-notice.notice ~ #gutenverse-theme-dashboard .dashboard-header{
+				border-radius: 10px;
+			}
+			.notice.gutenverse-unibiz-notice.notice ~ #gutenverse-theme-dashboard .dashboard-content{
+				margin-top: 30px;
+			}
+
 			.gutenverse-unibiz-notice .content-wrapper{
 				width: 100%;
 				height: 100%;
