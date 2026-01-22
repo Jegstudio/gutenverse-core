@@ -252,17 +252,20 @@ class Init {
 				width: 121px;
 				margin: 0 15px 15px 0;
 			}
-			.notice.gutenverse-unibiz-notice.notice{
+			.notice.gutenverse-unibiz-notice{
 				border: none;
 				padding: 0px;
+			}
+
+			.notice.gutenverse-unibiz-notice:has(~ #gutenverse-theme-dashboard){
 				border-radius: 5px;
 				margin-bottom: 30px;
 			}
 
-			.notice.gutenverse-unibiz-notice.notice ~ #gutenverse-theme-dashboard .dashboard-header{
+			.notice.gutenverse-unibiz-notice ~ #gutenverse-theme-dashboard .dashboard-header{
 				border-radius: 10px;
 			}
-			.notice.gutenverse-unibiz-notice.notice ~ #gutenverse-theme-dashboard .dashboard-content{
+			.notice.gutenverse-unibiz-notice ~ #gutenverse-theme-dashboard .dashboard-content{
 				margin-top: 30px;
 			}
 

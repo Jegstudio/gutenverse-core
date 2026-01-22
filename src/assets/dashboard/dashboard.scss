@@ -1367,12 +1367,12 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
     background-size: cover;
     position: relative;
 
-    // &.notice {
-    //     border: none;
-    //     padding: 0;
-    //     border-radius: 5px;
-    //     margin-bottom: 30px;
-    // }
+    &.notice {
+        border: none;
+        padding: 0;
+        border-radius: 5px;
+        margin-bottom: 30px;
+    }
 
     .unibiz-gutenverse-badge {
         position: absolute;
