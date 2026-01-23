@@ -1,9 +1,10 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, positioningPanel, responsivePanel, backgroundEffectPanel, backgroundAnimatedPanel, transformPanel, mouseMoveEffectPanel, advanceAnimationPanel, conditionPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, positioningPanel, responsivePanel, backgroundEffectPanel, backgroundAnimatedPanel, transformPanel, mouseMoveEffectPanel, advanceAnimationPanel, conditionPanel, pointerEventPanel, typographyPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { layoutPanel } from './panel-layout';
 import { dividerPanel } from './panel-divider';
 import { dividerPanelAnimated } from './panel-divider-animated';
+import { blurPanel } from './panel-blur';
 
 export const panelList = () => {
     return [
@@ -136,29 +137,29 @@ export const panelList = () => {
             panelArray: maskPanel,
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Blur', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: blurPanel,
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Pointer Event', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => pointerEventPanel({
-        //         ...props,
-        //         selector: `.section-${props.elementId}`
-        //     }),
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Typography', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => typographyPanel({
-        //         ...props,
-        //         styleId: 'section-typography'
-        //     }),
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Blur', '--gctd--'),
+            initialOpen: false,
+            panelArray: blurPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Pointer Event', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => pointerEventPanel({
+                ...props,
+                selector: `.${props.elementId}`
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Typography', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => typographyPanel({
+                ...props,
+                styleId: 'container-typography'
+            }),
+            tabRole: TabStyle
+        },
     ];
 };

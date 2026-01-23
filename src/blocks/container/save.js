@@ -5,7 +5,7 @@ import { FluidCanvasSave } from 'gutenverse-core/components';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { isAnimationActive } from 'gutenverse-core/helper';
 import { withAnimationAdvanceScript, withBackgroundEffectScript, withBackgroundSlideshowScript, withCursorEffectScript, withMouseMoveEffectScript, withVideoBackground } from 'gutenverse-core/hoc';
-import { useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
+import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { SectionDividerBottom, SectionDividerTop } from '../section/components/section-divider';
 import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from '../section/components/section-divider-animated';
@@ -35,15 +35,16 @@ const save = compose(
         bottomDividerAnimated
     } = attributes;
 
-    const dataId = elementId?.split('-')[1];
     const isSlideShow = background?.slideImage?.length > 0;
+    const advanceAnimationData = useAnimationAdvanceData(attributes);
+    const animationClass = useAnimationFrontend(attributes);
+    const displayClass = useDisplayFrontend(attributes);
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
+
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const _isTopDividerAnimated = !isEmptyValue(topDividerAnimated) && topDividerAnimated.type !== 'none';
     const _isBottomDividerAnimated = !isEmptyValue(bottomDividerAnimated) && bottomDividerAnimated.type !== 'none';
-    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
-
-    const animationClass = useAnimationFrontend(attributes);
-    const displayClass = useDisplayFrontend(attributes);
+    const dataId = elementId?.split('-')[1];
 
     const className = classnames(
         'guten-element',
@@ -62,7 +63,7 @@ const save = compose(
     );
 
     return (
-        <div {...useBlockProps.save({ className })} data-id={dataId}>
+        <div {...useBlockProps.save({ className, ...advanceAnimationData, id: attributes.anchor })} data-id={dataId}>
             <FluidCanvasSave attributes={attributes} />
             {(_isBgAnimated || isSlideShow || _isTopDividerAnimated || _isBottomDividerAnimated) &&
                 <div className="guten-data">

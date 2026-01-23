@@ -6,6 +6,9 @@
 	"category": "gutenverse-structure",
 	"allowCopyStyle": true,
 	"attributes": {
+		"anchor": {
+			"type": "string"
+		},
 		"elementId": {
 			"type": "string"
 		},
@@ -308,6 +311,18 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"pointer": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"blur": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"blurHover": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"condition": {
 			"type": "object",
 			"default": {}
@@ -319,6 +334,26 @@
 			"type": "object"
 		},
 		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"typographyHeadingColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"typographyTextColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"typographyLinkColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"typographyLinkHoverColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"typographyTextAlign": {
 			"type": "object",
 			"copyStyle": true
 		}

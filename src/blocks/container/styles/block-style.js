@@ -162,6 +162,66 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+
+    isNotEmpty(attributes['blur']) && data.push({
+        'type': 'plain',
+        'id': 'blur',
+        'responsive': true,
+        'selector': `.${elementId}:before`,
+        'properties': [
+            {
+                'name': '-webkit-backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            },
+            {
+                'name': 'backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['blurHover']) && data.push({
+        'type': 'plain',
+        'id': 'blurHover',
+        'responsive': true,
+        'selector': `.${elementId}:hover::before`,
+        'properties': [
+            {
+                'name': '-webkit-backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            },
+            {
+                'name': 'backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            }
+        ],
+    });
+
+
     isNotEmpty(attributes['backgroundOverlay']) && data.push({
         'type': 'background',
         'id': 'backgroundOverlay',
@@ -572,6 +632,73 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
     });
+
+    isNotEmpty(attributes['typographyHeadingColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyHeadingColor',
+        'selector': `.${elementId} .wp-block-gutenverse-heading`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyTextColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyTextColor',
+        'selector': `.${elementId}`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyLinkColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyLinkColor',
+        'selector': `.${elementId} a`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyLinkHoverColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyLinkHoverColor',
+        'selector': `.${elementId} a:hover`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyTextAlign']) && data.push({
+        'type': 'color',
+        'id': 'typographyTextAlign',
+        'selector': `.${elementId}`,
+        'properties': [
+            {
+                'name': 'text-align',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            }
+        ],
+    });
+
 
     return [
         ...data,

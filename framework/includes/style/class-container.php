@@ -397,6 +397,97 @@ class Container extends Style_Abstract {
 			}
 		}
 
+		if ( isset( $this->attrs['blur'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:before",
+					'property'       => function ( $value ) {
+						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
+					},
+					'value'          => $this->attrs['blur'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['blurHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover::before",
+					'property'       => function ( $value ) {
+						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
+					},
+					'value'          => $this->attrs['blurHover'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['typographyHeadingColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .wp-block-gutenverse-heading",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['typographyHeadingColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['typographyTextColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['typographyTextColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['typographyLinkColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} a",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['typographyLinkColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['typographyLinkHoverColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} a:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['typographyLinkHoverColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['typographyTextAlign'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}",
+					'property'       => function ( $value ) {
+						return "text-align: {$value};";
+					},
+					'value'          => $this->attrs['typographyTextAlign'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		do_action( 'gutenverse_container_style', $this, $this->attrs );
 	}
 }
