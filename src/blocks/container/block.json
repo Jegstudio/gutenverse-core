@@ -356,6 +356,66 @@
 		"typographyTextAlign": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"sticky": {
+			"type": "object",
+			"default": {
+				"Desktop": false
+			},
+			"copyStyle": true
+		},
+		"stickyShowOn": {
+			"type": "string",
+			"default": "both",
+			"copyStyle": true
+		},
+		"stickyEase": {
+			"type": "string",
+			"default": "none",
+			"copyStyle": true
+		},
+		"stickyPosition": {
+			"type": "string",
+			"default": "top",
+			"copyStyle": true
+		},
+		"stickyDuration": {
+			"type": "integer",
+			"default": 0.25,
+			"copyStyle": true
+		},
+		"topSticky": {
+			"type": "object",
+			"default": {
+				"Desktop": {
+					"point": "0",
+					"unit": "px"
+				}
+			},
+			"copyStyle": true
+		},
+		"bottomSticky": {
+			"type": "object",
+			"default": {
+				"Desktop": {
+					"point": "0",
+					"unit": "px"
+				}
+			},
+			"copyStyle": true
+		},
+		"stickyIndex": {
+			"type": "integer",
+			"default": 99,
+			"copyStyle": true
+		},
+		"stickyBackground": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"stickyBoxShadow": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {

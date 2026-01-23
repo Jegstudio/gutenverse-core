@@ -6,6 +6,23 @@
 }
 
 .guten-flex-container-editor {
+    &.pinned {
+        position: sticky !important;
+        z-index: 999;
+
+        &.fixed {
+            position: fixed !important;
+        }
+
+        &.sticky-top {
+            top: 0;
+        }
+
+        &.sticky-bottom {
+            bottom: 0;
+        }
+    }
+
     &:before {
         content: "";
         width: 100%;

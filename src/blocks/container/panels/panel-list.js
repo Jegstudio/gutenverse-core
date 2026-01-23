@@ -5,6 +5,7 @@ import { layoutPanel } from './panel-layout';
 import { dividerPanel } from './panel-divider';
 import { dividerPanelAnimated } from './panel-divider-animated';
 import { blurPanel } from './panel-blur';
+import { stickyPanel } from './panel-sticky';
 
 export const panelList = () => {
     return [
@@ -12,6 +13,12 @@ export const panelList = () => {
             title: __('Layout', 'gutenverse'),
             panelArray: layoutPanel,
             tabRole: TabSetting
+        },
+        {
+            title: __('Sticky', '--gctd--'),
+            initialOpen: false,
+            panelArray: stickyPanel,
+            pro: true,
         },
         {
             title: __('Cursor Effect', 'gutenverse'),

@@ -85,7 +85,7 @@ class Container extends Style_Abstract {
 				array(
 					'selector'       => ".guten-flex-container.{$this->element_id}",
 					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'min-height' );
+						return $this->handle_unit_point( $value, 'height' );
 					},
 					'value'          => $this->attrs['minHeight'],
 					'device_control' => true,

@@ -8,7 +8,7 @@ import classnames from 'classnames';
 import { CopyElementToolbar, FluidCanvas } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
-import { checkIsParent, determineLocation, isAnimationActive, theDeviceType } from 'gutenverse-core/helper';
+import { checkIsParent, determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
 import { withAnimationAdvanceV2, withAnimationBackgroundV2, withAnimationStickyV2, withBackgroundEffect, withBackgroundSlideshow, withCursorEffect, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { removeLiveStyle, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
@@ -249,7 +249,7 @@ const ContainerResizeWrapper = (props) => {
         bottomDivider,
         topDividerAnimated,
         bottomDividerAnimated,
-        backgroundEffect
+        backgroundEffect,
     } = attributes;
 
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
@@ -404,7 +404,9 @@ const ContainerBlock = compose(
         backgroundAnimated = {},
         background,
         cursorEffect,
-        backgroundEffect
+        backgroundEffect,
+        sticky = {},
+        stickyPosition,
     } = attributes;
 
 
@@ -452,6 +454,8 @@ const ContainerBlock = compose(
                 'guten-background-slideshow': background?.backgroundType === 'slide' && background?.slideImage?.length > 0,
                 'guten-cursor-effect': cursorEffect?.show,
                 'guten-background-effect-active': isBackgroundEffect,
+                ['guten-sticky']: isSticky(sticky),
+                [`sticky-${stickyPosition}`]: isSticky(sticky),
             }
         ),
         ref: elementRef,
