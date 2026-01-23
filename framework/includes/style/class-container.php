@@ -38,15 +38,18 @@ class Container extends Style_Abstract {
 
 		$this->set_feature(
 			array(
-				'background'  => array(
+				'background'        => array(
 					'normal' => ".guten-flex-container.{$this->element_id}:not(.background-animated), .guten-flex-container.{$this->element_id}.background-animated > .guten-background-animated .animated-layer",
 					'hover'  => ".guten-flex-container.{$this->element_id}:not(.background-animated):hover, .guten-flex-container.{$this->element_id}.background-animated:hover > .guten-background-animated .animated-layer",
 				),
-				'border'      => null,
-				'animation'   => null,
-				'advance'     => null,
-				'positioning' => ".guten-flex-container.{$this->element_id}",
-				'mask'        => null,
+				'border'            => null,
+				'animation'         => null,
+				'advance'           => null,
+				'positioning'       => ".guten-flex-container.{$this->element_id}",
+				'mask'              => null,
+				'pointer'           => ".guten-flex-container.{$this->element_id}",
+				'cursor-effect'     => null,
+				'background-effect' => null,
 			)
 		);
 	}
@@ -242,6 +245,156 @@ class Container extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+		}
+
+		if ( isset( $this->attrs['topDivider'] ) ) {
+			$divider = $this->attrs['topDivider'];
+			if ( isset( $divider['type'] ) && 'none' !== $divider['type'] ) {
+				if ( isset( $divider['width'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .guten-shape-divider.guten-shape-divider-top svg",
+							'property'       => function ( $value ) {
+								return "width: calc( {$value}% + 1.3px);";
+							},
+							'value'          => $divider['width'],
+							'device_control' => true,
+						)
+					);
+				}
+
+				if ( isset( $divider['height'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .guten-shape-divider.guten-shape-divider-top svg",
+							'property'       => function ( $value ) {
+								return "height: {$value}px;";
+							},
+							'value'          => $divider['height'],
+							'device_control' => true,
+						)
+					);
+				}
+
+				if ( isset( $divider['color'] ) && ( ! isset( $divider['colorMode'] ) || 'default' === $divider['colorMode'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .guten-shape-divider.guten-shape-divider-top .guten-shape-fill path",
+							'property'       => function ( $value ) {
+								return $this->handle_color( $value, 'fill' );
+							},
+							'value'          => $divider['color'],
+							'device_control' => false,
+						)
+					);
+				}
+			}
+		}
+
+		if ( isset( $this->attrs['bottomDivider'] ) ) {
+			$divider = $this->attrs['bottomDivider'];
+			if ( isset( $divider['type'] ) && 'none' !== $divider['type'] ) {
+				if ( isset( $divider['width'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .guten-shape-divider.guten-shape-divider-bottom svg",
+							'property'       => function ( $value ) {
+								return "width: calc( {$value}% + 1.3px);";
+							},
+							'value'          => $divider['width'],
+							'device_control' => true,
+						)
+					);
+				}
+
+				if ( isset( $divider['height'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .guten-shape-divider.guten-shape-divider-bottom svg",
+							'property'       => function ( $value ) {
+								return "height: {$value}px;";
+							},
+							'value'          => $divider['height'],
+							'device_control' => true,
+						)
+					);
+				}
+
+				if ( isset( $divider['color'] ) && ( ! isset( $divider['colorMode'] ) || 'default' === $divider['colorMode'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .guten-shape-divider.guten-shape-divider-bottom .guten-shape-fill path",
+							'property'       => function ( $value ) {
+								return $this->handle_color( $value, 'fill' );
+							},
+							'value'          => $divider['color'],
+							'device_control' => false,
+						)
+					);
+				}
+			}
+		}
+
+		if ( isset( $this->attrs['topDividerAnimated'] ) ) {
+			$divider = $this->attrs['topDividerAnimated'];
+			if ( isset( $divider['type'] ) && 'none' !== $divider['type'] ) {
+				if ( isset( $divider['width'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .guten-shape-divider-animated.guten-shape-divider-animated-top svg",
+							'property'       => function ( $value ) {
+								return "width: calc( {$value}% + 1.3px);";
+							},
+							'value'          => $divider['width'],
+							'device_control' => true,
+						)
+					);
+				}
+
+				if ( isset( $divider['height'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .guten-shape-divider-animated.guten-shape-divider-animated-top svg",
+							'property'       => function ( $value ) {
+								return "height: {$value}px;";
+							},
+							'value'          => $divider['height'],
+							'device_control' => true,
+						)
+					);
+				}
+			}
+		}
+
+		if ( isset( $this->attrs['bottomDividerAnimated'] ) ) {
+			$divider = $this->attrs['bottomDividerAnimated'];
+			if ( isset( $divider['type'] ) && 'none' !== $divider['type'] ) {
+				if ( isset( $divider['width'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .guten-shape-divider-animated.guten-shape-divider-animated-bottom svg",
+							'property'       => function ( $value ) {
+								return "width: calc( {$value}% + 1.3px);";
+							},
+							'value'          => $divider['width'],
+							'device_control' => true,
+						)
+					);
+				}
+
+				if ( isset( $divider['height'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .guten-shape-divider-animated.guten-shape-divider-animated-bottom svg",
+							'property'       => function ( $value ) {
+								return "height: {$value}px;";
+							},
+							'value'          => $divider['height'],
+							'device_control' => true,
+						)
+					);
+				}
+			}
 		}
 
 		do_action( 'gutenverse_container_style', $this, $this->attrs );

@@ -317,6 +317,10 @@
 		},
 		"backgroundEffect": {
 			"type": "object"
+		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {

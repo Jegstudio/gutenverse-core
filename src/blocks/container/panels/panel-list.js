@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, positioningPanel, responsivePanel, backgroundEffectPanel, backgroundAnimatedPanel } from 'gutenverse-core/controls';
-import { dividerPanel } from '../../section/panels/panel-divider';
-import { dividerPanelAnimated } from '../../section/panels/panel-divider-animated';
+import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, positioningPanel, responsivePanel, backgroundEffectPanel, backgroundAnimatedPanel, transformPanel, mouseMoveEffectPanel, advanceAnimationPanel, conditionPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { layoutPanel } from './panel-layout';
+import { dividerPanel } from './panel-divider';
+import { dividerPanelAnimated } from './panel-divider-animated';
 
 export const panelList = () => {
     return [
@@ -38,12 +38,12 @@ export const panelList = () => {
             panelArray: dividerPanel,
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Shape Divider Animated', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: dividerPanelAnimated,
-        //     pro: true,
-        // },
+        {
+            title: __('Shape Divider Animated', 'gutenverse'),
+            initialOpen: false,
+            panelArray: dividerPanelAnimated,
+            pro: true,
+        },
         {
             title: __('Display', 'gutenverse'),
             initialOpen: false,
@@ -60,16 +60,46 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Spacing', 'gutenverse'),
+            title: __('Transform', '--gctd--'),
             initialOpen: false,
-            panelArray: advancePanel,
-            tabRole: TabSetting
+            panelArray: transformPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Mouse Move Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Advanced Animation', '--gctd--'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'section'
+            }),
+            pro: true,
         },
         {
             title: __('Positioning', 'gutenverse'),
             initialOpen: false,
             panelArray: positioningPanel,
             tabRole: TabSetting
+        },
+        {
+            title: __('Spacing', 'gutenverse'),
+            initialOpen: false,
+            panelArray: advancePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Condition', '--gctd--'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
         },
         {
             title: __('Background', 'gutenverse'),
@@ -106,5 +136,29 @@ export const panelList = () => {
             panelArray: maskPanel,
             tabRole: TabStyle
         },
+        // {
+        //     title: __('Blur', '--gctd--'),
+        //     initialOpen: false,
+        //     panelArray: blurPanel,
+        //     tabRole: TabStyle
+        // },
+        // {
+        //     title: __('Pointer Event', '--gctd--'),
+        //     initialOpen: false,
+        //     panelArray: (props) => pointerEventPanel({
+        //         ...props,
+        //         selector: `.section-${props.elementId}`
+        //     }),
+        //     tabRole: TabStyle
+        // },
+        // {
+        //     title: __('Typography', '--gctd--'),
+        //     initialOpen: false,
+        //     panelArray: (props) => typographyPanel({
+        //         ...props,
+        //         styleId: 'section-typography'
+        //     }),
+        //     tabRole: TabStyle
+        // },
     ];
 };
