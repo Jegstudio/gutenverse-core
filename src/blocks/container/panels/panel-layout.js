@@ -276,7 +276,9 @@ export const layoutPanel = (props) => {
         elementId,
         flexWrap = {},
         flexDirection = {},
-        containerLayout
+        containerLayout,
+        containerWidth: oldContainerWidth,
+        setAttributes
     } = props;
 
     const deviceType = getDeviceType();
@@ -299,6 +301,21 @@ export const layoutPanel = (props) => {
                     value: 'full-width'
                 },
             ],
+            onChange: ({ containerLayout }) => {
+                if ('full-width' === containerLayout) {
+                    setAttributes({
+                        containerWidth: {
+                            Desktop: { unit: '%', point: '100' }
+                        }
+                    });
+                } else {
+                    setAttributes({
+                        containerWidth: {
+                            Desktop: { unit: 'px', point: '1200' }
+                        }
+                    });
+                }
+            }
         },
         {
             id: 'containerWidth',
@@ -343,7 +360,36 @@ export const layoutPanel = (props) => {
                         }
                     ],
                 }
-            ]
+            ],
+            onChange: ({ containerWidth }) => {
+                const { unit } = (containerWidth[deviceType]);
+                const { unit: oldUnit } = oldContainerWidth[deviceType];
+                let point = null;
+
+                if (unit !== oldUnit) {
+                    switch (unit) {
+                        case 'px':
+                            point = 1200;
+                            break;
+                        case '%':
+                            point = 100;
+                            break;
+                        case 'vw':
+                            point = 100;
+                            break;
+                    }
+
+                    setAttributes({
+                        containerWidth: {
+                            ...containerWidth,
+                            [deviceType]: {
+                                unit,
+                                point
+                            }
+                        }
+                    });
+                }
+            }
         },
         {
             id: 'minHeight',
@@ -572,7 +618,7 @@ export const layoutPanel = (props) => {
         {
             id: 'advancedHeading',
             component: HeadingControl,
-            label: __('Others', 'gutenverse'),
+            label: __('Additional Options', 'gutenverse'),
         },
         {
             id: 'overflow',

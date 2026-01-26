@@ -243,7 +243,18 @@
 		},
 		"padding": {
 			"type": "object",
-			"copyStyle": true
+			"copyStyle": true,
+			"default": {
+				"Desktop": {
+					"unit": "px",
+					"dimension": {
+						"top": 10,
+						"right": 10,
+						"bottom": 10,
+						"left": 10
+					}
+				}
+			}
 		},
 		"zIndex": {
 			"type": "object",

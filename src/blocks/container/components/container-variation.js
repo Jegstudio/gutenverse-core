@@ -36,53 +36,53 @@ const ContainerVariation = ({ onSelect, wrapper }) => {
             <div className="container-variation">
                 <h3 className="select-container-variation">{__('Container Structure', 'gutenverse')}</h3>
                 <ul className="container-variation-picker-list" aria-label={__('Container variations', 'gutenverse')}>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_100)}>
+                    <li className="container-variation-picker-item structure-1" onClick={() => onSelect(variation_100)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-100 col-height-100 with-icon">
                                 <IconSide />
                             </div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_100_2)}>
+                    <li className="container-variation-picker-item structure-2" onClick={() => onSelect(variation_100_2)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-100 col-height-100 with-icon">
                                 <IconDown />
                             </div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_50_50)}>
+                    <li className="container-variation-picker-item structure-3" onClick={() => onSelect(variation_50_50)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-50 col-height-100"></div>
                             <div className="column-icon col-width-50 col-height-100"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_33_33_33)}>
+                    <li className="container-variation-picker-item structure-4" onClick={() => onSelect(variation_33_33_33)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-33 col-height-100"></div>
                             <div className="column-icon col-width-33 col-height-100"></div>
                             <div className="column-icon col-width-33 col-height-100"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_33_66)}>
+                    <li className="container-variation-picker-item structure-5" onClick={() => onSelect(variation_33_66)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-33 col-height-100"></div>
                             <div className="column-icon col-width-66 col-height-100"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_66_33)}>
+                    <li className="container-variation-picker-item structure-6" onClick={() => onSelect(variation_66_33)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-66 col-height-100"></div>
                             <div className="column-icon col-width-33 col-height-100"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_25_50_25)}>
+                    <li className="container-variation-picker-item structure-7" onClick={() => onSelect(variation_25_50_25)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-25 col-height-100"></div>
                             <div className="column-icon col-width-50 col-height-100"></div>
                             <div className="column-icon col-width-25 col-height-100"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_25_25_25_25)}>
+                    <li className="container-variation-picker-item structure-8" onClick={() => onSelect(variation_25_25_25_25)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-25 col-height-100"></div>
                             <div className="column-icon col-width-25 col-height-100"></div>
@@ -90,21 +90,21 @@ const ContainerVariation = ({ onSelect, wrapper }) => {
                             <div className="column-icon col-width-25 col-height-100"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_50_50_100)}>
+                    <li className="container-variation-picker-item structure-9" onClick={() => onSelect(variation_50_50_100)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-50 col-height-50"></div>
                             <div className="column-icon col-width-50 col-height-50"></div>
                             <div className="column-icon col-width-100 col-height-50"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_50_50_100_3)}>
+                    <li className="container-variation-picker-item structure-10" onClick={() => onSelect(variation_50_50_100_3)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-100 col-height-50"></div>
                             <div className="column-icon col-width-50 col-height-50"></div>
                             <div className="column-icon col-width-50 col-height-50"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_50_50_100_2)}>
+                    <li className="container-variation-picker-item structure-11" onClick={() => onSelect(variation_50_50_100_2)}>
                         <div className="container-variation-picker-item-button">
                             <div className="inner-container col-width-50 col-height-100">
                                 <div className="column-icon col-width-100 col-height-50"></div>
@@ -113,7 +113,7 @@ const ContainerVariation = ({ onSelect, wrapper }) => {
                             <div className="column-icon col-width-50 col-height-100"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_100_50_50)}>
+                    <li className="container-variation-picker-item structure-12" onClick={() => onSelect(variation_100_50_50)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-50 col-height-100"></div>
                             <div className="inner-container col-width-50 col-height-100">
@@ -122,7 +122,7 @@ const ContainerVariation = ({ onSelect, wrapper }) => {
                             </div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_50_50_50_50)}>
+                    <li className="container-variation-picker-item structure-13" onClick={() => onSelect(variation_50_50_50_50)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-50 col-height-50"></div>
                             <div className="column-icon col-width-50 col-height-50"></div>
@@ -130,7 +130,7 @@ const ContainerVariation = ({ onSelect, wrapper }) => {
                             <div className="column-icon col-width-50 col-height-50"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_33_33_33_33_33_33)}>
+                    <li className="container-variation-picker-item structure-14" onClick={() => onSelect(variation_33_33_33_33_33_33)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-33 col-height-50"></div>
                             <div className="column-icon col-width-33 col-height-50"></div>
@@ -140,7 +140,7 @@ const ContainerVariation = ({ onSelect, wrapper }) => {
                             <div className="column-icon col-width-33 col-height-50"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_25_75_75_25)}>
+                    <li className="container-variation-picker-item structure-15" onClick={() => onSelect(variation_25_75_75_25)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-25 col-height-50"></div>
                             <div className="column-icon col-width-75 col-height-50"></div>
@@ -148,7 +148,7 @@ const ContainerVariation = ({ onSelect, wrapper }) => {
                             <div className="column-icon col-width-25 col-height-50"></div>
                         </div>
                     </li>
-                    <li className="container-variation-picker-item" onClick={() => onSelect(variation_33_33_33_33_66)}>
+                    <li className="container-variation-picker-item structure-16" onClick={() => onSelect(variation_33_33_33_33_66)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-33 col-height-50"></div>
                             <div className="column-icon col-width-33 col-height-50"></div>

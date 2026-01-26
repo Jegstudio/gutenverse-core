@@ -1,4 +1,4 @@
-import { InnerBlocks, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { InnerBlocks, useBlockProps, useInnerBlocksProps, Inserter } from '@wordpress/block-editor';
 import { createBlocksFromInnerBlocksTemplate } from '@wordpress/blocks';
 import { ResizableBox } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
@@ -144,14 +144,15 @@ const onResizeStop = (props) => {
 const ContainerResizeWrapper = (props) => {
     const {
         isSelected,
-        isHovered,
         attributes,
         setAttributes,
         innerBlocksProps,
         children,
         slideElement,
         mode,
-        handleVariation
+        handleVariation,
+        clientId,
+        hasChildBlocks
     } = props;
 
     const {
@@ -293,14 +294,14 @@ const ContainerResizeWrapper = (props) => {
                         bottomLeft: false,
                         topLeft: false,
                     }}
-                    showHandle={isDragDisabled && (isSelected || isHovered || isHoveredState)}
+                    showHandle={isDragDisabled && (isSelected || isHoveredState)}
                     className="guten-container-resizeable"
                     onResizeStart={resizeStart}
                     onResize={resize}
                     onResizeStop={resizeStop}
                 >
                     {children}
-                    {isDragDisabled && (isSelected || isHovered || isHoveredState) && (
+                    {isDragDisabled && (isSelected || isHoveredState) && (
                         <div className={`container-resize ${openTool ? 'dragging' : ''}`}>
                             <div
                                 className={'container-size-popup'}
@@ -326,6 +327,14 @@ const ContainerResizeWrapper = (props) => {
 
             {!isEmpty(bottomDivider) && <SectionDividerBottom {...props} />}
             {(!isEmptyValue(bottomDividerAnimated) && bottomDividerAnimated.type !== 'none') && <SectionDividerAnimatedBottom {...props} />}
+
+            {(hasChildBlocks && (isHoveredState || isSelected)) && <div className={'guten-inserter'}>
+                <Inserter
+                    __experimentalIsQuick={true}
+                    rootClientId={clientId}
+                    clientId={clientId}
+                />
+            </div>}
         </div>
     );
 };
@@ -334,7 +343,6 @@ const Container = (props) => {
     const {
         innerBlocksProps,
         isSelected,
-        isHovered,
         attributes,
         setAttributes,
         innerChildren,
@@ -357,13 +365,14 @@ const Container = (props) => {
     return (
         <ContainerResizeWrapper
             isSelected={isSelected}
-            isHovered={isHovered}
             attributes={attributes}
             setAttributes={setAttributes}
             innerBlocksProps={innerBlocksProps}
             slideElement={slideElement}
             mode={mode}
             handleVariation={handleVariation}
+            clientId={clientId}
+            hasChildBlocks={hasChildBlocks}
         >
             <div className={'guten-inner-container-editor'}>
                 {hasChildBlocks ? innerChildren : <InnerBlocks
@@ -417,10 +426,6 @@ const ContainerBlock = compose(
         }
     }, [mode]);
 
-    const [isHovered, setIsHovered] = useState(false);
-    const onMouseEnter = useCallback(() => setIsHovered(true), []);
-    const onMouseLeave = useCallback(() => setIsHovered(false), []);
-
     const elementRef = useRef();
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
@@ -448,7 +453,6 @@ const ContainerBlock = compose(
             {
                 'empty-container': !hasChildBlocks,
                 'filled-container': hasChildBlocks,
-                'is-hovered': isHovered,
                 'background-animated': (!hasChildBlocks && isAnimationActive(backgroundAnimated)) || (hasChildBlocks && isAnimationActive(backgroundAnimated)),
                 'guten-video-background': background?.backgroundType === 'video' && background?.videoUrl,
                 'guten-background-slideshow': background?.backgroundType === 'slide' && background?.slideImage?.length > 0,
@@ -458,9 +462,7 @@ const ContainerBlock = compose(
                 [`sticky-${stickyPosition}`]: isSticky(sticky),
             }
         ),
-        ref: elementRef,
-        onMouseEnter,
-        onMouseLeave,
+        ref: elementRef
     });
 
     // Determine orientation based on flexDirection attribute
@@ -480,7 +482,6 @@ const ContainerBlock = compose(
             {...props}
             blockProps={blockProps}
             innerBlocksProps={innerBlocksProps}
-            isHovered={isHovered}
             animationClass={animationClass}
             displayClass={displayClass}
             hasChildBlocks={hasChildBlocks}

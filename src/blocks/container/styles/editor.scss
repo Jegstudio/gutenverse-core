@@ -141,6 +141,18 @@
             fill: #eee;
         }
     }
+
+    .guten-inserter {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+
+        svg {
+            background: #000;
+            color: #fff;
+            border-radius: 2px;
+        }
+    }
 }
 
 .guten-inner-container-editor {
