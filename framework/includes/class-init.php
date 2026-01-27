@@ -256,6 +256,19 @@ class Init {
 				border: none;
 				padding: 0px;
 			}
+
+			.notice.gutenverse-unibiz-notice:has(~ #gutenverse-theme-dashboard){
+				border-radius: 5px;
+				margin-bottom: 30px;
+			}
+
+			.notice.gutenverse-unibiz-notice ~ #gutenverse-theme-dashboard .dashboard-header{
+				border-radius: 10px;
+			}
+			.notice.gutenverse-unibiz-notice ~ #gutenverse-theme-dashboard .dashboard-content{
+				margin-top: 30px;
+			}
+
 			.gutenverse-unibiz-notice .content-wrapper{
 				width: 100%;
 				height: 100%;

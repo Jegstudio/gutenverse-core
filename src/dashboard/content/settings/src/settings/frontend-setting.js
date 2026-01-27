@@ -20,7 +20,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
         remove_wp_emoji_script = false,
         disable_wp_lazyload = true,
         file_delete_mechanism = 'manual',
-        unused_size = '0 B',
+        unused_size = '0 B'
     } = frontend_settings;
 
     const updateValue = (id, value) => {

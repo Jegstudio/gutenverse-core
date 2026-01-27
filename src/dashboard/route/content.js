@@ -100,12 +100,24 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
                 type: 'snackbar',
                 isDismissible: true,
             });
+            setToast({
+                status: 'success',
+                message: __('Settings Saved Successfully!', '--gctd--')
+            })
+            setShowToast(true);
+            setTimeout(() => setShowToast(false), 2000);
         }).catch(() => {
             setSaving(false);
             createErrorNotice(__('Saving Data Error', '--gctd--'), {
                 type: 'snackbar',
                 isDismissible: true,
             });
+            setToast({
+                status: 'failed',
+                message: __('Settings Saved Failed!', '--gctd--')
+            });
+            setShowToast(true);
+            setTimeout(() => setShowToast(false), 5000);
         });
     };
 
@@ -134,7 +146,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
             case 'update-notice':
                 routePage = <UpdateNotice {...props} />;
                 break;
-            case 'themes' :
+            case 'themes':
                 routePage = <ThemesContent {...props} />;
                 break;
             case 'system':
@@ -166,7 +178,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
 
     return <div className={`content-wrapper ${path ? path : 'dashboard'}`}>
         {routePage}
-        <div className={`gutenverse-notification-toast ${toast?.status} ${showToast ? 'show' : '' }`}>
+        <div className={`gutenverse-notification-toast ${toast?.status} ${showToast ? 'show' : ''}`}>
             {toast?.status === 'success' ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="14" height="14" rx="7" fill="#17B26A" />
                 <path d="M10.5 4.375L5.6875 9.1875L3.5 7" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
