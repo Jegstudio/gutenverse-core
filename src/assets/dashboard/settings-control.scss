@@ -136,6 +136,32 @@
         transform: translate3d(27px, -50%, 0);
       }
     }
+
+    &.control-search-select {
+      .control-title {
+        flex-direction: column;
+      }
+
+      input {
+        border: 1px solid #e6e6ef;
+        border-radius: 3px;
+        width: 100%;
+        font-size: 13px;
+        line-height: 34px;
+        color: #666;
+      }
+
+      .async-select__control {
+        border: 1px solid #e6e6ef;
+        border-radius: 3px;
+      }
+      .select-search {
+        margin-top: 10px;
+      }
+      .async-select__menu-list {
+        height: 150px;
+      }
+    }
   }
 
   .form-pro {
