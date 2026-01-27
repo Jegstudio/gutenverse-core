@@ -1378,6 +1378,8 @@ class Api {
 	public function modify_settings( $request ) {
 		$data = $request->get_param( 'setting' );
 
+		do_action( 'gutenverse_before_modify_settings', $data );
+
 		if ( array_key_exists( 'gvnews_settings', $data ) ) {
 			update_option( 'gvnews_settings', $data['gvnews_settings'] );
 		} else {
@@ -1441,6 +1443,8 @@ class Api {
 				update_option( 'gutenverse-settings', $value );
 			}
 		}
+
+		do_action( 'gutenverse_after_modify_settings', $data );
 
 		return true;
 	}
