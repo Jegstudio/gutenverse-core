@@ -262,7 +262,16 @@ class Init {
 				margin-bottom: 30px;
 			}
 
+			.notice.gutenverse-unibiz-notice:has(~ #lite-plus-dashboard){
+				border-radius: 5px;
+				margin-bottom: 30px;
+			}
+
 			.notice.gutenverse-unibiz-notice ~ #gutenverse-theme-dashboard .dashboard-header{
+				border-radius: 10px;
+			}
+
+			.notice.gutenverse-unibiz-notice ~ #lite-plus-dashboard .dashboard-header{
 				border-radius: 10px;
 			}
 			.notice.gutenverse-unibiz-notice ~ #gutenverse-theme-dashboard .dashboard-content{
