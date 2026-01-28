@@ -1,5 +1,7 @@
 /** Editor Style **/
 .guten-flex-container-editor {
+    box-sizing: border-box;
+
     &.pinned {
         position: sticky !important;
         z-index: 999;
