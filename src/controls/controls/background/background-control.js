@@ -141,6 +141,7 @@ const getFeaturedImage = (useFeaturedImage) => {
             image: media.source_url
         };
     }
+
     return mediaUrl;
 };
 
@@ -192,7 +193,7 @@ const BackgroundControl = (props) => {
     });
 
     const isWrapperBlock = () => {
-        if ('column' === blockType || 'section' === blockType || 'wrapper' === blockType) {
+        if ('container' === blockType || 'column' === blockType || 'section' === blockType || 'wrapper' === blockType) {
             return true;
         }
         return false;
