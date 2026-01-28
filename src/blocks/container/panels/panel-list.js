@@ -87,14 +87,17 @@ export const panelList = () => {
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({
                 ...props,
-                blockType: 'section'
+                blockType: 'container'
             }),
             pro: true,
         },
         {
             title: __('Positioning', 'gutenverse'),
             initialOpen: false,
-            panelArray: positioningPanel,
+            panelArray: (props) => positioningPanel({
+                ...props,
+                selector: `.guten-flex-container-editor.${props.elementId}, .guten-inner-container-editor>.guten-flex-container-editor.${props.elementId}.full-width`,
+            }),
             tabRole: TabSetting
         },
         {

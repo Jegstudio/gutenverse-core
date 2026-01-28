@@ -596,7 +596,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': selector,
+        'selector': `${selector}, .guten-inner-container-editor>${selector}.full-width`,
     });
 
     isNotEmpty(attributes['zIndex']) && data.push({

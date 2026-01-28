@@ -1,10 +1,4 @@
 /** Editor Style **/
-.guten-container,
-.guten-flex-container-editor,
-.guten-container-resizeable {
-    transition: none !important;
-}
-
 .guten-flex-container-editor {
     &.pinned {
         position: sticky !important;
@@ -143,14 +137,29 @@
     }
 
     .guten-inserter {
-        position: absolute;
-        left: 0;
         bottom: 0;
+        right: 0;
+        position: absolute;
+        margin-left: -20px;
 
-        svg {
-            background: #000;
-            color: #fff;
-            border-radius: 2px;
+        button {
+            transition: none;
+
+            &:focus {
+                box-shadow: none;
+            }
+
+            &:hover {
+                svg {
+                    background: #444;
+                }
+            }
+
+            svg {
+                background: #000;
+                color: #fff;
+                border-radius: 2px;
+            }
         }
     }
 }
@@ -288,6 +297,10 @@
         >.guten-container-resizeable {
             >div {
 
+                >.components-resizable-box__handle {
+                    width: 6px;
+                }
+
                 >.components-resizable-box__handle:before,
                 >.components-resizable-box__handle:after {
                     display: block;
@@ -411,6 +424,10 @@
             max-width: 600px;
             padding: 0;
             text-align: center;
+
+            li {
+                list-style: none;
+            }
 
             .container-variation-picker-item-button {
                 border: 1px solid #eaeaea;

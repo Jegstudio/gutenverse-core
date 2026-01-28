@@ -37,6 +37,21 @@ const onResizeStart = (props) => {
     const domParent = domElement?.parentElement;
     const domParentWidth = domParent?.offsetWidth || 1000;
 
+    // Disable transitions on current container
+    if (domElement) {
+        domElement.style.transition = 'none';
+    }
+
+    // Disable transitions on sibling containers
+    if (domParent) {
+        const siblings = domParent.querySelectorAll('.guten-flex-container-editor');
+        siblings.forEach((sibling) => {
+            if (sibling !== domElement) {
+                sibling.style.transition = 'none';
+            }
+        });
+    }
+
     let currentWidthVal = attributes?.containerWidth?.[deviceType] || '100%';
     let cleanWidth = 100;
 
@@ -127,6 +142,26 @@ const onResizeStop = (props) => {
 
     removeLiveStyle(`guten-container-resize-${elementId}`, elementRef, elementId);
     setOpenTool(false);
+
+    // Restore transitions on current container
+    const document = elementRef.current.ownerDocument;
+    const currentElementStr = `.guten-element.${elementId}`;
+    const domElement = document.querySelector(currentElementStr);
+
+    if (domElement) {
+        domElement.style.transition = '';
+    }
+
+    // Restore transitions on sibling containers
+    const domParent = domElement?.parentElement;
+    if (domParent) {
+        const siblings = domParent.querySelectorAll('.guten-flex-container-editor');
+        siblings.forEach((sibling) => {
+            if (sibling !== domElement) {
+                sibling.style.transition = '';
+            }
+        });
+    }
 
     if (newWidth) {
         setAttributes({
@@ -328,11 +363,12 @@ const ContainerResizeWrapper = (props) => {
             {!isEmpty(bottomDivider) && <SectionDividerBottom {...props} />}
             {(!isEmptyValue(bottomDividerAnimated) && bottomDividerAnimated.type !== 'none') && <SectionDividerAnimatedBottom {...props} />}
 
-            {(hasChildBlocks && (isHoveredState || isSelected)) && <div className={'guten-inserter'}>
+            {(hasChildBlocks && isSelected) && <div className={'guten-inserter'}>
                 <Inserter
                     __experimentalIsQuick={true}
                     rootClientId={clientId}
-                    clientId={clientId}
+                    clientId={null}
+                    isAppender={true}
                 />
             </div>}
         </div>

@@ -44,7 +44,7 @@ class Container extends Style_Abstract {
 				),
 				'border'            => null,
 				'animation'         => null,
-				'advance'           => null,
+				'advance'           => ".guten-flex-container.{$this->element_id}, .guten-flex-container.{$this->element_id}.full-width, .guten-inner-container>.guten-flex-container.{$this->element_id}.full-width",
 				'positioning'       => ".guten-flex-container.{$this->element_id}",
 				'mask'              => null,
 				'pointer'           => ".guten-flex-container.{$this->element_id}",
@@ -195,7 +195,7 @@ class Container extends Style_Abstract {
 		if ( isset( $this->attrs['overflow'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => $content_selector,
+					'selector'       => ".guten-flex-container.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return "overflow: {$value};";
 					},
