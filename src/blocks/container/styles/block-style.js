@@ -221,6 +221,17 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['topDivider']) && data.push({
+        'type': 'shapeDivider',
+        'id': 'topDivider',
+        'selector': `.${elementId} .guten-shape-divider.guten-shape-divider-top svg, .${elementId} .guten-shape-divider.guten-shape-divider-top .guten-shape-fill path`,
+    });
+
+    isNotEmpty(attributes['bottomDivider']) && data.push({
+        'type': 'shapeDivider',
+        'id': 'bottomDivider',
+        'selector': `.${elementId} .guten-shape-divider.guten-shape-divider-bottom svg, .${elementId} .guten-shape-divider.guten-shape-divider-bottom .guten-shape-fill path`,
+    });
 
     isNotEmpty(attributes['backgroundOverlay']) && data.push({
         'type': 'background',
