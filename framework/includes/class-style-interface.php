@@ -2036,7 +2036,7 @@ abstract class Style_Interface {
 					array(
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
-							return "background-blend-mode: {$value};";
+							return "background-blend-mode: {$value}; mix-blend-mode: {$value};";
 						},
 						'value'          => $background['blendMode'],
 						'device_control' => true,
