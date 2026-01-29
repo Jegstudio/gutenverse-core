@@ -1,6 +1,3 @@
-import { withParentControl } from 'gutenverse-core/hoc';
-import { withDeviceControl } from 'gutenverse-core/hoc';
-import { compose } from '@wordpress/compose';
 import { useState, useEffect } from '@wordpress/element';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
@@ -19,10 +16,9 @@ const MultiImageControl = (props) => {
     const {
         id,
         label,
-        allowDeviceControl,
         description = '',
         onValueChange,
-        value = allowDeviceControl ? {} : '',
+        value = [],
     } = props;
 
     const [imagePreview, setImagePreview] = useState(value);
@@ -68,7 +64,7 @@ const MultiImageControl = (props) => {
             id={`${id}-text`}
             label={label}
             description={description}
-            allowDeviceControl={allowDeviceControl}
+            allowDeviceControl={false}
         />
         {imagePreview.length ? <div className="gvnews-image-control-preview-wrapper"><PreviewImages /></div> : ''}
         <MediaUploadCheck>
@@ -80,7 +76,7 @@ const MultiImageControl = (props) => {
                 gallery={true}
                 render={({ open }) => (
                     <Button onClick={open}>
-                        {__('Choose Image', 'gvnews-essentials')}
+                        {__('Choose Image', '--gctd--')}
                     </Button>
                 )}
             />
@@ -88,4 +84,4 @@ const MultiImageControl = (props) => {
     </div>;
 };
 
-export default compose(withParentControl, withDeviceControl)(MultiImageControl);
+export default MultiImageControl;
