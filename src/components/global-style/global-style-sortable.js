@@ -495,16 +495,16 @@ export const SingleVariableColor = ({ value, updateColor, deleteColor, showDelet
                 </div>
                 <GutenverseColorPicker
                     color={color.color}
-                    onChange={color => {
+                    onChange={newColor => {
                         setColor({
                             ...value,
-                            color: color.rgb
+                            color: newColor.rgb
                         });
                     }}
-                    onChangeComplete={(color) => {
+                    onChangeComplete={(newColor) => {
                         updateColor({
                             ...value,
-                            color: color.rgb
+                            color: newColor.rgb
                         });
                     }}
                 />
