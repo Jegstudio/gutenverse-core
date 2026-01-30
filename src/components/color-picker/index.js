@@ -35,6 +35,18 @@ const GutenverseColorPicker = ({ color, onChange, onChangeComplete, disableAlpha
         setInternalColor(prev => isSameColor(incoming, prev) ? prev : incoming);
     }, [color]);
 
+    const normalizeColor = (color) => {
+        return {
+            ...color,
+            rgb: {
+                r: Math.round(color.rgb.r),
+                g: Math.round(color.rgb.g),
+                b: Math.round(color.rgb.b),
+                a: color.rgb.a
+            }
+        };
+    };
+
     return (
         <ColorPicker
             hideAlpha={disableAlpha}
@@ -42,12 +54,12 @@ const GutenverseColorPicker = ({ color, onChange, onChangeComplete, disableAlpha
             onChange={(newColor) => {
                 setInternalColor(newColor);
                 if (onChange) {
-                    onChange(newColor);
+                    onChange(normalizeColor(newColor));
                 }
             }}
             onChangeComplete={(newColor) => {
                 if (onChangeComplete) {
-                    onChangeComplete(newColor);
+                    onChangeComplete(normalizeColor(newColor));
                 }
             }}
         />
