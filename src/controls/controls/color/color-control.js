@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
-import { ChromePicker } from '@hello-pangea/color-picker';
+import { GutenverseColorPicker } from '../../../components';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
@@ -26,6 +26,7 @@ const VariableColorItem = (props) => {
         </div>
     </Tooltip>;
 };
+
 
 const ColorControl = (props) => {
     const {
@@ -306,7 +307,7 @@ const ColorControl = (props) => {
                     </span>
                 </Tooltip>
             </div>
-            <ChromePicker
+            <GutenverseColorPicker
                 disableAlpha={!alpha}
                 color={getColorValue(localColor)}
                 onChange={color => {

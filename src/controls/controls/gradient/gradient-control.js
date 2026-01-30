@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
-import { ChromePicker } from '@hello-pangea/color-picker';
+import { __ } from '@wordpress/i18n';
+import { RefreshCw } from 'react-feather';
+import { GutenverseColorPicker } from '../../../components';
 import { GradientPicker } from 'react-linear-gradient-picker';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { useInstanceId } from '@wordpress/compose';
@@ -9,18 +11,28 @@ import { withDeviceControl } from 'gutenverse-core/hoc';
 import RangeControl from '../range/range-control';
 
 const ColorPicker = ({ onSelect, ...rest }) => {
-    return <ChromePicker
-        disableAlpha={false}
-        color={rest.color}
-        onChange={color => {
-            const { r, g, b, a } = color.rgb;
-            onSelect(`rgba(${r}, ${g}, ${b}, ${a})`, a);
-        }}
-        onChangeComplete={(color) => {
-            const { r, g, b, a } = color.rgb;
-            onSelect(`rgba(${r}, ${g}, ${b}, ${a})`, a);
-        }}
-    />;
+    return <div className={'control-color-display'}>
+        <div className={'gutenverse-control-heading'}>
+            <h2>
+                {__('Color Picker', '--gctd--')}
+            </h2>
+            <span>
+                <RefreshCw onClick={() => {}} />
+            </span>
+        </div>
+        <GutenverseColorPicker
+            disableAlpha={false}
+            color={rest.color}
+            onChange={color => {
+                const { r, g, b, a } = color.rgb;
+                onSelect(`rgba(${r}, ${g}, ${b}, ${a})`, a);
+            }}
+            onChangeComplete={(color) => {
+                const { r, g, b, a } = color.rgb;
+                onSelect(`rgba(${r}, ${g}, ${b}, ${a})`, a);
+            }}
+        />
+    </div>;
 };
 
 const GradientControl = (props) => {

@@ -14,6 +14,7 @@ export { FluidCanvasSave as FluidCanvasSave } from './fluid-canvas/fluid-canvas'
 export { default as RichTextComponent } from './richtext/RichTextComponent';
 export { default as CopyElementToolbar } from './copy-toolbar/copy-element-toolbar';
 export { default as Notice } from './notice/index';
+export { default as GutenverseColorPicker } from './color-picker/index';
 
 /* Skeleton */
 export { default as Skeleton } from './skeleton/skeleton';

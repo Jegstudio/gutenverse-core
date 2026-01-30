@@ -2251,6 +2251,44 @@
         display: block;
       }
 
+      .control-color-display {
+        position: relative;
+        z-index: 999;
+        background: #fff;
+        border: 1px solid #e6e6ef;
+        display: block;
+        margin-top: 10px;
+        border-radius: 3px;
+        width: 100%;
+
+        .chrome-picker {
+          width: 100% !important;
+          box-shadow: none !important;
+        }
+
+        .gutenverse-control-heading {
+          display: flex;
+          padding: 10px 15px 10px;
+          align-items: center;
+          margin-bottom: 0 !important;
+
+          h2 {
+            flex-grow: 1;
+            margin: 0;
+            font-size: 13px;
+          }
+
+          span {
+            cursor: pointer;
+            display: flex;
+            
+            svg {
+              width: 14px;
+            }
+          }
+        }
+      }
+
       .gp {
         position: relative;
         display: flex;

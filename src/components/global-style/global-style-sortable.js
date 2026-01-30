@@ -9,8 +9,8 @@ import { slugify } from 'gutenverse-core/helper';
 import classnames from 'classnames';
 import { FontControl, RangeControl, SizeControl, SelectControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
-import { ChromePicker } from '@hello-pangea/color-picker';
-import { hexToRgb, renderColor } from 'gutenverse-core/editor-helper';
+import { GutenverseColorPicker } from '../index';
+import { renderColor } from 'gutenverse-core/editor-helper';
 import { useEffect } from 'react';
 
 const DragHandle = SortableHandle(() =>
@@ -493,7 +493,7 @@ export const SingleVariableColor = ({ value, updateColor, deleteColor, showDelet
                         {__('Color Picker', '--gctd--')}
                     </h2>
                 </div>
-                <ChromePicker
+                <GutenverseColorPicker
                     color={color.color}
                     onChange={color => {
                         setColor({
