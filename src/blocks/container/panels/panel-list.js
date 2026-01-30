@@ -10,7 +10,7 @@ import { stickyPanel } from './panel-sticky';
 export const panelList = () => {
     return [
         {
-            title: __('Layout', 'gutenverse'),
+            title: __('Layout', '--gctd--'),
             panelArray: layoutPanel,
             tabRole: TabSetting
         },
@@ -21,39 +21,39 @@ export const panelList = () => {
             pro: true,
         },
         {
-            title: __('Cursor Effect', 'gutenverse'),
+            title: __('Cursor Effect', '--gctd--'),
             initialOpen: false,
             panelArray: cursorEffectPanel,
             tabRole: TabSetting,
             pro: true,
         },
         {
-            title: __('Background Effect', 'gutenverse'),
+            title: __('Background Effect', '--gctd--'),
             initialOpen: false,
             panelArray: backgroundEffectPanel,
             tabRole: TabSetting,
             pro: true,
         },
         {
-            title: __('Background Animated', 'gutenverse'),
+            title: __('Background Animated', '--gctd--'),
             initialOpen: false,
             panelArray: backgroundAnimatedPanel,
             pro: true,
         },
         {
-            title: __('Shape Divider', 'gutenverse'),
+            title: __('Shape Divider', '--gctd--'),
             initialOpen: false,
             panelArray: dividerPanel,
             tabRole: TabSetting
         },
         {
-            title: __('Shape Divider Animated', 'gutenverse'),
+            title: __('Shape Divider Animated', '--gctd--'),
             initialOpen: false,
             panelArray: dividerPanelAnimated,
             pro: true,
         },
         {
-            title: __('Display', 'gutenverse'),
+            title: __('Display', '--gctd--'),
             initialOpen: false,
             panelArray: responsivePanel,
             tabRole: TabSetting
@@ -92,7 +92,7 @@ export const panelList = () => {
             pro: true,
         },
         {
-            title: __('Positioning', 'gutenverse'),
+            title: __('Positioning', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => positioningPanel({
                 ...props,
@@ -101,7 +101,7 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Spacing', 'gutenverse'),
+            title: __('Spacing', '--gctd--'),
             initialOpen: false,
             panelArray: advancePanel,
             tabRole: TabSetting
@@ -113,7 +113,7 @@ export const panelList = () => {
             pro: true
         },
         {
-            title: __('Background', 'gutenverse'),
+            title: __('Background', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
                 ...props,
@@ -126,7 +126,7 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Background Overlay', 'gutenverse'),
+            title: __('Background Overlay', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => backgroundOverlayPanel({
                 ...props,
@@ -136,13 +136,13 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Border', 'gutenverse'),
+            title: __('Border', '--gctd--'),
             initialOpen: false,
             panelArray: borderPanel,
             tabRole: TabStyle
         },
         {
-            title: __('Masking', 'gutenverse'),
+            title: __('Masking', '--gctd--'),
             initialOpen: false,
             panelArray: maskPanel,
             tabRole: TabStyle

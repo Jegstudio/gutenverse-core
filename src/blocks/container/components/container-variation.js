@@ -34,8 +34,8 @@ const ContainerVariation = ({ onSelect, wrapper }) => {
     return <>
         <div className={wrapper}>
             <div className="container-variation">
-                <h3 className="select-container-variation">{__('Container Structure', 'gutenverse')}</h3>
-                <ul className="container-variation-picker-list" aria-label={__('Container variations', 'gutenverse')}>
+                <h3 className="select-container-variation">{__('Container Structure', '--gctd--')}</h3>
+                <ul className="container-variation-picker-list" aria-label={__('Container variations', '--gctd--')}>
                     <li className="container-variation-picker-item structure-1" onClick={() => onSelect(variation_100)}>
                         <div className="container-variation-picker-item-button">
                             <div className="column-icon col-width-100 col-height-100 with-icon">

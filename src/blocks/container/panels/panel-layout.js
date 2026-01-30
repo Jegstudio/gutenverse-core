@@ -42,22 +42,22 @@ const flexAlignItem = (direction) => {
         case 'row':
             return [
                 {
-                    tooltips: __('Start', 'gutenverse'),
+                    tooltips: __('Start', '--gctd--'),
                     value: 'flex-start',
                     svg: <IconAlignItemsStart />
                 },
                 {
-                    tooltips: __('Center', 'gutenverse'),
+                    tooltips: __('Center', '--gctd--'),
                     value: 'center',
                     svg: <IconAlignItemsCenter />
                 },
                 {
-                    tooltips: __('End', 'gutenverse'),
+                    tooltips: __('End', '--gctd--'),
                     value: 'flex-end',
                     svg: <IconAlignItemsEnd />
                 },
                 {
-                    tooltips: __('Stretch', 'gutenverse'),
+                    tooltips: __('Stretch', '--gctd--'),
                     value: 'stretch',
                     svg: <IconAlignItemsStretch />
                 },
@@ -65,22 +65,22 @@ const flexAlignItem = (direction) => {
         case 'column':
             return [
                 {
-                    tooltips: __('Start', 'gutenverse'),
+                    tooltips: __('Start', '--gctd--'),
                     value: 'flex-start',
                     svg: <IconColumnAlignItemsStart />
                 },
                 {
-                    tooltips: __('Center', 'gutenverse'),
+                    tooltips: __('Center', '--gctd--'),
                     value: 'center',
                     svg: <IconColumnAlignItemsCenter />
                 },
                 {
-                    tooltips: __('End', 'gutenverse'),
+                    tooltips: __('End', '--gctd--'),
                     value: 'flex-end',
                     svg: <IconColumnAlignItemsEnd />
                 },
                 {
-                    tooltips: __('Stretch', 'gutenverse'),
+                    tooltips: __('Stretch', '--gctd--'),
                     value: 'stretch',
                     svg: <IconColumnAlignItemsStretch />
                 },
@@ -88,22 +88,22 @@ const flexAlignItem = (direction) => {
         case 'row-reverse':
             return [
                 {
-                    tooltips: __('Start', 'gutenverse'),
+                    tooltips: __('Start', '--gctd--'),
                     value: 'flex-start',
                     svg: <IconAlignItemsStart />
                 },
                 {
-                    tooltips: __('Center', 'gutenverse'),
+                    tooltips: __('Center', '--gctd--'),
                     value: 'center',
                     svg: <IconAlignItemsCenter />
                 },
                 {
-                    tooltips: __('End', 'gutenverse'),
+                    tooltips: __('End', '--gctd--'),
                     value: 'flex-end',
                     svg: <IconAlignItemsEnd />
                 },
                 {
-                    tooltips: __('Stretch', 'gutenverse'),
+                    tooltips: __('Stretch', '--gctd--'),
                     value: 'stretch',
                     svg: <IconAlignItemsStretch />
                 },
@@ -111,22 +111,22 @@ const flexAlignItem = (direction) => {
         case 'column-reverse':
             return [
                 {
-                    tooltips: __('Start', 'gutenverse'),
+                    tooltips: __('Start', '--gctd--'),
                     value: 'flex-start',
                     svg: <IconAlignItemsStart />
                 },
                 {
-                    tooltips: __('Center', 'gutenverse'),
+                    tooltips: __('Center', '--gctd--'),
                     value: 'center',
                     svg: <IconAlignItemsCenter />
                 },
                 {
-                    tooltips: __('End', 'gutenverse'),
+                    tooltips: __('End', '--gctd--'),
                     value: 'flex-end',
                     svg: <IconAlignItemsEnd />
                 },
                 {
-                    tooltips: __('Stretch', 'gutenverse'),
+                    tooltips: __('Stretch', '--gctd--'),
                     value: 'stretch',
                     svg: <IconAlignItemsStretch />
                 },
@@ -139,32 +139,32 @@ const flexJustifyContent = (direction) => {
         case 'row':
             return [
                 {
-                    tooltips: __('Start', 'gutenverse'),
+                    tooltips: __('Start', '--gctd--'),
                     value: 'flex-start',
                     svg: <IconJustifyContentStart />
                 },
                 {
-                    tooltips: __('Center', 'gutenverse'),
+                    tooltips: __('Center', '--gctd--'),
                     value: 'center',
                     svg: <IconJustifyContentCenter />
                 },
                 {
-                    tooltips: __('End', 'gutenverse'),
+                    tooltips: __('End', '--gctd--'),
                     value: 'flex-end',
                     svg: <IconJustifyContentEnd />
                 },
                 {
-                    tooltips: __('Space Between', 'gutenverse'),
+                    tooltips: __('Space Between', '--gctd--'),
                     value: 'space-between',
                     svg: <IconJustifyContentSpaceBetween />
                 },
                 {
-                    tooltips: __('Space Around', 'gutenverse'),
+                    tooltips: __('Space Around', '--gctd--'),
                     value: 'space-around',
                     svg: <IconJustifyContentSpaceAround />
                 },
                 {
-                    tooltips: __('Space Evenly', 'gutenverse'),
+                    tooltips: __('Space Evenly', '--gctd--'),
                     value: 'space-evenly',
                     svg: <IconJustifyContentSpaceEvenly />
                 },
@@ -172,32 +172,32 @@ const flexJustifyContent = (direction) => {
         case 'column':
             return [
                 {
-                    tooltips: __('Start', 'gutenverse'),
+                    tooltips: __('Start', '--gctd--'),
                     value: 'flex-start',
                     svg: <IconColumnJustifyStart />
                 },
                 {
-                    tooltips: __('Center', 'gutenverse'),
+                    tooltips: __('Center', '--gctd--'),
                     value: 'center',
                     svg: <IconColumnJustifyContentCenter />
                 },
                 {
-                    tooltips: __('End', 'gutenverse'),
+                    tooltips: __('End', '--gctd--'),
                     value: 'flex-end',
                     svg: <IconColumnJustifyContentEnd />
                 },
                 {
-                    tooltips: __('Space Between', 'gutenverse'),
+                    tooltips: __('Space Between', '--gctd--'),
                     value: 'space-between',
                     svg: <IconColumnJustifySpaceBetween />
                 },
                 {
-                    tooltips: __('Space Around', 'gutenverse'),
+                    tooltips: __('Space Around', '--gctd--'),
                     value: 'space-around',
                     svg: <IconColumnJustifySpaceAround />
                 },
                 {
-                    tooltips: __('Space Evenly', 'gutenverse'),
+                    tooltips: __('Space Evenly', '--gctd--'),
                     value: 'space-evenly',
                     svg: <IconColumnJustifySpaceEvently />
                 },
@@ -205,32 +205,32 @@ const flexJustifyContent = (direction) => {
         case 'row-reverse':
             return [
                 {
-                    tooltips: __('Start', 'gutenverse'),
+                    tooltips: __('Start', '--gctd--'),
                     value: 'flex-start',
                     svg: <IconJustifyContentEnd />
                 },
                 {
-                    tooltips: __('Center', 'gutenverse'),
+                    tooltips: __('Center', '--gctd--'),
                     value: 'center',
                     svg: <IconJustifyContentCenter />
                 },
                 {
-                    tooltips: __('End', 'gutenverse'),
+                    tooltips: __('End', '--gctd--'),
                     value: 'flex-end',
                     svg: <IconJustifyContentStart />
                 },
                 {
-                    tooltips: __('Space Between', 'gutenverse'),
+                    tooltips: __('Space Between', '--gctd--'),
                     value: 'space-between',
                     svg: <IconJustifyContentSpaceBetween />
                 },
                 {
-                    tooltips: __('Space Around', 'gutenverse'),
+                    tooltips: __('Space Around', '--gctd--'),
                     value: 'space-around',
                     svg: <IconJustifyContentSpaceAround />
                 },
                 {
-                    tooltips: __('Space Evenly', 'gutenverse'),
+                    tooltips: __('Space Evenly', '--gctd--'),
                     value: 'space-evenly',
                     svg: <IconJustifyContentSpaceEvenly />
                 },
@@ -238,32 +238,32 @@ const flexJustifyContent = (direction) => {
         case 'column-reverse':
             return [
                 {
-                    tooltips: __('Start', 'gutenverse'),
+                    tooltips: __('Start', '--gctd--'),
                     value: 'flex-start',
                     svg: <IconColumnJustifyContentEnd />
                 },
                 {
-                    tooltips: __('Center', 'gutenverse'),
+                    tooltips: __('Center', '--gctd--'),
                     value: 'center',
                     svg: <IconColumnJustifyContentCenter />
                 },
                 {
-                    tooltips: __('End', 'gutenverse'),
+                    tooltips: __('End', '--gctd--'),
                     value: 'flex-end',
                     svg: <IconColumnJustifyStart />
                 },
                 {
-                    tooltips: __('Space Between', 'gutenverse'),
+                    tooltips: __('Space Between', '--gctd--'),
                     value: 'space-between',
                     svg: <IconColumnJustifySpaceBetween />
                 },
                 {
-                    tooltips: __('Space Around', 'gutenverse'),
+                    tooltips: __('Space Around', '--gctd--'),
                     value: 'space-around',
                     svg: <IconColumnJustifySpaceAround />
                 },
                 {
-                    tooltips: __('Space Evenly', 'gutenverse'),
+                    tooltips: __('Space Evenly', '--gctd--'),
                     value: 'space-evenly',
                     svg: <IconColumnJustifySpaceEvently />
                 },
@@ -291,15 +291,15 @@ export const layoutPanel = (props) => {
     return [
         {
             id: 'containerLayout',
-            label: __('Container Layout', 'gutenverse'),
+            label: __('Container Layout', '--gctd--'),
             component: SelectControl,
             options: [
                 {
-                    label: __('Boxed', 'gutenverse'),
+                    label: __('Boxed', '--gctd--'),
                     value: 'boxed'
                 },
                 {
-                    label: __('Full Width', 'gutenverse'),
+                    label: __('Full Width', '--gctd--'),
                     value: 'full-width'
                 },
             ],
@@ -335,7 +335,7 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'containerWidth',
-            label: __('Container Width', 'gutenverse'),
+            label: __('Container Width', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
             units: {
@@ -420,7 +420,7 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'minHeight',
-            label: __('Min Height', 'gutenverse'),
+            label: __('Min Height', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
             units: {
@@ -461,31 +461,31 @@ export const layoutPanel = (props) => {
         {
             id: 'itemsHeading',
             component: HeadingControl,
-            label: __('Items', 'gutenverse'),
+            label: __('Items', '--gctd--'),
         },
         {
             id: 'flexDirection',
-            label: __('Direction', 'gutenverse'),
+            label: __('Direction', '--gctd--'),
             component: SVGRadioControl,
             allowDeviceControl: true,
             options: [
                 {
-                    tooltips: __('Row', 'gutenverse'),
+                    tooltips: __('Row', '--gctd--'),
                     value: 'row',
                     svg: <IconDirectionRow />
                 },
                 {
-                    tooltips: __('Column', 'gutenverse'),
+                    tooltips: __('Column', '--gctd--'),
                     value: 'column',
                     svg: <IconDirectionColumn />
                 },
                 {
-                    tooltips: __('Row Reverse', 'gutenverse'),
+                    tooltips: __('Row Reverse', '--gctd--'),
                     value: 'row-reverse',
                     svg: <IconDirectionRowReversed />
                 },
                 {
-                    tooltips: __('Column Reverse', 'gutenverse'),
+                    tooltips: __('Column Reverse', '--gctd--'),
                     value: 'column-reverse',
                     svg: <IconDirectionColumnReversed />
                 },
@@ -493,21 +493,21 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'justifyContent',
-            label: __('Justify Content', 'gutenverse'),
+            label: __('Justify Content', '--gctd--'),
             component: SVGRadioControl,
             allowDeviceControl: true,
             options: flexJustifyContent(direction)
         },
         {
             id: 'alignItems',
-            label: __('Align Items', 'gutenverse'),
+            label: __('Align Items', '--gctd--'),
             component: SVGRadioControl,
             allowDeviceControl: true,
             options: flexAlignItem(direction)
         },
         {
             id: 'columnGap',
-            label: __('Column Gap', 'gutenverse'),
+            label: __('Column Gap', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
             units: {
@@ -547,7 +547,7 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'rowGap',
-            label: __('Row Gap', 'gutenverse'),
+            label: __('Row Gap', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
             units: {
@@ -587,17 +587,18 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'flexWrap',
-            label: __('Wrap', 'gutenverse'),
+            label: __('Wrap', '--gctd--'),
             component: SVGRadioControl,
             allowDeviceControl: true,
+            description: __('Items within the container can stay in a single line (No wrap), or break into multiple lines (Wrap).', '--gctd--'),
             options: [
                 {
-                    tooltips: __('No Wrap', 'gutenverse'),
+                    tooltips: __('No Wrap', '--gctd--'),
                     value: 'nowrap',
                     svg: <IconNoWrap />
                 },
                 {
-                    tooltips: __('Wrap', 'gutenverse'),
+                    tooltips: __('Wrap', '--gctd--'),
                     value: 'wrap',
                     svg: <IconWrap />
                 },
@@ -605,38 +606,38 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'alignContent',
-            label: __('Align Content', 'gutenverse'),
+            label: __('Align Content', '--gctd--'),
             component: SVGRadioControl,
             allowDeviceControl: true,
             show: isWrapEnabled,
             options: [
                 {
-                    tooltips: __('Start', 'gutenverse'),
+                    tooltips: __('Start', '--gctd--'),
                     value: 'flex-start',
                     svg: <IconAlignContentStart />
                 },
                 {
-                    tooltips: __('Center', 'gutenverse'),
+                    tooltips: __('Center', '--gctd--'),
                     value: 'center',
                     svg: <IconAlignContentMiddle />
                 },
                 {
-                    tooltips: __('End', 'gutenverse'),
+                    tooltips: __('End', '--gctd--'),
                     value: 'flex-end',
                     svg: <IconAlignContentEnd />
                 },
                 {
-                    tooltips: __('Space Between', 'gutenverse'),
+                    tooltips: __('Space Between', '--gctd--'),
                     value: 'space-between',
                     svg: <IconAlignContentSpaceBetween />
                 },
                 {
-                    tooltips: __('Space Around', 'gutenverse'),
+                    tooltips: __('Space Around', '--gctd--'),
                     value: 'space-around',
                     svg: <IconAlignContentSpaceAround />
                 },
                 {
-                    tooltips: __('Space Evenly', 'gutenverse'),
+                    tooltips: __('Space Evenly', '--gctd--'),
                     value: 'space-evenly',
                     svg: <IconAlignContentSpaceEvenly />
                 },
@@ -645,27 +646,27 @@ export const layoutPanel = (props) => {
         {
             id: 'advancedHeading',
             component: HeadingControl,
-            label: __('Additional Options', 'gutenverse'),
+            label: __('Additional Options', '--gctd--'),
         },
         {
             id: 'overflow',
-            label: __('Overflow', 'gutenverse'),
+            label: __('Overflow', '--gctd--'),
             component: SelectControl,
             options: [
                 {
-                    label: __('Default', 'gutenverse'),
+                    label: __('Default', '--gctd--'),
                     value: 'visible'
                 },
                 {
-                    label: __('Hidden', 'gutenverse'),
+                    label: __('Hidden', '--gctd--'),
                     value: 'hidden'
                 },
                 {
-                    label: __('Scroll', 'gutenverse'),
+                    label: __('Scroll', '--gctd--'),
                     value: 'scroll'
                 },
                 {
-                    label: __('Auto', 'gutenverse'),
+                    label: __('Auto', '--gctd--'),
                     value: 'auto'
                 },
             ]

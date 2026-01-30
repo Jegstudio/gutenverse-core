@@ -2,7 +2,7 @@
 	"apiVersion": 3,
 	"name": "gutenverse/container",
 	"title": "Container",
-	"description": "Add a Container with flexbox layout controls similar to Elementor.",
+	"description": "Add a Container with flexbox layout controls to wrap blocks.",
 	"category": "gutenverse-structure",
 	"allowCopyStyle": true,
 	"attributes": {
