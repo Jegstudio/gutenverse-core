@@ -278,7 +278,9 @@ export const layoutPanel = (props) => {
         flexDirection = {},
         containerLayout,
         containerWidth: oldContainerWidth,
-        setAttributes
+        setAttributes,
+        transientState,
+        setTransientState
     } = props;
 
     const deviceType = getDeviceType();
@@ -301,17 +303,31 @@ export const layoutPanel = (props) => {
                     value: 'full-width'
                 },
             ],
-            onChange: ({ containerLayout }) => {
-                if ('full-width' === containerLayout) {
+            onChange: ({ containerLayout: newLayout }) => {
+                const savedWidth = transientState?.[newLayout];
+
+                if (setTransientState) {
+                    setTransientState((prev) => ({
+                        ...prev,
+                        [containerLayout]: oldContainerWidth
+                    }));
+                }
+
+                if (savedWidth) {
+                    // Restore saved width for this layout
                     setAttributes({
-                        containerWidth: {
-                            Desktop: { unit: '%', point: '100' }
-                        }
+                        containerWidth: savedWidth
                     });
                 } else {
+                    // Set defaults while preserving other device values
+                    const defaultWidth = 'full-width' === newLayout
+                        ? { unit: '%', point: '100' }
+                        : { unit: 'px', point: '1200' };
+
                     setAttributes({
                         containerWidth: {
-                            Desktop: { unit: 'px', point: '1200' }
+                            ...(oldContainerWidth || {}),
+                            Desktop: defaultWidth
                         }
                     });
                 }
@@ -363,8 +379,9 @@ export const layoutPanel = (props) => {
             ],
             onChange: ({ containerWidth }) => {
                 const { unit } = (containerWidth[deviceType]);
-                const { unit: oldUnit } = oldContainerWidth[deviceType];
+                const { unit: oldUnit } = oldContainerWidth[deviceType] || {};
                 let point = null;
+                let updatedWidth = containerWidth;
 
                 if (unit !== oldUnit) {
                     switch (unit) {
@@ -379,15 +396,25 @@ export const layoutPanel = (props) => {
                             break;
                     }
 
-                    setAttributes({
-                        containerWidth: {
-                            ...containerWidth,
-                            [deviceType]: {
-                                unit,
-                                point
-                            }
+                    updatedWidth = {
+                        ...containerWidth,
+                        [deviceType]: {
+                            unit,
+                            point
                         }
+                    };
+
+                    setAttributes({
+                        containerWidth: updatedWidth
                     });
+                }
+
+                // Save to history for current layout
+                if (setTransientState) {
+                    setTransientState((prev) => ({
+                        ...prev,
+                        [containerLayout]: updatedWidth
+                    }));
                 }
             }
         },

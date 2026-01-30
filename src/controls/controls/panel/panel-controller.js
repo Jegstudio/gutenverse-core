@@ -11,13 +11,15 @@ import { u } from 'gutenverse-core/components';
 import { dispatch, select } from '@wordpress/data';
 
 export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr, liveAttr, elementRef, panelState, setPanelIsClicked }) => {
-    const { panelProps, isSelected, setAttributes } = props;
+    const { panelProps, isSelected, setAttributes, transientState, setTransientState } = props;
     const defaultPanelProps = {
         ...panelProps,
         ...props.attributes,
         setAttributes,
         setLiveAttr,
-        liveAttr
+        liveAttr,
+        transientState,
+        setTransientState
     };
     return <PanelController
         panelList={panelList}

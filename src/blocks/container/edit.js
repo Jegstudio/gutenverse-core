@@ -511,9 +511,11 @@ const ContainerBlock = compose(
         orientation,
     });
 
+    const [transientState, setTransientState] = useState({});
+
     return <>
         <CopyElementToolbar {...props} />
-        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} />
+        <BlockPanelController props={{ ...props, transientState, setTransientState }} panelList={panelList} elementRef={elementRef} />
         <Container
             {...props}
             blockProps={blockProps}
