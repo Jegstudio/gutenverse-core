@@ -988,7 +988,7 @@
       display: flex !important;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
 
       &.section-background {
         .control-title {
@@ -1239,7 +1239,7 @@
 
         >div {
           position: relative;
-          z-index: 5;
+          z-index: 0;
           width: 18px;
           height: 18px;
           border-radius: 2px;
@@ -1389,7 +1389,7 @@
 
       .control-color-display {
         position: relative;
-        z-index: 999;
+        z-index: 0;
         background: #fff;
         border: 1px solid #e6e6ef;
         display: block;
@@ -2254,7 +2254,7 @@
 
       .control-color-display {
         position: relative;
-        z-index: 999;
+        z-index: 0;
         background: #fff;
         border: 1px solid #e6e6ef;
         display: block;
