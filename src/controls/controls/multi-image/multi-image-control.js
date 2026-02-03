@@ -20,8 +20,8 @@ const MultiImageControl = (props) => {
         onValueChange,
         value = [],
     } = props;
-
-    const [imagePreview, setImagePreview] = useState(value);
+    
+    const [imagePreview, setImagePreview] = useState(value || []);
 
 
     const onSelectImages = (media) => {
@@ -59,7 +59,7 @@ const MultiImageControl = (props) => {
 
     const ids = imagePreview.length ? imagePreview.map(img => img.id) : [];
 
-    return <div className={'control gvnews-multi-image-control'}>
+    return <div className={'gutenverse-control-wrapper gvnews-multi-image-control'}>
         <ControlHeadingSimple
             id={`${id}-text`}
             label={label}
@@ -76,7 +76,7 @@ const MultiImageControl = (props) => {
                 gallery={true}
                 render={({ open }) => (
                     <Button onClick={open}>
-                        {__('Choose Image', '--gctd--')}
+                        {__('Choose Images', '--gctd--')}
                     </Button>
                 )}
             />
