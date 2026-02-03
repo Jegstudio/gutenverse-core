@@ -110,7 +110,7 @@ export const filterLayout = (layoutData, filter, perPage) => {
     const { paging } = filter ?? {};
     const data = layoutFilter(layoutData, filter).map((layout) => {
         const { id, name, data, like, author, customAPI, customArgs } = layout;
-        const { pro, tier, slug, cover, demo, compatible_version: compatibleVersion, requirements } = data;
+        const { pro, tier, slug, cover, demo, compatible_version: compatibleVersion, requirements, listed_in: listedIn } = data;
         return {
             id,
             pro: pro === '1',
@@ -124,7 +124,8 @@ export const filterLayout = (layoutData, filter, perPage) => {
             requirements,
             customAPI,
             customArgs,
-            author
+            author,
+            listedIn
         };
     });
     return dataPaging(data, paging, perPage);
@@ -344,7 +345,7 @@ export const filterTheme = (themeData, filter, perPage) => {
 
     const data = themeFilter(themeData, filter).map((layout) => {
         const { id, name, data, author, customAPI, customArgs } = layout;
-        const { pro, tier, slug, cover, host, demo, compatible_version: compatibleVersion, requirements, status } = data;
+        const { pro, tier, slug, cover, host, demo, compatible_version: compatibleVersion, requirements, status, listed_in: listedIn } = data;
 
         return {
             id,
@@ -360,7 +361,8 @@ export const filterTheme = (themeData, filter, perPage) => {
             customAPI,
             customArgs,
             author,
-            status
+            status,
+            listedIn
         };
     });
 

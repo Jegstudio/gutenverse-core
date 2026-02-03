@@ -379,7 +379,7 @@ const ThemesData = (props) => {
             );
         } else {
             return themes.map((theme, id) => {
-                return <ThemeItem key={theme.id}
+                return theme.listedIn.includes('dashboard') ? <ThemeItem key={theme.id}
                     theme={theme}
                     id={id}
                     installed={installed}
@@ -394,7 +394,7 @@ const ThemesData = (props) => {
                     installPlugin={installPlugin}
                     activatePlugin={installPlugin}
                     updatePlugin={installPlugin}
-                />;
+                /> : <></>;
             });
         }
     }
