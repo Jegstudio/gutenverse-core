@@ -37,7 +37,7 @@ const openSidebar = () => {
 
     // Open Actual Sidebar.
     if (isSiteEditor) {
-        dispatch('core/edit-site').openGeneralSidebar('edit-site/block');
+        dispatch('core/edit-site').openGeneralSidebar('edit-site/block-inspector');
     } else {
         dispatch('core/edit-post').openGeneralSidebar('edit-post/block');
     }
@@ -50,7 +50,7 @@ const PanelController = ({ ...props }) => {
         panelList,
         elementRef,
         panelState = { panel: null, section: 0 },
-        setPanelIsClicked = () => {},
+        setPanelIsClicked = () => { },
         setAttributes
     } = props;
 

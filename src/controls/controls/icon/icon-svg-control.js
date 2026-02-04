@@ -1,4 +1,4 @@
-import { useState } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 import { createPortal } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
@@ -13,6 +13,7 @@ import { IconLibrary } from './icon-control';
 import { isEmpty } from 'lodash';
 import { libraryApi } from 'gutenverse-core/config';
 import axios from 'axios';
+import { Spinner } from '@wordpress/components';
 
 const IconSVGControl = (props) => {
     const {
@@ -30,6 +31,8 @@ const IconSVGControl = (props) => {
 
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const instanceId = useInstanceId(IconSVGControl, 'inspector-icon-control');
+    const [isSvgLoading, setSvgLoading] = useState(false);
+    const abortControllerRef = useRef(null);
 
     const typeAttribute = id ? `${id}Type` : '';
     const svgAttribute = id ? `${id}SVG` : '';
@@ -84,15 +87,30 @@ const IconSVGControl = (props) => {
         }
     };
 
+    const onCancelConvertSVG = () => {
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+            setSvgLoading(false);
+        }
+    };
+
     const setType = async (type, retries = 5, delay = 50, force = false, justAttr = true) => {
         if (typeAttribute) {
             updateAttributes({ [typeAttribute]: type });
 
             if ('svg' === type && (isEmpty(svgValue) || force) && !isEmpty(value) && !justAttr) {
+                if (abortControllerRef.current) {
+                    abortControllerRef.current.abort();
+                }
+                const controller = new AbortController();
+                abortControllerRef.current = controller;
+                setSvgLoading(true);
+
                 axios.get(libraryApi + '/get-svg-font', {
                     params: {
                         name: value.toLowerCase()
-                    }
+                    },
+                    signal: controller.signal
                 }).then(response => {
                     const { data } = response;
                     if (false !== data.data) {
@@ -101,13 +119,20 @@ const IconSVGControl = (props) => {
                     } else {
                         console.error('cannot find the icon', value);
                     }
-                }).catch(() => {
+                }).catch((e) => {
+                    if (axios.isCancel(e)) {
+                        // User cancelled the conversion icon to svg; resetting UI state to icon mode
+                        setType('icon');
+                        return;
+                    }
                     if (0 === retries) {
                         updateAttributes({ [svgAttribute]: '' });
                         alert('Cannot Fetch Related SVG');
                     } else {
                         setTimeout(() => setType(type, retries - 1, delay, force, justAttr), delay);
                     }
+                }).finally(() => {
+                    setSvgLoading(false);
                 });
             }
         }
@@ -179,15 +204,21 @@ const IconSVGControl = (props) => {
                                 alignItems: 'center',
                                 justifyContent: 'center'
                             }}>
-                                {svgValue ? <div dangerouslySetInnerHTML={{ __html: svgAtob(svgValue) }} style={{ display: 'flex' }} /> : null}
+                                {isSvgLoading ? <Spinner style={{margin: 0}} /> : svgValue ? <div dangerouslySetInnerHTML={{ __html: svgAtob(svgValue) }} style={{ display: 'flex' }} /> : null}
                             </div>
                             <div className={`icon-overlay ${!svgValue ? 'always-show' : ''}`}>
-                                <button className={'gutenverse-button'} onClick={open}>
-                                    {__('Upload SVG', '--gctd--')}
-                                </button>
+                                {isSvgLoading ? (
+                                    <button className={'gutenverse-button'} onClick={onCancelConvertSVG}>
+                                        {__('Cancel', '--gctd--')}
+                                    </button>
+                                ) : (
+                                    <button className={'gutenverse-button'} onClick={open}>
+                                        {__('Upload SVG', '--gctd--')}
+                                    </button>
+                                )}
                             </div>
                             <div className={'icon-change'}>
-                                <div className={'choose-icon'} onClick={() => setType('icon')}>
+                                <div className={'choose-icon'} onClick={() => !isSvgLoading && setType('icon')}>
                                     {__('Icon Library', '--gctd--')}
                                 </div>
                                 <div className={'upload-svg active'} onClick={() => setType('svg')}>

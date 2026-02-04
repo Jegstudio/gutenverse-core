@@ -864,7 +864,7 @@ abstract class Post_Abstract extends Block_Abstract {
 
 			if ( $pre_next_text && 'false' !== $pre_next_text ) {
 				$prev_text = $this->render_icon( $prev_icon_type, $prev_icon, $prev_icon_svg ) . ' ' . esc_html__( 'Prev', '--gctd--' );
-				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon, $next_icon_type, $next_icon_svg );
+				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 			}
 
 			$output = '<div class="guten_block_nav native-pagination" data-page="' . $page . '">';

@@ -56,7 +56,7 @@ const SectionVideoContainer = ({ attributes }) => {
                 resizeObserver.disconnect();
             }
         };
-    }, []);
+    }, [videoLink]);
 
     const wrapperStyle = {
         zIndex: 0,

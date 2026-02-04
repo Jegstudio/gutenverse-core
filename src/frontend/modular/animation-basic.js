@@ -15,14 +15,6 @@ class GutenverseAnimationBasic extends Default {
          */
         let elementObj = u(element);
 
-        if (elementObj.hasClass('guten-button-wrapper')) {
-            elementObj = u(element).find('.guten-button');
-        }
-
-        if (elementObj.hasClass('guten-advance-button-wrapper')) {
-            elementObj = u(element).find('.guten-advance-button');
-        }
-
         const { animationClass, animationClasses } = this.getAnimationClass(elementObj);
 
         // Load the animation
@@ -55,6 +47,22 @@ class GutenverseAnimationBasic extends Default {
 
             window.addEventListener('load', playAnimation);
             window.addEventListener('scroll', playAnimation);
+        } else {
+            if (elementObj.hasClass('guten-button-wrapper')) {
+                //add fallback to old animation
+                const ele = u(element).find('.guten-button');
+                if (ele) {
+                    this.playAnimationOnView(ele.first());
+                }
+            }
+
+            if (elementObj.hasClass('guten-advance-button-wrapper')) {
+                //add fallback to old animation
+                const ele = u(element).find('.guten-advance-button');
+                if (ele) {
+                    this.playAnimationOnView(ele.first());
+                }
+            }
         }
     }
 }

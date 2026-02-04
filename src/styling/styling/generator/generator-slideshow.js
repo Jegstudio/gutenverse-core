@@ -18,9 +18,9 @@ const slideshowStyle = (attribute, elementId) => {
 
     styles += `
         .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow .${elementId}-slideshow-image {
-            background-size: ${backgroundSize};
-            background-position: ${bgPosition};
-            background-repeat: ${backgroundRepeat};
+            background-size: ${backgroundSize} !important;
+            background-position: ${bgPosition} !important;
+            background-repeat: ${backgroundRepeat} !important;
         }
             
         ${kenBurns ? `.bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.hasToggledClass .${elementId}-slideshow-image {
@@ -88,7 +88,7 @@ const slideshowStyle = (attribute, elementId) => {
         default: {
             styles += `
             .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                ${`animation: fade ${transitionDuration}s ease-in-out forwards;`}
+                ${`animation: previous-fade ${transitionDuration}s ease-in-out forwards;`}
             }`;
             break;
         }
@@ -98,7 +98,7 @@ const slideshowStyle = (attribute, elementId) => {
 };
 
 export const slideshowGenerator = (attribute, style, css) => {
-    const {selector} = style;
+    const { selector } = style;
 
     const slideshowCss = slideshowStyle(attribute, selector);
     css.Desktop = slideshowCss;

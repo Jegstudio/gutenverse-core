@@ -7,7 +7,6 @@ import { useState, useEffect } from '@wordpress/element';
 import { useSetting, useSettings, store as blockEditorStore } from '@wordpress/block-editor';
 import { store as editorStore } from '@wordpress/editor';
 import apiFetch from '@wordpress/api-fetch';
-import { string } from 'prop-types';
 
 export const isEmpty = value => isEmptyLodash(value);
 
@@ -18,6 +17,12 @@ export const check = val => isArray(val) && !isEmptyLodash(val);
 export const getFixData = (value, index) => value[index()];
 
 export const getIndex = (value, mod, index) => value[index % mod];
+
+export const parseUnicode = (string) => {
+  const txt = document.createElement('textarea');
+  txt.innerHTML = string;
+  return txt.value;
+}
 
 export const checkEmpty = (value) => {
     let empty = true;
@@ -543,8 +548,15 @@ export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {
                 count += 1;
             }
         }
-        if (block.innerBlocks.length > 0) {
-            count += recursiveDuplicateCheck(block.innerBlocks, clientId, elementId);
+        let innerBlocks = block.innerBlocks;
+
+        if ( ( block.name === 'core/post-content' || block.name === 'core/template-part' || block.name === 'gutenverse/post-content' ) && innerBlocks.length === 0 ) {
+            const { getBlocks } = select( 'core/block-editor' );
+            innerBlocks = getBlocks( block.clientId );
+        }
+
+        if (innerBlocks.length > 0) {
+            count += recursiveDuplicateCheck(innerBlocks, clientId, elementId);
         }
         if (count > 0) {
             return count;

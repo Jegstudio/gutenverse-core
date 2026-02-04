@@ -55,7 +55,7 @@ const ImageRadioControl = props => {
                                 />
                                 {item.image}
                                 <div className="locked-overlay">
-                                    <div className='deprecated-warning'>
+                                    <div className="deprecated-warning">
                                         <IconWarningDeprecatedSVG />
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@ const ImageRadioControl = props => {
                                 />
                                 {item.image}
                                 <div className="locked-overlay">
-                                    <div className='pro-warning'>
+                                    <div className="pro-warning">
                                         PRO
                                     </div>
                                 </div>

@@ -4,6 +4,11 @@ import { applyFilters } from '@wordpress/hooks';
 import { isEmpty, isEqual } from 'gutenverse-core/helper';
 import { isOnEditor } from 'gutenverse-core/helper';
 
+const contentCache = {};
+const urlCache = {};
+const contentPromises = {};
+const urlPromises = {};
+
 export const dynamicData = (props) => {
     const {
         attributes,
@@ -335,10 +340,7 @@ export const dynamicData = (props) => {
                     dynamicDataList[index],
                     id,
                 );
-                const dynamicUrlcontent = isEmpty(dynamicDataList[index].dynamicUrl) || !isOnEditor() ? dynamicDataList[index].dynamicUrl : applyFilters(
-                    'gutenverse.dynamic.fetch-url',
-                    dynamicDataList[index].dynamicUrl
-                );
+
                 let title = content;
 
                 const dynamicContent = dynamicDataList[index].dynamicContent;
@@ -351,51 +353,110 @@ export const dynamicData = (props) => {
                         id,
                     );
                 }
-                const dynamicTextContent = isEmpty(dynamicDataList[index].dynamicContent) || !isOnEditor() ? dynamicDataList[index].dynamicContent : applyFilters(
-                    'gutenverse.dynamic.fetch-text',
-                    dynamicDataList[index].dynamicContent
-                );
-
                 // get dynamic content text
-                if (title !== content){
-                    ( typeof dynamicTextContent.then === 'function' ) && !isEmpty(dynamicDataList[index].dynamicContent) && dynamicTextContent
-                        .then(result => {
-                            if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText[index]) {
+                if (title !== content) {
+                    const contentParams = dynamicDataList[index].dynamicContent;
+
+                    if (!isEmpty(contentParams) && isOnEditor()) {
+                        const key = JSON.stringify(contentParams);
+
+                        const updateTextState = (result) => {
+                            if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicText[index]) {
                                 setDynamicText(prevState => {
                                     const newState = [...prevState];
                                     newState[index] = result;
                                     if (!isEqual(textContent, newState) || !isEmpty(dynamicText) || dynamicText.length > 0) {
-                                        setAttributes({dynamicTextContent: newState});
+                                        setAttributes({ dynamicTextContent: newState });
                                     }
                                     return newState;
                                 });
                             }
-                        })
-                        .catch(error => {
-                            console.error(error);
-                        });
+                        };
+
+                        if (contentCache[key] !== undefined) {
+                            updateTextState(contentCache[key]);
+                        } else if (contentPromises[key]) {
+                            contentPromises[key].then(result => {
+                                if (result !== undefined) updateTextState(result);
+                            });
+                        } else {
+                            const dynamicTextContent = applyFilters(
+                                'gutenverse.dynamic.fetch-text',
+                                contentParams
+                            );
+
+                            if (typeof dynamicTextContent.then === 'function') {
+                                contentPromises[key] = dynamicTextContent;
+                                dynamicTextContent
+                                    .then(result => {
+                                        if ((!Array.isArray(result) || result.length > 0) && result !== undefined) {
+                                            contentCache[key] = result;
+                                            updateTextState(result);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    })
+                                    .finally(() => {
+                                        delete contentPromises[key];
+                                    });
+                            }
+                        }
+                    }
                 }
 
                 // when url is set
                 if (href !== '#') {
                     let anchorElement = document.createElement('a');
                     anchorElement.setAttribute('class', `link-${id} dynamic-link`);
-                    //get dynamic content url
-                    ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicDataList[index].dynamicUrl) && dynamicUrlcontent
-                        .then(result => {
-                            if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicUrl[index]) {
+                    const urlParams = dynamicDataList[index].dynamicUrl;
+
+                    if (!isEmpty(urlParams) && isOnEditor()) {
+                        const key = JSON.stringify(urlParams);
+
+                        const updateUrlState = (result) => {
+                            if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicUrl[index]) {
                                 setDynamicUrl(prevState => {
                                     const newState = [...prevState];
                                     newState[index] = result;
                                     if (!isEqual(urlContent, newState) || !isEmpty(dynamicUrl) || dynamicUrl.length > 0) {
-                                        setAttributes({dynamicUrlContent: newState});
+                                        setAttributes({ dynamicUrlContent: newState });
                                     }
                                     return newState;
                                 });
                             }
-                        }).catch(error => {
-                            console.log(error);
-                        });
+                        };
+
+                        if (urlCache[key] !== undefined) {
+                            updateUrlState(urlCache[key]);
+                        } else if (urlPromises[key]) {
+                            urlPromises[key].then(result => {
+                                if (result !== undefined) updateUrlState(result);
+                            });
+                        } else {
+                            const dynamicUrlPromise = applyFilters(
+                                'gutenverse.dynamic.fetch-url',
+                                urlParams
+                            );
+
+                            if (typeof dynamicUrlPromise.then === 'function') {
+                                urlPromises[key] = dynamicUrlPromise;
+                                dynamicUrlPromise
+                                    .then(result => {
+                                        if ((!Array.isArray(result) || result.length > 0) && result !== undefined) {
+                                            urlCache[key] = result;
+                                            updateUrlState(result);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.log(error);
+                                    })
+                                    .finally(() => {
+                                        delete urlPromises[key];
+                                    });
+                            }
+                        }
+                    }
                     if (dynamicUrl[index] || dynamicUrl[index] !== undefined) {
                         anchorElement.setAttribute('href', dynamicUrl[index]);
                         item.element[0].setAttribute('dynamic-data-url', href);

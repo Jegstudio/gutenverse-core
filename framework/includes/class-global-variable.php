@@ -109,8 +109,11 @@ class Global_Variable {
 				foreach ( $fonts as $font ) {
 					$the_font = $font['font'];
 					if ( ! empty( $the_font ) ) {
-						$weight         = isset( $the_font['weight'] ) ? $the_font['weight'] : 'default';
-						$font_data      = isset( $the_font['font'] ) ? $the_font['font'] : array();
+						$weight    = isset( $the_font['weight'] ) ? $the_font['weight'] : 'default';
+						$font_data = isset( $the_font['font'] ) ? $the_font['font'] : array();
+						if ( empty( $font_data ) ) {
+							continue;
+						}
 						$google_fonts[] = array(
 							'label'   => $font_data['label'],
 							'type'    => $font_data['type'],
