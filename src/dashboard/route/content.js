@@ -133,9 +133,9 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
 
     if (homeSlug === page) {
         switch (path) {
-            // case 'theme-list':
-            //     routePage = <Themelist {...props} />;
-            //     break;
+            case 'theme-list':
+                routePage = <Themelist {...props} />;
+                break;
             case 'block-list':
                 routePage = <BlockList {...props} />;
                 break;

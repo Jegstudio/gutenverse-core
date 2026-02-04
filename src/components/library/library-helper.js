@@ -111,6 +111,7 @@ export const filterLayout = (layoutData, filter, perPage) => {
     const data = layoutFilter(layoutData, filter).map((layout) => {
         const { id, name, data, like, author, customAPI, customArgs } = layout;
         const { pro, tier, slug, cover, demo, compatible_version: compatibleVersion, requirements, listed_in: listedIn } = data;
+
         return {
             id,
             pro: pro === '1',

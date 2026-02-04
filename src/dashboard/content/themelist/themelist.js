@@ -423,7 +423,7 @@ const ThemesData = (props) => {
             );
         } else {
             return themes.map((theme, id) => {
-                return theme.listedIn.includes('dashboard') ? <ThemeItem key={theme.id}
+                return theme.listedIn?.includes('dashboard') ? <ThemeItem key={theme.id}
                     theme={theme}
                     id={id}
                     installed={installed}
@@ -475,7 +475,6 @@ const ThemeListPage = (props) => {
         categoryFilter: ''
     });
 
-    console.log(library);
     const plans = [
         {
             value: '',
