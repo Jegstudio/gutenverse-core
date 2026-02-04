@@ -730,7 +730,7 @@ abstract class Style_Interface {
 					array(
 						'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect",
 						'property'       => function ( $value ) {
-							return "z-index: {$value}";
+							return "z-index: {$value}; --gv-cursor-effect-zindex: {$value};";
 						},
 						'value'          => $cursor_efect['ZIndex'],
 						'device_control' => false,
@@ -747,7 +747,7 @@ abstract class Style_Interface {
 						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
 							$this->inject_style(
 								array(
-									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .innerCursor.enter, .{$this->element_id}-cursor-effect.dummy-bg.cursor-effect.enter",
 									'property'       => function ( $value ) {
 										if ( $value ) {
 											return "transition: opacity {$value}s, transform 0s;";
@@ -765,7 +765,7 @@ abstract class Style_Interface {
 						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
 							$this->inject_style(
 								array(
-									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .innerCursor.enter, .{$this->element_id}-cursor-effect.dummy-bg.cursor-effect.enter",
 									'property'       => function ( $value ) {
 										if ( $value ) {
 											return "transition: opacity 0s, transform {$value}s;";
@@ -783,7 +783,7 @@ abstract class Style_Interface {
 						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
 							$this->inject_style(
 								array(
-									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .innerCursor.enter, .{$this->element_id}-cursor-effect.dummy-bg.cursor-effect.enter",
 									'property'       => function ( $value ) {
 										if ( $value ) {
 											return "transition: opacity {$value}s, transform {$value}s;";
@@ -801,7 +801,7 @@ abstract class Style_Interface {
 						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
 							$this->inject_style(
 								array(
-									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .innerCursor.enter, .{$this->element_id}-cursor-effect.dummy-bg.cursor-effect.enter",
 									'property'       => function ( $value ) {
 										if ( $value ) {
 											return "transition: opacity 0s, transform {$value}s;";
@@ -819,7 +819,7 @@ abstract class Style_Interface {
 						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
 							$this->inject_style(
 								array(
-									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .innerCursor.enter, .{$this->element_id}-cursor-effect.dummy-bg.cursor-effect.enter",
 									'property'       => function ( $value ) {
 										if ( $value ) {
 											return "transition: opacity 0s, transform {$value}s;";
@@ -837,7 +837,7 @@ abstract class Style_Interface {
 						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
 							$this->inject_style(
 								array(
-									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .innerCursor.enter, .{$this->element_id}-cursor-effect.dummy-bg.cursor-effect.enter",
 									'property'       => function ( $value ) {
 										if ( $value ) {
 											return "transition: opacity 0s, transform {$value}s;";
@@ -857,9 +857,15 @@ abstract class Style_Interface {
 			}
 
 			if ( isset( $cursor_efect['blur'] ) ) {
+				$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
+				if ( isset( $cursor_efect['enableSeperateBackground'] ) && isset( $cursor_efect['type'] )  ) {
+					if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
+						$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
+					}
+				}
 				$this->inject_style(
 					array(
-						'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+						'selector'       => $selector,
 						'property'       => function ( $value ) {
 							return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 						},
@@ -885,7 +891,13 @@ abstract class Style_Interface {
 					}
 
 					if ( isset( $cursor_efect['background'] ) ) {
-						$this->handle_background( ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content", $cursor_efect['background'] );
+						$selector =".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
+						if ( isset( $cursor_efect['enableSeperateBackground'] )  ) {
+							if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
+								$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
+							}
+						}
+						$this->handle_background( $selector, $cursor_efect['background'] );
 					}
 
 					if ( isset( $cursor_efect['padding'] ) ) {
@@ -902,8 +914,14 @@ abstract class Style_Interface {
 					}
 
 					if ( isset( $cursor_efect['textBorder'] ) ) {
-						$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
+						$selector = ".{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .cursor-content";
 						$borders  = $cursor_efect['textBorder'];
+
+						if ( isset( $cursor_efect['enableSeperateBackground'] )  ) {
+							if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
+								$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
+							}
+						}
 
 						uksort(
 							$borders,
