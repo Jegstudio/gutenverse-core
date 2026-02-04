@@ -495,6 +495,7 @@ class Api {
 		}
 
 		$dev_param = $request->get_param( 'dev' );
+			$this->update_library_data();
 
 		if ( 'true' === $dev_param ) {
 			$this->update_library_data();
@@ -586,9 +587,100 @@ class Api {
 				$content = $this->inject_section_like( $content );
 			}
 
+			if ( 'theme-data' === $key ) {
+				$content = $this->theme_data_manipulator( $content );
+			}
+
 			$data[ $key ] = $content;
 		}
 		return $data;
+	}
+
+	/**
+	 * Theme Data Manipulator
+	 *
+	 * since core v2.3.3
+	 *
+	 * @param array $content .
+	 */
+	public function theme_data_manipulator( $content ) {
+		$current_theme        = wp_get_theme();
+		$current_slug = $current_theme->get_stylesheet();
+		if ( $current_theme->parent() ) {
+			$current_slug = $current_theme->parent()->get_stylesheet();
+		}
+		$themes = $content;
+
+		$current_theme_item = null;
+		$pro_related_item   = null;
+		$other_items        = array();
+
+		// Loop over existing themes
+		foreach ( $themes as $theme ) {
+
+			$slug   = $theme['data']['slug'] ?? '';
+			$pro_of = $theme['data']['theme_pro_of'] ?? array();
+
+			// 1. Current theme found in array
+			if ( $slug === $current_slug ) {
+				$theme['data']['current_used'] = true;
+				$current_theme_item            = $theme;
+				continue;
+			}
+
+			// 2. Theme referencing current slug
+			if ( is_array( $pro_of ) && in_array( $current_slug, $pro_of, true ) ) {
+				$pro_related_item = $theme;
+				continue;
+			}
+
+			// 3. Others
+			$other_items[] = $theme;
+		}
+
+		// 4. If current theme NOT in array: create new theme item
+		if ( ! $current_theme_item ) {
+
+			// Screenshot (URL or empty string)
+			$screenshot = $current_theme->get_screenshot();
+
+			$current_theme_item = array(
+				'id'         => 0,
+				'name'       => $current_theme->get( 'Name' ),
+
+				'data'       => array(
+					'slug'         => $current_slug,
+					'name'         => $current_theme->get( 'Name' ),
+					'version'      => $current_theme->get( 'Version' ),
+					'current_used' => true,
+					'tier'		   => [''],
+					// Add screenshot as cover
+					'cover'        => array(
+						$screenshot,
+						0,
+						0,
+						1,
+					),
+				),
+
+				'categories' => array(),
+				'author'     => array(
+					'name' => $current_theme->get( 'Author' ),
+					'url'  => $current_theme->get( 'AuthorURI' ),
+				),
+			);
+		}
+
+		// Build final sorted array
+		$final = array();
+
+		$final[] = $current_theme_item;      // 1. Current theme always first
+		if ( $pro_related_item ) {
+			$final[] = $pro_related_item;    // 2. Theme referencing current slug
+		}
+		$final = array_merge( $final, $other_items ); // 3. Others afterward
+
+		return $final;
 	}
 
 	/**
@@ -890,7 +982,7 @@ class Api {
 					'filename' => 'layout/categories',
 				),
 				array(
-					'version'  => 'v5',
+					'version'  => 'v6',
 					'endpoint' => 'theme/data',
 					'filename' => 'theme/data',
 				),
@@ -1907,9 +1999,14 @@ class Api {
 
 		if ( $check_theme->exists() ) {
 			switch_theme( $stylesheet );
+			$target_redirect = admin_url( 'admin.php?page=' . $stylesheet . '-wizard' );
+			if ( get_option( $stylesheet . '_lite_plus_wizard_setup_done' ) ) {
+				$target_redirect = admin_url( 'admin.php?page=' . $stylesheet . '-dashboard' );
+			}
 
 			return array(
 				'status' => 200,
+				'redirect' => $target_redirect
 			);
 		}
 
