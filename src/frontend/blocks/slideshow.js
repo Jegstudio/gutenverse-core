@@ -106,9 +106,9 @@ class GutenverseSlideshow extends Default {
 
         styles += `
         .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow .${elementId}-slideshow-image {
-            background-size: ${backgroundSize};
-            background-position: ${bgPosition};
-            background-repeat: ${backgroundRepeat};
+            background-size: ${backgroundSize} !important;
+            background-position: ${bgPosition} !important;
+            background-repeat: ${backgroundRepeat} !important;
         }
             
         ${kenBurns ? `.bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.hasToggledClass .${elementId}-slideshow-image {
