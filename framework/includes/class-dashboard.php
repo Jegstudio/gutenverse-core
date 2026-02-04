@@ -924,6 +924,16 @@ class Dashboard {
 
 		add_submenu_page(
 			self::TYPE,
+			esc_html__( 'Theme List', '--gctd--' ),
+			esc_html__( 'Theme List', '--gctd--' ),
+			'manage_options',
+			$path . 'theme-list',
+			null,
+			3
+		);
+
+		add_submenu_page(
+			self::TYPE,
 			esc_html__( 'Settings', '--gctd--' ),
 			esc_html__( 'Settings', '--gctd--' ),
 			'manage_options',

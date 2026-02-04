@@ -295,6 +295,18 @@ const Navigation = ({ location }) => {
                 path: 'block-list',
                 priority: 2
             },
+            // {
+            //     name: __('Themes', '--gctd--'),
+            //     slug: homeSlug,
+            //     path: 'themes',
+            //     priority: 3
+            // },
+            {
+                name: __('Theme List', '--gctd--'),
+                slug: homeSlug,
+                path: 'theme-list',
+                priority: 3
+            },
             {
                 name: __('Settings', '--gctd--'),
                 slug: homeSlug,
