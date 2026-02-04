@@ -248,7 +248,7 @@ const LayoutItems = ({ data, setSingleId, setSlug }) => {
 
     return <div className="library-items-wrapper layout">
         {data.map(item => {
-            return item.listedIn?.includes('library') ? <LayoutSingleItem
+            return ( item.listedIn?.includes('library') || isEmpty( item.listedIn ) ) ? <LayoutSingleItem
                 key={item.id}
                 item={item}
                 showSingleLayout={showSingleLayout}
