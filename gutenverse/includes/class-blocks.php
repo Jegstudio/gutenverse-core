@@ -93,6 +93,8 @@ class Blocks {
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/search-result-title/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-content/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-block/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_DIR . './block/query-loop/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-template/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-list/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/nav-menu/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/archive-title/block.json' );

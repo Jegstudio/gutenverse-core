@@ -1,0 +1,124 @@
+{
+	"apiVersion": 3,
+	"name": "gutenverse/query-loop",
+	"title": "Query Loop",
+	"category": "gutenverse-post",
+	"description": "An advanced block that allows you to display posts from a specific query.",
+	"class_callback": "Gutenverse\\Block\\Query_Loop",
+	"allowCopyStyle": true,
+	"attributes": {
+		"elementId": {
+			"type": "string"
+		},
+		"inheritQuery": {
+			"type": "boolean",
+			"default": false
+		},
+		"postType": {
+			"type": "string",
+			"default": "post"
+		},
+		"numberPost": {
+			"type": "number",
+			"default": 3
+		},
+		"postOffset": {
+			"type": "number",
+			"default": 0
+		},
+		"includePost": {
+			"type": "array",
+			"default": []
+		},
+		"excludePost": {
+			"type": "array",
+			"default": []
+		},
+		"includeCategory": {
+			"type": "array",
+			"default": []
+		},
+		"excludeCategory": {
+			"type": "array",
+			"default": []
+		},
+		"includeAuthor": {
+			"type": "array",
+			"default": []
+		},
+		"includeTag": {
+			"type": "array",
+			"default": []
+		},
+		"excludeTag": {
+			"type": "array",
+			"default": []
+		},
+		"sortBy": {
+			"type": "string",
+			"default": "latest"
+		},
+		"column": {
+			"type": "object",
+			"default": {
+				"Desktop": 3,
+				"Tablet": 2,
+				"Mobile": 1
+			},
+			"copyStyle": true
+		},
+		"columnGap": {
+			"type": "object",
+			"default": {
+				"Desktop": { "unit": "px", "point": 20 },
+				"Tablet": { "unit": "px", "point": 20 },
+				"Mobile": { "unit": "px", "point": 20 }
+			},
+			"copyStyle": true
+		},
+		"rowGap": {
+			"type": "object",
+			"default": {
+				"Desktop": { "unit": "px", "point": 20 },
+				"Tablet": { "unit": "px", "point": 20 },
+				"Mobile": { "unit": "px", "point": 20 }
+			},
+			"copyStyle": true
+		},
+		"margin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"padding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"animation": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		}
+	},
+	"providesContext": {
+		"gutenverse/queryId": "elementId",
+		"gutenverse/postType": "postType",
+		"gutenverse/numberPost": "numberPost",
+		"gutenverse/postOffset": "postOffset",
+		"gutenverse/includePost": "includePost",
+		"gutenverse/excludePost": "excludePost",
+		"gutenverse/includeCategory": "includeCategory",
+		"gutenverse/excludeCategory": "excludeCategory",
+		"gutenverse/includeAuthor": "includeAuthor",
+		"gutenverse/includeTag": "includeTag",
+		"gutenverse/excludeTag": "excludeTag",
+		"gutenverse/sortBy": "sortBy",
+		"gutenverse/inheritQuery": "inheritQuery"
+	},
+	"supports": {
+		"align": ["wide", "full"],
+		"html": false,
+		"anchor": true,
+		"className": false
+	},
+	"keywords": ["post", "query", "loop"]
+}

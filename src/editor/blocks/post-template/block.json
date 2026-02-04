@@ -1,0 +1,41 @@
+{
+	"apiVersion": 3,
+	"name": "gutenverse/post-template",
+	"title": "Post Template",
+	"description": "Contains the block elements used to render a post, like the title, date, featured image, content or excerpt, and more.",
+	"category": "gutenverse-post",
+	"parent": ["gutenverse/query-loop"],
+	"class_callback": "Gutenverse\\Block\\Post_Template",
+	"usesContext": [
+		"gutenverse/queryId",
+		"gutenverse/postType",
+		"gutenverse/numberPost",
+		"gutenverse/postOffset",
+		"gutenverse/includePost",
+		"gutenverse/excludePost",
+		"gutenverse/includeCategory",
+		"gutenverse/excludeCategory",
+		"gutenverse/includeAuthor",
+		"gutenverse/includeTag",
+		"gutenverse/excludeTag",
+		"gutenverse/sortBy",
+		"gutenverse/inheritQuery",
+		"postType",
+		"postId"
+	],
+	"providesContext": {
+		"postType": "postType",
+		"postId": "postId"
+	},
+	"attributes": {
+		"elementId": {
+			"type": "string"
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false,
+		"anchor": true,
+		"className": false
+	}
+}
