@@ -302,7 +302,7 @@ const Navigation = ({ location }) => {
             //     priority: 3
             // },
             {
-                name: __('Themes', '--gctd--'),
+                name: __('Theme List', '--gctd--'),
                 slug: homeSlug,
                 path: 'theme-list',
                 priority: 3
