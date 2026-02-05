@@ -196,6 +196,7 @@ class Dashboard {
 		$config['support']          = 'https://wordpress.org/support/plugin/gutenverse/';
 		$config['docs']             = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
 		$config['community']        = 'https://www.facebook.com/groups/gutenversecommunity/';
+		$config['showThemeList']    = apply_filters( 'gutenverse_show_theme_list_dashboard', false );
 		$config['themelist']        = admin_url( 'admin.php?page=gutenverse&path=theme-list' );
 		$config['homeSlug']         = 'gutenverse';
 		$config['plugins']          = Editor_Assets::list_plugin();
@@ -934,15 +935,17 @@ class Dashboard {
 			2
 		);
 
-		add_submenu_page(
-			self::TYPE,
-			esc_html__( 'Theme List', '--gctd--' ),
-			esc_html__( 'Theme List', '--gctd--' ),
-			'manage_options',
-			$path . 'theme-list',
-			null,
-			3
-		);
+		if ( apply_filters( 'gutenverse_show_theme_list_dashboard', false ) ) {
+			add_submenu_page(
+				self::TYPE,
+				esc_html__( 'Theme List', '--gctd--' ),
+				esc_html__( 'Theme List', '--gctd--' ),
+				'manage_options',
+				$path . 'theme-list',
+				null,
+				3
+			);
+		}
 
 		add_submenu_page(
 			self::TYPE,
