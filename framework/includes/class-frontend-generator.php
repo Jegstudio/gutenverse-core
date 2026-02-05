@@ -392,11 +392,19 @@ class Frontend_Generator {
 	 * Render Preload Images
 	 */
 	public function render_preload_images() {
+		static $printed_images = array();
+
 		if ( ! empty( $this->preload_images ) ) {
 			$this->preload_images = array_unique( $this->preload_images );
 			foreach ( $this->preload_images as $image_url ) {
+				if ( in_array( $image_url, $printed_images, true ) ) {
+					continue;
+				}
+
 				printf( '<link rel="preload" fetchpriority="high" as="image" href="%s">', esc_url( $image_url ) );
+				$printed_images[] = $image_url;
 			}
+			$this->preload_images = array();
 		}
 	}
 
