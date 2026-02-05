@@ -58,7 +58,16 @@ class Dashboard {
 		global $pagenow;
 
 		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) ) {
-			$old_page = wp_sanitize_redirect( wp_unslash( $_GET['page'] ) );
+			$page = sanitize_text_field( wp_unslash( $_GET['page'] ) );
+
+			if ( 'gutenverse' === $page && isset( $_GET['path'] ) && 'theme-list' === sanitize_text_field( wp_unslash( $_GET['path'] ) ) ) {
+				if ( ! apply_filters( 'gutenverse_show_theme_list_dashboard', false ) ) {
+					wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) );
+					exit;
+				}
+			}
+
+			$old_page = wp_sanitize_redirect( $page );
 
 			switch ( $old_page ) {
 				case 'gutenverse-settings':
