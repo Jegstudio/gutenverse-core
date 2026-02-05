@@ -1029,7 +1029,7 @@ class Api {
 	 */
 	public function notice_close( $request ) {
 		$notice_id = $this->gutenverse_api_esc_data( $request->get_param( 'id' ), 'string' );
-		update_option( "gutenverse_{$notice_id}", true );
+		update_option( "gutenverse_{$notice_id}", true, false );
 
 		return false;
 	}
@@ -1471,7 +1471,7 @@ class Api {
 		$data = $request->get_param( 'setting' );
 
 		if ( array_key_exists( 'gvnews_settings', $data ) ) {
-			update_option( 'gvnews_settings', $data['gvnews_settings'] );
+			update_option( 'gvnews_settings', $data['gvnews_settings'], false );
 		} else {
 			global $wp_filesystem;
 			require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -1528,9 +1528,9 @@ class Api {
 				}
 			}
 			if ( ! isset( $option ) ) {
-				add_option( 'gutenverse-settings', $value );
+				add_option( 'gutenverse-settings', $value, '', true );
 			} else {
-				update_option( 'gutenverse-settings', $value );
+				update_option( 'gutenverse-settings', $value, true );
 			}
 		}
 
@@ -1673,9 +1673,9 @@ class Api {
 		$options = get_option( $option_name );
 
 		if ( ! isset( $options ) ) {
-			$result = add_option( $option_name, $data );
+			$result = add_option( $option_name, $data, '', false );
 		} else {
-			$result = update_option( $option_name, $data );
+			$result = update_option( $option_name, $data, false );
 		}
 
 		return $result;

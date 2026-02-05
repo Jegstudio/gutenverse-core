@@ -308,7 +308,7 @@ class Init {
 	public function flush_rewrite_rules() {
 		if ( ! get_option( 'gutenverse_plugin_permalinks_flushed' ) ) {
 			flush_rewrite_rules();
-			update_option( 'gutenverse_plugin_permalinks_flushed', 1 );
+			update_option( 'gutenverse_plugin_permalinks_flushed', 1, false );
 		}
 	}
 
