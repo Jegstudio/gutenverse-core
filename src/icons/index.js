@@ -53,6 +53,7 @@ import IconSectionSlider from './icon/icon-section-slider.svg';
 /* Block */
 import IconColumn from './icon/icon-column.svg';
 import IconSection from './icon/icon-section.svg';
+import IconContainer from './icon/icon-container.svg';
 
 /* Block Pro */
 import IconConditionsBlock from './icon/icon-condition-filter.svg';
@@ -247,6 +248,11 @@ export const IconColumnSVG = (props) => {
 export const IconSectionSVG = (props) => {
     return <IconSection {...props} />;
 };
+
+export const IconContainerSVG = (props) => {
+    return <IconContainer {...props} />;
+};
+
 export const IconAddFontSVG = (props) => {
     return <IconAddFont {...props} />;
 };
