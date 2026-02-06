@@ -92,7 +92,7 @@ class Import_Template {
 			$theme = wp_get_theme();
 			$name  = $theme->get( 'TextDomain' ) . '_gutenverse_template_installed';
 
-			update_option( $name, true );
+			update_option( $name, true, false );
 		}
 	}
 }
