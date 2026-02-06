@@ -9,7 +9,8 @@ import {
 } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { Spinner } from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
+import { useContext } from '@wordpress/element';
+import { QueryLoopContext } from '../query-loop/edit';
 
 const TEMPLATE = [
     ['gutenverse/post-featured-image'],
@@ -57,108 +58,54 @@ function PostTemplateBlockPreview({ blocks, blockContextId, isHidden, setActiveB
 
 const MemoizedPostTemplateBlockPreview = memo(PostTemplateBlockPreview);
 
+const PostItem = memo(({ post, blocks, isActive, onSelect }) => {
+    const blockContext = useMemo(() => ({
+        postType: post.type,
+        postId: post.id,
+    }), [post.type, post.id]);
+
+    const handleSelect = () => onSelect(blockContext.postId);
+
+    return (
+        <BlockContextProvider value={blockContext}>
+            {isActive ? (
+                <PostTemplateInnerBlocks />
+            ) : (
+                <MemoizedPostTemplateBlockPreview
+                    blocks={blocks}
+                    blockContextId={blockContext.postId}
+                    setActiveBlockContextId={handleSelect}
+                    isHidden={false}
+                />
+            )}
+        </BlockContextProvider>
+    );
+});
+
 export default function Edit({ clientId }) {
     const [activeBlockContextId, setActiveBlockContextId] = useState();
 
-    // Get query attributes from the parent query-loop block
-    const { postType, queryArgs } = useSelect((select) => {
-        const { getBlockParentsByBlockName, getBlock } = select(blockEditorStore);
+    // Consume posts from Query Loop context
+    const context = useContext(QueryLoopContext);
+    const { posts, isResolving } = context || {};
 
-        // Find parent query-loop block
-        const queryLoopParents = getBlockParentsByBlockName(clientId, 'gutenverse/query-loop');
-        if (!queryLoopParents.length) {
-            return { postType: 'post', queryArgs: { per_page: 3, _embed: true } };
-        }
-
-        const parentBlock = getBlock(queryLoopParents[0]);
-        if (!parentBlock) {
-            return { postType: 'post', queryArgs: { per_page: 3, _embed: true } };
-        }
-
-        const attrs = parentBlock.attributes;
-
-        const args = {
-            per_page: attrs.numberPost || 3,
-            offset: attrs.postOffset || 0,
-            _embed: true,
-        };
-
-        // Handle sorting
-        switch (attrs.sortBy) {
-            case 'oldest':
-                args.order = 'asc';
-                args.orderby = 'date';
-                break;
-            case 'alphabet_asc':
-                args.order = 'asc';
-                args.orderby = 'title';
-                break;
-            case 'alphabet_desc':
-                args.order = 'desc';
-                args.orderby = 'title';
-                break;
-            case 'latest':
-            default:
-                args.order = 'desc';
-                args.orderby = 'date';
-                break;
-        }
-
-        // Include specific posts
-        if (attrs.includePost?.length > 0) {
-            args.include = attrs.includePost.map(p => p.value || p);
-        }
-
-        // Exclude specific posts
-        if (attrs.excludePost?.length > 0) {
-            args.exclude = attrs.excludePost.map(p => p.value || p);
-        }
-
-        // Include categories
-        if (attrs.includeCategory?.length > 0) {
-            args.categories = attrs.includeCategory.map(c => c.value || c);
-        }
-
-        // Include tags
-        if (attrs.includeTag?.length > 0) {
-            args.tags = attrs.includeTag.map(t => t.value || t);
-        }
-
-        // Include authors
-        if (attrs.includeAuthor?.length > 0) {
-            args.author = attrs.includeAuthor.map(a => a.value || a);
-        }
-
+    // We also need inner blocks to render the preview
+    const { blocks } = useSelect((select) => {
         return {
-            postType: attrs.postType || 'post',
-            queryArgs: args
+            blocks: select(blockEditorStore).getBlocks(clientId)
         };
     }, [clientId]);
-
-    // Fetch posts
-    const { posts, blocks } = useSelect((select) => {
-        const { getEntityRecords } = select(coreStore);
-        const { getBlocks } = select(blockEditorStore);
-
-        return {
-            posts: getEntityRecords('postType', postType, queryArgs) || [],
-            blocks: getBlocks(clientId)
-        };
-    }, [postType, JSON.stringify(queryArgs), clientId]);
-
-    const blockContexts = useMemo(() =>
-        posts.map((post) => ({
-            postType: post.type,
-            postId: post.id,
-        })),
-    [posts]
-    );
 
     const blockProps = useBlockProps({
         className: classnames('guten-post-template')
     });
 
-    if (!posts.length) {
+    // Fallback if used outside Query Loop
+    if (!context) {
+        return <div className="guten-post-template-error">Post Template must be used inside a Query Loop</div>;
+    }
+
+    if (isResolving) {
         return (
             <div {...blockProps}>
                 <Spinner />
@@ -166,24 +113,24 @@ export default function Edit({ clientId }) {
         );
     }
 
+    if (!posts || !posts.length) {
+        return (
+            <div {...blockProps}>
+                <p>No posts found.</p>
+            </div>
+        );
+    }
+
     return (
         <ul {...blockProps}>
-            {blockContexts.map((blockContext) => (
-                <BlockContextProvider
-                    key={blockContext.postId}
-                    value={blockContext}
-                >
-                    {blockContext.postId === (activeBlockContextId || blockContexts[0]?.postId) ? (
-                        <PostTemplateInnerBlocks />
-                    ) : (
-                        <MemoizedPostTemplateBlockPreview
-                            blocks={blocks}
-                            blockContextId={blockContext.postId}
-                            setActiveBlockContextId={setActiveBlockContextId}
-                            isHidden={false}
-                        />
-                    )}
-                </BlockContextProvider>
+            {posts.map((post) => (
+                <PostItem
+                    key={post.id}
+                    post={post}
+                    blocks={blocks}
+                    isActive={post.id === (activeBlockContextId || posts[0]?.id)}
+                    onSelect={setActiveBlockContextId}
+                />
             ))}
         </ul>
     );

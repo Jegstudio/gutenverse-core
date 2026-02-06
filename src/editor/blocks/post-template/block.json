@@ -24,10 +24,7 @@
 		"postType",
 		"postId"
 	],
-	"providesContext": {
-		"postType": "postType",
-		"postId": "postId"
-	},
+
 	"attributes": {
 		"elementId": {
 			"type": "string"
