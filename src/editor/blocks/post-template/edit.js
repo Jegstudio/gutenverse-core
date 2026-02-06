@@ -24,7 +24,7 @@ function PostTemplateInnerBlocks() {
         { className: 'wp-block-post' },
         { template: TEMPLATE, __unstableDisableLayoutClassNames: true }
     );
-    return <li {...innerBlocksProps} />;
+    return <div {...innerBlocksProps} />;
 }
 
 // Memoized preview for non-active posts
@@ -45,7 +45,7 @@ function PostTemplateBlockPreview({ blocks, blockContextId, isHidden, setActiveB
     };
 
     return (
-        <li
+        <div
             {...blockPreviewProps}
             tabIndex={0}
             role="button"
@@ -122,7 +122,7 @@ export default function Edit({ clientId }) {
     }
 
     return (
-        <ul {...blockProps}>
+        <div {...blockProps}>
             {posts.map((post) => (
                 <PostItem
                     key={post.id}
@@ -132,6 +132,6 @@ export default function Edit({ clientId }) {
                     onSelect={setActiveBlockContextId}
                 />
             ))}
-        </ul>
+        </div>
     );
 }
