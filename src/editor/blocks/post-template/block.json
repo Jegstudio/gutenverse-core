@@ -8,6 +8,7 @@
 	"class_callback": "Gutenverse\\Block\\Post_Template",
 	"usesContext": [
 		"gutenverse/queryId",
+		"gutenverse/queryPosts",
 		"gutenverse/postType",
 		"gutenverse/numberPost",
 		"gutenverse/postOffset",

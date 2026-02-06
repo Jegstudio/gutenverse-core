@@ -43,35 +43,71 @@ class Post_Template extends Block_Abstract {
 	 *
 	 * @return string
 	 */
-	/**
-	 * Render content
-	 *
-	 * @return string
-	 */
 	public function render_content() {
-		// The Post Template block doesn't render much itself,
-		// it acts as a wrapper for the inner blocks (Title, Image, etc.).
-		// The context (current post) is set by the parent Query Loop block or global WP state.
+		// Get posts from context (passed by Query Loop).
+		$posts = $this->context['gutenverse/queryPosts'] ?? array();
 
-		$content = '';
-		if ( isset( $this->block->inner_blocks ) ) {
-			foreach ( $this->block->inner_blocks as $inner_block ) {
-				$content .= $inner_block->render();
-			}
+		if ( empty( $posts ) ) {
+			return '<div class="guten-no-posts-found">' . esc_html__( 'No posts found.', 'gutenverse' ) . '</div>';
 		}
 
-		return '<div class="wp-block-post guten-post-template">' . $content . '</div>';
+		$content = '';
+
+		foreach ( $posts as $post ) {
+			// Setup post data for template tags.
+			setup_postdata( $post );
+
+			// Render inner blocks for this post.
+			$content .= $this->render_post_item( $post );
+		}
+
+		wp_reset_postdata();
+
+		return $content;
 	}
 
 	/**
-	 * Render view in editor
+	 * Render a single post item with inner blocks.
+	 *
+	 * @param \WP_Post $post The post object.
+	 *
+	 * @return string
+	 */
+	protected function render_post_item( $post ) {
+		// Build context for inner blocks.
+		$block_context = array(
+			'postId'   => $post->ID,
+			'postType' => $post->post_type,
+		);
+
+		// Merge with existing context from parent.
+		if ( isset( $this->block->context ) ) {
+			$block_context = array_merge( $this->block->context, $block_context );
+		}
+
+		$inner_content = '';
+
+		// Re-render each inner block with the post context.
+		if ( isset( $this->block->inner_blocks ) ) {
+			foreach ( $this->block->inner_blocks as $inner_block ) {
+				// Create a new WP_Block instance with the updated context.
+				$new_block      = new \WP_Block( $inner_block->parsed_block, $block_context );
+				$inner_content .= $new_block->render();
+			}
+		}
+
+		return $inner_content;
+	}
+
+	/**
+	 * Render view in editor.
 	 */
 	public function render_gutenberg() {
 		return $this->render_content();
 	}
 
 	/**
-	 * Render view in frontend
+	 * Render view in frontend.
 	 */
 	public function render_frontend() {
 		return $this->render_content();
