@@ -143,6 +143,18 @@ class Api {
 				},
 			)
 		);
+
+		register_rest_route(
+			'gutenverse/v1',
+			'acf-field-value',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_acf_field_value' ),
+				'permission_callback' => function () {
+					return current_user_can( 'edit_posts' );
+				},
+			)
+		);
 	}
 
 	/**
@@ -810,5 +822,83 @@ class Api {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Get ACF field value for editor preview.
+	 *
+	 * @param object $request Request Object.
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function get_acf_field_value( $request ) {
+		$field_key = $request->get_param( 'fieldKey' );
+		$post_id   = $request->get_param( 'postId' );
+
+		if ( empty( $field_key ) ) {
+			return new \WP_REST_Response(
+				array(
+					'value' => '',
+					'error' => 'Field key is required.',
+				),
+				400
+			);
+		}
+
+		if ( ! function_exists( 'get_field' ) ) {
+			return new \WP_REST_Response(
+				array(
+					'value' => '',
+					'error' => 'ACF plugin is not active.',
+				),
+				400
+			);
+		}
+
+		// Use current post if not specified.
+		if ( empty( $post_id ) ) {
+			$post_id = get_the_ID();
+		}
+
+		$value = get_field( $field_key, $post_id );
+
+		// Handle different field types.
+		$formatted_value = $value;
+		$field_type      = 'text';
+
+		if ( is_array( $value ) ) {
+			// Could be image object, link array, repeater, etc.
+			if ( isset( $value['url'] ) && isset( $value['title'] ) ) {
+				// Link field.
+				$field_type      = 'link';
+				$formatted_value = $value;
+			} elseif ( isset( $value['url'] ) && isset( $value['ID'] ) ) {
+				// Image object.
+				$field_type      = 'image';
+				$formatted_value = array(
+					'url' => $value['url'],
+					'alt' => isset( $value['alt'] ) ? $value['alt'] : '',
+				);
+			} else {
+				// Generic array, convert to string.
+				$formatted_value = wp_json_encode( $value );
+			}
+		} elseif ( is_numeric( $value ) && wp_get_attachment_url( $value ) ) {
+			// Could be image ID.
+			$field_type      = 'image';
+			$formatted_value = array(
+				'url' => wp_get_attachment_url( $value ),
+				'alt' => get_post_meta( $value, '_wp_attachment_image_alt', true ),
+			);
+		}
+
+		return new \WP_REST_Response(
+			array(
+				'value' => $formatted_value,
+				'type'  => $field_type,
+				'raw'   => $value,
+			),
+			200
+		);
 	}
 }

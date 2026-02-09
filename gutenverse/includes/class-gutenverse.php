@@ -151,6 +151,13 @@ class Gutenverse {
 	public $form_fallback;
 
 	/**
+	 * Hold ACF Instance.
+	 *
+	 * @var Acf
+	 */
+	public $acf;
+
+	/**
 	 * Singleton page for Gutenverse Class
 	 *
 	 * @return Gutenverse
@@ -449,6 +456,7 @@ class Gutenverse {
 		$this->upgrader        = new Upgrader();
 		$this->meta_option     = new Meta_Option();
 		$this->upgrade_wizard  = new Upgrade_Wizard();
+		$this->acf             = new Acf();
 
 		$active_plugins    = get_option( 'active_plugins' );
 		$multisite_plugins = get_site_option( 'active_sitewide_plugins' );

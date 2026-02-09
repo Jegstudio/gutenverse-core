@@ -99,7 +99,13 @@ class Blocks {
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/nav-menu/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/archive-title/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/taxonomy-list/block.json' );
+
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/breadcrumb/block.json' );
+
+		// ACF Blocks.
+		$this->register_dynamic_block( GUTENVERSE_DIR . './block/acf-text/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_DIR . './block/acf-image/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_DIR . './block/acf-link/block.json' );
 
 		// Social Share Block.
 		$this->register_social_share_block( GUTENVERSE_DIR . './block/social-share-item/block.json' );
@@ -111,6 +117,7 @@ class Blocks {
 	 */
 	private function register_dynamic_block( $json ) {
 		if ( ! file_exists( $json ) ) {
+			gutenverse_jlog( $json );
 			return;
 		}
 
