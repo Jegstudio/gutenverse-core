@@ -9,6 +9,7 @@
 	"usesContext": [
 		"gutenverse/queryId",
 		"gutenverse/queryPosts",
+		"gutenverse/isResolving",
 		"gutenverse/postType",
 		"gutenverse/numberPost",
 		"gutenverse/postOffset",

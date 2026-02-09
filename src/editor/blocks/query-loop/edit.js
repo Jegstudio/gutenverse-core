@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { useBlockProps, useInnerBlocksProps, BlockContextProvider } from '@wordpress/block-editor';
 import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -10,11 +10,8 @@ import { useRef, useMemo } from '@wordpress/element';
 import { classnames } from 'gutenverse-core/components';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { createContext } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-
-export const QueryLoopContext = createContext();
 
 const QueryLoopBlock = compose(
     withPartialRender,
@@ -145,13 +142,13 @@ const QueryLoopBlock = compose(
     });
 
     return (
-        <QueryLoopContext.Provider value={{ posts, isResolving }}>
+        <BlockContextProvider value={{ 'gutenverse/queryPosts': posts, 'gutenverse/isResolving': isResolving }}>
             <CopyElementToolbar {...props} />
             <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
             <div {...blockProps}>
                 <div {...innerBlocksProps} />
             </div>
-        </QueryLoopContext.Provider>
+        </BlockContextProvider>
     );
 });
 

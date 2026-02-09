@@ -9,8 +9,6 @@ import {
 } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { Spinner } from '@wordpress/components';
-import { useContext } from '@wordpress/element';
-import { QueryLoopContext } from '../query-loop/edit';
 
 const TEMPLATE = [
     ['gutenverse/post-featured-image'],
@@ -82,12 +80,11 @@ const PostItem = memo(({ post, blocks, isActive, onSelect }) => {
     );
 });
 
-export default function Edit({ clientId }) {
+export default function Edit({ clientId, context }) {
     const [activeBlockContextId, setActiveBlockContextId] = useState();
 
     // Consume posts from Query Loop context
-    const context = useContext(QueryLoopContext);
-    const { posts, isResolving } = context || {};
+    const { 'gutenverse/queryPosts': posts, 'gutenverse/isResolving': isResolving } = context;
 
     // We also need inner blocks to render the preview
     const { blocks } = useSelect((select) => {
@@ -101,7 +98,7 @@ export default function Edit({ clientId }) {
     });
 
     // Fallback if used outside Query Loop
-    if (!context) {
+    if (posts === undefined && isResolving === undefined) {
         return <div className="guten-post-template-error">Post Template must be used inside a Query Loop</div>;
     }
 
