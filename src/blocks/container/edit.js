@@ -462,6 +462,14 @@ const ContainerBlock = compose(
         }
     }, [mode]);
 
+    const innerBlockCount = useSelect((select) => select('core/block-editor').getBlockCount(clientId), [clientId]);
+
+    useEffect(() => {
+        if (innerBlockCount > 0 && mode === 'initial') {
+            setAttributes({ mode: 'content' });
+        }
+    }, [innerBlockCount, mode]);
+
     const elementRef = useRef();
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
