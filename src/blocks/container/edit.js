@@ -458,7 +458,8 @@ const ContainerBlock = compose(
     useEffect(() => {
         if (undefined === mode) {
             const isParentContainer = checkIsParent(clientId, 'gutenverse/container');
-            setAttributes({ mode: isParentContainer ? 'content' : 'initial' });
+            const isParentPostTemplate = checkIsParent(clientId, 'gutenverse/post-template');
+            setAttributes({ mode: (isParentContainer || isParentPostTemplate) ? 'content' : 'initial' });
         }
     }, [mode]);
 
