@@ -31,10 +31,6 @@ const IconSVGControl = (props) => {
         typeKey,
         svgKey,
     } = props;
-    console.log('type key', typeKey);
-    console.log('svg key', svgKey);
-
-    console.log('inside repeater?',isInsideRepeater);
 
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const instanceId = useInstanceId(IconSVGControl, 'inspector-icon-control');
@@ -46,9 +42,6 @@ const IconSVGControl = (props) => {
 
     const iconType = (attributes && attributes[typeAttribute]) ? attributes[typeAttribute] : (values && values[typeAttribute] ? values[typeAttribute] : (isSubAttribute && parentAttribute && parentAttribute[typeAttribute]) ? parentAttribute[typeAttribute] : 'icon');
     const svgValue = (attributes && attributes[svgAttribute]) ? attributes[svgAttribute] : (values && values[svgAttribute] ? values[svgAttribute] : (isSubAttribute && parentAttribute && parentAttribute[svgAttribute]) ? parentAttribute[svgAttribute] : {});
-    console.log('iconType', iconType);
-    console.log('svgValue', svgValue);
-    console.log('value', value);
 
     const updateAttributes = (newAttributes) => {
         if (isInsideRepeater) {
