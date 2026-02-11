@@ -41,6 +41,8 @@ class Deprecated {
 	 * @param WP_Block_Template|null $block_template The found block template, or null if there is none.
 	 * @param string                 $id             Template unique identifier (example: theme_slug//template_slug).
 	 * @param string                 $template_type  Template type: `'wp_template'` or '`wp_template_part'`.
+	 * @param int                    $count          Recursive count.
+	 * @param string                 $old_slug       Old slug.
 	 */
 	public function get_block_file_template( $block_template, $id, $template_type, $count = 0, $old_slug = '' ) {
 		/**
@@ -132,7 +134,7 @@ class Deprecated {
 		}
 
 		$template_query = new \WP_Query( $wp_query_args );
-		$query_result   = ! empty( $query_result ) ? $query_result : array();
+		$query_result   = array();
 		foreach ( $template_query->posts as $post ) {
 			$template = _build_block_template_result_from_post( $post );
 
@@ -219,83 +221,42 @@ class Deprecated {
 			return null;
 		}
 
-		$themes = array(
+		$themes         = array(
 			get_stylesheet() => get_stylesheet_directory(),
 			get_template()   => get_template_directory(),
 		);
-
-		if ( class_exists( 'WooCommerce' ) && defined( 'WC_PLUGIN_FILE' ) ) {
-			$themes['woocommerce'] = untrailingslashit( plugin_dir_path( \WC_PLUGIN_FILE ) );
-		}
-
 		$template_files = array();
 
 		foreach ( $themes as $theme_slug => $theme_dir ) {
-			if ( 'woocommerce' === $theme_slug ) {
-				$template_base_paths = array(
-					'wp_template'      => 'templates',
-					'wp_template_part' => 'parts',
-				);
-			} else {
-				$template_base_paths = get_block_theme_folders( $theme_slug );
-			}
+			$template_base_paths  = get_block_theme_folders( $theme_slug );
 			$theme_template_files = _get_block_templates_paths( $theme_dir . '/' . $template_base_paths[ $template_type ] );
+			foreach ( $theme_template_files as $template_file ) {
+				$template_base_path = $template_base_paths[ $template_type ];
+				$template_slug      = substr(
+					$template_file,
+					// Starting position of slug.
+					strpos( $template_file, $template_base_path . DIRECTORY_SEPARATOR ) + 1 + strlen( $template_base_path ),
+					// Subtract ending '.html'.
+					-5
+				);
 
-			if ( 'woocommerce' === $theme_slug ) {
-				foreach ( $theme_template_files as $template_file ) {
-					$template_base_path = $template_base_paths[ $template_type ];
-					$template_slug      = substr(
-						$template_file,
-						// Starting position of slug.
-						strpos( $template_file, $template_base_path . DIRECTORY_SEPARATOR ) + 1 + strlen( $template_base_path ),
-						// Subtract ending '.html'.
-						-5
-					);
-
-					$new_template_item = array(
-						'slug'  => $template_slug,
-						'path'  => $template_file,
-						'theme' => $theme_slug,
-						'type'  => $template_type,
-					);
-
-					if ( 'wp_template_part' === $template_type ) {
-						$template_files[] = _add_block_template_part_area_info( $new_template_item );
-					}
-
-					if ( 'wp_template' === $template_type ) {
-						$template_files[] = _add_block_template_info( $new_template_item );
-					}
+				if ( ! gutenverse_child_template( $template_base_paths[ $template_type ], $template_slug ) ) {
+					$template_file = apply_filters( 'gutenverse_template_path', $template_file, $theme_slug, $template_slug );
 				}
-			} else {
-				foreach ( $theme_template_files as $template_file ) {
-					$template_base_path = $template_base_paths[ $template_type ];
-					$template_slug      = substr(
-						$template_file,
-						// Starting position of slug.
-						strpos( $template_file, $template_base_path . DIRECTORY_SEPARATOR ) + 1 + strlen( $template_base_path ),
-						// Subtract ending '.html'.
-						-5
-					);
 
-					if ( ! gutenverse_child_template( $template_base_paths[ $template_type ], $template_slug ) ) {
-						$template_file = apply_filters( 'gutenverse_template_path', $template_file, $theme_slug, $template_slug );
-					}
+				$new_template_item = array(
+					'slug'  => $template_slug,
+					'path'  => $template_file,
+					'theme' => $theme_slug,
+					'type'  => $template_type,
+				);
 
-					$new_template_item = array(
-						'slug'  => $template_slug,
-						'path'  => $template_file,
-						'theme' => $theme_slug,
-						'type'  => $template_type,
-					);
+				if ( 'wp_template_part' === $template_type ) {
+					$template_files[] = _add_block_template_part_area_info( $new_template_item );
+				}
 
-					if ( 'wp_template_part' === $template_type ) {
-						$template_files[] = _add_block_template_part_area_info( $new_template_item );
-					}
-
-					if ( 'wp_template' === $template_type ) {
-						$template_files[] = _add_block_template_info( $new_template_item );
-					}
+				if ( 'wp_template' === $template_type ) {
+					$template_files[] = _add_block_template_info( $new_template_item );
 				}
 			}
 		}
