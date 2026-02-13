@@ -14,7 +14,7 @@ const IconAlignSelfStart = () => {
 
 const IconAlignSelfCenter = () => {
     return <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M9.375 11.25V15H8.25V11.25H3V6.75H8.25V3H9.375V6.75H14.625V11.25H9.375Z" fill="currentColor" />
+        <path d="M11.0625 8.4375L14.8125 8.4375L14.8125 9.5625L11.0625 9.5625L11.0625 14.8125L6.5625 14.8125L6.5625 9.5625L2.8125 9.5625L2.8125 8.4375L6.5625 8.4375L6.5625 3.1875L11.0625 3.1875L11.0625 8.4375Z" fill="#011627" />
     </svg>;
 };
 
