@@ -27,6 +27,9 @@ const IconSVGControl = (props) => {
         values,
         isSubAttribute = false,
         parentAttribute,
+        isInsideRepeater = false,
+        typeKey,
+        svgKey,
     } = props;
 
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
@@ -34,13 +37,17 @@ const IconSVGControl = (props) => {
     const [isSvgLoading, setSvgLoading] = useState(false);
     const abortControllerRef = useRef(null);
 
-    const typeAttribute = id ? `${id}Type` : '';
-    const svgAttribute = id ? `${id}SVG` : '';
+    const typeAttribute = typeKey || (id ? `${id}Type` : '');
+    const svgAttribute = svgKey || (id ? `${id}SVG` : '');
 
     const iconType = (attributes && attributes[typeAttribute]) ? attributes[typeAttribute] : (values && values[typeAttribute] ? values[typeAttribute] : (isSubAttribute && parentAttribute && parentAttribute[typeAttribute]) ? parentAttribute[typeAttribute] : 'icon');
     const svgValue = (attributes && attributes[svgAttribute]) ? attributes[svgAttribute] : (values && values[svgAttribute] ? values[svgAttribute] : (isSubAttribute && parentAttribute && parentAttribute[svgAttribute]) ? parentAttribute[svgAttribute] : {});
 
     const updateAttributes = (newAttributes) => {
+        if (isInsideRepeater) {
+            values.onChangeItemValue(newAttributes);
+            return;
+        }
         if (setAttributes) {
             if (isSubAttribute && parentAttribute?.id) {
                 setAttributes({
@@ -96,15 +103,20 @@ const IconSVGControl = (props) => {
 
     const setType = async (type, retries = 5, delay = 50, force = false, justAttr = true) => {
         if (typeAttribute) {
-            updateAttributes({ [typeAttribute]: type });
+            const shouldConvertSvg = 'svg' === type && (isEmpty(svgValue) || force) && !isEmpty(value) && !justAttr;
 
-            if ('svg' === type && (isEmpty(svgValue) || force) && !isEmpty(value) && !justAttr) {
+            if (shouldConvertSvg) {
                 if (abortControllerRef.current) {
                     abortControllerRef.current.abort();
                 }
+                setSvgLoading(true);
+            }
+
+            updateAttributes({ [typeAttribute]: type });
+
+            if (shouldConvertSvg) {
                 const controller = new AbortController();
                 abortControllerRef.current = controller;
-                setSvgLoading(true);
 
                 axios.get(libraryApi + '/get-svg-font', {
                     params: {
@@ -115,7 +127,7 @@ const IconSVGControl = (props) => {
                     const { data } = response;
                     if (false !== data.data) {
                         const encodedSVG = btoa(data.data);
-                        updateAttributes({ [svgAttribute]: encodedSVG });
+                        updateAttributes({ [svgAttribute]: encodedSVG, [typeAttribute]: 'svg' });
                     } else {
                         console.error('cannot find the icon', value);
                     }
