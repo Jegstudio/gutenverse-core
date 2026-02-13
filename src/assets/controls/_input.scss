@@ -1108,7 +1108,7 @@
           position: absolute;
           top: 4px;
           bottom: 4px;
-          left: 4px; 
+          left: 4px;
           background-color: #fff;
           border-radius: 3px;
           z-index: 1;
@@ -1310,6 +1310,7 @@
 
         .gutenverse-color-variable-body {
           padding: 10px;
+          position: relative;
 
           h4 {
             margin-bottom: 4px;
@@ -1317,6 +1318,55 @@
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0px;
+          }
+
+          .single-variable-item-wrapper.add-color-popup {
+            border: 1px solid #cecece;
+            background: white;
+            position: absolute;
+            width: 100%;
+            right: 0;
+            padding: 10px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            .form-add-global-color {
+              display: flex;
+              flex-direction: column;
+              gap: 3px;
+
+              .chrome-picker{
+                width: 100% !important;
+                border: 1px solid #cecece !important;
+                box-shadow: none !important;
+                border-radius: 2px !important;
+              }
+            }
+            .add-color-actions{
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              gap: 5px;
+            
+              .icon-close,
+              .icon-save {
+                width: 100%;
+                padding: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #cecece;
+                cursor: pointer;
+
+                svg {
+                  width: 10px;
+                  height: 10px;
+                }
+
+              }
+            }
           }
         }
 
@@ -1346,6 +1396,24 @@
                 width: 22px;
                 height: 22px;
                 border-radius: 2px;
+              }
+            }
+
+            &.add-global-button {
+              .render-color {
+                transition: background .1s linear;
+
+                &:hover {
+                  background: rgb(246, 246, 246);
+                }
+
+                .add-global {
+                  font-size: 16px;
+                  line-height: 1;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
               }
             }
 

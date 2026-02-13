@@ -13,6 +13,7 @@ import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
 import { useSettingFallback } from 'gutenverse-core/helper';
+import { IconCheckSVG, IconCloseSVG } from 'gutenverse-core/icons';
 
 const VariableColorItem = (props) => {
     const { color, active, setActive, name } = props;
@@ -52,8 +53,22 @@ const ColorControl = (props) => {
     const customs = useSettingFallback('color.palette.custom') ? useSettingFallback('color.palette.custom') : [];
     const [customPalette, setCustomPalette] = useState(customs);
     const [themePalette, setThemePalette] = useState(themeColors);
+    const [openAddColor, setOpenAddColor] = useState(false);
+
+    const [addCustomColor, setAddCustomColor] = useState({
+        name: '',
+        color: ''
+    });
 
     const { isUserConfigReady, userConfig } = useGlobalStylesConfig();
+
+    const handleAddCustomColor = () => {
+        setAddCustomColor({
+            name: '',
+            color: ''
+        });
+        setOpenAddColor(true);
+    };
 
     const defaultColor = !isEmpty(defaultPalette) && defaultPalette.map(item => {
         return {
@@ -224,28 +239,63 @@ const ColorControl = (props) => {
                 </Tooltip>
             </div>
             <div className={'gutenverse-color-variable-body'}>
-                {!isEmpty(customColor) && <>
-                    <h4>{__('Custom Colors', '--gctd--')}</h4>
-                    <div className={classnames('active', 'gutenverse-color-variable-content')}>
-                        {customColor.map(color => {
-                            const { id } = color;
-                            const props = {
-                                ...color,
-                                setActive: () => {
-                                    const value = {
-                                        type: 'variable',
-                                        id: id
-                                    };
-                                    setLocalColor(value);
-                                    onValueChange(value);
-                                },
-                                active: localColor.id === id
-                            };
+                <h4>{__('Custom Colors', '--gctd--')}</h4>
+                <div className={classnames('active', 'gutenverse-color-variable-content')}>
+                    {!isEmpty(customColor) && customColor.map(color => {
+                        const { id } = color;
+                        const props = {
+                            ...color,
+                            setActive: () => {
+                                const value = {
+                                    type: 'variable',
+                                    id: id
+                                };
+                                setLocalColor(value);
+                                onValueChange(value);
+                            },
+                            active: localColor.id === id
+                        };
 
-                            return <VariableColorItem key={id} {...props} />;
-                        })}
+                        return <VariableColorItem key={id} {...props} />;
+                    })}
+                    <div className="variable-color-item add-global-button" >
+                        <div className="render-color" onClick={() => setOpenAddColor(true)}>
+                            <div className="add-global">+</div>
+                        </div>
                     </div>
-                </>}
+                </div>
+                {
+                    openAddColor && <div className="single-variable-item-wrapper add-color-popup">
+                        <div className="form-add-global-color">
+                            <input type="text" value={addCustomColor.name} placeholder={__('Global Label...', '--gctd--')} onChange={(value) => setAddCustomColor({
+                                ...value,
+                                name: value
+                            })} className="color-name" />
+                            <ChromePicker
+                                color={addCustomColor.color}
+                                onChange={color => {
+                                    setAddCustomColor(prev => {
+                                        return {
+                                            ...prev,
+                                            colorPreview: color.rgb
+                                        }
+                                    });
+                                }}
+                                onChangeComplete={(color) => {
+                                    setAddCustomColor({
+                                        ...value,
+                                        color: color.rgb
+                                    });
+                                }}
+                            />
+                        </div>
+                        <div className="add-color-actions">
+                            <div className="icon-close">{__('Cancel', '--gctd--')}</div>
+                            <div className="icon-save">{__('Save', '--gctd--')}</div>
+                        </div>
+                    </div>
+                }
+
                 {!isEmpty(themeColor) && <>
                     <h4>{__('Theme Colors', '--gctd--')}</h4>
                     <div className={classnames('active', 'gutenverse-color-variable-content')}>
