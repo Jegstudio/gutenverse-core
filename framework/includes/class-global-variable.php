@@ -62,12 +62,12 @@ class Global_Variable {
 	 */
 	public function set_global_variable( $options ) {
 		// clear old variable option.
-		update_option( 'gutenverse-global-variable', array() );
+		update_option( 'gutenverse-global-variable', array(), true );
 
 		// save values to new variable options.
 		if ( isset( $options['googlefont'] ) ) {
 			if ( false !== get_option( $this->google_option ) ) {
-				update_option( $this->google_option, $options['googlefont'] );
+				update_option( $this->google_option, $options['googlefont'], true );
 			} else {
 				add_option( $this->google_option, $options['googlefont'] );
 			}
@@ -75,7 +75,7 @@ class Global_Variable {
 
 		if ( isset( $options['fonts'] ) ) {
 			if ( false !== get_option( $this->font_option ) ) {
-				update_option( $this->font_option, $options['fonts'] );
+				update_option( $this->font_option, $options['fonts'], true );
 			} else {
 				add_option( $this->font_option, $options['fonts'] );
 			}
@@ -83,7 +83,7 @@ class Global_Variable {
 
 		if ( isset( $options['colors'] ) ) {
 			if ( false !== get_option( $this->color_option ) ) {
-				update_option( $this->color_option, $options['colors'] );
+				update_option( $this->color_option, $options['colors'], true );
 			} else {
 				add_option( $this->color_option, $options['colors'] );
 			}

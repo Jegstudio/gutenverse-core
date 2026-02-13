@@ -58,7 +58,16 @@ class Dashboard {
 		global $pagenow;
 
 		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) ) {
-			$old_page = wp_sanitize_redirect( wp_unslash( $_GET['page'] ) );
+			$page = sanitize_text_field( wp_unslash( $_GET['page'] ) );
+
+			if ( 'gutenverse' === $page && isset( $_GET['path'] ) && 'theme-list' === sanitize_text_field( wp_unslash( $_GET['path'] ) ) ) {
+				if ( ! apply_filters( 'gutenverse_show_theme_list_dashboard', false ) ) {
+					wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) );
+					exit;
+				}
+			}
+
+			$old_page = wp_sanitize_redirect( $page );
 
 			switch ( $old_page ) {
 				case 'gutenverse-settings':
@@ -196,6 +205,7 @@ class Dashboard {
 		$config['support']          = 'https://wordpress.org/support/plugin/gutenverse/';
 		$config['docs']             = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
 		$config['community']        = 'https://www.facebook.com/groups/gutenversecommunity/';
+		$config['showThemeList']    = apply_filters( 'gutenverse_show_theme_list_dashboard', false );
 		$config['themelist']        = admin_url( 'admin.php?page=gutenverse&path=theme-list' );
 		$config['homeSlug']         = 'gutenverse';
 		$config['plugins']          = Editor_Assets::list_plugin();
@@ -552,6 +562,14 @@ class Dashboard {
 					'plugin_version'    => '3.4.4',
 					'framework_version' => '2.4.4',
 				),
+				array(
+					'plugin_version'    => '3.4.5',
+					'framework_version' => '2.4.5',
+				),
+				array(
+					'plugin_version'    => '3.4.6',
+					'framework_version' => '2.4.6',
+				),
 			),
 			'gutenverse-form' => array(
 				array(
@@ -706,6 +724,10 @@ class Dashboard {
 					'plugin_version'    => '2.4.4',
 					'framework_version' => '2.4.4',
 				),
+				array(
+					'plugin_version'    => '2.4.5',
+					'framework_version' => '2.4.5',
+				),
 			),
 			'gutenverse-news' => array(
 				array(
@@ -842,6 +864,10 @@ class Dashboard {
 					'plugin_version'    => '2.4.4',
 					'framework_version' => '2.4.4',
 				),
+				array(
+					'plugin_version'    => '2.4.5',
+					'framework_version' => '2.4.5',
+				),
 			),
 		);
 
@@ -922,15 +948,17 @@ class Dashboard {
 			2
 		);
 
-		add_submenu_page(
-			self::TYPE,
-			esc_html__( 'Theme List', '--gctd--' ),
-			esc_html__( 'Theme List', '--gctd--' ),
-			'manage_options',
-			$path . 'theme-list',
-			null,
-			3
-		);
+		if ( apply_filters( 'gutenverse_show_theme_list_dashboard', false ) ) {
+			add_submenu_page(
+				self::TYPE,
+				esc_html__( 'Theme List', '--gctd--' ),
+				esc_html__( 'Theme List', '--gctd--' ),
+				'manage_options',
+				$path . 'theme-list',
+				null,
+				3
+			);
+		}
 
 		add_submenu_page(
 			self::TYPE,

@@ -225,10 +225,32 @@ const RepeaterComponent = (props) => {
         }, repeaterIndex) : null;
     };
 
+    const onChangeItemValue = (keyOrUpdates, val) => {
+        const updates = typeof keyOrUpdates === 'object'
+            ? keyOrUpdates
+            : { [keyOrUpdates]: val };
+
+        const newVal = {
+            ...value,
+            ...updates,
+        };
+
+        onValueChange(newVal);
+
+        onChange ? onChange({
+            ...newVal
+        }, repeaterIndex) : null;
+    };
+
+    const valuesWithHelper = {
+        ...value,
+        onChangeItemValue,
+    };
+
     return <Component
         {...itemProps}
         value={value[id] === undefined ? null : value[id]}
-        values={value}
+        values={valuesWithHelper}
         onValueChange={onRepeaterComponentChange}
         onLocalChange={onRepeaterComponentLocalChange}
     />;

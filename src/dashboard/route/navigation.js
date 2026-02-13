@@ -262,8 +262,8 @@ const Navigation = ({ location }) => {
         upgradeProUrl,
         activeTheme,
         url,
-        adminUrl,
-        companionActive
+        companionActive,
+        showThemeList = false,
     } = window['GutenverseDashboard'];
 
     const [injectLocation, setInjectLocation] = useState(null);
@@ -301,7 +301,7 @@ const Navigation = ({ location }) => {
             //     path: 'themes',
             //     priority: 3
             // },
-            {
+            showThemeList && {
                 name: __('Theme List', '--gctd--'),
                 slug: homeSlug,
                 path: 'theme-list',
@@ -352,11 +352,6 @@ const Navigation = ({ location }) => {
         let injectLocation = document.querySelector('#toplevel_page_gutenverse .wp-submenu');
         setInjectLocation(injectLocation);
     }, 1);
-
-    let element = null;
-    useEffect(()=>{
-        element = iconRef.current;
-    }, [iconRef.current]);
 
     const navigationButton = <>
         <li className="wp-submenu-head" aria-hidden="true">Gutenverse</li>
