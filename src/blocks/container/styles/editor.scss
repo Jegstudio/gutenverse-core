@@ -1,4 +1,9 @@
 /** Editor Style **/
+.block-editor-block-list__layout.is-root-container .guten-flex-container-editor {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
 .guten-flex-container-editor {
     box-sizing: border-box;
 
