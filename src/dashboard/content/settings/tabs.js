@@ -60,7 +60,7 @@ const setitngTitle = {
     view_counter: __('View Counter Settings', '--gctd--'),
     post_review: __('Post Review Settings', '--gctd--'),
     paywall: __('Paywall Settings', '--gctd--'),
-    // like_dislike_button: __('Like & Dislike Settings', '--gctd--'),
+    like_dislike_button: __('Like & Dislike Settings', '--gctd--'),
     performance: __('Performance Settings', '--gctd--'),
 };
 
