@@ -310,7 +310,7 @@ const ColorControl = (props) => {
                         return <VariableColorItem key={id} {...props} />;
                     })}
                     <div className="variable-color-item add-global-button" >
-                        <div className="render-color" onClick={() => setOpenAddColor(true)}>
+                        <div className="render-color" onClick={() => setOpenAddColor(prev => !prev)}>
                             <div className="add-global">+</div>
                         </div>
                     </div>
