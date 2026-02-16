@@ -12,7 +12,7 @@ import { renderColor, signal, hexToRgb, getDeviceType } from 'gutenverse-core/ed
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
-import { rgbToHex, useSettingFallback } from 'gutenverse-core/helper';
+import { getLastSequence, rgbToHex, useSettingFallback } from 'gutenverse-core/helper';
 import cryptoRandomString from 'crypto-random-string';
 import set from 'lodash/set';
 import cloneDeep from 'lodash/cloneDeep';
@@ -59,16 +59,18 @@ const ColorControl = (props) => {
     const [openAddColor, setOpenAddColor] = useState(false);
 
     const [addCustomColor, setAddCustomColor] = useState({
-        name: '',
-        color: ''
+        name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
+        color: '',
+        slug: ''
     });
 
     const { isUserConfigReady, userConfig, setUserConfig } = useGlobalStylesConfig();
 
     const handleAddCustomColor = () => {
         setAddCustomColor({
-            name: '',
-            color: ''
+            name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
+            color: '',
+            slug: ''
         });
         setOpenAddColor(true);
     };
@@ -237,7 +239,7 @@ const ColorControl = (props) => {
     };
     const handleSaveColorGlobal = () => {
         const key = toKebabCase(
-            cryptoRandomString({ length: 6, type: 'alphanumeric' })
+            addCustomColor.slug ? addCustomColor.slug : cryptoRandomString({ length: 6, type: 'alphanumeric' })
         );
 
         const newColor = {
@@ -310,7 +312,7 @@ const ColorControl = (props) => {
                         return <VariableColorItem key={id} {...props} />;
                     })}
                     <div className="variable-color-item add-global-button" >
-                        <div className="render-color" onClick={() => setOpenAddColor(prev => !prev)}>
+                        <div className="render-color" onClick={handleAddCustomColor}>
                             <div className="add-global">+</div>
                         </div>
                     </div>
@@ -352,13 +354,29 @@ const ColorControl = (props) => {
                                     });
                                 }}
                                 onChangeComplete={(color) => {
-                                    setAddCustomColor( prev => {
+                                    setAddCustomColor(prev => {
                                         return {
                                             ...prev,
                                             color: color.rgb
                                         };
                                     });
                                 }}
+                            />
+                            <input
+                                type="text"
+                                value={addCustomColor.slug}
+                                placeholder={__('Global Slug...', '--gctd--')}
+                                onChange={(event) => {
+                                    const newValue = event.target.value;
+
+                                    setAddCustomColor(prev => {
+                                        return {
+                                            ...prev,
+                                            slug: newValue
+                                        };
+                                    });
+                                }}
+                                className="color-name"
                             />
                         </div>
                         <div className="add-color-actions">
