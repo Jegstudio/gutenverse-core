@@ -1337,9 +1337,45 @@
               flex-direction: column;
               gap: 3px;
 
+              .add-color-input-wrapper{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .color-name{
+                  max-height: 28px;
+                }
+
+                .variable-color-item {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 8px;
+                    cursor: pointer;
+                    gap: 10px;
+                    position: relative;
+
+                    >span {
+                      position: absolute;
+                    }
+
+                    .render-color {
+                      padding: 2px;
+                      border: 1px solid #ddd;
+                      border-radius: 3px;
+
+                      >div {
+                        width: 22px;
+                        height: 22px;
+                        border-radius: 2px;
+                      }
+                    }
+                  }
+              }
+
               .chrome-picker{
                 width: 100% !important;
-                border: 1px solid #cecece !important;
+                border: none !important;
                 box-shadow: none !important;
                 border-radius: 2px !important;
               }

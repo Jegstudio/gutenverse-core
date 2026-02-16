@@ -12,8 +12,11 @@ import { renderColor, signal, hexToRgb, getDeviceType } from 'gutenverse-core/ed
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
-import { useSettingFallback } from 'gutenverse-core/helper';
-import { IconCheckSVG, IconCloseSVG } from 'gutenverse-core/icons';
+import { rgbToHex, useSettingFallback } from 'gutenverse-core/helper';
+import cryptoRandomString from 'crypto-random-string';
+import set from 'lodash/set';
+import cloneDeep from 'lodash/cloneDeep';
+import { get } from 'lodash';
 
 const VariableColorItem = (props) => {
     const { color, active, setActive, name } = props;
@@ -60,7 +63,7 @@ const ColorControl = (props) => {
         color: ''
     });
 
-    const { isUserConfigReady, userConfig } = useGlobalStylesConfig();
+    const { isUserConfigReady, userConfig, setUserConfig } = useGlobalStylesConfig();
 
     const handleAddCustomColor = () => {
         setAddCustomColor({
@@ -222,6 +225,54 @@ const ColorControl = (props) => {
         </div>
     </div>;
 
+    const isKebabCase = (str) => {
+        return /^[a-z0-9]+(-[a-z0-9]+)*$/.test(str);
+    };
+    const toKebabCase = (str) => {
+        if (isKebabCase(str)) return str;
+        return str
+            .match(/[A-Z]?[a-z]+|[A-Z]+(?![a-z])|\d+/g) // split into meaningful parts
+            .map(part => part.toLowerCase())
+            .join('-');
+    };
+    const handleSaveColorGlobal = () => {
+        const key = toKebabCase(
+            cryptoRandomString({ length: 6, type: 'alphanumeric' })
+        );
+
+        const newColor = {
+            key,
+            id: key,
+            slug: key,
+            type: 'custom',
+            name: addCustomColor.name,
+            color: addCustomColor.color
+        };
+
+        setUserConfig((currentConfig) => {
+            const newUserConfig = cloneDeep(currentConfig);
+            const pathToSet = 'settings.color.palette.custom';
+
+            // Get current palette directly from userConfig
+            const existingPalette = get(newUserConfig, pathToSet, []) || [];
+
+            const updatedPalette = [
+                ...existingPalette,
+                {
+                    ...newColor,
+                    color: rgbToHex(newColor.color)
+                }
+            ];
+
+            set(newUserConfig, pathToSet, updatedPalette);
+
+            return newUserConfig;
+        });
+
+        // Update local state AFTER (no stale usage)
+        setCustomPalette(prev => [...prev, newColor]);
+    };
+
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-color'}>
         <ControlHeadingSimple
             label={label}
@@ -267,31 +318,52 @@ const ColorControl = (props) => {
                 {
                     openAddColor && <div className="single-variable-item-wrapper add-color-popup">
                         <div className="form-add-global-color">
-                            <input type="text" value={addCustomColor.name} placeholder={__('Global Label...', '--gctd--')} onChange={(value) => setAddCustomColor({
-                                ...value,
-                                name: value
-                            })} className="color-name" />
+                            <div className="add-color-input-wrapper">
+                                <div className="variable-color-item">
+                                    <div className={'render-color'}>
+                                        <div style={{ backgroundColor: renderColor(addCustomColor?.color) }} />
+                                    </div>
+                                </div>
+                                <input
+                                    type="text"
+                                    value={addCustomColor.name}
+                                    placeholder={__('Global Label...', '--gctd--')}
+                                    onChange={(event) => {
+                                        const newValue = event.target.value;
+
+                                        setAddCustomColor(prev => {
+                                            return {
+                                                ...prev,
+                                                name: newValue
+                                            };
+                                        });
+                                    }}
+                                    className="color-name"
+                                />
+                            </div>
                             <ChromePicker
                                 color={addCustomColor.color}
                                 onChange={color => {
                                     setAddCustomColor(prev => {
                                         return {
                                             ...prev,
-                                            colorPreview: color.rgb
-                                        }
+                                            color: color.rgb
+                                        };
                                     });
                                 }}
                                 onChangeComplete={(color) => {
-                                    setAddCustomColor({
-                                        ...value,
-                                        color: color.rgb
+                                    setAddCustomColor( prev => {
+                                        return {
+                                            ...prev,
+                                            color: color.rgb
+                                        };
                                     });
                                 }}
                             />
                         </div>
                         <div className="add-color-actions">
-                            <div className="icon-close">{__('Cancel', '--gctd--')}</div>
-                            <div className="icon-save">{__('Save', '--gctd--')}</div>
+                            <div className="icon-close" onClick={() => setOpenAddColor(false)}>{__('Cancel', '--gctd--')}</div>
+                            <div className="icon-save" onClick={handleSaveColorGlobal}>{__('Save', '--gctd--')}</div>
                         </div>
                     </div>
                 }
