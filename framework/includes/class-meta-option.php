@@ -165,9 +165,9 @@ class Meta_Option {
 		$option = $this->get_option();
 
 		if ( $option ) {
-			return update_option( $this->option_name, $value );
+			return update_option( $this->option_name, $value, false );
 		} else {
-			return add_option( $this->option_name, $value );
+			return add_option( $this->option_name, $value, '', false );
 		}
 	}
 

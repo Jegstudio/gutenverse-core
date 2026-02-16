@@ -388,7 +388,7 @@ class Frontend_Cache {
 	 */
 	public function generate_style_cache_id() {
 		$cache_id = wp_rand( 111111, 999999 );
-		update_option( self::$option_name, $cache_id );
+		update_option( self::$option_name, $cache_id, true );
 	}
 
 	/**

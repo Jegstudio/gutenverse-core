@@ -739,12 +739,21 @@ if ( ! function_exists( 'gutenverse_get_menu' ) ) {
 				'echo'            => false,
 				'walker' => new class extends Walker_Nav_Menu {
 					public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
-						$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+
+						$classes     = empty( $item->classes ) ? array() : (array) $item->classes;
 						$class_names = implode( ' ', array_map( 'esc_attr', $classes ) );
-						
-						$output .= '<li id="menu-item-' . $item->ID . '" class="menu-item-' . $item->ID . ' ' . $class_names . '">';
-						$output .= '<a aria-label="' . $item->title .'" href="' . esc_url( $item->url ) . '">';
-						$output .= esc_html( $item->title );
+
+						// Strip HTML from title for aria-label.
+						$aria_label = trim( wp_strip_all_tags( $item->title ) );
+
+						// Fallback for icon-only menu items.
+						if ( empty( $aria_label ) ) {
+							$aria_label = __( 'Menu item', 'gutenverse' );
+						}
+
+						$output .= '<li id="menu-item-' . esc_attr( $item->ID ) . '" class="menu-item-' . esc_attr( $item->ID ) . ' ' . $class_names . '">';
+						$output .= '<a href="' . esc_url( $item->url ) . '" aria-label="' . esc_attr( $aria_label ) . '">';
+						$output .= $item->title; // keep HTML icons.
 						$output .= '</a>';
 					}
 

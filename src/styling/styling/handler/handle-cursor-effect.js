@@ -1,10 +1,10 @@
 import { typographyCSS } from '../generator/generator-typography';
-import { elementVar, normalAppender} from '../styling-utility';
+import { elementVar, normalAppender } from '../styling-utility';
 import { handleBackground } from './handle-background';
 import { handleBorder } from './handle-border';
 import { getColor } from './handle-color';
 
-export const handleCursorEffect = (style) => {
+export const handleCursorEffect = (style, bgSelector = undefined) => {
     let elementStyle = elementVar();
 
     const {
@@ -32,7 +32,7 @@ export const handleCursorEffect = (style) => {
                     elementStyle
                 });
             }
-            if (background) {
+            if (background && (bgSelector === undefined || bgSelector)) {
                 const newElementStyle = handleBackground(background);
                 elementStyle.adminStyle = {
                     ...elementStyle.adminStyle,
@@ -47,7 +47,7 @@ export const handleCursorEffect = (style) => {
                     elementStyle
                 });
             }
-            if (textBorder) {
+            if (textBorder && (bgSelector === undefined || bgSelector)) {
                 const newElementStyle = handleBorder(textBorder);
                 elementStyle.adminStyle = {
                     ...elementStyle.adminStyle,
@@ -121,7 +121,7 @@ export const handleCursorEffect = (style) => {
             }
             break;
     }
-    if (blur) {
+    if (blur && (bgSelector === undefined || bgSelector)) {
         normalAppender({
             style: `-webkit-backdrop-filter: blur(${blur}px); backdrop-filter: blur(${blur}px);`,
             elementStyle
@@ -274,7 +274,7 @@ export const handleParentCursorEffect = (style) => {
     } = style;
     if (ZIndex) {
         normalAppender({
-            style: `z-index:${ZIndex};`,
+            style: `z-index:${ZIndex}; --gv-cursor-effect-zindex: ${ZIndex};`,
             elementStyle
         });
     }

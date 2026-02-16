@@ -26,8 +26,8 @@ const PanelAccordion = ({ title, content, open, setOpen, index }) => {
     </div>;
 };
 
-export const PanelTutorial = ({ title, list, style = { margin: '0px 15px 20px' } }) => {
-    const [open, setOpen] = useState(0);
+export const PanelTutorial = ({ title, list, style = { margin: '0px 15px 20px' }, openDefault = true }) => {
+    const [open, setOpen] = useState( openDefault ? 0 : null);
 
     return <div className="gutenverse-how" style={style}>
         <h2><IconInfoSVG />{title}</h2>

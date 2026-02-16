@@ -24,7 +24,10 @@ class Deprecated {
 		}
 
 		// Filter.
-		if ( ! apply_filters( 'gutenverse_themes_override_mechanism', false ) ) {
+		$theme_path          = get_stylesheet_directory();
+		$is_gutenverse_theme = file_exists( $theme_path . '/gutenverse-files' ) || file_exists( $theme_path . '/gutenverse-templates' );
+
+		if ( ! apply_filters( 'gutenverse_themes_override_mechanism', false ) && $is_gutenverse_theme ) {
 			add_filter( 'pre_get_block_templates', array( $this, 'get_block_template' ), 10, 3 );
 			add_filter( 'get_block_file_template', array( $this, 'get_block_file_template' ), 10, 5 );
 		}
@@ -38,6 +41,8 @@ class Deprecated {
 	 * @param WP_Block_Template|null $block_template The found block template, or null if there is none.
 	 * @param string                 $id             Template unique identifier (example: theme_slug//template_slug).
 	 * @param string                 $template_type  Template type: `'wp_template'` or '`wp_template_part'`.
+	 * @param int                    $count          Recursive count.
+	 * @param string                 $old_slug       Old slug.
 	 */
 	public function get_block_file_template( $block_template, $id, $template_type, $count = 0, $old_slug = '' ) {
 		/**
@@ -92,7 +97,8 @@ class Deprecated {
 	 * @param string              $template_type wp_template or wp_template_part.
 	 */
 	public function get_block_template( $query_result, $query, $template_type ) {
-		$post_type     = isset( $query['post_type'] ) ? $query['post_type'] : '';
+		$post_type = isset( $query['post_type'] ) ? $query['post_type'] : '';
+
 		$wp_query_args = array(
 			'post_status'    => array( 'auto-draft', 'draft', 'publish' ),
 			'post_type'      => $template_type,
