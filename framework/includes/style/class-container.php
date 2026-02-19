@@ -31,6 +31,7 @@ class Container extends Style_Abstract {
 	 */
 	public function __construct( $attrs ) {
 		parent::__construct( $attrs );
+		$this->in_block = false;
 
 		if ( empty( $this->element_id ) ) {
 			return;
@@ -89,19 +90,6 @@ class Container extends Style_Abstract {
 					},
 					'value'          => $this->attrs['minHeight'],
 					'device_control' => true,
-				)
-			);
-		}
-
-		// Force display flex back, when these attributes exist.
-		if ( isset( $this->attrs['flexDirection'] ) || isset( $this->attrs['justifyContent'] ) ) {
-			$this->inject_style(
-				array(
-					'selector' => $content_selector,
-					'property' => function () {
-						return 'display: flex !important;';
-					},
-					'value'    => '',
 				)
 			);
 		}
