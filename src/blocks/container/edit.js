@@ -431,8 +431,11 @@ const ContainerBlock = compose(
     withCursorEffect,
 )((props) => {
     const {
-        getBlockOrder
+        getBlockOrder,
+        getSelectedBlockCount,
     } = useSelect((select) => select('core/block-editor'), []);
+
+    const isMultiSelected = getSelectedBlockCount() > 1;
 
     const {
         clientId,
@@ -523,8 +526,8 @@ const ContainerBlock = compose(
     const [transientState, setTransientState] = useState({});
 
     return <>
-        <CopyElementToolbar {...props} />
-        <BlockPanelController props={{ ...props, transientState, setTransientState }} panelList={panelList} elementRef={elementRef} />
+        {!isMultiSelected && <CopyElementToolbar {...props} />}
+        {!isMultiSelected && <BlockPanelController props={{ ...props, transientState, setTransientState }} panelList={panelList} elementRef={elementRef} />}
         <Container
             {...props}
             blockProps={blockProps}
