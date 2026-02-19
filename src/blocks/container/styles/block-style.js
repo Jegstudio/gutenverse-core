@@ -607,7 +607,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `${selector}, .guten-inner-container-editor>${selector}.full-width`,
+        'selector': `.block-editor-block-list__layout.is-root-container ${selector}, .guten-inner-container-editor>${selector}.full-width`,
     });
 
     isNotEmpty(attributes['zIndex']) && data.push({
