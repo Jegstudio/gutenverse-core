@@ -93,6 +93,19 @@ class Container extends Style_Abstract {
 			);
 		}
 
+		// Force display flex back, when these attributes exist.
+		if ( isset( $this->attrs['flexDirection'] ) || isset( $this->attrs['justifyContent'] ) ) {
+			$this->inject_style(
+				array(
+					'selector' => $content_selector,
+					'property' => function () {
+						return 'display: flex !important;';
+					},
+					'value'    => '',
+				)
+			);
+		}
+
 		// Flex Direction.
 		if ( isset( $this->attrs['flexDirection'] ) ) {
 			$this->inject_style(
