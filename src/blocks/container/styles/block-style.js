@@ -45,7 +45,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': selector,
         'properties': [
             {
-                'name': 'height',
+                'name': 'min-height',
                 'valueType': 'direct'
             }
         ],
