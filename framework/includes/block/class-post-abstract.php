@@ -758,8 +758,8 @@ abstract class Post_Abstract extends Block_Abstract {
 				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 			}
 
-			$prev_link = 1 === $page ? '' : '<a href="#" class="btn-pagination prev ' . esc_attr( $prev ) . '" title="' . $prev_inner_text . '">' . $prev_text . '</a>';
-			$next_link = $total <= $page ? '' : '<a href="#" class="btn-pagination next ' . esc_attr( $next ) . '" title="' . $next_innet_text . '">' . $next_text . '</a>';
+			$prev_link = 1 === $page ? '<a href="#" class="btn-pagination prev disabled ' . esc_attr( $prev ) . '" title="' . $prev_inner_text . '">' . $prev_text . '</a>' : '<a href="#" class="btn-pagination prev ' . esc_attr( $prev ) . '" title="' . $prev_inner_text . '">' . $prev_text . '</a>';
+			$next_link = $total <= $page ? '<a href="#" class="btn-pagination next disabled ' . esc_attr( $next ) . '" title="' . $next_innet_text . '">' . $next_text . '</a>' : '<a href="#" class="btn-pagination next ' . esc_attr( $next ) . '" title="' . $next_innet_text . '">' . $next_text . '</a>';
 
 			$output =
 			'<div class="guten_block_nav ' . esc_attr( 'additional_class' ) . '" data-page="' . $page . '">
@@ -781,6 +781,8 @@ abstract class Post_Abstract extends Block_Abstract {
 
 			if ( $page > 1 ) {
 				$output .= '<a href="#" class="btn-pagination prev" title="' . $prev_inner_text . "\">{$prev_text}</a> ";
+			} else {
+				$output .= '<a href="#" class="btn-pagination prev disabled" title="' . $prev_inner_text . "\">{$prev_text}</a> ";
 			}
 
 			if ( $page > 2 ) {
@@ -809,6 +811,8 @@ abstract class Post_Abstract extends Block_Abstract {
 
 			if ( $page < $total ) {
 				$output .= '<a href="#" class="btn-pagination next" title="' . esc_html__( 'Next', '--gctd--' ) . "\">{$next_text}</a>";
+			} else {
+				$output .= '<a href="#" class="btn-pagination next disabled" title="' . esc_html__( 'Next', '--gctd--' ) . "\">{$next_text}</a>";
 			}
 
 			$output .= '</div>';
@@ -830,7 +834,7 @@ abstract class Post_Abstract extends Block_Abstract {
 				$next_text = $next_innet_text . '  ' . $this->render_icon( $next_icon_type, $next_icon, $next_icon_svg );
 			}
 
-			$prev_link = 1 === $page ? '' : sprintf(
+			$prev_link = sprintf(
 				'<a href="%s" class="btn-pagination prev %s" title="%s">%s</a>',
 				esc_url( $prev_url ),
 				esc_attr( $prev_class ),
@@ -838,7 +842,7 @@ abstract class Post_Abstract extends Block_Abstract {
 				$prev_text
 			);
 
-			$next_link = $total <= $page ? '' : sprintf(
+			$next_link = sprintf(
 				'<a href="%s" class="btn-pagination next %s" title="%s">%s</a>',
 				esc_url( $next_url ),
 				esc_attr( $next_class ),
@@ -875,6 +879,12 @@ abstract class Post_Abstract extends Block_Abstract {
 				$output  .= sprintf(
 					'<a href="%s" class="btn-pagination prev" title="%s">%s</a> ',
 					esc_url( $prev_url ),
+					esc_attr( $prev_inner_text ),
+					$prev_text
+				);
+			} else {
+				$output  .= sprintf(
+					'<a href="#" class="btn-pagination prev disabled" title="%s">%s</a> ',
 					esc_attr( $prev_inner_text ),
 					$prev_text
 				);
@@ -933,6 +943,12 @@ abstract class Post_Abstract extends Block_Abstract {
 				$output  .= sprintf(
 					'<a href="%s" class="btn-pagination next" title="%s">%s</a>',
 					esc_url( $next_url ),
+					esc_html__( 'Next', '--gctd--' ),
+					$next_text
+				);
+			} else {
+				$output  .= sprintf(
+					'<a href="#" class="btn-pagination next disabled" title="%s">%s</a>',
 					esc_html__( 'Next', '--gctd--' ),
 					$next_text
 				);
