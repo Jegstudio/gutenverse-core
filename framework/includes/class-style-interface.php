@@ -1359,7 +1359,7 @@ abstract class Style_Interface {
 		if ( isset( $tltp_attrs['tooltipMaxWidth'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip",
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip > :first-child",
 					'property'       => function ( $value ) {
 						return "max-width: {$value}px;";
 					},
@@ -1368,8 +1368,20 @@ abstract class Style_Interface {
 				)
 			);
 		}
+		if ( isset( $tltp_attrs['tooltipMinWidth'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip > :first-child",
+					'property'       => function ( $value ) {
+						return "min-width: {$value}px;";
+					},
+					'value'          => $tltp_attrs['tooltipMinWidth'],
+					'device_control' => true,
+				)
+			);
+		}
 		if ( isset( $tltp_attrs['tooltipBackground'] ) ) {
-			$this->handle_background( ".guten-tooltip-{$this->element_id}.guten-tooltip:before", $tltp_attrs['tooltipBackground'] );
+			$this->handle_background( ".guten-tooltip-{$this->element_id}.guten-tooltip > :first-child", $tltp_attrs['tooltipBackground'] );
 		}
 		if ( isset( $tltp_attrs['tooltipTextAlign'] ) ) {
 			$this->inject_style(
@@ -1422,7 +1434,7 @@ abstract class Style_Interface {
 		if ( isset( $tltp_attrs['tooltipIconSize'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip .guten-tooltip-text .guten-tooltip-icon i",
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip .guten-tooltip-text .guten-tooltip-icon",
 					'property'       => function ( $value ) {
 						return "font-size: {$value}px";
 					},
@@ -1466,7 +1478,7 @@ abstract class Style_Interface {
 		if ( isset( $tltp_attrs['tooltipPadding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip",
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip > :first-child",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -1491,7 +1503,7 @@ abstract class Style_Interface {
 		if ( isset( $tltp_attrs['tooltipBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip:before",
+					'selector'       => ".guten-tooltip-{$this->element_id}.guten-tooltip > :first-child",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},

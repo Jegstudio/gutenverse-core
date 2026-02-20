@@ -12,7 +12,7 @@ export const tooltipCSS = (attribute, selector, handler) => {
     isNotEmpty(attribute['tooltipMaxWidth']) && data.push({
         'type': 'plain',
         'id': 'tooltipMaxWidth',
-        'selector': selector,
+        'selector': `${selector} > :first-child`,
         'responsive': true,
         'properties': [
             {
@@ -28,10 +28,29 @@ export const tooltipCSS = (attribute, selector, handler) => {
         ],
     });
 
+    isNotEmpty(attribute['tooltipMinWidth']) && data.push({
+        'type': 'plain',
+        'id': 'tooltipMinWidth',
+        'selector': `${selector} > :first-child`,
+        'responsive': true,
+        'properties': [
+            {
+                'name': 'min-width',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            }
+        ],
+    });
+
     isNotEmpty(attribute['tooltipBackground']) && data.push({
         'type': 'background',
         'id': 'tooltipBackground',
-        'selector': `${selector}:before`,
+        'selector': `${selector} > :first-child`,
     });
 
     isNotEmpty(attribute['tooltipTextAlign']) && data.push({
@@ -74,7 +93,7 @@ export const tooltipCSS = (attribute, selector, handler) => {
     isNotEmpty(attribute['tooltipIconSize']) && data.push({
         'type': 'plain',
         'id': 'tooltipIconSize',
-        'selector': `${selector} .guten-tooltip-text .guten-tooltip-icon i`,
+        'selector': `${selector} .guten-tooltip-text .guten-tooltip-icon`,
         'properties': [
             {
                 'name': 'font-size',
@@ -135,7 +154,7 @@ export const tooltipCSS = (attribute, selector, handler) => {
     isNotEmpty(attribute['tooltipPadding']) && data.push({
         'type': 'dimension',
         'id': 'tooltipPadding',
-        'selector': selector,
+        'selector': `${selector} > :first-child`,
         'responsive': true,
         'properties': [
             {
@@ -161,7 +180,7 @@ export const tooltipCSS = (attribute, selector, handler) => {
     isNotEmpty(attribute['tooltipBorderResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'tooltipBorderResponsive',
-        'selector': `${selector}:before`,
+        'selector': `${selector} > :first-child`,
         'responsive': true,
     });
 
