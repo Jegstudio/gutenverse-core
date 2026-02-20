@@ -62,6 +62,7 @@ const setitngTitle = {
     paywall: __('Paywall Settings', '--gctd--'),
     like_dislike_button: __('Like & Dislike Settings', '--gctd--'),
     performance: __('Performance Settings', '--gctd--'),
+    bookmark: __('Bookmark Settings', '--gctd--'),
 };
 
 export const getSettingTitle = (key) => {
