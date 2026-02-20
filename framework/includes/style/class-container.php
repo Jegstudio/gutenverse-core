@@ -84,7 +84,7 @@ class Container extends Style_Abstract {
 		if ( isset( $this->attrs['minHeight'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-flex-container.{$this->element_id}",
+					'selector'       => ".guten-flex-container.full-width.{$this->element_id}, .guten-flex-container.boxed.{$this->element_id} > .guten-inner-container",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'min-height' );
 					},
