@@ -30,7 +30,7 @@ class Upgrader {
 	 * Change option framework to false.
 	 */
 	public function upgrader_framework_init_close() {
-		update_option( $this->get_framework_init_option_name(), false );
+		update_option( $this->get_framework_init_option_name(), false, false );
 	}
 
 	/**

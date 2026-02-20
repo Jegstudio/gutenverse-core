@@ -76,7 +76,10 @@ const ImageControl = (props) => {
                 <MediaUpload
                     onSelect={(media) => onChange({
                         id: media.id,
-                        image: media.sizes.full.url
+                        image: media.sizes.full.url,
+                        width: media.sizes.full.width,
+                        height: media.sizes.full.height,
+                        altOriginal: media.alt,
                     })}
                     allowedTypes={ALLOWED_MEDIA_TYPES}
                     value={imageId}

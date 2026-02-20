@@ -1,5 +1,6 @@
 /** Gutenverse Panel **/
 .block-editor-block-inspector {
+
     &[data-gutenverse-tab='style'],
     &[data-gutenverse-tab='pro'] {
         .block-editor-block-inspector__advanced {
@@ -116,4 +117,58 @@
 .hover-child-style{
     background-color: #E6EAEF !important;
     border-radius: inherit;
+}
+
+.gutenverse-control-wrapper {
+    &.gutenverse-control-preview {
+        .control-body {
+            align-items: flex-start;
+            background-color: #f9f9ff;
+            border: 1px solid #e3e4e6;
+            border-radius: 5px;
+            margin: 0;
+            padding: 16px;
+            gap: 12px;
+
+            .control-icon {
+                width: auto;
+            }
+
+            .control-preview {
+                width: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+
+                p,
+                span {
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 1.5;
+                }
+
+                .preview-button {
+                    border-radius: 5px;
+                    padding: 9px 16px;
+                    background: #3B57F7;
+                    color: #FFFFFF;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 1;
+                    text-align: center;
+                    outline: none;
+                    border: none;
+                    cursor: pointer;
+                    transition: background 0.3s ease;
+                    margin-top: 6px;
+
+                    &:hover {
+                        background: #2435EC;
+                    }
+                }
+            }
+
+        }
+    }
 }

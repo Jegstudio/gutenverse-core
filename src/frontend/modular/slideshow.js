@@ -8,7 +8,7 @@ class GutenverseSlideshow extends Default {
         });
     }
 
-    startSlideshow(element){
+    startSlideshow(element) {
         let dataId;
         if (u(element).hasClass('guten-wrap-helper')) {
             dataId = u(element).find('.guten-inner-wrap').data('id');
@@ -19,7 +19,7 @@ class GutenverseSlideshow extends Default {
         }
 
         const background = u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value') ? JSON.parse(u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value')) : {};
-        const {slideImage = {}, infiniteLoop} = background;
+        const { slideImage = {}, infiniteLoop } = background;
 
         if (slideImage?.length < 1 || undefined === slideImage?.length) return;
 
@@ -65,7 +65,7 @@ class GutenverseSlideshow extends Default {
                 setTimeout(() => {
                     slideshowContainer[prevIndex]?.classList.remove(parentClass);
                 }, transition);
-            } else  slideshowContainer[prevIndex]?.classList.remove(parentClass);
+            } else slideshowContainer[prevIndex]?.classList.remove(parentClass);
             slideshowContainer[prevIndex]?.classList.remove(prevClass);
             prevIndex = (prevIndex + 1) % elements.length;
             slideshowContainer[prevIndex]?.classList.add(prevClass);
@@ -107,9 +107,9 @@ class GutenverseSlideshow extends Default {
 
         styles += `
         .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow .${elementId}-slideshow-image {
-            background-size: ${backgroundSize};
-            background-position: ${bgPosition};
-            background-repeat: ${backgroundRepeat};
+            background-size: ${backgroundSize} !important;
+            background-position: ${bgPosition} !important;
+            background-repeat: ${backgroundRepeat} !important;
         }
             
         ${kenBurns ? `.bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.hasToggledClass .${elementId}-slideshow-image {
@@ -177,7 +177,7 @@ class GutenverseSlideshow extends Default {
             default: {
                 styles += `
             .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                ${`animation: fade ${transitionDuration}s ease-in-out forwards;`}
+                ${`animation: previous-fade ${transitionDuration}s ease-in-out forwards;`}
             }`;
                 break;
             }
@@ -186,7 +186,7 @@ class GutenverseSlideshow extends Default {
         this.addAnimation(styles);
     }
 
-    addAnimation(rule){
+    addAnimation(rule) {
         let styleElement = document.createElement('style');
         if (styleElement.styleSheet) {
             styleElement.styleSheet.cssText = rule;

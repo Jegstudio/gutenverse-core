@@ -161,6 +161,18 @@ export const isCanStickyColumn = (props) => {
 };
 
 export function useGlobalStylesConfig() {
+
+    const { globalColors } = window['GutenverseConfig'];
+    const defaultSettings = {
+        color: {
+            palette: {
+                theme: globalColors?.theme || [],
+                default: globalColors?.default || [],
+                custom: globalColors?.custom || []
+            }
+        },
+    };
+
     const { globalStylesId, settings, styles } = useSelect((select) => {
         const _globalStylesId = select(
             coreStore
@@ -172,19 +184,9 @@ export function useGlobalStylesConfig() {
                 _globalStylesId
             )
             : undefined;
-        const { globalColors } = window['GutenverseConfig'];
-        const defaultSettings = {
-            color: {
-                palette: {
-                    theme: globalColors?.theme || [],
-                    default: globalColors?.default || [],
-                    custom: globalColors?.custom || []
-                }
-            },
-        };
         return {
             globalStylesId: _globalStylesId,
-            settings: !isEmpty(record?.settings) ?  record?.settings : defaultSettings,
+            settings: !isEmpty(record?.settings) ? record?.settings : defaultSettings,
             styles: record?.styles,
         };
     }, []);

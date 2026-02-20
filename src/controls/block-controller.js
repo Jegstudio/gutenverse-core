@@ -5,8 +5,11 @@ const BlockController = (props) => {
     const {
         panelProps,
         panelArray,
-        elementRef
+        elementRef,
+        panelIndex
     } = props;
+
+    const { clientId, setAttributes, elementId, setLiveAttr, liveAttr, setPreviewOpen } = panelProps;
 
     let timeoutRef = useRef(null);
 
@@ -17,10 +20,8 @@ const BlockController = (props) => {
             }
         };
     }, []);
-
     return panelArray(panelProps).map((item) => {
         const { id, show, onChange, component: Component, proLabel, forceType, liveStyle = [] } = item;
-        const { clientId, setAttributes, elementId, setLiveAttr, liveAttr } = panelProps;
 
         const onValueChange = (value) => {
 
@@ -52,11 +53,11 @@ const BlockController = (props) => {
                 [id]: value
             };
 
-            timeoutRef.current = liveStyle && updateLiveStyle({elementId, attributes: newValue, styles: liveStyle, elementRef});
-            if(setLiveAttr){
+            timeoutRef.current = liveStyle && updateLiveStyle({ elementId, attributes: newValue, styles: liveStyle, elementRef });
+            if (setLiveAttr) {
                 setLiveAttr({
                     ...liveAttr,
-                    [id] : value
+                    [id]: value
                 });
             }
         };
@@ -69,8 +70,11 @@ const BlockController = (props) => {
             values={panelProps}
             onValueChange={onValueChange}
             onLocalChange={onLocalChange}
+            setAttributes={setAttributes}
             elementRef={elementRef}
             isOpen={true}
+            panelIndex={panelIndex}
+            setPreviewOpen={setPreviewOpen}
         />;
     });
 };

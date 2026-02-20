@@ -18,6 +18,12 @@ export const getFixData = (value, index) => value[index()];
 
 export const getIndex = (value, mod, index) => value[index % mod];
 
+export const parseUnicode = (string) => {
+  const txt = document.createElement('textarea');
+  txt.innerHTML = string;
+  return txt.value;
+}
+
 export const checkEmpty = (value) => {
     let empty = true;
 
@@ -542,8 +548,15 @@ export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {
                 count += 1;
             }
         }
-        if (block.innerBlocks.length > 0) {
-            count += recursiveDuplicateCheck(block.innerBlocks, clientId, elementId);
+        let innerBlocks = block.innerBlocks;
+
+        if ( ( block.name === 'core/post-content' || block.name === 'core/template-part' || block.name === 'gutenverse/post-content' ) && innerBlocks.length === 0 ) {
+            const { getBlocks } = select( 'core/block-editor' );
+            innerBlocks = getBlocks( block.clientId );
+        }
+
+        if (innerBlocks.length > 0) {
+            count += recursiveDuplicateCheck(innerBlocks, clientId, elementId);
         }
         if (count > 0) {
             return count;
@@ -841,7 +854,7 @@ export const installingPlugins = (pluginsList) => {
         const { plugins: installedPlugin } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
         const plugins = pluginsList.map(plgn => ({
-            needUpdate: installedPlugin[plgn.slug] ? versionCompare(plgn.version, installedPlugin[plgn.slug]?.version , '>') : false,
+            needUpdate: installedPlugin[plgn.slug] ? versionCompare(plgn.version, installedPlugin[plgn.slug]?.version, '>') : false,
             name: plgn.name,
             slug: plgn.slug,
             version: plgn.version,
@@ -865,7 +878,7 @@ export const installingPlugins = (pluginsList) => {
                             data: {
                                 status: 'inactive'
                             }
-                        }).then (() => {
+                        }).then(() => {
                             apiFetch({
                                 path: `wp/v2/plugins/plugin?plugin=${plugin.slug}/${plugin.slug}`,
                                 method: 'DELETE'
@@ -946,4 +959,104 @@ export const installAndActivateTheme = (slug) => {
         .catch(err => {
             console.error('Error:', err);
         });
-}
+};
+
+export const svgAtob = (encodedSVG) => {
+    try {
+        if (typeof encodedSVG === 'string') {
+            return atob(encodedSVG);
+        } else {
+            return null;
+        }
+    } catch (e) {
+        console.error('Invalid base64:', e);
+    }
+};
+
+/**
+ * Render icon (font icon or SVG)
+ * @param {string} icon - Icon class name
+ * @param {string} iconType - Type of icon ('icon' or 'svg')
+ * @param {string} iconSVG - Base64 encoded SVG data
+ * @returns {JSX.Element|null} - Rendered icon element
+ */
+export const renderGradientElement = (gradient, id) => {
+    const stops = gradient?.gradientColor?.map((color, index) => (
+        <stop key={index} offset={color.offset} stopColor={color.color} />
+    ));
+
+    if (gradient.gradientType === 'radial') {
+        const positions = (gradient.gradientRadial || 'center center').split(' ');
+        let cx = '50%';
+        let cy = '50%';
+        const map = {
+            'left': '0%',
+            'center': '50%',
+            'right': '100%',
+            'top': '0%',
+            'bottom': '100%',
+        };
+
+        positions.forEach(pos => {
+            if (map[pos]) {
+                if (['left', 'right'].includes(pos)) cx = map[pos];
+                if (['top', 'bottom'].includes(pos)) cy = map[pos];
+            }
+        });
+
+        return (
+            <radialGradient id={id} cx={cx} cy={cy} r="50%" fx={cx} fy={cy}>
+                {stops}
+            </radialGradient>
+        );
+    }
+
+    return (
+        <linearGradient
+            id={id}
+            x1={`${50 - 50 * Math.sin(((gradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+            y1={`${50 + 50 * Math.cos(((gradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+            x2={`${50 + 50 * Math.sin(((gradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+            y2={`${50 - 50 * Math.cos(((gradient.gradientAngle || 180) * Math.PI) / 180)}%`}
+        >
+            {stops}
+        </linearGradient>
+    );
+};
+
+export const renderIcon = (icon, iconType = 'icon', iconSVG = '', showAriaHidden = false, elementId = '', iconGradient = false, iconGradientHover = false) => {
+    if (iconType === 'svg' && iconSVG) {
+        try {
+            const svgData = atob(iconSVG);
+            return (
+                <>
+                    <div
+                        className="gutenverse-icon-svg"
+                        dangerouslySetInnerHTML={{ __html: svgData }}
+                    />
+                    {(iconGradient || iconGradientHover) && (
+                        <svg style={{ width: '0', height: '0', position: 'absolute' }} aria-hidden="true" focusable="false">
+                            <defs>
+                                {iconGradient && renderGradientElement(iconGradient, `iconGradient-${elementId}`)}
+                                {iconGradientHover && renderGradientElement(iconGradientHover, `iconGradientHover-${elementId}`)}
+                            </defs>
+                        </svg>
+                    )}
+                </>
+            );
+        } catch (e) {
+            return null;
+        }
+    }
+
+    if (icon) {
+        if (showAriaHidden) {
+            return <i aria-hidden="true" className={icon}></i>;
+        } else {
+            return <i className={icon}></i>;
+        }
+
+    }
+
+    return null;
+};

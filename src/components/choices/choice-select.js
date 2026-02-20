@@ -340,7 +340,7 @@ const ChoiceSingleInner = (props) => {
                 />
             </div>
         </div>
-        {useCustomDropdown && <i className={dropdownIcon} />}
+        {useCustomDropdown && dropdownIcon}
     </div>;
 };
 

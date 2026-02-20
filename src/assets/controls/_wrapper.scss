@@ -24,7 +24,7 @@
         border-radius: 6px;
         padding: 15px 18px;
         position: absolute;
-        z-index: 1;
+        z-index: 99999;
         top: 100%;
         left: 0;
         margin-top: 4px;
@@ -34,6 +34,7 @@
     .tooltip-wrapper {
         position: relative;
         display: flex;
+        margin-right: 10px;
 
         &:after {
             visibility: hidden;
@@ -98,7 +99,7 @@
             padding: 10px 0;
 
             label {
-                line-height: 22px;
+                line-height: 20px;
                 font-size: $title-font-size;
                 color: #1e1e1e;
                 flex-grow: 1;

@@ -17,8 +17,10 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
         render_mechanism = 'file',
         old_render_deletion_schedule = 'daily',
         remove_template_part_margin = true,
+        remove_wp_emoji_script = false,
+        disable_wp_lazyload = true,
         file_delete_mechanism = 'manual',
-        unused_size = '0 B',
+        unused_size = '0 B'
     } = frontend_settings;
 
     const updateValue = (id, value) => {
@@ -153,12 +155,26 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
             }
         </div>
         <div className="template-tab-body" style={{ paddingTop: '30px' }}>
-            <h2>{__('Remove Default Browser/WordPress Styles', '--gctd--')}</h2>
+            <h2>{__('Fix Default Browser/WordPress Styles & Scripts', '--gctd--')}</h2>
             <ControlCheckbox
                 id={'remove_template_part_margin'}
                 title={__('Remove Template Parts Margin', '--gctd--')}
                 description={__('This will remove margin styling added to template parts from WordPress by default.', '--gctd--')}
                 value={remove_template_part_margin}
+                updateValue={updateValue}
+            />
+            <ControlCheckbox
+                id={'disable_wp_lazyload'}
+                title={__('Disable WordPress Lazy Load', '--gctd--')}
+                description={__('Our plugin already have lazyload functionality that is fully compatible with all our blocks.', '--gctd--')}
+                value={disable_wp_lazyload}
+                updateValue={updateValue}
+            />
+            <ControlCheckbox
+                id={'remove_wp_emoji_script'}
+                title={__('Disable WordPress default Twemoji script', '--gctd--')}
+                description={__('This will disable WordPress default script for handling emojis, do this if you want faster speed and want to show the native device emoji instead. (Warning: some emoji might be rendered as text in some OS like Windows)', '--gctd--')}
+                value={remove_wp_emoji_script}
                 updateValue={updateValue}
             />
         </div>

@@ -262,8 +262,8 @@ const Navigation = ({ location }) => {
         upgradeProUrl,
         activeTheme,
         url,
-        adminUrl,
-        companionActive
+        companionActive,
+        showThemeList = false,
     } = window['GutenverseDashboard'];
 
     const [injectLocation, setInjectLocation] = useState(null);
@@ -295,10 +295,16 @@ const Navigation = ({ location }) => {
                 path: 'block-list',
                 priority: 2
             },
-            {
-                name: __('Themes', '--gctd--'),
+            // {
+            //     name: __('Themes', '--gctd--'),
+            //     slug: homeSlug,
+            //     path: 'themes',
+            //     priority: 3
+            // },
+            showThemeList && {
+                name: __('Theme List', '--gctd--'),
                 slug: homeSlug,
-                path: 'themes',
+                path: 'theme-list',
                 priority: 3
             },
             {
@@ -347,11 +353,6 @@ const Navigation = ({ location }) => {
         setInjectLocation(injectLocation);
     }, 1);
 
-    let element = null;
-    useEffect(()=>{
-        element = iconRef.current;
-    }, [iconRef.current]);
-
     const navigationButton = <>
         <li className="wp-submenu-head" aria-hidden="true">Gutenverse</li>
         {menus.map((menu) => {
@@ -364,12 +365,6 @@ const Navigation = ({ location }) => {
 
                 if (menu.pathDetail) {
                     param += menu.pathDetail;
-                }
-
-                if (menu?.path === 'themes' && activeTheme === 'unibiz' && companionActive !== 'false') {
-                    return (<li key={menu.path}><a  className="navigation-item" href={`${adminUrl}admin.php?page=gutenverse-companion-dashboard&path=demo`}>
-                        {menu.name}
-                    </a></li>);
                 }
 
                 return <li key={menu.path} className={`${menu.path === path ? 'current' : ''}`}>
@@ -407,11 +402,6 @@ const Navigation = ({ location }) => {
 
                         if (menu.pathDetail) {
                             param += menu.pathDetail;
-                        }
-                        if (menu?.path === 'themes' && activeTheme === 'unibiz' && companionActive !== 'false') {
-                            return (<a key={menu.path} className="navigation-item" href={`${adminUrl}admin.php?page=gutenverse-companion-dashboard&path=demo`}>
-                                {menu.name}
-                            </a>);
                         }
 
                         return <Link

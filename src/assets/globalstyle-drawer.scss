@@ -297,3 +297,9 @@
     }
   }
 }
+
+[id="gutenverse-global-style:gutenverse-sidebar"] {
+   .components-panel__header {
+      z-index: 6 !important;
+   }
+}

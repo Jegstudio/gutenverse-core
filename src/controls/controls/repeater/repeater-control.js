@@ -128,13 +128,18 @@ const SortableItem = SortableElement(props => {
                 } else {
                     showControl = item.show !== undefined ? item.show(items[index]) : true;
                 }
+                const defaultValue = item.defaultValue !== undefined ? item.defaultValue(items[index]) : null;
+                const itemProps = {
+                    ...item,
+                    defaultValue
+                }
                 return showControl && <RepeaterComponent
                     index={index}
                     component={item.component}
                     key={`${id}-${item.id}`}
                     id={item._key === undefined ? `${id}-${index}` : item._key}
                     value={items[index]}
-                    itemProps={item}
+                    itemProps={itemProps}
                     onValueChange={val => onUpdateIndexValue(val)}
                     onLocalChange={val => onUpdateIndexValueLocal(val)}
                 />;
@@ -220,10 +225,32 @@ const RepeaterComponent = (props) => {
         }, repeaterIndex) : null;
     };
 
+    const onChangeItemValue = (keyOrUpdates, val) => {
+        const updates = typeof keyOrUpdates === 'object'
+            ? keyOrUpdates
+            : { [keyOrUpdates]: val };
+
+        const newVal = {
+            ...value,
+            ...updates,
+        };
+
+        onValueChange(newVal);
+
+        onChange ? onChange({
+            ...newVal
+        }, repeaterIndex) : null;
+    };
+
+    const valuesWithHelper = {
+        ...value,
+        onChangeItemValue,
+    };
+
     return <Component
         {...itemProps}
         value={value[id] === undefined ? null : value[id]}
-        values={value}
+        values={valuesWithHelper}
         onValueChange={onRepeaterComponentChange}
         onLocalChange={onRepeaterComponentLocalChange}
     />;

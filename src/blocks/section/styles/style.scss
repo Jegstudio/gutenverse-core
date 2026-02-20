@@ -66,6 +66,7 @@ section.guten-section {
     .guten-column {
       margin-left: initial;
       margin-right: initial;
+      transition: none !important;
 
       .guten-form-builder {
         max-width: inherit !important;

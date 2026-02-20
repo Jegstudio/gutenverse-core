@@ -21,7 +21,7 @@ export const highlight = (props) => {
 
     useEffect(() => {
         setLastChildLength(attributes[textChilds].length);
-    },[attributes[textChilds]]);
+    }, [attributes[textChilds]]);
 
     useEffect(() => {
         const child = getListOfChildTag(content);
@@ -32,17 +32,17 @@ export const highlight = (props) => {
                 const indexExist = childs.findIndex(item => element.id === item.id);
                 if (indexExist !== -1) {
                     return childs[indexExist];
-                }else{
+                } else {
                     anyChange += 1;
                     return element;
                 }
             });
-            if( anyChange > 0 || newChild.length !== childs.length ){
+            if (anyChange > 0 || newChild.length !== childs.length) {
                 setAttributes({ [textChilds]: newChild });
             }
         }
-        if(lastChildLength !== attributes[textChilds].length && lastChildLength < attributes[textChilds].length){
-            setPanelState({...panelPosition, randKey : Math.random() });
+        if (lastChildLength !== attributes[textChilds].length && lastChildLength < attributes[textChilds].length) {
+            setPanelState({ ...panelPosition, randKey: Math.random() });
         }
     }, [content]);
 
@@ -51,22 +51,22 @@ export const highlight = (props) => {
         fakeContent.innerHTML = content;
         const newElement = u(fakeContent).children().map(child => {
             const newChild = u(child).children().map(grandChild => {
-                if( u(grandChild).nodes[0].localName === 'span' && u(grandChild).hasClass('guten-text-highlight')){
+                if (u(grandChild).nodes[0].localName === 'span' && u(grandChild).hasClass('guten-text-highlight')) {
                     return {
                         color: {},
                         colorHover: {},
                         typography: {},
                         typographyHover: {},
-                        textClip:{},
-                        textClipHover:{},
-                        textStroke:{},
-                        textStrokeHover:{},
+                        textClip: {},
+                        textClipHover: {},
+                        textStroke: {},
+                        textStrokeHover: {},
                         background: {},
                         backgroundHover: {},
-                        padding:{},
-                        paddingHover:{},
-                        margin:{},
-                        marginHover:{},
+                        padding: {},
+                        paddingHover: {},
+                        margin: {},
+                        marginHover: {},
                         value: child,
                         id: u(grandChild).attr('id'),
                         spanId: u(child).attr('id')
@@ -97,17 +97,47 @@ export const highlight = (props) => {
                 let part1 = element.slice(1, index);
                 let tagHtml = part1.split(' ');
                 let child = element;
-                if(tagHtml[0] === 'span' && tagHtml[1].search('guten-text-highlight')){
+                if (tagHtml[0] === 'span' && tagHtml[1].search('guten-text-highlight')) {
                     const uniqeidChild = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
                     const uniqeidSpan = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
                     child = `<span id=${uniqeidSpan}>` + element.replace(`<${part1}>`, `<${part1} id=${uniqeidChild}>`) + '</span>';
-                    setAttributes({ openChild : uniqeidChild });
+                    setAttributes({ openChild: uniqeidChild });
                 }
                 return child;
             } else {
-                return element;
+                let child = element;
+                const id = match?.[1];
+                if (id) {
+                    const exists = attributes?.[textChilds].filter((el => el?.['spanId'] === id)) ?? [];
+                    if (exists.length > 0) {
+                        const spanAttrs = exists[0];
+                        const { ariaLabel = '' } = spanAttrs;
+                        child = child.replace(
+                            /<a\b([^>]*)>(.*?)<\/a>/gi,
+                            (match, attrs, text) => {
+                                if (ariaLabel === '') {
+                                    const cleanedAttrs = attrs.replace(
+                                        /\s*aria-label=(["'])(.*?)\1/i,
+                                        ''
+                                    );
+                                    return `<a${cleanedAttrs}>${text}</a>`;
+                                }
+                                if (/aria-label=/i.test(attrs)) {
+                                    return `<a${attrs.replace(
+                                        /aria-label=(["'])(.*?)\1/i,
+                                        `aria-label="${ariaLabel.trim()
+                                        }"`
+                                    )}>${text}</a>`;
+                                }
+
+                                return `<a${attrs} aria-label="${ariaLabel.trim()}">${text}</a>`;
+                            }
+                        );
+                    }
+                }
+                return child;
             }
         });
         return setAttributes({ [contentAttribute]: newValue.join('') });
-    },[content]);
+    }, [content, attributes[textChilds]]);
 };

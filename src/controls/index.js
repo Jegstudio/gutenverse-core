@@ -16,11 +16,14 @@ export { default as DividerControl } from './controls/divider/divider-control';
 export { default as DividerAnimatedControl } from './controls/divider-animated/divider-animated-control';
 export { default as FontControl } from './controls/font/font-control';
 export { default as IconControl, IconLibrary } from './controls/icon/icon-control';
+export { default as IconSVGControl } from './controls/icon/icon-svg-control';
+export { default as SVGControl } from './controls/icon/svg-control';
 export { default as IconRadioControl } from './controls/icon-radio/icon-radio-control';
 export { default as ImageControl } from './controls/image/image-control';
 export { default as ImageSizeControl } from './controls/image-size/image-size-control';
 export { default as ImageFilterControl } from './controls/image-filter/image-filter-control';
 export { default as ImageRadioControl } from './controls/image-radio/image-radio-control';
+export { default as SVGRadioControl } from './controls/svg-radio/svg-radio-control';
 export { default as NumberControl } from './controls/number/number-control';
 export { default as PointerControl } from './controls/pointer-event/pointer-event-control';
 export { default as RangeControl } from './controls/range/range-control';
@@ -50,6 +53,7 @@ export { default as TimeRangeControl } from './controls/time-range/time-range-co
 export { default as MaskControl } from './controls/mask/mask-control';
 export { default as DateTimeControl } from './controls/date-time/date-time-control';
 export { default as TextStrokeControl } from './controls/text-stroke/text-stroke-control';
+export { default as PreviewControl } from './controls/preview/preview-control';
 
 // Locked Controls
 export { default as LockedControl } from './controls/locked/locked-control';

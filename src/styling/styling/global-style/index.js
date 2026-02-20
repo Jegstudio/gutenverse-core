@@ -56,9 +56,8 @@ export const buildGlobalStyle = (variable) => {
             }
 
             if (transform && transform !== 'default') {
-
                 normalAppender({
-                    style: `${variableFontName(id, 'transform')} : ${transform};`,
+                    style: `${variableFontName(id, 'transform')} : ${transform === 'normal' ? 'none' : transform};`,
                     elementStyle: variableStyle
                 });
             }

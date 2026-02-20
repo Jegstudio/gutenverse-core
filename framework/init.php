@@ -233,7 +233,7 @@ if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 		 * Change option page content to false.
 		 */
 		public function compatibility_notice_close() {
-			update_option( 'gutenverse_compatibility_notice_close', true );
+			update_option( 'gutenverse_compatibility_notice_close', true, false );
 		}
 	}
 }
