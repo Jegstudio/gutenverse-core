@@ -516,11 +516,15 @@ class Api {
 	 */
 	public function install_theme( $request ) {
 		$theme = $this->gutenverse_api_esc_data( $request->get_param( 'slug' ), 'string' );
-		$info  = $this->gutenverse_api_esc_data( $request->get_param( 'info' ), 'string' );
+		$info  = esc_url_raw( $request->get_param( 'info' ) );
 		$key   = $this->gutenverse_api_esc_data( $request->get_param( 'key' ), 'string' );
 
 		if ( empty( $info ) ) {
 			$info = GUTENVERSE_FRAMEWORK_LIBRARY_URL . '/wp-json/gutenverse-server/v1/theme/information';
+		}
+
+		if ( ! wp_http_validate_url( $info ) ) {
+			return false;
 		}
 
 		$request = wp_remote_post(
@@ -1770,7 +1774,7 @@ class Api {
 	 * @param object $request images.
 	 */
 	public function import_images( $request ) {
-		$image = $request->get_param( 'imageUrl' );
+		$image = esc_url_raw( $request->get_param( 'imageUrl' ) );
 
 		$data = $this->check_image_exist( $image );
 		if ( ! $data ) {
@@ -1821,14 +1825,41 @@ class Api {
 	 * @return int|null
 	 */
 	public function handle_file( $url ) {
-		$file_name = basename( $url );
-		$upload    = wp_upload_bits( $file_name, null, '' );
-		$this->fetch_file( $url, $upload['file'] );
+		$url_path  = wp_parse_url( $url, PHP_URL_PATH );
+		$file_name = basename( $url_path );
 
-		if ( $upload['file'] ) {
+		if ( empty( $file_name ) || strpos( $file_name, '.' ) === false ) {
+			$file_name = 'image.jpg';
+		}
+
+		$upload = wp_upload_bits( $file_name, null, '' );
+		if ( ! $this->fetch_file( $url, $upload['file'] ) ) {
+			if ( ! empty( $upload['file'] ) && file_exists( $upload['file'] ) ) {
+				unlink( $upload['file'] );
+			}
+			return null;
+		}
+
+		if ( ! empty( $upload['file'] ) && file_exists( $upload['file'] ) ) {
 			$file_loc  = $upload['file'];
-			$file_name = basename( $upload['file'] );
-			$file_type = wp_check_filetype( $file_name );
+			$file_type = wp_check_filetype( $file_loc );
+
+			// Ensure it's an allowed image type
+			$allowed_mimes = array( 'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml' );
+			if ( ! in_array( $file_type['type'], $allowed_mimes, true ) ) {
+				unlink( $file_loc );
+				return null;
+			}
+
+			// For SVG, extra safety
+			if ( $file_type['type'] === 'image/svg+xml' ) {
+				// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+				$svg_content = file_get_contents( $file_loc );
+				if ( ! gutenverse_is_svg_safe( $svg_content ) ) {
+					unlink( $file_loc );
+					return null;
+				}
+			}
 
 			$attachment = array(
 				'post_mime_type' => $file_type['type'],
@@ -1878,6 +1909,10 @@ class Api {
 	 * @return array|bool
 	 */
 	public function fetch_file( $url, $file_path, $endpoint = '' ) {
+		if ( ! wp_http_validate_url( $url ) ) {
+			return false;
+		}
+
 		$http     = new \WP_Http();
 		$response = $http->get(
 			add_query_arg(
