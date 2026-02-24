@@ -272,6 +272,10 @@ abstract class Block_Abstract {
 			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 			$svg_data = base64_decode( $svg, true );
 
+			if ( ! gutenverse_is_svg_safe( $svg_data ) ) {
+				return '';
+			}
+
 			$gradients = '';
 			if ( $icon_gradient || $icon_gradient_hover ) {
 				if ( empty( $element_id ) ) {
