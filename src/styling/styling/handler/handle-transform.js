@@ -29,7 +29,7 @@ export const handleTransform = (values) => {
             const _duration = deviceStyleValue(device, duration);
             const duration_ = _duration ? _duration : '0.4';
             responsiveAppender({
-                style: `transition: transform ${duration_}s, opacity ${duration_}s;`,
+                style: `transition: transform ${duration_}s, opacity ${duration_}s; --gv-transform-transition: transform ${duration_}s, opacity ${duration_}s;`,
                 device,
                 elementStyle
             });
@@ -37,7 +37,7 @@ export const handleTransform = (values) => {
     } else {
         const duration_ = duration ? duration : '0.4';
         normalAppender({
-            style: `transition: transform ${duration_}s, opacity ${duration_}s;`,
+            style: `transition: transform ${duration_}s, opacity ${duration_}s; --gv-transform-transition: transform ${duration_}s, opacity ${duration_}s;`,
             elementStyle
         });
     }
