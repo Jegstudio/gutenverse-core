@@ -19,8 +19,8 @@ class GutenverseSlideshow extends Default {
         }
 
         const background = u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value') ? JSON.parse(u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value')) : {};
-        const { slideImage = {}, slideLength, infiniteLoop } = background;
-        const finalLength = slideLength || slideImage?.length || 0;
+        const { slideImage, slideLength, infiniteLoop } = background;
+        const finalLength = (typeof slideLength !== 'undefined') ? slideLength : (slideImage?.length || 0);
 
         if (finalLength < 1) return;
 
