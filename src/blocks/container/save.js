@@ -75,8 +75,10 @@ const save = compose(
         }
     );
 
+    const TagName = attributes?.htmlTag || 'div';
+
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData, id: attributes.anchor })} data-id={dataId}>
+        <TagName {...useBlockProps.save({ className, ...advanceAnimationData, id: attributes.anchor })} data-id={dataId}>
             <FluidCanvasSave attributes={attributes} />
             {(_isSticky || _isBgAnimated || isSlideShow || _isTopDividerAnimated || _isBottomDividerAnimated) &&
                 <div className="guten-data">
@@ -129,7 +131,7 @@ const save = compose(
             {'boxed' === containerLayout ? <div className="guten-inner-container">
                 <InnerBlocks.Content />
             </div> : <InnerBlocks.Content />}
-        </div>
+        </TagName>
     );
 });
 

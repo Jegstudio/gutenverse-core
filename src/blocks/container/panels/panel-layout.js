@@ -290,6 +290,45 @@ export const layoutPanel = (props) => {
 
     return [
         {
+            id: 'htmlTag',
+            label: __('HTML Tag', '--gctd--'),
+            component: SelectControl,
+            options: [
+                {
+                    label: __('div', '--gctd--'),
+                    value: 'div'
+                },
+                {
+                    label: __('header', '--gctd--'),
+                    value: 'header'
+                },
+                {
+                    label: __('footer', '--gctd--'),
+                    value: 'footer'
+                },
+                {
+                    label: __('main', '--gctd--'),
+                    value: 'main'
+                },
+                {
+                    label: __('article', '--gctd--'),
+                    value: 'article'
+                },
+                {
+                    label: __('section', '--gctd--'),
+                    value: 'section'
+                },
+                {
+                    label: __('aside', '--gctd--'),
+                    value: 'aside'
+                },
+                {
+                    label: __('nav', '--gctd--'),
+                    value: 'nav'
+                },
+            ]
+        },
+        {
             id: 'containerLayout',
             label: __('Container Layout', '--gctd--'),
             component: SelectControl,

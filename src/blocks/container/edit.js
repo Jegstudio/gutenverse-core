@@ -210,6 +210,7 @@ const ContainerResizeWrapper = (props) => {
     const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
 
     let displayWidth = 100;
+    const TagName = attributes?.htmlTag || 'div';
 
     if (newWidth !== null) {
         displayWidth = newWidth;
@@ -291,7 +292,7 @@ const ContainerResizeWrapper = (props) => {
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     return (
-        <div
+        <TagName
             {...innerBlocksProps}
             ref={mergedRef}
             onMouseEnter={() => setIsHoveredState(true)}
@@ -371,7 +372,7 @@ const ContainerResizeWrapper = (props) => {
                     isAppender={true}
                 />
             </div>}
-        </div>
+        </TagName>
     );
 };
 
