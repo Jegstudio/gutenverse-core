@@ -14,7 +14,17 @@
 		},
 		"htmlTag": {
 			"type": "string",
-			"default": "div"
+			"default": "div",
+			"enum": [
+				"div",
+				"header",
+				"footer",
+				"main",
+				"article",
+				"section",
+				"aside",
+				"nav"
+			]
 		},
 		"mode": {
 			"type": "string"
