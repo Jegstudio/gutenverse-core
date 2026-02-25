@@ -1322,89 +1322,7 @@
             letter-spacing: 0px;
           }
 
-          .single-variable-item-wrapper.add-color-popup {
-            border: 1px solid #cecece;
-            background: white;
-            position: absolute;
-            width: 100%;
-            right: 0;
-            padding: 10px;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
 
-            .form-add-global-color {
-              display: flex;
-              flex-direction: column;
-              gap: 3px;
-
-              .add-color-input-wrapper{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                .color-name{
-                  max-height: 28px;
-                }
-
-                .variable-color-item {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 8px;
-                    gap: 10px;
-                    position: relative;
-
-                    >span {
-                      position: absolute;
-                    }
-
-                    .render-color {
-                      padding: 2px;
-                      border: 1px solid #ddd;
-                      border-radius: 3px;
-
-                      >div {
-                        width: 22px;
-                        height: 22px;
-                        border-radius: 2px;
-                      }
-                    }
-                  }
-              }
-
-              .chrome-picker{
-                width: 100% !important;
-                border: none !important;
-                box-shadow: none !important;
-                border-radius: 2px !important;
-              }
-            }
-            .add-color-actions{
-              width: 100%;
-              display: flex;
-              justify-content: center;
-              gap: 5px;
-            
-              .icon-close,
-              .icon-save {
-                width: 100%;
-                padding: 5px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border: 1px solid #cecece;
-                cursor: pointer;
-
-                svg {
-                  width: 10px;
-                  height: 10px;
-                }
-
-              }
-            }
-          }
         }
 
         .gutenverse-color-variable-content {
@@ -1500,6 +1418,13 @@
         border-radius: 3px;
         width: 100%;
 
+        .action-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 15px;
+        }
+
         .chrome-picker {
           width: 100% !important;
           box-shadow: none !important;
@@ -1524,6 +1449,201 @@
             svg {
               width: 14px;
             }
+          }
+        }
+
+        .single-variable-item-wrapper.add-color-popup {
+          border: 1px solid #cecece;
+          background: white;
+          position: absolute;
+          width: 100%;
+          right: 0;
+          padding: 10px;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+
+          .form-add-global-color {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+
+            .color-name {
+              max-height: 28px;
+            }
+
+            input[type=text] {
+              border-radius: 5px;
+            }
+          }
+
+          .add-color-actions {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+
+            .icon-close,
+            .icon-save {
+              width: 100%;
+              padding: 5px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border: 1px solid #cecece;
+              cursor: pointer;
+              border-radius: 5px;
+
+              svg {
+                width: 10px;
+                height: 10px;
+              }
+
+            }
+          }
+        }
+      }
+    }
+
+    &color,
+    &typography {
+      .global-popup-wrapper{
+        position: fixed;
+        .global-popup{
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 9999;
+          width: 400px;
+          background: #FFFFFF;
+          border: 1px solid transparent;
+          border-radius: 8px;
+          box-shadow: 0px 8px 32px 0px #00000033;
+
+          .popup-header{
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #cecece;
+            
+            .close-button{
+              cursor: pointer;
+            }
+            .header-title{
+              font-family: Roboto;
+              font-weight: 500;
+              font-size: 16px;
+            }
+          }
+
+          .popup-content{
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            span{
+              font-family: Roboto;
+              font-weight: 400;
+              font-size: 14px;
+              b{
+              font-weight: 500;
+              }
+            }
+            .control-body{
+              padding: 0px;
+              background: inherit;
+            }
+            .single-variable-item-wrapper {
+              border: 1px solid #E3E4E6;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 7px;
+              border-radius: 3px;
+              width: 90%;
+              gap: 10px;
+              .color-name{
+                width: 100%;
+              }
+            }
+          }
+
+          .popup-actions{
+            padding: 20px;
+            display: flex;
+            justify-content: end;
+            gap: 10px;
+            border-top: 1px solid #cecece;
+
+            .close-button,
+            .proceed-button{
+              border-radius: 3px;
+              padding: 7px 21px;
+              background: #FFFFFF;
+              border: 1px solid #E3E4E6;
+              color: #40505D;
+              font-family: Roboto;
+              font-weight: 500;
+              font-size: 12px;
+              cursor:pointer;
+            }
+
+            .proceed-button{
+              background: #3B57F7;
+              border: 1px solid #3B57F7;
+              color: #FFFFFF;
+              transition: all .3s;
+
+              &:hover{
+                background: #354eda;
+                border: 1px solid #354eda;
+              }
+            }
+
+          }
+
+        }
+      }
+      .gutenverse-control-alert {
+        margin-top: 20px;
+
+        .control-body {
+          background-color: rgba(244, 94, 94, .2);
+          border: none;
+
+          .control-icon {
+            margin-top: 2px;
+          }
+
+          .control-alert span {
+            color: #40505D;
+          }
+        }
+
+        &.warning {
+          .control-body {
+            background-color: #fff9e2ca;
+
+            .control-icon {
+              svg {
+                fill: #FFC908 !important;
+              }
+            }
+          }
+        }
+
+        &.danger {
+          .control-icon {
+            svg {
+              fill: red !important;
+            }
+          }
+
+          .control-alert span {
+            color: red !important;
           }
         }
       }
@@ -2385,7 +2505,7 @@
           span {
             cursor: pointer;
             display: flex;
-            
+
             svg {
               width: 14px;
             }
