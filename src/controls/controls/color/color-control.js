@@ -18,7 +18,7 @@ import set from 'lodash/set';
 import cloneDeep from 'lodash/cloneDeep';
 import { get } from 'lodash';
 import { Plus } from 'react-feather';
-import { CloseIcon, InfoIcon } from 'gutenverse-core/icons';
+import { CloseIcon } from 'gutenverse-core/icons';
 import AlertControl from '../alert/alert-control';
 
 const VariableColorItem = (props) => {
@@ -261,7 +261,7 @@ const ColorControl = (props) => {
             'color' : false,
             'slug'  : false,
             'name'  : false
-        }
+        };
         customPalette.forEach(element => {
             if( element.slug === addCustomColor?.slug ){
                 isInputDuplicate.slug = true;
@@ -345,7 +345,8 @@ const ColorControl = (props) => {
 
         setOpenGlobalPopup(false);
         setOpenAddColor(false);
-    }
+        setControlOpen(false);
+    };
 
     const handleGlobalPopupPreview = () => {
         if(value?.type === 'variable'){
@@ -356,7 +357,7 @@ const ColorControl = (props) => {
             return renderColor(hexToRgb(customPalette[colorIndex]?.color));
         }
         return renderColor(value);
-    }
+    };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-color'}>
         <ControlHeadingSimple
@@ -463,9 +464,9 @@ const ColorControl = (props) => {
                 </div>
             </div>
             {
-                openAddColor && <div className="single-variable-item-wrapper add-color-popup">
-                    <div className="form-add-global-color">
-                        <label htmlFor="color-name">{__('Global Label', '--gctd--')}</label>
+                openAddColor && <div className="single-variable-item-wrapper add-global-popup">
+                    <div className="form-add-global">
+                        <label htmlFor="global-name">{__('Global Label', '--gctd--')}</label>
                         <input
                             type="text"
                             value={addCustomColor.name}
@@ -480,10 +481,10 @@ const ColorControl = (props) => {
                                     };
                                 });
                             }}
-                            name="color-name"
-                            className="color-name"
+                            name="global-name"
+                            className="global-name"
                         />
-                        <label htmlFor="color-slug">{__('Global Slug', '--gctd--')}</label>
+                        <label htmlFor="global-slug">{__('Global Slug', '--gctd--')}</label>
                         <input
                             type="text"
                             value={addCustomColor.slug}
@@ -498,11 +499,11 @@ const ColorControl = (props) => {
                                     };
                                 });
                             }}
-                            name="color-slug"
-                            className="color-name"
+                            name="global-slug"
+                            className="global-name"
                         />
                     </div>
-                    <div className="add-color-actions">
+                    <div className="add-global-form-actions">
                         <div className="icon-close" onClick={() => setOpenAddColor(false)}>{__('Cancel', '--gctd--')}</div>
                         <div className="icon-save" onClick={handleSaveColorGlobal}>{__('Save', '--gctd--')}</div>
                     </div>

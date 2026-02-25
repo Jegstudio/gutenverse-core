@@ -1418,13 +1418,6 @@
         border-radius: 3px;
         width: 100%;
 
-        .action-wrapper {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 15px;
-        }
-
         .chrome-picker {
           width: 100% !important;
           box-shadow: none !important;
@@ -1451,63 +1444,71 @@
             }
           }
         }
-
-        .single-variable-item-wrapper.add-color-popup {
-          border: 1px solid #cecece;
-          background: white;
-          position: absolute;
-          width: 100%;
-          right: 0;
-          padding: 10px;
-          z-index: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-
-          .form-add-global-color {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-
-            .color-name {
-              max-height: 28px;
-            }
-
-            input[type=text] {
-              border-radius: 5px;
-            }
-          }
-
-          .add-color-actions {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-
-            .icon-close,
-            .icon-save {
-              width: 100%;
-              padding: 5px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              border: 1px solid #cecece;
-              cursor: pointer;
-              border-radius: 5px;
-
-              svg {
-                width: 10px;
-                height: 10px;
-              }
-
-            }
-          }
-        }
       }
     }
 
     &color,
     &typography {
+      .gutenverse-control-heading{
+        .action-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 15px;
+        }
+      }
+      
+      .single-variable-item-wrapper.add-global-popup {
+        border: 1px solid #cecece;
+        background: white;
+        position: absolute;
+        width: 100%;
+        right: 0;
+        padding: 10px;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .form-add-global {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+
+          .global-name {
+            max-height: 28px;
+          }
+
+          input[type=text] {
+            border-radius: 5px;
+          }
+        }
+
+        .add-global-form-actions {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          gap: 5px;
+
+          .icon-close,
+          .icon-save {
+            width: 100%;
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #cecece;
+            cursor: pointer;
+            border-radius: 5px;
+
+            svg {
+              width: 10px;
+              height: 10px;
+            }
+
+          }
+        }
+      }
       .global-popup-wrapper{
         position: fixed;
         .global-popup{
@@ -1523,7 +1524,7 @@
           box-shadow: 0px 8px 32px 0px #00000033;
 
           .popup-header{
-            padding: 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1540,7 +1541,7 @@
           }
 
           .popup-content{
-            padding: 10px 20px;
+            padding: 15px 20px;
             display: flex;
             flex-direction: column;
             gap: 5px;
@@ -1572,7 +1573,7 @@
           }
 
           .popup-actions{
-            padding: 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: end;
             gap: 10px;
@@ -1608,8 +1609,6 @@
         }
       }
       .gutenverse-control-alert {
-        margin-top: 20px;
-
         .control-body {
           background-color: rgba(244, 94, 94, .2);
           border: none;
