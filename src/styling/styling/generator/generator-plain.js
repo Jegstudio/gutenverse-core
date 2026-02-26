@@ -3,6 +3,7 @@ import { renderValue } from '../styling-helper';
 import { handleAlign, handleAlignReverse } from '../handler/handle-align';
 import { handleFilterImage, customHandleBackground } from '../styling-helper';
 import { applyFilters } from '@wordpress/hooks';
+import { getColor } from '../handler/handle-color';
 
 const cssGenerator = (attribute, style, css) => {
     const { selector, responsive = false, otherAttribute, responsiveSelector = false, properties = [{}], skip_device = [], specificDevice = '' } = style;
@@ -149,6 +150,10 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}, otherA
                 const colors = attribute.map(gradient => `${gradient.color} ${gradient.offset * 100}%`);
                 value = `linear-gradient(${angle}deg, ${colors.join(',')})`;
             }
+            break;
+        case 'handleInputAutofillBackgroundColor':
+            const valColor = getColor(attribute);
+            value = `0 0 0 100vmax ${valColor} inset`;
             break;
         default:
             value = '';
