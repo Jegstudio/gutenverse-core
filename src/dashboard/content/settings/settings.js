@@ -84,7 +84,7 @@ const SettingsBody = ({ settings, ...props }) => {
 
 const Settings = (props) => {
     const [popupActive, setPopupActive] = useState(false);
-    const [installPopup, setInstallPopup] = useState(false);
+    const [installPopup, setInstallPopup] = useState({ active: false, code: '' });
 
     const { location } = props;
     const { pathname, search } = location;
@@ -103,8 +103,8 @@ const Settings = (props) => {
             description={<>{__('Upgrade ', '--gctd--')}<span>{__(' Gutenverse PRO ', '--gctd--')}</span>{__(' version to ', '--gctd--')}<br />{__(' unlock these premium features', '--gctd--')}</>}
         />
         <PopupInstallPlugin
-            active={installPopup}
-            setActive={setInstallPopup}
+            installPopup={installPopup}
+            setInstallPopup={setInstallPopup}
             description={<>{__('Please Install Gutenverse News Add\'s On Plugin', '--gctd--')}</>}
         />
         <DashboardBody>

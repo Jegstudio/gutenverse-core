@@ -85,3 +85,50 @@
         }
     }
 }
+
+.dashboard-content {
+    .popup-content {
+
+        .content {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .install-plguin {
+            cursor: pointer;
+            display: inline-block;
+            border-radius: 5px;
+            background-color: #3B57F7;
+            font-weight: 500;
+            padding: 12px 24px;
+            font-size: 14px;
+            text-align: center;
+            color: #fff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-right: 50px;
+            width: 162px;
+            border: none;
+            margin: 0;
+
+            @keyframes rotation {
+                from {
+                    transform: rotate(0deg);
+                }
+
+                to {
+                    transform: rotate(359deg);
+                }
+            }
+
+            svg {
+                animation: rotation 2s infinite linear;
+                margin-right: 5px;
+                vertical-align: sub;
+            }
+
+            &:hover {
+                background-color: #2435EC;
+            }
+        }
+    }
+}
