@@ -105,7 +105,6 @@ const Settings = (props) => {
         <PopupInstallPlugin
             installPopup={installPopup}
             setInstallPopup={setInstallPopup}
-            description={<>{__('Please Install Gutenverse News Add\'s On Plugin', '--gctd--')}</>}
         />
         <DashboardBody>
             <div className="setting-tabs">

@@ -87,48 +87,88 @@
 }
 
 .dashboard-content {
-    .popup-content {
+    .popup-pro.install-plugin {
+        .popup-content {
+            padding: 50px 40px 50px;
+
+            .close {
+                right: 16px;
+                top: 16px;
+            }
+        }
 
         .content {
             flex-direction: column;
             align-items: center;
-        }
+            font-family: 'Roboto';
 
-        .install-plguin {
-            cursor: pointer;
-            display: inline-block;
-            border-radius: 5px;
-            background-color: #3B57F7;
-            font-weight: 500;
-            padding: 12px 24px;
-            font-size: 14px;
             text-align: center;
-            color: #fff;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            margin-right: 50px;
-            width: 162px;
-            border: none;
-            margin: 0;
 
-            @keyframes rotation {
-                from {
-                    transform: rotate(0deg);
-                }
-
-                to {
-                    transform: rotate(359deg);
-                }
+            .heading {
+                margin: 24px 0 8px 0;
+                font-weight: 500;
+                font-size: 22px;
+                line-height: 1.3;
+                color: #011627;
             }
 
-            svg {
-                animation: rotation 2s infinite linear;
-                margin-right: 5px;
-                vertical-align: sub;
+            .desc {
+                margin: 0;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 1.3;
+                color: #40505D
             }
 
-            &:hover {
-                background-color: #2435EC;
+            .erorr-message {
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 1.3;
+                color: #E73030;
+                margin: 6px 0 0 0;
+            }
+
+            .install-plguin {
+                cursor: pointer;
+                display: inline-block;
+                border-radius: 5px;
+                background-color: #3B57F7;
+                font-weight: 500;
+                padding: 12px 24px;
+                font-size: 14px;
+                text-align: center;
+                color: #fff;
+                transition: background-color 0.3s ease, color 0.3s ease;
+                width: 198px;
+                box-sizing: border-box;
+                border: none;
+                margin-top: 24px;
+
+                &.loading {
+                    @keyframes rotation {
+                        from {
+                            transform: rotate(0deg);
+                        }
+
+                        to {
+                            transform: rotate(359deg);
+                        }
+                    }
+
+                    svg {
+                        animation: rotation 2s infinite linear;
+                        margin-right: 5px;
+                        vertical-align: sub;
+                    }
+                }
+
+
+                &:hover {
+                    background-color: #2435EC;
+                }
             }
         }
+
+
     }
 }
