@@ -47,7 +47,18 @@ const getBlockStyle = (elementId, attributes) => {
             {
                 'name': 'min-height',
                 'valueType': 'direct'
-            }
+            },
+        ],
+    },{
+        'type': 'unitPoint',
+        'id': 'minHeight',
+        'responsive': true,
+        'selector': `${selector}.empty-container > div > .guten-inner-container-editor`,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'direct'
+            },
         ],
     });
 
