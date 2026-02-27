@@ -50,8 +50,10 @@ export class ReplaceCSS {
         let styleSheets = document.styleSheets;
 
         for (let i = 0, styleSheet; (styleSheet = styleSheets[i]); i++) {
-            if (styleSheet.href && styleSheet.href.includes('plugins/gutenverse') && styleSheet.href.includes('frontend.css')) {
-                yield* this.visitStyleSheet(styleSheet);
+            if (styleSheet.href && styleSheet.href.includes('plugins/gutenverse')) {
+                if (styleSheet.href.includes('frontend.css') || styleSheet.href.includes('assets/css/frontend/')) {
+                    yield* this.visitStyleSheet(styleSheet);
+                }
             }
         }
     }
