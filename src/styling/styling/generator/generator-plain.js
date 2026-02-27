@@ -168,8 +168,9 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}, otherA
                     value = `0 ${isNotEmpty(flexSizeShrink[device]) ? flexSizeShrink[device] : 1 } auto`;
                     break;
                 case 'custom':
-                default:
                     value = `${isNotEmpty(flexSizeGrow[device]) ? flexSizeGrow[device] : 1 } ${isNotEmpty(flexSizeShrink[device]) ? flexSizeShrink[device] : 1 } auto`;
+                    break;
+                default:
                     break;
             }
             break;

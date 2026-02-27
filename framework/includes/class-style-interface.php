@@ -858,7 +858,7 @@ abstract class Style_Interface {
 
 			if ( isset( $cursor_efect['blur'] ) ) {
 				$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
-				if ( isset( $cursor_efect['enableSeperateBackground'] ) && isset( $cursor_efect['type'] )  ) {
+				if ( isset( $cursor_efect['enableSeperateBackground'] ) && isset( $cursor_efect['type'] ) ) {
 					if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
 						$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
 					}
@@ -891,8 +891,8 @@ abstract class Style_Interface {
 					}
 
 					if ( isset( $cursor_efect['background'] ) ) {
-						$selector =".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
-						if ( isset( $cursor_efect['enableSeperateBackground'] )  ) {
+						$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
+						if ( isset( $cursor_efect['enableSeperateBackground'] ) ) {
 							if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
 								$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
 							}
@@ -917,7 +917,7 @@ abstract class Style_Interface {
 						$selector = ".{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .cursor-content";
 						$borders  = $cursor_efect['textBorder'];
 
-						if ( isset( $cursor_efect['enableSeperateBackground'] )  ) {
+						if ( isset( $cursor_efect['enableSeperateBackground'] ) ) {
 							if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
 								$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
 							}
@@ -1846,52 +1846,46 @@ abstract class Style_Interface {
 		// Flex Size (Grow/Shrink Presets).
 		if ( isset( $this->attrs['flexSize'] ) ) {
 			// Grow preset.
+			$flex_size_grow   = isset( $this->attrs['flexSizeGrow'] ) ? $this->attrs['flexSizeGrow'] : null;
+			$flex_size_shrink = isset( $this->attrs['flexSizeShrink'] ) ? $this->attrs['flexSizeShrink'] : null;
+
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function ( $value ) {
-						return 'grow' === $value ? 'flex-grow: 1;' : '';
+					'property'       => function ( $value, $device ) use ( $flex_size_grow, $flex_size_shrink ) {
+						$is_desktop = 'Desktop' === $device;
+
+						$grow   = $flex_size_grow[ $device ] ?? null;
+						$shrink = $flex_size_shrink[ $device ] ?? null;
+
+						switch ( $value ) {
+
+							case 'grow':
+								if ( ! empty( $grow ) ) {
+									return "flex: {$grow} 0 auto";
+								}
+								return $is_desktop ? 'flex: 1 0 auto' : '';
+
+							case 'shrink':
+								if ( ! empty( $shrink ) ) {
+									return "flex: 0 {$shrink} auto";
+								}
+								return $is_desktop ? 'flex: 0 1 auto' : '';
+
+							case 'custom':
+								if ( ! empty( $grow ) || ! empty( $shrink ) ) {
+									$grow   = ! empty( $grow ) ? $grow : 0;
+									$shrink = ! empty( $shrink ) ? $shrink : 0;
+
+									return "flex: {$grow} {$shrink} auto";
+								}
+
+								return $is_desktop ? 'flex: 0 0 auto' : '';
+							default:
+								return '';
+						}
 					},
 					'value'          => $this->attrs['flexSize'],
-					'device_control' => true,
-				)
-			);
-			// Shrink preset.
-			$this->inject_style(
-				array(
-					'selector'       => $selector,
-					'property'       => function ( $value ) {
-						return 'shrink' === $value ? 'flex-shrink: 1;' : '';
-					},
-					'value'          => $this->attrs['flexSize'],
-					'device_control' => true,
-				)
-			);
-		}
-
-		// Flex Size Grow (Custom).
-		if ( isset( $this->attrs['flexSizeGrow'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => $selector,
-					'property'       => function ( $value ) {
-						return "flex-grow: {$value};";
-					},
-					'value'          => $this->attrs['flexSizeGrow'],
-					'device_control' => true,
-				)
-			);
-		}
-
-		// Flex Size Shrink (Custom).
-		if ( isset( $this->attrs['flexSizeShrink'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => $selector,
-					'property'       => function ( $value ) {
-						return "flex-shrink: {$value};";
-					},
-					'value'          => $this->attrs['flexSizeShrink'],
 					'device_control' => true,
 				)
 			);
