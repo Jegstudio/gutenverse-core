@@ -91,11 +91,15 @@ class Init {
 
 	/**
 	 * Old frontend generator kept for backward compatibility
+	 *
+	 * @var Frontend_Generator
 	 */
 	public $style_generator;
 
 	/**
 	 * Old frontend cache kept for backward compatibility
+	 *
+	 * @var Frontend_Cache
 	 */
 	public $style_cache;
 
