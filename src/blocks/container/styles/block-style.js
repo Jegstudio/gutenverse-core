@@ -605,7 +605,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': selector,
+        'selector': `${selector} > div > .guten-inner-container-editor`,
     });
 
     isNotEmpty(attributes['margin']) && data.push({

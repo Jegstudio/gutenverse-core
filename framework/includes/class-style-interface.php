@@ -1351,10 +1351,8 @@ abstract class Style_Interface {
 	}
 	/**
 	 * Handle Feature Tooltip.
-	 *
-	 * @param string $selector Selector.
 	 */
-	protected function tooltip_style( $selector ) {
+	protected function tooltip_style() {
 		$tltp_attrs = $this->attrs['tooltip'];
 		if ( isset( $tltp_attrs['tooltipMaxWidth'] ) ) {
 			$this->inject_style(
@@ -2597,11 +2595,17 @@ abstract class Style_Interface {
 		if ( empty( $selector ) ) {
 			$selector = ".guten-element.{$this->element_id}";
 		}
+		if ( is_array( $selector ) ) {
+			$default          = $selector['default'] ?? ".guten-element.{$this->element_id}";
+			$selector_margin  = $selector['margin'] ?? $default;
+			$selector_padding = $selector['padding'] ?? $default;
+			$selector_z_index = $selector['z_index'] ?? $default;
+		}
 
 		if ( isset( $this->attrs['margin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => $selector,
+					'selector'       => $selector_margin,
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
@@ -2614,7 +2618,7 @@ abstract class Style_Interface {
 		if ( isset( $this->attrs['padding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => $selector,
+					'selector'       => $selector_padding,
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -2627,7 +2631,7 @@ abstract class Style_Interface {
 		if ( isset( $this->attrs['zIndex'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => $selector,
+					'selector'       => $selector_z_index,
 					'property'       => function ( $value ) {
 						return "z-index: {$value};";
 					},
