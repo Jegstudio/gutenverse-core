@@ -588,7 +588,7 @@ export const positioningPanel = (props) => {
                 },
                 {
                     tooltips: __('Shrink', '--gctd--'),
-                    value: 'shirnk',
+                    value: 'shrink',
                     svg: <IconSizeShrink />
                 },
                 {

@@ -158,6 +158,21 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}, otherA
                 value = `linear-gradient(${angle}deg, ${colors.join(',')})`;
             }
             break;
+        case 'handleFlexSize':
+            const {flexSizeGrow, flexSizeShrink} = otherAttribute;
+            switch (attribute) {
+                case 'grow':
+                    value = `${isNotEmpty(flexSizeGrow[device]) ? flexSizeGrow[device] : 1 } 0 auto`;
+                    break;
+                case 'shrink':
+                    value = `0 ${isNotEmpty(flexSizeShrink[device]) ? flexSizeShrink[device] : 1 } auto`;
+                    break;
+                case 'custom':
+                default:
+                    value = `${isNotEmpty(flexSizeGrow[device]) ? flexSizeGrow[device] : 1 } ${isNotEmpty(flexSizeShrink[device]) ? flexSizeShrink[device] : 1 } auto`;
+                    break;
+            }
+            break;
         default:
             value = '';
             break;
