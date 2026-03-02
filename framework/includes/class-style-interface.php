@@ -858,7 +858,7 @@ abstract class Style_Interface {
 
 			if ( isset( $cursor_efect['blur'] ) ) {
 				$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
-				if ( isset( $cursor_efect['enableSeperateBackground'] ) && isset( $cursor_efect['type'] )  ) {
+				if ( isset( $cursor_efect['enableSeperateBackground'] ) && isset( $cursor_efect['type'] ) ) {
 					if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
 						$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
 					}
@@ -891,8 +891,8 @@ abstract class Style_Interface {
 					}
 
 					if ( isset( $cursor_efect['background'] ) ) {
-						$selector =".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
-						if ( isset( $cursor_efect['enableSeperateBackground'] )  ) {
+						$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
+						if ( isset( $cursor_efect['enableSeperateBackground'] ) ) {
 							if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
 								$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
 							}
@@ -917,7 +917,7 @@ abstract class Style_Interface {
 						$selector = ".{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .cursor-content";
 						$borders  = $cursor_efect['textBorder'];
 
-						if ( isset( $cursor_efect['enableSeperateBackground'] )  ) {
+						if ( isset( $cursor_efect['enableSeperateBackground'] ) ) {
 							if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
 								$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
 							}
@@ -1950,7 +1950,7 @@ abstract class Style_Interface {
 						array(
 							'selector'       => $selector,
 							'property'       => function ( $value ) {
-								$position = $value['position'];
+								$position  = isset( $value['position'] ) ? $value['position'] : false;
 								$xposition = isset( $value['xposition'] ) ? $value['xposition'] : false;
 
 								if ( 'custom' === $position && $xposition ) {
