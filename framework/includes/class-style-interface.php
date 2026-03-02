@@ -2599,7 +2599,7 @@ abstract class Style_Interface {
 		$selector_margin  = $selector;
 		$selector_padding = $selector;
 		$selector_z_index = $selector;
-		
+
 		if ( is_array( $selector ) ) {
 			$default          = $selector['default'] ?? ".guten-element.{$this->element_id}";
 			$selector_margin  = $selector['margin'] ?? $default;
