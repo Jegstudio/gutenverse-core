@@ -4,10 +4,15 @@ import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from '../helper';
 
-const contentCache = {};
-const urlCache = {};
-const contentPromises = {};
-const urlPromises = {};
+if (!window.__gutenverseDynamicCache) {
+    window.__gutenverseDynamicCache = {
+        contentCache: {},
+        urlCache: {},
+        contentPromises: {},
+        urlPromises: {},
+    };
+}
+const { contentCache, urlCache, contentPromises, urlPromises } = window.__gutenverseDynamicCache;
 
 export const useDynamicContent = (dynamicContent) => {
     const [dynamicText, setDynamicText] = useState();

@@ -4,10 +4,15 @@ import { applyFilters } from '@wordpress/hooks';
 import { isEmpty, isEqual } from 'gutenverse-core/helper';
 import { isOnEditor } from 'gutenverse-core/helper';
 
-const contentCache = {};
-const urlCache = {};
-const contentPromises = {};
-const urlPromises = {};
+if (!window.__gutenverseDynamicCache) {
+    window.__gutenverseDynamicCache = {
+        contentCache: {},
+        urlCache: {},
+        contentPromises: {},
+        urlPromises: {},
+    };
+}
+const { contentCache, urlCache, contentPromises, urlPromises } = window.__gutenverseDynamicCache;
 
 export const dynamicData = (props) => {
     const {
