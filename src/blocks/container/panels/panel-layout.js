@@ -451,7 +451,7 @@ export const layoutPanel = (props) => {
                     'selector': selector,
                     'properties': [
                         {
-                            'name': 'height',
+                            'name': 'min-height',
                             'valueType': 'direct'
                         }
                     ],
