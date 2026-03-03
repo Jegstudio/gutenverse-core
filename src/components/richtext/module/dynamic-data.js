@@ -19,6 +19,7 @@ export const dynamicData = (props) => {
         panelDynamic,
         dynamicList,
         parentHasLink,
+        context
     } = props;
 
     const dynamicDataList = attributes[dynamicList];
@@ -355,7 +356,10 @@ export const dynamicData = (props) => {
                 }
                 // get dynamic content text
                 if (title !== content) {
-                    const contentParams = dynamicDataList[index].dynamicContent;
+                    const contentParams = {
+                        ...dynamicDataList[index].dynamicContent,
+                        context
+                    };
 
                     if (!isEmpty(contentParams) && isOnEditor()) {
                         const key = JSON.stringify(contentParams);
