@@ -7,6 +7,11 @@
 .guten-flex-container-editor {
     box-sizing: border-box;
 
+    // special fix for section slider.
+    .guten-inner-container-editor>.guten-section-slider {
+        width: 100%;
+    }
+
     &.pinned {
         position: sticky !important;
         z-index: 999;

@@ -58,6 +58,11 @@
             bottom: 0;
         }
     }
+
+    // special fix for section slider.
+    >.guten-inner-container>.guten-section-slider {
+        width: 100%;
+    }
 }
 
 .guten-inner-container {
