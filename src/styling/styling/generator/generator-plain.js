@@ -160,16 +160,16 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}, otherA
             }
             break;
         case 'handleFlexSize':
-            const {flexSizeGrow, flexSizeShrink} = otherAttribute;
+            const { flexSizeGrow, flexSizeShrink } = otherAttribute;
             switch (attribute) {
                 case 'grow':
-                    value = `${isNotEmpty(flexSizeGrow[device]) ? flexSizeGrow[device] : 1 } 0 auto`;
+                    value = `${isNotEmpty(flexSizeGrow[device]) ? flexSizeGrow[device] : 1} 0 auto`;
                     break;
                 case 'shrink':
-                    value = `0 ${isNotEmpty(flexSizeShrink[device]) ? flexSizeShrink[device] : 1 } auto`;
+                    value = `0 ${isNotEmpty(flexSizeShrink[device]) ? flexSizeShrink[device] : 1} auto`;
                     break;
                 case 'custom':
-                    value = `${isNotEmpty(flexSizeGrow[device]) ? flexSizeGrow[device] : 1 } ${isNotEmpty(flexSizeShrink[device]) ? flexSizeShrink[device] : 1 } auto`;
+                    value = `${isNotEmpty(flexSizeGrow[device]) ? flexSizeGrow[device] : 0} ${isNotEmpty(flexSizeShrink[device]) ? flexSizeShrink[device] : 1} auto`;
                     break;
                 default:
                     break;
