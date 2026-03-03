@@ -3,6 +3,7 @@ import { renderValue } from '../styling-helper';
 import { handleAlign, handleAlignReverse } from '../handler/handle-align';
 import { handleFilterImage, customHandleBackground } from '../styling-helper';
 import { applyFilters } from '@wordpress/hooks';
+import { getColor } from '../handler/handle-color';
 
 const isZeroValue = (value) => {
     return 0 === value || '0' === value;
@@ -173,6 +174,10 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}, otherA
                 default:
                     break;
             }
+            break;
+        case 'handleInputAutofillBackgroundColor':
+            const valColor = getColor(attribute);
+            value = `0 0 0 100vmax ${valColor} inset`;
             break;
         default:
             value = '';

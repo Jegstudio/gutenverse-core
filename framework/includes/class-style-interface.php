@@ -2052,7 +2052,7 @@ abstract class Style_Interface {
 						array(
 							'selector'       => $selector,
 							'property'       => function ( $value ) {
-								$position = $value['position'];
+								$position  = isset( $value['position'] ) ? $value['position'] : false;
 								$xposition = isset( $value['xposition'] ) ? $value['xposition'] : false;
 
 								if ( 'custom' === $position && $xposition ) {

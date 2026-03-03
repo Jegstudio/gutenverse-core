@@ -1,14 +1,17 @@
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
-import { compose } from '@wordpress/compose';
 import classnames from 'classnames';
-import { FluidCanvasSave } from 'gutenverse-core/components';
-import { isEmptyValue } from 'gutenverse-core/editor-helper';
+import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundEffectScript, withBackgroundSlideshowScript } from 'gutenverse-core/hoc';
+import { SectionDividerBottom, SectionDividerTop } from '../../components/section-divider';
+import { compose } from '@wordpress/compose';
 import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
-import { withAnimationAdvanceScript, withBackgroundEffectScript, withBackgroundSlideshowScript, withCursorEffectScript, withMouseMoveEffectScript, withVideoBackground } from 'gutenverse-core/hoc';
-import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { isEmptyValue } from 'gutenverse-core/editor-helper';
+import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from '../../components/section-divider-animated';
+import { FluidCanvasSave } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
-import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
-import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from './components/section-divider-animated';
 
 const save = compose(
     withAnimationAdvanceScript('section'),
@@ -127,13 +130,9 @@ const save = compose(
                             })} />
                         }
                         {isSlideShow &&
-                            <div data-var={`backgroundSlideshow${dataId}`} data-value={( () => {
-                                const { slideImage, ...rest } = background;
-                                return JSON.stringify({
-                                    ...rest,
-                                    slideLength: slideImage?.length || 0
-                                });
-                            } )()} />
+                            <div data-var={`backgroundSlideshow${dataId}`} data-value={JSON.stringify({
+                                ...background
+                            })} />
                         }
                     </div>
                 }
