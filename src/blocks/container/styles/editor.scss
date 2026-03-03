@@ -8,8 +8,12 @@
     box-sizing: border-box;
 
     // special fix for section slider.
-    .guten-inner-container-editor>.guten-section-slider {
-        width: 100%;
+    .guten-inner-container-editor {
+
+        >.guten-section-slider,
+        >.guten-post-carousel {
+            width: 100%;
+        }
     }
 
     &.pinned {

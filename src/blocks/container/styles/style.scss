@@ -60,8 +60,12 @@
     }
 
     // special fix for section slider.
-    >.guten-inner-container>.guten-section-slider {
-        width: 100%;
+    >.guten-inner-container {
+
+        >.guten-section-slider,
+        >.guten-post-carousel {
+            width: 100%;
+        }
     }
 }
 
