@@ -51,9 +51,10 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 		 * - javascript: URLs
 		 */
 		foreach ( $xpath->query( '//@*' ) as $attr ) {
+			$attr_value = preg_replace( '/[\x00-\x20\x7F]/', '', $attr->nodeValue );
 			if (
 			preg_match( '/^on/i', $attr->nodeName ) ||
-			preg_match( '/javascript:/i', $attr->nodeValue )
+			preg_match( '/javascript:/i', $attr_value )
 			) {
 				return false;
 			}
