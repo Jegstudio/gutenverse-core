@@ -43,6 +43,7 @@ export { default as CardPro } from './pro/card-pro';
 export { default as PopupPro } from './pro/popup-pro';
 export { default as PopupInstallPlugin } from './pro/popup-install-plugin';
 export { default as PopupInsufficientTier } from './pro/popup-insufficient-tier';
+export { default as DefaultLayout } from '../controls/controls/locked/default-layout';
 
 /**Editor Component */
 export { default as VideoPreviewer } from './editor/video-previewer';
