@@ -118,8 +118,8 @@ export const layoutPanel = (props) => {
                     'properties': [
                         {
                             'name': 'width',
-                            'valueType': 'direct',
-                            'important': true
+                            'valueType': 'function',
+                            'functionName': 'handleContainerWidth'
                         }
                     ],
                 }

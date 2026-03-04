@@ -82,7 +82,16 @@ class Container extends Style_Abstract {
 				array(
 					'selector'       => $content_selector,
 					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'width' );
+						if ( isset( $value['point'] ) && '' !== $value['point'] ) {
+							$unit = isset( $value['unit'] ) ? $value['unit'] : 'px';
+
+							if ( 'px' === $unit ) {
+								return "width: min(100%, {$value['point']}{$unit});";
+							}
+
+							return "width: {$value['point']}{$unit};";
+						}
+						return '';
 					},
 					'value'          => $this->attrs['containerWidth'],
 					'device_control' => true,
