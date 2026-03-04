@@ -781,8 +781,6 @@ abstract class Post_Abstract extends Block_Abstract {
 
 			if ( $page > 1 ) {
 				$output .= '<a href="#" class="btn-pagination prev" title="' . $prev_inner_text . "\">{$prev_text}</a> ";
-			} else {
-				$output .= '<a href="#" class="btn-pagination prev disabled" title="' . $prev_inner_text . "\">{$prev_text}</a> ";
 			}
 
 			if ( $page > 2 ) {
@@ -811,8 +809,6 @@ abstract class Post_Abstract extends Block_Abstract {
 
 			if ( $page < $total ) {
 				$output .= '<a href="#" class="btn-pagination next" title="' . esc_html__( 'Next', '--gctd--' ) . "\">{$next_text}</a>";
-			} else {
-				$output .= '<a href="#" class="btn-pagination next disabled" title="' . esc_html__( 'Next', '--gctd--' ) . "\">{$next_text}</a>";
 			}
 
 			$output .= '</div>';
@@ -882,12 +878,6 @@ abstract class Post_Abstract extends Block_Abstract {
 					esc_attr( $prev_inner_text ),
 					$prev_text
 				);
-			} else {
-				$output  .= sprintf(
-					'<a href="#" class="btn-pagination prev disabled" title="%s">%s</a> ',
-					esc_attr( $prev_inner_text ),
-					$prev_text
-				);
 			}
 
 			// First page + ellipsis.
@@ -943,12 +933,6 @@ abstract class Post_Abstract extends Block_Abstract {
 				$output  .= sprintf(
 					'<a href="%s" class="btn-pagination next" title="%s">%s</a>',
 					esc_url( $next_url ),
-					esc_html__( 'Next', '--gctd--' ),
-					$next_text
-				);
-			} else {
-				$output  .= sprintf(
-					'<a href="#" class="btn-pagination next disabled" title="%s">%s</a>',
 					esc_html__( 'Next', '--gctd--' ),
 					$next_text
 				);
