@@ -156,7 +156,7 @@ export const positioningPanel = (props) => {
         {
             id: 'positioningAlign',
             label: __('Align', '--gctd--'),
-            show: !['fixed', 'absolute'].includes(positioningLocation),
+            show: !['fixed', 'absolute'].includes(positioningLocation) && !isParentContainer,
             component: SelectControl,
             allowDeviceControl: true,
             options: [
@@ -457,12 +457,14 @@ export const positioningPanel = (props) => {
             label: __('Align Self', '--gctd--'),
             component: SVGRadioControl,
             allowDeviceControl: true,
-            options: flexAlignItem(flexDirection)
+            options: flexAlignItem(flexDirection),
+            show: isParentContainer,
         },
         {
             id: 'flexOrder',
             label: __('Order', '--gctd--'),
             component: SVGRadioControl,
+            show: isParentContainer,
             allowDeviceControl: true,
             options: [
                 {
@@ -487,7 +489,7 @@ export const positioningPanel = (props) => {
             label: __('Custom Order', '--gctd--'),
             allowDeviceControl: true,
             component: NumberControl,
-            show: isOrderCustom,
+            show: isOrderCustom && isParentContainer,
             step: 1
         },
         {
@@ -495,6 +497,7 @@ export const positioningPanel = (props) => {
             label: __('Size', '--gctd--'),
             component: SVGRadioControl,
             allowDeviceControl: true,
+            show: isParentContainer,
             options: [
                 {
                     tooltips: __('None', '--gctd--'),
@@ -523,7 +526,7 @@ export const positioningPanel = (props) => {
             label: __('Flex Grow', '--gctd--'),
             allowDeviceControl: true,
             component: NumberControl,
-            show: isSizeCustom,
+            show: isSizeCustom && isParentContainer,
             min: 0,
             step: 1
         },
@@ -532,7 +535,7 @@ export const positioningPanel = (props) => {
             label: __('Flex Shrink', '--gctd--'),
             allowDeviceControl: true,
             component: NumberControl,
-            show: isSizeCustom,
+            show: isSizeCustom && isParentContainer,
             min: 0,
             step: 1
         },
