@@ -32,7 +32,8 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'width',
-                'valueType': 'direct'
+                'valueType': 'function',
+                'functionName': 'handleContainerWidth'
             }
         ],
     });
