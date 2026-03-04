@@ -1859,15 +1859,9 @@ abstract class Style_Interface {
 						switch ( $value ) {
 
 							case 'grow':
-								if ( ! empty( $grow ) ) {
-									return "flex: {$grow} 0 auto";
-								}
 								return $is_desktop ? 'flex: 1 0 auto' : '';
 
 							case 'shrink':
-								if ( ! empty( $shrink ) ) {
-									return "flex: 0 {$shrink} auto";
-								}
 								return $is_desktop ? 'flex: 0 1 auto' : '';
 
 							case 'custom':
