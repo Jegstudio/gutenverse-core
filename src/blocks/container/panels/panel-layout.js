@@ -6,17 +6,12 @@ import {
     IconDirectionColumn,
     IconDirectionRowReversed,
     IconDirectionRow,
-    IconAlignContentEnd,
-    IconAlignContentMiddle,
-    IconAlignContentSpaceAround,
-    IconAlignContentSpaceBetween,
-    IconAlignContentSpaceEvenly,
-    IconAlignContentStart,
     IconNoWrap,
     IconWrap,
 } from '../icons';
 import isEmpty from 'lodash/isEmpty';
 import { flexAlignItem, flexJustifyContent } from 'gutenverse-core/helper';
+import { IconAlignContentEnd, IconAlignContentMiddle, IconAlignContentSpaceAround, IconAlignContentSpaceBetween, IconAlignContentSpaceEvenly, IconAlignContentStart } from 'gutenverse-core/icons';
 
 export const layoutPanel = (props) => {
     const {
