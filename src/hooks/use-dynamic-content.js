@@ -25,7 +25,21 @@ if (!window.__gutenverseDynamicCache.imageCache) {
 if (!window.__gutenverseDynamicCache.imagePromises) {
     window.__gutenverseDynamicCache.imagePromises = {};
 }
-const { contentCache, urlCache, imageCache, contentPromises, urlPromises, imagePromises } = window.__gutenverseDynamicCache;
+if (!window.__gutenverseDynamicCache.iconCache) {
+    window.__gutenverseDynamicCache.iconCache = {};
+}
+if (!window.__gutenverseDynamicCache.iconPromises) {
+    window.__gutenverseDynamicCache.iconPromises = {};
+}
+const { contentCache,
+    urlCache,
+    imageCache,
+    iconCache,
+    contentPromises,
+    urlPromises,
+    imagePromises,
+    iconPromises
+} = window.__gutenverseDynamicCache;
 
 export const useDynamicContent = (dynamicContent) => {
     const [dynamicText, setDynamicText] = useState();
@@ -164,4 +178,51 @@ export const useDynamicImage = (dynamicImage) => {
     }, [memoizedDynamicImage]);
 
     return { dynamicImg };
+};
+
+export const useDynamicIcon = (dynamicIcon) => {
+    const [dynamicIco, setDynamicIco] = useState();
+
+    const memoizedDynamicIcon = useMemo(() => dynamicIcon, [JSON.stringify(dynamicIcon)]);
+
+    useEffect(() => {
+        if (isEmpty(memoizedDynamicIcon) || !isOnEditor()) return;
+
+        const key = JSON.stringify(memoizedDynamicIcon);
+
+        if (iconCache[key] !== undefined) {
+            setDynamicIco(iconCache[key]);
+            return;
+        }
+
+        if (iconPromises[key]) {
+            iconPromises[key].then((result) => {
+                if (result !== undefined) {
+                    setDynamicIco(result);
+                }
+            });
+            return;
+        }
+
+        const dynamicIconContent = applyFilters(
+            'gutenverse.dynamic.fetch-icon',
+            memoizedDynamicIcon
+        );
+
+        if (typeof dynamicIconContent.then === 'function') {
+            iconPromises[key] = dynamicIconContent;
+            dynamicIconContent.then(result => {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined) {
+                    iconCache[key] = result;
+                    setDynamicIco(result);
+                } else {
+                    setDynamicIco(undefined);
+                }
+            }).catch(() => { }).finally(() => {
+                delete iconPromises[key];
+            });
+        }
+    }, [memoizedDynamicIcon]);
+
+    return { dynamicIco };
 };
