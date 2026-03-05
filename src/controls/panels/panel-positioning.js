@@ -81,6 +81,12 @@ export const positioningPanel = (props) => {
 
     }, [ clientId, deviceType ] );
 
+    const isBlockContainer = useSelect((select) => {
+        const { getBlock } = select('core/block-editor');
+        const block = getBlock(clientId);
+        return block?.name === 'gutenverse/container';
+    }, [clientId]);
+
     return [
         {
             id: 'positioningType',
@@ -156,7 +162,7 @@ export const positioningPanel = (props) => {
         {
             id: 'positioningAlign',
             label: __('Align', '--gctd--'),
-            show: !['fixed', 'absolute'].includes(positioningLocation) && !isParentContainer,
+            show: !['fixed', 'absolute'].includes(positioningLocation) && !isParentContainer && !isBlockContainer,
             component: SelectControl,
             allowDeviceControl: true,
             options: [
@@ -450,7 +456,7 @@ export const positioningPanel = (props) => {
             id: 'itemsHeading',
             component: HeadingControl,
             label: __('Flex Item', 'gutenverse'),
-            show: isParentContainer,
+            show: isParentContainer || isBlockContainer,
         },
         {
             id: 'flexAlignSelf',
@@ -458,13 +464,13 @@ export const positioningPanel = (props) => {
             component: SVGRadioControl,
             allowDeviceControl: true,
             options: flexAlignItem(flexDirection),
-            show: isParentContainer,
+            show: isParentContainer || isBlockContainer,
         },
         {
             id: 'flexOrder',
             label: __('Order', '--gctd--'),
             component: SVGRadioControl,
-            show: isParentContainer,
+            show: isParentContainer || isBlockContainer,
             allowDeviceControl: true,
             options: [
                 {
@@ -489,7 +495,7 @@ export const positioningPanel = (props) => {
             label: __('Custom Order', '--gctd--'),
             allowDeviceControl: true,
             component: NumberControl,
-            show: isOrderCustom && isParentContainer,
+            show: isOrderCustom && (isParentContainer || isBlockContainer),
             step: 1
         },
         {
@@ -497,7 +503,7 @@ export const positioningPanel = (props) => {
             label: __('Size', '--gctd--'),
             component: SVGRadioControl,
             allowDeviceControl: true,
-            show: isParentContainer,
+            show: isParentContainer || isBlockContainer,
             options: [
                 {
                     tooltips: __('None', '--gctd--'),
@@ -526,7 +532,7 @@ export const positioningPanel = (props) => {
             label: __('Flex Grow', '--gctd--'),
             allowDeviceControl: true,
             component: NumberControl,
-            show: isSizeCustom && isParentContainer,
+            show: isSizeCustom && (isParentContainer || isBlockContainer),
             min: 0,
             step: 1
         },
@@ -535,7 +541,7 @@ export const positioningPanel = (props) => {
             label: __('Flex Shrink', '--gctd--'),
             allowDeviceControl: true,
             component: NumberControl,
-            show: isSizeCustom && isParentContainer,
+            show: isSizeCustom && (isParentContainer || isBlockContainer),
             min: 0,
             step: 1
         },
