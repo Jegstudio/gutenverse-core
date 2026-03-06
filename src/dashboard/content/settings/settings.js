@@ -13,6 +13,8 @@ import { getSettingsIcon } from 'gutenverse-core/icons';
 import { PopupInstallPlugin, PopupPro } from 'gutenverse-core/components';
 
 const SettingsBody = ({ settings, ...props }) => {
+
+    const { subSettings } = props;
     let body = '';
     switch (settings) {
         case 'editor':
@@ -76,7 +78,7 @@ const SettingsBody = ({ settings, ...props }) => {
                 {getSettingTitle(props.subSettings ? props.subSettings : settings)}
             </h2>
         </div>
-        <div className="settings-tab-body">
+        <div className={`settings-tab-body ${subSettings !== undefined ? subSettings : ''}`}>
             {body}
         </div>
     </div>;

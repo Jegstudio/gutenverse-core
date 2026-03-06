@@ -1,8 +1,29 @@
-.template-tab-body {
-    &.additional-features {
+#gutenverse-dashboard .content-wrapper .dashboard-content .additional_features .gutenverse-button {
+    padding: 12px 22px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+}
+
+.dashboard-content .setting-tabs .settings-tab-body-wrapper .settings-tab-body.additional_features {
+    padding: 40px 30px 40px;
+
+    .actions {
+        display: flex;
+        justify-content: flex-end;
+        right: 30px;
+        padding-top: 40px;
+        border-top: 1px solid #E3E4E6;
+        position: static;
+
+    }
+
+    .template-tab-body {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
         gap: 20px;
+        margin-bottom: 40px;
 
         .feature-card {
             background: #F2F4F7;
@@ -10,6 +31,8 @@
             border-radius: 5px;
             font-family: "Roboto";
             color: #011627;
+            display: flex;
+            flex-direction: column;
 
             &.locked {
                 border: 1px solid #E32D64;
@@ -36,7 +59,6 @@
                 flex-direction: column;
                 align-items: center;
                 padding: 24px 20px;
-                border-bottom: 1px solid #E3E4E6;
 
                 .card-title {
                     margin: 16px 0 6px 0;
@@ -68,23 +90,36 @@
 
             .card-action {
                 padding: 20px;
+                margin-top: auto;
+                border-top: 1px solid #E3E4E6;
 
                 .control-wrapper {
                     padding: 0 !important;
                     border: none;
+                    height: 20px;
 
                     label {
+                        height: 20px;
                         margin: 0 !important;
                         font-weight: 500;
                         font-size: 12px;
                         line-height: 1;
                         align-items: center;
+
+                        .switch {
+                            position: absolute;
+                            right: -25px;
+                            transform: translateX(-50%);
+                        }
                     }
                 }
             }
         }
     }
+
 }
+
+
 
 .dashboard-content {
     .popup-pro.install-plugin {
