@@ -1667,7 +1667,9 @@ abstract class Style_Interface {
 						'type'  => $this->attrs['positioningType'],
 						'width' => $this->attrs['positioningWidth'],
 						'hide'  => $hide,
-					)
+					),
+					true,
+					array( 'type' => 'default' )
 				);
 			}
 			$this->inject_style(
@@ -2155,11 +2157,13 @@ abstract class Style_Interface {
 	/**
 	 * Merge device option.
 	 *
-	 * @param array $options Value tobe merged.
+	 * @param array   $options Value tobe merged.
+	 * @param boolean $is_inherit Determine if need to get value from inherit devices.
+	 * @param array   $inherit_values Inherit values with key and the default value.
 	 *
 	 * @return array
 	 */
-	public function merge_device_options( $options ) {
+	public function merge_device_options( $options, $is_inherit = false, $inherit_values = array() ) {
 		$results = array();
 		$devices = $this->get_all_device();
 
@@ -2169,11 +2173,38 @@ abstract class Style_Interface {
 			foreach ( $options as $key => $option ) {
 				if ( isset( $option[ $device ] ) ) {
 					$results[ $device ][ $key ] = $option[ $device ];
+				} elseif ( $is_inherit && isset( $inherit_values[ $key ] ) ) {
+					$results[ $device ][ $key ] = $this->get_inherit_value( $option, $device, $inherit_values[ $key ] );
 				}
 			}
 		}
 
 		return $results;
+	}
+
+	/**
+	 * Resolve inherited value for a given device using cascade: Desktop -> Tablet -> Mobile.
+	 *
+	 * @param array  $option        Per-device option values.
+	 * @param string $device        Current device ('Desktop', 'Tablet', 'Mobile').
+	 * @param mixed  $default_value Default/fallback value from inherit_values.
+	 *
+	 * @return mixed
+	 */
+	public function get_inherit_value( $option, $device, $default_value ) {
+		$desktop = isset( $option['Desktop'] ) ? $option['Desktop'] : $default_value;
+
+		if ( 'Tablet' === $device ) {
+			return isset( $option['Tablet'] ) ? $option['Tablet'] : $desktop;
+		}
+
+		if ( 'Mobile' === $device ) {
+			if ( isset( $option['Mobile'] ) ) {
+				return $option['Mobile'];
+			}
+			return isset( $option['Tablet'] ) ? $option['Tablet'] : $desktop;
+		}
+		return $desktop;
 	}
 
 	/**

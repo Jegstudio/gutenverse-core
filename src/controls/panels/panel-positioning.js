@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { SelectControl, SizeControl } from 'gutenverse-core/controls';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { deviceStyleValue, handleAlignV, handleUnitPoint } from 'gutenverse-core/styling';
 import { select } from '@wordpress/data';
 import isEmpty from 'lodash/isEmpty';
+import { getInheritValue } from "gutenverse-core/util/style-generator";
 
 export const positioningPanel = (props) => {
     const {
@@ -13,6 +13,7 @@ export const positioningPanel = (props) => {
         positioningWidth,
         positioningLocation,
         selector,
+        deviceType,
         options = [
             {
                 value: 'default',
@@ -34,6 +35,7 @@ export const positioningPanel = (props) => {
         inBlock = true,
     } = props;
 
+
     const setPositioning = (value, width = false) => {
         switch (value) {
             case 'full':
@@ -46,9 +48,9 @@ export const positioningPanel = (props) => {
     };
 
     const blockName = select('core/block-editor').getBlockName(clientId);
-    const deviceType = getDeviceType();
     const checkSelector = !isEmpty(selector) ? selector : `.${elementId}.guten-element`;
     const customSelector = blockName !== 'gutenverse/section' ? checkSelector : `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`;
+    const localPositioningType = getInheritValue(positioningType, deviceType, 'default');
 
     return [
         {
@@ -74,7 +76,7 @@ export const positioningPanel = (props) => {
         {
             id: 'positioningWidth',
             label: __('Custom Width', '--gctd--'),
-            show: !!positioningType && positioningType[deviceType] === 'custom',
+            show: localPositioningType === 'custom',
             component: SizeControl,
             allowDeviceControl: true,
             units: {
