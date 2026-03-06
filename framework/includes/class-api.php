@@ -603,13 +603,13 @@ class Api {
 	/**
 	 * Theme Data Manipulator
 	 *
-	 * since core v2.3.3
+	 * Since core v2.3.3.
 	 *
 	 * @param array $content .
 	 */
 	public function theme_data_manipulator( $content ) {
-		$current_theme        = wp_get_theme();
-		$current_slug = $current_theme->get_stylesheet();
+		$current_theme = wp_get_theme();
+		$current_slug  = $current_theme->get_stylesheet();
 		if ( $current_theme->parent() ) {
 			$current_slug = $current_theme->parent()->get_stylesheet();
 		}
@@ -619,20 +619,20 @@ class Api {
 		$pro_related_item   = null;
 		$other_items        = array();
 
-		// Loop over existing themes
+		// Loop over existing themes.
 		foreach ( $themes as $theme ) {
 
 			$slug   = $theme['data']['slug'] ?? '';
 			$pro_of = $theme['data']['theme_pro_of'] ?? array();
 
-			// 1. Current theme found in array
+			// 1. Current theme found in array.
 			if ( $slug === $current_slug ) {
 				$theme['data']['current_used'] = true;
 				$current_theme_item            = $theme;
 				continue;
 			}
 
-			// 2. Theme referencing current slug
+			// 2. Theme referencing current slug.
 			if ( is_array( $pro_of ) && in_array( $current_slug, $pro_of, true ) ) {
 				$pro_related_item = $theme;
 				continue;
@@ -645,7 +645,7 @@ class Api {
 		// 4. If current theme NOT in array: create new theme item
 		if ( ! $current_theme_item ) {
 
-			// Screenshot (URL or empty string)
+			// Screenshot (URL or empty string).
 			$screenshot = $current_theme->get_screenshot();
 
 			$current_theme_item = array(
@@ -657,8 +657,8 @@ class Api {
 					'name'         => $current_theme->get( 'Name' ),
 					'version'      => $current_theme->get( 'Version' ),
 					'current_used' => true,
-					'tier'		   => [''],
-					// Add screenshot as cover
+					'tier'         => array(),
+					// Add screenshot as cover.
 					'cover'        => array(
 						$screenshot,
 						0,
@@ -675,7 +675,7 @@ class Api {
 			);
 		}
 
-		// Build final sorted array
+		// Build final sorted array.
 		$final = array();
 
 		$final[] = $current_theme_item;      // 1. Current theme always first
@@ -2040,8 +2040,8 @@ class Api {
 			}
 
 			return array(
-				'status' => 200,
-				'redirect' => $target_redirect
+				'status'   => 200,
+				'redirect' => $target_redirect,
 			);
 		}
 

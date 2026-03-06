@@ -8,7 +8,7 @@ import { activeTheme, clientUrl } from 'gutenverse-core/config';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
-        upgradeProUrl, adminUrl, eventBanner
+        upgradeProUrl, adminUrl, eventBanner, adsBannerThemeTF, isUsingGutenverseThemeTF
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const eventData = eventBanner;
     const today = new Date();
@@ -41,6 +41,13 @@ const PanelTabPro = ({ activeTab }) => {
                                 ( eventData && today <= expired ) && <div className="event-banner-wrapper guten-card-pro-wrapper">
                                     <a href={eventData?.url} target="_blank" rel="noreferrer" >
                                         <img src={eventData?.bannerSidePanel} alt="event-banner"/>
+                                    </a>
+                                </div>
+                            }
+                            {
+                                ( adsBannerThemeTF && isUsingGutenverseThemeTF && today <= new Date(adsBannerThemeTF?.fse_dashboard?.expired) ) && <div className="event-banner-wrapper guten-card-pro-wrapper">
+                                    <a href={adsBannerThemeTF?.fse_dashboard?.url} target="_blank" rel="noreferrer" >
+                                        <img src={adsBannerThemeTF?.fse_dashboard?.img} alt="event-banner"/>
                                     </a>
                                 </div>
                             }
