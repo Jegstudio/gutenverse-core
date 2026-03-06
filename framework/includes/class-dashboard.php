@@ -778,6 +778,10 @@ class Dashboard {
 					'plugin_version'    => '3.1.1',
 					'framework_version' => '2.4.4',
 				),
+				array(
+					'plugin_version'    => '3.1.5',
+					'framework_version' => '2.5.0',
+				),
 			),
 			'gutenverse-pro'  => array(
 				array(
