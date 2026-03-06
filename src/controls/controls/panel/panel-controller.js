@@ -11,13 +11,16 @@ import { u } from 'gutenverse-core/components';
 import { dispatch, select } from '@wordpress/data';
 
 export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr, liveAttr, elementRef, panelState, setPanelIsClicked }) => {
-    const { panelProps, isSelected, setAttributes } = props;
+    const { panelProps, isSelected, setAttributes, transientState, setTransientState, context } = props;
     const defaultPanelProps = {
         ...panelProps,
         ...props.attributes,
         setAttributes,
         setLiveAttr,
-        liveAttr
+        liveAttr,
+        transientState,
+        setTransientState,
+        context
     };
     return <PanelController
         panelList={panelList}
@@ -165,7 +168,17 @@ const PanelController = ({ ...props }) => {
                     <PanelTabPro activeTab={activeTab} />
                     {panelList().filter(panel => {
                         let active = activeTab === null ? tabPanel[0].id : activeTab;
-                        const { tabRole } = panel;
+                        const { tabRole, show } = panel;
+
+                        if (show !== undefined) {
+                            if (typeof show === 'function') {
+                                if (!show(thePanelProps)) {
+                                    return false;
+                                }
+                            } else if (!show) {
+                                return false;
+                            }
+                        }
 
                         if (tabRole) {
                             const { id: tabId } = tabRole;

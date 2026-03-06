@@ -2,6 +2,7 @@
 @import "skeleton";
 @import "global";
 @import "wp-fix";
+@import "react-color-palette";
 
 html :where(.editor-styles-wrapper) {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", serif, serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -40,11 +41,13 @@ html :where(.editor-styles-wrapper) {
 @import "../blocks/section/styles/editor";
 @import "../blocks/column/styles/editor";
 @import "../blocks/wrapper/styles/editor";
+@import "../blocks/container/styles/editor";
 
 // Blocks Frontend
 @import "../blocks/section/styles/style";
 @import "../blocks/column/styles/style";
 @import "../blocks/wrapper/styles/style";
+@import "../blocks/container/styles/style";
 
 .guten-raw-wrapper {
 	width: 100%;

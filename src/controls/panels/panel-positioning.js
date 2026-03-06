@@ -1,9 +1,12 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl, SizeControl } from 'gutenverse-core/controls';
-import { deviceStyleValue, handleAlignV, handleUnitPoint } from 'gutenverse-core/styling';
 import { select } from '@wordpress/data';
 import isEmpty from 'lodash/isEmpty';
-import { getInheritValue } from "gutenverse-core/util/style-generator";
+import { getInheritValue } from 'gutenverse-core/util/style-generator';
+import { SelectControl, SizeControl, NumberControl, SVGRadioControl, HeadingControl } from 'gutenverse-core/controls';
+import { deviceStyleValue, handleAlignV, handleUnitPoint } from 'gutenverse-core/styling';
+import { checkIsParent, flexAlignItem } from 'gutenverse-core/helper';
+import { useSelect } from '@wordpress/data';
+import { IconOrderDot, IconOrderEnd, IconOrderStart, IconSizeDot, IconSizeGrow, IconSizeInitial, IconSizeShrink } from 'gutenverse-core/icons';
 
 export const positioningPanel = (props) => {
     const {
@@ -33,6 +36,8 @@ export const positioningPanel = (props) => {
             }
         ],
         inBlock = true,
+        flexOrder = {},
+        flexSize = {},
     } = props;
 
 
@@ -51,6 +56,38 @@ export const positioningPanel = (props) => {
     const checkSelector = !isEmpty(selector) ? selector : `.${elementId}.guten-element`;
     const customSelector = blockName !== 'gutenverse/section' ? checkSelector : `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`;
     const localPositioningType = getInheritValue(positioningType, deviceType, 'default');
+
+    // Flex Item Logic
+    const isOrderCustom = flexOrder[deviceType] === 'custom';
+    const isSizeCustom = flexSize[deviceType] === 'custom';
+
+    // Parent Check
+    const isParentContainer = checkIsParent(clientId, 'gutenverse/container');
+
+    const flexDirection = useSelect( ( select ) => {
+        const { getBlockRootClientId, getBlock } = select('core/block-editor');
+
+        const parentId = getBlockRootClientId(clientId);
+
+        if (!parentId) {
+            return 'column';
+        }
+
+        const parentBlock = getBlock(parentId);
+
+        if (parentBlock?.name !== 'gutenverse/container') {
+            return 'column';
+        }
+
+        return parentBlock?.attributes?.flexDirection?.[deviceType] ?? 'column';
+
+    }, [ clientId, deviceType ] );
+
+    const isBlockContainer = useSelect((select) => {
+        const { getBlock } = select('core/block-editor');
+        const block = getBlock(clientId);
+        return block?.name === 'gutenverse/container';
+    }, [clientId]);
 
     return [
         {
@@ -127,7 +164,7 @@ export const positioningPanel = (props) => {
         {
             id: 'positioningAlign',
             label: __('Align', '--gctd--'),
-            show: !['fixed', 'absolute'].includes(positioningLocation),
+            show: !['fixed', 'absolute'].includes(positioningLocation) && !isParentContainer && !isBlockContainer,
             component: SelectControl,
             allowDeviceControl: true,
             options: [
@@ -416,6 +453,99 @@ export const positioningPanel = (props) => {
                     'attributeType': 'custom',
                 }
             ]
-        }
+        },
+        {
+            id: 'itemsHeading',
+            component: HeadingControl,
+            label: __('Flex Item', 'gutenverse'),
+            show: isParentContainer || isBlockContainer,
+        },
+        {
+            id: 'flexAlignSelf',
+            label: __('Align Self', '--gctd--'),
+            component: SVGRadioControl,
+            allowDeviceControl: true,
+            options: flexAlignItem(flexDirection),
+            show: isParentContainer || isBlockContainer,
+        },
+        {
+            id: 'flexOrder',
+            label: __('Order', '--gctd--'),
+            component: SVGRadioControl,
+            show: isParentContainer || isBlockContainer,
+            allowDeviceControl: true,
+            options: [
+                {
+                    tooltips: __('Start', '--gctd--'),
+                    value: 'start',
+                    svg: <IconOrderStart />
+                },
+                {
+                    tooltips: __('End', '--gctd--'),
+                    value: 'end',
+                    svg: <IconOrderEnd />
+                },
+                {
+                    tooltips: __('Custom', '--gctd--'),
+                    value: 'custom',
+                    svg: <IconOrderDot />
+                },
+            ]
+        },
+        {
+            id: 'flexCustomOrder',
+            label: __('Custom Order', '--gctd--'),
+            allowDeviceControl: true,
+            component: NumberControl,
+            show: isOrderCustom && (isParentContainer || isBlockContainer),
+            step: 1
+        },
+        {
+            id: 'flexSize',
+            label: __('Size', '--gctd--'),
+            component: SVGRadioControl,
+            allowDeviceControl: true,
+            show: isParentContainer || isBlockContainer,
+            options: [
+                {
+                    tooltips: __('None', '--gctd--'),
+                    value: 'none',
+                    svg: <IconSizeInitial />
+                },
+                {
+                    tooltips: __('Grow', '--gctd--'),
+                    value: 'grow',
+                    svg: <IconSizeGrow />
+                },
+                {
+                    tooltips: __('Shrink', '--gctd--'),
+                    value: 'shrink',
+                    svg: <IconSizeShrink />
+                },
+                {
+                    tooltips: __('Custom', '--gctd--'),
+                    value: 'custom',
+                    svg: <IconSizeDot />
+                },
+            ]
+        },
+        {
+            id: 'flexSizeGrow',
+            label: __('Flex Grow', '--gctd--'),
+            allowDeviceControl: true,
+            component: NumberControl,
+            show: isSizeCustom && (isParentContainer || isBlockContainer),
+            min: 0,
+            step: 1
+        },
+        {
+            id: 'flexSizeShrink',
+            label: __('Flex Shrink', '--gctd--'),
+            allowDeviceControl: true,
+            component: NumberControl,
+            show: isSizeCustom && (isParentContainer || isBlockContainer),
+            min: 0,
+            step: 1
+        },
     ];
 };

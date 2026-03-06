@@ -39,7 +39,6 @@ const SVGRadioControl = props => {
         }
     };
 
-
     const activeIndex = options.findIndex(opt => opt.value === value);
     const highlightWidth = 100 / options.length;
     const highlightStyle = {
@@ -108,7 +107,7 @@ const SVGRadioControl = props => {
                             <label className={`${isActive ? 'active' : ''}`}>
                                 <input
                                     id={`${id}-radio-svg`}
-                                    onClick={() => onChange(item.value)}
+                                    onClick={() => onChange(isActive ? '' : item.value)}
                                     type={'radio'}
                                     value={item.value}
                                 />

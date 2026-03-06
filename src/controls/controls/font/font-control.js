@@ -153,8 +153,9 @@ const FontControl = (props) => {
     }, [value]);
 
     const customStyles = {
-        input: () => {
+        input: (provided) => {
             return {
+                ...provided,
                 padding: 0,
                 margin: 0
             };
