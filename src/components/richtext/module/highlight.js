@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
 import { useSelect, subscribe, dispatch } from '@wordpress/data';
 
-export const highlight = (props) => {
+export const useHighlight = (props) => {
     const {
         attributes,
         setAttributes,
@@ -14,16 +14,21 @@ export const highlight = (props) => {
         contentAttribute,
         tagName,
         panelPosition,
-        textChilds
+        textChilds,
+        isUseHighlight
     } = props;
     const content = attributes[contentAttribute];
-    const [lastChildLength, setLastChildLength] = useState(attributes[textChilds].length);
+    const textChildsData = attributes[textChilds] || [];
+    const [lastChildLength, setLastChildLength] = useState(textChildsData.length);
 
     useEffect(() => {
-        setLastChildLength(attributes[textChilds].length);
-    }, [attributes[textChilds]]);
+        if (!isUseHighlight) return;
+        setLastChildLength(textChildsData.length);
+    }, [textChildsData, isUseHighlight]);
 
     useEffect(() => {
+        if (!isUseHighlight || !content) return;
+
         const child = getListOfChildTag(content);
         let childs = attributes[textChilds];
         if (attributes[contentAttribute]) {
@@ -44,7 +49,7 @@ export const highlight = (props) => {
         if (lastChildLength !== attributes[textChilds].length && lastChildLength < attributes[textChilds].length) {
             setPanelState({ ...panelPosition, randKey: Math.random() });
         }
-    }, [content]);
+    }, [content, isUseHighlight]);
 
     const getListOfChildTag = (content) => {
         const fakeContent = document.createElement(tagName);
@@ -79,6 +84,8 @@ export const highlight = (props) => {
     };
 
     useEffect(() => {
+        if (!isUseHighlight || !content) return;
+
         const newDiv = document.createElement('div');
         newDiv.innerHTML = content;
         const contentArray = [];
@@ -138,6 +145,6 @@ export const highlight = (props) => {
                 return child;
             }
         });
-        return setAttributes({ [contentAttribute]: newValue.join('') });
-    }, [content, attributes[textChilds]]);
+        setAttributes({ [contentAttribute]: newValue.join('') });
+    }, [content, attributes[textChilds], isUseHighlight]);
 };

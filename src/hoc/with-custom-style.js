@@ -298,30 +298,34 @@ export const withCustomStyle = panelList => BlockElement => {
             ...customDeps,
         ]);
 
-        return <>
-            {hasIcon && (
-                <Helmet head={headElement}>
-                    <link rel="stylesheet" href={gtniconURL} media="all"></link>
-                    <link rel="stylesheet" href={fontawesomeURL} media="all"></link>
+        return (
+            <>
+                <Helmet device={deviceType} head={headElement}>
+                    {hasIcon && (
+                        <>
+                            <link rel="stylesheet" href={gtniconURL} media="all" />
+                            <link rel="stylesheet" href={fontawesomeURL} media="all" />
+                        </>
+                    )}
+                    {elementId !== undefined && renderGoogleFont()}
+                    {elementId !== undefined && renderCustomFont()}
                 </Helmet>
-            )}
-            <Helmet device={deviceType} head={headElement}>
-                {elementId !== undefined && renderGoogleFont()}
-                {elementId !== undefined && renderCustomFont()}
-            </Helmet>
-            {elementId !== undefined && <style id={elementId}>{buildStyle(adminStyles)}</style>}
-            <BlockElement
-                {...props}
-                addStyle={addStyle}
-                removeStyle={removeStyle}
-                panelProps={panelProps}
-                totalChild={totalChild}
-                deviceType={deviceType}
-                setElementRef={setElementRef}
-                elementRef={elementRef}
-                refreshStyle={refreshStyle}
-                setAdditionalAttribute={setAdditionalAttribute}
-            />
-        </>;
+                {elementId !== undefined && (
+                    <style id={elementId}>{buildStyle(adminStyles)}</style>
+                )}
+                <BlockElement
+                    {...props}
+                    addStyle={addStyle}
+                    removeStyle={removeStyle}
+                    panelProps={panelProps}
+                    totalChild={totalChild}
+                    deviceType={deviceType}
+                    setElementRef={setElementRef}
+                    elementRef={elementRef}
+                    refreshStyle={refreshStyle}
+                    setAdditionalAttribute={setAdditionalAttribute}
+                />
+            </>
+        );
     };
 };

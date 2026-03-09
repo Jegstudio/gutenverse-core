@@ -1,8 +1,8 @@
 import { RichText } from '@wordpress/block-editor';
 import { useSelect, dispatch } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
-import { dynamicData } from './module/dynamic-data';
-import { highlight } from './module/highlight';
+import { useDynamicData } from './module/dynamic-data';
+import { useHighlight } from './module/highlight';
 import { useEffect, useState, useDeferredValue } from '@wordpress/element';
 
 const RichTextComponent = (props) => {
@@ -23,18 +23,13 @@ const RichTextComponent = (props) => {
         isUseHighlight = false,
     } = props;
 
+    const content = attributes[contentAttribute];
     const [query, setQuery] = useState(content); // Input value
     const [isTyping, setIsTyping] = useState(false);
     const deferredQuery = useDeferredValue(query);
 
-    if (isUseDinamic) {
-        dynamicData(props);
-    }
-    if (isUseHighlight) {
-        highlight(props);
-    }
-
-    const content = attributes[contentAttribute];
+    useDynamicData(props);
+    useHighlight(props);
     const {
         getBlocks
     } = useSelect(

@@ -14,7 +14,7 @@ if (!window.__gutenverseDynamicCache) {
 }
 const { contentCache, urlCache, contentPromises, urlPromises } = window.__gutenverseDynamicCache;
 
-export const dynamicData = (props) => {
+export const useDynamicData = (props) => {
     const {
         attributes,
         setAttributes,
@@ -24,15 +24,16 @@ export const dynamicData = (props) => {
         panelDynamic,
         dynamicList,
         parentHasLink,
-        context
+        context,
+        isUseDinamic
     } = props;
 
     const dynamicDataList = attributes[dynamicList];
     const content = attributes[contentAttribute];
     const textContent = attributes.dynamicTextContent;
     const urlContent = attributes.dynamicUrlContent;
-    const [dynamicText, setDynamicText] = useState(textContent? textContent: []);
-    const [dynamicUrl, setDynamicUrl] = useState(urlContent? urlContent : []);
+    const [dynamicText, setDynamicText] = useState(textContent ? textContent : []);
+    const [dynamicUrl, setDynamicUrl] = useState(urlContent ? urlContent : []);
 
     function findNewData(arr1, arr2) {
         const newData = [];
@@ -47,7 +48,7 @@ export const dynamicData = (props) => {
     }
 
     function compareList(arr1, arr2) {
-        if (arr1.length !== arr2.length) return false;
+        if (!arr1 || !arr2 || arr1.length !== arr2.length) return false;
 
         const map1 = new Map(arr1.map(obj => [obj.id, obj]));
         const map2 = new Map(arr2.map(obj => [obj.id, obj]));
@@ -62,6 +63,8 @@ export const dynamicData = (props) => {
 
     // set up the dynamic data
     useEffect(() => {
+        if (!isUseDinamic || !content || !dynamicDataList) return;
+
         const fakeContent = document.createElement(tagName);
         fakeContent.innerHTML = content;
         const dynamicLists = getDynamicDataList(fakeContent);
@@ -97,7 +100,7 @@ export const dynamicData = (props) => {
         } else if (!compareList(dynamicLists, currentList)) {
             setAttributes({ [dynamicList]: [] });
         }
-    }, [content, dynamicDataList]);
+    }, [isUseDinamic, content, dynamicDataList]);
 
     // function to get dynamic data
     function getDynamicDataList(fakeContent) {
@@ -105,7 +108,7 @@ export const dynamicData = (props) => {
         newElement = u(fakeContent).children().map(child => {
             const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
 
-            if( isDynamic ){
+            if (isDynamic) {
                 return {
                     dynamicContent: {},
                     dynamicUrl: {},
@@ -131,7 +134,7 @@ export const dynamicData = (props) => {
                 }
             }
         });
-        if( newElement.nodes.length === 0 ){
+        if (newElement.nodes.length === 0) {
             const arrElement = [];
             fakeContent.innerHTML = content;
             const dynamics = u(fakeContent).find('.guten-dynamic-data');
@@ -219,7 +222,7 @@ export const dynamicData = (props) => {
     }
 
     // function to parse string into a HTML element
-    function parseElement(elementString){
+    function parseElement(elementString) {
         var parser = new DOMParser();
         var htmlElement = parser.parseFromString(elementString, 'text/html').body.firstChild;
 
@@ -250,8 +253,7 @@ export const dynamicData = (props) => {
     // change the text and href dynamically and set up the content
     let timeoutId;
     useEffect(() => {
-
-        if ( !dynamicDataList.length > 0 ) return;
+        if (!isUseDinamic || !dynamicDataList || !dynamicDataList.length > 0) return;
         // take the content and put them in an array separated by childNodes
         const newDiv = document.createElement('div');
         newDiv.innerHTML = content;
@@ -273,7 +275,7 @@ export const dynamicData = (props) => {
             const doc = parser.parseFromString(item, 'text/html');
             const selectElements = doc.querySelectorAll('span.guten-dynamic-data');
             const pushData = {
-                key : index,
+                key: index,
                 element: selectElements
             };
 
@@ -283,7 +285,7 @@ export const dynamicData = (props) => {
 
             const selectLink = doc.querySelectorAll('a.dynamic-link');
             const pushLink = {
-                key : index,
+                key: index,
                 element: selectLink
             };
 
@@ -293,10 +295,10 @@ export const dynamicData = (props) => {
         }
 
         //to remove tag <a> if dynamic content does not exist
-        if( selectedLink.length > 0 ) {
+        if (selectedLink.length > 0) {
             selectedLink.map((link) => {
                 const getMatch = dynamicDataList.find(item => item.id === link.element[0].childNodes[0].id);
-                const dynamicExist =  link.element[0].querySelector('span.guten-dynamic-data');
+                const dynamicExist = link.element[0].querySelector('span.guten-dynamic-data');
                 // remove the <a> tag when it doesn't have the dynamic <span>, also remove it from the selected items
                 if (dynamicExist === null) {
                     selectedItems = selectedItems.filter(item => item.key !== link.key);
@@ -317,13 +319,13 @@ export const dynamicData = (props) => {
             });
         }
 
-        if ( selectedItems.length > 0 && dynamicDataList.length === selectedItems.length) {
+        if (selectedItems.length > 0 && dynamicDataList.length === selectedItems.length) {
             // for some reason, data list doesnt save data as HTML element so the element is saved as string and nedded to be parsed again into HTML element. its confusing
-            const newestList = dynamicDataList.map((list)=> {
-                if (typeof list.value !== 'string') return {...list};
+            const newestList = dynamicDataList.map((list) => {
+                if (typeof list.value !== 'string') return { ...list };
                 const newValue = parseElement(list.value);
                 let newParent;
-                if (list.parent){
+                if (list.parent) {
                     newParent = parseElement(list.parent);
                 }
                 return {
@@ -334,7 +336,7 @@ export const dynamicData = (props) => {
             });
 
             // the loop that is the core function of the features
-            selectedItems.map((item, index)=>{
+            selectedItems.map((item, index) => {
                 const id = item.element[0].id;
                 const linkExist = document.querySelector(`.link-${id}`);
 
@@ -350,7 +352,7 @@ export const dynamicData = (props) => {
                 let title = content;
 
                 const dynamicContent = dynamicDataList[index].dynamicContent;
-                if (dynamicContent.postdata || dynamicContent.sitedata || dynamicContent.authordata || dynamicContent.termdata){
+                if (dynamicContent.postdata || dynamicContent.sitedata || dynamicContent.authordata || dynamicContent.termdata) {
                     title = isEmpty(dynamicDataList[index]) || !isOnEditor() ? dynamicDataList[index] : applyFilters(
                         'gutenverse.dynamic.generate-content',
                         content,
@@ -374,9 +376,6 @@ export const dynamicData = (props) => {
                                 setDynamicText(prevState => {
                                     const newState = [...prevState];
                                     newState[index] = result;
-                                    if (!isEqual(textContent, newState) || !isEmpty(dynamicText) || dynamicText.length > 0) {
-                                        setAttributes({ dynamicTextContent: newState });
-                                    }
                                     return newState;
                                 });
                             }
@@ -389,14 +388,14 @@ export const dynamicData = (props) => {
                                 if (result !== undefined) updateTextState(result);
                             });
                         } else {
-                            const dynamicTextContent = applyFilters(
+                            const dynamicTextContentPromise = applyFilters(
                                 'gutenverse.dynamic.fetch-text',
                                 contentParams
                             );
 
-                            if (typeof dynamicTextContent.then === 'function') {
-                                contentPromises[key] = dynamicTextContent;
-                                dynamicTextContent
+                            if (typeof dynamicTextContentPromise.then === 'function') {
+                                contentPromises[key] = dynamicTextContentPromise;
+                                dynamicTextContentPromise
                                     .then(result => {
                                         if ((!Array.isArray(result) || result.length > 0) && result !== undefined) {
                                             contentCache[key] = result;
@@ -428,9 +427,6 @@ export const dynamicData = (props) => {
                                 setDynamicUrl(prevState => {
                                     const newState = [...prevState];
                                     newState[index] = result;
-                                    if (!isEqual(urlContent, newState) || !isEmpty(dynamicUrl) || dynamicUrl.length > 0) {
-                                        setAttributes({ dynamicUrlContent: newState });
-                                    }
                                     return newState;
                                 });
                             }
@@ -472,7 +468,7 @@ export const dynamicData = (props) => {
                     }
                     if (title !== content) {
                         //if dynamic data element is inside other element format
-                        if (newestList[index].parent){
+                        if (newestList[index].parent) {
 
                             let parent = newestList[index].parent;
                             if (dynamicText[index] !== undefined) item.element[0].setAttribute('dynamic-data-content', title);
@@ -497,7 +493,7 @@ export const dynamicData = (props) => {
                             anchorElement.innerHTML = item.element[0].outerHTML;
                         }
                     } else {
-                        if ( linkExist ) {
+                        if (linkExist) {
                             const htmlElement = parseElement(contentArray[item.key]);
                             if (dynamicUrl[index] || dynamicUrl[index] !== undefined) htmlElement.setAttribute('dynamic-data-url', href);
                             anchorElement.innerHTML = htmlElement.innerHTML;
@@ -512,10 +508,10 @@ export const dynamicData = (props) => {
                         }
                     }
                     contentArray[item.key] = anchorElement.outerHTML;
-                // when content is set
-                }else if (title !== content){
+                    // when content is set
+                } else if (title !== content) {
                     // if dynamic data element is inside other element format
-                    if (newestList[index].parent){
+                    if (newestList[index].parent) {
                         let parent = newestList[index].parent;
                         const ancestorTags = getAncestorTags(parent);
                         const elementWithAttr = item.element[0];
@@ -541,7 +537,7 @@ export const dynamicData = (props) => {
             });
             //use set time out to update attribute so that the dynamic content does not cause infinite loop
             //when used more than once in the same template part
-            const throttledUpdateAttributes = function() {
+            const throttledUpdateAttributes = function () {
                 if (!timeoutId) {
                     timeoutId = setTimeout(() => {
                         timeoutId = null;
@@ -557,5 +553,19 @@ export const dynamicData = (props) => {
         return () => {
             clearTimeout(timeoutId);
         };
-    },[content, dynamicDataList, textContent, urlContent]);
+    }, [isUseDinamic, content, dynamicDataList, dynamicText, dynamicUrl]);
+
+    useEffect(() => {
+        if (!isUseDinamic) return;
+        if (!isEqual(textContent, dynamicText) && dynamicText.length > 0) {
+            setAttributes({ dynamicTextContent: dynamicText });
+        }
+    }, [dynamicText, isUseDinamic]);
+
+    useEffect(() => {
+        if (!isUseDinamic) return;
+        if (!isEqual(urlContent, dynamicUrl) && dynamicUrl.length > 0) {
+            setAttributes({ dynamicUrlContent: dynamicUrl });
+        }
+    }, [dynamicUrl, isUseDinamic]);
 };

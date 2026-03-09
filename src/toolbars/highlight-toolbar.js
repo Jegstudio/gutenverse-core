@@ -7,19 +7,23 @@ import { __, sprintf } from '@wordpress/i18n';
 import { cryptoRandomString } from 'gutenverse-core/components';
 import { IconHighlightSVG } from 'gutenverse-core/icons';
 
-export const HighLightToolbar = (props) => {
+import { useEffect } from '@wordpress/element';
+
+export const useHighlightToolbar = (props) => {
     /** select block with RichText to display new format */
-    const formatTypes = select( 'core/rich-text' ).getFormatTypes();
-    const hasFormatType = formatTypes.some(object => object.name === 'highlight-format/text-highlight');
-    if(!hasFormatType){
-        registerFormatType('highlight-format/text-highlight', {
-            title: 'Text Highlight',
-            tagName: 'span',
-            className: 'guten-text-highlight',
-            edit: HighlightButton
-        });
-    }
-}
+    useEffect(() => {
+        const formatTypes = select('core/rich-text').getFormatTypes();
+        const hasFormatType = formatTypes.some(object => object.name === 'highlight-format/text-highlight');
+        if (!hasFormatType) {
+            registerFormatType('highlight-format/text-highlight', {
+                title: 'Text Highlight',
+                tagName: 'span',
+                className: 'guten-text-highlight',
+                edit: HighlightButton
+            });
+        }
+    }, []);
+};
 export const HighlightButton = (props) => {
     const {
         isActive,

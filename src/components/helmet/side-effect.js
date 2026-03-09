@@ -54,7 +54,9 @@ export default function withSideEffect(
 
             constructor(props) {
                 super(props);
+            }
 
+            componentDidMount() {
                 mountedInstances.push(this);
                 emitChange();
             }

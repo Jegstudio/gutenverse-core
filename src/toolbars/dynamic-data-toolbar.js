@@ -6,17 +6,21 @@ import { useState } from '@wordpress/element';
 import { cryptoRandomString } from 'gutenverse-core/components';
 import { IconDinamicSVG } from 'gutenverse-core/icons';
 
-export const FilterDynamic = (props) => {
-    const formatTypes = select( 'core/rich-text' ).getFormatTypes();
-    const hasDynamicData = formatTypes.some(object => object.name === 'dynamic-format/dynamic-data');
-    if(!hasDynamicData){
-        registerFormatType('dynamic-format/dynamic-data', {
-            title: 'Dynamic Data',
-            tagName: 'span',
-            className: 'guten-dynamic-data',
-            edit: DynamicDataButton,
-        });
-    }
+import { useEffect } from '@wordpress/element';
+
+export const useFilterDynamic = (props) => {
+    useEffect(() => {
+        const formatTypes = select('core/rich-text').getFormatTypes();
+        const hasDynamicData = formatTypes.some(object => object.name === 'dynamic-format/dynamic-data');
+        if (!hasDynamicData) {
+            registerFormatType('dynamic-format/dynamic-data', {
+                title: 'Dynamic Data',
+                tagName: 'span',
+                className: 'guten-dynamic-data',
+                edit: DynamicDataButton,
+            });
+        }
+    }, []);
 };
 
 const DynamicDataButton = (props) => {
@@ -102,4 +106,4 @@ const DynamicDataButton = (props) => {
         </BlockControls>
     );
 };
-export default FilterDynamic;
+export default useFilterDynamic;

@@ -74,6 +74,18 @@ export const withPartialRender = (BlockElement) => {
             };
         }, [renderRef]);
 
-        return disableLazyLoad || partialRender ? <BlockElement {...props} /> : <BlockLoading renderRef={renderRef} />;
+        return (
+            <>
+                {disableLazyLoad || partialRender ? (
+                    <>
+                        <BlockElement {...props} />
+                    </>
+                ) : (
+                    <>
+                        <BlockLoading renderRef={renderRef} />
+                    </>
+                )}
+            </>
+        );
     };
 };
