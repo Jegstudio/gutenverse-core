@@ -63,6 +63,7 @@ const setitngTitle = {
     like_dislike_button: __('Like & Dislike Settings', '--gctd--'),
     performance: __('Performance Settings', '--gctd--'),
     bookmark: __('Bookmark Settings', '--gctd--'),
+    post_split: __('Post Split Settings', '--gctd--'),
 };
 
 export const getSettingTitle = (key) => {
