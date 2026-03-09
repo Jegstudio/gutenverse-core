@@ -63,14 +63,25 @@ export const positioningPanel = (props, isBlockContainer = false) => {
     const customSelector = blockName !== 'gutenverse/section' ? checkSelector : `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`;
     const localPositioningType = getInheritValue(positioningType, deviceType, 'default');
 
-
     // Flex Item Logic
     const isOrderCustom = flexOrder[deviceType] === 'custom';
     const isSizeCustom = flexSize[deviceType] === 'custom';
 
     // Parent Check
     const isParentContainer = checkIsParent(clientId, 'gutenverse/container');
-    const flexDirection = context['gutenverse/flexDirection'];
+    const { getBlockRootClientId, getBlock } = select('core/block-editor');
+    const parentId = getBlockRootClientId(clientId);
+    let flexDirection = {
+        'Desktop': 'column',
+        'Tablet' : 'column',
+        'Mobile' : 'column'
+    };
+    const parentBlock = getBlock(parentId);
+    if (isParentContainer) {
+        flexDirection.Desktop = parentBlock?.attributes?.flexDirection?.['Desktop'] ?? 'column';
+        flexDirection.Tablet = parentBlock?.attributes?.flexDirection?.['Tablet'] ?? 'column';
+        flexDirection.Mobile = parentBlock?.attributes?.flexDirection?.['Mobile'] ?? 'column';
+    }
     const parentFlexDirection = flexDirection && flexDirection[deviceType] && flexDirection[deviceType].length > 1 ? flexDirection[deviceType] : 'column';
 
     return [
