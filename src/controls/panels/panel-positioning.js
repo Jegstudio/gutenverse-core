@@ -69,20 +69,8 @@ export const positioningPanel = (props, isBlockContainer = false) => {
 
     // Parent Check
     const isParentContainer = checkIsParent(clientId, 'gutenverse/container');
-    const { getBlockRootClientId, getBlock } = select('core/block-editor');
-    const parentId = getBlockRootClientId(clientId);
-    let flexDirection = {
-        'Desktop': 'column',
-        'Tablet' : 'column',
-        'Mobile' : 'column'
-    };
-    const parentBlock = getBlock(parentId);
-    if (isParentContainer) {
-        flexDirection.Desktop = parentBlock?.attributes?.flexDirection?.['Desktop'] ?? 'column';
-        flexDirection.Tablet = parentBlock?.attributes?.flexDirection?.['Tablet'] ?? 'column';
-        flexDirection.Mobile = parentBlock?.attributes?.flexDirection?.['Mobile'] ?? 'column';
-    }
-    const parentFlexDirection = flexDirection && flexDirection[deviceType] && flexDirection[deviceType].length > 1 ? flexDirection[deviceType] : 'column';
+    const flexDirection = context['gutenverse/flexDirection'];
+    const parentFlexDirection = flexDirection ? getInheritValue(flexDirection, deviceType, 'column') : 'column';
 
     return [
         {
