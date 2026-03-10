@@ -15,17 +15,23 @@ export const unitPointGenerator = (attribute, style, css) => {
         let valueCSS = multiProperty(attribute, style, otherAttribute);
         if (isNotEmpty(valueCSS)) css.Desktop = ` ${selector} { ${valueCSS} } `;
     } else {
+        const selectors = typeof selector === 'object' ? selector : {
+            'Desktop': selector,
+            'Tablet': selector,
+            'Mobile': selector,
+        };
+
         if (attribute['Desktop']) {
             let valueCSS = multiProperty(attribute['Desktop'], style, otherAttribute, 'Desktop');
-            if (isNotEmpty(valueCSS)) css.Desktop = `${selector} { ` + valueCSS + ' }';
+            if (isNotEmpty(valueCSS)) css.Desktop = `${selectors['Desktop']} { ` + valueCSS + ' }';
         }
         if (attribute['Tablet']) {
             let valueCSS = multiProperty(attribute['Tablet'], style, otherAttribute, 'Tablet');
-            if (isNotEmpty(valueCSS)) css.Tablet = `${selector} { ` + valueCSS + ' }';
+            if (isNotEmpty(valueCSS)) css.Tablet = `${selectors['Tablet']} { ` + valueCSS + ' }';
         }
         if (attribute['Mobile']) {
             let valueCSS = multiProperty(attribute['Mobile'], style, otherAttribute, 'Mobile');
-            if (isNotEmpty(valueCSS)) css.Mobile = `${selector} { ` + valueCSS + ' }';
+            if (isNotEmpty(valueCSS)) css.Mobile = `${selectors['Mobile']} { ` + valueCSS + ' }';
         }
     }
     return css;
@@ -60,8 +66,12 @@ const generateValue = ({ attribute, props, otherAttribute, deviceType = null }) 
             break;
         case 'function':
             if (isNotEmpty(attribute['point'])) {
-                const valueCSS = renderFunctionValue(functionName, functionProps, attribute, otherAttribute, deviceType);
-                value = `${name} : ${valueCSS};`;
+                if (typeof props.valueFunc === 'function') {
+                    value = `${name} : ${props.valueFunc(attribute, deviceType, otherAttribute)};`;
+                } else {
+                    const valueCSS = renderFunctionValue(functionName, functionProps, attribute, otherAttribute, deviceType);
+                    value = `${name} : ${valueCSS};`;
+                }
             }
             break;
         case 'direct':
@@ -80,6 +90,13 @@ const renderFunctionValue = (functionName, functionProps, attribute, otherAttrib
             if (deviceType && positionType && positionType[deviceType] !== 'default') {
                 value = `${attribute['point']}${attribute['unit']}`;
             } else if (!deviceType && positionType && positionType !== 'default') {
+                value = `${attribute['point']}${attribute['unit']}`;
+            }
+            break;
+        case 'handleContainerWidth':
+            if (attribute['unit'] === 'px') {
+                value = `min(100%, ${attribute['point']}${attribute['unit']})`;
+            } else {
                 value = `${attribute['point']}${attribute['unit']}`;
             }
             break;

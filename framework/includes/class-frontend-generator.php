@@ -11,6 +11,7 @@ namespace Gutenverse\Framework;
 
 use WP_Block_Patterns_Registry;
 use Gutenverse\Framework\Style\Column;
+use Gutenverse\Framework\Style\Container;
 use Gutenverse\Framework\Style\Wrapper;
 use Gutenverse\Framework\Style\Section;
 
@@ -344,7 +345,7 @@ class Frontend_Generator {
 
 			// Check for Background Attribute with fetchPriorityHigh.
 			if ( ! empty( $block['attrs']['background']['fetchPriorityHigh'] ) ) {
-				$bg        = $block['attrs']['background'];
+				$bg         = $block['attrs']['background'];
 				$image_urls = array();
 
 				if ( ! empty( $bg['useFeaturedImage'] ) && has_post_thumbnail() ) {
@@ -379,6 +380,33 @@ class Frontend_Generator {
 					foreach ( $image_urls as $url ) {
 						if ( $url ) {
 							$this->preload_images[] = $url;
+						}
+					}
+				}
+			}
+
+			if ( ! empty( $block['attrs']['backgroundOverlay']['fetchPriorityHigh'] ) ) {
+				$bg_overlay = $block['attrs']['backgroundOverlay'];
+
+				if ( isset( $bg_overlay['image'] ) ) {
+					$image      = $bg_overlay['image'];
+					$image_urls = array();
+
+					if ( isset( $image['image'] ) ) {
+						$image_urls[] = $image['image'];
+					} elseif ( isset( $image['url'] ) ) {
+						$image_urls[] = $image['url'];
+					} elseif ( isset( $image['Desktop']['image'] ) ) {
+						$image_urls[] = $image['Desktop']['image'];
+					} elseif ( isset( $image['Desktop']['url'] ) ) {
+						$image_urls[] = $image['Desktop']['url'];
+					}
+
+					if ( ! empty( $image_urls ) ) {
+						foreach ( $image_urls as $url ) {
+							if ( $url ) {
+								$this->preload_images[] = $url;
+							}
 						}
 					}
 				}
@@ -493,6 +521,9 @@ class Frontend_Generator {
 				break;
 			case 'gutenverse/wrapper':
 				$instance = new Wrapper( $attrs );
+				break;
+			case 'gutenverse/container':
+				$instance = new Container( $attrs );
 				break;
 		}
 
@@ -785,6 +816,7 @@ class Frontend_Generator {
 	public function block_styles() {
 		$blocks = array(
 			'column',
+			'container',
 			'section',
 			'wrapper',
 		);

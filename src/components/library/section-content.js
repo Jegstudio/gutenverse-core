@@ -41,9 +41,9 @@ const SectionContent = (props) => {
             pluginInstallMode={pluginInstallMode}
             setPluginInstallMode={setPluginInstallMode}
             setExporting={setExporting}
-            selectItem={selectItem}
             setSelectItem={setSelectItem}
             setLibraryError={props.setLibraryError}
+            onSectionSelect={props.onSectionSelect}
         />}
         <div className="gutenverse-library-inner-body">
             <SectionContentWrapper
@@ -136,14 +136,22 @@ const SectionContentWrapper = (props) => {
                 <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
                 <SelectStatus status={status} setStatus={setStatus} />
             </>}
-            <h2 className="gutenverse-library-side-heading">
-                {__('Style', '--gctd--')}
-            </h2>
-            <RenderCategories categories={categories} slug={'style'} categoryListClicked={categoryListClicked} data={data} type={'section'} />
-            <h2 className="gutenverse-library-side-heading">
-                {__('Categories', '--gctd--')}
-            </h2>
-            <RenderCategories categories={categories} slug={'category'} categoryListClicked={categoryListClicked} data={data} type={'section'} />
+            {Array.isArray(categories) && categories.some(cat => cat.slug === 'style' && cat.childs?.length > 0) &&
+                <>
+                    <h2 className="gutenverse-library-side-heading">
+                        {__('Style', '--gctd--')}
+                    </h2>
+                    <RenderCategories categories={categories} slug={'style'} categoryListClicked={categoryListClicked} data={data} type={'section'} />
+                </>
+            }
+            {Array.isArray(categories) && categories.some(cat => cat.slug === 'category' && cat.childs?.length > 0) &&
+                <>
+                    <h2 className="gutenverse-library-side-heading">
+                        {__('Categories', '--gctd--')}
+                    </h2>
+                    <RenderCategories categories={categories} slug={'category'} categoryListClicked={categoryListClicked} data={data} type={'section'} />
+                </>
+            }
         </div>
 
 
@@ -175,6 +183,7 @@ const SectionContentWrapper = (props) => {
                 exporting={exporting}
                 selectItem={selectItem}
                 setSelectItem={setSelectItem}
+                onSectionSelect={props.onSectionSelect}
             />
         </div>
     </>;
@@ -205,6 +214,7 @@ export const SectionContentData = props => {
                 exporting={exporting}
                 selectItem={selectItem}
                 setSelectItem={setSelectItem}
+                onSectionSelect={props.onSectionSelect}
             />
             <Paging current={current} total={total} changePaging={changePaging} scroller={scroller} />
         </>;
@@ -251,6 +261,7 @@ const SectionItems = props => {
             setLibraryError={props.setLibraryError}
             setExporting={setExporting}
             exporting={exporting}
+            onSectionSelect={props.onSectionSelect}
         />)}
     </Masonry>;
 };
@@ -336,6 +347,7 @@ const SectionContentItem = props => {
                             setLibraryError={setLibraryError}
                             setSingleId={setSingleId}
                             setSingleData={setSingleData}
+                            onSectionSelect={props.onSectionSelect}
                         />
                     </div> : <div className="library-item-overlay">
                         <div className="section-button import-section" onClick={() => setToCurrentItem()}>

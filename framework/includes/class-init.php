@@ -91,11 +91,15 @@ class Init {
 
 	/**
 	 * Old frontend generator kept for backward compatibility
+	 *
+	 * @var Frontend_Generator
 	 */
 	public $style_generator;
 
 	/**
 	 * Old frontend cache kept for backward compatibility
+	 *
+	 * @var Frontend_Cache
 	 */
 	public $style_cache;
 
@@ -168,6 +172,7 @@ class Init {
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'update_mime_types' ), 10, 3 );
 		add_filter( 'wp_handle_upload_prefilter', array( $this, 'verify_svg_upload' ), 10, 1 );
 		add_filter( 'wp_lazy_loading_enabled', array( $this, 'disable_wp_lazyload' ), 10, 1 );
+		add_filter( 'register_block_type_args', array( $this, 'inject_block_context' ), 10, 2 );
 
 		/**
 		 * These functions used to be called inside init hook.
@@ -176,6 +181,34 @@ class Init {
 		 */
 		$this->register_menu_position();
 		$this->import_mechanism();
+	}
+
+	/**
+	 * Inject context variables to Gutenverse blocks so they can read the
+	 * correct context (e.g. postId, postType) when placed inside a Query Loop.
+	 *
+	 * @param array  $args Array of arguments for registering a block type.
+	 * @param string $name Block type name including namespace.
+	 *
+	 * @return array
+	 */
+	public function inject_block_context( $args, $name ) {
+		// Only inject for Gutenverse blocks.
+		if ( strpos( $name, 'gutenverse' ) === 0 ) {
+			if ( ! isset( $args['uses_context'] ) ) {
+				$args['uses_context'] = array();
+			}
+
+			if ( ! in_array( 'postId', $args['uses_context'], true ) ) {
+				$args['uses_context'][] = 'postId';
+			}
+
+			if ( ! in_array( 'postType', $args['uses_context'], true ) ) {
+				$args['uses_context'][] = 'postType';
+			}
+		}
+
+		return $args;
 	}
 
 	/**

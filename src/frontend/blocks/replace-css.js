@@ -50,7 +50,10 @@ export class ReplaceCSS {
         let styleSheets = document.styleSheets;
 
         for (let i = 0, styleSheet; (styleSheet = styleSheets[i]); i++) {
-            if (styleSheet.href && styleSheet.href.includes('plugins/gutenverse') && styleSheet.href.includes('frontend.css')) {
+            const isGutenverseLink = styleSheet.href && styleSheet.href.includes('plugins/gutenverse') && (styleSheet.href.includes('frontend.css') || styleSheet.href.includes('assets/css/frontend/'));
+            const isGutenverseStyle = styleSheet.ownerNode && styleSheet.ownerNode.id === 'gutenverse-optimizer-combined-css';
+
+            if (isGutenverseLink || isGutenverseStyle) {
                 yield* this.visitStyleSheet(styleSheet);
             }
         }

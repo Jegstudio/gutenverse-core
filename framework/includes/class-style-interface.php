@@ -858,7 +858,7 @@ abstract class Style_Interface {
 
 			if ( isset( $cursor_efect['blur'] ) ) {
 				$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
-				if ( isset( $cursor_efect['enableSeperateBackground'] ) && isset( $cursor_efect['type'] )  ) {
+				if ( isset( $cursor_efect['enableSeperateBackground'] ) && isset( $cursor_efect['type'] ) ) {
 					if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
 						$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
 					}
@@ -891,8 +891,8 @@ abstract class Style_Interface {
 					}
 
 					if ( isset( $cursor_efect['background'] ) ) {
-						$selector =".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
-						if ( isset( $cursor_efect['enableSeperateBackground'] )  ) {
+						$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
+						if ( isset( $cursor_efect['enableSeperateBackground'] ) ) {
 							if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
 								$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
 							}
@@ -917,7 +917,7 @@ abstract class Style_Interface {
 						$selector = ".{$this->element_id}-cursor-effect.cursor-effect:not(.dummy-bg) .cursor-content";
 						$borders  = $cursor_efect['textBorder'];
 
-						if ( isset( $cursor_efect['enableSeperateBackground'] )  ) {
+						if ( isset( $cursor_efect['enableSeperateBackground'] ) ) {
 							if ( $cursor_efect['enableSeperateBackground'] && 'text' === $cursor_efect['type'] ) {
 								$selector = ".{$this->element_id}-cursor-effect.cursor-effect.dummy-bg";
 							}
@@ -1351,10 +1351,8 @@ abstract class Style_Interface {
 	}
 	/**
 	 * Handle Feature Tooltip.
-	 *
-	 * @param string $selector Selector.
 	 */
-	protected function tooltip_style( $selector ) {
+	protected function tooltip_style() {
 		$tltp_attrs = $this->attrs['tooltip'];
 		if ( isset( $tltp_attrs['tooltipMaxWidth'] ) ) {
 			$this->inject_style(
@@ -1667,7 +1665,9 @@ abstract class Style_Interface {
 						'type'  => $this->attrs['positioningType'],
 						'width' => $this->attrs['positioningWidth'],
 						'hide'  => $hide,
-					)
+					),
+					true,
+					array( 'type' => 'default' )
 				);
 			}
 			$this->inject_style(
@@ -1787,6 +1787,103 @@ abstract class Style_Interface {
 				}
 			}
 		}
+
+		/**
+		 * Child
+		 */
+
+		// Flex Align Self.
+		if ( isset( $this->attrs['flexAlignSelf'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => $selector,
+					'property'       => function ( $value ) {
+						return "align-self: {$value};";
+					},
+					'value'          => $this->attrs['flexAlignSelf'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Order.
+		if ( isset( $this->attrs['flexOrder'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => $selector,
+					'property'       => function ( $value ) {
+						if ( 'start' === $value ) {
+							return 'order: -9999;';
+						}
+						if ( 'end' === $value ) {
+							return 'order: 9999;';
+						}
+						return '';
+					},
+					'value'          => $this->attrs['flexOrder'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Custom Order.
+		if ( isset( $this->attrs['flexCustomOrder'] ) && isset( $this->attrs['flexOrder'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => $selector,
+					'property'       => function ( $value, $device ) {
+						if ( isset( $this->attrs['flexOrder'][ $device ] ) && 'custom' === $this->attrs['flexOrder'][ $device ] ) {
+							return "order: {$value};";
+						}
+						return '';
+					},
+					'value'          => $this->attrs['flexCustomOrder'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		// Flex Size (Grow/Shrink Presets).
+		if ( isset( $this->attrs['flexSize'] ) ) {
+			// Grow preset.
+			$flex_size_grow   = isset( $this->attrs['flexSizeGrow'] ) ? $this->attrs['flexSizeGrow'] : null;
+			$flex_size_shrink = isset( $this->attrs['flexSizeShrink'] ) ? $this->attrs['flexSizeShrink'] : null;
+
+			$this->inject_style(
+				array(
+					'selector'       => $selector,
+					'property'       => function ( $value, $device ) use ( $flex_size_grow, $flex_size_shrink ) {
+						$is_desktop = 'Desktop' === $device;
+
+						$grow   = $flex_size_grow[ $device ] ?? null;
+						$shrink = $flex_size_shrink[ $device ] ?? null;
+
+						switch ( $value ) {
+
+							case 'grow':
+								return $is_desktop ? 'flex: 1 0 auto;' : '';
+
+							case 'shrink':
+								return $is_desktop ? 'flex: 0 1 auto;' : '';
+
+							case 'custom':
+								if ( ! empty( $grow ) || ! empty( $shrink ) ) {
+									$grow   = ! empty( $grow ) ? $grow : 0;
+									$shrink = ! empty( $shrink ) ? $shrink : 0;
+
+									return "flex: {$grow} {$shrink} auto;";
+								}
+
+								return $is_desktop ? 'flex: 0 0 auto;' : '';
+							default:
+								return '';
+						}
+					},
+					'value'          => $this->attrs['flexSize'],
+					'device_control' => true,
+				)
+			);
+		}
 	}
 
 	/**
@@ -1859,8 +1956,9 @@ abstract class Style_Interface {
 	 * @since 3.0.3 add attribute backgroundTransition.
 	 *
 	 * @param string $selector Selector.
+	 * @param string $name     Background attribute name.
 	 */
-	protected function feature_background( $selector ) {
+	protected function feature_background( $selector, $name = 'background' ) {
 		if ( empty( $selector ) ) {
 			$selector = array(
 				'normal' => ".{$this->element_id}",
@@ -1868,22 +1966,22 @@ abstract class Style_Interface {
 			);
 		}
 
-		if ( isset( $this->attrs['background'] ) ) {
-			$this->handle_background( $selector['normal'], $this->attrs['background'] );
+		if ( isset( $this->attrs[ $name ] ) ) {
+			$this->handle_background( $selector['normal'], $this->attrs[ $name ] );
 		}
 
-		if ( isset( $this->attrs['backgroundHover'] ) ) {
-			$this->handle_background( $selector['hover'], $this->attrs['backgroundHover'] );
+		if ( isset( $this->attrs[ $name . 'Hover' ] ) ) {
+			$this->handle_background( $selector['hover'], $this->attrs[ $name . 'Hover' ] );
 		}
 
-		if ( isset( $this->attrs['backgroundTransition'] ) ) {
+		if ( isset( $this->attrs[ $name . 'Transition' ] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => $selector['normal'],
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'transition' );
 					},
-					'value'          => $this->attrs['backgroundTransition'],
+					'value'          => $this->attrs[ $name . 'Transition' ],
 					'device_control' => false,
 				)
 			);
@@ -1950,7 +2048,7 @@ abstract class Style_Interface {
 						array(
 							'selector'       => $selector,
 							'property'       => function ( $value ) {
-								$position = $value['position'];
+								$position  = isset( $value['position'] ) ? $value['position'] : false;
 								$xposition = isset( $value['xposition'] ) ? $value['xposition'] : false;
 
 								if ( 'custom' === $position && $xposition ) {
@@ -2155,11 +2253,13 @@ abstract class Style_Interface {
 	/**
 	 * Merge device option.
 	 *
-	 * @param array $options Value tobe merged.
+	 * @param array   $options Value tobe merged.
+	 * @param boolean $is_inherit Determine if need to get value from inherit devices.
+	 * @param array   $inherit_values Inherit values with key and the default value.
 	 *
 	 * @return array
 	 */
-	public function merge_device_options( $options ) {
+	public function merge_device_options( $options, $is_inherit = false, $inherit_values = array() ) {
 		$results = array();
 		$devices = $this->get_all_device();
 
@@ -2169,11 +2269,38 @@ abstract class Style_Interface {
 			foreach ( $options as $key => $option ) {
 				if ( isset( $option[ $device ] ) ) {
 					$results[ $device ][ $key ] = $option[ $device ];
+				} elseif ( $is_inherit && isset( $inherit_values[ $key ] ) ) {
+					$results[ $device ][ $key ] = $this->get_inherit_value( $option, $device, $inherit_values[ $key ] );
 				}
 			}
 		}
 
 		return $results;
+	}
+
+	/**
+	 * Resolve inherited value for a given device using cascade: Desktop -> Tablet -> Mobile.
+	 *
+	 * @param array  $option        Per-device option values.
+	 * @param string $device        Current device ('Desktop', 'Tablet', 'Mobile').
+	 * @param mixed  $default_value Default/fallback value from inherit_values.
+	 *
+	 * @return mixed
+	 */
+	public function get_inherit_value( $option, $device, $default_value ) {
+		$desktop = isset( $option['Desktop'] ) ? $option['Desktop'] : $default_value;
+
+		if ( 'Tablet' === $device ) {
+			return isset( $option['Tablet'] ) ? $option['Tablet'] : $desktop;
+		}
+
+		if ( 'Mobile' === $device ) {
+			if ( isset( $option['Mobile'] ) ) {
+				return $option['Mobile'];
+			}
+			return isset( $option['Tablet'] ) ? $option['Tablet'] : $desktop;
+		}
+		return $desktop;
 	}
 
 	/**
@@ -2494,10 +2621,21 @@ abstract class Style_Interface {
 			$selector = ".guten-element.{$this->element_id}";
 		}
 
+		$selector_margin  = $selector;
+		$selector_padding = $selector;
+		$selector_z_index = $selector;
+
+		if ( is_array( $selector ) ) {
+			$default          = $selector['default'] ?? ".guten-element.{$this->element_id}";
+			$selector_margin  = $selector['margin'] ?? $default;
+			$selector_padding = $selector['padding'] ?? $default;
+			$selector_z_index = $selector['z_index'] ?? $default;
+		}
+
 		if ( isset( $this->attrs['margin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => $selector,
+					'selector'       => $selector_margin,
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
@@ -2510,7 +2648,7 @@ abstract class Style_Interface {
 		if ( isset( $this->attrs['padding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => $selector,
+					'selector'       => $selector_padding,
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -2523,7 +2661,7 @@ abstract class Style_Interface {
 		if ( isset( $this->attrs['zIndex'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => $selector,
+					'selector'       => $selector_z_index,
 					'property'       => function ( $value ) {
 						return "z-index: {$value};";
 					},

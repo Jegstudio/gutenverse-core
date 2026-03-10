@@ -51,9 +51,10 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 		 * - javascript: URLs
 		 */
 		foreach ( $xpath->query( '//@*' ) as $attr ) {
+			$attr_value = preg_replace( '/[\x00-\x20\x7F]/', '', $attr->nodeValue );
 			if (
 			preg_match( '/^on/i', $attr->nodeName ) ||
-			preg_match( '/javascript:/i', $attr->nodeValue )
+			preg_match( '/javascript:/i', $attr_value )
 			) {
 				return false;
 			}
@@ -105,6 +106,35 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 		return $data;
 	}
 }
+
+if ( ! function_exists( 'gutenverse_get_ads_banner_theme_tf' ) ) {
+	/**
+	 * Get Event Banner
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_get_ads_banner_theme_tf() {
+		$data = get_transient( 'gutenverse_ads_theme_tf_cache' );
+		if ( $data ) {
+			return $data;
+		}
+		$response = wp_remote_request(
+			GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-banner/v1/adsbannerdata',
+			array(
+				'method' => 'POST',
+			)
+		);
+		if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {
+			return null;
+		}
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body );
+
+		set_transient( 'gutenverse_ads_theme_tf_cache', $data->data, 24 * HOUR_IN_SECONDS );
+		return $data->data;
+	}
+}
+
 if ( ! function_exists( 'gutenverse_check_if_script_localized' ) ) {
 	/**
 	 * Check if Script localized

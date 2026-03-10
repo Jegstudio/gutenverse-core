@@ -40,7 +40,7 @@ const SortableMultiValueLabel = SortableHandle(
 
 const SortableSelect = SortableContainer(AsyncSelect);
 
-const  SelectSortableControl = props => {
+const SelectSortableControl = props => {
     const {
         label,
         allowDeviceControl,
@@ -65,8 +65,9 @@ const  SelectSortableControl = props => {
     };
 
     const customStyles = {
-        input: () => {
+        input: (provided) => {
             return {
+                ...provided,
                 padding: 0,
                 margin: 0
             };

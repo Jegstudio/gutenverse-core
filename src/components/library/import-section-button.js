@@ -200,7 +200,12 @@ const ImportSectionButton = props => {
                 });
             } else {
                 supportGlobalImport && processGlobalStyle();
-                insertBlocks(newBlocks);
+
+                if (props.onSectionSelect) {
+                    props.onSectionSelect(newBlocks);
+                } else {
+                    insertBlocks(newBlocks);
+                }
                 resolve();
             }
         });

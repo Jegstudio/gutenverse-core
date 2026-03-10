@@ -14,24 +14,26 @@ class GutenverseSlideshow extends Default {
             dataId = u(element).find('.guten-inner-wrap').data('id');
         } else if (u(element).hasClass('guten-column')) {
             dataId = u(element).find('.guten-column-wrapper').data('id');
+        } else if (u(element).hasClass('guten-flex-container')) {
+            dataId = u(element).data('id');
         } else {
             dataId = u(element).parent().data('id');
         }
 
         const background = u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value') ? JSON.parse(u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value')) : {};
-        const { slideImage = {}, infiniteLoop } = background;
+        const { slideImage, slideLength, infiniteLoop } = background;
+        const finalLength = (typeof slideLength !== 'undefined') ? slideLength : (slideImage?.length || 0);
 
-        if (slideImage?.length < 1 || undefined === slideImage?.length) return;
+        if (finalLength < 1) return;
 
         const duration = (background.displayDuration < 0.1 || undefined === background.displayDuration) ? 1000 : background.displayDuration * 1000;
         const transition = (background.duration < 0.1 || undefined === background.duration) ? 1000 : background.duration * 1000;
         const transitionDuration = (transition < duration) ? transition : duration - 100;
-        const images = slideImage.map((image) => image?.image?.image);
         const elementId = `guten-${dataId}`;
 
         const slideshowImage = document.querySelectorAll(`.guten-${dataId}-slideshow-image`);
         const slideshowContainer = document.querySelectorAll(`.guten-${dataId}-child-slideshow`);
-        slideshowImage.length > 0 && this.toggleClassWithDuration(slideshowImage, slideshowContainer, duration, infiniteLoop, images, transitionDuration);
+        slideshowImage.length > 0 && this.toggleClassWithDuration(slideshowImage, slideshowContainer, duration, infiniteLoop, finalLength, transitionDuration);
         this.generateStyle(background, elementId);
     }
 
@@ -40,7 +42,7 @@ class GutenverseSlideshow extends Default {
         slideshowContainer,
         duration,
         infiniteLoop,
-        images,
+        slideLength,
         transition,
         prevClass = 'previous',
         currentClass = 'current',
@@ -81,7 +83,7 @@ class GutenverseSlideshow extends Default {
                 }, transition);
             }
 
-            if (!infiniteLoop && currentIndex === (images.length - 1)) {
+            if (!infiniteLoop && currentIndex === (slideLength - 1)) {
                 clearInterval(intervalToggle);
             }
         }, duration);

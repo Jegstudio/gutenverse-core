@@ -206,6 +206,7 @@ const LibraryModal = props => {
                         getDemo={getDemo}
                         demoList={demoList}
                         setDemoList={setDemoList}
+                        onSectionSelect={props.onSectionSelect}
                     />
                 </div>
             </div>

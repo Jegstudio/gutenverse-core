@@ -162,6 +162,7 @@ const SingleSectionContent = (props) => {
                                 unavailableGlobalFonts={unavailableGlobalFonts}
                                 unavailableGlobalColors={unavailableGlobalColors}
                                 supportGlobalImport={supportGlobalImport}
+                                onSectionSelect={props.onSectionSelect}
                             />
                         </div>
                     </div>

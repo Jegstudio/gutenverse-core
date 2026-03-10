@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BorderResponsiveControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleBoxShadow } from 'gutenverse-core/styling';
 
 export const borderPanel = (props) => {
@@ -10,9 +9,9 @@ export const borderPanel = (props) => {
         setSwitcher,
         selector,
         selectorHover,
+        deviceType = 'Desktop'
     } = props;
 
-    const device = getDeviceType();
 
     return [
         {
@@ -32,7 +31,7 @@ export const borderPanel = (props) => {
         },
         {
             id: 'border',
-            show: (!switcher.border || switcher.border === 'normal') && device === 'Desktop',
+            show: (!switcher.border || switcher.border === 'normal') && deviceType === 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
             liveStyle: [
@@ -52,7 +51,7 @@ export const borderPanel = (props) => {
         },
         {
             id: 'borderResponsive',
-            show: (!switcher.border || switcher.border === 'normal') && device !== 'Desktop',
+            show: (!switcher.border || switcher.border === 'normal') && deviceType !== 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
@@ -66,14 +65,14 @@ export const borderPanel = (props) => {
             style: [
                 {
                     selector: selector ? selector : `.${elementId}`,
-                    allowRender: () => device !== 'Desktop',
+                    allowRender: () => deviceType !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
         },
         {
             id: 'borderHover',
-            show: switcher.border === 'hover' && device === 'Desktop',
+            show: switcher.border === 'hover' && deviceType === 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
             liveStyle: [
@@ -93,7 +92,7 @@ export const borderPanel = (props) => {
         },
         {
             id: 'borderHoverResponsive',
-            show: switcher.border === 'hover' && device !== 'Desktop',
+            show: switcher.border === 'hover' && deviceType !== 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
