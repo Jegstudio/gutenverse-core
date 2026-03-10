@@ -45,7 +45,7 @@ const PanelTabPro = ({ activeTab }) => {
                                 </div>
                             }
                             {
-                                (adsBannerThemeTF && isUsingGutenverseThemeTF && today <= new Date(adsBannerThemeTF?.fse_dashboard?.expired)) && <div className="event-banner-wrapper guten-card-pro-wrapper">
+                                (adsBannerThemeTF && isUsingGutenverseThemeTF && today <= new Date(adsBannerThemeTF?.fse_dashboard?.expired)) && <div className="event-banner-wrapper">
                                     <a href={`${adsBannerThemeTF?.fse_dashboard?.url}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}`} target="_blank" rel="noreferrer" >
                                         <img src={adsBannerThemeTF?.fse_dashboard?.img} alt="event-banner" />
                                     </a>
