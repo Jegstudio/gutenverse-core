@@ -1861,20 +1861,20 @@ abstract class Style_Interface {
 						switch ( $value ) {
 
 							case 'grow':
-								return $is_desktop ? 'flex: 1 0 auto' : '';
+								return $is_desktop ? 'flex: 1 0 auto;' : '';
 
 							case 'shrink':
-								return $is_desktop ? 'flex: 0 1 auto' : '';
+								return $is_desktop ? 'flex: 0 1 auto;' : '';
 
 							case 'custom':
 								if ( ! empty( $grow ) || ! empty( $shrink ) ) {
 									$grow   = ! empty( $grow ) ? $grow : 0;
 									$shrink = ! empty( $shrink ) ? $shrink : 0;
 
-									return "flex: {$grow} {$shrink} auto";
+									return "flex: {$grow} {$shrink} auto;";
 								}
 
-								return $is_desktop ? 'flex: 0 0 auto' : '';
+								return $is_desktop ? 'flex: 0 0 auto;' : '';
 							default:
 								return '';
 						}
