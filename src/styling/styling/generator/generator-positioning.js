@@ -1,5 +1,8 @@
 import { skipDevice, handleAlignV} from 'gutenverse-core/styling';
+import { getInheritValue } from 'gutenverse-core/util/style-generator';
 import isEmpty from 'lodash/isEmpty';
+
+const deviceLists = ['Desktop', 'Tablet', 'Mobile'];
 
 export const positioningCSS = (properties, values, attributeType, skipDeviceType, multiAttr) => {
     const positioning = {
@@ -59,23 +62,18 @@ export const positioningCSS = (properties, values, attributeType, skipDeviceType
             break;
         }
         case 'width': {
-            const firstSkip = skipDevice(multiAttr, 'positioningType', (attr, device) =>
-                attr['positioningType'] && attr['positioningType'][device] === 'custom'
-            );
-
-            if (!isEmpty(values)) {
-                const devices = ['Desktop', 'Tablet', 'Mobile'];
-                let skip = firstSkip;
-
-                for (let i = 0; i < devices.length; i++) {
-                    let device = devices[i];
-                    if (device !== skip && !isEmpty(values[device])) {
+            const { positioningType = {} } = multiAttr
+            if (!isEmpty(values) && !isEmpty(positioningType)) {
+                for (let i = 0; i < deviceLists.length; i++) {
+                    let deviceType = deviceLists[i];
+                    const localPositioningType = getInheritValue(positioningType, deviceType, 'default');
+                    if (localPositioningType === 'custom' && !isEmpty(values[deviceType])) {
                         const pos = setPositioning(
-                            multiAttr['positioningType'][device],
-                            values[device],
+                            localPositioningType,
+                            values[deviceType],
                             multiAttr['inBlock']
                         );
-                        positioning[device].push(pos);
+                        positioning[deviceType].push(pos);
                     }
                 }
             }

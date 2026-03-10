@@ -345,7 +345,7 @@ class Frontend_Generator {
 
 			// Check for Background Attribute with fetchPriorityHigh.
 			if ( ! empty( $block['attrs']['background']['fetchPriorityHigh'] ) ) {
-				$bg        = $block['attrs']['background'];
+				$bg         = $block['attrs']['background'];
 				$image_urls = array();
 
 				if ( ! empty( $bg['useFeaturedImage'] ) && has_post_thumbnail() ) {
@@ -380,6 +380,33 @@ class Frontend_Generator {
 					foreach ( $image_urls as $url ) {
 						if ( $url ) {
 							$this->preload_images[] = $url;
+						}
+					}
+				}
+			}
+
+			if ( ! empty( $block['attrs']['backgroundOverlay']['fetchPriorityHigh'] ) ) {
+				$bg_overlay = $block['attrs']['backgroundOverlay'];
+
+				if ( isset( $bg_overlay['image'] ) ) {
+					$image      = $bg_overlay['image'];
+					$image_urls = array();
+
+					if ( isset( $image['image'] ) ) {
+						$image_urls[] = $image['image'];
+					} elseif ( isset( $image['url'] ) ) {
+						$image_urls[] = $image['url'];
+					} elseif ( isset( $image['Desktop']['image'] ) ) {
+						$image_urls[] = $image['Desktop']['image'];
+					} elseif ( isset( $image['Desktop']['url'] ) ) {
+						$image_urls[] = $image['Desktop']['url'];
+					}
+
+					if ( ! empty( $image_urls ) ) {
+						foreach ( $image_urls as $url ) {
+							if ( $url ) {
+								$this->preload_images[] = $url;
+							}
 						}
 					}
 				}
