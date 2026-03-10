@@ -43,6 +43,7 @@
       font-size: 12px;
       margin-top: 5px;
     }
+
     .control-error {
       color: red;
       display: block;
@@ -94,7 +95,7 @@
         width: 51px;
       }
 
-      input:checked + .switch {
+      input:checked+.switch {
         background: $input-switch-active;
       }
 
@@ -110,7 +111,7 @@
         transform: translate3d(0, -50%, 0);
       }
 
-      input:checked + .switch::before {
+      input:checked+.switch::before {
         color: #fff;
         content: "ON";
         left: 11px;
@@ -132,8 +133,50 @@
         width: 20px;
       }
 
-      input:checked + .switch::after {
+      input:checked+.switch::after {
         transform: translate3d(27px, -50%, 0);
+      }
+    }
+
+    &.control-image-radio {
+      .control-body {
+        display: flex;
+        flex-wrap: wrap;
+
+        label {
+          width: var(--gvnews-dashboard-img-radio-row, auto);
+          border: 2px solid #b3b3b3;
+          margin: 2px;
+          border-radius: 2px;
+          line-height: 0;
+
+          &.active {
+            border: 2px solid #3b57f7;
+          }
+
+          img {
+            width: var(--gvnews-dashboard-img-radio-image-width, unset);
+            height: auto;
+          }
+        }
+      }
+
+      [type="radio"] {
+        position: absolute;
+        width: 0;
+        height: 0;
+        display: none;
+
+        +svg {
+          cursor: pointer;
+          border: 1px solid #c1c1c1;
+          padding: 5px;
+          margin: 6px 3px;
+          display: block;
+          border-radius: 2px;
+          width: 70px;
+          height: 40px;
+        }
       }
     }
   }
@@ -182,7 +225,7 @@
   margin-bottom: 40px;
   padding: 10px;
 
-  & > div {
+  &>div {
     color: #40505d;
     cursor: pointer;
     padding: 15px;
@@ -193,6 +236,26 @@
       background: #e7ecfd;
       border-radius: 3px;
       color: var(--gutenverse-dashboard-primary);
+    }
+  }
+}
+
+@media (max-width: 765px) {
+  .settings-tab-body {
+    .control-wrapper {
+      &.control-image-radio {
+        .control-body {
+
+          label {
+            width: calc(50% - 10px);
+
+            img {
+              width: 100%;
+            }
+          }
+        }
+
+      }
     }
   }
 }
