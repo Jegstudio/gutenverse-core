@@ -27,10 +27,10 @@ const RichTextComponent = (props) => {
     const [isTyping, setIsTyping] = useState(false);
     const deferredQuery = useDeferredValue(query);
 
-    if(isUseDinamic){
+    if (isUseDinamic) {
         dynamicData(props);
     }
-    if(isUseHighlight){
+    if (isUseHighlight) {
         highlight(props);
     }
 
@@ -42,18 +42,18 @@ const RichTextComponent = (props) => {
         []
     );
 
-    const {insertBlock, replaceBlock} = dispatch('core/block-editor');
+    const { insertBlock, replaceBlock } = dispatch('core/block-editor');
     const oldBlock = getBlocks();
 
     const onSplit = (value, isOriginal) => {
-        const newBlock = createBlock( 'gutenverse/text-paragraph', {
+        const newBlock = createBlock('gutenverse/text-paragraph', {
             paragraph: value,
-        } );
-        if(isOriginal){
-            replaceBlock(clientId,newBlock);
-        }else{
+        });
+        if (isOriginal) {
+            replaceBlock(clientId, newBlock);
+        } else {
             const testBlock = getBlocks();
-            const currentBlockIndex = testBlock.findIndex((el,index) => el.clientId !== oldBlock[index].clientId);
+            const currentBlockIndex = testBlock.findIndex((el, index) => el.clientId !== oldBlock[index].clientId);
             insertBlock(newBlock, currentBlockIndex + 1);
         }
     };
@@ -82,7 +82,7 @@ const RichTextComponent = (props) => {
     }, [deferredQuery, isTyping]);
 
     const contentOfRichText = () => {
-        if(isBlockProps){
+        if (isBlockProps) {
             return <RichText
                 {...blockProps}
                 identifier={contentAttribute}
@@ -91,11 +91,11 @@ const RichTextComponent = (props) => {
                 placeholder={placeholder}
                 multiline={multiline}
                 aria-label={ariaLabel}
-                onSplit={ isOnSplit  && onSplit}
-                onReplace={ isOnSplit && onReplace}
+                onSplit={isOnSplit && onSplit}
+                onReplace={isOnSplit && onReplace}
                 onChange={value => handleOnChange(value)}
             />;
-        }else{
+        } else {
             return <RichText
                 identifier={contentAttribute}
                 tagName={tagName}

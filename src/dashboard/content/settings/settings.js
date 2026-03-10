@@ -69,6 +69,14 @@ const SettingsBody = ({ settings, ...props }) => {
                 props
             );
             break;
+        case 'account':
+            body = applyFilters(
+                'gutenverse.setting-pro-account',
+                body,
+                settings,
+                props
+            );
+            break;
         default:
             break;
     }

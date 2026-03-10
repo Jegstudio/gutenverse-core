@@ -79,9 +79,13 @@ const save = compose(
                         })} />
                     }
                     {isSlideShow &&
-                        <div data-var={`backgroundSlideshow${dataId}`} data-value={JSON.stringify({
-                            ...background
-                        })} />
+                        <div data-var={`backgroundSlideshow${dataId}`} data-value={( () => {
+                            const { slideImage, ...rest } = background;
+                            return JSON.stringify({
+                                ...rest,
+                                slideLength: slideImage?.length || 0
+                            });
+                        } )()} />
                     }
                 </div>}
             <FluidCanvasSave attributes={attributes} />

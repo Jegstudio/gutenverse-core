@@ -3,6 +3,11 @@ import { renderValue } from '../styling-helper';
 import { handleAlign, handleAlignReverse } from '../handler/handle-align';
 import { handleFilterImage, customHandleBackground } from '../styling-helper';
 import { applyFilters } from '@wordpress/hooks';
+import { getColor } from '../handler/handle-color';
+
+const isZeroValue = (value) => {
+    return 0 === value || '0' === value;
+};
 
 const cssGenerator = (attribute, style, css) => {
     const { selector, responsive = false, otherAttribute, responsiveSelector = false, properties = [{}], skip_device = [], specificDevice = '' } = style;
@@ -24,17 +29,17 @@ const cssGenerator = (attribute, style, css) => {
             'Mobile': selector,
         };
 
-        if ((isNotEmpty(attribute['Desktop']) && skip_device.includes('Desktop') === false) || exceptionForConditional) {
+        if ((isNotEmpty(attribute['Desktop']) || isZeroValue(attribute['Desktop']) && skip_device.includes('Desktop') === false) || exceptionForConditional) {
             const value = multiProperty(attribute['Desktop'], style, otherAttribute, 'Desktop');
             if (isNotEmpty(value)) css.Desktop += ` ${selectors['Desktop']} { ${value} } `;
         }
 
-        if ((isNotEmpty(attribute['Tablet']) && skip_device.includes('Tablet') === false) || exceptionForConditional) {
+        if ((isNotEmpty(attribute['Tablet']) || isZeroValue(attribute['Desktop']) && skip_device.includes('Tablet') === false) || exceptionForConditional) {
             const value = multiProperty(attribute['Tablet'], style, otherAttribute, 'Tablet');
             if (isNotEmpty(value)) css.Tablet += ` ${selectors['Tablet']} { ${value} } `;
         }
 
-        if ((isNotEmpty(attribute['Mobile']) && skip_device.includes('Mobile') === false) || exceptionForConditional) {
+        if ((isNotEmpty(attribute['Mobile']) || isZeroValue(attribute['Desktop']) && skip_device.includes('Mobile') === false) || exceptionForConditional) {
             const value = multiProperty(attribute['Mobile'], style, otherAttribute, 'Mobile');
             if (isNotEmpty(value)) css.Mobile += ` ${selectors['Mobile']} { ${value} } `;
         }
@@ -66,7 +71,7 @@ const multiProperty = (attribute, props, otherAttribute, device) => {
         properties.forEach(el => {
             if (el.name) {
                 let value = generateValue(attribute, el, type, otherAttribute, device);
-                if (isNotEmpty(value)) {
+                if (isNotEmpty(value) || 0 === value) {
                     styles += ` ${el.name}: ${value}; `;
                 }
             }
@@ -77,10 +82,14 @@ const multiProperty = (attribute, props, otherAttribute, device) => {
 
 const generateValue = (attribute, props, type, otherAttribute, deviceType = null) => {
     let value = null;
-    const { pattern, patternValues, valueType, functionName, functionProps, excludeValue = [], staticValue } = props;
+    const { pattern, patternValues, valueType, functionName, functionProps, excludeValue = [], staticValue, valueFunc } = props;
     switch (valueType) {
         case 'function':
-            value = renderFunctionValue(functionName, attribute, functionProps, otherAttribute, deviceType);
+            if (typeof valueFunc === 'function') {
+                value = valueFunc(attribute, deviceType, otherAttribute);
+            } else {
+                value = renderFunctionValue(functionName, attribute, functionProps, otherAttribute, deviceType);
+            }
             break;
         case 'pattern':
             value = renderPatternValues(pattern, patternValues, attribute);
@@ -149,6 +158,26 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}, otherA
                 const colors = attribute.map(gradient => `${gradient.color} ${gradient.offset * 100}%`);
                 value = `linear-gradient(${angle}deg, ${colors.join(',')})`;
             }
+            break;
+        case 'handleFlexSize':
+            const { flexSizeGrow, flexSizeShrink } = otherAttribute;
+            switch (attribute) {
+                case 'grow':
+                    value = '1 0 auto';
+                    break;
+                case 'shrink':
+                    value = '0 1 auto';
+                    break;
+                case 'custom':
+                    value = `${isNotEmpty(flexSizeGrow[device]) ? flexSizeGrow[device] : 0} ${isNotEmpty(flexSizeShrink[device]) ? flexSizeShrink[device] : 1} auto`;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'handleInputAutofillBackgroundColor':
+            const valColor = getColor(attribute);
+            value = `0 0 0 100vmax ${valColor} inset`;
             break;
         default:
             value = '';

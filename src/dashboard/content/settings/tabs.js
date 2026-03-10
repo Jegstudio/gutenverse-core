@@ -45,6 +45,10 @@ export const generalTabs = {
         title: __('Performance', '--gctd--'),
         pro: true,
     },
+    ['account']: {
+        title: __('Account', '--gctd--'),
+        pro: true,
+    },
 };
 
 const setitngTitle = {
@@ -62,6 +66,7 @@ const setitngTitle = {
     paywall: __('Paywall Settings', '--gctd--'),
     like_dislike_button: __('Like & Dislike Settings', '--gctd--'),
     performance: __('Performance Settings', '--gctd--'),
+    account: __('Account Settings', '--gctd--'),
     bookmark: __('Bookmark Settings', '--gctd--'),
     post_split: __('Post Split Settings', '--gctd--'),
 };

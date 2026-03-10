@@ -35,9 +35,8 @@ class Section extends Style_Abstract {
 		if ( empty( $this->element_id ) ) {
 			return;
 		}
-		
-		$element_id = explode( '-', $this->element_id )[1];
 
+		$element_id = explode( '-', $this->element_id )[1];
 		$this->set_feature(
 			array(
 				'background'        => array(

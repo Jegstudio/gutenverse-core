@@ -7,6 +7,8 @@ import { useState, useEffect } from '@wordpress/element';
 import { useSetting, useSettings, store as blockEditorStore } from '@wordpress/block-editor';
 import { store as editorStore } from '@wordpress/editor';
 import apiFetch from '@wordpress/api-fetch';
+import { __ } from '@wordpress/i18n';
+import { IconAlignItemsCenter, IconAlignItemsEnd, IconAlignItemsStart, IconAlignItemsStretch, IconColumnAlignItemsCenter, IconColumnAlignItemsEnd, IconColumnAlignItemsStart, IconColumnAlignItemsStretch, IconColumnJustifyContentCenter, IconColumnJustifyContentEnd, IconColumnJustifySpaceAround, IconColumnJustifySpaceBetween, IconColumnJustifySpaceEvently, IconColumnJustifyStart, IconJustifyContentCenter, IconJustifyContentEnd, IconJustifyContentSpaceAround, IconJustifyContentSpaceBetween, IconJustifyContentSpaceEvenly, IconJustifyContentStart } from 'gutenverse-core/icons';
 
 export const isEmpty = value => isEmptyLodash(value);
 
@@ -19,10 +21,10 @@ export const getFixData = (value, index) => value[index()];
 export const getIndex = (value, mod, index) => value[index % mod];
 
 export const parseUnicode = (string) => {
-  const txt = document.createElement('textarea');
-  txt.innerHTML = string;
-  return txt.value;
-}
+    const txt = document.createElement('textarea');
+    txt.innerHTML = string;
+    return txt.value;
+};
 
 export const checkEmpty = (value) => {
     let empty = true;
@@ -567,6 +569,10 @@ export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {
 };
 
 export function rgbToHex({ r, g, b, a }) {
+    r = Math.round(r);
+    g = Math.round(g);
+    b = Math.round(b);
+
     const isValidRGB = [r, g, b].every(val => typeof val === 'number' && val >= 0 && val <= 255);
     if (!isValidRGB) {
         return null;
@@ -578,7 +584,6 @@ export function rgbToHex({ r, g, b, a }) {
             a < 1 ? Math.round(a * 255).toString(16).substring(0, 2) : ''
         ];
 
-        // Pad single-digit output values
         color.forEach(function (part, i) {
             if (part.length === 1) {
                 color[i] = '0' + part;
@@ -1059,4 +1064,247 @@ export const renderIcon = (icon, iconType = 'icon', iconSVG = '', showAriaHidden
     }
 
     return null;
+};
+
+
+export const checkIsParent = (clientId, parentBlockName) => {
+    const parents = select('core/block-editor').getBlockParents(clientId);
+    const parentId = parents[parents.length - 1];
+    const parentBlock = select('core/block-editor').getBlock(parentId);
+    return parentBlock?.name === parentBlockName;
+};
+
+
+export const flexAlignItem = (direction) => {
+    switch (direction) {
+        case 'row':
+            return [
+                {
+                    tooltips: __('Start', '--gctd--'),
+                    value: 'flex-start',
+                    svg: <IconAlignItemsStart />
+                },
+                {
+                    tooltips: __('Center', '--gctd--'),
+                    value: 'center',
+                    svg: <IconAlignItemsCenter />
+                },
+                {
+                    tooltips: __('End', '--gctd--'),
+                    value: 'flex-end',
+                    svg: <IconAlignItemsEnd />
+                },
+                {
+                    tooltips: __('Stretch', '--gctd--'),
+                    value: 'stretch',
+                    svg: <IconAlignItemsStretch />
+                },
+            ];
+        case 'column':
+            return [
+                {
+                    tooltips: __('Start', '--gctd--'),
+                    value: 'flex-start',
+                    svg: <IconColumnAlignItemsStart />
+                },
+                {
+                    tooltips: __('Center', '--gctd--'),
+                    value: 'center',
+                    svg: <IconColumnAlignItemsCenter />
+                },
+                {
+                    tooltips: __('End', '--gctd--'),
+                    value: 'flex-end',
+                    svg: <IconColumnAlignItemsEnd />
+                },
+                {
+                    tooltips: __('Stretch', '--gctd--'),
+                    value: 'stretch',
+                    svg: <IconColumnAlignItemsStretch />
+                },
+            ];
+        case 'row-reverse':
+            return [
+                {
+                    tooltips: __('Start', '--gctd--'),
+                    value: 'flex-start',
+                    svg: <IconAlignItemsStart />
+                },
+                {
+                    tooltips: __('Center', '--gctd--'),
+                    value: 'center',
+                    svg: <IconAlignItemsCenter />
+                },
+                {
+                    tooltips: __('End', '--gctd--'),
+                    value: 'flex-end',
+                    svg: <IconAlignItemsEnd />
+                },
+                {
+                    tooltips: __('Stretch', '--gctd--'),
+                    value: 'stretch',
+                    svg: <IconAlignItemsStretch />
+                },
+            ];
+        case 'column-reverse':
+            return [
+                {
+                    tooltips: __('Start', '--gctd--'),
+                    value: 'flex-start',
+                    svg: <IconAlignItemsStart />
+                },
+                {
+                    tooltips: __('Center', '--gctd--'),
+                    value: 'center',
+                    svg: <IconAlignItemsCenter />
+                },
+                {
+                    tooltips: __('End', '--gctd--'),
+                    value: 'flex-end',
+                    svg: <IconAlignItemsEnd />
+                },
+                {
+                    tooltips: __('Stretch', '--gctd--'),
+                    value: 'stretch',
+                    svg: <IconAlignItemsStretch />
+                },
+            ];
+    }
+};
+
+export const flexJustifyContent = (direction) => {
+    switch (direction) {
+        case 'row':
+            return [
+                {
+                    tooltips: __('Start', '--gctd--'),
+                    value: 'flex-start',
+                    svg: <IconJustifyContentStart />
+                },
+                {
+                    tooltips: __('Center', '--gctd--'),
+                    value: 'center',
+                    svg: <IconJustifyContentCenter />
+                },
+                {
+                    tooltips: __('End', '--gctd--'),
+                    value: 'flex-end',
+                    svg: <IconJustifyContentEnd />
+                },
+                {
+                    tooltips: __('Space Between', '--gctd--'),
+                    value: 'space-between',
+                    svg: <IconJustifyContentSpaceBetween />
+                },
+                {
+                    tooltips: __('Space Around', '--gctd--'),
+                    value: 'space-around',
+                    svg: <IconJustifyContentSpaceAround />
+                },
+                {
+                    tooltips: __('Space Evenly', '--gctd--'),
+                    value: 'space-evenly',
+                    svg: <IconJustifyContentSpaceEvenly />
+                },
+            ];
+        case 'column':
+            return [
+                {
+                    tooltips: __('Start', '--gctd--'),
+                    value: 'flex-start',
+                    svg: <IconColumnJustifyStart />
+                },
+                {
+                    tooltips: __('Center', '--gctd--'),
+                    value: 'center',
+                    svg: <IconColumnJustifyContentCenter />
+                },
+                {
+                    tooltips: __('End', '--gctd--'),
+                    value: 'flex-end',
+                    svg: <IconColumnJustifyContentEnd />
+                },
+                {
+                    tooltips: __('Space Between', '--gctd--'),
+                    value: 'space-between',
+                    svg: <IconColumnJustifySpaceBetween />
+                },
+                {
+                    tooltips: __('Space Around', '--gctd--'),
+                    value: 'space-around',
+                    svg: <IconColumnJustifySpaceAround />
+                },
+                {
+                    tooltips: __('Space Evenly', '--gctd--'),
+                    value: 'space-evenly',
+                    svg: <IconColumnJustifySpaceEvently />
+                },
+            ];
+        case 'row-reverse':
+            return [
+                {
+                    tooltips: __('Start', '--gctd--'),
+                    value: 'flex-start',
+                    svg: <IconJustifyContentEnd />
+                },
+                {
+                    tooltips: __('Center', '--gctd--'),
+                    value: 'center',
+                    svg: <IconJustifyContentCenter />
+                },
+                {
+                    tooltips: __('End', '--gctd--'),
+                    value: 'flex-end',
+                    svg: <IconJustifyContentStart />
+                },
+                {
+                    tooltips: __('Space Between', '--gctd--'),
+                    value: 'space-between',
+                    svg: <IconJustifyContentSpaceBetween />
+                },
+                {
+                    tooltips: __('Space Around', '--gctd--'),
+                    value: 'space-around',
+                    svg: <IconJustifyContentSpaceAround />
+                },
+                {
+                    tooltips: __('Space Evenly', '--gctd--'),
+                    value: 'space-evenly',
+                    svg: <IconJustifyContentSpaceEvenly />
+                },
+            ];
+        case 'column-reverse':
+            return [
+                {
+                    tooltips: __('Start', '--gctd--'),
+                    value: 'flex-start',
+                    svg: <IconColumnJustifyContentEnd />
+                },
+                {
+                    tooltips: __('Center', '--gctd--'),
+                    value: 'center',
+                    svg: <IconColumnJustifyContentCenter />
+                },
+                {
+                    tooltips: __('End', '--gctd--'),
+                    value: 'flex-end',
+                    svg: <IconColumnJustifyStart />
+                },
+                {
+                    tooltips: __('Space Between', '--gctd--'),
+                    value: 'space-between',
+                    svg: <IconColumnJustifySpaceBetween />
+                },
+                {
+                    tooltips: __('Space Around', '--gctd--'),
+                    value: 'space-around',
+                    svg: <IconColumnJustifySpaceAround />
+                },
+                {
+                    tooltips: __('Space Evenly', '--gctd--'),
+                    value: 'space-evenly',
+                    svg: <IconColumnJustifySpaceEvently />
+                },
+            ];
+    }
 };

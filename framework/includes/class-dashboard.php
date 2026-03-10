@@ -195,31 +195,33 @@ class Dashboard {
 
 		$config = array();
 
-		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
-		$config['libraryApi']       = GUTENVERSE_FRAMEWORK_LIBRARY_URL . '/wp-json/gutenverse-server/v1';
-		$config['url']              = home_url();
-		$config['fseUrl']           = gutenverse_compatible_check() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
-		$config['subscribed']       = Meta_Option::instance()->get_option( 'subscribed' );
-		$config['assetURL']         = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/';
-		$config['rating']           = 'https://wordpress.org/support/plugin/gutenverse/reviews/#new-post';
-		$config['support']          = 'https://wordpress.org/support/plugin/gutenverse/';
-		$config['docs']             = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
-		$config['community']        = 'https://www.facebook.com/groups/gutenversecommunity/';
-		$config['showThemeList']    = apply_filters( 'gutenverse_show_theme_list_dashboard', false );
-		$config['themelist']        = admin_url( 'admin.php?page=gutenverse&path=theme-list' );
-		$config['homeSlug']         = 'gutenverse';
-		$config['plugins']          = Editor_Assets::list_plugin();
-		$config['pluginVersions']   = array();
-		$config['fontIconExists']   = Init::instance()->assets->is_font_icon_exists();
-		$config['themesUrl']        = GUTENVERSE_FRAMEWORK_THEMES_URL;
-		$config['proDemoUrl']       = untrailingslashit( GUTENVERSE_FRAMEWORK_LIBRARY_URL );
-		$config['adminUrl']         = admin_url();
-		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
-		$config['requireProUpdate'] = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
-		$config['eventBanner']      = gutenverse_get_event_banner();
-		$config['activeTheme']      = get_option( 'stylesheet' );
-		$config['activePlugins']    = $this->get_active_plugins();
-		$config['noticeActions']    = array(
+		$config['imgDir']                   = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
+		$config['libraryApi']               = GUTENVERSE_FRAMEWORK_LIBRARY_URL . '/wp-json/gutenverse-server/v1';
+		$config['url']                      = home_url();
+		$config['fseUrl']                   = gutenverse_compatible_check() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
+		$config['subscribed']               = Meta_Option::instance()->get_option( 'subscribed' );
+		$config['assetURL']                 = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/';
+		$config['rating']                   = 'https://wordpress.org/support/plugin/gutenverse/reviews/#new-post';
+		$config['support']                  = 'https://wordpress.org/support/plugin/gutenverse/';
+		$config['docs']                     = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
+		$config['community']                = 'https://www.facebook.com/groups/gutenversecommunity/';
+		$config['showThemeList']            = apply_filters( 'gutenverse_show_theme_list_dashboard', false );
+		$config['themelist']                = admin_url( 'admin.php?page=gutenverse&path=theme-list' );
+		$config['homeSlug']                 = 'gutenverse';
+		$config['plugins']                  = Editor_Assets::list_plugin();
+		$config['pluginVersions']           = array();
+		$config['fontIconExists']           = Init::instance()->assets->is_font_icon_exists();
+		$config['themesUrl']                = GUTENVERSE_FRAMEWORK_THEMES_URL;
+		$config['proDemoUrl']               = untrailingslashit( GUTENVERSE_FRAMEWORK_LIBRARY_URL );
+		$config['adminUrl']                 = admin_url();
+		$config['upgradeProUrl']            = gutenverse_upgrade_pro();
+		$config['requireProUpdate']         = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
+		$config['eventBanner']              = gutenverse_get_event_banner();
+		$config['adsBannerThemeTF']         = gutenverse_get_ads_banner_theme_tf();
+		$config['isUsingGutenverseThemeTF'] = apply_filters( 'gutenverse_tp_plus_mechanism', false );
+		$config['activeTheme']              = get_option( 'stylesheet' );
+		$config['activePlugins']            = $this->get_active_plugins();
+		$config['noticeActions']            = array(
 			'gutenverse-core-notice-wp-59'             => array(
 				'show' => ! gutenverse_compatible_check(),
 			),
@@ -574,6 +576,10 @@ class Dashboard {
 					'plugin_version'    => '3.4.7',
 					'framework_version' => '2.4.7',
 				),
+				array(
+					'plugin_version'    => '3.5.0',
+					'framework_version' => '2.5.0',
+				),
 			),
 			'gutenverse-form' => array(
 				array(
@@ -736,6 +742,10 @@ class Dashboard {
 					'plugin_version'    => '2.4.7',
 					'framework_version' => '2.4.7',
 				),
+				array(
+					'plugin_version'    => '2.5.0',
+					'framework_version' => '2.5.0',
+				),
 			),
 			'gutenverse-news' => array(
 				array(
@@ -769,6 +779,10 @@ class Dashboard {
 				array(
 					'plugin_version'    => '3.1.1',
 					'framework_version' => '2.4.4',
+				),
+				array(
+					'plugin_version'    => '3.1.5',
+					'framework_version' => '2.5.0',
 				),
 			),
 			'gutenverse-pro'  => array(
@@ -879,6 +893,10 @@ class Dashboard {
 				array(
 					'plugin_version'    => '2.4.7',
 					'framework_version' => '2.4.7',
+				),
+				array(
+					'plugin_version'    => '2.5.0',
+					'framework_version' => '2.5.0',
 				),
 			),
 		);

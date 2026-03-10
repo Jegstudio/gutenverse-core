@@ -1,5 +1,7 @@
 import { updateLiveStyle } from 'gutenverse-core/styling';
 import { useEffect, useRef } from '@wordpress/element';
+import { store as editorStore } from '@wordpress/editor';
+import { useSelect } from '@wordpress/data';
 
 const BlockController = (props) => {
     const {
@@ -8,6 +10,12 @@ const BlockController = (props) => {
         elementRef,
         panelIndex
     } = props;
+
+    const deviceType = useSelect((select) => {
+        const editor = select(editorStore);
+        if (editor?.getDeviceType) return editor.getDeviceType();
+        return 'Desktop';
+    }, []);
 
     const { clientId, setAttributes, elementId, setLiveAttr, liveAttr, setPreviewOpen } = panelProps;
 
@@ -20,7 +28,9 @@ const BlockController = (props) => {
             }
         };
     }, []);
-    return panelArray(panelProps).map((item) => {
+    const enrichedPanelProps = { ...panelProps, deviceType }
+
+    return panelArray(enrichedPanelProps).map((item) => {
         const { id, show, onChange, component: Component, proLabel, forceType, liveStyle = [] } = item;
 
         const onValueChange = (value) => {
@@ -43,7 +53,7 @@ const BlockController = (props) => {
             }
 
             onChange ? onChange({
-                ...panelProps,
+                ...enrichedPanelProps,
                 ...newValue
             }) : null;
         };
