@@ -22,6 +22,7 @@ export const positioningPanel = (props, isBlockContainer = false) => {
         positioningLocation,
         selector,
         deviceType,
+        context,
         options = [
             {
                 value: 'default',
