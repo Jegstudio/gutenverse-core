@@ -173,7 +173,6 @@ class Init {
 		add_filter( 'wp_handle_upload_prefilter', array( $this, 'verify_svg_upload' ), 10, 1 );
 		add_filter( 'wp_lazy_loading_enabled', array( $this, 'disable_wp_lazyload' ), 10, 1 );
 		add_filter( 'register_block_type_args', array( $this, 'inject_block_context' ), 10, 2 );
-		add_filter( 'wp_kses_allowed_html', array( $this, 'extend_kses_allowed_html' ), 10, 2 );
 
 		/**
 		 * These functions used to be called inside init hook.
@@ -182,131 +181,6 @@ class Init {
 		 */
 		$this->register_menu_position();
 		$this->import_mechanism();
-	}
-
-	/**
-	 * Extend Allowed HTML tags for SVG.
-	 *
-	 * @param array  $allowed_tags Allowed tags.
-	 * @param string $context      Context.
-	 * @return array
-	 */
-	public function extend_kses_allowed_html( $allowed_tags, $context ) {
-		if ( ( 'post' === $context || 'gutenverse' === $context ) && ! current_user_can( 'unfiltered_html' ) ) {
-			$user = wp_get_current_user();
-
-			if ( in_array( 'editor', (array) $user->roles, true ) ) {
-				$svg_args = array(
-					'xmlns'               => true,
-					'fill'                => true,
-					'viewbox'             => true,
-					'role'                => true,
-					'aria-hidden'         => true,
-					'focusable'           => true,
-					'width'               => true,
-					'height'              => true,
-					'style'               => true,
-					'class'               => true,
-					'id'                  => true,
-					'x'                   => true,
-					'y'                   => true,
-					'd'                   => true,
-					'stroke'              => true,
-					'stroke-width'        => true,
-					'stroke-linecap'      => true,
-					'stroke-linejoin'     => true,
-					'opacity'             => true,
-					'transform'           => true,
-					'points'              => true,
-					'preserveaspectratio' => true,
-					'offset'              => true,
-					'stop-color'          => true,
-					'stop-opacity'        => true,
-					'cx'                  => true,
-					'cy'                  => true,
-					'r'                   => true,
-					'x1'                  => true,
-					'y1'                  => true,
-					'x2'                  => true,
-					'y2'                  => true,
-					'xlink:href'          => true,
-					'href'                => true,
-					'stddeviation'        => true,
-					'in'                  => true,
-					'result'              => true,
-					'data-name'           => true,
-				);
-
-				// Automatically allow all data attributes present in the post content.
-				$content = '';
-				if ( isset( $_POST['content'] ) ) {
-					$content = wp_unslash( $_POST['content'] );
-				} elseif ( isset( $_POST['post_content'] ) ) {
-					$content = wp_unslash( $_POST['post_content'] );
-				} elseif ( strpos( $_SERVER['REQUEST_URI'], '/wp-json/' ) !== false ) {
-					$input = file_get_contents( 'php://input' );
-					if ( $input ) {
-						$data = json_decode( $input, true );
-						if ( isset( $data['content'] ) ) {
-							$content = $data['content'];
-						}
-					}
-				}
-
-				if ( ! empty( $content ) ) {
-					preg_match_all( '/data-[a-z0-9-]+/i', $content, $matches );
-					if ( ! empty( $matches[0] ) ) {
-						foreach ( array_unique( $matches[0] ) as $attr ) {
-							$svg_args[ strtolower( $attr ) ] = true;
-						}
-					}
-				}
-
-				$allowed_tags['svg']            = $svg_args;
-				$allowed_tags['path']           = $svg_args;
-				$allowed_tags['rect']           = $svg_args;
-				$allowed_tags['circle']         = $svg_args;
-				$allowed_tags['ellipse']        = $svg_args;
-				$allowed_tags['line']           = $svg_args;
-				$allowed_tags['polyline']       = $svg_args;
-				$allowed_tags['polygon']        = $svg_args;
-				$allowed_tags['g']              = $svg_args;
-				$allowed_tags['text']           = $svg_args;
-				$allowed_tags['tspan']          = $svg_args;
-				$allowed_tags['image']          = $svg_args;
-				$allowed_tags['defs']           = $svg_args;
-				$allowed_tags['lineargradient'] = $svg_args;
-				$allowed_tags['radialgradient'] = $svg_args;
-				$allowed_tags['stop']           = $svg_args;
-				$allowed_tags['use']            = $svg_args;
-				$allowed_tags['symbol']         = $svg_args;
-				$allowed_tags['clippath']       = $svg_args;
-				$allowed_tags['mask']           = $svg_args;
-				$allowed_tags['pattern']        = $svg_args;
-				$allowed_tags['filter']         = $svg_args;
-				$allowed_tags['fegaussianblur'] = $svg_args;
-				$allowed_tags['feoffset']       = $svg_args;
-				$allowed_tags['femerge']        = $svg_args;
-				$allowed_tags['femergenode']    = $svg_args;
-
-				$allowed_tags['style'] = array(
-					'type' => true,
-				);
-
-				// Apply data attributes to other tags too.
-				foreach ( $allowed_tags as $tag => $attrs ) {
-					if ( is_array( $attrs ) ) {
-						foreach ( $svg_args as $attr => $val ) {
-							if ( strpos( $attr, 'data-' ) === 0 ) {
-								$allowed_tags[ $tag ][ $attr ] = true;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		return $allowed_tags;
 	}
 
 	/**
