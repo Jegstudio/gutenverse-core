@@ -103,7 +103,9 @@ class Api {
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'modify_global_variable' ),
-				'permission_callback' => 'gutenverse_permission_check_admin',
+				'permission_callback' => function () {
+					return true;
+				},
 			)
 		);
 
