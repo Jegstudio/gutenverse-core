@@ -156,9 +156,11 @@
         border: 1px solid #e6e6ef;
         border-radius: 3px;
       }
+
       .select-search {
         margin-top: 10px;
       }
+
       .async-select__menu-list {
         height: 150px;
       }
@@ -202,6 +204,119 @@
           border-radius: 2px;
           width: 70px;
           height: 40px;
+        }
+      }
+    }
+
+    &.control-image {
+      .empty-wrapper {
+        padding: 21px 9px;
+        max-height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 10px;
+        border: 1px solid var(--stroke-input, #D0D5DD);
+        transition: border .3s ease;
+        cursor: pointer;
+
+        .gutenverse-icon-svg {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 20px;
+          border-radius: 28px;
+          border: 6px solid #F9FAFB;
+          background: #F2F4F7;
+          padding: 10px;
+          transition: all .3s ease;
+
+          svg {
+            width: auto;
+            height: 1em;
+
+            path {
+              stroke: currentColor;
+            }
+          }
+        }
+
+        &:hover {
+          border: solid 1px var(--gutenverse-dashboard-primary);
+
+          .gutenverse-icon-svg {
+            border-color: color-mix(in srgb, var(--gutenverse-dashboard-primary) 10%, white);
+            background: color-mix(in srgb, var(--gutenverse-dashboard-primary) 30%, white);
+            color: var(--gutenverse-dashboard-primary);
+          }
+        }
+
+        .upload-text {
+          margin-top: 12px;
+          font-size: 14px;
+
+          strong {
+            color: var(--gutenverse-dashboard-primary);
+          }
+        }
+
+        .sugested-text {
+          font-size: 12px;
+        }
+      }
+
+      .filled-wrapper {
+        width: 100%;
+        max-height: 150px;
+        min-height: 150px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        border-radius: 10px;
+        display: flex;
+        align-items: end;
+        overflow: hidden;
+
+        .gutenverse-icon-svg {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          border-radius: 28px;
+          padding: 8px;
+          -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+          cursor: pointer;
+          background: rgba(0, 0, 0, 0.4);
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          border-radius: 100px;
+          overflow: hidden;
+          aspect-ratio: 1 / 1;
+
+          svg {
+            width: auto;
+            height: 1em;
+          }
+        }
+
+        .choose-image {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 7px;
+          width: 100%;
+          background: rgba(0, 0, 0, 0.4);
+          -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+          cursor: pointer;
+          overflow: hidden;
+
+          span {
+            color: white;
+          }
         }
       }
     }
