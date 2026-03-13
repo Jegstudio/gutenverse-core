@@ -381,9 +381,17 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
     for (let index = 0; index < blockStyles.length; index++) {
         const style = blockStyles[index];
         const { type, id } = style;
-        const value = attributes[id];
+        let value = attributes[id];
 
-        if (attributes[id]) {
+
+        if (value) {
+            const { withParentOject = false, withParentObject = null } = style;
+            if (withParentOject && withParentObject) {
+                if (!value || typeof value !== 'object' || !(withParentObject in value)) {
+                    continue;
+                }
+                value = value[withParentObject];
+            }
             const css = generateCSSString(value, style);
 
             css.Desktop && deviceTypeDesktop.push(css.Desktop);
@@ -391,7 +399,7 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
             css.Mobile && deviceTypeMobile.push(css.Mobile);
 
             if (type === 'typography') {
-                const { font, weight } = attributes[id];
+                const { font, weight } = value;
                 if (font) {
                     gatheredFont.push({
                         font: font.value,

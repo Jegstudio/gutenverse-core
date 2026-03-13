@@ -31,7 +31,7 @@ const BlockController = (props) => {
     const enrichedPanelProps = { ...panelProps, deviceType }
 
     return panelArray(enrichedPanelProps).map((item) => {
-        const { id, show, onChange, component: Component, proLabel, forceType, liveStyle = [] } = item;
+        const { id, show, onChange, component: Component, proLabel, forceType, liveStyle = [], withParentOject = false, withParentObject = '' } = item;
 
         const onValueChange = (value) => {
 
@@ -45,9 +45,15 @@ const BlockController = (props) => {
             }
 
 
-            const newValue = {
+            const newValue = withParentOject ? {
+                [id]: {
+                    ...panelProps[id],
+                    [withParentObject]: value
+                }
+            } : {
                 [id]: value
             };
+
             if (!proLabel) {
                 setAttributes(newValue);
             }
@@ -76,7 +82,7 @@ const BlockController = (props) => {
             key={`${id}`}
             {...item}
             clientId={clientId}
-            value={panelProps[id]}
+            value={withParentOject ? panelProps[id]?.[withParentObject] : panelProps[id]}
             values={panelProps}
             onValueChange={onValueChange}
             onLocalChange={onLocalChange}
