@@ -495,7 +495,6 @@ class Api {
 		}
 
 		$dev_param = $request->get_param( 'dev' );
-			$this->update_library_data();
 
 		if ( 'true' === $dev_param ) {
 			$this->update_library_data();
