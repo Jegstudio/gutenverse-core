@@ -208,7 +208,7 @@ class Dashboard {
 		$config['showThemeList']            = apply_filters( 'gutenverse_show_theme_list_dashboard', false );
 		$config['themelist']                = admin_url( 'admin.php?page=gutenverse&path=theme-list' );
 		$config['homeSlug']                 = 'gutenverse';
-		$config['plugins']                  = Editor_Assets::list_plugin();
+		$config['plugins']                  = Editor_Assets::list_plugin( true );
 		$config['pluginVersions']           = array();
 		$config['fontIconExists']           = Init::instance()->assets->is_font_icon_exists();
 		$config['themesUrl']                = GUTENVERSE_FRAMEWORK_THEMES_URL;

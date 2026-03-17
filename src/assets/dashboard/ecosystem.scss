@@ -99,11 +99,10 @@
         min-height: 720px;
 
         &>.ecosystem-wrapper {
-            align-items: flex-start;
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -15px;
-            width: calc(100% + 30px);
+            display: grid;
+            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(518px, 1fr));
+            margin-bottom: 77px;
         }
     }
 
@@ -111,9 +110,7 @@
         background: #f9f9ff;
         border-radius: 5px;
         border: 1px solid #e6e6ef;
-        margin: 0 15px 30px;
         position: relative;
-        width: calc(50% - 32px);
 
         &.fetching {
             min-height: 200px;
@@ -379,10 +376,6 @@
                 margin-top: 20px;
             }
         }
-
-        .ecosystem-data {
-            width: calc(100% - 32px);
-        }
     }
 
     .section-requirement {
@@ -462,19 +455,45 @@
     }
 
     .plugin-item {
-        align-items: stretch;
         background: #F9F9FF;
         border-radius: 5px;
         border: 1px solid var(--gutenverse-dashboard-border);
         display: flex;
-        gap: 20px;
-        justify-content: space-between;
-        margin: 0 11px 22px;
+        flex-direction: column;
         padding: 24px;
-        width: calc(50% - 72px);
-        position: relative;
-        overflow: hidden;
-        min-height: 100px;
+        gap: 16px;
+        height: fit-content;
+
+        .plugin-container {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+
+        }
+
+        .plugin-deps-warning {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px;
+            border-radius: 5px;
+            background: #FFF9E2;
+            width: fit-content;
+            border: 1px solid #EEE4BD;
+            align-self: flex-end;
+
+            p {
+                font-family: Roboto;
+                font-weight: 400;
+                font-size: 11px;
+                line-height: 1.5;
+                margin: 0;
+
+                b {
+                    font-weight: 500;
+                }
+            }
+        }
 
         .icon-plugin {
             width: 64px;
@@ -556,7 +575,7 @@
                 gap: 6px;
                 justify-content: center;
                 padding: 8px 14px;
-                width: 100px;
+                width: max-content;
 
                 &.installed {
                     border: 1px solid #99A2A9;
@@ -569,7 +588,23 @@
                     background: white;
                     color: var(--gutenverse-dashboard-primary);
                 }
+
+                &.upgrade-button {
+                    padding: 10px 16px;
+                    display: flex;
+                    gap: 6px;
+                    background: linear-gradient(90deg, #E32D64 0%, #FB398A 100%);
+                    color: #fff;
+                    width: max-content;
+                    text-decoration: none;
+                    border: none;
+
+                    &.upgrade-plan {
+                        background: linear-gradient(90.49deg, #D54BFF 0.42%, #F045FF 99.58%);
+                    }
+                }
             }
+
         }
     }
 }
@@ -579,7 +614,7 @@ body.gutenverse_page_gutenverse-ecosystem-list .notice:not(.gutenverse-notice):n
 }
 
 
-    
+
 @media only screen and (max-width: 1150px) {
     #gutenverse-dashboard .plugin-item {
         .plugin-description {
