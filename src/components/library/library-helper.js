@@ -40,12 +40,7 @@ const layoutFilter = (layoutData, filter) => {
             keywordCheck = name.toLowerCase().includes(keyword.toLowerCase());
         }
 
-        if (license) {
-            // const proState = pro === '0' ? 'free' : 'pro';
-
-            // if (proState !== license) {
-            //     return false;
-            // }
+        if (license && !isEmpty(license)) {
             licenseCheck = (() => {
                 const availablePlans = data?.available;
                 if (!Array.isArray(license) || !Array.isArray(availablePlans)) {
@@ -256,7 +251,7 @@ const sectionFilter = (sectionData, filter) => {
         if (like) {
             likeCheck = sectionLike;
         }
-        if (license) {
+        if (license && !isEmpty(license)) {
             // const proState = pro === '0' ? 'free' : 'pro';
 
             // if (proState !== license) {
