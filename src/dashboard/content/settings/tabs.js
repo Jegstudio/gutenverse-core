@@ -69,6 +69,7 @@ const setitngTitle = {
     account: __('Account Settings', '--gctd--'),
     bookmark: __('Bookmark Settings', '--gctd--'),
     post_split: __('Post Split Settings', '--gctd--'),
+    ads: __('Ads Settings', '--gctd--'),
 };
 
 export const getSettingTitle = (key) => {

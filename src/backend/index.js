@@ -7,3 +7,4 @@ export { default as ControlSelect } from './forms/select';
 export { default as ControlFile } from './forms/input-file';
 export { default as ControlSearchSelect } from './forms/search-select';
 export { default as ControlImageRadio } from './forms/image-radio';
+export { default as ControlImage } from './forms/image';
