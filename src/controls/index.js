@@ -81,6 +81,24 @@ export { default as LockedHeaderFilterControl } from './controls/locked/locked-h
 export { default as LockedTooltipControl } from './controls/locked/locked-tooltip-control';
 export { default as LockedGalleryPostFormat } from './controls/locked/locked-gallery-post-format';
 export { default as LockedVideoPostFormat } from './controls/locked/locked-video-post-format';
+export { default as LockedNewsAuthorDonation } from './controls/locked/locked-news-author-donation';
+export { default as LockedNewsBookmark } from './controls/locked/locked-news-bookmark';
+export { default as LockedNewsLikeDislikeButton } from './controls/locked/locked-news-like-dislike-button';
+export { default as LockedNewsPaywallPackage } from './controls/locked/locked-news-paywall-package';
+export { default as LockedPaywallPackage } from './controls/locked/locked-news-paywall-package';
+export { default as LockedPaywallRestriction } from './controls/locked/locked-news-paywall-restriction';
+export { default as LockedPaywallStatus } from './controls/locked/locked-news-paywall-status';
+export { default as LockedNewsPopularPosts } from './controls/locked/locked-news-popular-posts';
+export { default as LockedNewsPopupPost } from './controls/locked/locked-news-popup-post';
+export { default as LockedNewsPostReview } from './controls/locked/locked-news-post-review';
+export { default as LockedNewsPostSource } from './controls/locked/locked-news-post-source';
+export { default as LockedNewsPostSubtitle } from './controls/locked/locked-news-post-subtitle';
+export { default as LockedNewsPostVia } from './controls/locked/locked-news-post-via';
+export { default as LockedNewsPostViewStats } from './controls/locked/locked-news-post-view-stats';
+export { default as LockedNewsReadingProgressBar } from './controls/locked/locked-news-reading-progress-bar';
+export { default as LockedNewsReadingTime } from './controls/locked/locked-news-reading-time';
+export { default as LockedNewsTabPosts } from './controls/locked/locked-news-tab-posts';
+export { default as LockedNewsViewsCounter } from './controls/locked/locked-news-views-counter';
 
 
 export { default as ControlDevices } from './controls/part/control-devices';
