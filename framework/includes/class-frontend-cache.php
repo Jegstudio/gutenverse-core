@@ -366,7 +366,6 @@ class Frontend_Cache {
 		// CASE 1: Should NOT be scheduled → clear if exists.
 		if ( ! $should_schedule ) {
 			if ( $timestamp ) {
-				gutenverse_rlog('remove schedule if exist');
 				wp_clear_scheduled_hook( $hook );
 			}
 			return;
@@ -374,7 +373,6 @@ class Frontend_Cache {
 
 		// CASE 2: Should be scheduled but not yet scheduled.
 		if ( ! $timestamp ) {
-			gutenverse_rlog('create schedule if not exist');
 			wp_schedule_event( $midnight, $custom_schedule, $hook );
 			return;
 		}
@@ -384,8 +382,6 @@ class Frontend_Cache {
 
 		if ( $current_schedule !== $custom_schedule ) {
 			// Reschedule with new interval.
-			gutenverse_rlog('reschedule schedule if exist but the time not right');
-
 			wp_clear_scheduled_hook( $hook );
 			wp_schedule_event( $midnight, $custom_schedule, $hook );
 		}
