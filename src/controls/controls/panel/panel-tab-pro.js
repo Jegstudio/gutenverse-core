@@ -1,14 +1,14 @@
 import { applyFilters } from '@wordpress/hooks';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { IconCrownBannerSVG, IconCrownSVG, IconKeySVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, IconKeySVG } from 'gutenverse-core/icons';
 import isEmpty from 'lodash/isEmpty';
 import { ButtonUpgradePro } from 'gutenverse-core/components';
 import { activeTheme, clientUrl } from 'gutenverse-core/config';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
-        upgradeProUrl, adminUrl, eventBanner, adsBannerThemeTF, isUsingGutenverseThemeTF
+        upgradeProUrl, adminUrl, eventBanner, adsBannerThemeTF
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const eventData = eventBanner;
     const today = new Date();
@@ -45,7 +45,7 @@ const PanelTabPro = ({ activeTab }) => {
                                 </div>
                             }
                             {
-                                (adsBannerThemeTF && isUsingGutenverseThemeTF && today <= new Date(adsBannerThemeTF?.fse_dashboard?.expired)) && <div className="event-banner-wrapper">
+                                (adsBannerThemeTF && today <= new Date(adsBannerThemeTF?.fse_dashboard?.expired)) && <div className="event-banner-wrapper">
                                     <a href={`${adsBannerThemeTF?.fse_dashboard?.url}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} target="_blank" rel="noreferrer" >
                                         <img src={adsBannerThemeTF?.fse_dashboard?.img} alt="event-banner" />
                                     </a>
