@@ -158,15 +158,16 @@ const SizeControl = (props) => {
         }
         onLocalChange(localValue);
 
-        const debouncedHandler = debounce(() => {
-            onValueChange(localValue);
-        }, 150);
+        // temporary comment until confirmed
+        // const debouncedHandler = debounce(() => {
+        onValueChange(localValue);
+        // }, 50);
 
-        debouncedHandler();
+        // debouncedHandler();
 
-        return () => {
-            debouncedHandler.cancel();
-        };
+        // return () => {
+        //     debouncedHandler.cancel();
+        // };
     }, [localValue]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-size'}>

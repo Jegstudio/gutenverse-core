@@ -32,7 +32,8 @@ const getBlockStyle = (elementId, attributes) => {
         'properties': [
             {
                 'name': 'width',
-                'valueType': 'direct'
+                'valueType': 'function',
+                'functionName': 'handleContainerWidth'
             }
         ],
     });
@@ -47,7 +48,18 @@ const getBlockStyle = (elementId, attributes) => {
             {
                 'name': 'min-height',
                 'valueType': 'direct'
-            }
+            },
+        ],
+    },{
+        'type': 'unitPoint',
+        'id': 'minHeight',
+        'responsive': true,
+        'selector': `${selector}.empty-container > div > .guten-inner-container-editor`,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'direct'
+            },
         ],
     });
 
@@ -594,7 +606,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': selector,
+        'selector': `${selector} > div > .guten-inner-container-editor`,
     });
 
     isNotEmpty(attributes['margin']) && data.push({

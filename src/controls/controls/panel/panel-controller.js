@@ -54,7 +54,8 @@ const PanelController = ({ ...props }) => {
         elementRef,
         panelState = { panel: null, section: 0 },
         setPanelIsClicked = () => { },
-        setAttributes
+        setAttributes,
+        context
     } = props;
 
     const [switcher, setSwitcher] = useState({});
@@ -145,7 +146,8 @@ const PanelController = ({ ...props }) => {
         clientId,
         switcher,
         setSwitcher,
-        setPreviewOpen
+        setPreviewOpen,
+        context
     };
 
     return <>

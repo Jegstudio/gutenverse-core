@@ -37,6 +37,13 @@ class Container extends Style_Abstract {
 			return;
 		}
 
+		$container_layout = isset( $this->attrs['containerLayout'] ) ? $this->attrs['containerLayout'] : 'full-width';
+
+		// For boxed layout, target the inner container.
+		$content_selector = 'boxed' === $container_layout
+			? ".guten-flex-container.{$this->element_id} .guten-inner-container, .guten-flex-container.{$this->element_id}.full-width .guten-inner-container, .guten-inner-container > .guten-flex-container.{$this->element_id}.full-width > .guten-inner-container"
+			: ".guten-flex-container.{$this->element_id}, .guten-flex-container.{$this->element_id}.full-width, .guten-inner-container>.guten-flex-container.{$this->element_id}.full-width";
+
 		$this->set_feature(
 			array(
 				'background'        => array(
@@ -45,7 +52,10 @@ class Container extends Style_Abstract {
 				),
 				'border'            => null,
 				'animation'         => null,
-				'advance'           => ".guten-flex-container.{$this->element_id}, .guten-flex-container.{$this->element_id}.full-width, .guten-inner-container>.guten-flex-container.{$this->element_id}.full-width",
+				'advance'           => array(
+					'padding' => $content_selector,
+					'default' => ".guten-flex-container.{$this->element_id}, .guten-flex-container.{$this->element_id}.full-width, .guten-inner-container>.guten-flex-container.{$this->element_id}.full-width",
+				),
 				'positioning'       => ".guten-flex-container.{$this->element_id}",
 				'mask'              => null,
 				'pointer'           => ".guten-flex-container.{$this->element_id}",
@@ -72,7 +82,16 @@ class Container extends Style_Abstract {
 				array(
 					'selector'       => $content_selector,
 					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'width' );
+						if ( isset( $value['point'] ) && '' !== $value['point'] ) {
+							$unit = isset( $value['unit'] ) ? $value['unit'] : 'px';
+
+							if ( 'px' === $unit ) {
+								return "width: min(100%, {$value['point']}{$unit});";
+							}
+
+							return "width: {$value['point']}{$unit};";
+						}
+						return '';
 					},
 					'value'          => $this->attrs['containerWidth'],
 					'device_control' => true,

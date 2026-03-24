@@ -66,8 +66,12 @@ const generateValue = ({ attribute, props, otherAttribute, deviceType = null }) 
             break;
         case 'function':
             if (isNotEmpty(attribute['point'])) {
-                const valueCSS = renderFunctionValue(functionName, functionProps, attribute, otherAttribute, deviceType);
-                value = `${name} : ${valueCSS};`;
+                if (typeof props.valueFunc === 'function') {
+                    value = `${name} : ${props.valueFunc(attribute, deviceType, otherAttribute)};`;
+                } else {
+                    const valueCSS = renderFunctionValue(functionName, functionProps, attribute, otherAttribute, deviceType);
+                    value = `${name} : ${valueCSS};`;
+                }
             }
             break;
         case 'direct':
@@ -86,6 +90,13 @@ const renderFunctionValue = (functionName, functionProps, attribute, otherAttrib
             if (deviceType && positionType && positionType[deviceType] !== 'default') {
                 value = `${attribute['point']}${attribute['unit']}`;
             } else if (!deviceType && positionType && positionType !== 'default') {
+                value = `${attribute['point']}${attribute['unit']}`;
+            }
+            break;
+        case 'handleContainerWidth':
+            if (attribute['unit'] === 'px') {
+                value = `min(100%, ${attribute['point']}${attribute['unit']})`;
+            } else {
                 value = `${attribute['point']}${attribute['unit']}`;
             }
             break;

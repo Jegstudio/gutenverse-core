@@ -10,7 +10,6 @@
     align-content: initial;
     align-items: initial;
     margin: 0 auto;
-    max-width: 100%;
 }
 
 .guten-flex-container {
@@ -56,6 +55,15 @@
 
         &.sticky-bottom {
             bottom: 0;
+        }
+    }
+
+    // special fix for section slider.
+    >.guten-inner-container {
+
+        >.guten-section-slider,
+        >.guten-post-carousel {
+            width: 100%;
         }
     }
 }

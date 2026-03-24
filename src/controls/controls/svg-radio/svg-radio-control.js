@@ -40,9 +40,8 @@ const SVGRadioControl = props => {
     };
 
     const activeIndex = options.findIndex(opt => opt.value === value);
-    const highlightWidth = 100 / options.length;
     const highlightStyle = {
-        width: `calc(${highlightWidth}% - 2px )`,
+        width: `calc((100% - 8px) / ${options.length})`,
         transform: `translateX(${activeIndex * 100}%)`,
         transition: 'transform 0.3s ease',
     };

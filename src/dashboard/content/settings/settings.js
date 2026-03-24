@@ -27,7 +27,7 @@ const SettingsBody = ({ settings, ...props }) => {
         case 'font-icon':
             body = <FontIconSetting {...props} />;
             break;
-        case 'gtb-setting-tab':
+        case 'themes-builder':
             body = applyFilters(
                 'gutenverse.dashboard.settings.gtb',
                 body,

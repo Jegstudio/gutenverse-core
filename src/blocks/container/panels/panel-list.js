@@ -6,6 +6,7 @@ import { dividerPanel } from './panel-divider';
 import { dividerPanelAnimated } from './panel-divider-animated';
 import { blurPanel } from './panel-blur';
 import { stickyPanel } from './panel-sticky';
+import { additionalPanel } from './panel-additional';
 
 export const panelList = () => {
     return [
@@ -97,7 +98,7 @@ export const panelList = () => {
             panelArray: (props) => positioningPanel({
                 ...props,
                 selector: `.guten-flex-container-editor.${props.elementId}, .guten-inner-container-editor>.guten-flex-container-editor.${props.elementId}.full-width`,
-            }),
+            }, true),
             tabRole: TabSetting
         },
         {
@@ -170,6 +171,11 @@ export const panelList = () => {
                 styleId: 'container-typography'
             }),
             tabRole: TabStyle
+        },
+        {
+            title: __('Additional Settings', '--gctd--'),
+            panelArray: additionalPanel,
+            tabRole: TabSetting
         },
     ];
 };

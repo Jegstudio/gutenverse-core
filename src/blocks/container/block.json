@@ -12,6 +12,20 @@
 		"elementId": {
 			"type": "string"
 		},
+		"htmlTag": {
+			"type": "string",
+			"default": "div",
+			"enum": [
+				"div",
+				"header",
+				"footer",
+				"main",
+				"article",
+				"section",
+				"aside",
+				"nav"
+			]
+		},
 		"mode": {
 			"type": "string"
 		},
@@ -436,5 +450,8 @@
 		"layout": false
 	},
 	"keywords": ["container", "flexbox", "layout", "structure"],
-	"style": ["gutenverse-core-frontend-container-style"]
+	"style": ["gutenverse-core-frontend-container-style"],
+	"providesContext": {
+		"gutenverse/flexDirection": "flexDirection"
+	}
 }

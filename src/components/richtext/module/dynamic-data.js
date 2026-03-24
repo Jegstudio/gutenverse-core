@@ -4,10 +4,15 @@ import { applyFilters } from '@wordpress/hooks';
 import { isEmpty, isEqual } from 'gutenverse-core/helper';
 import { isOnEditor } from 'gutenverse-core/helper';
 
-const contentCache = {};
-const urlCache = {};
-const contentPromises = {};
-const urlPromises = {};
+if (!window.__gutenverseDynamicCache) {
+    window.__gutenverseDynamicCache = {
+        contentCache: {},
+        urlCache: {},
+        contentPromises: {},
+        urlPromises: {},
+    };
+}
+const { contentCache, urlCache, contentPromises, urlPromises } = window.__gutenverseDynamicCache;
 
 export const dynamicData = (props) => {
     const {
@@ -19,6 +24,7 @@ export const dynamicData = (props) => {
         panelDynamic,
         dynamicList,
         parentHasLink,
+        context
     } = props;
 
     const dynamicDataList = attributes[dynamicList];
@@ -355,7 +361,10 @@ export const dynamicData = (props) => {
                 }
                 // get dynamic content text
                 if (title !== content) {
-                    const contentParams = dynamicDataList[index].dynamicContent;
+                    const contentParams = {
+                        ...dynamicDataList[index].dynamicContent,
+                        context
+                    };
 
                     if (!isEmpty(contentParams) && isOnEditor()) {
                         const key = JSON.stringify(contentParams);
