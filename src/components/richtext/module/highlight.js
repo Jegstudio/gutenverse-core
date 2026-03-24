@@ -1,21 +1,19 @@
 
 import u from 'umbrellajs';
 import { cryptoRandomString } from 'gutenverse-core/components';
-import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
-import { useSelect, subscribe, dispatch } from '@wordpress/data';
 
 export const highlight = (props) => {
     const {
         attributes,
         setAttributes,
-        clientId,
         setPanelState,
         contentAttribute,
         tagName,
         panelPosition,
         textChilds
     } = props;
+
     const content = attributes[contentAttribute];
     const [lastChildLength, setLastChildLength] = useState(attributes[textChilds].length);
 
