@@ -60,42 +60,6 @@ abstract class Block_Abstract {
 		if ( ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || gutenverse_is_block_editor() ) {
 			return $this->render_gutenberg();
 		} else {
-			$block_name     = $fulldata->name;
-			$arr_white_list = array(
-				'gutenverse/accordion',
-				'gutenverse/accordions',
-				'gutenverse/advanced-heading',
-				'gutenverse/animated-text',
-				'gutenverse/button',
-				'gutenverse/buttons',
-				'gutenverse/chart',
-				'gutenverse/countdown',
-				'gutenverse/feature-list',
-				'gutenverse/fun-fact',
-				'gutenverse/gallery',
-				'gutenverse/google-maps',
-				'gutenverse/heading',
-				'gutenverse/icon-box',
-				'gutenverse/icon-list-item',
-				'gutenverse/icon-list',
-				'gutenverse/icon',
-				'gutenverse/image-box',
-				'gutenverse/image',
-				'gutenverse/logo-slider',
-				'gutenverse/portofolio-gallery',
-				'gutenverse/progress-bar',
-				'gutenverse/social-icon',
-				'gutenverse/social-icons',
-				'gutenverse/taxonomy-list',
-				'gutenverse/team',
-				'gutenverse/testimonials',
-				'gutenverse/video',
-				'gutenverse/star-rating',
-			);
-			$arr_white_list = apply_filters( 'gutenverse_static_dinamic_migration_blocks', $arr_white_list );
-			if ( ! empty( $this->content ) && in_array( $block_name, $arr_white_list, true ) ) {
-				return $this->content;
-			}
 			return $this->render_frontend();
 		}
 	}
