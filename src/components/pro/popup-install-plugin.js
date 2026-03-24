@@ -3,44 +3,57 @@ import { useRef, useEffect, useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { Loader } from 'react-feather';
 import { __ } from '@wordpress/i18n';
+import { compose } from '@wordpress/compose';
+import { withSelect } from '@wordpress/data';
 
 const PopupInstallPlugin = ({
     installPopup,
     setInstallPopup,
+    plugins,
 }) => {
+
     const { imgDir } = window['GutenverseDashboard'];
     const { url = '' } = installPopup;
     const popupRef = useRef(null);
     const [loading, setLoading] = useState(false);
-    const [buttonText, setButtonText] = useState('Install & Activate Plugin');
+    const isInstalled = plugins?.installedPlugin?.['gutenverse-news-essential'] || false
+    const [buttonText, setButtonText] = useState('Get Plugin');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
 
-    const installPlugin = () => {
-        if (success) {
-            window.location.reload();
+    useEffect(() => {
+        if (isInstalled) {
+            setButtonText('Activate Plugin')
+        } else {
+            setButtonText('Get Plugin')
         }
-        setLoading(true);
-        apiFetch({
-            path: 'gvnews-client/v1/installAdditionalPlugin',
-            method: 'POST',
-            data: {
-                url: url,
-            },
-        })
-            .then((response) => {
+    }, [isInstalled]);
+
+    const actionButton = () => {
+        if (!isInstalled) {
+            console.log(url);
+            window.open(url, '_blank');
+        } else {
+            setLoading(true);
+
+            apiFetch({
+                path: `wp/v2/plugins/plugin?plugin=${isInstalled?.path}`,
+                method: 'POST',
+                data: { status: 'active' },
+            }).then(() => {
                 setSuccess(true);
                 setTimeout(() => {
                     window.location.reload();
                 }, 1000);
-            })
-            .catch((error) => {
+
+            }).catch((error) => {
                 setButtonText('Try Again')
                 setError(error.message || 'Activate plugin failed');
-            })
-            .finally(() => {
+            }).finally(() => {
                 setLoading(false)
             });
+        }
+
     };
 
 
@@ -74,7 +87,7 @@ const PopupInstallPlugin = ({
                         <img className="image-banner" src={`${imgDir}/pro/news/install-gvnews-essential-banner.png`} />
                         <h3 className="heading">{__('Install Gutenverse News Essentials', '--gctd--')}</h3>
                         <p className="desc">{__('You need to Install and Activate plugin Gutenverse News Essentials to unlock this feature.', '--gctd--')}</p>
-                        <button className={`install-plguin${loading ? ' loading' : ''}`} onClick={() => installPlugin()}>
+                        <button className={`install-plguin${loading ? ' loading' : ''}`} onClick={() => actionButton()}>
                             {loading && <Loader size={15} />}
                             {!loading && !success && buttonText}
                             {success && <SuccessIcon />}
@@ -89,7 +102,7 @@ const PopupInstallPlugin = ({
 
 const CloseIcon = () => {
     return <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.99943 5.8119L9.18686 10L10 9.1881L5.81142 5L10 0.813046L9.18801 0L4.99943 4.1881L0.81199 0L0 0.813046L4.18744 5L0 9.18695L0.81199 10L4.99943 5.8119Z" fill="#99A2A9" />
+        <path fillRule="evenodd" clipRule="evenodd" d="M4.99943 5.8119L9.18686 10L10 9.1881L5.81142 5L10 0.813046L9.18801 0L4.99943 4.1881L0.81199 0L0 0.813046L4.18744 5L0 9.18695L0.81199 10L4.99943 5.8119Z" fill="#99A2A9" />
     </svg>
 }
 
@@ -105,4 +118,15 @@ const SuccessIcon = () => {
         </defs>
     </svg>
 }
-export default PopupInstallPlugin;
+
+export default compose(
+    withSelect(select => {
+        const {
+            getPluginData,
+        } = select('gutenverse/library');
+
+        return {
+            plugins: getPluginData()
+        };
+    }),
+)(PopupInstallPlugin);
