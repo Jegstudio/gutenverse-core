@@ -277,11 +277,11 @@ const TypographyControl = (props) => {
                     {__('Typography', '--gctd--')}
                 </h2>
                 <div className="action-wrapper">
-                    <Tooltip text={__('Add Global', '--gctd--')} key={'add-global'}>
+                    {/* <Tooltip text={__('Add Global', '--gctd--')} key={'add-global'}>
                         <span>
                             <Plus onClick={handleAddCustomFont} />
                         </span>
-                    </Tooltip>
+                    </Tooltip> */}
                     <Tooltip text={__('Refresh', '--gctd--')} key={'reset'}>
                         <span>
                             <RefreshCw onClick={() => {
@@ -292,7 +292,7 @@ const TypographyControl = (props) => {
                 </div>
             </div>
             {show && <>
-                {
+                {/* {
                     openAddFont && <div className="single-variable-item-wrapper add-global-popup">
                         <div className="form-add-global">
                             <label htmlFor="global-name">{__('Global Label', '--gctd--')}</label>
@@ -369,7 +369,7 @@ const TypographyControl = (props) => {
                             </div>
                         </div>
                     </>
-                }
+                } */}
                 <FontControl
                     label={__('Font Family', '--gctd--')}
                     value={value.font}
