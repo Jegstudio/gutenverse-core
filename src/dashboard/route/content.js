@@ -128,7 +128,8 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
         updateSettingValues,
         location,
         setShowToast,
-        setToast
+        setToast,
+        setSaving
     };
 
     if (homeSlug === page) {

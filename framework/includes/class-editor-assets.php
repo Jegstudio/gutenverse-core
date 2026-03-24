@@ -171,7 +171,7 @@ class Editor_Assets {
 	 *
 	 * @return array
 	 */
-	public static function list_plugin() {
+	public static function list_plugin( $with_deps = false ) {
 		$plugins = array();
 		$active  = array();
 
@@ -185,12 +185,22 @@ class Editor_Assets {
 		}
 
 		foreach ( get_plugins() as $key => $plugin ) {
-			$slug             = explode( '/', $key )[0];
-			$data             = array();
-			$data['active']   = in_array( $slug, $active, true );
-			$data['version']  = $plugin['Version'];
-			$data['name']     = $plugin['Name'];
-			$data['path']     = str_replace( '.php', '', $key );
+			$slug            = explode( '/', $key )[0];
+			$data            = array();
+			$data['active']  = in_array( $slug, $active, true );
+			$data['version'] = $plugin['Version'];
+			$data['name']    = $plugin['Name'];
+			$data['path']    = str_replace( '.php', '', $key );
+
+			if ( $with_deps ) {
+				$requires_plugins = isset( $plugin['RequiresPlugins'] ) ? $plugin['RequiresPlugins'] : '';
+				if ( ! empty( $requires_plugins ) ) {
+					$requires_plugins = array_map( 'trim', explode( ',', $requires_plugins ) );
+				} else {
+					$requires_plugins = array();
+				}
+				$data['requiresPlugins'] = $requires_plugins;
+			}
 			$plugins[ $slug ] = $data;
 		}
 
