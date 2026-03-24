@@ -6,7 +6,8 @@ import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
 const PopupPro = ({
     active = false,
     setActive,
-    description
+    description,
+    licenseType = null
 }) => {
     const { imgDir } = window['GutenverseDashboard'];
     const popupRef = useRef(null);
@@ -39,7 +40,7 @@ const PopupPro = ({
                     </div>
                     <div className="content">
                         <h3 className="details">{description}</h3>
-                        <ButtonUpgradePro location="popup" isBanner={true} link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} customStyles={{ height: '16px', padding: '12px 25px 12px 30px' }} />
+                        <ButtonUpgradePro location="popup" isBanner={true} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} customStyles={{ height: '16px', padding: '12px 25px 12px 30px' }} licenseType={licenseType} />
                     </div>
                 </div>
             </div>
