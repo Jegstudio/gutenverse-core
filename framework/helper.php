@@ -15,7 +15,7 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 	function gutenverse_is_svg_safe( $svg ) {
 		libxml_use_internal_errors( true );
 
-		// Prevent XXE attacks
+		// Prevent XXE attacks.
 		$svg = preg_replace( '/<!DOCTYPE.+?>/i', '', $svg );
 
 		$dom = new DOMDocument();
