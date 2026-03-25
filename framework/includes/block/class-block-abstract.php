@@ -44,6 +44,13 @@ abstract class Block_Abstract {
 	protected $manager;
 
 	/**
+	 * Block data (WP_Block instance).
+	 *
+	 * @var \WP_Block
+	 */
+	protected $block_data;
+
+	/**
 	 * Render
 	 *
 	 * @param array  $attributes .
@@ -56,6 +63,7 @@ abstract class Block_Abstract {
 		$this->set_attributes( $attributes );
 		$this->set_content( $content );
 		$this->set_context( $fulldata );
+		$this->block_data = $fulldata;
 
 		if ( ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || gutenverse_is_block_editor() ) {
 			return $this->render_gutenberg();
