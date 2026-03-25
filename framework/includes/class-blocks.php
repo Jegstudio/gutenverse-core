@@ -20,7 +20,7 @@ class Blocks {
 	 */
 	public function __construct() {
 		add_filter( 'block_categories_all', array( $this, 'block_category' ), 9999999 );
-		add_filter( 'gutenverse_static_to_dinamic_toggle', '__return_true' );
+		add_filter( 'gutenverse_force_dynamic', '__return_true' );
 
 		/**
 		 * These functions used to be called inside init hook.
