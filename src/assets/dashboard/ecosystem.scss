@@ -66,6 +66,53 @@
         display: flex;
         justify-content: space-between;
 
+        .ecosystem-tab-navigation {
+            align-items: center;
+            border-radius: 3px;
+            display: flex;
+            gap: 10px;
+            padding: 6px;
+            border: 1px solid #E3E4E6;
+
+            .ecosystem-tab {
+                font-family: 'Roboto';
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 32px;
+                text-align: center;
+                vertical-align: middle;
+                color: #011627;
+                padding: 2px 16px;
+                background: transparent;
+                border: none;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                cursor: pointer;
+
+                svg {
+                    width: 14px;
+                    height: 14px;
+                    fill: currentColor;
+
+                    path {
+                        fill: currentColor;
+
+                    }
+                }
+
+                &:hover {
+                    color: var(--gutenverse-dashboard-primary);
+                }
+
+                &.active {
+                    background: #DBE7FF;
+                    color: var(--gutenverse-dashboard-primary);
+                    border-radius: 2px;
+                }
+            }
+        }
+
         .search-box {
             align-content: center;
             border-radius: 3px;
@@ -463,6 +510,24 @@
         padding: 24px;
         gap: 16px;
         height: fit-content;
+        position: relative;
+        overflow: hidden;
+
+        &.pro {
+            border-color: #E32D64;
+        }
+
+        .pro-label {
+            background-color: #e32d64;
+            color: #fff;
+            font-size: 9px;
+            left: 0;
+            margin: 0;
+            padding: 6px 22px 0px;
+            position: absolute;
+            top: 0px;
+            transform: rotate(-45deg) translate(-12px, -17px);
+        }
 
         .plugin-container {
             display: flex;

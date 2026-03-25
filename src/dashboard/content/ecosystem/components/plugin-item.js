@@ -170,7 +170,8 @@ const PluginItem = ({ plugin, plugins, ...props }) => {
         : name;
 
     return (
-        <div key={slug} className="plugin-item">
+        <div key={slug} className={`plugin-item${plugin.host === 'server-pro' ? ' pro' : ''}`}>
+            {(plugin.host === 'server-pro' && incoming !== '1') && <span className="pro-label">PRO</span>}
             <div className="plugin-container">
                 {incoming === '1' && <div className="ribbon">SOON</div>}
                 {pluginIcon}

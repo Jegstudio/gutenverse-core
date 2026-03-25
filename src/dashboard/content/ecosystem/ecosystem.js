@@ -6,14 +6,9 @@ import { DashboardBody, DashboardContent, DashboardHeader } from '../../componen
 import { BannerPro } from 'gutenverse-core/components';
 import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
 import PluginItem from './components/plugin-item';
+import TabNavigation from './components/tab-navigation';
 
-const PluginLists = ({ pluginEcosystem, fetching, ...props }) => {
-    const sortedEcosystem = pluginEcosystem ? [...pluginEcosystem].sort((a, b) => {
-        if (a.host === 'server-pro' && b.host !== 'server-pro') return 1;
-        if (b.host === 'server-pro' && a.host !== 'server-pro') return -1;
-        return 0;
-    }) : null;
-
+const PluginLists = ({ pluginEcosystem, fetching, activeTab, ...props }) => {
     if (fetching) {
         return <>
             <div className="ecosystem-data fetching" />
@@ -23,7 +18,19 @@ const PluginLists = ({ pluginEcosystem, fetching, ...props }) => {
         </>;
     }
 
-    return sortedEcosystem && sortedEcosystem.map((plugin, i) => (
+    const sortedEcosystem = pluginEcosystem ? [...pluginEcosystem].sort((a, b) => {
+        if (a.host === 'server-pro' && b.host !== 'server-pro') return 1;
+        if (b.host === 'server-pro' && a.host !== 'server-pro') return -1;
+        return 0;
+    }) : null;
+
+    const filteredEcosystem = sortedEcosystem ? sortedEcosystem.filter((plugin) => {
+        if (activeTab === 'free') return plugin.host !== 'server-pro';
+        if (activeTab === 'pro') return plugin.host === 'server-pro';
+        return true;
+    }) : null;
+
+    return filteredEcosystem && filteredEcosystem.map((plugin, i) => (
         <PluginItem key={i} plugin={plugin} {...props} />
     ));
 };
@@ -32,6 +39,7 @@ const Ecosystem = props => {
     const { library = null, plugins, installPlugin, activatePlugin, updatePlugin } = props;
     const { pluginEcosystem } = library;
     const [fetching, setFetching] = useState(true);
+    const [activeTab, setActiveTab] = useState('all');
 
     useEffect(() => {
         if (library?.pluginEcosystem) {
@@ -41,6 +49,7 @@ const Ecosystem = props => {
 
     const pluginsData = {
         fetching,
+        activeTab,
         plugins: plugins?.installedPlugin,
         pluginEcosystem,
         installPlugin,
@@ -52,6 +61,7 @@ const Ecosystem = props => {
         <DashboardContent>
             <DashboardHeader>
                 <h2>{__('Gutenverse Ecosystem', '--gctd--')}</h2>
+                <TabNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
             </DashboardHeader>
             <DashboardBody>
                 <BannerPro
