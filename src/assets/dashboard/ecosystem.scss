@@ -670,6 +670,26 @@
                 }
             }
 
+            .no-license {
+                align-items: center;
+                background: var(--gutenverse-dashboard-primary);
+                border-radius: 5px;
+                border: 1px solid var(--gutenverse-dashboard-primary);
+                color: white;
+                cursor: pointer;
+                display: flex;
+                flex-direction: row;
+                gap: 6px;
+                justify-content: center;
+                padding: 8px 14px;
+                width: max-content;
+                text-decoration: none;
+
+                &:hover {
+                    background-color: #2435EC;
+                }
+            }
+
         }
     }
 }

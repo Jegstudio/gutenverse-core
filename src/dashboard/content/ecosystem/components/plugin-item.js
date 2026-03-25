@@ -110,7 +110,7 @@ const PluginItem = ({ plugin, plugins, ...props }) => {
 
     // Determine action button and whether it's an "installed" state
     let action = null;
-    let skipFilter = false;
+    let skipFilter = host !== 'server-pro';
 
     if (installed) {
         const invalidVersion = (!isEmpty(version) && !semver.gte(installed.version, version || '0.0.0')) && host !== 'server-pro';
@@ -125,7 +125,6 @@ const PluginItem = ({ plugin, plugins, ...props }) => {
                     </div>
                 );
             } else {
-                skipFilter = true;
                 action = (
                     <div className={`${singleClass} installed`}>
                         {loadingCircle}
@@ -170,8 +169,8 @@ const PluginItem = ({ plugin, plugins, ...props }) => {
         : name;
 
     return (
-        <div key={slug} className={`plugin-item${plugin.host === 'server-pro' ? ' pro' : ''}`}>
-            {(plugin.host === 'server-pro' && incoming !== '1') && <span className="pro-label">PRO</span>}
+        <div key={slug} className={`plugin-item${host === 'server-pro' ? ' pro' : ''}`}>
+            {(host === 'server-pro' && incoming !== '1') && <span className="pro-label">PRO</span>}
             <div className="plugin-container">
                 {incoming === '1' && <div className="ribbon">SOON</div>}
                 {pluginIcon}
