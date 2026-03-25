@@ -51,6 +51,21 @@ abstract class Block_Abstract {
 	protected $block_data;
 
 	/**
+	 * Render all inner blocks from block_data.
+	 *
+	 * @return string
+	 */
+	protected function render_inner_blocks() {
+		$output = '';
+		if ( ! empty( $this->block_data ) && ! empty( $this->block_data->inner_blocks ) ) {
+			foreach ( $this->block_data->inner_blocks as $inner_block ) {
+				$output .= $inner_block->render();
+			}
+		}
+		return $output;
+	}
+
+	/**
 	 * Render
 	 *
 	 * @param array  $attributes .
