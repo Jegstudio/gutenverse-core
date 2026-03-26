@@ -173,7 +173,6 @@ class Init {
 		add_filter( 'wp_handle_upload_prefilter', array( $this, 'verify_svg_upload' ), 10, 1 );
 		add_filter( 'wp_lazy_loading_enabled', array( $this, 'disable_wp_lazyload' ), 10, 1 );
 		add_filter( 'register_block_type_args', array( $this, 'inject_block_context' ), 10, 2 );
-		add_filter( 'wp_kses_allowed_html', array( $this, 'add_kses_dynamic_attributes' ), 10, 2 );
 
 		/**
 		 * These functions used to be called inside init hook.
@@ -210,30 +209,6 @@ class Init {
 		}
 
 		return $args;
-	}
-
-	/**
-	 * Add custom dynamic data attributes to wp_kses allowed HTML.
-	 *
-	 * @param array  $allowed Allowed HTML elements and attributes.
-	 * @param string $context Context for the allowed HTML.
-	 *
-	 * @return array
-	 */
-	public function add_kses_dynamic_attributes( $allowed, $context ) {
-		if ( 'post' === $context ) {
-			$allowed['span']['dynamic-data-content'] = true;
-			$allowed['span']['dynamic-data-url']     = true;
-			$allowed['a']['dynamic-data-content']    = true;
-			$allowed['a']['dynamic-data-url']        = true;
-
-			$allowed['span']['data-dynamic-content'] = true;
-			$allowed['span']['data-dynamic-url']     = true;
-			$allowed['a']['data-dynamic-content']    = true;
-			$allowed['a']['data-dynamic-url']        = true;
-		}
-
-		return $allowed;
 	}
 
 	/**
