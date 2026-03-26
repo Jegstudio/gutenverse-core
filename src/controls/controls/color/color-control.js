@@ -62,10 +62,10 @@ const ColorControl = (props) => {
     const [themePalette, setThemePalette] = useState(themeColors);
     const [openAddColor, setOpenAddColor] = useState(false);
 
-    const [addCustomColor, setAddCustomColor] = useState({
-        name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
-        slug: ''
-    });
+    // const [addCustomColor, setAddCustomColor] = useState({
+    //     name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
+    //     slug: ''
+    // });
 
     const [openGlobalPopup, setOpenGlobalPopup] = useState(false);
 
