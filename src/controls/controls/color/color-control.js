@@ -77,10 +77,10 @@ const ColorControl = (props) => {
     const { isUserConfigReady, userConfig, setUserConfig } = useGlobalStylesConfig();
 
     const handleAddCustomColor = () => {
-        setAddCustomColor({
-            name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
-            slug: ''
-        });
+        // setAddCustomColor({
+        //     name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
+        //     slug: ''
+        // });
         setOpenAddColor(prev => !prev);
     };
 
