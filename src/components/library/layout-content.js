@@ -144,7 +144,6 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
 export const SelectLicense = ({ license, setLicense }) => {
     return <div className="gutenverse-library-select">
         <Select
-            styles={customStyles}
             isMulti={true}
             value={license}
             onChange={license => {

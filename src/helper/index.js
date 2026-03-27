@@ -291,18 +291,20 @@ export const variableFontName = (id, child) => {
     return `--gutenverse-font-${child}-${id}`;
 };
 
-export const getLastSequence = (items) => {
+export const getLastSequence = (items = []) => {
     let largest = 1;
 
-    items.map(item => {
-        const arr = /#(\d+)/.exec(item.name);
-        if (Array.isArray(arr)) {
-            const value = parseInt(arr[1]) + 1;
-            if (largest < value) {
-                largest = value;
+    if (Array.isArray(items)) {
+        items.map(item => {
+            const arr = /#(\d+)/.exec(item.name);
+            if (Array.isArray(arr)) {
+                const value = parseInt(arr[1]) + 1;
+                if (largest < value) {
+                    largest = value;
+                }
             }
-        }
-    });
+        });
+    }
 
     return largest;
 };
@@ -552,9 +554,9 @@ export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {
         }
         let innerBlocks = block.innerBlocks;
 
-        if ( ( block.name === 'core/post-content' || block.name === 'core/template-part' || block.name === 'gutenverse/post-content' ) && innerBlocks.length === 0 ) {
-            const { getBlocks } = select( 'core/block-editor' );
-            innerBlocks = getBlocks( block.clientId );
+        if ((block.name === 'core/post-content' || block.name === 'core/template-part' || block.name === 'gutenverse/post-content') && innerBlocks.length === 0) {
+            const { getBlocks } = select('core/block-editor');
+            innerBlocks = getBlocks(block.clientId);
         }
 
         if (innerBlocks.length > 0) {
