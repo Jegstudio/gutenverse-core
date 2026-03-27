@@ -81,7 +81,9 @@ class Blocks {
 		// Static block.
 		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/column/block.json' );
 		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/wrapper/block.json' );
-		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/container/block.json' );
+
+		// Dynamic blocks.
+		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/container/block.json' );
 	}
 
 	/**
