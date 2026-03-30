@@ -975,7 +975,7 @@ class Section extends Block_Abstract {
 		$output .= '<section class="' . $class_name . '"' . $advance_anim_data . $id_attr . '>';
 
 		// FluidCanvasSave - apply filter (returns null by default).
-		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_save', '', $this->attributes );
+		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_script', '', $this->attributes );
 		if ( ! empty( $fluid_canvas ) ) {
 			$output .= $fluid_canvas;
 		}

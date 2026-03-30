@@ -1,6 +1,7 @@
 {
 	"apiVersion": 3,
 	"name": "gutenverse/container",
+	"class_callback": "\\Gutenverse\\Framework\\Block\\Container",
 	"title": "Container",
 	"description": "Add a Container with flexbox layout controls to wrap blocks.",
 	"category": "gutenverse-structure",

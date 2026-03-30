@@ -331,14 +331,59 @@ class Frontend_Cache {
 	 */
 	public function schedule_cleanup_cron() {
 		$options = get_option( 'gutenverse-settings' );
+		// Safe access.
+		$frontend = isset( $options['frontend_settings'] ) && is_array( $options['frontend_settings'] )
+		? $options['frontend_settings']
+		: array();
 
-		if ( ! wp_next_scheduled( 'gutenverse_cleanup_cached_style' ) ) {
-			$midnight = strtotime( 'tomorrow 00:00:00' );
-			if ( isset( $options['frontend_settings']['render_mechanism'] ) && isset( $options['frontend_settings']['file_delete_mechanism'] ) && 'file' === $options['frontend_settings']['render_mechanism'] &&  'auto' === $options['frontend_settings']['file_delete_mechanism']) {
-				wp_schedule_event( $midnight, isset( $options['frontend_settings']['old_render_deletion_schedule'] ) ? $options['frontend_settings']['old_render_deletion_schedule'] : 'daily', 'gutenverse_cleanup_cached_style' );
-			} else {
-				wp_clear_scheduled_hook( 'gutenverse_cleanup_cached_style' );
+		$render_mechanism      = $frontend['render_mechanism'] ?? '';
+		$file_delete_mechanism = $frontend['file_delete_mechanism'] ?? '';
+		$file_delete_mechanism = '';
+
+		$custom_schedule       = $frontend['old_render_deletion_schedule'] ?? 'daily';
+
+		$hook = 'gutenverse_cleanup_cached_style';
+
+		// Validate schedule.
+		$schedules = wp_get_schedules();
+		if ( ! isset( $schedules[ $custom_schedule ] ) ) {
+			$custom_schedule = 'daily';
+		}
+
+		// Check if feature should be active.
+		$should_schedule = (
+			( 'file' === $render_mechanism || ! $render_mechanism ) &&
+			( 'auto' === $file_delete_mechanism )
+		);
+
+		// Get current scheduled event.
+		$timestamp = wp_next_scheduled( $hook );
+
+		// Get next midnight using WP timezone.
+		$now      = current_time( 'timestamp' );
+		$midnight = strtotime( 'tomorrow midnight', $now );
+
+		// CASE 1: Should NOT be scheduled → clear if exists.
+		if ( ! $should_schedule ) {
+			if ( $timestamp ) {
+				wp_clear_scheduled_hook( $hook );
 			}
+			return;
+		}
+
+		// CASE 2: Should be scheduled but not yet scheduled.
+		if ( ! $timestamp ) {
+			wp_schedule_event( $midnight, $custom_schedule, $hook );
+			return;
+		}
+
+		// CASE 3: Already scheduled → check if rescheduling needed.
+		$current_schedule = wp_get_schedule( $hook );
+
+		if ( $current_schedule !== $custom_schedule ) {
+			// Reschedule with new interval.
+			wp_clear_scheduled_hook( $hook );
+			wp_schedule_event( $midnight, $custom_schedule, $hook );
 		}
 	}
 
