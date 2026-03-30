@@ -686,7 +686,7 @@ class Container extends Block_Abstract {
 		$output = '<' . $html_tag . ' class="' . esc_attr( $class_name ) . '" data-id="' . esc_attr( $data_id ) . '"' . $adv_anim_attr . $id_attr . '>';
 
 		// Fluid canvas.
-		$output .= apply_filters( 'gutenverse_fluid_canvas_frontend', '', $this->attributes );
+		$output .= apply_filters( 'gutenverse_fluid_canvas_script', '', $this->attributes );
 
 		// Guten data.
 		$has_data = $is_sticky || $is_bg_animated || $is_slideshow || $is_top_div_anim || $is_bottom_div_anim;
