@@ -297,7 +297,7 @@ class Column extends Block_Abstract {
 		$output = '<div class="' . $class_name . '"' . $advance_anim_data . $sticky_data_id_attr . $id_attr . '>';
 
 		// FluidCanvasSave.
-		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_save', '', $this->attributes );
+		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_script', '', $this->attributes );
 		if ( ! empty( $fluid_canvas ) ) {
 			$output .= $fluid_canvas;
 		}
