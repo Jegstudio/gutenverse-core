@@ -1,6 +1,7 @@
 {
 	"apiVersion": 3,
 	"name": "gutenverse/column",
+	"class_callback": "\\Gutenverse\\Framework\\Block\\Column",
 	"title": "Column",
 	"parent": ["gutenverse/section"],
 	"description": "Draggable column, to make your experience flawless when resize it.",
