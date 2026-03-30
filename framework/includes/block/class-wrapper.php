@@ -36,19 +36,23 @@ class Wrapper extends Block_Abstract {
 	 * Render view in frontend
 	 */
 	public function render_frontend() {
-		$element_id          = $this->get_element_id();
-		$display_classes     = $this->set_display_classes();
-		$animation_class     = $this->set_animation_classes();
-		$display_type        = isset( $this->attributes['displayType'] ) ? $this->attributes['displayType'] : '';
-		$cursor_effect       = isset( $this->attributes['cursorEffect'] ) ? $this->attributes['cursorEffect'] : array();
-		$url                 = isset( $this->attributes['url'] ) ? $this->attributes['url'] : '';
-		$link_target         = isset( $this->attributes['linkTarget'] ) ? $this->attributes['linkTarget'] : '';
-		$background_overlay  = isset( $this->attributes['backgroundOverlay'] ) ? $this->attributes['backgroundOverlay'] : array();
+		if ( ! empty( trim( $this->block_data->inner_html ) ) && apply_filters( 'gutenverse_force_dynamic', false ) ) {
+			return $this->content;
+		}
+
+		$element_id               = $this->get_element_id();
+		$display_classes          = $this->set_display_classes();
+		$animation_class          = $this->set_animation_classes();
+		$display_type             = isset( $this->attributes['displayType'] ) ? $this->attributes['displayType'] : '';
+		$cursor_effect            = isset( $this->attributes['cursorEffect'] ) ? $this->attributes['cursorEffect'] : array();
+		$url                      = isset( $this->attributes['url'] ) ? $this->attributes['url'] : '';
+		$link_target              = isset( $this->attributes['linkTarget'] ) ? $this->attributes['linkTarget'] : '';
+		$background_overlay       = isset( $this->attributes['backgroundOverlay'] ) ? $this->attributes['backgroundOverlay'] : array();
 		$background_overlay_hover = isset( $this->attributes['backgroundOverlayHover'] ) ? $this->attributes['backgroundOverlayHover'] : array();
-		$background_animated = isset( $this->attributes['backgroundAnimated'] ) ? $this->attributes['backgroundAnimated'] : array();
-		$background_effect   = isset( $this->attributes['backgroundEffect'] ) ? $this->attributes['backgroundEffect'] : array();
-		$background          = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
-		$anchor              = isset( $this->attributes['anchor'] ) ? $this->attributes['anchor'] : '';
+		$background_animated      = isset( $this->attributes['backgroundAnimated'] ) ? $this->attributes['backgroundAnimated'] : array();
+		$background_effect        = isset( $this->attributes['backgroundEffect'] ) ? $this->attributes['backgroundEffect'] : array();
+		$background               = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
+		$anchor                   = isset( $this->attributes['anchor'] ) ? $this->attributes['anchor'] : '';
 
 		$is_slideshow         = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
 		$using_featured_image = ! empty( $background['useFeaturedImage'] ) && ( ! empty( $background['useFeaturedImage']['Desktop'] ) || ! empty( $background['useFeaturedImage']['Tablet'] ) || ! empty( $background['useFeaturedImage']['Mobile'] ) );
@@ -57,7 +61,7 @@ class Wrapper extends Block_Abstract {
 		$cursor_effect_class  = ! empty( $cursor_effect['show'] ) ? ' guten-cursor-effect' : '';
 
 		// Build data-id.
-		$data_id = '';
+		$data_id  = '';
 		$id_parts = explode( '-', $element_id );
 		$short_id = count( $id_parts ) > 1 ? $id_parts[1] : '';
 
@@ -68,7 +72,7 @@ class Wrapper extends Block_Abstract {
 		}
 
 		// Build classes.
-		$class_name = 'wp-block-gutenverse-wrapper guten-element guten-wrap-helper no-margin ' . $element_id;
+		$class_name  = 'wp-block-gutenverse-wrapper guten-element guten-wrap-helper no-margin ' . $element_id;
 		$class_name .= $animation_class;
 		if ( ! empty( $display_type ) ) {
 			$class_name .= ' ' . $display_type;
@@ -111,8 +115,8 @@ class Wrapper extends Block_Abstract {
 				$output .= '<div data-var="bgAnimatedData' . esc_attr( $short_id ) . '" data-value="' . esc_attr( wp_json_encode( $background_animated ) ) . '"></div>';
 			}
 			if ( $is_slideshow ) {
-				$slide_data         = $background;
-				$slide_image        = isset( $slide_data['slideImage'] ) ? $slide_data['slideImage'] : array();
+				$slide_data                = $background;
+				$slide_image               = isset( $slide_data['slideImage'] ) ? $slide_data['slideImage'] : array();
 				$slide_data['slideLength'] = is_array( $slide_image ) ? count( $slide_image ) : 0;
 				unset( $slide_data['slideImage'] );
 				$output .= '<div data-var="backgroundSlideshow' . esc_attr( $short_id ) . '" data-value="' . esc_attr( wp_json_encode( $slide_data ) ) . '"></div>';
@@ -129,15 +133,15 @@ class Wrapper extends Block_Abstract {
 		// Video background.
 		if ( isset( $background['type'] ) && 'video' === $background['type'] ) {
 			$video_data = array(
-				'url'        => isset( $background['videoLink'] ) ? $background['videoLink'] : '',
-				'class'      => 'guten-video-bg-wrapper' . ( ! empty( $background['videoPlayOnMobile'] ) ? ' show-phone' : '' ),
-				'width'      => '100%',
-				'height'     => '100%',
-				'playing'    => true,
-				'muted'      => true,
-				'loop'       => empty( $background['videoPlayOnce'] ),
+				'url'         => isset( $background['videoLink'] ) ? $background['videoLink'] : '',
+				'class'       => 'guten-video-bg-wrapper' . ( ! empty( $background['videoPlayOnMobile'] ) ? ' show-phone' : '' ),
+				'width'       => '100%',
+				'height'      => '100%',
+				'playing'     => true,
+				'muted'       => true,
+				'loop'        => empty( $background['videoPlayOnce'] ),
 				'playsinline' => true,
-				'style'      => array(
+				'style'       => array(
 					'zIndex'        => 0,
 					'top'           => 0,
 					'left'          => 0,
@@ -145,7 +149,7 @@ class Wrapper extends Block_Abstract {
 					'overflow'      => 'hidden',
 					'pointerEvents' => 'none',
 				),
-				'config'     => array(
+				'config'      => array(
 					'youtube' => array(
 						'playerVars' => array(
 							'showinfo' => 0,
@@ -155,7 +159,7 @@ class Wrapper extends Block_Abstract {
 					),
 				),
 			);
-			$output .= '<div class="guten-video-background" data-property="' . esc_attr( wp_json_encode( $video_data ) ) . '"></div>';
+			$output    .= '<div class="guten-video-background" data-property="' . esc_attr( wp_json_encode( $video_data ) ) . '"></div>';
 		}
 
 		// Slideshow elements (when not bg animated).
