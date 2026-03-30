@@ -75,19 +75,17 @@ class Blocks {
 	 * Register All Blocks
 	 */
 	public function register_blocks() {
-		// Static block.
-		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/section/block.json' );
+		// Dynamic block.
+		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/section/block.json' );
 		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/column/block.json' );
-		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/container/block.json' );
-
-		// Dynamic blocks.
 		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/wrapper/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/container/block.json' );
 	}
 
 	/**
 	 * Register dynamic block.
 	 *
-	 * @param string $json .
+	 * @param string $json Path to block.json.
 	 */
 	private function register_dynamic_block( $json ) {
 		if ( ! file_exists( $json ) ) {
