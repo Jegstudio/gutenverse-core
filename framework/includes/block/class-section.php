@@ -104,6 +104,8 @@ class Section extends Block_Abstract {
 
 		$output = '<div class="guten-data">';
 
+		$json_flags = JSON_UNESCAPED_SLASHES;
+
 		if ( $is_sticky ) {
 			$sticky_data = array(
 				'sticky'         => isset( $this->attributes['sticky'] ) ? $this->attributes['sticky'] : new \stdClass(),
@@ -114,22 +116,22 @@ class Section extends Block_Abstract {
 				'topSticky'      => isset( $this->attributes['topSticky'] ) ? $this->attributes['topSticky'] : new \stdClass(),
 				'bottomSticky'   => isset( $this->attributes['bottomSticky'] ) ? $this->attributes['bottomSticky'] : new \stdClass(),
 			);
-			$output     .= '<div data-var="stickyData' . esc_attr( $data_id ) . '" data-value="' . esc_attr( wp_json_encode( $sticky_data ) ) . '"></div>';
+			$output     .= '<div data-var="stickyData' . esc_attr( $data_id ) . '" data-value="' . esc_attr( wp_json_encode( $sticky_data, $json_flags ) ) . '"></div>';
 		}
 
 		if ( $is_bg_animated ) {
 			$bg_animated = isset( $this->attributes['backgroundAnimated'] ) ? $this->attributes['backgroundAnimated'] : new \stdClass();
-			$output     .= '<div data-var="bgAnimatedData' . esc_attr( $data_id ) . '" data-value="' . esc_attr( wp_json_encode( $bg_animated ) ) . '"></div>';
+			$output     .= '<div data-var="bgAnimatedData' . esc_attr( $data_id ) . '" data-value="' . esc_attr( wp_json_encode( $bg_animated, $json_flags ) ) . '"></div>';
 		}
 
 		if ( $is_top_div_animated ) {
 			$top_div_animated = isset( $this->attributes['topDividerAnimated'] ) ? $this->attributes['topDividerAnimated'] : new \stdClass();
-			$output          .= '<div data-var="topDividerAnimatedData' . esc_attr( $data_id ) . '" data-value="' . esc_attr( wp_json_encode( $top_div_animated ) ) . '"></div>';
+			$output          .= '<div data-var="topDividerAnimatedData' . esc_attr( $data_id ) . '" data-value="' . esc_attr( wp_json_encode( $top_div_animated, $json_flags ) ) . '"></div>';
 		}
 
 		if ( $is_bottom_div_animated ) {
 			$bottom_div_animated = isset( $this->attributes['bottomDividerAnimated'] ) ? $this->attributes['bottomDividerAnimated'] : new \stdClass();
-			$output             .= '<div data-var="bottomDividerAnimatedData' . esc_attr( $data_id ) . '" data-value="' . esc_attr( wp_json_encode( $bottom_div_animated ) ) . '"></div>';
+			$output             .= '<div data-var="bottomDividerAnimatedData' . esc_attr( $data_id ) . '" data-value="' . esc_attr( wp_json_encode( $bottom_div_animated, $json_flags ) ) . '"></div>';
 		}
 
 		if ( $is_slideshow ) {
@@ -138,7 +140,7 @@ class Section extends Block_Abstract {
 			$slide_data  = $background;
 			unset( $slide_data['slideImage'] );
 			$slide_data['slideLength'] = is_array( $slide_image ) ? count( $slide_image ) : 0;
-			$output                   .= '<div data-var="backgroundSlideshow' . esc_attr( $data_id ) . '" data-value="' . esc_attr( wp_json_encode( $slide_data ) ) . '"></div>';
+			$output                   .= '<div data-var="backgroundSlideshow' . esc_attr( $data_id ) . '" data-value="' . esc_attr( wp_json_encode( $slide_data, $json_flags ) ) . '"></div>';
 		}
 
 		$output .= '</div>';
@@ -201,26 +203,43 @@ class Section extends Block_Abstract {
 			return '';
 		}
 
-		$config = array(
-			'youtube' => array(
-				'playerVars' => array(
-					'showinfo' => 0,
-					'start'    => ! empty( $background['videoStartTime'] ) ? intval( $background['videoStartTime'] ) : 0,
-					'end'      => ! empty( $background['videoEndTime'] ) ? intval( $background['videoEndTime'] ) : 0,
-				),
+		$video_link = isset( $background['videoLink'] ) ? $background['videoLink'] : '';
+
+		if ( empty( $video_link ) ) {
+			return '';
+		}
+
+		$player_vars = array(
+			'showinfo' => 0,
+		);
+
+		$video_start = ! empty( $background['videoStartTime'] ) ? intval( $background['videoStartTime'] ) : 0;
+		$video_end   = ! empty( $background['videoEndTime'] ) ? intval( $background['videoEndTime'] ) : 0;
+
+		if ( $video_start > 0 ) {
+			$player_vars['start'] = $video_start;
+		}
+
+		if ( $video_end > 0 ) {
+			$player_vars['end'] = $video_end;
+		}
+
+		$config = (object) array(
+			'youtube' => (object) array(
+				'playerVars' => (object) $player_vars,
 			),
 		);
 
-		$data_properties = array(
-			'url'         => ! empty( $background['videoLink'] ) ? $background['videoLink'] : '',
+		$data_properties = (object) array(
+			'url'         => $video_link,
 			'class'       => 'guten-video-bg-wrapper' . ( ! empty( $background['videoPlayOnMobile'] ) ? ' show-phone' : '' ),
 			'width'       => '100%',
 			'height'      => '100%',
 			'playing'     => true,
 			'muted'       => true,
-			'loop'        => empty( $background['videoPlayOnce'] ),
+			'loop'        => ! ( isset( $background['videoPlayOnce'] ) && $background['videoPlayOnce'] ),
 			'playsinline' => true,
-			'style'       => array(
+			'style'       => (object) array(
 				'zIndex'        => 0,
 				'top'           => 0,
 				'left'          => 0,
@@ -231,7 +250,7 @@ class Section extends Block_Abstract {
 			'config'      => $config,
 		);
 
-		return '<div class="guten-video-background" data-property="' . esc_attr( wp_json_encode( $data_properties ) ) . '"></div>';
+		return '<div class="guten-video-background" data-property="' . esc_attr( wp_json_encode( $data_properties, JSON_UNESCAPED_SLASHES ) ) . '"></div>';
 	}
 
 	/**
