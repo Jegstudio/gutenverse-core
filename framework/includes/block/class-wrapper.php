@@ -120,9 +120,11 @@ class Wrapper extends Block_Abstract {
 			$output .= '</div>';
 		}
 
-		// FluidCanvasSave equivalent - apply filter.
-		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_save', '', $this->attributes );
-		$output      .= $fluid_canvas;
+		// FluidCanvasSave - apply filter (returns null by default).
+		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_script', '', $this->attributes );
+		if ( ! empty( $fluid_canvas ) ) {
+			$output .= $fluid_canvas;
+		}
 
 		// Video background.
 		if ( isset( $background['type'] ) && 'video' === $background['type'] ) {
@@ -192,6 +194,7 @@ class Wrapper extends Block_Abstract {
 		$output = apply_filters( 'gutenverse_cursor_move_effect_script', $output, $this->attributes, $element_id );
 		$output = apply_filters( 'gutenverse_advance_animation_script', $output, $this->attributes, $element_id, 'wrapper' );
 		$output = apply_filters( 'gutenverse_cursor_effect_script', $output, $this->attributes, $element_id, 'wrapper' );
+		$output = apply_filters( 'gutenverse_background_effect_script', $output, $this->attributes, $element_id );
 
 		return $output;
 	}

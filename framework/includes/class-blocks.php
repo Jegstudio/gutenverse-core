@@ -77,8 +77,8 @@ class Blocks {
 	public function register_blocks() {
 		// Dynamic block.
 		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/section/block.json' );
-		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/column/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/wrapper/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/column/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/container/block.json' );
 	}
 
