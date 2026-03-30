@@ -9,7 +9,7 @@ import { isAnimationActive } from 'gutenverse-core/helper';
 import { FluidCanvasSave } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
 
-const save = compose(
+const saveV4 = compose(
     withAnimationAdvanceScript('wrapper'),
     withVideoBackground,
     withCursorEffectScript,
@@ -77,9 +77,13 @@ const save = compose(
                         })} />
                     }
                     {isSlideShow &&
-                        <div data-var={`backgroundSlideshow${dataId}`} data-value={JSON.stringify({
-                            ...background
-                        })} />
+                        <div data-var={`backgroundSlideshow${dataId}`} data-value={( () => {
+                            const { slideImage, ...rest } = background;
+                            return JSON.stringify({
+                                ...rest,
+                                slideLength: slideImage?.length || 0
+                            });
+                        } )()} />
                     }
                 </div>}
             <FluidCanvasSave attributes={attributes} />
@@ -99,4 +103,4 @@ const save = compose(
     );
 });
 
-export default save;
+export default saveV4;
