@@ -55,6 +55,7 @@ export { default as DateTimeControl } from './controls/date-time/date-time-contr
 export { default as TextStrokeControl } from './controls/text-stroke/text-stroke-control';
 export { default as PreviewControl } from './controls/preview/preview-control';
 export { default as MultiImageControl } from './controls/multi-image/multi-image-control';
+export { default as TextEditorControl } from './controls/text-editor/text-editor-control';
 // Locked Controls
 export { default as LockedControl } from './controls/locked/locked-control';
 export { default as LockedSwitchControl } from './controls/locked/locked-switch-control';
