@@ -52,8 +52,6 @@ class Wrapper extends Block_Abstract {
 		$background_animated      = isset( $this->attributes['backgroundAnimated'] ) ? $this->attributes['backgroundAnimated'] : array();
 		$background_effect        = isset( $this->attributes['backgroundEffect'] ) ? $this->attributes['backgroundEffect'] : array();
 		$background               = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
-		$anchor                   = isset( $this->attributes['anchor'] ) ? $this->attributes['anchor'] : '';
-
 		$is_slideshow         = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
 		$using_featured_image = ! empty( $background['useFeaturedImage'] ) && ( ! empty( $background['useFeaturedImage']['Desktop'] ) || ! empty( $background['useFeaturedImage']['Tablet'] ) || ! empty( $background['useFeaturedImage']['Mobile'] ) );
 		$is_bg_animated       = $this->is_animation_active( $background_animated );
@@ -103,6 +101,8 @@ class Wrapper extends Block_Abstract {
 			$onclick_attr    = ' onClick="window.open(\'' . esc_url( $url ) . '\', \'' . esc_attr( $new_link_target ) . '\');"';
 		}
 
+		// Anchor id attribute.
+		$anchor  = isset( $this->attributes['anchor'] ) ? $this->attributes['anchor'] : '';
 		$id_attr = ! empty( $anchor ) ? ' id="' . esc_attr( $anchor ) . '"' : '';
 
 		// Build output.
