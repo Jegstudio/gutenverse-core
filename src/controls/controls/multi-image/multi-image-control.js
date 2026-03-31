@@ -3,6 +3,8 @@ import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import { ControlHeadingSimple } from 'gutenverse-core/controls';
+import apiFetch from '@wordpress/api-fetch';
+import { addQueryArgs } from '@wordpress/url';
 
 const TrashSvg = () => {
     return <svg xmlns="http://www.w3.org/2000/svg" width="12" height="15" viewBox="0 0 8 10" fill="none">
@@ -20,44 +22,65 @@ const MultiImageControl = (props) => {
         onValueChange,
         value = [],
     } = props;
-    
-    const [imagePreview, setImagePreview] = useState(value || []);
 
+    const [imageUrls, setImageUrls] = useState({});
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (!Array.isArray(value) || value.length === 0) {
+            setImageUrls({});
+            return;
+        }
+
+        const idsToFetch = value.filter(imgId => !imageUrls[imgId]);
+        if (idsToFetch.length === 0) return;
+
+        setLoading(true);
+        apiFetch({
+            path: addQueryArgs('/wp/v2/media', {
+                include: idsToFetch.join(','),
+                per_page: idsToFetch.length,
+                _fields: 'id,source_url',
+            }),
+        }).then(data => {
+            setImageUrls(prev => {
+                const updated = { ...prev };
+                data.forEach(item => {
+                    updated[item.id] = item.source_url;
+                });
+                return updated;
+            });
+            setLoading(false);
+        }).catch(() => setLoading(false));
+    }, [value]);
 
     const onSelectImages = (media) => {
-        const newValue = media.map((img) => {
-            return {
-                'url': img.url,
-                'id': img.id
-            }
+        const ids = media.map(img => img.id);
+        const urls = {};
+        media.forEach(img => {
+            urls[img.id] = img.url;
         });
-        setImagePreview(newValue);
-        onValueChange(newValue);
+        setImageUrls(prev => ({ ...prev, ...urls }));
+        onValueChange(ids);
     };
 
-    const removeImage = (id) => {
-        const newValue = imagePreview.filter(item => item.id !== id);
-        setImagePreview(newValue);
+    const removeImage = (imgId) => {
+        const newValue = value.filter(item => item !== imgId);
         onValueChange(newValue);
     };
 
     const PreviewImages = () => {
-        return imagePreview.length ? imagePreview.map((image) => {
-            return <div key={image.id} className="gvnews-with-image" style={{ backgroundImage: `url(${image.url})` }}>
+        return Array.isArray(value) && value.length ? value.map((imgId) => {
+            const url = imageUrls[imgId];
+            return <div key={imgId} className="gvnews-with-image" style={{ backgroundImage: url ? `url(${url})` : 'none' }}>
                 <div className="gvnews-image-control">
-                    <div className="gvnews-remove-image" onClick={() => removeImage(image.id)}>
+                    <div className="gvnews-remove-image" onClick={() => removeImage(imgId)}>
                         <TrashSvg />
                     </div>
                 </div>
-            </div>
-        }) : ''
-    }
-
-    useEffect(() => {
-        setImagePreview(value)
-    }, [value]);
-
-    const ids = imagePreview.length ? imagePreview.map(img => img.id) : [];
+            </div>;
+        }) : '';
+    };
 
     return <div className={'gutenverse-control-wrapper gvnews-multi-image-control'}>
         <ControlHeadingSimple
@@ -66,16 +89,16 @@ const MultiImageControl = (props) => {
             description={description}
             allowDeviceControl={false}
         />
-        {imagePreview.length ? <div className="gvnews-image-control-preview-wrapper"><PreviewImages /></div> : ''}
+        {Array.isArray(value) && value.length ? <div className="gvnews-image-control-preview-wrapper"><PreviewImages /></div> : ''}
         <MediaUploadCheck>
             <MediaUpload
                 onSelect={onSelectImages}
                 allowedTypes={['image']}
                 multiple
-                value={ids}
+                value={value}
                 gallery={true}
                 render={({ open }) => (
-                    <Button onClick={open}>
+                    <Button onClick={open} isBusy={loading}>
                         {__('Choose Images', '--gctd--')}
                     </Button>
                 )}
