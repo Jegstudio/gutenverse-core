@@ -91,6 +91,7 @@ const BlockController = (props) => {
             isOpen={true}
             panelIndex={panelIndex}
             setPreviewOpen={setPreviewOpen}
+            deviceType={deviceType}
         />;
     });
 };
