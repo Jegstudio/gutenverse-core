@@ -17,12 +17,12 @@ export const settings = {
         {
             attributes,
             supports,
-            save: saveV2
+            save: saveV1
         },
         {
             attributes,
-            supports,
-            save: saveV1
+            supports: { ...supports, className: true },
+            save: saveV2
         }
     ]
 };

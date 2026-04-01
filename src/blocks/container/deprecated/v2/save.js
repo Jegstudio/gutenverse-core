@@ -7,8 +7,8 @@ import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
 import { withAnimationAdvanceScript, withBackgroundEffectScript, withBackgroundSlideshowScript, withCursorEffectScript, withMouseMoveEffectScript, withVideoBackground } from 'gutenverse-core/hoc';
 import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
 import isEmpty from 'lodash/isEmpty';
-import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
-import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from './components/section-divider-animated';
+import { SectionDividerBottom, SectionDividerTop } from '../v1/components/section-divider';
+import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from '../v1/components/section-divider-animated';
 
 const save = compose(
     withAnimationAdvanceScript('container'),
@@ -20,6 +20,7 @@ const save = compose(
 )(({ attributes, videoContainer, slideElements }) => {
     const {
         elementId,
+        className,
         containerLayout,
         backgroundAnimated,
         background,
@@ -56,14 +57,14 @@ const save = compose(
     const _isBottomDividerAnimated = !isEmptyValue(bottomDividerAnimated) && bottomDividerAnimated.type !== 'none';
     const dataId = elementId?.split('-')[1];
 
-    const className = classnames(
+    const blockClass = classnames(
         'guten-element',
         'guten-flex-container',
         containerLayout,
         elementId,
         animationClass,
         displayClass,
-        'guten-data',
+        className,
         {
             'background-animated': _isBgAnimated,
             'guten-background-slideshow': isSlideShow,
@@ -79,7 +80,7 @@ const save = compose(
     const TagName = attributes?.htmlTag || 'div';
 
     return (
-        <TagName className={className} {...advanceAnimationData} id={attributes.anchor} data-id={dataId}>
+        <TagName className={blockClass} {...advanceAnimationData} id={attributes.anchor} data-id={dataId}>
             <FluidCanvasSave attributes={attributes} />
             {(_isSticky || _isBgAnimated || isSlideShow || _isTopDividerAnimated || _isBottomDividerAnimated) &&
                 <div className="guten-data">
