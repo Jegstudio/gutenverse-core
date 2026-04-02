@@ -1565,7 +1565,7 @@ if ( ! function_exists( 'gutenverse_permission_change_global_variable' ) ) {
 	 * @return bool|WP_Error
 	 */
 	function gutenverse_permission_change_global_variable() {
-		if ( ! current_user_can( 'edit_theme_options' ) ) {
+		if ( ! current_user_can( 'edit_pages' ) ) {
 			return new WP_Error(
 				'forbidden_permission',
 				esc_html__( 'Forbidden Access', '--gctd--' ),
