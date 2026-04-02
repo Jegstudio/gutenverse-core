@@ -21,7 +21,7 @@
 
     .template-tab-body {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(266px, 1fr));
         gap: 20px;
         margin-bottom: 40px;
 
@@ -92,6 +92,69 @@
                 padding: 20px;
                 margin-top: auto;
                 border-top: 1px solid #E3E4E6;
+                position: relative;
+
+                .notice-info-wrapper {
+                    position: absolute;
+                    left: 110px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    z-index: 1;
+
+                    .notice-info-icon {
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        line-height: 0;
+                    }
+
+                    .required-plugin-notice {
+                        position: absolute;
+                        bottom: calc(100% + 10px);
+                        left: calc(50% + 20px);
+                        transform: translateX(-50%);
+                        width: max-content;
+                        max-width: 227px;
+                        background: #FFF8E1;
+                        border: 1px solid #EEE4BD;
+                        border-radius: 5px;
+                        padding: 10px;
+                        color: #524E3E;
+                        text-align: left;
+                        white-space: normal;
+                        box-sizing: border-box;
+                        font-family: 'Roboto';
+                        font-weight: 400;
+                        font-size: 11px;
+                        line-height: 1.4;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: -6.4px;
+                            left: calc(50% - 20px);
+                            transform: translateX(-50%);
+                            width: 0;
+                            height: 0;
+                            border-left: 7px solid transparent;
+                            border-right: 7px solid transparent;
+                            border-top: 7px solid #FFF8E1;
+                        }
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            bottom: -7.4px;
+                            left: calc(50% - 20px);
+                            transform: translateX(-50%);
+                            width: 0;
+                            height: 0;
+                            border-left: 8px solid transparent;
+                            border-right: 8px solid transparent;
+                            border-top: 8px solid #EEE4BD;
+                        }
+                    }
+                }
 
                 .control-wrapper {
                     padding: 0 !important;
