@@ -577,6 +577,10 @@ class Container extends Block_Abstract {
 			return $this->content;
 		}
 
+		// Snapshot attributes before rendering inner blocks, since this class is a singleton
+		// and nested container renders will overwrite $this->attributes.
+		$attributes = $this->attributes;
+
 		$element_id      = $this->get_element_id();
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
@@ -625,7 +629,6 @@ class Container extends Block_Abstract {
 		// Build classes.
 		$classes = array(
 			'guten-element',
-			'wp-block-gutenverse-container',
 			'guten-flex-container',
 			$container_layout,
 			$element_id,
@@ -652,6 +655,7 @@ class Container extends Block_Abstract {
 		}
 		if ( $is_sticky ) {
 			$classes[] = 'guten-sticky';
+			$classes[] = 'sticky-' . $sticky_position;
 		}
 		if ( $using_featured ) {
 			$classes[] = 'guten-using-featured-image';
@@ -682,13 +686,7 @@ class Container extends Block_Abstract {
 		}
 
 		// Build output.
-		if ( $is_sticky ) {
-			$wrapper_classes = array( 'guten-container-wrapper', 'container-' . $element_id, 'sticky-' . $sticky_position );
-			$output          = '<div class="' . esc_attr( implode( ' ', $wrapper_classes ) ) . '" data-id="' . esc_attr( $data_id ) . '">';
-			$output         .= '<' . $html_tag . ' class="' . esc_attr( $class_name ) . '"' . $adv_anim_attr . $id_attr . '>';
-		} else {
-			$output = '<' . $html_tag . ' class="' . esc_attr( $class_name ) . '" data-id="' . esc_attr( $data_id ) . '"' . $adv_anim_attr . $id_attr . '>';
-		}
+		$output = '<' . $html_tag . ' class="' . esc_attr( $class_name ) . '" data-id="' . esc_attr( $data_id ) . '"' . $adv_anim_attr . $id_attr . '>';
 
 		// Fluid canvas.
 		$output .= apply_filters( 'gutenverse_fluid_canvas_script', '', $this->attributes );
@@ -741,7 +739,6 @@ class Container extends Block_Abstract {
 		if ( $is_bg_effect ) {
 			$output .= '<div class="guten-background-effect"><div class="inner-background-container"></div></div>';
 		}
-
 		// Video background.
 		if ( $is_video_bg ) {
 			$output .= apply_filters( 'gutenverse_video_background', '', $this->attributes, $element_id );
@@ -756,6 +753,7 @@ class Container extends Block_Abstract {
 		if ( ! empty( $top_divider ) ) {
 			$output .= $this->render_section_divider( 'top', $top_divider );
 		}
+
 		if ( ! empty( $bottom_divider ) ) {
 			$output .= $this->render_section_divider( 'bottom', $bottom_divider );
 		}
@@ -773,14 +771,10 @@ class Container extends Block_Abstract {
 
 		$output .= '</' . $html_tag . '>';
 
-		if ( $is_sticky ) {
-			$output .= '</div>';
-		}
-
-		$output = apply_filters( 'gutenverse_cursor_move_effect_script', $output, $this->attributes, $element_id );
-		$output = apply_filters( 'gutenverse_cursor_effect_script', $output, $this->attributes, $element_id );
-		$output = apply_filters( 'gutenverse_background_effect_script', $output, $this->attributes, $element_id );
-		$output = apply_filters( 'gutenverse_advance_animation_script', $output, $this->attributes, $element_id, 'container' );
+		$output = apply_filters( 'gutenverse_cursor_move_effect_script', $output, $attributes, $element_id );
+		$output = apply_filters( 'gutenverse_cursor_effect_script', $output, $attributes, $element_id );
+		$output = apply_filters( 'gutenverse_background_effect_script', $output, $attributes, $element_id );
+		$output = apply_filters( 'gutenverse_advance_animation_script', $output, $attributes, $element_id, 'container' );
 
 		return $output;
 	}
