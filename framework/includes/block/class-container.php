@@ -652,7 +652,6 @@ class Container extends Block_Abstract {
 		}
 		if ( $is_sticky ) {
 			$classes[] = 'guten-sticky';
-			$classes[] = 'sticky-' . $sticky_position;
 		}
 		if ( $using_featured ) {
 			$classes[] = 'guten-using-featured-image';
@@ -683,7 +682,13 @@ class Container extends Block_Abstract {
 		}
 
 		// Build output.
-		$output = '<' . $html_tag . ' class="' . esc_attr( $class_name ) . '" data-id="' . esc_attr( $data_id ) . '"' . $adv_anim_attr . $id_attr . '>';
+		if ( $is_sticky ) {
+			$wrapper_classes = array( 'guten-container-wrapper', 'container-' . $element_id, 'sticky-' . $sticky_position );
+			$output          = '<div class="' . esc_attr( implode( ' ', $wrapper_classes ) ) . '" data-id="' . esc_attr( $data_id ) . '">';
+			$output         .= '<' . $html_tag . ' class="' . esc_attr( $class_name ) . '"' . $adv_anim_attr . $id_attr . '>';
+		} else {
+			$output = '<' . $html_tag . ' class="' . esc_attr( $class_name ) . '" data-id="' . esc_attr( $data_id ) . '"' . $adv_anim_attr . $id_attr . '>';
+		}
 
 		// Fluid canvas.
 		$output .= apply_filters( 'gutenverse_fluid_canvas_script', '', $this->attributes );
@@ -767,6 +772,10 @@ class Container extends Block_Abstract {
 		$output .= $this->render_content();
 
 		$output .= '</' . $html_tag . '>';
+
+		if ( $is_sticky ) {
+			$output .= '</div>';
+		}
 
 		$output = apply_filters( 'gutenverse_cursor_move_effect_script', $output, $this->attributes, $element_id );
 		$output = apply_filters( 'gutenverse_cursor_effect_script', $output, $this->attributes, $element_id );

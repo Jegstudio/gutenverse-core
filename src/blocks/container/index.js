@@ -16,13 +16,13 @@ export const settings = {
     deprecated: [
         {
             attributes,
-            supports,
-            save: saveV1
+            supports: { ...supports, className: true },
+            save: saveV2
         },
         {
             attributes,
-            supports: { ...supports, className: true },
-            save: saveV2
-        }
+            supports,
+            save: saveV1
+        },
     ]
 };
