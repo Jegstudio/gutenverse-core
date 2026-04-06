@@ -103,7 +103,7 @@ class Api {
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'modify_global_variable' ),
-				'permission_callback' => 'gutenverse_permission_check_admin',
+				'permission_callback' => 'gutenverse_permission_change_global_variable',
 			)
 		);
 
@@ -495,7 +495,6 @@ class Api {
 		}
 
 		$dev_param = $request->get_param( 'dev' );
-			$this->update_library_data();
 
 		if ( 'true' === $dev_param ) {
 			$this->update_library_data();
