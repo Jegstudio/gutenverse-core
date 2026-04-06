@@ -82,20 +82,62 @@ class GutenverseVideo extends Default {
             // Normalize YouTube watch URLs to embed format for standalone ReactPlayer.
             videoData.url = this._normalizeVideoUrl(videoData.url);
 
-            // Remove start/end playerVars when 0 to avoid YouTube "Invalid video id" error.
             if (videoData.config?.youtube?.playerVars) {
+                // Ensure YouTube playerVars config exists.
+                if (!videoData.config) videoData.config = {};
+                if (!videoData.config.youtube) videoData.config.youtube = {};
+                if (!videoData.config.youtube.playerVars) videoData.config.youtube.playerVars = {};
+
                 const pv = videoData.config.youtube.playerVars;
+
+                // Remove start/end playerVars when 0 to avoid YouTube "Invalid video id" error.
                 if (pv.start === 0 || pv.start === '0') delete pv.start;
                 if (pv.end === 0 || pv.end === '0') delete pv.end;
+
+                // Track whether user wants unmuted autoplay.
+                const wantUnmuted = videoData.playing && !videoData.muted;
+
+                // Browsers block unmuted autoplay. Force muted so autoplay works,
+                // then attempt to unmute after playback starts.
+                if (videoData.playing) {
+                    pv.autoplay = 1;
+                    pv.mute = 1;
+                    pv.enablejsapi = 1;
+                    videoData.muted = true;
+                }
+
+                renderReactPlayer(element, videoData); // eslint-disable-line
+
+                setTimeout(() => {
+                    this._calculateSize(element);
+                    u(element).find('.guten-video-bg-wrapper').addClass('loaded');
+                }, 1);
+
+                if (wantUnmuted) {
+                    this._attemptUnmute(element);
+                }
+            }
+        }
+    }
+
+    _attemptUnmute(element) {
+        const tryUnmute = () => {
+            const video = element.querySelector('video');
+            if (video) {
+                video.muted = false;
+                return;
             }
 
-            renderReactPlayer(element, videoData); // eslint-disable-line
+            const iframe = element.querySelector('iframe');
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage(
+                    JSON.stringify({ event: 'command', func: 'unMute', args: [] }),
+                    '*'
+                );
+            }
+        };
 
-            setTimeout(() => {
-                this._calculateSize(element);
-                u(element).find('.guten-video-bg-wrapper').addClass('loaded');
-            }, 1);
-        }
+        setTimeout(tryUnmute, 2000);
     }
 }
 

@@ -3,7 +3,7 @@ import { useSelect, dispatch } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
 import { dynamicData } from './module/dynamic-data';
 import { highlight } from './module/highlight';
-import { useEffect, useState, useDeferredValue } from '@wordpress/element';
+import { useEffect, useRef, useCallback } from '@wordpress/element';
 
 const RichTextComponent = (props) => {
     const {
@@ -23,9 +23,10 @@ const RichTextComponent = (props) => {
         isUseHighlight = false,
     } = props;
 
-    const [query, setQuery] = useState(content); // Input value
-    const [isTyping, setIsTyping] = useState(false);
-    const deferredQuery = useDeferredValue(query);
+    const content = attributes[contentAttribute];
+    const timerRef = useRef(null);
+    const contentRef = useRef(content);
+    contentRef.current = content;
 
     if (isUseDinamic) {
         dynamicData(props);
@@ -33,8 +34,6 @@ const RichTextComponent = (props) => {
     if (isUseHighlight) {
         highlight(props);
     }
-
-    const content = attributes[contentAttribute];
     const {
         getBlocks
     } = useSelect(
@@ -60,32 +59,33 @@ const RichTextComponent = (props) => {
 
     //don't delete this, it will get error when deleted;
     const onReplace = (value) => {
+        console.log(value)
     };
 
-    const handleOnChange = (value) => {
-        setQuery(value);
-        setIsTyping(true);
-    };
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsTyping(false);
-        }, 500);
-
-        return () => clearTimeout(timer);
-    }, [query]);
-
-    useEffect(() => {
-        if (!isTyping && deferredQuery !== undefined) {
-            onChange(deferredQuery);
+    const handleOnChange = useCallback((value) => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
         }
-    }, [deferredQuery, isTyping]);
+        timerRef.current = setTimeout(() => {
+            if (value !== contentRef.current) {
+                onChange(value);
+            }
+            timerRef.current = null;
+        }, 500);
+    }, [onChange]);
+
+    useEffect(() => {
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
+    }, []);
 
     const contentOfRichText = () => {
         if (isBlockProps) {
             return <RichText
                 {...blockProps}
-                identifier={contentAttribute}
                 tagName={tagName}
                 value={content}
                 placeholder={placeholder}
@@ -97,7 +97,6 @@ const RichTextComponent = (props) => {
             />;
         } else {
             return <RichText
-                identifier={contentAttribute}
                 tagName={tagName}
                 value={content}
                 placeholder={placeholder}

@@ -136,6 +136,9 @@ export const highlight = (props) => {
                 return child;
             }
         });
-        return setAttributes({ [contentAttribute]: newValue.join('') });
+        const newContent = newValue.join('');
+        if (newContent !== content) {
+            setAttributes({ [contentAttribute]: newContent });
+        }
     }, [content, attributes[textChilds]]);
 };
