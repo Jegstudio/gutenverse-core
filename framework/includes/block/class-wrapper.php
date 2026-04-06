@@ -40,18 +40,22 @@ class Wrapper extends Block_Abstract {
 			return $this->content;
 		}
 
+		// Snapshot attributes before rendering inner blocks, since this class is a singleton
+		// and nested block renders will overwrite $this->attributes.
+		$attributes = $this->attributes;
+
 		$element_id               = $this->get_element_id();
 		$display_classes          = $this->set_display_classes();
 		$animation_class          = $this->set_animation_classes();
-		$display_type             = isset( $this->attributes['displayType'] ) ? $this->attributes['displayType'] : '';
-		$cursor_effect            = isset( $this->attributes['cursorEffect'] ) ? $this->attributes['cursorEffect'] : array();
-		$url                      = isset( $this->attributes['url'] ) ? $this->attributes['url'] : '';
-		$link_target              = isset( $this->attributes['linkTarget'] ) ? $this->attributes['linkTarget'] : '';
-		$background_overlay       = isset( $this->attributes['backgroundOverlay'] ) ? $this->attributes['backgroundOverlay'] : array();
-		$background_overlay_hover = isset( $this->attributes['backgroundOverlayHover'] ) ? $this->attributes['backgroundOverlayHover'] : array();
-		$background_animated      = isset( $this->attributes['backgroundAnimated'] ) ? $this->attributes['backgroundAnimated'] : array();
-		$background_effect        = isset( $this->attributes['backgroundEffect'] ) ? $this->attributes['backgroundEffect'] : array();
-		$background               = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
+		$display_type             = isset( $attributes['displayType'] ) ? $attributes['displayType'] : '';
+		$cursor_effect            = isset( $attributes['cursorEffect'] ) ? $attributes['cursorEffect'] : array();
+		$url                      = isset( $attributes['url'] ) ? $attributes['url'] : '';
+		$link_target              = isset( $attributes['linkTarget'] ) ? $attributes['linkTarget'] : '';
+		$background_overlay       = isset( $attributes['backgroundOverlay'] ) ? $attributes['backgroundOverlay'] : array();
+		$background_overlay_hover = isset( $attributes['backgroundOverlayHover'] ) ? $attributes['backgroundOverlayHover'] : array();
+		$background_animated      = isset( $attributes['backgroundAnimated'] ) ? $attributes['backgroundAnimated'] : array();
+		$background_effect        = isset( $attributes['backgroundEffect'] ) ? $attributes['backgroundEffect'] : array();
+		$background               = isset( $attributes['background'] ) ? $attributes['background'] : array();
 		$is_slideshow         = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
 		$using_featured_image = ! empty( $background['useFeaturedImage'] ) && ( ! empty( $background['useFeaturedImage']['Desktop'] ) || ! empty( $background['useFeaturedImage']['Tablet'] ) || ! empty( $background['useFeaturedImage']['Mobile'] ) );
 		$is_bg_animated       = $this->is_animation_active( $background_animated );
@@ -65,7 +69,7 @@ class Wrapper extends Block_Abstract {
 
 		// Advance animation data attribute.
 		$advance_animation_attr = '';
-		if ( isset( $this->attributes['advanceAnimation']['type'] ) && ! empty( $this->attributes['advanceAnimation']['type'] ) ) {
+		if ( isset( $attributes['advanceAnimation']['type'] ) && ! empty( $attributes['advanceAnimation']['type'] ) ) {
 			$advance_animation_attr = ' data-id="' . esc_attr( $short_id ) . '"';
 		}
 
@@ -102,7 +106,7 @@ class Wrapper extends Block_Abstract {
 		}
 
 		// Anchor id attribute.
-		$anchor  = isset( $this->attributes['anchor'] ) ? $this->attributes['anchor'] : '';
+		$anchor  = isset( $attributes['anchor'] ) ? $attributes['anchor'] : '';
 		$id_attr = ! empty( $anchor ) ? ' id="' . esc_attr( $anchor ) . '"' : '';
 
 		// Build output.
@@ -125,7 +129,7 @@ class Wrapper extends Block_Abstract {
 		}
 
 		// FluidCanvasSave - apply filter (returns null by default).
-		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_script', '', $this->attributes );
+		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_script', '', $attributes );
 		if ( ! empty( $fluid_canvas ) ) {
 			$output .= $fluid_canvas;
 		}
@@ -195,10 +199,10 @@ class Wrapper extends Block_Abstract {
 		$output .= '</div>'; // Close guten-inner-wrap.
 		$output .= '</div>'; // Close wrapper.
 
-		$output = apply_filters( 'gutenverse_cursor_move_effect_script', $output, $this->attributes, $element_id );
-		$output = apply_filters( 'gutenverse_advance_animation_script', $output, $this->attributes, $element_id, 'wrapper' );
-		$output = apply_filters( 'gutenverse_cursor_effect_script', $output, $this->attributes, $element_id, 'wrapper' );
-		$output = apply_filters( 'gutenverse_background_effect_script', $output, $this->attributes, $element_id );
+		$output = apply_filters( 'gutenverse_cursor_move_effect_script', $output, $attributes, $element_id );
+		$output = apply_filters( 'gutenverse_advance_animation_script', $output, $attributes, $element_id, 'wrapper' );
+		$output = apply_filters( 'gutenverse_cursor_effect_script', $output, $attributes, $element_id, 'wrapper' );
+		$output = apply_filters( 'gutenverse_background_effect_script', $output, $attributes, $element_id );
 
 		return $output;
 	}

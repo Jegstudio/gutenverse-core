@@ -207,22 +207,26 @@ class Column extends Block_Abstract {
 			return $this->content;
 		}
 
+		// Snapshot attributes before rendering inner blocks, since this class is a singleton
+		// and nested block renders will overwrite $this->attributes.
+		$attributes = $this->attributes;
+
 		$element_id      = $this->get_element_id();
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = $this->get_custom_classes();
-		$anchor          = isset( $this->attributes['anchor'] ) ? $this->attributes['anchor'] : '';
+		$anchor          = isset( $attributes['anchor'] ) ? $attributes['anchor'] : '';
 
 		// Extract attributes with defaults.
-		$sticky                 = isset( $this->attributes['sticky'] ) ? $this->attributes['sticky'] : array();
-		$sticky_position        = isset( $this->attributes['stickyPosition'] ) ? $this->attributes['stickyPosition'] : 'top';
-		$section_vertical_align = isset( $this->attributes['sectionVerticalAlign'] ) ? $this->attributes['sectionVerticalAlign'] : 'default';
-		$cursor_effect          = isset( $this->attributes['cursorEffect'] ) ? $this->attributes['cursorEffect'] : array();
-		$background_overlay     = isset( $this->attributes['backgroundOverlay'] ) ? $this->attributes['backgroundOverlay'] : array();
-		$background_overlay_h   = isset( $this->attributes['backgroundOverlayHover'] ) ? $this->attributes['backgroundOverlayHover'] : array();
-		$background_animated    = isset( $this->attributes['backgroundAnimated'] ) ? $this->attributes['backgroundAnimated'] : array();
-		$background_effect      = isset( $this->attributes['backgroundEffect'] ) ? $this->attributes['backgroundEffect'] : array();
-		$background             = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
+		$sticky                 = isset( $attributes['sticky'] ) ? $attributes['sticky'] : array();
+		$sticky_position        = isset( $attributes['stickyPosition'] ) ? $attributes['stickyPosition'] : 'top';
+		$section_vertical_align = isset( $attributes['sectionVerticalAlign'] ) ? $attributes['sectionVerticalAlign'] : 'default';
+		$cursor_effect          = isset( $attributes['cursorEffect'] ) ? $attributes['cursorEffect'] : array();
+		$background_overlay     = isset( $attributes['backgroundOverlay'] ) ? $attributes['backgroundOverlay'] : array();
+		$background_overlay_h   = isset( $attributes['backgroundOverlayHover'] ) ? $attributes['backgroundOverlayHover'] : array();
+		$background_animated    = isset( $attributes['backgroundAnimated'] ) ? $attributes['backgroundAnimated'] : array();
+		$background_effect      = isset( $attributes['backgroundEffect'] ) ? $attributes['backgroundEffect'] : array();
+		$background             = isset( $attributes['background'] ) ? $attributes['background'] : array();
 
 		// Computed flags.
 		$_is_sticky           = $this->is_sticky( $sticky );
@@ -297,7 +301,7 @@ class Column extends Block_Abstract {
 		$output = '<div class="' . $class_name . '"' . $advance_anim_data . $sticky_data_id_attr . $id_attr . '>';
 
 		// FluidCanvasSave.
-		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_script', '', $this->attributes );
+		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_script', '', $attributes );
 		if ( ! empty( $fluid_canvas ) ) {
 			$output .= $fluid_canvas;
 		}
@@ -357,10 +361,10 @@ class Column extends Block_Abstract {
 		$output .= '</div>';
 
 		// Apply filter hooks (matching the HOC composition from save.js).
-		$output = apply_filters( 'gutenverse_cursor_move_effect_script', $output, $this->attributes, $element_id );
-		$output = apply_filters( 'gutenverse_cursor_effect_script', $output, $this->attributes, $element_id );
-		$output = apply_filters( 'gutenverse_background_effect_script', $output, $this->attributes, $element_id );
-		$output = apply_filters( 'gutenverse_advance_animation_script', $output, $this->attributes, $element_id, 'column' );
+		$output = apply_filters( 'gutenverse_cursor_move_effect_script', $output, $attributes, $element_id );
+		$output = apply_filters( 'gutenverse_cursor_effect_script', $output, $attributes, $element_id );
+		$output = apply_filters( 'gutenverse_background_effect_script', $output, $attributes, $element_id );
+		$output = apply_filters( 'gutenverse_advance_animation_script', $output, $attributes, $element_id, 'column' );
 
 		return $output;
 	}

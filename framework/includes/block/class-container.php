@@ -586,26 +586,26 @@ class Container extends Block_Abstract {
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = $this->get_custom_classes();
 
-		$container_layout         = isset( $this->attributes['containerLayout'] ) ? $this->attributes['containerLayout'] : 'full-width';
-		$background               = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
-		$background_overlay       = isset( $this->attributes['backgroundOverlay'] ) ? $this->attributes['backgroundOverlay'] : array();
-		$background_overlay_hover = isset( $this->attributes['backgroundOverlayHover'] ) ? $this->attributes['backgroundOverlayHover'] : array();
-		$background_animated      = isset( $this->attributes['backgroundAnimated'] ) ? $this->attributes['backgroundAnimated'] : array();
-		$background_effect        = isset( $this->attributes['backgroundEffect'] ) ? $this->attributes['backgroundEffect'] : array();
-		$cursor_effect            = isset( $this->attributes['cursorEffect'] ) ? $this->attributes['cursorEffect'] : array();
-		$sticky                   = isset( $this->attributes['sticky'] ) ? $this->attributes['sticky'] : array();
-		$sticky_show_on           = isset( $this->attributes['stickyShowOn'] ) ? $this->attributes['stickyShowOn'] : 'both';
-		$sticky_ease              = isset( $this->attributes['stickyEase'] ) ? $this->attributes['stickyEase'] : 'none';
-		$sticky_position          = isset( $this->attributes['stickyPosition'] ) ? $this->attributes['stickyPosition'] : 'top';
-		$sticky_duration          = isset( $this->attributes['stickyDuration'] ) ? $this->attributes['stickyDuration'] : 0.25;
-		$top_sticky               = isset( $this->attributes['topSticky'] ) ? $this->attributes['topSticky'] : array();
-		$bottom_sticky            = isset( $this->attributes['bottomSticky'] ) ? $this->attributes['bottomSticky'] : array();
-		$top_divider              = isset( $this->attributes['topDivider'] ) ? $this->attributes['topDivider'] : array();
-		$bottom_divider           = isset( $this->attributes['bottomDivider'] ) ? $this->attributes['bottomDivider'] : array();
-		$top_divider_animated     = isset( $this->attributes['topDividerAnimated'] ) ? $this->attributes['topDividerAnimated'] : array();
-		$bottom_divider_animated  = isset( $this->attributes['bottomDividerAnimated'] ) ? $this->attributes['bottomDividerAnimated'] : array();
-		$html_tag                 = isset( $this->attributes['htmlTag'] ) ? $this->attributes['htmlTag'] : 'div';
-		$anchor                   = isset( $this->attributes['anchor'] ) ? $this->attributes['anchor'] : '';
+		$container_layout         = isset( $attributes['containerLayout'] ) ? $attributes['containerLayout'] : 'full-width';
+		$background               = isset( $attributes['background'] ) ? $attributes['background'] : array();
+		$background_overlay       = isset( $attributes['backgroundOverlay'] ) ? $attributes['backgroundOverlay'] : array();
+		$background_overlay_hover = isset( $attributes['backgroundOverlayHover'] ) ? $attributes['backgroundOverlayHover'] : array();
+		$background_animated      = isset( $attributes['backgroundAnimated'] ) ? $attributes['backgroundAnimated'] : array();
+		$background_effect        = isset( $attributes['backgroundEffect'] ) ? $attributes['backgroundEffect'] : array();
+		$cursor_effect            = isset( $attributes['cursorEffect'] ) ? $attributes['cursorEffect'] : array();
+		$sticky                   = isset( $attributes['sticky'] ) ? $attributes['sticky'] : array();
+		$sticky_show_on           = isset( $attributes['stickyShowOn'] ) ? $attributes['stickyShowOn'] : 'both';
+		$sticky_ease              = isset( $attributes['stickyEase'] ) ? $attributes['stickyEase'] : 'none';
+		$sticky_position          = isset( $attributes['stickyPosition'] ) ? $attributes['stickyPosition'] : 'top';
+		$sticky_duration          = isset( $attributes['stickyDuration'] ) ? $attributes['stickyDuration'] : 0.25;
+		$top_sticky               = isset( $attributes['topSticky'] ) ? $attributes['topSticky'] : array();
+		$bottom_sticky            = isset( $attributes['bottomSticky'] ) ? $attributes['bottomSticky'] : array();
+		$top_divider              = isset( $attributes['topDivider'] ) ? $attributes['topDivider'] : array();
+		$bottom_divider           = isset( $attributes['bottomDivider'] ) ? $attributes['bottomDivider'] : array();
+		$top_divider_animated     = isset( $attributes['topDividerAnimated'] ) ? $attributes['topDividerAnimated'] : array();
+		$bottom_divider_animated  = isset( $attributes['bottomDividerAnimated'] ) ? $attributes['bottomDividerAnimated'] : array();
+		$html_tag                 = isset( $attributes['htmlTag'] ) ? $attributes['htmlTag'] : 'div';
+		$anchor                   = isset( $attributes['anchor'] ) ? $attributes['anchor'] : '';
 
 		$is_slideshow       = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
 		$is_bg_animated     = $this->is_animation_active( $background_animated );
@@ -672,7 +672,7 @@ class Container extends Block_Abstract {
 
 		// Advance animation data.
 		$adv_anim_attr = '';
-		if ( isset( $this->attributes['advanceAnimation']['type'] ) && ! empty( $this->attributes['advanceAnimation']['type'] ) ) {
+		if ( isset( $attributes['advanceAnimation']['type'] ) && ! empty( $attributes['advanceAnimation']['type'] ) ) {
 			$adv_anim_attr = ' data-id="' . esc_attr( $data_id ) . '"';
 		}
 
@@ -689,7 +689,7 @@ class Container extends Block_Abstract {
 		$output = '<' . $html_tag . ' class="' . esc_attr( $class_name ) . '" data-id="' . esc_attr( $data_id ) . '"' . $adv_anim_attr . $id_attr . '>';
 
 		// Fluid canvas.
-		$output .= apply_filters( 'gutenverse_fluid_canvas_script', '', $this->attributes );
+		$output .= apply_filters( 'gutenverse_fluid_canvas_script', '', $attributes );
 
 		// Guten data.
 		$has_data = $is_sticky || $is_bg_animated || $is_slideshow || $is_top_div_anim || $is_bottom_div_anim;
@@ -726,13 +726,13 @@ class Container extends Block_Abstract {
 
 		// Background animated layer.
 		if ( $is_bg_animated ) {
-			$slide_elements = $is_slideshow ? apply_filters( 'gutenverse_background_slideshow', '', $this->attributes, $element_id ) : '';
+			$slide_elements = $is_slideshow ? apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id ) : '';
 			$output        .= '<div class="guten-background-animated"><div class="animated-layer animated-' . esc_attr( $data_id ) . '">' . $slide_elements . '</div></div>';
 		}
 
 		// Slideshow (without bg animated).
 		if ( ! $is_bg_animated && $is_slideshow ) {
-			$output .= apply_filters( 'gutenverse_background_slideshow', '', $this->attributes, $element_id );
+			$output .= apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id );
 		}
 
 		// Background effect.
@@ -741,7 +741,7 @@ class Container extends Block_Abstract {
 		}
 		// Video background.
 		if ( $is_video_bg ) {
-			$output .= apply_filters( 'gutenverse_video_background', '', $this->attributes, $element_id );
+			$output .= apply_filters( 'gutenverse_video_background', '', $attributes, $element_id );
 		}
 
 		// Background overlay.

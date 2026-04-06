@@ -868,29 +868,34 @@ class Section extends Block_Abstract {
 		if ( ! empty( trim( $this->block_data->inner_html ) ) && apply_filters( 'gutenverse_force_dynamic', false ) ) {
 			return $this->content;
 		}
+
+		// Snapshot attributes before rendering inner blocks, since this class is a singleton
+		// and nested block renders will overwrite $this->attributes.
+		$attributes = $this->attributes;
+
 		$element_id      = $this->get_element_id();
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = $this->get_custom_classes();
-		$anchor          = isset( $this->attributes['anchor'] ) ? $this->attributes['anchor'] : '';
+		$anchor          = isset( $attributes['anchor'] ) ? $attributes['anchor'] : '';
 
 		// Extract attributes with defaults.
-		$layout               = isset( $this->attributes['layout'] ) ? $this->attributes['layout'] : 'boxed';
-		$gap                  = isset( $this->attributes['gap'] ) ? $this->attributes['gap'] : 'default';
-		$align                = isset( $this->attributes['align'] ) ? $this->attributes['align'] : '';
-		$overflow             = isset( $this->attributes['overflow'] ) ? $this->attributes['overflow'] : '';
-		$sticky               = isset( $this->attributes['sticky'] ) ? $this->attributes['sticky'] : array();
-		$sticky_position      = isset( $this->attributes['stickyPosition'] ) ? $this->attributes['stickyPosition'] : 'top';
-		$background_animated  = isset( $this->attributes['backgroundAnimated'] ) ? $this->attributes['backgroundAnimated'] : array();
-		$cursor_effect        = isset( $this->attributes['cursorEffect'] ) ? $this->attributes['cursorEffect'] : array();
-		$background_effect    = isset( $this->attributes['backgroundEffect'] ) ? $this->attributes['backgroundEffect'] : array();
-		$background_overlay   = isset( $this->attributes['backgroundOverlay'] ) ? $this->attributes['backgroundOverlay'] : array();
-		$background_overlay_h = isset( $this->attributes['backgroundOverlayHover'] ) ? $this->attributes['backgroundOverlayHover'] : array();
-		$background           = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
-		$top_divider          = isset( $this->attributes['topDivider'] ) ? $this->attributes['topDivider'] : array();
-		$bottom_divider       = isset( $this->attributes['bottomDivider'] ) ? $this->attributes['bottomDivider'] : array();
-		$top_div_animated     = isset( $this->attributes['topDividerAnimated'] ) ? $this->attributes['topDividerAnimated'] : array();
-		$bottom_div_animated  = isset( $this->attributes['bottomDividerAnimated'] ) ? $this->attributes['bottomDividerAnimated'] : array();
+		$layout               = isset( $attributes['layout'] ) ? $attributes['layout'] : 'boxed';
+		$gap                  = isset( $attributes['gap'] ) ? $attributes['gap'] : 'default';
+		$align                = isset( $attributes['align'] ) ? $attributes['align'] : '';
+		$overflow             = isset( $attributes['overflow'] ) ? $attributes['overflow'] : '';
+		$sticky               = isset( $attributes['sticky'] ) ? $attributes['sticky'] : array();
+		$sticky_position      = isset( $attributes['stickyPosition'] ) ? $attributes['stickyPosition'] : 'top';
+		$background_animated  = isset( $attributes['backgroundAnimated'] ) ? $attributes['backgroundAnimated'] : array();
+		$cursor_effect        = isset( $attributes['cursorEffect'] ) ? $attributes['cursorEffect'] : array();
+		$background_effect    = isset( $attributes['backgroundEffect'] ) ? $attributes['backgroundEffect'] : array();
+		$background_overlay   = isset( $attributes['backgroundOverlay'] ) ? $attributes['backgroundOverlay'] : array();
+		$background_overlay_h = isset( $attributes['backgroundOverlayHover'] ) ? $attributes['backgroundOverlayHover'] : array();
+		$background           = isset( $attributes['background'] ) ? $attributes['background'] : array();
+		$top_divider          = isset( $attributes['topDivider'] ) ? $attributes['topDivider'] : array();
+		$bottom_divider       = isset( $attributes['bottomDivider'] ) ? $attributes['bottomDivider'] : array();
+		$top_div_animated     = isset( $attributes['topDividerAnimated'] ) ? $attributes['topDividerAnimated'] : array();
+		$bottom_div_animated  = isset( $attributes['bottomDividerAnimated'] ) ? $attributes['bottomDividerAnimated'] : array();
 
 		// Computed flags.
 		$_is_sticky              = $this->is_sticky( $sticky );
@@ -975,7 +980,7 @@ class Section extends Block_Abstract {
 		$output .= '<section class="' . $class_name . '"' . $advance_anim_data . $id_attr . '>';
 
 		// FluidCanvasSave - apply filter (returns null by default).
-		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_script', '', $this->attributes );
+		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_script', '', $attributes );
 		if ( ! empty( $fluid_canvas ) ) {
 			$output .= $fluid_canvas;
 		}
@@ -1036,10 +1041,10 @@ class Section extends Block_Abstract {
 		$output .= '</div>';
 
 		// Apply filter hooks (matching the HOC composition).
-		$output = apply_filters( 'gutenverse_cursor_move_effect_script', $output, $this->attributes, $element_id );
-		$output = apply_filters( 'gutenverse_cursor_effect_script', $output, $this->attributes, $element_id );
-		$output = apply_filters( 'gutenverse_background_effect_script', $output, $this->attributes, $element_id );
-		$output = apply_filters( 'gutenverse_advance_animation_script', $output, $this->attributes, $element_id, 'section' );
+		$output = apply_filters( 'gutenverse_cursor_move_effect_script', $output, $attributes, $element_id );
+		$output = apply_filters( 'gutenverse_cursor_effect_script', $output, $attributes, $element_id );
+		$output = apply_filters( 'gutenverse_background_effect_script', $output, $attributes, $element_id );
+		$output = apply_filters( 'gutenverse_advance_animation_script', $output, $attributes, $element_id, 'section' );
 
 		return $output;
 	}
