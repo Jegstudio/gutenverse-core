@@ -1824,14 +1824,9 @@ class Api {
 	 * @return int|null
 	 */
 	public function handle_file( $url ) {
-		$url_path  = wp_parse_url( $url, PHP_URL_PATH );
-		$file_name = basename( $url_path );
+		$safe_name = wp_generate_uuid4() . '.tmp';
 
-		if ( empty( $file_name ) || strpos( $file_name, '.' ) === false ) {
-			$file_name = 'image.jpg';
-		}
-
-		$upload = wp_upload_bits( $file_name, null, '' );
+		$upload = wp_upload_bits( $safe_name, null, '' );
 		if ( ! $this->fetch_file( $url, $upload['file'] ) ) {
 			if ( ! empty( $upload['file'] ) && file_exists( $upload['file'] ) ) {
 				unlink( $upload['file'] );
@@ -1840,18 +1835,18 @@ class Api {
 		}
 
 		if ( ! empty( $upload['file'] ) && file_exists( $upload['file'] ) ) {
-			$file_loc  = $upload['file'];
-			$file_type = wp_check_filetype( $file_loc );
+			$file_loc = $upload['file'];
 
-			// Ensure it's an allowed image type
+			// Validate MIME from actual file contents, not from URL extension.
+			$mime_type     = mime_content_type( $file_loc );
 			$allowed_mimes = array( 'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml' );
-			if ( ! in_array( $file_type['type'], $allowed_mimes, true ) ) {
+			if ( ! in_array( $mime_type, $allowed_mimes, true ) ) {
 				unlink( $file_loc );
 				return null;
 			}
 
-			// For SVG, extra safety
-			if ( $file_type['type'] === 'image/svg+xml' ) {
+			// For SVG, extra safety.
+			if ( 'image/svg+xml' === $mime_type ) {
 				// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 				$svg_content = file_get_contents( $file_loc );
 				if ( ! gutenverse_is_svg_safe( $svg_content ) ) {
@@ -1860,9 +1855,27 @@ class Api {
 				}
 			}
 
+			// Rename .tmp file to the proper extension derived from validated MIME.
+			$ext_map    = array(
+				'image/jpeg'    => 'jpg',
+				'image/png'     => 'png',
+				'image/gif'     => 'gif',
+				'image/webp'    => 'webp',
+				'image/svg+xml' => 'svg',
+			);
+			$ext        = $ext_map[ $mime_type ];
+			$final_name = wp_generate_uuid4() . '.' . $ext;
+			$final_path = dirname( $file_loc ) . '/' . $final_name;
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			WP_Filesystem();
+			global $wp_filesystem;
+			$wp_filesystem->move( $file_loc, $final_path );
+			$file_loc      = $final_path;
+			$upload['url'] = str_replace( $safe_name, $final_name, $upload['url'] );
+
 			$attachment = array(
-				'post_mime_type' => $file_type['type'],
-				'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $file_name ) ),
+				'post_mime_type' => $mime_type,
+				'post_title'     => $final_name,
 				'post_content'   => '',
 				'post_status'    => 'inherit',
 			);
@@ -1912,15 +1925,12 @@ class Api {
 			return false;
 		}
 
-		$http     = new \WP_Http();
-		$response = $http->get(
+		$response = wp_safe_remote_get(
 			add_query_arg(
-				array(
-					'framework_version' => GUTENVERSE_FRAMEWORK_VERSION,
-					'sslverify'         => false,
-				),
+				array( 'framework_version' => GUTENVERSE_FRAMEWORK_VERSION ),
 				$url
-			)
+			),
+			array( 'timeout' => 30 )
 		);
 
 		if ( is_wp_error( $response ) ) {
