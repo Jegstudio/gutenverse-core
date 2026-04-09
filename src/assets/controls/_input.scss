@@ -1326,8 +1326,21 @@
         }
 
         .gutenverse-color-variable-content {
-          display: flex;
-          flex-wrap: wrap;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+
+          .empty-variable {
+            grid-column: 1 / -1;
+            border: 1px dashed #b2b2b2;
+            padding: 20px 10px;
+            text-align: center;
+            color: #a9a9a9;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px auto;
+            display: block;
+            width: 100%;
+          }
 
           .variable-color-item {
             display: flex;
