@@ -1746,17 +1746,15 @@
         background: #fff;
 
         .variable-font-empty {
-          position: relative;
-          padding: 50px 0;
-          top: 0;
-          left: 0;
-          transform: none;
-
-          span {
-            padding: 10px 15px;
-            color: #8181a5;
-            display: block;
-          }
+          border: 1px dashed #b2b2b2;
+          padding: 20px 10px;
+          text-align: center;
+          color: #a9a9a9;
+          border-radius: 4px;
+          cursor: pointer;
+          margin: 10px auto;
+          display: block;
+          width: 90%;
         }
 
         .gutenverse-font-variable-header {
