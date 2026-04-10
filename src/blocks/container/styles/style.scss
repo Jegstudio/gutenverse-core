@@ -25,6 +25,7 @@
         top: 0;
         transition: background 0.6s;
         border-radius: inherit;
+        pointer-events: none;
     }
 
     &.boxed {

@@ -32,7 +32,7 @@ const VariableFontItem = (props) => {
 };
 
 const EmptyVariableFont = ({ onClick }) => {
-    return <div className={'variable-font-empty'}>
+    return <div className={'variable-font-empty'} onClick={() => onClick()}>
         <span>
             <h3>{__('Empty Variable Font', '--gctd--')}</h3>
             <div onClick={() => onClick()} className={'gutenverse-button'}>

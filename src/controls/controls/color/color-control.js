@@ -34,6 +34,16 @@ const VariableColorItem = (props) => {
     </Tooltip>;
 };
 
+const EmptyCustomColor = ({ onClick }) => {
+    return <div className={'empty-variable'} onClick={onClick} >
+        <span>
+            <h3>{__('Empty Custom Color', '--gctd--')}</h3>
+            <div>
+                {__('Add Custom Color', '--gctd--')}
+            </div>
+        </span>
+    </div>;
+};
 
 const ColorControl = (props) => {
     const {
@@ -378,7 +388,7 @@ const ColorControl = (props) => {
             <div className={'gutenverse-color-variable-body'}>
                 <h4>{__('Custom Colors', '--gctd--')}</h4>
                 <div className={classnames('active', 'gutenverse-color-variable-content')}>
-                    {!isEmpty(customColor) && customColor.map(color => {
+                    {isEmpty(customColor) ? <EmptyCustomColor onClick={openColorDrawer} /> : customColor.map(color => {
                         const { id } = color;
                         const props = {
                             ...color,
