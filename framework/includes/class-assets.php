@@ -126,21 +126,21 @@ class Assets {
 			'fontawesome-gutenverse',
 			self::get_fontawesome_url(),
 			null,
-			GUTENVERSE_FRAMEWORK_VERSION
+			gutenverse_framework_asset_version( '/assets/fonts/fontawesome/css/all.min.css' )
 		);
 
 		wp_register_style(
 			'gutenverse-iconlist',
 			self::get_gtnicon_url(),
 			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
+			gutenverse_framework_asset_version( '/assets/fonts/gtnicon/gtnicon.css' )
 		);
 
 		wp_register_style(
 			'gutenverse-frontend-style',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/frontend.css',
 			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
+			gutenverse_framework_asset_version( '/assets/css/frontend.css' )
 		);
 	}
 
@@ -154,7 +154,7 @@ class Assets {
 			'gutenverse-core-event',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/core.js',
 			$include,
-			GUTENVERSE_FRAMEWORK_VERSION,
+			gutenverse_framework_asset_version( '/assets/js/core.js' ),
 			true
 		);
 
@@ -162,7 +162,7 @@ class Assets {
 			'gutenverse-frontend-event',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/corefrontend.js',
 			array(),
-			GUTENVERSE_FRAMEWORK_VERSION,
+			gutenverse_framework_asset_version( '/assets/js/corefrontend.js' ),
 			true
 		);
 
@@ -178,7 +178,7 @@ class Assets {
 			'gutenverse-components-event',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/components.js',
 			$include,
-			GUTENVERSE_FRAMEWORK_VERSION,
+			gutenverse_framework_asset_version( '/assets/js/components.js' ),
 			true
 		);
 
@@ -188,7 +188,7 @@ class Assets {
 			'gutenverse-blocks-event',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/blocks.js',
 			$include,
-			GUTENVERSE_FRAMEWORK_VERSION,
+			gutenverse_framework_asset_version( '/assets/js/blocks.js' ),
 			true
 		);
 
@@ -201,7 +201,7 @@ class Assets {
 				'gutenverse-dep-' . $dep . '-script',
 				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/' . $dep . '.js',
 				array(),
-				GUTENVERSE_FRAMEWORK_VERSION,
+				gutenverse_framework_asset_version( '/assets/js/frontend/' . $dep . '.js' ),
 				true
 			);
 		}

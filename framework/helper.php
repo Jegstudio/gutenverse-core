@@ -301,6 +301,46 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_asset_version' ) ) {
+	/**
+	 * Get plugin asset version.
+	 *
+	 * @param string $relative_path Asset path relative to plugin root.
+	 * @return string|int
+	 */
+	function gutenverse_asset_version( $relative_path ) {
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && defined( 'GUTENVERSE_DIR' ) ) {
+			$path = GUTENVERSE_DIR . ltrim( $relative_path, '/' );
+
+			if ( file_exists( $path ) ) {
+				return filemtime( $path );
+			}
+		}
+
+		return defined( 'GUTENVERSE_VERSION' ) ? GUTENVERSE_VERSION : false;
+	}
+}
+
+if ( ! function_exists( 'gutenverse_framework_asset_version' ) ) {
+	/**
+	 * Get framework asset version.
+	 *
+	 * @param string $relative_path Asset path relative to framework root.
+	 * @return string|int
+	 */
+	function gutenverse_framework_asset_version( $relative_path ) {
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && defined( 'GUTENVERSE_FRAMEWORK_DIR' ) ) {
+			$path = GUTENVERSE_FRAMEWORK_DIR . '/' . ltrim( $relative_path, '/' );
+
+			if ( file_exists( $path ) ) {
+				return filemtime( $path );
+			}
+		}
+
+		return defined( 'GUTENVERSE_FRAMEWORK_VERSION' ) ? GUTENVERSE_FRAMEWORK_VERSION : false;
+	}
+}
+
 if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	/**
 	 * Get Event Banner
@@ -1726,5 +1766,4 @@ if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
 		return size_format( $total_in_bytes );
 	}
 }
-
 

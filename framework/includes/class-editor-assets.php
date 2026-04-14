@@ -66,7 +66,7 @@ class Editor_Assets {
 			'gutenverse-editor-style',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/editor.css',
 			array( 'wp-edit-blocks', 'fontawesome-gutenverse', 'gutenverse-iconlist' ),
-			GUTENVERSE_FRAMEWORK_VERSION
+			gutenverse_framework_asset_version( '/assets/css/editor.css' )
 		);
 
 		wp_enqueue_style( 'gutenverse-frontend-style' );
@@ -91,7 +91,7 @@ class Editor_Assets {
 				'react-jsx-runtime',
 				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/react-jsx-runtime.js',
 				array( 'react' ),
-				GUTENVERSE_FRAMEWORK_VERSION,
+				gutenverse_framework_asset_version( '/assets/js/react-jsx-runtime.js' ),
 				true
 			);
 		}
@@ -214,35 +214,35 @@ class Editor_Assets {
 			'gutenverse-roboto-font',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/fonts/roboto/roboto.css',
 			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
+			gutenverse_framework_asset_version( '/assets/fonts/roboto/roboto.css' )
 		);
 
 		wp_enqueue_style(
 			'gutenverse-poppins-font',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/fonts/poppins/poppins.css',
 			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
+			gutenverse_framework_asset_version( '/assets/fonts/poppins/poppins.css' )
 		);
 
 		wp_enqueue_style(
 			'gutenverse-heebo-font',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/fonts/heebo/heebo.css',
 			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
+			gutenverse_framework_asset_version( '/assets/fonts/heebo/heebo.css' )
 		);
 
 		wp_enqueue_style(
 			'gutenverse-jakarta-sans-font',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/fonts/plus-jakarta-sans/plus-jakarta-sans.css',
 			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
+			gutenverse_framework_asset_version( '/assets/fonts/plus-jakarta-sans/plus-jakarta-sans.css' )
 		);
 
 		wp_enqueue_style(
 			'gutenverse-toolbar',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/toolbar.css',
 			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
+			gutenverse_framework_asset_version( '/assets/dist/toolbar.css' )
 		);
 		wp_enqueue_style(
 			'gutenverse-google-fonts-host-grostesk',
