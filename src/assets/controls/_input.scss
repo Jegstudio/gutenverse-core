@@ -3,6 +3,13 @@
 @import "icon-popup";
 @import "react-datepicker/src/stylesheets/datepicker";
 
+.global-slug-tooltip-description {
+  display: block;
+  max-width: 200px;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
 .repeater-item {
   border: 1px solid #e3e4e6;
   margin-bottom: 10px;
@@ -1431,6 +1438,10 @@
         border-radius: 3px;
         width: 100%;
 
+        .additional-margin{
+          margin: 0px 8px;
+        }
+
         .chrome-picker {
           width: 100% !important;
           box-shadow: none !important;
@@ -1471,22 +1482,67 @@
         }
       }
       
+      .add-global-popup-wrapper{
+        background-color: rgba(0, 0, 0, 0.88);
+        position: absolute;
+        width: 100%;
+        height: 470px;
+        z-index: 10;
+        bottom: 0;
+
+        &.for-font{
+          left: 0;
+          height: 600px;
+        }
+      }
       .single-variable-item-wrapper.add-global-popup {
         border: 1px solid #cecece;
         background: white;
         position: absolute;
-        width: 100%;
-        right: 0;
+        width: 95%;
         padding: 10px;
         z-index: 1;
         display: flex;
         flex-direction: column;
         gap: 5px;
+        justify-self: center;
+        margin-top: 5px;
+
+        .gutenverse-control-alert.warning{
+          border: 1px solid #EEE4BD;
+          background: #FFF9E2;
+          border-radius: 5px;
+        }
 
         .form-add-global {
           display: flex;
           flex-direction: column;
-          gap: 3px;
+          gap: 6px;
+          margin-bottom: 6px;
+
+          .global-slug-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: fit-content;
+          }
+
+          .global-slug-tooltip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #818a97;
+
+            svg {
+              width: 13px;
+              height: 13px;
+              display: block;
+            }
+
+            &:hover {
+              color: #3B57F7;
+            }
+          }
 
           .global-name {
             max-height: 28px;
@@ -1494,6 +1550,10 @@
 
           input[type=text] {
             border-radius: 5px;
+
+            &.duplicate{
+              border: 1px solid #FFC908;
+            }
           }
         }
 
@@ -1502,6 +1562,7 @@
           display: flex;
           justify-content: center;
           gap: 5px;
+          margin-top: 6px;
 
           .icon-close,
           .icon-save {
@@ -1520,105 +1581,20 @@
             }
 
           }
-        }
-      }
-      .global-popup-wrapper{
-        position: fixed;
-        .global-popup{
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 9999;
-          width: 400px;
-          background: #FFFFFF;
-          border: 1px solid transparent;
-          border-radius: 8px;
-          box-shadow: 0px 8px 32px 0px #00000033;
 
-          .popup-header{
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #cecece;
-            
-            .close-button{
-              cursor: pointer;
+          .icon-save{
+            background-color: #3B57F7;
+            color: white;
+
+            &:hover{
+              background-color: #0c2ff7;
             }
-            .header-title{
-              font-family: Roboto;
-              font-weight: 500;
-              font-size: 16px;
+
+            &.disabled{
+              background-color: #d1d1d1;
+              cursor: not-allowed;
             }
           }
-
-          .popup-content{
-            padding: 15px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            span{
-              font-family: Roboto;
-              font-weight: 400;
-              font-size: 14px;
-              b{
-              font-weight: 500;
-              }
-            }
-            .control-body{
-              padding: 0px;
-              background: inherit;
-            }
-            .single-variable-item-wrapper {
-              border: 1px solid #E3E4E6;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              padding: 7px;
-              border-radius: 3px;
-              width: 90%;
-              gap: 10px;
-              .color-name{
-                width: 100%;
-              }
-            }
-          }
-
-          .popup-actions{
-            padding: 15px 20px;
-            display: flex;
-            justify-content: end;
-            gap: 10px;
-            border-top: 1px solid #cecece;
-
-            .close-button,
-            .proceed-button{
-              border-radius: 3px;
-              padding: 7px 21px;
-              background: #FFFFFF;
-              border: 1px solid #E3E4E6;
-              color: #40505D;
-              font-family: Roboto;
-              font-weight: 500;
-              font-size: 12px;
-              cursor:pointer;
-            }
-
-            .proceed-button{
-              background: #3B57F7;
-              border: 1px solid #3B57F7;
-              color: #FFFFFF;
-              transition: all .3s;
-
-              &:hover{
-                background: #354eda;
-                border: 1px solid #354eda;
-              }
-            }
-
-          }
-
         }
       }
       .gutenverse-control-alert {

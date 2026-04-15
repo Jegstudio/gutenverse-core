@@ -63,18 +63,16 @@ const TypographyControl = (props) => {
     const [show, setShow] = useState(false);
     const [variableFont, setVariableFont] = useState({});
     const [variableOpen, setVariableOpen] = useState(false);
-
     const [openAddFont, setOpenAddFont] = useState(false);
-    
     const [addCustomFont, setAddCustomFont] = useState({
         name: `${__('Variable Font', '--gctd--')}`,
         slug: ''
     });
+    const [globalWarning, setGlobalWarning] = useState(false);
 
-    const [openGlobalPopup, setOpenGlobalPopup] = useState(false);
-
-    const [globalPopupContent, setGlobalPopupContent ] = useState({
+    const [globalWarningContent, setGlobalWarningContent] = useState({
         type: 'confirmation',
+        input: '',
         content: __('Are you sure want to create a new global font?', '--gctd--')
     });
 
@@ -180,31 +178,33 @@ const TypographyControl = (props) => {
 
     const handleSaveFontGlobal = () => {
         let isInputDuplicate = {
-            'slug'  : false,
-            'name'  : false
-        }
+            'slug': false,
+            'name': false
+        };
         variableFont.forEach(element => {
-            if( element.id === addCustomFont?.slug ){
+            if (element.id === addCustomFont?.slug) {
                 isInputDuplicate.slug = true;
             }
-            if(element.name === addCustomFont?.name){
+            if (element.name === addCustomFont?.name) {
                 isInputDuplicate.name = true;
             }
         });
-        if(isInputDuplicate?.slug){
-            setGlobalPopupContent({
+        if (isInputDuplicate?.slug) {
+            setGlobalWarningContent({
                 type: 'warning',
-                content: <span><b>{__('Please note!', '--gctd--')}</b>{__(' The slug already used!', '--gctd--')}</span>
+                input: 'slug',
+                content: <span>{__(' The slug already used!', '--gctd--')}</span>
             });
-            setOpenGlobalPopup(true);
+            setGlobalWarning(true);
             return;
         }
-        if(isInputDuplicate?.name){
-            setGlobalPopupContent({
+        if (isInputDuplicate?.name) {
+            setGlobalWarningContent({
                 type: 'confirmation',
-                content: <span><b>{__('Please note!', '--gctd--')}</b>{__(' This name is already used in your Global Colors. Are you sure want to create it using the same name?', '--gctd--')}</span>
+                slug: 'name',
+                content: <span>{__(' This name is already used in your Global Fonts. Are you sure want to create it using the same name?', '--gctd--')}</span>
             });
-            setOpenGlobalPopup(true);
+            setGlobalWarning(true);
             return;
         }
         handleProceedAddGlobal();
@@ -229,9 +229,34 @@ const TypographyControl = (props) => {
         };
         onValueChange(newValue);
 
-        setOpenGlobalPopup(false);
+        setGlobalWarning(false);
         setOpenAddFont(false);
         setShow(false);
+    }
+
+    useEffect(() => {
+        if (globalWarning) {
+            setGlobalWarning(false);
+            setGlobalWarningContent({
+                type: 'confirmation',
+                input: '',
+                content: __('Are you sure want to create a new global font?', '--gctd--')
+            });
+        }
+    }, [addCustomFont]);
+
+    const handleCloseAddGlobal = () => {
+        setOpenAddFont(false);
+        setGlobalWarning(false);
+        setAddCustomFont({
+            name: `${__('Variable Font', '--gctd--')}`,
+            slug: ''
+        });
+        setGlobalWarningContent({
+            type: 'confirmation',
+            input: '',
+            content: __('Are you sure want to create a new global font?', '--gctd--')
+        });
     }
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-typography'}>
@@ -277,11 +302,11 @@ const TypographyControl = (props) => {
                     {__('Typography', '--gctd--')}
                 </h2>
                 <div className="action-wrapper">
-                    {/* <Tooltip text={__('Add Global', '--gctd--')} key={'add-global'}>
+                    <Tooltip text={__('Add Global', '--gctd--')} key={'add-global'}>
                         <span>
                             <Plus onClick={handleAddCustomFont} />
                         </span>
-                    </Tooltip> */}
+                    </Tooltip>
                     <Tooltip text={__('Refresh', '--gctd--')} key={'reset'}>
                         <span>
                             <RefreshCw onClick={() => {
@@ -292,269 +317,254 @@ const TypographyControl = (props) => {
                 </div>
             </div>
             {show && <>
-                {/* {
-                    openAddFont && <div className="single-variable-item-wrapper add-global-popup">
-                        <div className="form-add-global">
-                            <label htmlFor="global-name">{__('Global Label', '--gctd--')}</label>
-                            <input
-                                type="text"
-                                value={addCustomFont.name}
-                                placeholder={__('Global Label...', '--gctd--')}
-                                onChange={(event) => {
-                                    const newValue = event.target.value;
+                {
+                    openAddFont && <div className="add-global-popup-wrapper for-font">
+                        <div className="single-variable-item-wrapper add-global-popup">
+                            <div className="form-add-global">
+                                <label htmlFor="global-name">{__('Global Label', '--gctd--')}</label>
+                                <input
+                                    type="text"
+                                    value={addCustomFont.name}
+                                    placeholder={__('Global Label...', '--gctd--')}
+                                    onChange={(event) => {
+                                        const newValue = event.target.value;
 
-                                    setAddCustomFont(prev => {
-                                        return {
-                                            ...prev,
-                                            name: newValue
-                                        };
-                                    });
-                                }}
-                                name="global-name"
-                                className="global-name"
-                            />
-                            <label htmlFor="global-slug">{__('Global Slug', '--gctd--')}</label>
-                            <input
-                                type="text"
-                                value={addCustomFont.slug}
-                                placeholder={__('Global Slug...', '--gctd--')}
-                                onChange={(event) => {
-                                    const newValue = event.target.value;
+                                        setAddCustomFont(prev => {
+                                            return {
+                                                ...prev,
+                                                name: newValue
+                                            };
+                                        });
+                                    }}
+                                    name="global-name"
+                                    className="global-name"
+                                />
+                                <label htmlFor="global-slug">{__('Global Slug', '--gctd--')}</label>
+                                <input
+                                    type="text"
+                                    value={addCustomFont.slug}
+                                    placeholder={__('Global Slug...', '--gctd--')}
+                                    onChange={(event) => {
+                                        const newValue = event.target.value;
 
-                                    setAddCustomFont(prev => {
-                                        return {
-                                            ...prev,
-                                            slug: newValue
-                                        };
-                                    });
-                                }}
-                                name="global-slug"
-                                className="global-name"
-                            />
-                        </div>
-                        <div className="add-global-form-actions">
-                            <div className="icon-close" onClick={() => setOpenAddFont(false)}>{__('Cancel', '--gctd--')}</div>
-                            <div className="icon-save" onClick={handleSaveFontGlobal}>{__('Save', '--gctd--')}</div>
+                                        setAddCustomFont(prev => {
+                                            return {
+                                                ...prev,
+                                                slug: newValue
+                                            };
+                                        });
+                                    }}
+                                    name="global-slug"
+                                    className="global-name"
+                                />
+                            </div>
+                            {
+                                globalWarning && <>
+                                    <AlertControl type="warning">
+                                        {globalWarningContent?.content}
+                                    </AlertControl>
+                                </>
+                            }
+                            <div className="add-global-form-actions">
+                                <div className="icon-close" onClick={handleCloseAddGlobal}>{__('Cancel', '--gctd--')}</div>
+                                {
+                                    globalWarning ? <div className={`icon-save ${globalWarningContent?.type === 'warning' ? 'disabled' : 'active'}`} onClick={() => {
+                                        if (globalWarningContent?.type === 'confirmation') {
+                                            handleProceedAddGlobal();
+                                        }
+                                    }}>{__('Proceed', '--gctd--')}</div> : <div className="icon-save" onClick={handleSaveFontGlobal}>{__('Create', '--gctd--')}</div>
+                                }
+                            </div>
                         </div>
                     </div>
                 }
-                {
-                    openGlobalPopup && <>
-                        <div className="global-popup-wrapper">
-                            <div className="global-popup">
-                                <div className="popup-header">
-                                    <span className="header-title">{__('Create New Global Color', '--gctd--')}</span>
-                                    <span className="close-button" onClick={() => {
-                                        setOpenGlobalPopup(false);
-                                    }}><CloseIcon/></span>
-                                </div>
-                                <div className="popup-content">
-                                    <AlertControl type="warning">
-                                        {globalPopupContent?.content}
-                                    </AlertControl>
-                                    <div className={'single-variable-color-wrapper'}>
-                                        <div className={'single-variable-item-wrapper'} style={{ width: '100%' }}>
-                                            <span className={'color-name'}>{addCustomFont?.name}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="popup-actions">
-                                    <div className="close-button" onClick={() => setOpenGlobalPopup(false)}>{__('Close', '--gctd--')}</div>
+                <div className={`${openAddFont ? 'additional-margin' : ''}`}>
+                    <FontControl
+                        label={__('Font Family', '--gctd--')}
+                        value={value.font}
+                        onValueChange={font => onTypographyChange({ ...value, font })}
+                    />
+                    <div className={'font-value-wrapper'}>
+                        <div>
+                            <SizeControl
+                                label={__('Size', '--gctd--')}
+                                value={value.size}
+                                allowDeviceControl={true}
+                                hideRange={true}
+                                onValueChange={size => onTypographyChange({ ...value, size })}
+                                onLocalChange={size => onTypographyChangeLocal({ ...value, size })}
+                            />
+                            <SelectControl
+                                label={__('Weight', '--gctd--')}
+                                value={value.weight}
+                                onValueChange={weight => onTypographyChange({ ...value, weight })}
+                                options={[
                                     {
-                                        globalPopupContent?.type === 'confirmation' && <>
-                                            <div className="proceed-button" onClick={handleProceedAddGlobal}>{__('Create', '--gctd--')}</div>
-                                        </>
-                                    }
-                                </div>
-                            </div>
+                                        label: __('Default', '--gctd--'),
+                                        value: '400'
+                                    },
+                                    {
+                                        label: __('Normal', '--gctd--'),
+                                        value: 'normal'
+                                    },
+                                    {
+                                        label: __('Bold', '--gctd--'),
+                                        value: 'bold'
+                                    },
+                                    {
+                                        label: __('100', '--gctd--'),
+                                        value: '100'
+                                    },
+                                    {
+                                        label: __('200', '--gctd--'),
+                                        value: '200'
+                                    },
+                                    {
+                                        label: __('300', '--gctd--'),
+                                        value: '300'
+                                    },
+                                    {
+                                        label: __('400', '--gctd--'),
+                                        value: '400'
+                                    },
+                                    {
+                                        label: __('500', '--gctd--'),
+                                        value: '500'
+                                    },
+                                    {
+                                        label: __('600', '--gctd--'),
+                                        value: '600'
+                                    },
+                                    {
+                                        label: __('700', '--gctd--'),
+                                        value: '700'
+                                    },
+                                    {
+                                        label: __('800', '--gctd--'),
+                                        value: '800'
+                                    },
+                                    {
+                                        label: __('900', '--gctd--'),
+                                        value: '900'
+                                    },
+                                ]}
+                            />
+                            <SelectControl
+                                label={__('Decoration', '--gctd--')}
+                                value={value.decoration}
+                                onValueChange={decoration => onTypographyChange({ ...value, decoration })}
+                                options={[
+                                    {
+                                        label: __('Default', '--gctd--'),
+                                        value: 'default'
+                                    },
+                                    {
+                                        label: __('Underline', '--gctd--'),
+                                        value: 'underline'
+                                    },
+                                    {
+                                        label: __('Overline', '--gctd--'),
+                                        value: 'overline'
+                                    },
+                                    {
+                                        label: __('Line Through', '--gctd--'),
+                                        value: 'line-through'
+                                    },
+                                    {
+                                        label: __('None', '--gctd--'),
+                                        value: 'none'
+                                    },
+                                ]}
+                            />
                         </div>
-                    </>
-                } */}
-                <FontControl
-                    label={__('Font Family', '--gctd--')}
-                    value={value.font}
-                    onValueChange={font => onTypographyChange({ ...value, font })}
-                />
-                <div className={'font-value-wrapper'}>
-                    <div>
-                        <SizeControl
-                            label={__('Size', '--gctd--')}
-                            value={value.size}
-                            allowDeviceControl={true}
-                            hideRange={true}
-                            onValueChange={size => onTypographyChange({ ...value, size })}
-                            onLocalChange={size => onTypographyChangeLocal({ ...value, size})}
-                        />
-                        <SelectControl
-                            label={__('Weight', '--gctd--')}
-                            value={value.weight}
-                            onValueChange={weight => onTypographyChange({ ...value, weight })}
-                            options={[
-                                {
-                                    label: __('Default', '--gctd--'),
-                                    value: '400'
-                                },
-                                {
-                                    label: __('Normal', '--gctd--'),
-                                    value: 'normal'
-                                },
-                                {
-                                    label: __('Bold', '--gctd--'),
-                                    value: 'bold'
-                                },
-                                {
-                                    label: __('100', '--gctd--'),
-                                    value: '100'
-                                },
-                                {
-                                    label: __('200', '--gctd--'),
-                                    value: '200'
-                                },
-                                {
-                                    label: __('300', '--gctd--'),
-                                    value: '300'
-                                },
-                                {
-                                    label: __('400', '--gctd--'),
-                                    value: '400'
-                                },
-                                {
-                                    label: __('500', '--gctd--'),
-                                    value: '500'
-                                },
-                                {
-                                    label: __('600', '--gctd--'),
-                                    value: '600'
-                                },
-                                {
-                                    label: __('700', '--gctd--'),
-                                    value: '700'
-                                },
-                                {
-                                    label: __('800', '--gctd--'),
-                                    value: '800'
-                                },
-                                {
-                                    label: __('900', '--gctd--'),
-                                    value: '900'
-                                },
-                            ]}
-                        />
-                        <SelectControl
-                            label={__('Decoration', '--gctd--')}
-                            value={value.decoration}
-                            onValueChange={decoration => onTypographyChange({ ...value, decoration })}
-                            options={[
-                                {
-                                    label: __('Default', '--gctd--'),
-                                    value: 'default'
-                                },
-                                {
-                                    label: __('Underline', '--gctd--'),
-                                    value: 'underline'
-                                },
-                                {
-                                    label: __('Overline', '--gctd--'),
-                                    value: 'overline'
-                                },
-                                {
-                                    label: __('Line Through', '--gctd--'),
-                                    value: 'line-through'
-                                },
-                                {
-                                    label: __('None', '--gctd--'),
-                                    value: 'none'
-                                },
-                            ]}
-                        />
+                        <div>
+                            <SizeControl
+                                label={__('Line Height', '--gctd--')}
+                                value={value.lineHeight}
+                                allowDeviceControl={true}
+                                hideRange={true}
+                                units={{
+                                    px: {
+                                        text: 'px',
+                                        min: 1,
+                                        max: 200,
+                                        step: 1,
+                                        unit: 'px',
+                                    },
+                                    em: {
+                                        text: 'em',
+                                        min: 0.1,
+                                        max: 10,
+                                        step: 0.1,
+                                        unit: 'em',
+                                    },
+                                }}
+                                onValueChange={lineHeight => onTypographyChange({ ...value, lineHeight })}
+                                onLocalChange={lineHeight => onTypographyChangeLocal({ ...value, lineHeight })}
+                            />
+                            <SelectControl
+                                label={__('Transform', '--gctd--')}
+                                value={value.transform}
+                                onValueChange={transform => onTypographyChange({ ...value, transform })}
+                                options={[
+                                    {
+                                        label: __('Default', '--gctd--'),
+                                        value: 'inherit'
+                                    },
+                                    {
+                                        label: __('Uppercase', '--gctd--'),
+                                        value: 'uppercase'
+                                    },
+                                    {
+                                        label: __('Lowercase', '--gctd--'),
+                                        value: 'lowercase'
+                                    },
+                                    {
+                                        label: __('Capitalize', '--gctd--'),
+                                        value: 'capitalize'
+                                    },
+                                    {
+                                        label: __('Normal', '--gctd--'),
+                                        value: 'none'
+                                    },
+                                ]}
+                            />
+                            <SelectControl
+                                label={__('Style', '--gctd--')}
+                                value={value.style}
+                                onValueChange={style => onTypographyChange({ ...value, style })}
+                                options={[
+                                    {
+                                        label: __('Default', '--gctd--'),
+                                        value: 'default'
+                                    },
+                                    {
+                                        label: __('Normal', '--gctd--'),
+                                        value: 'normal'
+                                    },
+                                    {
+                                        label: __('Italic', '--gctd--'),
+                                        value: 'italic'
+                                    },
+                                    {
+                                        label: __('Oblique', '--gctd--'),
+                                        value: 'Oblique'
+                                    },
+                                ]}
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <SizeControl
-                            label={__('Line Height', '--gctd--')}
-                            value={value.lineHeight}
-                            allowDeviceControl={true}
-                            hideRange={true}
-                            units={{
-                                px: {
-                                    text: 'px',
-                                    min: 1,
-                                    max: 200,
-                                    step: 1,
-                                    unit: 'px',
-                                },
-                                em: {
-                                    text: 'em',
-                                    min: 0.1,
-                                    max: 10,
-                                    step: 0.1,
-                                    unit: 'em',
-                                },
-                            }}
-                            onValueChange={lineHeight => onTypographyChange({ ...value, lineHeight })}
-                            onLocalChange={lineHeight => onTypographyChangeLocal({ ...value, lineHeight})}
-                        />
-                        <SelectControl
-                            label={__('Transform', '--gctd--')}
-                            value={value.transform}
-                            onValueChange={transform => onTypographyChange({ ...value, transform })}
-                            options={[
-                                {
-                                    label: __('Default', '--gctd--'),
-                                    value: 'inherit'
-                                },
-                                {
-                                    label: __('Uppercase', '--gctd--'),
-                                    value: 'uppercase'
-                                },
-                                {
-                                    label: __('Lowercase', '--gctd--'),
-                                    value: 'lowercase'
-                                },
-                                {
-                                    label: __('Capitalize', '--gctd--'),
-                                    value: 'capitalize'
-                                },
-                                {
-                                    label: __('Normal', '--gctd--'),
-                                    value: 'none'
-                                },
-                            ]}
-                        />
-                        <SelectControl
-                            label={__('Style', '--gctd--')}
-                            value={value.style}
-                            onValueChange={style => onTypographyChange({ ...value, style })}
-                            options={[
-                                {
-                                    label: __('Default', '--gctd--'),
-                                    value: 'default'
-                                },
-                                {
-                                    label: __('Normal', '--gctd--'),
-                                    value: 'normal'
-                                },
-                                {
-                                    label: __('Italic', '--gctd--'),
-                                    value: 'italic'
-                                },
-                                {
-                                    label: __('Oblique', '--gctd--'),
-                                    value: 'Oblique'
-                                },
-                            ]}
-                        />
-                    </div>
+                    <RangeControl
+                        label={__('Letter Spacing', '--gctd--')}
+                        min={-10}
+                        max={10}
+                        step={0.1}
+                        value={value.spacing}
+                        allowDeviceControl={true}
+                        onValueChange={spacing => onTypographyChange({ ...value, spacing })}
+                        onLocalChange={spacing => onTypographyChangeLocal({ ...value, spacing })}
+                    />
                 </div>
-                <RangeControl
-                    label={__('Letter Spacing', '--gctd--')}
-                    min={-10}
-                    max={10}
-                    step={0.1}
-                    value={value.spacing}
-                    allowDeviceControl={true}
-                    onValueChange={spacing => onTypographyChange({ ...value, spacing })}
-                    onLocalChange={spacing => onTypographyChangeLocal({ ...value, spacing})}
-                />
             </>}
         </div>
     </div>;

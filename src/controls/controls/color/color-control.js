@@ -18,7 +18,7 @@ import set from 'lodash/set';
 import cloneDeep from 'lodash/cloneDeep';
 import { get } from 'lodash';
 import { Plus } from 'react-feather';
-import { CloseIcon } from 'gutenverse-core/icons';
+import { CloseIcon, IconInfoSVG } from 'gutenverse-core/icons';
 import AlertControl from '../alert/alert-control';
 
 const VariableColorItem = (props) => {
@@ -71,26 +71,26 @@ const ColorControl = (props) => {
     const [customPalette, setCustomPalette] = useState(customs);
     const [themePalette, setThemePalette] = useState(themeColors);
     const [openAddColor, setOpenAddColor] = useState(false);
+    const [globalWarning, setGlobalWarning] = useState(false);
 
-    // const [addCustomColor, setAddCustomColor] = useState({
-    //     name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
-    //     slug: ''
-    // });
+    const [addCustomColor, setAddCustomColor] = useState({
+        name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
+        slug: ''
+    });
 
-    const [openGlobalPopup, setOpenGlobalPopup] = useState(false);
-
-    const [globalPopupContent, setGlobalPopupContent] = useState({
+    const [globalWarningContent, setGlobalWarningContent] = useState({
         type: 'confirmation',
+        input: '',
         content: __('Are you sure want to create a new global color?', '--gctd--')
     });
 
     const { isUserConfigReady, userConfig, setUserConfig } = useGlobalStylesConfig();
 
     const handleAddCustomColor = () => {
-        // setAddCustomColor({
-        //     name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
-        //     slug: ''
-        // });
+        setAddCustomColor({
+            name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
+            slug: ''
+        });
         setOpenAddColor(prev => !prev);
     };
 
@@ -258,13 +258,12 @@ const ColorControl = (props) => {
     };
 
     const handleSaveColorGlobal = () => {
-
         if (value?.type === 'variable') {
-            setGlobalPopupContent({
+            setGlobalWarningContent({
                 type: 'warning',
-                content: <span><b>{__('Please note!', '--gctd--')}</b>{__(' Select the color. It\'s already using global color.', '--gctd--')}</span>
+                content: <span>{__(' Select the color. It\'s already using global color.', '--gctd--')}</span>
             });
-            setOpenGlobalPopup(true);
+            setGlobalWarning(true);
             return;
         }
         let isInputDuplicate = {
@@ -284,31 +283,45 @@ const ColorControl = (props) => {
             }
         });
         if (isInputDuplicate?.slug) {
-            setGlobalPopupContent({
+            setGlobalWarningContent({
                 type: 'warning',
-                content: <span><b>{__('Please note!', '--gctd--')}</b>{__(' The slug already used!', '--gctd--')}</span>
+                input: 'slug',
+                content: <span>{__(' This slug already used!', '--gctd--')}</span>
             });
-            setOpenGlobalPopup(true);
+            setGlobalWarning(true);
             return;
         }
         if (isInputDuplicate?.name) {
-            setGlobalPopupContent({
+            setGlobalWarningContent({
                 type: 'confirmation',
-                content: <span><b>{__('Please note!', '--gctd--')}</b>{__(' This name is already used in your Global Colors. Are you sure want to create it using the same name?', '--gctd--')}</span>
+                input: 'name',
+                content: <span>{__(' This name is already used in your Global Colors. Are you sure want to create it using the same name?', '--gctd--')}</span>
             });
-            setOpenGlobalPopup(true);
+            setGlobalWarning(true);
             return;
         }
         if (isInputDuplicate?.color) {
-            setGlobalPopupContent({
+            setGlobalWarningContent({
                 type: 'confirmation',
-                content: <span><b>{__('Please note!', '--gctd--')}</b>{__(' This color is already available in your Global Colors. Are you sure want to create it again?', '--gctd--')}</span>
+                input: '',
+                content: <span>{__(' This color is already available in your Global Colors. Are you sure want to create it again?', '--gctd--')}</span>
             });
-            setOpenGlobalPopup(true);
+            setGlobalWarning(true);
             return;
         }
         handleProceedAddGlobal();
     };
+
+    useEffect(() => {
+        if(globalWarning){
+            setGlobalWarning(false);
+            setGlobalWarningContent({
+                type: 'confirmation',
+                input: '',
+                content: __('Are you sure want to create a new global color?', '--gctd--')
+            });
+        }
+    },[addCustomColor]);
 
     const handleProceedAddGlobal = () => {
         const key = toKebabCase(
@@ -353,20 +366,23 @@ const ColorControl = (props) => {
         setLocalColor(newValue);
         onValueChange(newValue);
 
-        setOpenGlobalPopup(false);
+        setGlobalWarning(false);
         setOpenAddColor(false);
         setControlOpen(false);
     };
 
-    const handleGlobalPopupPreview = () => {
-        if (value?.type === 'variable') {
-            const colorIndex = customPalette.findIndex(el => el.slug === value?.id);
-            if (colorIndex === -1) {
-                return 'transparent';
-            }
-            return renderColor(hexToRgb(customPalette[colorIndex]?.color));
-        }
-        return renderColor(value);
+    const handleCloseAddGlobal = () => {
+        setOpenAddColor(false);
+        setGlobalWarning(false);
+        setAddCustomColor({
+            name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
+            slug: ''
+        });
+        setGlobalWarningContent({
+            type: 'confirmation',
+            input: '',
+            content: __('Are you sure want to create a new global color?', '--gctd--')
+        });
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-color'}>
@@ -458,11 +474,11 @@ const ColorControl = (props) => {
                     {__('Color Picker', '--gctd--')}
                 </h2>
                 <div className="action-wrapper">
-                    {/* <Tooltip text={__('Add Global', '--gctd--')} key={'add-global'}>
+                    <Tooltip text={__('Add Global', '--gctd--')} key={'add-global'}>
                         <span>
                             <Plus onClick={handleAddCustomColor} />
                         </span>
-                    </Tooltip> */}
+                    </Tooltip>
                     <Tooltip text={__('Refresh', '--gctd--')} key={'reset'}>
                         <span>
                             <RefreshCw onClick={() => {
@@ -473,95 +489,82 @@ const ColorControl = (props) => {
                     </Tooltip>
                 </div>
             </div>
-            {/* {
-                openAddColor && <div className="single-variable-item-wrapper add-global-popup">
-                    <div className="form-add-global">
-                        <label htmlFor="global-name">{__('Global Label', '--gctd--')}</label>
-                        <input
-                            type="text"
-                            value={addCustomColor.name}
-                            placeholder={__('Global Label...', '--gctd--')}
-                            onChange={(event) => {
-                                const newValue = event.target.value;
+            {
+                openAddColor && <div className="add-global-popup-wrapper">
+                    <div className="single-variable-item-wrapper add-global-popup">
+                        <div className="form-add-global">
+                            <label htmlFor="global-name">{__('Global Label', '--gctd--')}</label>
+                            <input
+                                type="text"
+                                value={addCustomColor.name}
+                                placeholder={__('Global Label...', '--gctd--')}
+                                onChange={(event) => {
+                                    const newValue = event.target.value;
 
-                                setAddCustomColor(prev => {
-                                    return {
-                                        ...prev,
-                                        name: newValue
-                                    };
-                                });
-                            }}
-                            name="global-name"
-                            className="global-name"
-                        />
-                        <label htmlFor="global-slug">{__('Global Slug', '--gctd--')}</label>
-                        <input
-                            type="text"
-                            value={addCustomColor.slug}
-                            placeholder={__('Global Slug...', '--gctd--')}
-                            onChange={(event) => {
-                                const newValue = event.target.value;
+                                    setAddCustomColor(prev => {
+                                        return {
+                                            ...prev,
+                                            name: newValue
+                                        };
+                                    });
+                                }}
+                                name="global-name"
+                                className={`global-name ${globalWarningContent?.input === 'name' ? 'duplicate' : ''}`}
+                            />
+                            <label className="global-slug-label" htmlFor="global-slug">
+                                {__('Global Slug', '--gctd--')}
+                                <Tooltip text={
+                                    <span className="global-slug-tooltip-description">
+                                        {__('Used as a unique identifier. If empty, a slug will be generated automatically.', '--gctd--')}
+                                    </span>
+                                }>
+                                    <span className="global-slug-tooltip">
+                                        <IconInfoSVG />
+                                    </span>
+                                </Tooltip>
+                            </label>
+                            <input
+                                id="global-slug"
+                                type="text"
+                                value={addCustomColor.slug}
+                                placeholder={__('Global Slug...', '--gctd--')}
+                                onChange={(event) => {
+                                    const newValue = event.target.value;
 
-                                setAddCustomColor(prev => {
-                                    return {
-                                        ...prev,
-                                        slug: newValue
-                                    };
-                                });
-                            }}
-                            name="global-slug"
-                            className="global-name"
-                        />
-                    </div>
-                    <div className="add-global-form-actions">
-                        <div className="icon-close" onClick={() => {
-                            setOpenAddColor(false);
-                            setAddCustomColor({
-                                name: `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`,
-                                slug: ''
-                            });
-                        }}>{__('Cancel', '--gctd--')}</div>
-                        <div className="icon-save" onClick={handleSaveColorGlobal}>{__('Save', '--gctd--')}</div>
-                    </div>
-                </div>
-            } */}
-            {/* {
-                openGlobalPopup && <>
-                    <div className="global-popup-wrapper">
-                        <div className="global-popup">
-                            <div className="popup-header">
-                                <span className="header-title">{__('Create New Global Color', '--gctd--')}</span>
-                                <span className="close-button" onClick={() => {
-                                    setOpenGlobalPopup(false);
-                                }}><CloseIcon /></span>
-                            </div>
-                            <div className="popup-content">
+                                    setAddCustomColor(prev => {
+                                        return {
+                                            ...prev,
+                                            slug: newValue
+                                        };
+                                    });
+                                }}
+                                name="global-slug"
+                                className={`global-name ${globalWarningContent?.input === 'slug' ? 'duplicate' : ''}`}
+                            />
+                        </div>
+                        {
+                            globalWarning && <>
                                 <AlertControl type="warning">
-                                    {globalPopupContent?.content}
+                                    {globalWarningContent?.content}
                                 </AlertControl>
-                                <div className={'single-variable-color-wrapper'}>
-                                    <div className={'single-variable-item-wrapper'} style={{ width: '100%' }}>
-                                        <div className={'control-color'}>
-                                            <div style={{ backgroundColor: handleGlobalPopupPreview() }} />
-                                        </div>
-                                        <span className={'color-name'}>{addCustomColor?.name}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="popup-actions">
-                                <div className="close-button" onClick={() => setOpenGlobalPopup(false)}>{__('Close', '--gctd--')}</div>
-                                {
-                                    globalPopupContent?.type === 'confirmation' && <>
-                                        <div className="proceed-button" onClick={handleProceedAddGlobal}>{__('Create', '--gctd--')}</div>
-                                    </>
-                                }
-                            </div>
+                            </>
+                        }
+                        <div className="add-global-form-actions">
+                            <div className="icon-close" onClick={handleCloseAddGlobal}>{__('Cancel', '--gctd--')}</div>
+                            {
+                                globalWarning ? <div className={`icon-save ${globalWarningContent?.type === 'warning' ? 'disabled' : 'active'}`} onClick={() => {
+                                    if (globalWarningContent?.type === 'confirmation') {
+                                        handleProceedAddGlobal();
+                                    }
+                                }}>{__('Proceed', '--gctd--')}</div> : <div className="icon-save" onClick={handleSaveColorGlobal}>{__('Create', '--gctd--')}</div>
+                            }
                         </div>
                     </div>
-                </>
-            } */}
+                </div>
+            }
             <GutenverseColorPicker
                 disableAlpha={!alpha}
+                classNames={`${openAddColor ? 'additional-margin' : ''}`}
                 color={getColorValue(localColor)}
                 onChange={color => {
                     setLocalColor(color.rgb);
