@@ -132,6 +132,13 @@ class Init {
 	public $upgrader;
 
 	/**
+	 * HOC Instance.
+	 *
+	 * @var HOC
+	 */
+	protected $hoc;
+
+	/**
 	 * Singleton page for Init Class
 	 *
 	 * @return Init
@@ -303,6 +310,7 @@ class Init {
 		 */
 		$this->frontend_cache     = new Frontend_Cache();
 		$this->frontend_generator = new Frontend_Generator();
+		$this->hoc                = new HOC_Frontend();
 		$this->style_cache        = $this->frontend_cache;
 		$this->style_generator    = $this->frontend_generator;
 

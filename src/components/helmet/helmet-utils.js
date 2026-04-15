@@ -313,7 +313,11 @@ const updateTags = (type, tags, head) => {
         });
     }
 
-    oldTags.forEach(tag => tag.parentNode.removeChild(tag));
+    oldTags.forEach(tag => {
+        if (tag.parentNode && tag.parentNode.contains(tag)) {
+            tag.parentNode.removeChild(tag);
+        }
+    });
     newTags.forEach(tag => headElement.appendChild(tag));
 
     return {

@@ -44,6 +44,28 @@ abstract class Block_Abstract {
 	protected $manager;
 
 	/**
+	 * Block data (WP_Block instance).
+	 *
+	 * @var \WP_Block
+	 */
+	protected $block_data;
+
+	/**
+	 * Render all inner blocks from block_data.
+	 *
+	 * @return string
+	 */
+	protected function render_inner_blocks() {
+		$output = '';
+		if ( ! empty( $this->block_data ) && ! empty( $this->block_data->inner_blocks ) ) {
+			foreach ( $this->block_data->inner_blocks as $inner_block ) {
+				$output .= $inner_block->render();
+			}
+		}
+		return $output;
+	}
+
+	/**
 	 * Render
 	 *
 	 * @param array  $attributes .
@@ -56,6 +78,7 @@ abstract class Block_Abstract {
 		$this->set_attributes( $attributes );
 		$this->set_content( $content );
 		$this->set_context( $fulldata );
+		$this->block_data = $fulldata;
 
 		add_action( 'wp_footer', array( $this, 'render_template' ) );
 
