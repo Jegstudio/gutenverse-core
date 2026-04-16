@@ -22,7 +22,7 @@ class Wrapper extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content() {
-		return $this->render_inner_blocks();
+		return $this->get_inner_blocks_content();
 	}
 
 	/**

@@ -553,7 +553,7 @@ class Container extends Block_Abstract {
 	 */
 	public function render_content() {
 		$container_layout = isset( $this->attributes['containerLayout'] ) ? $this->attributes['containerLayout'] : 'full-width';
-		$inner_blocks     = $this->render_inner_blocks();
+		$inner_blocks     = $this->get_inner_blocks_content();
 
 		if ( 'boxed' === $container_layout ) {
 			return '<div class="guten-inner-container">' . $inner_blocks . '</div>';

@@ -66,6 +66,23 @@ abstract class Block_Abstract {
 	}
 
 	/**
+	 * Get inner block content without re-rendering child dynamic blocks on frontend.
+	 *
+	 * @return string
+	 */
+	protected function get_inner_blocks_content() {
+		if ( ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || gutenverse_is_block_editor() ) {
+			return $this->render_inner_blocks();
+		}
+
+		if ( '' !== trim( (string) $this->content ) ) {
+			return $this->content;
+		}
+
+		return $this->render_inner_blocks();
+	}
+
+	/**
 	 * Render
 	 *
 	 * @param array  $attributes .
