@@ -75,8 +75,16 @@ abstract class Block_Abstract {
 			return $this->render_inner_blocks();
 		}
 
-		if ( '' !== trim( (string) $this->content ) ) {
-			return $this->content;
+		$element_id = isset( $this->attributes['elementId'] ) ? $this->attributes['elementId'] : '';
+		$content    = (string) $this->content;
+
+		/*
+		 * Some migrated blocks still pass their previous full saved markup as $content.
+		 * Reuse $content only when it does not already contain this block's own element ID,
+		 * otherwise we'd nest the whole block inside itself.
+		 */
+		if ( '' !== trim( $content ) && ( empty( $element_id ) || false === strpos( $content, $element_id ) ) ) {
+			return $content;
 		}
 
 		return $this->render_inner_blocks();
