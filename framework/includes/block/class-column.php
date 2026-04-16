@@ -330,7 +330,7 @@ class Column extends Block_Abstract {
 				$output .= '<div class="guten-background-overlay"></div>';
 			}
 
-			$output .= $this->render_inner_blocks();
+			$output .= $this->get_inner_blocks_content();
 			$output .= '</div>';
 			$output .= '</div>';
 		} else {
@@ -354,7 +354,7 @@ class Column extends Block_Abstract {
 				$output .= '<div class="guten-background-overlay"></div>';
 			}
 
-			$output .= $this->render_inner_blocks();
+			$output .= $this->get_inner_blocks_content();
 			$output .= '</div>';
 		}
 
