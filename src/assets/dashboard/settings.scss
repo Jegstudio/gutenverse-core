@@ -526,9 +526,27 @@
                         }
                     }
                 }
+
+                .account-page {
+                    .control-wrapper {
+                        padding: 20px 0 !important;
+                    }
+
+                    h2+.control-wrapper {
+                        padding-top: 16px !important;
+                    }
+
+                    h2 {
+                        margin: 0 !important;
+                    }
+                }
             }
         }
     }
+}
+
+#gutenverse-dashboard .dashboard-content .block_settings .template-tab-body>.control-wrapper.control-select {
+    padding-top: 0 !important;
 }
 
 .repeater-body .gutenverse-control-wrapper.gutenverse-control-alert .control-body {
