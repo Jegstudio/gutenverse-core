@@ -9,7 +9,7 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { AlertControl, FontControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
 import { isEmptyValue, signal, useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
 import isEmpty from 'lodash/isEmpty';
-import { CloseIcon, IconTypographySVG } from 'gutenverse-core/icons';
+import { CloseIcon, IconInfoSVG, IconTypographySVG } from 'gutenverse-core/icons';
 import { dispatch, select } from '@wordpress/data';
 import { Plus } from 'react-feather';
 import cryptoRandomString from 'crypto-random-string';
@@ -321,11 +321,11 @@ const TypographyControl = (props) => {
                     openAddFont && <div className="add-global-popup-wrapper for-font">
                         <div className="single-variable-item-wrapper add-global-popup">
                             <div className="form-add-global">
-                                <label htmlFor="global-name">{__('Global Label', '--gctd--')}</label>
+                                <label htmlFor="global-name">{__('Global Font Label', '--gctd--')}</label>
                                 <input
                                     type="text"
                                     value={addCustomFont.name}
-                                    placeholder={__('Global Label...', '--gctd--')}
+                                    placeholder={__('Global Font Label...', '--gctd--')}
                                     onChange={(event) => {
                                         const newValue = event.target.value;
 
@@ -339,11 +339,22 @@ const TypographyControl = (props) => {
                                     name="global-name"
                                     className="global-name"
                                 />
-                                <label htmlFor="global-slug">{__('Global Slug', '--gctd--')}</label>
+                                <label className="global-slug-label" htmlFor="global-slug">
+                                    {__('Global Font Slug', '--gctd--')}
+                                    <span className="global-slug-tooltip-wrapper">
+                                        <span className="global-slug-tooltip">
+                                            <IconInfoSVG />
+                                        </span>
+                                        <span className="global-slug-tooltip-description form">
+                                            {__('Used as a unique identifier. If empty, a slug will be generated automatically.', '--gctd--')}
+                                        </span>
+                                    </span>
+                                </label>
+
                                 <input
                                     type="text"
                                     value={addCustomFont.slug}
-                                    placeholder={__('Global Slug...', '--gctd--')}
+                                    placeholder={__('Global Font Slug...', '--gctd--')}
                                     onChange={(event) => {
                                         const newValue = event.target.value;
 

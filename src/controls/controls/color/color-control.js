@@ -493,11 +493,11 @@ const ColorControl = (props) => {
                 openAddColor && <div className="add-global-popup-wrapper">
                     <div className="single-variable-item-wrapper add-global-popup">
                         <div className="form-add-global">
-                            <label htmlFor="global-name">{__('Global Label', '--gctd--')}</label>
+                            <label htmlFor="global-name">{__('Global Color Label', '--gctd--')}</label>
                             <input
                                 type="text"
                                 value={addCustomColor.name}
-                                placeholder={__('Global Label...', '--gctd--')}
+                                placeholder={__('Global Color Label...', '--gctd--')}
                                 onChange={(event) => {
                                     const newValue = event.target.value;
 
@@ -512,22 +512,21 @@ const ColorControl = (props) => {
                                 className={`global-name ${globalWarningContent?.input === 'name' ? 'duplicate' : ''}`}
                             />
                             <label className="global-slug-label" htmlFor="global-slug">
-                                {__('Global Slug', '--gctd--')}
-                                <Tooltip text={
-                                    <span className="global-slug-tooltip-description">
-                                        {__('Used as a unique identifier. If empty, a slug will be generated automatically.', '--gctd--')}
-                                    </span>
-                                }>
+                                {__('Global Color Slug', '--gctd--')}
+                                <span className="global-slug-tooltip-wrapper">
                                     <span className="global-slug-tooltip">
                                         <IconInfoSVG />
                                     </span>
-                                </Tooltip>
+                                    <span className="global-slug-tooltip-description">
+                                        {__('Used as a unique identifier. If empty, a slug will be generated automatically.', '--gctd--')}
+                                    </span>
+                                </span>
                             </label>
                             <input
                                 id="global-slug"
                                 type="text"
                                 value={addCustomColor.slug}
-                                placeholder={__('Global Slug...', '--gctd--')}
+                                placeholder={__('Global Color Slug...', '--gctd--')}
                                 onChange={(event) => {
                                     const newValue = event.target.value;
 

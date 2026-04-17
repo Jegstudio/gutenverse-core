@@ -407,13 +407,13 @@ abstract class Style_Interface {
 			),
 			'size'       => array(
 				'property'       => function ( $value ) {
-					return $this->is_variable( $value ) ? "font-size: var({$this->variable_font_name($value['id'], 'size')});" : $this->handle_unit_point( $value, 'font-size' );
+					return $this->is_variable( $value ) ? "font-size: var({$this->variable_font_name($value['id'], 'size')}, inherit);" : $this->handle_unit_point( $value, 'font-size' );
 				},
 				'device_control' => true,
 			),
 			'weight'     => array(
 				'property'       => function ( $value ) {
-					return $this->is_variable( $value ) ? "font-weight: var({$this->variable_font_name($value['id'], 'weight')});" : "font-weight: {$value};";
+					return $this->is_variable( $value ) ? "font-weight: var({$this->variable_font_name($value['id'], 'weight')}, inherit);" : "font-weight: {$value};";
 				},
 				'device_control' => false,
 			),
@@ -437,7 +437,7 @@ abstract class Style_Interface {
 			),
 			'lineHeight' => array(
 				'property'       => function ( $value ) {
-					return $this->is_variable( $value ) ? "line-height: var({$this->variable_font_name($value['id'], 'lineHeight')});" : $this->handle_unit_point( $value, 'line-height' );
+					return $this->is_variable( $value ) ? "line-height: var({$this->variable_font_name($value['id'], 'lineHeight')}, inherit);" : $this->handle_unit_point( $value, 'line-height' );
 				},
 				'device_control' => true,
 			),

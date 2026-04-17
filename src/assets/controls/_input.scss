@@ -5,9 +5,30 @@
 
 .global-slug-tooltip-description {
   display: block;
-  max-width: 200px;
   white-space: normal;
   overflow-wrap: break-word;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #0f243a;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.5;
+  position: absolute;
+  top: calc(100% + 8px);
+  width: 210px;
+  z-index: 3;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-18px) translateY(-4px) scale(0.96);
+  transform-origin: top center;
+  transition: opacity 140ms ease, transform 140ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 140ms;
+  text-align: left;
+
+  &.form {
+    transform: translateX(-9px) translateY(-4px) scale(0.96);
+    width: 225px;
+  }
 }
 
 .repeater-item {
@@ -1438,7 +1459,7 @@
         border-radius: 3px;
         width: 100%;
 
-        .additional-margin{
+        .additional-margin {
           margin: 0px 8px;
         }
 
@@ -1473,7 +1494,7 @@
 
     &color,
     &typography {
-      .gutenverse-control-heading{
+      .gutenverse-control-heading {
         .action-wrapper {
           display: flex;
           align-items: center;
@@ -1481,8 +1502,8 @@
           gap: 15px;
         }
       }
-      
-      .add-global-popup-wrapper{
+
+      .add-global-popup-wrapper {
         background-color: rgba(0, 0, 0, 0.88);
         position: absolute;
         width: 100%;
@@ -1490,11 +1511,12 @@
         z-index: 10;
         bottom: 0;
 
-        &.for-font{
+        &.for-font {
           left: 0;
           height: 600px;
         }
       }
+
       .single-variable-item-wrapper.add-global-popup {
         border: 1px solid #cecece;
         background: white;
@@ -1508,10 +1530,23 @@
         justify-self: center;
         margin-top: 5px;
 
-        .gutenverse-control-alert.warning{
+        .gutenverse-control-alert.warning {
           border: 1px solid #EEE4BD;
           background: #FFF9E2;
           border-radius: 5px;
+          margin: 6px 0px;
+
+          .control-body {
+            padding: 10px;
+            font-size: 12px;
+            line-height: 1.3em;
+            display: flex;
+            align-items: top;
+          }
+
+          .control-icon {
+            margin: 1px 6px 0 0;
+          }
         }
 
         .form-add-global {
@@ -1519,6 +1554,25 @@
           flex-direction: column;
           gap: 6px;
           margin-bottom: 6px;
+
+          .global-slug-tooltip-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover .global-slug-tooltip-description,
+            &:focus-within .global-slug-tooltip-description {
+              opacity: 1;
+              visibility: visible;
+              transform: translateX(-18px) translateY(0) scale(1);
+              transition-delay: 0s;
+
+              &.form {
+                transform: translateX(-9px) translateY(-4px) scale(0.96);
+              }
+            }
+          }
 
           .global-slug-label {
             display: flex;
@@ -1531,16 +1585,20 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: #818a97;
+            color: #3B57F7;
 
             svg {
-              width: 13px;
-              height: 13px;
+              width: 15px;
+              height: 15px;
               display: block;
+
+              path {
+                transform: translateY(1px);
+              }
             }
 
             &:hover {
-              color: #3B57F7;
+              color: #2744eb;
             }
           }
 
@@ -1551,7 +1609,7 @@
           input[type=text] {
             border-radius: 5px;
 
-            &.duplicate{
+            &.duplicate {
               border: 1px solid #FFC908;
             }
           }
@@ -1582,21 +1640,33 @@
 
           }
 
-          .icon-save{
+          .icon-save {
             background-color: #3B57F7;
             color: white;
+            border: none;
+            transition: background-color .3s ease;
 
-            &:hover{
+            &:hover {
               background-color: #0c2ff7;
             }
 
-            &.disabled{
-              background-color: #d1d1d1;
+            &.disabled {
+              background-color: #99A2A9;
               cursor: not-allowed;
+            }
+          }
+
+          .icon-close {
+            transition: all .3s ease;
+
+            &:hover {
+              border: 1px solid #3B57F7;
+              color: #3B57F7;
             }
           }
         }
       }
+
       .gutenverse-control-alert {
         .control-body {
           background-color: rgba(244, 94, 94, .2);
