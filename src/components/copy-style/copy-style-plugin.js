@@ -32,6 +32,16 @@ export const getAllGutenverseBlock = () => {
     return registeredGutenverse;
 };
 
+export const getCopyableAttributes = (blockAttributes = {}) => {
+    return Object.keys(blockAttributes).reduce((result, key) => {
+        if (blockAttributes[key]?.copyStyle === true) {
+            result[key] = true;
+        }
+
+        return result;
+    }, {});
+};
+
 const BlockSettingMenuCopy = () => {
     const { createInfoNotice } = useDispatch(noticesStore);
     let registeredGutenverse = getAllGutenverseBlock();
@@ -53,24 +63,18 @@ const BlockSettingMenuCopy = () => {
             const block = getSelectedBlock();
             const { attributes, name } = block;
             const blockDetail = getBlockType(name);
-            const { title, attributes: blockAttributes } = blockDetail;
+            const { title, attributes: blockAttributes, styleGroup } = blockDetail;
             let copiedStyle = {};
+            const copyableAttributes = getCopyableAttributes(blockAttributes);
 
-            let copiedKey = [];
-            let nonCopiedKey = [];
-
-            Object.keys(blockAttributes).map(key => {
-                if (blockAttributes[key].copyStyle === true) {
-                    copiedStyle[key] = attributes[key];
-                    copiedKey.push(key);
-                } else {
-                    nonCopiedKey.push(key);
-                }
+            Object.keys(copyableAttributes).forEach(key => {
+                copiedStyle[key] = attributes[key];
             });
 
             copiedStyle = {
                 gutenverse: true,
                 type: name,
+                styleGroup,
                 attributes: copiedStyle
             };
 
