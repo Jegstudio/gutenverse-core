@@ -6,3 +6,4 @@ export { default as load } from 'load-script';
 export { responsiveBreakpoint, renderIcon } from './helper/index';
 export default (new ReplaceCSS()).init();
 export * from './scroll';
+export { GutenverseAnimationBasic } from './modular/animation-basic';

@@ -1,14 +1,17 @@
 import { Default } from '../blocks/default';
 import u from 'umbrellajs';
 
-class GutenverseAnimationBasic extends Default {
+export class GutenverseAnimationBasic extends Default {
     init() {
         this._elements.map(element => {
+            if ( u(element).closest('.ignore-animation').length >= 1 || u(element).hasClass('ignore-animation') ) {
+                return;
+            }
             this.playAnimationOnView(element);
         });
     }
 
-    playAnimationOnView(element) {
+    playAnimationOnView(element, direct = false, resetOnFinish = false) {
         /**
          * Don't use IntersectionObserver class to load animation, because the threshold can cause bug.
          * Threshold only count the % of element's height that currently visible on the viewport.
@@ -28,7 +31,7 @@ class GutenverseAnimationBasic extends Default {
                 const reachTrigger = element.getBoundingClientRect().top <= (window.innerHeight * 0.75);
                 const atTheBottom = element.getBoundingClientRect().top > 0 && (window.innerHeight + Math.ceil(window.pageYOffset)) >= (document.body.offsetHeight - (window.innerHeight * 0.25));
 
-                if (reachTrigger || atTheBottom) {
+                if (reachTrigger || atTheBottom || direct) {
                     animationClasses.map(name => elementObj.removeClass(name));
                     elementObj.addClass(`__${animationClass}`);
 
@@ -40,13 +43,24 @@ class GutenverseAnimationBasic extends Default {
 
                     elementObj.first().addEventListener('animationend', (e) => {
                         e.stopPropagation();
-                        elementObj.removeClass('animated');
+
+                        if (resetOnFinish) {
+                            animationClasses.map(name => elementObj.addClass(name));
+                            elementObj.removeClass(`__${animationClass}`);
+                        } else {
+                            elementObj.removeClass('animated');
+                        }
                     });
                 }
             };
 
-            window.addEventListener('load', playAnimation);
-            window.addEventListener('scroll', playAnimation);
+            if (direct) {
+                playAnimation();
+            } else {
+                window.addEventListener('load', playAnimation);
+                window.addEventListener('scroll', playAnimation);
+            }
+
         } else {
             if (elementObj.hasClass('guten-button-wrapper')) {
                 //add fallback to old animation
