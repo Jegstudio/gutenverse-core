@@ -8,6 +8,8 @@ import saveV4 from './deprecated/v4/save';
 import saveV5 from './deprecated/v5/save';
 import saveV6 from './deprecated/v6/save';
 import saveV7 from './deprecated/v7/save';
+import saveV8 from './deprecated/v8/save';
+import saveV9 from './deprecated/v9/save';
 import attrV2 from './deprecated/v2/attribute.json';
 import metadata from './block.json';
 import { IconColumnSVG } from 'gutenverse-core/icons';
@@ -23,7 +25,28 @@ export const settings = {
     deprecated: [
         {
             attributes,
+            save: saveV9
+        },
+        {
+            attributes,
+            save: saveV8
+        },
+        {
+            attributes,
             save: saveV7
+        },
+        {
+            attributes: {
+                ...attributes,
+                anchor: {
+                    type: 'string',
+                    source: 'attribute',
+                    selector: '.wp-block-gutenverse-column',
+                    attribute: 'id',
+                    default: undefined
+                }
+            },
+            save: saveV9
         },
         {
             attributes,

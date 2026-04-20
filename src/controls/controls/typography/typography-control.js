@@ -6,11 +6,13 @@ import classnames from 'classnames';
 import { Check, ChevronRight, Globe, RefreshCw } from 'react-feather';
 import { Tooltip } from '@wordpress/components';
 import { withParentControl } from 'gutenverse-core/hoc';
-import { FontControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
-import { isEmptyValue, signal } from 'gutenverse-core/editor-helper';
+import { AlertControl, FontControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
+import { isEmptyValue, signal, useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
 import isEmpty from 'lodash/isEmpty';
-import { IconTypographySVG } from 'gutenverse-core/icons';
-import { select } from '@wordpress/data';
+import { CloseIcon, IconTypographySVG } from 'gutenverse-core/icons';
+import { dispatch, select } from '@wordpress/data';
+import { Plus } from 'react-feather';
+import cryptoRandomString from 'crypto-random-string';
 export { globalStyleStore } from 'gutenverse-core/store';
 
 const VariableFontItem = (props) => {
@@ -30,7 +32,7 @@ const VariableFontItem = (props) => {
 };
 
 const EmptyVariableFont = ({ onClick }) => {
-    return <div className={'variable-font-empty'}>
+    return <div className={'variable-font-empty'} onClick={() => onClick()}>
         <span>
             <h3>{__('Empty Variable Font', '--gctd--')}</h3>
             <div onClick={() => onClick()} className={'gutenverse-button'}>
@@ -54,10 +56,35 @@ const TypographyControl = (props) => {
     const wrapperRef = useRef(null);
     const variableRef = useRef();
     const variableWrapperRef = useRef();
+    const {
+        addVariableFont
+    } = dispatch('gutenverse/global-style');
 
     const [show, setShow] = useState(false);
     const [variableFont, setVariableFont] = useState({});
     const [variableOpen, setVariableOpen] = useState(false);
+
+    const [openAddFont, setOpenAddFont] = useState(false);
+    
+    const [addCustomFont, setAddCustomFont] = useState({
+        name: `${__('Variable Font', '--gctd--')}`,
+        slug: ''
+    });
+
+    const [openGlobalPopup, setOpenGlobalPopup] = useState(false);
+
+    const [globalPopupContent, setGlobalPopupContent ] = useState({
+        type: 'confirmation',
+        content: __('Are you sure want to create a new global font?', '--gctd--')
+    });
+
+    const handleAddCustomFont = () => {
+        setAddCustomFont({
+            name: `${__('Variable Font', '--gctd--')}`,
+            slug: ''
+        });
+        setOpenAddFont(prev => !prev);
+    };
 
     const variableFontUpdate = () => {
         const variable = select('gutenverse/global-style')?.getVariable();
@@ -151,6 +178,62 @@ const TypographyControl = (props) => {
         onLocalChange(value);
     };
 
+    const handleSaveFontGlobal = () => {
+        let isInputDuplicate = {
+            'slug'  : false,
+            'name'  : false
+        }
+        variableFont.forEach(element => {
+            if( element.id === addCustomFont?.slug ){
+                isInputDuplicate.slug = true;
+            }
+            if(element.name === addCustomFont?.name){
+                isInputDuplicate.name = true;
+            }
+        });
+        if(isInputDuplicate?.slug){
+            setGlobalPopupContent({
+                type: 'warning',
+                content: <span><b>{__('Please note!', '--gctd--')}</b>{__(' The slug already used!', '--gctd--')}</span>
+            });
+            setOpenGlobalPopup(true);
+            return;
+        }
+        if(isInputDuplicate?.name){
+            setGlobalPopupContent({
+                type: 'confirmation',
+                content: <span><b>{__('Please note!', '--gctd--')}</b>{__(' This name is already used in your Global Colors. Are you sure want to create it using the same name?', '--gctd--')}</span>
+            });
+            setOpenGlobalPopup(true);
+            return;
+        }
+        handleProceedAddGlobal();
+    };
+
+    const handleProceedAddGlobal = () => {
+        const key = addCustomFont.slug ? addCustomFont.slug : cryptoRandomString({ length: 6, type: 'alphanumeric' })
+
+        const newFont = {
+            id: key,
+            name: addCustomFont.name,
+            font: value
+        };
+
+        addVariableFont(newFont);
+        variableFontUpdate();
+
+        const newValue = {
+            type: 'variable',
+            id: key,
+            ...value
+        };
+        onValueChange(newValue);
+
+        setOpenGlobalPopup(false);
+        setOpenAddFont(false);
+        setShow(false);
+    }
+
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-typography'}>
         <ControlHeadingSimple
             id={`${id}-typography`}
@@ -193,15 +276,100 @@ const TypographyControl = (props) => {
                 <h2>
                     {__('Typography', '--gctd--')}
                 </h2>
-                <Tooltip text={__('Refresh', '--gctd--')} key={'reset'}>
-                    <span>
-                        <RefreshCw onClick={() => {
-                            onValueChange(null);
-                        }} />
-                    </span>
-                </Tooltip>
+                <div className="action-wrapper">
+                    {/* <Tooltip text={__('Add Global', '--gctd--')} key={'add-global'}>
+                        <span>
+                            <Plus onClick={handleAddCustomFont} />
+                        </span>
+                    </Tooltip> */}
+                    <Tooltip text={__('Refresh', '--gctd--')} key={'reset'}>
+                        <span>
+                            <RefreshCw onClick={() => {
+                                onValueChange(null);
+                            }} />
+                        </span>
+                    </Tooltip>
+                </div>
             </div>
             {show && <>
+                {/* {
+                    openAddFont && <div className="single-variable-item-wrapper add-global-popup">
+                        <div className="form-add-global">
+                            <label htmlFor="global-name">{__('Global Label', '--gctd--')}</label>
+                            <input
+                                type="text"
+                                value={addCustomFont.name}
+                                placeholder={__('Global Label...', '--gctd--')}
+                                onChange={(event) => {
+                                    const newValue = event.target.value;
+
+                                    setAddCustomFont(prev => {
+                                        return {
+                                            ...prev,
+                                            name: newValue
+                                        };
+                                    });
+                                }}
+                                name="global-name"
+                                className="global-name"
+                            />
+                            <label htmlFor="global-slug">{__('Global Slug', '--gctd--')}</label>
+                            <input
+                                type="text"
+                                value={addCustomFont.slug}
+                                placeholder={__('Global Slug...', '--gctd--')}
+                                onChange={(event) => {
+                                    const newValue = event.target.value;
+
+                                    setAddCustomFont(prev => {
+                                        return {
+                                            ...prev,
+                                            slug: newValue
+                                        };
+                                    });
+                                }}
+                                name="global-slug"
+                                className="global-name"
+                            />
+                        </div>
+                        <div className="add-global-form-actions">
+                            <div className="icon-close" onClick={() => setOpenAddFont(false)}>{__('Cancel', '--gctd--')}</div>
+                            <div className="icon-save" onClick={handleSaveFontGlobal}>{__('Save', '--gctd--')}</div>
+                        </div>
+                    </div>
+                }
+                {
+                    openGlobalPopup && <>
+                        <div className="global-popup-wrapper">
+                            <div className="global-popup">
+                                <div className="popup-header">
+                                    <span className="header-title">{__('Create New Global Color', '--gctd--')}</span>
+                                    <span className="close-button" onClick={() => {
+                                        setOpenGlobalPopup(false);
+                                    }}><CloseIcon/></span>
+                                </div>
+                                <div className="popup-content">
+                                    <AlertControl type="warning">
+                                        {globalPopupContent?.content}
+                                    </AlertControl>
+                                    <div className={'single-variable-color-wrapper'}>
+                                        <div className={'single-variable-item-wrapper'} style={{ width: '100%' }}>
+                                            <span className={'color-name'}>{addCustomFont?.name}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="popup-actions">
+                                    <div className="close-button" onClick={() => setOpenGlobalPopup(false)}>{__('Close', '--gctd--')}</div>
+                                    {
+                                        globalPopupContent?.type === 'confirmation' && <>
+                                            <div className="proceed-button" onClick={handleProceedAddGlobal}>{__('Create', '--gctd--')}</div>
+                                        </>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                } */}
                 <FontControl
                     label={__('Font Family', '--gctd--')}
                     value={value.font}

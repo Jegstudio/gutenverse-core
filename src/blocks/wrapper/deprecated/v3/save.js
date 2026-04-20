@@ -46,31 +46,29 @@ const save = compose(
         ['guten-cursor-effect']: cursorEffect?.show
     };
 
-    const blockProps = useBlockProps.save({
-        className: classnames(
-            'guten-element',
-            'guten-wrap-helper',
-            'no-margin',
-            elementId,
-            animationClass,
-            displayType,
-            displayClass,
-            cursorEffectClass,
-            {
-                'background-animated': isAnimationActive(backgroundAnimated),
-                'with-url': url,
-                'guten-background-effect-active': isBackgroundEffect,
-                'guten-background-slideshow': isSlideShow,
-                'guten-using-featured-image': usingFeaturedImage,
-            }
-        ),
-        ...advanceAnimationData
-    });
+    const className = classnames(
+        'guten-element',
+        'guten-wrap-helper',
+        'no-margin',
+        elementId,
+        animationClass,
+        displayType,
+        displayClass,
+        cursorEffectClass,
+        {
+            'background-animated': isAnimationActive(backgroundAnimated),
+            'with-url': url,
+            'guten-background-effect-active': isBackgroundEffect,
+            'guten-background-slideshow': isSlideShow,
+            'guten-using-featured-image': usingFeaturedImage,
+        }
+    );
+
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];
     const newLinkTarget = (linkTarget === '_blank' || linkTarget === true) ? '_blank' : '_self';
     return (
-        <div {...blockProps} onClick={url && `window.open('${url}', '${newLinkTarget}');`}>
+        <div className={className} {...advanceAnimationData} onClick={url && `window.open('${url}', '${newLinkTarget}');`}>
             {(_isBgAnimated || isSlideShow) &&
                 <div className="guten-data">
                     {_isBgAnimated &&

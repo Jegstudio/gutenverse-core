@@ -98,7 +98,7 @@ export const panelList = () => {
             panelArray: (props) => positioningPanel({
                 ...props,
                 selector: `.guten-flex-container-editor.${props.elementId}, .guten-inner-container-editor>.guten-flex-container-editor.${props.elementId}.full-width`,
-            }),
+            }, true),
             tabRole: TabSetting
         },
         {

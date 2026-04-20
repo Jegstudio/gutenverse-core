@@ -8,14 +8,16 @@
  */
 if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 	/**
-	 * Sanitizer SVG Content
+	 * Sanitize SVG content using an allowlist approach.
+	 * Only permitted elements and attributes are allowed; everything else is rejected.
 	 *
-	 * @return mixed
+	 * @param string $svg Raw SVG markup.
+	 * @return bool True if the SVG contains only allowlisted elements and attributes.
 	 */
 	function gutenverse_is_svg_safe( $svg ) {
 		libxml_use_internal_errors( true );
 
-		// Prevent XXE attacks
+		// Prevent XXE attacks.
 		$svg = preg_replace( '/<!DOCTYPE.+?>/i', '', $svg );
 
 		$dom = new DOMDocument();
@@ -24,48 +26,274 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 			return false;
 		}
 
-		$xpath = new DOMXPath( $dom );
-
-		/**
-		 * ❌ Forbidden SVG elements
-		 */
-		$forbidden_tags = array(
-			'script',
-			'foreignObject',
-			'iframe',
-			'object',
-			'embed',
-			'audio',
-			'video',
+		$allowed_elements = array(
+			// Structure.
+			'svg',
+			'g',
+			'defs',
+			'symbol',
+			'switch',
+			// Shapes.
+			'path',
+			'circle',
+			'ellipse',
+			'line',
+			'polyline',
+			'polygon',
+			'rect',
+			// Text.
+			'text',
+			'tspan',
+			'textpath',
+			// Gradients & patterns.
+			'lineargradient',
+			'radialgradient',
+			'stop',
+			'pattern',
+			// Clipping & masking.
+			'clippath',
+			'mask',
+			// Markers.
+			'marker',
+			// Filters.
+			'filter',
+			'fegaussianblur',
+			'feoffset',
+			'feblend',
+			'fecolormatrix',
+			'fecomponenttransfer',
+			'fecomposite',
+			'feconvolvematrix',
+			'fediffuselighting',
+			'fedisplacementmap',
+			'fedistantlight',
+			'fedropshadow',
+			'feflood',
+			'fefuncr',
+			'fefuncg',
+			'fefuncb',
+			'fefunca',
+			'femerge',
+			'femergenode',
+			'femorphology',
+			'fepointlight',
+			'fespecularlighting',
+			'fespotlight',
+			'fetile',
+			'feturbulence',
+			// Descriptive.
+			'title',
+			'desc',
 		);
 
-		foreach ( $forbidden_tags as $tag ) {
-			if ( $xpath->query( '//*[local-name()="' . $tag . '"]' )->length > 0 ) {
+		$allowed_attributes = array(
+			// Core attributes.
+			'id',
+			'class',
+			'lang',
+			'tabindex',
+			// Presentation attributes.
+			'fill',
+			'fill-opacity',
+			'fill-rule',
+			'stroke',
+			'stroke-dasharray',
+			'stroke-dashoffset',
+			'stroke-linecap',
+			'stroke-linejoin',
+			'stroke-miterlimit',
+			'stroke-opacity',
+			'stroke-width',
+			'color',
+			'opacity',
+			'paint-order',
+			'display',
+			'visibility',
+			'overflow',
+			'clip-path',
+			'clip-rule',
+			'mask',
+			'filter',
+			'flood-color',
+			'flood-opacity',
+			'lighting-color',
+			'color-interpolation',
+			'color-interpolation-filters',
+			'stop-color',
+			'stop-opacity',
+			// Rendering hints.
+			'shape-rendering',
+			'image-rendering',
+			'text-rendering',
+			'color-rendering',
+			'vector-effect',
+			// Font attributes.
+			'font-family',
+			'font-size',
+			'font-style',
+			'font-variant',
+			'font-weight',
+			'font-stretch',
+			'font-size-adjust',
+			'text-anchor',
+			'text-decoration',
+			'letter-spacing',
+			'word-spacing',
+			'dominant-baseline',
+			'alignment-baseline',
+			'baseline-shift',
+			'direction',
+			'writing-mode',
+			'unicode-bidi',
+			'startoffset',
+			'textlength',
+			'lengthadjust',
+			'rotate',
+			// Geometry attributes.
+			'x',
+			'y',
+			'x1',
+			'y1',
+			'x2',
+			'y2',
+			'cx',
+			'cy',
+			'r',
+			'rx',
+			'ry',
+			'width',
+			'height',
+			'd',
+			'points',
+			'pathlength',
+			// Viewbox and coordinate attributes.
+			'viewbox',
+			'preserveaspectratio',
+			'transform',
+			'transform-origin',
+			// Gradient and pattern attributes.
+			'gradientunits',
+			'gradienttransform',
+			'spreadmethod',
+			'patternunits',
+			'patterncontentunits',
+			'patterntransform',
+			'offset',
+			'fx',
+			'fy',
+			'fr',
+			// Clip and mask attributes.
+			'clippathunits',
+			'maskunits',
+			'maskcontentunits',
+			// Marker attributes.
+			'markerwidth',
+			'markerheight',
+			'markerunits',
+			'refx',
+			'refy',
+			'orient',
+			'marker-start',
+			'marker-mid',
+			'marker-end',
+			// Filter attributes.
+			'filterunits',
+			'primitiveunits',
+			'in',
+			'in2',
+			'result',
+			'stddeviation',
+			'dx',
+			'dy',
+			'mode',
+			'type',
+			'values',
+			'operator',
+			'k1',
+			'k2',
+			'k3',
+			'k4',
+			'radius',
+			'scale',
+			'seed',
+			'numoctaves',
+			'basefrequency',
+			'stitchtiles',
+			'specularconstant',
+			'specularexponent',
+			'surfacescale',
+			'diffuseconstant',
+			'kernelmatrix',
+			'order',
+			'bias',
+			'targetx',
+			'targety',
+			'edgemode',
+			'kernelunitlength',
+			'preservealpha',
+			'tablevalues',
+			'slope',
+			'intercept',
+			'amplitude',
+			'exponent',
+			'divisor',
+			'azimuth',
+			'elevation',
+			'xchannelselector',
+			'ychannelselector',
+			// Conditional processing.
+			'systemlanguage',
+			// SVG namespace.
+			'xmlns',
+			'xmlns:xlink',
+			'version',
+			// Misc safe attributes.
+			'role',
+			'focusable',
+			'xml:space',
+		);
+
+		$xpath = new DOMXPath( $dom );
+
+		// Check all elements: normalize to lowercase and reject non-allowlisted.
+		foreach ( $xpath->query( '//*' ) as $node ) {
+			$tag_name = strtolower( $node->localName );
+			if ( ! in_array( $tag_name, $allowed_elements, true ) ) {
 				return false;
 			}
 		}
 
-		/**
-		 * ❌ Forbidden attributes
-		 * - Event handlers (onload, onclick, etc)
-		 * - javascript: URLs
-		 */
+		// Check all attributes: normalize to lowercase and reject non-allowlisted.
 		foreach ( $xpath->query( '//@*' ) as $attr ) {
+			$attr_name = strtolower( $attr->nodeName );
+
+			// Allow data-* and aria-* prefixed attributes.
+			if ( 0 === strpos( $attr_name, 'data-' ) || 0 === strpos( $attr_name, 'aria-' ) ) {
+				continue;
+			}
+
+			if ( ! in_array( $attr_name, $allowed_attributes, true ) ) {
+				return false;
+			}
+
+			// Strip control characters for value checks.
 			$attr_value = preg_replace( '/[\x00-\x20\x7F]/', '', $attr->nodeValue );
-			if (
-			preg_match( '/^on/i', $attr->nodeName ) ||
-			preg_match( '/javascript:/i', $attr_value )
-			) {
+
+			// Block dangerous URI schemes in values.
+			if ( preg_match( '/(javascript|data|vbscript):/i', $attr_value ) ) {
 				return false;
 			}
-		}
 
-		/**
-		 * ❌ Disallow external references
-		 */
-		foreach ( $xpath->query( '//@*' ) as $attr ) {
+			// Block external references.
 			if ( preg_match( '/^(https?:)?\/\//i', trim( $attr->nodeValue ) ) ) {
 				return false;
+			}
+
+			// Restrict href/xlink:href to fragment-only references (#id).
+			if ( 'href' === $attr_name || 'xlink:href' === $attr_name ) {
+				if ( 0 !== strpos( trim( $attr->nodeValue ), '#' ) ) {
+					return false;
+				}
 			}
 		}
 
@@ -106,6 +334,35 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 		return $data;
 	}
 }
+
+if ( ! function_exists( 'gutenverse_get_ads_banner_theme_tf' ) ) {
+	/**
+	 * Get Event Banner
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_get_ads_banner_theme_tf() {
+		$data = get_transient( 'gutenverse_ads_theme_tf_cache' );
+		if ( $data ) {
+			return $data;
+		}
+		$response = wp_remote_request(
+			GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-banner/v1/adsbannerdata',
+			array(
+				'method' => 'POST',
+			)
+		);
+		if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {
+			return null;
+		}
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body );
+
+		set_transient( 'gutenverse_ads_theme_tf_cache', $data->data, 24 * HOUR_IN_SECONDS );
+		return $data->data;
+	}
+}
+
 if ( ! function_exists( 'gutenverse_check_if_script_localized' ) ) {
 	/**
 	 * Check if Script localized
@@ -1301,6 +1558,24 @@ if ( ! function_exists( 'gutenverse_permission_check_author' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_permission_change_global_variable' ) ) {
+	/**
+	 * Check author permissions.
+	 *
+	 * @return bool|WP_Error
+	 */
+	function gutenverse_permission_change_global_variable() {
+		if ( ! current_user_can( 'edit_pages' ) ) {
+			return new WP_Error(
+				'forbidden_permission',
+				esc_html__( 'Forbidden Access', '--gctd--' ),
+				array( 'status' => 403 )
+			);
+		}
+
+		return true;
+	}
+}
 if ( ! function_exists( 'gutenverse_remove_folder' ) ) {
 	/**
 	 * Check author permissions.
@@ -1451,3 +1726,5 @@ if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
 		return size_format( $total_in_bytes );
 	}
 }
+
+

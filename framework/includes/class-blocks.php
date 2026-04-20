@@ -20,6 +20,7 @@ class Blocks {
 	 */
 	public function __construct() {
 		add_filter( 'block_categories_all', array( $this, 'block_category' ), 9999999 );
+		add_filter( 'gutenverse_force_dynamic', '__return_true' );
 
 		/**
 		 * These functions used to be called inside init hook.
@@ -74,10 +75,34 @@ class Blocks {
 	 * Register All Blocks
 	 */
 	public function register_blocks() {
-		// Static block.
-		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/section/block.json' );
-		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/column/block.json' );
-		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/wrapper/block.json' );
-		register_block_type( GUTENVERSE_FRAMEWORK_DIR . '/block/container/block.json' );
+		// Dynamic block.
+		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/section/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/wrapper/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/column/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_FRAMEWORK_DIR . '/block/container/block.json' );
+	}
+
+	/**
+	 * Register dynamic block.
+	 *
+	 * @param string $json Path to block.json.
+	 */
+	private function register_dynamic_block( $json ) {
+		if ( ! file_exists( $json ) ) {
+			return;
+		}
+
+		$block_json = gutenverse_get_json( $json );
+
+		if ( isset( $block_json['class_callback'] ) ) {
+			$instance = new $block_json['class_callback']();
+
+			register_block_type(
+				$json,
+				array(
+					'render_callback' => array( $instance, 'render' ),
+				)
+			);
+		}
 	}
 }

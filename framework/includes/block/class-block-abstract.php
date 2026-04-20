@@ -44,6 +44,53 @@ abstract class Block_Abstract {
 	protected $manager;
 
 	/**
+	 * Block data (WP_Block instance).
+	 *
+	 * @var \WP_Block
+	 */
+	protected $block_data;
+
+	/**
+	 * Render all inner blocks from block_data.
+	 *
+	 * @return string
+	 */
+	protected function render_inner_blocks() {
+		$output = '';
+		if ( ! empty( $this->block_data ) && ! empty( $this->block_data->inner_blocks ) ) {
+			foreach ( $this->block_data->inner_blocks as $inner_block ) {
+				$output .= $inner_block->render();
+			}
+		}
+		return $output;
+	}
+
+	/**
+	 * Get inner block content without re-rendering child dynamic blocks on frontend.
+	 *
+	 * @return string
+	 */
+	protected function get_inner_blocks_content() {
+		if ( ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || gutenverse_is_block_editor() ) {
+			return $this->render_inner_blocks();
+		}
+
+		$element_id = isset( $this->attributes['elementId'] ) ? $this->attributes['elementId'] : '';
+		$content    = (string) $this->content;
+
+		/*
+		 * Some migrated blocks still pass their previous full saved markup as $content.
+		 * Reuse $content only when it does not already contain this block's own element ID,
+		 * otherwise we'd nest the whole block inside itself.
+		 */
+		if ( '' !== trim( $content ) && ( empty( $element_id ) || false === strpos( $content, $element_id ) ) ) {
+			return $content;
+		}
+
+		return $this->render_inner_blocks();
+	}
+
+	/**
 	 * Render
 	 *
 	 * @param array  $attributes .
@@ -56,6 +103,7 @@ abstract class Block_Abstract {
 		$this->set_attributes( $attributes );
 		$this->set_content( $content );
 		$this->set_context( $fulldata );
+		$this->block_data = $fulldata;
 
 		if ( ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || gutenverse_is_block_editor() ) {
 			return $this->render_gutenberg();

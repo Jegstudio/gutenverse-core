@@ -1,15 +1,12 @@
 
 import u from 'umbrellajs';
 import { cryptoRandomString } from 'gutenverse-core/components';
-import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
-import { useSelect, subscribe, dispatch } from '@wordpress/data';
 
 export const useHighlight = (props) => {
     const {
         attributes,
         setAttributes,
-        clientId,
         setPanelState,
         contentAttribute,
         tagName,
@@ -17,6 +14,7 @@ export const useHighlight = (props) => {
         textChilds,
         isUseHighlight
     } = props;
+
     const content = attributes[contentAttribute];
     const textChildsData = attributes[textChilds] || [];
     const [lastChildLength, setLastChildLength] = useState(textChildsData.length);
@@ -145,6 +143,9 @@ export const useHighlight = (props) => {
                 return child;
             }
         });
-        setAttributes({ [contentAttribute]: newValue.join('') });
-    }, [content, attributes[textChilds], isUseHighlight]);
+        const newContent = newValue.join('');
+        if (newContent !== content) {
+            setAttributes({ [contentAttribute]: newContent });
+        }
+    }, [content, attributes[textChilds]]);
 };
