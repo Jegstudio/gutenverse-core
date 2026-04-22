@@ -1034,7 +1034,7 @@ class Section extends Block_Abstract {
 
 		// Inner blocks container.
 		$output .= '<div class="' . $container_class . '">';
-		$output .= $this->render_inner_blocks();
+		$output .= $this->get_inner_blocks_content();
 		$output .= '</div>';
 
 		$output .= '</section>';
