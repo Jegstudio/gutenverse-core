@@ -596,6 +596,10 @@ class Dashboard {
 					'plugin_version'    => '3.6.0',
 					'framework_version' => '2.6.0',
 				),
+				array(
+					'plugin_version'    => '3.6.1',
+					'framework_version' => '2.6.1',
+				),
 			),
 			'gutenverse-form' => array(
 				array(
