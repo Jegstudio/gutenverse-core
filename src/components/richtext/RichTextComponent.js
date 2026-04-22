@@ -3,7 +3,7 @@ import { useSelect, dispatch } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
 import { dynamicData } from './module/dynamic-data';
 import { highlight } from './module/highlight';
-import { useEffect, useState, useDeferredValue } from '@wordpress/element';
+import { useEffect, useRef, useCallback } from '@wordpress/element';
 
 const RichTextComponent = (props) => {
     const {
@@ -23,18 +23,17 @@ const RichTextComponent = (props) => {
         isUseHighlight = false,
     } = props;
 
-    const [query, setQuery] = useState(content); // Input value
-    const [isTyping, setIsTyping] = useState(false);
-    const deferredQuery = useDeferredValue(query);
+    const content = attributes[contentAttribute];
+    const timerRef = useRef(null);
+    const contentRef = useRef(content);
+    contentRef.current = content;
 
-    if(isUseDinamic){
+    if (isUseDinamic) {
         dynamicData(props);
     }
-    if(isUseHighlight){
+    if (isUseHighlight) {
         highlight(props);
     }
-
-    const content = attributes[contentAttribute];
     const {
         getBlocks
     } = useSelect(
@@ -42,62 +41,62 @@ const RichTextComponent = (props) => {
         []
     );
 
-    const {insertBlock, replaceBlock} = dispatch('core/block-editor');
+    const { insertBlock, replaceBlock } = dispatch('core/block-editor');
     const oldBlock = getBlocks();
 
     const onSplit = (value, isOriginal) => {
-        const newBlock = createBlock( 'gutenverse/text-paragraph', {
+        const newBlock = createBlock('gutenverse/text-paragraph', {
             paragraph: value,
-        } );
-        if(isOriginal){
-            replaceBlock(clientId,newBlock);
-        }else{
+        });
+        if (isOriginal) {
+            replaceBlock(clientId, newBlock);
+        } else {
             const testBlock = getBlocks();
-            const currentBlockIndex = testBlock.findIndex((el,index) => el.clientId !== oldBlock[index].clientId);
+            const currentBlockIndex = testBlock.findIndex((el, index) => el.clientId !== oldBlock[index].clientId);
             insertBlock(newBlock, currentBlockIndex + 1);
         }
     };
 
     //don't delete this, it will get error when deleted;
     const onReplace = (value) => {
+        console.log(value)
     };
 
-    const handleOnChange = (value) => {
-        setQuery(value);
-        setIsTyping(true);
-    };
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsTyping(false);
-        }, 500);
-
-        return () => clearTimeout(timer);
-    }, [query]);
-
-    useEffect(() => {
-        if (!isTyping && deferredQuery !== undefined) {
-            onChange(deferredQuery);
+    const handleOnChange = useCallback((value) => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
         }
-    }, [deferredQuery, isTyping]);
+        timerRef.current = setTimeout(() => {
+            if (value !== contentRef.current) {
+                onChange(value);
+            }
+            timerRef.current = null;
+        }, 500);
+    }, [onChange]);
+
+    useEffect(() => {
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
+    }, []);
 
     const contentOfRichText = () => {
-        if(isBlockProps){
+        if (isBlockProps) {
             return <RichText
                 {...blockProps}
-                identifier={contentAttribute}
                 tagName={tagName}
                 value={content}
                 placeholder={placeholder}
                 multiline={multiline}
                 aria-label={ariaLabel}
-                onSplit={ isOnSplit  && onSplit}
-                onReplace={ isOnSplit && onReplace}
+                onSplit={isOnSplit && onSplit}
+                onReplace={isOnSplit && onReplace}
                 onChange={value => handleOnChange(value)}
             />;
-        }else{
+        } else {
             return <RichText
-                identifier={contentAttribute}
                 tagName={tagName}
                 value={content}
                 placeholder={placeholder}

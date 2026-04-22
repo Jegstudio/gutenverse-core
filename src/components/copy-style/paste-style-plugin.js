@@ -6,8 +6,9 @@ import { store as noticesStore } from '@wordpress/notices';
 import { useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { store as blockEditorStore } from '@wordpress/block-editor';
+import { getBlockType } from '@wordpress/blocks';
 import cryptoRandomString from 'crypto-random-string';
-import { getAllGutenverseBlock } from './copy-style-plugin';
+import { getAllGutenverseBlock, getCopyableAttributes } from './copy-style-plugin';
 import { GradientIconPasteSVG } from 'gutenverse-core/icons';
 
 const BlockSettingMenuPaste = () => {
@@ -41,21 +42,34 @@ const BlockSettingMenuPaste = () => {
                     .readText()
                     .then(text => {
                         const data = JSON.parse(text);
-                        const { gutenverse, type, attributes } = data;
+                        const { gutenverse, type, styleGroup, attributes } = data;
 
                         if (gutenverse) {
                             const block = getSelectedBlock();
                             const { clientId, name } = block;
+                            const blockDetail = getBlockType(name);
+                            const targetStyleGroup = blockDetail?.styleGroup;
+                            const targetAttributes = blockDetail?.attributes || {};
+                            const copyableAttributes = getCopyableAttributes(targetAttributes);
+                            const filteredAttributes = Object.keys(attributes || {}).reduce((result, key) => {
+                                if (copyableAttributes[key]) {
+                                    result[key] = attributes[key];
+                                }
 
-                            if (name === type) {
+                                return result;
+                            }, {});
+                            const canPasteSameType = name === type;
+                            const canPasteSameGroup = !canPasteSameType && !!styleGroup && styleGroup === targetStyleGroup;
+
+                            if (canPasteSameType || canPasteSameGroup) {
                                 updateBlockAttributes(clientId, {
-                                    ...attributes,
+                                    ...filteredAttributes,
                                     refreshStyleId: 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' })
                                 });
 
                                 showNotice(__('Gutenverse Style Pasted', '--gctd--'));
                             } else {
-                                showNotice(__('Failed! Please paste style to same block type', '--gctd--'));
+                                showNotice(__('Failed! Please paste style to the same block type or compatible style group', '--gctd--'));
                             }
                         }
                     })

@@ -14,6 +14,8 @@ export { FluidCanvasSave as FluidCanvasSave } from './fluid-canvas/fluid-canvas'
 export { default as RichTextComponent } from './richtext/RichTextComponent';
 export { default as CopyElementToolbar } from './copy-toolbar/copy-element-toolbar';
 export { default as Notice } from './notice/index';
+export { default as GutenverseColorPicker } from './color-picker/index';
+export { default as LibraryModal } from './library/library-modal';
 
 /* Skeleton */
 export { default as Skeleton } from './skeleton/skeleton';
@@ -43,6 +45,7 @@ export { default as CardPro } from './pro/card-pro';
 export { default as PopupPro } from './pro/popup-pro';
 export { default as PopupInstallPlugin } from './pro/popup-install-plugin';
 export { default as PopupInsufficientTier } from './pro/popup-insufficient-tier';
+export { default as DefaultLayout } from '../controls/controls/locked/default-layout';
 
 /**Editor Component */
 export { default as VideoPreviewer } from './editor/video-previewer';

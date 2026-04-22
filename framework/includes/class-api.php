@@ -103,7 +103,7 @@ class Api {
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'modify_global_variable' ),
-				'permission_callback' => 'gutenverse_permission_check_admin',
+				'permission_callback' => 'gutenverse_permission_change_global_variable',
 			)
 		);
 
@@ -495,7 +495,6 @@ class Api {
 		}
 
 		$dev_param = $request->get_param( 'dev' );
-			$this->update_library_data();
 
 		if ( 'true' === $dev_param ) {
 			$this->update_library_data();
@@ -516,11 +515,15 @@ class Api {
 	 */
 	public function install_theme( $request ) {
 		$theme = $this->gutenverse_api_esc_data( $request->get_param( 'slug' ), 'string' );
-		$info  = $this->gutenverse_api_esc_data( $request->get_param( 'info' ), 'string' );
+		$info  = esc_url_raw( $request->get_param( 'info' ) );
 		$key   = $this->gutenverse_api_esc_data( $request->get_param( 'key' ), 'string' );
 
 		if ( empty( $info ) ) {
 			$info = GUTENVERSE_FRAMEWORK_LIBRARY_URL . '/wp-json/gutenverse-server/v1/theme/information';
+		}
+
+		if ( ! wp_http_validate_url( $info ) ) {
+			return false;
 		}
 
 		$request = wp_remote_post(
@@ -599,13 +602,13 @@ class Api {
 	/**
 	 * Theme Data Manipulator
 	 *
-	 * since core v2.3.3
+	 * Since core v2.3.3.
 	 *
 	 * @param array $content .
 	 */
 	public function theme_data_manipulator( $content ) {
-		$current_theme        = wp_get_theme();
-		$current_slug = $current_theme->get_stylesheet();
+		$current_theme = wp_get_theme();
+		$current_slug  = $current_theme->get_stylesheet();
 		if ( $current_theme->parent() ) {
 			$current_slug = $current_theme->parent()->get_stylesheet();
 		}
@@ -615,20 +618,20 @@ class Api {
 		$pro_related_item   = null;
 		$other_items        = array();
 
-		// Loop over existing themes
+		// Loop over existing themes.
 		foreach ( $themes as $theme ) {
 
 			$slug   = $theme['data']['slug'] ?? '';
 			$pro_of = $theme['data']['theme_pro_of'] ?? array();
 
-			// 1. Current theme found in array
+			// 1. Current theme found in array.
 			if ( $slug === $current_slug ) {
 				$theme['data']['current_used'] = true;
 				$current_theme_item            = $theme;
 				continue;
 			}
 
-			// 2. Theme referencing current slug
+			// 2. Theme referencing current slug.
 			if ( is_array( $pro_of ) && in_array( $current_slug, $pro_of, true ) ) {
 				$pro_related_item = $theme;
 				continue;
@@ -641,7 +644,7 @@ class Api {
 		// 4. If current theme NOT in array: create new theme item
 		if ( ! $current_theme_item ) {
 
-			// Screenshot (URL or empty string)
+			// Screenshot (URL or empty string).
 			$screenshot = $current_theme->get_screenshot();
 
 			$current_theme_item = array(
@@ -653,8 +656,8 @@ class Api {
 					'name'         => $current_theme->get( 'Name' ),
 					'version'      => $current_theme->get( 'Version' ),
 					'current_used' => true,
-					'tier'		   => [''],
-					// Add screenshot as cover
+					'tier'         => array(),
+					// Add screenshot as cover.
 					'cover'        => array(
 						$screenshot,
 						0,
@@ -671,7 +674,7 @@ class Api {
 			);
 		}
 
-		// Build final sorted array
+		// Build final sorted array.
 		$final = array();
 
 		$final[] = $current_theme_item;      // 1. Current theme always first
@@ -1770,7 +1773,7 @@ class Api {
 	 * @param object $request images.
 	 */
 	public function import_images( $request ) {
-		$image = $request->get_param( 'imageUrl' );
+		$image = esc_url_raw( $request->get_param( 'imageUrl' ) );
 
 		$data = $this->check_image_exist( $image );
 		if ( ! $data ) {
@@ -1821,42 +1824,90 @@ class Api {
 	 * @return int|null
 	 */
 	public function handle_file( $url ) {
-		$file_name = basename( $url );
-		$upload    = wp_upload_bits( $file_name, null, '' );
-		$this->fetch_file( $url, $upload['file'] );
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		WP_Filesystem();
+		global $wp_filesystem;
 
-		if ( $upload['file'] ) {
-			$file_loc  = $upload['file'];
-			$file_name = basename( $upload['file'] );
-			$file_type = wp_check_filetype( $file_name );
-
-			$attachment = array(
-				'post_mime_type' => $file_type['type'],
-				'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $file_name ) ),
-				'post_content'   => '',
-				'post_status'    => 'inherit',
-			);
-
-			include_once ABSPATH . 'wp-admin/includes/image.php';
-			$attach_id = wp_insert_attachment( $attachment, $file_loc );
-			update_post_meta( $attach_id, '_import_source', $url );
-
-			try {
-				$attach_data = wp_generate_attachment_metadata( $attach_id, $file_loc );
-				wp_update_attachment_metadata( $attach_id, $attach_data );
-			} catch ( \Exception $e ) {
-				$this->handle_exception( $e );
-			} catch ( \Throwable $t ) {
-				$this->handle_exception( $e );
-			}
-
-			return array(
-				'id'  => $attach_id,
-				'url' => $upload['url'],
-			);
-		} else {
+		$upload_dir = wp_upload_dir();
+		if ( ! empty( $upload_dir['error'] ) ) {
 			return null;
 		}
+
+		$dir       = $upload_dir['path'];
+		$base_url  = $upload_dir['url'];
+		$safe_name = wp_generate_uuid4() . '.tmp';
+		$tmp_path  = $dir . '/' . $safe_name;
+		$tmp_url   = $base_url . '/' . $safe_name;
+
+		if ( ! $this->fetch_file( $url, $tmp_path ) ) {
+			if ( $wp_filesystem->exists( $tmp_path ) ) {
+				$wp_filesystem->delete( $tmp_path );
+			}
+			return null;
+		}
+
+		if ( ! $wp_filesystem->exists( $tmp_path ) ) {
+			return null;
+		}
+
+		$file_loc = $tmp_path;
+
+		// Validate MIME from actual file contents, not from URL extension.
+		$mime_type     = mime_content_type( $file_loc );
+		$allowed_mimes = array( 'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml' );
+		if ( ! in_array( $mime_type, $allowed_mimes, true ) ) {
+			$wp_filesystem->delete( $file_loc );
+			return null;
+		}
+
+		// For SVG, extra safety.
+		if ( 'image/svg+xml' === $mime_type ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			$svg_content = file_get_contents( $file_loc );
+			if ( ! gutenverse_is_svg_safe( $svg_content ) ) {
+				$wp_filesystem->delete( $file_loc );
+				return null;
+			}
+		}
+
+		// Rename .tmp file to the proper extension derived from validated MIME.
+		$ext_map    = array(
+			'image/jpeg'    => 'jpg',
+			'image/png'     => 'png',
+			'image/gif'     => 'gif',
+			'image/webp'    => 'webp',
+			'image/svg+xml' => 'svg',
+		);
+		$ext        = $ext_map[ $mime_type ];
+		$final_name = wp_generate_uuid4() . '.' . $ext;
+		$final_path = $dir . '/' . $final_name;
+		$final_url  = $base_url . '/' . $final_name;
+		$wp_filesystem->move( $file_loc, $final_path );
+
+		$attachment = array(
+			'post_mime_type' => $mime_type,
+			'post_title'     => $final_name,
+			'post_content'   => '',
+			'post_status'    => 'inherit',
+		);
+
+		include_once ABSPATH . 'wp-admin/includes/image.php';
+		$attach_id = wp_insert_attachment( $attachment, $final_path );
+		update_post_meta( $attach_id, '_import_source', $url );
+
+		try {
+			$attach_data = wp_generate_attachment_metadata( $attach_id, $final_path );
+			wp_update_attachment_metadata( $attach_id, $attach_data );
+		} catch ( \Exception $e ) {
+			$this->handle_exception( $e );
+		} catch ( \Throwable $t ) {
+			$this->handle_exception( $t );
+		}
+
+		return array(
+			'id'  => $attach_id,
+			'url' => $final_url,
+		);
 	}
 
 	/**
@@ -1878,15 +1929,16 @@ class Api {
 	 * @return array|bool
 	 */
 	public function fetch_file( $url, $file_path, $endpoint = '' ) {
-		$http     = new \WP_Http();
-		$response = $http->get(
+		if ( ! wp_http_validate_url( $url ) ) {
+			return false;
+		}
+
+		$response = wp_safe_remote_get(
 			add_query_arg(
-				array(
-					'framework_version' => GUTENVERSE_FRAMEWORK_VERSION,
-					'sslverify'         => false,
-				),
+				array( 'framework_version' => GUTENVERSE_FRAMEWORK_VERSION ),
 				$url
-			)
+			),
+			array( 'timeout' => 30 )
 		);
 
 		if ( is_wp_error( $response ) ) {
@@ -2005,8 +2057,8 @@ class Api {
 			}
 
 			return array(
-				'status' => 200,
-				'redirect' => $target_redirect
+				'status'   => 200,
+				'redirect' => $target_redirect,
 			);
 		}
 

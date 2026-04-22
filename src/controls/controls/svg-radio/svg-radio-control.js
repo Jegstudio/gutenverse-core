@@ -39,11 +39,9 @@ const SVGRadioControl = props => {
         }
     };
 
-
     const activeIndex = options.findIndex(opt => opt.value === value);
-    const highlightWidth = 100 / options.length;
     const highlightStyle = {
-        width: `calc(${highlightWidth}% - 2px )`,
+        width: `calc((100% - 8px) / ${options.length})`,
         transform: `translateX(${activeIndex * 100}%)`,
         transition: 'transform 0.3s ease',
     };
@@ -66,7 +64,6 @@ const SVGRadioControl = props => {
                             <Tooltip text={item.tooltips || item.value} key={item.value}>
                                 <label className={`${isActive ? 'active locked' : 'locked'}`}>
                                     <input
-                                        id={`${id}-radio-svg`}
                                         onClick={() => handleLearnMoreClick()}
                                         type={'radio'}
                                         value={item.value}
@@ -87,7 +84,6 @@ const SVGRadioControl = props => {
                             <Tooltip text={item.tooltips || item.value} key={item.value}>
                                 {applyFilters('gutenverse.radio-control', <label className={`${isActive ? 'active locked' : 'locked'}`}>
                                     <input
-                                        id={`${id}-radio-svg`}
                                         onClick={() => openUpgradeLink()}
                                         type={'radio'}
                                         value={item.value}
@@ -107,7 +103,6 @@ const SVGRadioControl = props => {
                         <Tooltip text={item.tooltips || item.value} key={item.value}>
                             <label className={`${isActive ? 'active' : ''}`}>
                                 <input
-                                    id={`${id}-radio-svg`}
                                     onClick={() => onChange(item.value)}
                                     type={'radio'}
                                     value={item.value}

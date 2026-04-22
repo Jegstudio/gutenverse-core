@@ -1,4 +1,5 @@
 import { variableFontName } from 'gutenverse-core/helper';
+import { select } from '@wordpress/data';
 
 export const typographyCSS = (attribute) => {
     let typography = {
@@ -6,7 +7,7 @@ export const typographyCSS = (attribute) => {
         'Tablet': [],
         'Mobile': [],
     };
-
+    const { fonts } = select('gutenverse/global-style')?.getVariable();
     const {
         font,
         size,
@@ -21,20 +22,53 @@ export const typographyCSS = (attribute) => {
     } = attribute;
 
     if (type === 'variable') {
-        typography.Desktop.push(`font-family: var(${variableFontName(id, 'family')});`);
-        typography.Desktop.push(`font-size: var(${variableFontName(id, 'size')});`);
-        typography.Tablet.push(`font-size: var(${variableFontName(id, 'size')});`);
-        typography.Mobile.push(`font-size: var(${variableFontName(id, 'size')});`);
-        typography.Desktop.push(`line-height: var(${variableFontName(id, 'lineHeight')});`);
-        typography.Tablet.push(`line-height: var(${variableFontName(id, 'lineHeight')});`);
-        typography.Mobile.push(`line-height: var(${variableFontName(id, 'lineHeight')});`);
-        typography.Desktop.push(`font-weight: var(${variableFontName(id, 'weight')});`);
-        typography.Desktop.push(`text-transform: var(${variableFontName(id, 'transform')});`);
-        typography.Desktop.push(`font-style: var(${variableFontName(id, 'style')});`);
-        typography.Desktop.push(`text-decoration: var(${variableFontName(id, 'decoration')});`);
-        typography.Desktop.push(`letter-spacing: var(${variableFontName(id, 'spacing')});`);
-        typography.Tablet.push(`letter-spacing: var(${variableFontName(id, 'spacing')});`);
-        typography.Mobile.push(`letter-spacing: var(${variableFontName(id, 'spacing')});`);
+        const globalFont = fonts.find(el => el.id === id);
+        const fontData = globalFont?.font;
+        if (fontData?.font) {
+            typography.Desktop.push(`font-family: var(${variableFontName(id, 'family')});`);
+        }
+
+        if (fontData?.size) {
+            typography.Desktop.push(`font-size: var(${variableFontName(id, 'size')});`);
+            typography.Tablet.push(`font-size: var(${variableFontName(id, 'size')});`);
+            typography.Mobile.push(`font-size: var(${variableFontName(id, 'size')});`);
+        }
+
+        if (fontData?.lineHeight) {
+            const lineH = fontData?.lineHeight;
+            if (lineH?.Desktop?.unit && lineH?.Desktop?.point) {
+                typography.Desktop.push(`line-height: var(${variableFontName(id, 'lineHeight')});`);
+            }
+            if (lineH?.Desktop?.unit && lineH?.Tablet?.point) {
+                typography.Tablet.push(`line-height: var(${variableFontName(id, 'lineHeight')});`);
+            }
+            if (lineH?.Desktop?.unit && lineH?.Mobile?.point) {
+                typography.Mobile.push(`line-height: var(${variableFontName(id, 'lineHeight')});`);
+            }
+        }
+
+        if (fontData?.weight) {
+            typography.Desktop.push(`font-weight: var(${variableFontName(id, 'weight')});`);
+        }
+
+        if (fontData?.transform) {
+            typography.Desktop.push(`text-transform: var(${variableFontName(id, 'transform')});`);
+        }
+
+        if (fontData?.style) {
+            typography.Desktop.push(`font-style: var(${variableFontName(id, 'style')});`);
+        }
+
+        if (fontData?.decoration) {
+            typography.Desktop.push(`text-decoration: var(${variableFontName(id, 'decoration')});`);
+        }
+
+        if (fontData?.spacing) {
+            typography.Desktop.push(`letter-spacing: var(${variableFontName(id, 'spacing')});`);
+            typography.Tablet.push(`letter-spacing: var(${variableFontName(id, 'spacing')});`);
+            typography.Mobile.push(`letter-spacing: var(${variableFontName(id, 'spacing')});`);
+        }
+
         return typography;
     } else {
         if (font) {

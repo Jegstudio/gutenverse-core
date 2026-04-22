@@ -1,35 +1,35 @@
 import { applyFilters } from '@wordpress/hooks';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { IconCrownBannerSVG, IconCrownSVG, IconKeySVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, IconKeySVG } from 'gutenverse-core/icons';
 import isEmpty from 'lodash/isEmpty';
 import { ButtonUpgradePro } from 'gutenverse-core/components';
 import { activeTheme, clientUrl } from 'gutenverse-core/config';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
-        upgradeProUrl, adminUrl, eventBanner
+        upgradeProUrl, adminUrl, eventBanner, adsBannerThemeTF
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const eventData = eventBanner;
     const today = new Date();
     const expired = new Date(eventData?.expired);
     const ButtonProSecond = applyFilters('gutenverse.button.pro.library', () => {
         if (isEmpty(window?.gprodata)) {
-            if ( location !== 'dashboard-navigation' ){
+            if (location !== 'dashboard-navigation') {
                 return <a href={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /></a>;
             }
         } else {
-            if ( location !== 'dashboard-navigation' ){
+            if (location !== 'dashboard-navigation') {
                 return applyFilters('gutenverse.button.pro.banner',
-                    <a href={adminUrl + 'admin.php?page=gutenverse&path=license'} target="_blank" rel="noreferrer" className="guten-pro-bottom-button"> {__('Activate License', 'gutenverse-pro')} <IconKeySVG fill={'white'} transform={'translate(0,4)'}/></a>,
-                    <a href={adminUrl + 'admin.php?page=gutenverse&path=license'} target="_blank" rel="noreferrer" className="guten-pro-bottom-button"> {__('Renew License', 'gutenverse-pro')} <IconKeySVG fill={'white'} transform={'translate(0,4)'}/></a>,
+                    <a href={adminUrl + 'admin.php?page=gutenverse&path=license'} target="_blank" rel="noreferrer" className="guten-pro-bottom-button"> {__('Activate License', 'gutenverse-pro')} <IconKeySVG fill={'white'} transform={'translate(0,4)'} /></a>,
+                    <a href={adminUrl + 'admin.php?page=gutenverse&path=license'} target="_blank" rel="noreferrer" className="guten-pro-bottom-button"> {__('Renew License', 'gutenverse-pro')} <IconKeySVG fill={'white'} transform={'translate(0,4)'} /></a>,
                     <></>,
                     null,
                     []
                 );
             }
-        } 
-    }, {location,isBanner : true});
+        }
+    }, { location, isBanner: true });
     return applyFilters(
         'gutenverse.panel.tab.pro.content',
         (
@@ -38,9 +38,16 @@ const PanelTabPro = ({ activeTab }) => {
                     <>
                         <div className="guten-pro-themes-wrapper">
                             {
-                                ( eventData && today <= expired ) && <div className="event-banner-wrapper guten-card-pro-wrapper">
+                                (eventData && today <= expired) && <div className="event-banner-wrapper guten-card-pro-wrapper">
                                     <a href={eventData?.url} target="_blank" rel="noreferrer" >
-                                        <img src={eventData?.bannerSidePanel} alt="event-banner"/>
+                                        <img src={eventData?.bannerSidePanel} alt="event-banner" />
+                                    </a>
+                                </div>
+                            }
+                            {
+                                (adsBannerThemeTF && today <= new Date(adsBannerThemeTF?.fse_dashboard?.expired)) && <div className="event-banner-wrapper">
+                                    <a href={`${adsBannerThemeTF?.fse_dashboard?.url}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} target="_blank" rel="noreferrer" >
+                                        <img src={adsBannerThemeTF?.fse_dashboard?.img} alt="event-banner" />
                                     </a>
                                 </div>
                             }
@@ -58,7 +65,7 @@ const PanelTabPro = ({ activeTab }) => {
                                         <img className="guten-card-pro-blink" src={window['GutenverseConfig'].imgDir + '/banner-graphic-blink.png'} alt="Guten Card Pro Blink" />
                                     </div>
                                     <img className="guten-card-pro-arrow" src={window['GutenverseConfig'].imgDir + '/banner-arrow-blue.png'} alt="Guten Card Pro Arrow" />
-                                    <ButtonUpgradePro isBanner={true} location = "card-pro" link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}/>
+                                    <ButtonUpgradePro isBanner={true} location="card-pro" link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} />
                                 </div>
                             </div>
                             <div className="guten-pro-advance-animation-banner guten-pro-themes-full">
@@ -153,7 +160,7 @@ const PanelTabPro = ({ activeTab }) => {
                                 <p>Unlock the endless possibilities of the WordPress Editor with Gutenverse PRO.</p>
                                 <img className="guten-pro-bottom-background" src={window['GutenverseConfig'].imgDir + '/pro/CTA/bg-cta.png'} />
                                 <div className="guten-pro-bottom-button-wrapper">
-                                    <ButtonProSecond/>
+                                    <ButtonProSecond />
                                 </div>
                             </div>
                         </div>

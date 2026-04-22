@@ -1,6 +1,7 @@
 {
 	"apiVersion": 3,
 	"name": "gutenverse/section",
+	"class_callback": "\\Gutenverse\\Framework\\Block\\Section",
 	"title": "Section",
 	"description": "Add a section to wrap several blocks or column.",
 	"category": "gutenverse-structure",

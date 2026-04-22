@@ -19,6 +19,10 @@
         bottom: 0;
     }
   }
+  /** Fix fluid canvas doesn't have padding in frontend different from editor*/
+  canvas{
+    padding: inherit;
+  }
 
   &.sticky-bottom.sticky-desktop, &.sticky-top.sticky-desktop {
     height: fit-content;

@@ -3,6 +3,34 @@
 @import "icon-popup";
 @import "react-datepicker/src/stylesheets/datepicker";
 
+.global-slug-tooltip-description {
+  display: block;
+  white-space: normal;
+  overflow-wrap: break-word;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #0f243a;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.5;
+  position: absolute;
+  top: calc(100% + 8px);
+  width: 210px;
+  z-index: 3;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-18px) translateY(-4px) scale(0.96);
+  transform-origin: top center;
+  transition: opacity 140ms ease, transform 140ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 140ms;
+  text-align: left;
+
+  &.form {
+    transform: translateX(-9px) translateY(-4px) scale(0.96);
+    width: 225px;
+  }
+}
+
 .repeater-item {
   border: 1px solid #e3e4e6;
   margin-bottom: 10px;
@@ -206,7 +234,7 @@
     /** Alert **/
     &alert {
       .control-body {
-        padding: 16px;
+        padding: 16px 30px 16px 16px;
         background-color: #f9f9ff;
         align-items: flex-start;
         border: 1px solid #e3e4e6;
@@ -988,6 +1016,7 @@
       display: flex !important;
       justify-content: space-between;
       align-items: center;
+      gap: 15px;
 
       &.section-background {
         .control-title {
@@ -1103,12 +1132,13 @@
         overflow: hidden;
         padding: 4px;
         border: 1px solid #E3E4E6;
+        z-index: 0;
 
         .svg-radio-highlight {
           position: absolute;
           top: 4px;
           bottom: 4px;
-          left: 4px; 
+          left: 4px;
           background-color: #fff;
           border-radius: 3px;
           z-index: 1;
@@ -1310,6 +1340,7 @@
 
         .gutenverse-color-variable-body {
           padding: 10px;
+          position: relative;
 
           h4 {
             margin-bottom: 4px;
@@ -1318,11 +1349,26 @@
             text-transform: uppercase;
             letter-spacing: 0px;
           }
+
+
         }
 
         .gutenverse-color-variable-content {
-          display: flex;
-          flex-wrap: wrap;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+
+          .empty-variable {
+            grid-column: 1 / -1;
+            border: 1px dashed #b2b2b2;
+            padding: 20px 10px;
+            text-align: center;
+            color: #a9a9a9;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px auto;
+            display: block;
+            width: 100%;
+          }
 
           .variable-color-item {
             display: flex;
@@ -1346,6 +1392,24 @@
                 width: 22px;
                 height: 22px;
                 border-radius: 2px;
+              }
+            }
+
+            &.add-global-button {
+              .render-color {
+                transition: background .1s linear;
+
+                &:hover {
+                  background: rgb(246, 246, 246);
+                }
+
+                .add-global {
+                  font-size: 16px;
+                  line-height: 1;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
               }
             }
 
@@ -1387,13 +1451,17 @@
 
       .control-color-display {
         position: relative;
-        z-index: 999;
+        z-index: 0;
         background: #fff;
         border: 1px solid #e6e6ef;
         display: block;
         margin-top: 10px;
         border-radius: 3px;
         width: 100%;
+
+        .additional-margin {
+          margin: 0px 8px;
+        }
 
         .chrome-picker {
           width: 100% !important;
@@ -1419,6 +1487,221 @@
             svg {
               width: 14px;
             }
+          }
+        }
+      }
+    }
+
+    &color,
+    &typography {
+      .gutenverse-control-heading {
+        .action-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 15px;
+        }
+      }
+
+      .add-global-popup-wrapper {
+        background-color: rgba(0, 0, 0, 0.88);
+        position: absolute;
+        width: 100%;
+        height: 470px;
+        z-index: 10;
+        bottom: 0;
+
+        &.for-font {
+          left: 0;
+          height: 600px;
+        }
+      }
+
+      .single-variable-item-wrapper.add-global-popup {
+        border: 1px solid #cecece;
+        background: white;
+        position: absolute;
+        width: 95%;
+        padding: 10px;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        justify-self: center;
+        margin-top: 5px;
+
+        .gutenverse-control-alert.warning {
+          border: 1px solid #EEE4BD;
+          background: #FFF9E2;
+          border-radius: 5px;
+          margin: 6px 0px;
+
+          .control-body {
+            padding: 10px;
+            font-size: 12px;
+            line-height: 1.3em;
+            display: flex;
+            align-items: top;
+          }
+
+          .control-icon {
+            margin: 1px 6px 0 0;
+          }
+        }
+
+        .form-add-global {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          margin-bottom: 6px;
+
+          .global-slug-tooltip-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover .global-slug-tooltip-description,
+            &:focus-within .global-slug-tooltip-description {
+              opacity: 1;
+              visibility: visible;
+              transform: translateX(-18px) translateY(0) scale(1);
+              transition-delay: 0s;
+
+              &.form {
+                transform: translateX(-9px) translateY(-4px) scale(0.96);
+              }
+            }
+          }
+
+          .global-slug-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: fit-content;
+          }
+
+          .global-slug-tooltip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #3B57F7;
+
+            svg {
+              width: 15px;
+              height: 15px;
+              display: block;
+
+              path {
+                transform: translateY(1px);
+              }
+            }
+
+            &:hover {
+              color: #2744eb;
+            }
+          }
+
+          .global-name {
+            max-height: 28px;
+          }
+
+          input[type=text] {
+            border-radius: 5px;
+
+            &.duplicate {
+              border: 1px solid #FFC908;
+            }
+          }
+        }
+
+        .add-global-form-actions {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          gap: 5px;
+          margin-top: 6px;
+
+          .icon-close,
+          .icon-save {
+            width: 100%;
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #cecece;
+            cursor: pointer;
+            border-radius: 5px;
+
+            svg {
+              width: 10px;
+              height: 10px;
+            }
+
+          }
+
+          .icon-save {
+            background-color: #3B57F7;
+            color: white;
+            border: none;
+            transition: background-color .3s ease;
+
+            &:hover {
+              background-color: #0c2ff7;
+            }
+
+            &.disabled {
+              background-color: #99A2A9;
+              cursor: not-allowed;
+            }
+          }
+
+          .icon-close {
+            transition: all .3s ease;
+
+            &:hover {
+              border: 1px solid #3B57F7;
+              color: #3B57F7;
+            }
+          }
+        }
+      }
+
+      .gutenverse-control-alert {
+        .control-body {
+          background-color: rgba(244, 94, 94, .2);
+          border: none;
+
+          .control-icon {
+            margin-top: 2px;
+          }
+
+          .control-alert span {
+            color: #40505D;
+          }
+        }
+
+        &.warning {
+          .control-body {
+            background-color: #fff9e2ca;
+
+            .control-icon {
+              svg {
+                fill: #FFC908 !important;
+              }
+            }
+          }
+        }
+
+        &.danger {
+          .control-icon {
+            svg {
+              fill: red !important;
+            }
+          }
+
+          .control-alert span {
+            color: red !important;
           }
         }
       }
@@ -1509,17 +1792,15 @@
         background: #fff;
 
         .variable-font-empty {
-          position: relative;
-          padding: 50px 0;
-          top: 0;
-          left: 0;
-          transform: none;
-
-          span {
-            padding: 10px 15px;
-            color: #8181a5;
-            display: block;
-          }
+          border: 1px dashed #b2b2b2;
+          padding: 20px 10px;
+          text-align: center;
+          color: #a9a9a9;
+          border-radius: 4px;
+          cursor: pointer;
+          margin: 10px auto;
+          display: block;
+          width: 90%;
         }
 
         .gutenverse-font-variable-header {
@@ -2248,6 +2529,44 @@
     &gradient {
       &>* {
         display: block;
+      }
+
+      .control-color-display {
+        position: relative;
+        z-index: 0;
+        background: #fff;
+        border: 1px solid #e6e6ef;
+        display: block;
+        margin-top: 10px;
+        border-radius: 3px;
+        width: 100%;
+
+        .chrome-picker {
+          width: 100% !important;
+          box-shadow: none !important;
+        }
+
+        .gutenverse-control-heading {
+          display: flex;
+          padding: 10px 15px 10px;
+          align-items: center;
+          margin-bottom: 0 !important;
+
+          h2 {
+            flex-grow: 1;
+            margin: 0;
+            font-size: 13px;
+          }
+
+          span {
+            cursor: pointer;
+            display: flex;
+
+            svg {
+              width: 14px;
+            }
+          }
+        }
       }
 
       .gp {

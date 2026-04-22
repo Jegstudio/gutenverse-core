@@ -89,7 +89,9 @@ class Options {
 	 */
 	public function get_image_load( $old_option = 'lazy', $old_option_value = false, $attr = '' ) {
 		if ( isset( $attr ) && ! empty( $attr ) ) {
-			return $attr;
+			if ( in_array( $attr, array( 'lazy', 'eager' ), true ) ) {
+				return $attr;
+			}
 		}
 		if ( ! $old_option ) {
 			return $this->default_image_load;

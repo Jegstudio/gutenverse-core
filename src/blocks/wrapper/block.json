@@ -1,6 +1,7 @@
 {
 	"apiVersion": 3,
 	"name": "gutenverse/wrapper",
+	"class_callback": "\\Gutenverse\\Framework\\Block\\Wrapper",
 	"title": "Flexible Wrapper",
 	"description": "Flexible Wrapper / Container to contain your block",
 	"category": "gutenverse-structure",

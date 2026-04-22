@@ -10,14 +10,16 @@ const TextControl = ({
     label,
     allowDeviceControl,
     placeholder = '',
-    value = allowDeviceControl ? {} : '',
+    value = '',
     onValueChange,
     description = '',
-    liveUpdate = false,
 }) => {
     const id = useInstanceId(TextControl, 'inspector-text-control');
 
-    const [localValue, setLocalValue] = useState(value);
+    // Ensure value is always a string for the input
+    const stringValue = (value === undefined || value === null) ? '' : String(value);
+
+    const [localValue, setLocalValue] = useState(stringValue);
     const deferredValue = useDeferredValue(localValue);
     const isFirstRender = useRef(true);
 
@@ -29,12 +31,13 @@ const TextControl = ({
         onValueChange(deferredValue);
     }, [deferredValue]);
 
+    // Sync localValue when external value changes (e.g., device switch)
+    // Only update if the values are actually different to prevent infinite loops
     useEffect(() => {
-        if (!liveUpdate) {
-            return;
+        if (localValue !== stringValue) {
+            setLocalValue(stringValue);
         }
-        setLocalValue(value);
-    }, [value]);
+    }, [stringValue]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-text'}>
         <ControlHeadingSimple
