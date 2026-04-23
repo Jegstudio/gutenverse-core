@@ -33,6 +33,7 @@ export { default as CompositeControl } from './controls/composite/composite-cont
 export { default as SelectControl } from './controls/select/select-control';
 export { default as SelectSearchControl } from './controls/select-search/select-search-control';
 export { default as SelectSortableControl } from './controls/select-sortable/select-sortable-control';
+export { default as ServerSecretControl } from './controls/server-secret/server-secret-control';
 export { default as SizeControl } from './controls/size/size-control';
 export { default as SizeDoubleControl } from './controls/size-double/size-double-control';
 export { default as ElementSelectorControl } from './controls/element-selector/element-selector-control';
