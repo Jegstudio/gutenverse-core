@@ -8,7 +8,7 @@ import { activeTheme, clientUrl } from 'gutenverse-core/config';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
-        upgradeProUrl, adminUrl, eventBanner, adsBannerThemeTF
+        upgradeProUrl, adminUrl, eventBanner, adsBannerThemeTF, is_wporg_theme
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const eventData = eventBanner;
     const today = new Date();
@@ -45,7 +45,7 @@ const PanelTabPro = ({ activeTab }) => {
                                 </div>
                             }
                             {
-                                (adsBannerThemeTF && today <= new Date(adsBannerThemeTF?.fse_dashboard?.expired)) && <div className="event-banner-wrapper">
+                                (!is_wporg_theme && adsBannerThemeTF && today <= new Date(adsBannerThemeTF?.fse_dashboard?.expired)) && <div className="event-banner-wrapper">
                                     <a href={`${adsBannerThemeTF?.fse_dashboard?.url}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} target="_blank" rel="noreferrer" >
                                         <img src={adsBannerThemeTF?.fse_dashboard?.img} alt="event-banner" />
                                     </a>
