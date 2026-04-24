@@ -8,8 +8,8 @@ const LockedNewsAdsControl = () => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-ads gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__('This Feature Available at Professional or Higher Plan', 'gutenverse-pro')}
-            description={__('Elevate your module block by seamlessly inserting ads within the content to improve visibility and enhance user engagement.', 'gutenverse-pro')}
+            title={__('Unlock Ads on Article Lists', 'gutenverse-pro')}
+            description={__('Increase your ad revenue by seamlessly placing advertisements within the post list in your Module block, helping you maximize visibility without disrupting the user experience.', 'gutenverse-pro')}
             img={'/cursor-effect.mp4'}
         />
     </div>;
