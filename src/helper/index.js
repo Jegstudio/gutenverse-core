@@ -294,7 +294,7 @@ export const variableFontName = (id, child) => {
 export const getLastSequence = (items = []) => {
     let largest = 1;
 
-    if (Array.isArray(items)) {
+    if (Array.isArray(items) && isNotEmpty(items)) {
         items.map(item => {
             const arr = /#(\d+)/.exec(item.name);
             if (Array.isArray(arr)) {

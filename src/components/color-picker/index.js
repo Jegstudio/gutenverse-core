@@ -27,7 +27,7 @@ const isSameColor = (a, b) => {
            a.rgb.a === b.rgb.a;
 };
 
-const GutenverseColorPicker = ({ color, onChange, onChangeComplete, disableAlpha }) => {
+const GutenverseColorPicker = ({ color, onChange, onChangeComplete, disableAlpha, classNames }) => {
     const [internalColor, setInternalColor] = useState(safeToIColor(color));
 
     useEffect(() => {
@@ -48,21 +48,23 @@ const GutenverseColorPicker = ({ color, onChange, onChangeComplete, disableAlpha
     };
 
     return (
-        <ColorPicker
-            hideAlpha={disableAlpha}
-            color={internalColor}
-            onChange={(newColor) => {
-                setInternalColor(newColor);
-                if (onChange) {
-                    onChange(normalizeColor(newColor));
-                }
-            }}
-            onChangeComplete={(newColor) => {
-                if (onChangeComplete) {
-                    onChangeComplete(normalizeColor(newColor));
-                }
-            }}
-        />
+        <div className={classNames}>
+            <ColorPicker
+                hideAlpha={disableAlpha}
+                color={internalColor}
+                onChange={(newColor) => {
+                    setInternalColor(newColor);
+                    if (onChange) {
+                        onChange(normalizeColor(newColor));
+                    }
+                }}
+                onChangeComplete={(newColor) => {
+                    if (onChangeComplete) {
+                        onChangeComplete(normalizeColor(newColor));
+                    }
+                }}
+            />
+        </div>
     );
 };
 

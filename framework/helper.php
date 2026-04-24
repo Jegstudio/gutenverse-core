@@ -84,6 +84,10 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 			// Descriptive.
 			'title',
 			'desc',
+			// Others.
+			'image',
+			'style',
+			'use',
 		);
 
 		$allowed_attributes = array(
@@ -251,15 +255,132 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 			'role',
 			'focusable',
 			'xml:space',
+			// Others.
+			'href',
+			'xlink:href',
 		);
 
 		$xpath = new DOMXPath( $dom );
+		$allowed_style_properties = array(
+			'fill',
+			'fill-opacity',
+			'fill-rule',
+			'stroke',
+			'stroke-dasharray',
+			'stroke-dashoffset',
+			'stroke-linecap',
+			'stroke-linejoin',
+			'stroke-miterlimit',
+			'stroke-opacity',
+			'stroke-width',
+			'color',
+			'opacity',
+			'paint-order',
+			'display',
+			'visibility',
+			'overflow',
+			'clip-rule',
+			'flood-color',
+			'flood-opacity',
+			'lighting-color',
+			'color-interpolation',
+			'color-interpolation-filters',
+			'stop-color',
+			'stop-opacity',
+			'shape-rendering',
+			'image-rendering',
+			'text-rendering',
+			'color-rendering',
+			'vector-effect',
+			'font-family',
+			'font-size',
+			'font-style',
+			'font-variant',
+			'font-weight',
+			'font-stretch',
+			'font-size-adjust',
+			'text-anchor',
+			'text-decoration',
+			'letter-spacing',
+			'word-spacing',
+			'dominant-baseline',
+			'alignment-baseline',
+			'baseline-shift',
+			'direction',
+			'writing-mode',
+			'unicode-bidi',
+		);
 
 		// Check all elements: normalize to lowercase and reject non-allowlisted.
 		foreach ( $xpath->query( '//*' ) as $node ) {
 			$tag_name = strtolower( $node->localName );
 			if ( ! in_array( $tag_name, $allowed_elements, true ) ) {
 				return false;
+			}
+
+			if ( 'style' === $tag_name ) {
+				$css = trim( $node->textContent );
+
+				// Empty style tags are harmless.
+				if ( '' === $css ) {
+					continue;
+				}
+
+				// Reject at-rules, external/resource-loading functions, and known script-like CSS payloads.
+				if ( preg_match( '/@|url\s*\(|expression\s*\(|behavior\s*:|-moz-binding|javascript:|vbscript:|data:/i', $css ) ) {
+					return false;
+				}
+
+				preg_match_all( '/([^{}]+)\{([^{}]*)\}/', $css, $css_rules, PREG_SET_ORDER );
+
+				// Ensure the CSS is composed only of flat selector/declaration rules.
+				if ( empty( $css_rules ) || trim( preg_replace( '/([^{}]+)\{([^{}]*)\}/', '', $css ) ) !== '' ) {
+					return false;
+				}
+
+				foreach ( $css_rules as $css_rule ) {
+					$selector_block = trim( $css_rule[1] );
+					$declaration_block = trim( $css_rule[2] );
+
+					if (
+						'' === $selector_block ||
+						'' === $declaration_block ||
+						! preg_match( '/^[a-z0-9_\-\.\#\s,\>\+\~\:\*\[\]="\']+$/i', $selector_block )
+					) {
+						return false;
+					}
+
+					$declarations = array_filter(
+						array_map( 'trim', explode( ';', $declaration_block ) ),
+						static function ( $declaration ) {
+							return '' !== $declaration;
+						}
+					);
+
+					if ( empty( $declarations ) ) {
+						return false;
+					}
+
+					foreach ( $declarations as $declaration ) {
+						$parts = array_map( 'trim', explode( ':', $declaration, 2 ) );
+
+						if ( 2 !== count( $parts ) ) {
+							return false;
+						}
+
+						$property = strtolower( $parts[0] );
+						$value    = $parts[1];
+
+						if (
+							! in_array( $property, $allowed_style_properties, true ) ||
+							'' === $value ||
+							preg_match( '/[{}<>]/', $value ) ||
+							preg_match( '/url\s*\(|expression\s*\(|behavior\s*:|-moz-binding|javascript:|vbscript:|data:/i', $value )
+						) {
+							return false;
+						}
+					}
+				}
 			}
 		}
 
@@ -280,7 +401,7 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 			$attr_value = preg_replace( '/[\x00-\x20\x7F]/', '', $attr->nodeValue );
 
 			// Block dangerous URI schemes in values.
-			if ( preg_match( '/(javascript|data|vbscript):/i', $attr_value ) ) {
+			if ( preg_match( '/^(javascript|vbscript):/i', $attr_value ) ) {
 				return false;
 			}
 
@@ -291,7 +412,21 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 
 			// Restrict href/xlink:href to fragment-only references (#id).
 			if ( 'href' === $attr_name || 'xlink:href' === $attr_name ) {
-				if ( 0 !== strpos( trim( $attr->nodeValue ), '#' ) ) {
+				$href_value = trim( $attr->nodeValue );
+				$owner_tag  = $attr->ownerElement ? strtolower( $attr->ownerElement->localName ) : '';
+
+				// Only <image> may embed base64-encoded raster data URIs.
+				if ( preg_match( '/^data:/i', $href_value ) ) {
+					if (
+						'image' !== $owner_tag ||
+						! preg_match( '/^data:image\/(?:png|gif|jpeg|webp|bmp);base64,[a-z0-9+\/=\s]+$/i', $href_value )
+					) {
+						return false;
+					}
+					continue;
+				}
+
+				if ( 0 !== strpos( $href_value, '#' ) ) {
 					return false;
 				}
 			}
@@ -1726,5 +1861,3 @@ if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
 		return size_format( $total_in_bytes );
 	}
 }
-
-

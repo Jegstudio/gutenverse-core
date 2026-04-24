@@ -144,6 +144,21 @@ class Editor_Assets {
 		$config['activeTheme']              = get_option( 'stylesheet' );
 		$config['supportGlobalImport']      = $this->check_theme_support_global();
 		$config['defaultImageLoad']         = $this->get_default_image_load_option();
+		include_once ABSPATH . 'wp-admin/includes/theme.php';
+
+		$theme = wp_get_theme();
+		$slug  = $theme->get_stylesheet();
+
+		$api = themes_api(
+			'theme_information',
+			array(
+				'slug' => $slug,
+			)
+		);
+
+		if ( ! is_wp_error( $api ) ) {
+			$config['is_wporg_theme'] = true;
+		}
 
 		if ( defined( 'GUTENVERSE' ) ) {
 			$config['oldImagePlaceholder'] = plugins_url( GUTENVERSE ) . '/assets/img/img-placeholder.jpg';

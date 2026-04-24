@@ -244,6 +244,21 @@ class Dashboard {
 		} else {
 			$config['companionActive'] = 'false';
 		}
+		include_once ABSPATH . 'wp-admin/includes/theme.php';
+
+		$theme = wp_get_theme();
+		$slug  = $theme->get_stylesheet();
+
+		$api = themes_api(
+			'theme_information',
+			array(
+				'slug' => $slug,
+			)
+		);
+
+		if ( ! is_wp_error( $api ) ) {
+			$config['is_wporg_theme'] = true;
+		}
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
@@ -596,6 +611,10 @@ class Dashboard {
 					'plugin_version'    => '3.6.0',
 					'framework_version' => '2.6.0',
 				),
+				array(
+					'plugin_version'    => '3.6.1',
+					'framework_version' => '2.6.1',
+				),
 			),
 			'gutenverse-form' => array(
 				array(
@@ -770,6 +789,10 @@ class Dashboard {
 					'plugin_version'    => '2.6.0',
 					'framework_version' => '2.6.0',
 				),
+				array(
+					'plugin_version'    => '2.6.1',
+					'framework_version' => '2.6.1',
+				),
 			),
 			'gutenverse-news' => array(
 				array(
@@ -933,6 +956,10 @@ class Dashboard {
 				array(
 					'plugin_version'    => '2.6.0',
 					'framework_version' => '2.6.0',
+				),
+				array(
+					'plugin_version'    => '2.6.1',
+					'framework_version' => '2.6.1',
 				),
 			),
 		);
