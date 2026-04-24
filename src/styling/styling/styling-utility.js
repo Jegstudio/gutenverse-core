@@ -137,3 +137,12 @@ export const canRenderTransform = (transform) => {
 
     return !(isEmptyStyle(normal) && isEmptyStyle(hover));
 };
+
+/**
+ * Checking if the value is responsive value
+ * @param {any} value
+ * @returns {boolean}
+ */
+export const isResponsiveObject = (value) => {
+    return value && typeof value === 'object' && (value.Desktop !== undefined || value.Tablet !== undefined || value.Mobile !== undefined);
+};

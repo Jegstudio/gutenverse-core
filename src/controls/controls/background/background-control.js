@@ -12,6 +12,7 @@ import { useSelect, select } from '@wordpress/data';
 import isEmpty from 'lodash/isEmpty';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { determineLocation } from 'gutenverse-core/helper';
+import { isResponsiveObject } from 'gutenverse-core/styling/styling/styling-utility';
 
 const gradientOption = (props) => {
     const { value = {}, onValueChange } = props;
@@ -245,9 +246,14 @@ const BackgroundControl = (props) => {
         {value.type !== undefined && value.type === 'default' && <>
             <ColorControl
                 label={__('Background Color', '--gctd--')}
-                value={value.color}
+                value={
+                    value.color && !isResponsiveObject(value.color)
+                        ? { Desktop: value.color, Tablet: value.color, Mobile: value.color }
+                        : value.color
+                }
                 onValueChange={color => onValueChange({ ...value, color })}
                 onLocalChange={color => onLocalChange({ ...value, color })}
+                allowDeviceControl={true}
             />
             {isWrapperBlock() && <CheckboxControl
                 label={__('Use Featured Image', '--gctd--')}

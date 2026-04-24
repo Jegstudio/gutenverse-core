@@ -1,4 +1,5 @@
 import { handleColor } from '../handler/handle-color';
+import { isResponsiveObject } from '../styling-utility';
 
 export const backgroundCSS = (attribute) => {
     let background = {
@@ -29,8 +30,23 @@ export const backgroundCSS = (attribute) => {
     switch (type) {
         case 'default':
             if (color) {
-                const colorCSS = handleColor(color, 'background-color');
-                background.Desktop.push(colorCSS);
+                if (isResponsiveObject(color)) {
+                    if (color.Desktop) {
+                        const css = handleColor(color.Desktop, 'background-color');
+                        if (css) background.Desktop.push(css);
+                    }
+                    if (color.Tablet) {
+                        const css = handleColor(color.Tablet, 'background-color');
+                        if (css) background.Tablet.push(css);
+                    }
+                    if (color.Mobile) {
+                        const css = handleColor(color.Mobile, 'background-color');
+                        if (css) background.Mobile.push(css);
+                    }
+                } else {
+                    const colorCSS = handleColor(color, 'background-color');
+                    if (colorCSS) background.Desktop.push(colorCSS);
+                }
             }
 
             if (image) {

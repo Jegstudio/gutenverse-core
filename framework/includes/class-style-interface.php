@@ -2001,16 +2001,30 @@ abstract class Style_Interface {
 
 		if ( 'default' === $background['type'] ) {
 			if ( isset( $background['color'] ) ) {
-				$this->inject_style(
-					array(
-						'selector'       => $selector,
-						'property'       => function ( $value ) {
-							return $this->handle_color( $value['color'], 'background' );
-						},
-						'value'          => $background,
-						'device_control' => false,
-					)
-				);
+				$bg_color = $background['color'];
+				if ( isset( $bg_color['Desktop'] ) || isset( $bg_color['Tablet'] ) || isset( $bg_color['Mobile'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => $selector,
+							'property'       => function ( $value ) {
+								return $this->handle_color( $value, 'background-color' );
+							},
+							'value'          => $bg_color,
+							'device_control' => true,
+						)
+					);
+				} else {
+					$this->inject_style(
+						array(
+							'selector'       => $selector,
+							'property'       => function ( $value ) {
+								return $this->handle_color( $value['color'], 'background-color' );
+							},
+							'value'          => $background,
+							'device_control' => false,
+						)
+					);
+				}
 			}
 
 			if ( isset( $background['image'] ) ) {
