@@ -82,11 +82,6 @@ export { default as LockedHeaderFilterControl } from './controls/locked/locked-h
 export { default as LockedTooltipControl } from './controls/locked/locked-tooltip-control';
 export { default as LockedGalleryPostFormat } from './controls/locked/locked-gallery-post-format';
 export { default as LockedVideoPostFormat } from './controls/locked/locked-video-post-format';
-export { default as LockedNewsAuthorDonation } from './controls/locked/locked-news-author-donation';
-export { default as LockedNewsBookmark } from './controls/locked/locked-news-bookmark';
-export { default as LockedNewsLikeDislikeButton } from './controls/locked/locked-news-like-dislike-button';
-export { default as LockedNewsReadingTime } from './controls/locked/locked-news-reading-time';
-export { default as LockedNewsAdsControl } from './controls/locked/locked-news-ads-control';
 
 
 export { default as ControlDevices } from './controls/part/control-devices';

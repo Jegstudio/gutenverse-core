@@ -9,7 +9,8 @@ const DefaultLayout = ({
     description,
     img,
     isOpen,
-    permaLink
+    permaLink,
+    useFullUrl = false
 }) => {
     const {
         videoDir,
@@ -28,11 +29,11 @@ const DefaultLayout = ({
             <span className="description">{description}</span>
         </div>
         <div>
-            <ButtonPro/>
+            <ButtonPro />
         </div>
         <div>
             {img && <video autoPlay={isOpen} loop={isOpen}>
-                <source src={`${videoDir}/${img}`} type="video/mp4" />
+                <source src={useFullUrl ? img : `${videoDir}/${img}`} type="video/mp4" />
             </video>}
         </div>
         <div className="more-details">
