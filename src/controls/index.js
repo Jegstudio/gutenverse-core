@@ -86,6 +86,7 @@ export { default as LockedNewsAuthorDonation } from './controls/locked/locked-ne
 export { default as LockedNewsBookmark } from './controls/locked/locked-news-bookmark';
 export { default as LockedNewsLikeDislikeButton } from './controls/locked/locked-news-like-dislike-button';
 export { default as LockedNewsReadingTime } from './controls/locked/locked-news-reading-time';
+export { default as LockedNewsAdsControl } from './controls/locked/locked-news-ads-control';
 
 
 export { default as ControlDevices } from './controls/part/control-devices';
