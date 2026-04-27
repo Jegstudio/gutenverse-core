@@ -71,7 +71,7 @@ const SettingsBody = ({ settings, ...props }) => {
             break;
     }
     return <div className="settings-tab-body-wrapper">
-        <div className="tab-header">
+        <div className={`tab-header ${settings}`}>
             <h2>
                 {getSettingTitle(props.subSettings ? props.subSettings : settings)}
             </h2>
