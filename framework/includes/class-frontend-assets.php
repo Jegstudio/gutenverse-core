@@ -202,6 +202,12 @@ class Frontend_Assets {
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
 
+		wp_style_add_data(
+			'gutenverse-frontend-icon',
+			'path',
+			GUTENVERSE_FRAMEWORK_DIR . '/assets/dist/frontend-icon.css'
+		);
+
 		if ( is_user_logged_in() ) {
 			wp_enqueue_style(
 				'gutenverse-toolbar',
