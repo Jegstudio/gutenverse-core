@@ -142,6 +142,12 @@ class Assets {
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
+
+		wp_style_add_data(
+			'gutenverse-frontend-style',
+			'path',
+			GUTENVERSE_FRAMEWORK_DIR . '/assets/css/frontend.css'
+		);
 	}
 
 	/**

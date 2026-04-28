@@ -822,11 +822,18 @@ class Frontend_Generator {
 		);
 
 		foreach ( $blocks as $block ) {
+			$handle = 'gutenverse-core-frontend-' . $block . '-style';
+
 			wp_register_style(
-				'gutenverse-core-frontend-' . $block . '-style',
+				$handle,
 				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/frontend/' . $block . '.css',
 				array(),
 				GUTENVERSE_FRAMEWORK_VERSION
+			);
+			wp_style_add_data(
+				$handle,
+				'path',
+				GUTENVERSE_FRAMEWORK_DIR . '/assets/css/frontend/' . $block . '.css'
 			);
 		}
 	}
