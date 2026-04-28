@@ -195,20 +195,14 @@ class Frontend_Assets {
 		do_action( 'gutenverse_include_frontend' );
 		wp_dequeue_style( 'gutenverse-frontend-style' );
 
-		wp_enqueue_style(
-			'gutenverse-frontend-icon',
-			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/frontend-icon.css',
-			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
-		);
-
-		wp_style_add_data(
-			'gutenverse-frontend-icon',
-			'path',
-			GUTENVERSE_FRAMEWORK_DIR . '/assets/dist/frontend-icon.css'
-		);
-
 		if ( is_user_logged_in() ) {
+			wp_enqueue_style(
+				'gutenverse-frontend-icon',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/frontend-icon.css',
+				array(),
+				GUTENVERSE_FRAMEWORK_VERSION
+			);
+
 			wp_enqueue_style(
 				'gutenverse-toolbar',
 				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/toolbar.css',
