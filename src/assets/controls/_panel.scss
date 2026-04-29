@@ -119,6 +119,20 @@
     border-radius: inherit;
 }
 
+.gutenverse-control-wrapper.gutenverse-control-adanim-repeater {
+    .repeater-header {
+        align-items: center;
+    }
+
+    .repeater-remove {
+        margin: 0 10px;
+    }
+
+    .repeater-expand {
+        margin-right: 10px;
+    }
+}
+
 .gutenverse-control-wrapper {
     &.gutenverse-control-preview {
         .control-body {
