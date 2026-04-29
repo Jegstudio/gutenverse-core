@@ -1,7 +1,10 @@
-import { Default, u } from 'gutenverse-core-frontend';
+import { Default, u, responsiveBreakpoint } from 'gutenverse-core-frontend';
 
 class GutenverseSlideshow extends Default {
     init() {
+        const { mobileBreakpoint } = responsiveBreakpoint();
+        this.isSlideshowEnabled = window.innerWidth > mobileBreakpoint;
+
         this._elements.map(element => {
             this.startSlideshow(element);
         });
@@ -32,8 +35,27 @@ class GutenverseSlideshow extends Default {
 
         const slideshowImage = document.querySelectorAll(`.guten-${dataId}-slideshow-image`);
         const slideshowContainer = document.querySelectorAll(`.guten-${dataId}-child-slideshow`);
-        slideshowImage.length > 0 && this.toggleClassWithDuration(slideshowImage, slideshowContainer, duration, infiniteLoop, images, transitionDuration);
-        this.generateStyle(background, elementId);
+        if (slideshowImage.length > 0) {
+            this.isSlideshowEnabled
+                ? this.toggleClassWithDuration(slideshowImage, slideshowContainer, duration, infiniteLoop, images, transitionDuration)
+                : this.showStaticImage(slideshowContainer);
+        }
+        this.generateStyle(background, elementId, this.isSlideshowEnabled);
+    }
+
+    showStaticImage(
+        slideshowContainer,
+        prevClass = 'previous',
+        currentClass = 'current',
+        parentClass = 'hasToggledClass'
+    ) {
+        slideshowContainer.forEach(el => {
+            el?.classList.remove(prevClass);
+            el?.classList.remove(currentClass);
+            el?.classList.remove(parentClass);
+        });
+
+        slideshowContainer[0]?.classList.add(currentClass);
     }
 
     toggleClassWithDuration(
@@ -88,7 +110,7 @@ class GutenverseSlideshow extends Default {
         }, duration);
     }
 
-    generateStyle(background, elementId) {
+    generateStyle(background, elementId, enableAnimation = true) {
         const {
             duration,
             backgroundPosition,
@@ -112,7 +134,14 @@ class GutenverseSlideshow extends Default {
             background-position: ${bgPosition} !important;
             background-repeat: ${backgroundRepeat} !important;
         }
-            
+    `;
+
+        if (!enableAnimation) {
+            this.addAnimation(styles);
+            return;
+        }
+
+        styles += `    
         ${kenBurns ? `.bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.hasToggledClass .${elementId}-slideshow-image {
             animation: ${effectDirection} 20s linear forwards;
         }` : ''}
