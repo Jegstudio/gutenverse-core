@@ -161,7 +161,9 @@ class Assets {
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/core.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
-			true
+			array(
+				'in_footer' => true,
+			)
 		);
 
 		wp_register_script(
@@ -169,7 +171,9 @@ class Assets {
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/corefrontend.js',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION,
-			true
+			array(
+				'in_footer' => true,
+			)
 		);
 
 		wp_localize_script(
@@ -185,7 +189,10 @@ class Assets {
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/components.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
-			true
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
 		);
 
 		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/blocks.asset.php' )['dependencies'];
@@ -195,7 +202,10 @@ class Assets {
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/blocks.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
-			true
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
 		);
 
 		// register external dependencies.
@@ -208,7 +218,10 @@ class Assets {
 				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/' . $dep . '.js',
 				array(),
 				GUTENVERSE_FRAMEWORK_VERSION,
-				true
+				array(
+					'in_footer' => true,
+					'strategy'  => 'defer',
+				)
 			);
 		}
 	}

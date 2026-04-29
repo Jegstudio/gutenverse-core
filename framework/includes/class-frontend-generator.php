@@ -429,7 +429,7 @@ class Frontend_Generator {
 					continue;
 				}
 
-				printf( '<link rel="preload" fetchpriority="high" as="image" href="%s">', esc_url( $image_url ) );
+				printf( '<link rel="preload" fetchpriority="high" as="image" href="%s">' . "\n", esc_url( $image_url ) );
 				$printed_images[] = $image_url;
 			}
 			$this->preload_images = array();
@@ -751,7 +751,10 @@ class Frontend_Generator {
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/animation-basic.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
-			true
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
 		);
 
 		wp_register_script(
@@ -759,7 +762,10 @@ class Frontend_Generator {
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/bg-featured-image.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
-			true
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
 		);
 
 		wp_register_script(
@@ -767,7 +773,10 @@ class Frontend_Generator {
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/slideshow.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
-			true
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
 		);
 
 		wp_register_script(
@@ -775,7 +784,10 @@ class Frontend_Generator {
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/video.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
-			true
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
 		);
 
 		$script_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
@@ -830,6 +842,7 @@ class Frontend_Generator {
 				array(),
 				GUTENVERSE_FRAMEWORK_VERSION
 			);
+
 			wp_style_add_data(
 				$handle,
 				'path',
