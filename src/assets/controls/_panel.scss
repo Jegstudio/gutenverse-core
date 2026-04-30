@@ -192,28 +192,38 @@
             position: relative;
 
             &.has-pro-badge {
+                overflow: hidden;
+                border-radius: 3px;
 
                 .gutenverse-integration-pro-badge {
                     align-items: center;
-                    background: #d92d20;
-                    border: 1px solid #d92d20;
-                    color: white;
+                    background: rgba(227, 45, 100, 1);
+                    border: 1px solid rgba(227, 45, 100, 1);
+                    color: #fff;
                     display: inline-flex;
+                    font-family: "Roboto", sans-serif;
                     font-size: 8px;
                     font-weight: 700;
                     letter-spacing: .08em;
                     line-height: 1;
-                    padding: 10px 12px 3px;
+                    padding: 14px 20px 3px 26px;
                     pointer-events: none;
                     position: absolute;
-                    right: -16px;
-                    font-family: "Roboto", sans-serif;
+                    left: -30px;
                     text-transform: uppercase;
-                    top: -5px;
-                    transform: rotate(45deg);
+                    top: -3px;
+                    transform: rotate(-55deg);
                     width: -moz-fit-content!important;
                     width: fit-content !important;
-                    z-index: 2;
+                    z-index: 1;
+                }
+
+                .gutenverse-integration-select__control {
+                    .gutenverse-integration-select__value-container {
+                        .gutenverse-integration-select__single-value {
+                            margin-left: 16px !important;
+                        }
+                    }
                 }
             }
         }
@@ -275,5 +285,79 @@
             }
 
         }
+    }
+}
+
+.gutenverse-server-secret-control {
+    > * {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+
+    .components-base-control {
+        .components-base-control__label {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
+
+    .panel-save-button-container {
+        button, button:disabled {
+            flex-direction: row;
+            width: 100%;
+            justify-content: center;
+            background-color: rgba(59, 87, 247, 1);
+            color: rgba(255, 255, 255, 1);
+            border-radius: 3px;
+            box-shadow: unset !important;
+
+            &:not(:disabled):hover {
+                background-color: #243cc7;
+                color: rgba(255, 255, 255, 1);
+            }
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+        }
+
+        &.saved {
+            .components-button {
+                width: fit-content !important;
+                padding: 10px;
+                transition: all .3s ease;
+
+                &.is-tertiary {
+                    background: rgba(231, 48, 48, 1);
+
+                    &:hover {
+                        background: #d82626;
+                    }
+                }
+            }
+        }
+    }
+
+    .notice-description {
+        padding: 12px;
+        border-radius: 3px;
+        color: rgba(64, 80, 93, 1);
+        margin-top: 12px !important;
+
+        &.green {
+            background: rgba(237, 248, 239, 1);
+            border: 1px solid rgba(181, 223, 188, 1);
+        }
+
+        &.red {
+            background: rgba(254, 243, 242, 1);
+            border: 1px solid rgba(253, 162, 155, 1);
+        }
+    }
+}
+
+.interface-complementary-area {
+    .components-panel__header {
+        z-index: 99999;
     }
 }

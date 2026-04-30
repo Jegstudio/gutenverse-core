@@ -109,7 +109,7 @@ const ServerSecretControl = ({
                             {description && <p className="description">{description}</p>}
                         </div>
                     </div>
-                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    <div className="panel-save-button-container saved" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                         <Button
                             variant="secondary"
                             onClick={() => {
@@ -145,7 +145,7 @@ const ServerSecretControl = ({
                         rows={textArea ? 8 : undefined}
                         type={textArea ? undefined : 'password'}
                     />
-                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    <div className="panel-save-button-container" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                         <Button
                             variant="secondary"
                             onClick={() => saveSecret()}
@@ -169,8 +169,8 @@ const ServerSecretControl = ({
                     </div>
                 </>
             )}
-            {message && <p className="description">{message}</p>}
-            {error && <p className="description" style={{ color: '#b32d2e' }}>{error}</p>}
+            {message && <p className="notice-description green">{message}</p>}
+            {error && <p className="notice-description red" style={{ color: '#b32d2e' }}>{error}</p>}
         </div>
     );
 };
