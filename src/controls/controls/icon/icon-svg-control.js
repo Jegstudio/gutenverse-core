@@ -120,7 +120,7 @@ const IconSVGControl = (props) => {
 
                 axios.get(libraryApi + '/get-svg-font', {
                     params: {
-                        name: value.toLowerCase()
+                        name: value
                     },
                     signal: controller.signal
                 }).then(response => {

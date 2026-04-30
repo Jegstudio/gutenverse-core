@@ -29,7 +29,7 @@ const fetchSvgContent = async (iconName, retries = 5, delay = 50) => {
     try {
         const response = await axios.get(libraryApi + '/get-svg-font', {
             params: {
-                name: iconName.toLowerCase()
+                name: iconName
             }
         });
         const { data } = response;
@@ -211,7 +211,7 @@ const convertToSvg = async () => {
                 setTimeout(async () => {
                     await doConvertion();
                     resolve();
-                }, 2500);
+                }, 2000);
             });
         }
     } catch (error) {
