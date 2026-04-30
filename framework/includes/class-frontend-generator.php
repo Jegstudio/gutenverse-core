@@ -798,8 +798,8 @@ class Frontend_Generator {
 	public function load_conditional_styles() {
 		$style_handles = apply_filters( 'gutenverse_conditional_style_handles', $this->style_list );
 
-		// remove duplicates
-		$style_handles = array_values( array_unique( $this->style_list ) );
+		// remove duplicates.
+		$style_handles = array_values( array_unique( $style_handles ) );
 
 		if ( ! empty( $style_handles ) ) {
 			foreach ( $style_handles as $handle ) {
