@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { Link } from 'gutenverse-core/router';
+import { getUpgradeProps } from '../../helper/freemius';
 
 /**
  * Styling can be imported from the scss file in 'gutenverse-core/src/assets/pro.scss'.
@@ -58,10 +59,8 @@ const ButtonUpgradePro = ({
                     </>}
             </Link>)) :
             (<a
-                href={noPro ? proLink : dashboardLink}
+                {...(noPro ? getUpgradeProps(proLink) : { href: dashboardLink, target: '_blank', rel: 'noreferrer' })}
                 className={buttonClasses}
-                target="_blank"
-                rel="noreferrer"
                 style={customStyles}>
                 <>
                     {text}

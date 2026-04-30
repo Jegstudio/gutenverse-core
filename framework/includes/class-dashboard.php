@@ -215,9 +215,11 @@ class Dashboard {
 		$config['proDemoUrl']               = untrailingslashit( GUTENVERSE_FRAMEWORK_LIBRARY_URL );
 		$config['adminUrl']                 = admin_url();
 		$config['upgradeProUrl']            = gutenverse_upgrade_pro();
+		$config['freemius']                 = gutenverse_get_freemius_data();
 		$config['requireProUpdate']         = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
 		$config['eventBanner']              = gutenverse_get_event_banner();
 		$config['adsBannerThemeTF']         = gutenverse_get_ads_banner_theme_tf();
+		$config['pricingPlan']              = gutenverse_get_pricing_plan();
 		$config['isUsingGutenverseThemeTF'] = apply_filters( 'gutenverse_tp_plus_mechanism', false );
 		$config['activeTheme']              = get_option( 'stylesheet' );
 		$config['activePlugins']            = $this->get_active_plugins();
@@ -1089,7 +1091,7 @@ class Dashboard {
 				esc_html__( 'Upgrade to PRO', '--gctd--' ),
 				'<span>' . esc_html__( 'Upgrade to PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
 				'manage_options',
-				gutenverse_upgrade_pro() . '/?utm_source=gutenverse&utm_medium=dashboardnav',
+				$path . 'upgrade-pro',
 				null,
 				9999
 			);

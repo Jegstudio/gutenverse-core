@@ -2,6 +2,7 @@ import { EscListener } from 'gutenverse-core/components';
 import { IconCloseSVG } from 'gutenverse-core/icons';
 import { useRef, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { getUpgradeProps } from '../../helper/freemius';
 
 const PopupInsufficientTier = ({
     active = false,
@@ -41,10 +42,8 @@ const PopupInsufficientTier = ({
                         <p className="sub-title">{__('UPGRADE REQUIRED', 'gutenverse')}</p>
                         <h3 className="details">{description}</h3>
                         <a
-                            href={upgradeProUrl}
-                            className="button-upgrade-plan left button-upgrade-plan-banner"
-                            target="_blank"
-                            rel="noreferrer">
+                            {...getUpgradeProps(upgradeProUrl)}
+                            className="button-upgrade-plan left button-upgrade-plan-banner">
                             <>
                                 {__('Upgrade Plan Now', '--gctd--')}
                             </>

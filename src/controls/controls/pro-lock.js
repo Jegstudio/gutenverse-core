@@ -1,5 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
+import { openFreemiusPopup } from '../../helper/freemius';
 
 const ProLock = () => {
     const {
@@ -7,7 +8,7 @@ const ProLock = () => {
     } = window['GutenverseConfig'];
 
     const openLink = () => {
-        window.open(upgradeProUrl);
+        openFreemiusPopup(null, upgradeProUrl);
     };
 
     return <>

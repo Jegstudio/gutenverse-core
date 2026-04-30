@@ -131,6 +131,7 @@ class Editor_Assets {
 		$config['fontawesomeURL']           = Init::instance()->assets->get_fontawesome_url();
 		$config['themesUrl']                = GUTENVERSE_FRAMEWORK_THEMES_URL;
 		$config['upgradeProUrl']            = gutenverse_upgrade_pro();
+		$config['freemius']                 = gutenverse_get_freemius_data();
 		$config['documentationUrl']         = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
 		$config['proDemoUrl']               = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['uploadPath']               = $upload_path['baseurl'];

@@ -16,7 +16,9 @@
 		"build:js": "cross-env NODE_ENV=production webpack --config .config/webpack.config.prod.js",
 		"start:css": "cross-env NODE_ENV=development gulp watch",
 		"build:css": "cross-env NODE_ENV=production gulp build",
-		"fix:php": "phpcbf --standard=WordPress ./framework/includes"
+		"fix:php": "phpcbf --standard=WordPress ./framework/includes",
+		"composer:config": "./scripts/composer-config.sh",
+		"setup": "./scripts/composer-config.sh"
 	},
 	"repository": {
 		"type": "git",

@@ -470,6 +470,70 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_get_pricing_plan' ) ) {
+	/**
+	 * Get Pricing Plan
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_get_pricing_plan() {
+		$data = get_transient( 'gutenverse_pricing_plan_data' );
+		if ( $data ) {
+			return $data;
+		}
+		$data = \Gutenverse\Framework\Integration\Freemius::get_default_pricing_plan_data();
+
+		set_transient( 'gutenverse_pricing_plan_data', $data, 24 * HOUR_IN_SECONDS );
+		return $data;
+	}
+}
+
+if ( ! function_exists( 'gutenverse_get_freemius_config' ) ) {
+	/**
+	 * Get Freemius config.
+	 *
+	 * @return array
+	 */
+	function gutenverse_get_freemius_config() {
+		return \Gutenverse\Framework\Integration\Freemius::get_config();
+	}
+}
+
+if ( ! function_exists( 'gutenverse_has_freemius_credentials' ) ) {
+	/**
+	 * Check if Freemius credentials exist.
+	 *
+	 * @param array $config Freemius config.
+	 *
+	 * @return boolean
+	 */
+	function gutenverse_has_freemius_credentials( $config = array() ) {
+		return \Gutenverse\Framework\Integration\Freemius::has_credentials( $config );
+	}
+}
+
+if ( ! function_exists( 'gutenverse_freemius' ) ) {
+	/**
+	 * Get Freemius instance.
+	 *
+	 * @return mixed|null
+	 */
+	function gutenverse_freemius() {
+		return \Gutenverse\Framework\Integration\Freemius::get_instance();
+	}
+}
+
+if ( ! function_exists( 'gutenverse_has_freemius' ) ) {
+	/**
+	 * Check if Gutenverse Freemius is enabled.
+	 *
+	 * @return boolean
+	 */
+	function gutenverse_has_freemius() {
+		return \Gutenverse\Framework\Integration\Freemius::is_enabled();
+	}
+}
+
 if ( ! function_exists( 'gutenverse_get_ads_banner_theme_tf' ) ) {
 	/**
 	 * Get Event Banner
@@ -1745,13 +1809,18 @@ if ( ! function_exists( 'gutenverse_upgrade_pro' ) ) {
 	 * Referral URL.
 	 */
 	function gutenverse_upgrade_pro() {
-		$referral = apply_filters( 'gutenverse_theme_referral_code', null );
+		return \Gutenverse\Framework\Integration\Freemius::get_upgrade_url();
+	}
+}
 
-		if ( ! empty( $referral ) ) {
-			return GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $referral;
-		} else {
-			return GUTENVERSE_UPGRADE_URL;
-		}
+if ( ! function_exists( 'gutenverse_get_freemius_data' ) ) {
+	/**
+	 * Get Freemius runtime data for JS.
+	 *
+	 * @return array
+	 */
+	function gutenverse_get_freemius_data() {
+		return \Gutenverse\Framework\Integration\Freemius::get_runtime_data();
 	}
 }
 

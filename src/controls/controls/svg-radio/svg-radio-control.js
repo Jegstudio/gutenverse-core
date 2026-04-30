@@ -7,6 +7,7 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import { IconWarningDeprecatedSVG } from 'gutenverse-core/icons';
 import { applyFilters } from '@wordpress/hooks';
+import { openFreemiusPopup } from '../../../helper/freemius';
 
 const SVGRadioControl = props => {
     const {
@@ -35,7 +36,7 @@ const SVGRadioControl = props => {
 
     const openUpgradeLink = () => {
         if (upgradeProUrl) {
-            window.open(upgradeProUrl);
+            openFreemiusPopup(null, upgradeProUrl);
         }
     };
 

@@ -3,6 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { IconCrownSVG } from 'gutenverse-core/icons';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
+import { getUpgradeProps } from '../../../helper/freemius';
 
 
 const LockedProPanel = () => {
@@ -15,7 +16,7 @@ const LockedProPanel = () => {
     const ButtonPro = applyFilters(
         'gutenverse.pro-panel-button', 
         () => isEmpty(window?.gprodata) &&
-        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-card-pro-button"><span>{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownSVG transform="translate(0,3)" /> </span></a>);
+        <a {...getUpgradeProps(upgradeProUrl)} className="guten-card-pro-button"><span>{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownSVG transform="translate(0,3)" /> </span></a>);
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked gutenverse-control-locked-layout'}>
         <h2 className="title" style={{ fontSize: '15px' }}>
             {__('Pro License not yet active', 'gutenverse-pro')}

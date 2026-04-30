@@ -45,6 +45,7 @@ export { default as CardPro } from './pro/card-pro';
 export { default as PopupPro } from './pro/popup-pro';
 export { default as PopupInstallPlugin } from './pro/popup-install-plugin';
 export { default as PopupInsufficientTier } from './pro/popup-insufficient-tier';
+export { default as PopupPricingPlan } from './pro/popup-pricing-plan';
 export { default as DefaultLayout } from '../controls/controls/locked/default-layout';
 
 /**Editor Component */
@@ -64,4 +65,3 @@ export * from '@wordpress/block-editor';
 export * from '@wordpress/components';
 export * from 'react-datepicker';
 export { default as AsyncSelect } from 'react-select/async';
-

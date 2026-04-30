@@ -10,6 +10,7 @@ import { __ } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
 import { useDispatch, withDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
+import { openFreemiusPopup } from '../../helper/freemius';
 import { compose } from '@wordpress/compose';
 import { fetchLibraryData } from 'gutenverse-core/requests';
 import Ecosystem from '../content/ecosystem/ecosystem';
@@ -156,7 +157,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
                 break;
             case 'upgrade-pro':
                 path = 'dashboard';
-                window?.GutenverseDashboard?.upgradeProUrl && window.open(window?.GutenverseDashboard?.upgradeProUrl, '_blank');
+                window?.GutenverseDashboard?.upgradeProUrl && openFreemiusPopup(null, window?.GutenverseDashboard?.upgradeProUrl);
                 routePage = <Dashboard {...props} />;
                 break;
             default:
