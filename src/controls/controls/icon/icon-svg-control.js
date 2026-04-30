@@ -9,11 +9,36 @@ import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import { svgAtob, gutenverseRoot } from 'gutenverse-core/helper';
-import { IconLibrary } from './icon-control';
+import IconLibrary from './icon-library';
 import { isEmpty } from 'lodash';
 import { libraryApi } from 'gutenverse-core/config';
 import axios from 'axios';
 import { Spinner } from '@wordpress/components';
+
+export const convertIconToSvg = async (iconName, retries = 5, delay = 50, signal = null) => {
+    try {
+        const response = await axios.get(libraryApi + '/get-svg-font', {
+            params: {
+                name: iconName
+            },
+            signal
+        });
+        const { data } = response;
+        if (false !== data.data) {
+            return btoa(data.data);
+        }
+        return null;
+    } catch (error) {
+        if (axios.isCancel(error)) {
+            throw error;
+        }
+        if (retries > 0) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+            return convertIconToSvg(iconName, retries - 1, delay, signal);
+        }
+        return null;
+    }
+};
 
 const IconSVGControl = (props) => {
     const {
@@ -62,8 +87,14 @@ const IconSVGControl = (props) => {
         }
     };
 
-    const onChange = value => {
+    const onChange = (value, options = {}) => {
         onValueChange(value);
+
+        if (options.convertToSvg) {
+            setType('svg', 5, 50, true, false, value);
+        } else {
+            setType('icon');
+        }
     };
 
     const removeIcon = (e) => {
@@ -101,9 +132,9 @@ const IconSVGControl = (props) => {
         }
     };
 
-    const setType = async (type, retries = 5, delay = 50, force = false, justAttr = true) => {
+    const setType = async (type, retries = 5, delay = 50, force = false, justAttr = true, iconName = value) => {
         if (typeAttribute) {
-            const shouldConvertSvg = 'svg' === type && (isEmpty(svgValue) || force) && !isEmpty(value) && !justAttr;
+            const shouldConvertSvg = 'svg' === type && (isEmpty(svgValue) || force) && !isEmpty(iconName) && !justAttr;
 
             if (shouldConvertSvg) {
                 if (abortControllerRef.current) {
@@ -118,19 +149,10 @@ const IconSVGControl = (props) => {
                 const controller = new AbortController();
                 abortControllerRef.current = controller;
 
-                axios.get(libraryApi + '/get-svg-font', {
-                    params: {
-                        name: value
-                    },
-                    signal: controller.signal
-                }).then(response => {
-                    const { data } = response;
-                    if (false !== data.data) {
-                        const encodedSVG = btoa(data.data);
+                convertIconToSvg(iconName, retries, delay, controller.signal).then(encodedSVG => {
+                    if (encodedSVG) {
                         updateAttributes({ [svgAttribute]: encodedSVG, [typeAttribute]: 'svg' });
-                    } else {
-                        console.error('cannot find the icon', value);
-                    }
+                    } else console.error('cannot find the icon', iconName);
                 }).catch((e) => {
                     if (axios.isCancel(e)) {
                         // User cancelled the conversion icon to svg; resetting UI state to icon mode
@@ -141,7 +163,7 @@ const IconSVGControl = (props) => {
                         updateAttributes({ [svgAttribute]: '' });
                         alert('Cannot Fetch Related SVG');
                     } else {
-                        setTimeout(() => setType(type, retries - 1, delay, force, justAttr), delay);
+                        setTimeout(() => setType(type, retries - 1, delay, force, justAttr, iconName), delay);
                     }
                 }).finally(() => {
                     setSvgLoading(false);
@@ -224,9 +246,14 @@ const IconSVGControl = (props) => {
                                         {__('Cancel', '--gctd--')}
                                     </button>
                                 ) : (
-                                    <button className={'gutenverse-button'} onClick={open}>
-                                        {__('Upload SVG', '--gctd--')}
-                                    </button>
+                                    <div className={'button-group'}>
+                                        <button className={'gutenverse-button'} onClick={() => setOpenIconLibrary(true)}>
+                                            {__('Icon Library', '--gctd--')}
+                                        </button>
+                                        <button className={'gutenverse-button'} onClick={open}>
+                                            {__('Upload SVG', '--gctd--')}
+                                        </button>
+                                    </div>
                                 )}
                             </div>
                             <div className={'icon-change'}>
@@ -247,6 +274,7 @@ const IconSVGControl = (props) => {
             closeLibrary={() => setOpenIconLibrary(false)}
             value={value}
             onChange={onChange}
+            allowConvertToSvg={true}
         />, gutenverseRoot)}
     </div>;
 };
