@@ -5,6 +5,7 @@ import { useSelect } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 
 const SECRET_MARKER = '__gutenverse_server_secret__';
+const REQUIRED_ASTERISK_STYLE = { color: 'rgba(231, 48, 48, 1)' };
 
 const ServerSecretControl = ({
     item,
@@ -47,6 +48,7 @@ const ServerSecretControl = ({
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const hasSavedSecret = item?.[fieldKey] === SECRET_MARKER;
+    const requiredLabel = required ? <>{label} <span style={REQUIRED_ASTERISK_STYLE}>*</span></> : label;
 
     const updateItem = (nextValue) => {
         onUpdateIndexValue({ ...item, [fieldKey]: nextValue });
@@ -102,7 +104,7 @@ const ServerSecretControl = ({
                     <div className="components-base-control">
                         <div className="components-base-control__field">
                             <label className="components-base-control__label">
-                                {required ? `${label} *` : label}
+                                {requiredLabel}
                             </label>
                             {description && <p className="description">{description}</p>}
                         </div>
@@ -135,7 +137,7 @@ const ServerSecretControl = ({
             ) : (
                 <>
                     <FieldComponent
-                        label={required ? `${label} *` : label}
+                        label={requiredLabel}
                         value={draftValue}
                         onChange={setDraftValue}
                         placeholder={placeholder}

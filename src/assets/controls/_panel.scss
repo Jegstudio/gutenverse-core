@@ -119,17 +119,108 @@
     border-radius: inherit;
 }
 
-.gutenverse-control-wrapper.gutenverse-control-adanim-repeater {
+.gutenverse-control-wrapper.gutenverse-control-integration-repeater {
+    position: relative;
+
     .repeater-header {
         align-items: center;
+        background-color: rgba(231, 236, 253, 1);
+
+        .control-title {
+            display: none;
+        }
     }
 
     .repeater-remove {
-        margin: 0 10px;
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        margin-left: 10px !important;
+        margin-right: 0px !important;
+
+        svg {
+            stroke: rgba(64, 80, 93, 1);
+        }
     }
 
     .repeater-expand {
         margin-right: 10px;
+    }
+
+    .control-add {
+        position: absolute;
+        top: 8px;
+        right: 0;
+
+        button {
+            padding: 0px 8px;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 10px;
+            color: #1c1d21;
+            background: #f5f7fe;
+            border: 1px solid #dddddd;
+            border-radius: 2px;
+            height: 26px;
+
+            &:hover,
+            &:focus {
+                color: #1c1d21;
+                background: #f5f7fe;
+                border: 1px solid #dddddd;
+                outline: 0;
+                box-shadow: none;
+            }
+
+            svg {
+                width: 10px;
+                height: 10px;
+                padding: 2px;
+                margin-right: 4px;
+                color: #ffffff;
+                background-color: #5e81f4;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .gutenverse-control-select {
+        margin: 0;
+
+        .control-body {
+            margin: 0;
+            position: relative;
+
+            &.has-pro-badge {
+
+                .gutenverse-integration-pro-badge {
+                    align-items: center;
+                    background: #d92d20;
+                    border: 1px solid #d92d20;
+                    color: white;
+                    display: inline-flex;
+                    font-size: 8px;
+                    font-weight: 700;
+                    letter-spacing: .08em;
+                    line-height: 1;
+                    padding: 10px 12px 3px;
+                    pointer-events: none;
+                    position: absolute;
+                    right: -16px;
+                    font-family: "Roboto", sans-serif;
+                    text-transform: uppercase;
+                    top: -5px;
+                    transform: rotate(45deg);
+                    width: -moz-fit-content!important;
+                    width: fit-content !important;
+                    z-index: 2;
+                }
+            }
+        }
+    }
+
+    .gutenverse-control-hover {
+        margin: 20px 0 10px 0;
     }
 }
 
