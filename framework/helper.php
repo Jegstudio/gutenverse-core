@@ -477,10 +477,31 @@ if ( ! function_exists( 'gutenverse_get_pricing_plan' ) ) {
 	 * @return mixed
 	 */
 	function gutenverse_get_pricing_plan() {
-		$data = get_transient( 'gutenverse_pricing_plan_data' );
-		if ( $data ) {
-			return $data;
+		// $data = get_transient( 'gutenverse_pricing_plan_data' );
+		// if ( $data ) {
+		// 	return $data;
+		// }
+
+		$response = wp_remote_request(
+			apply_filters(
+				'gutenverse_pricing_plan_endpoint',
+				GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-tools/v1/pricing-plan-user'
+			),
+			array(
+				'method' => 'GET',
+			)
+		);
+
+		if ( ! is_wp_error( $response ) && 200 === $response['response']['code'] ) {
+			$body = wp_remote_retrieve_body( $response );
+			$data = json_decode( $body );
+
+			if ( isset( $data->active_promotion, $data->is_event_sales, $data->event_expired ) ) {
+				set_transient( 'gutenverse_pricing_plan_data', $data, 24 * HOUR_IN_SECONDS );
+				return $data;
+			}
 		}
+
 		$data = \Gutenverse\Framework\Integration\Freemius::get_default_pricing_plan_data();
 
 		set_transient( 'gutenverse_pricing_plan_data', $data, 24 * HOUR_IN_SECONDS );

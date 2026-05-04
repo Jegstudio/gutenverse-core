@@ -4,8 +4,14 @@ import PopupPricingPlan from '../components/pro/popup-pricing-plan';
 const MODAL_ID = 'gutenverse-freemius-modal';
 const CONTENT_ID = 'gutenverse-freemius-modal-content';
 const BODY_CLASS = 'gutenverse-freemius-modal-open';
+const UPGRADE_ROUTE_PATH = 'upgrade-pro';
+const FREEMIUS_MENU_SELECTOR = [
+    'a[href*="page=gutenverse&path=upgrade-pro"]',
+    'a[href*="page=gutenverse-dashboard&path=upgrade-pro"]',
+    '#wp-admin-bar-gutenverse-pro > .ab-item',
+].join(', ');
 
-const getGutenverseRuntime = () => window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+const getGutenverseRuntime = () => window['GutenverseConfig'] || window['GutenverseDashboard'] || window['GutenverseData'] || {};
 
 const getFreemiusSettings = () => {
     const { freemius = {}, upgradeProUrl } = getGutenverseRuntime();
@@ -116,9 +122,82 @@ const getUpgradeProps = (url = null) => {
     };
 };
 
+const shouldHandleUpgradeRoute = () => {
+    if (typeof window === 'undefined') {
+        return false;
+    }
+
+    const query = new URLSearchParams(window.location.search);
+    const page = query.get('page');
+    const path = query.get('path');
+
+    return path === UPGRADE_ROUTE_PATH && ['gutenverse', 'gutenverse-dashboard'].includes(page);
+};
+
+const bindFreemiusUpgradeLink = (element) => {
+    if (!element || element.dataset.gutenverseFreemiusBound === 'true') {
+        return;
+    }
+
+    element.dataset.gutenverseFreemiusBound = 'true';
+    element.addEventListener('click', (event) => {
+        const { pricingUrl } = getFreemiusSettings();
+        const targetUrl = pricingUrl || element.href;
+
+        if (!targetUrl) {
+            return;
+        }
+
+        openFreemiusPopup(event, targetUrl);
+    });
+};
+
+const bindFreemiusUpgradeLinks = (root = document) => {
+    if (typeof document === 'undefined') {
+        return;
+    }
+
+    root.querySelectorAll(FREEMIUS_MENU_SELECTOR).forEach(bindFreemiusUpgradeLink);
+};
+
+const initializeFreemiusPopup = () => {
+    if (typeof window === 'undefined' || typeof document === 'undefined' || window.gutenverseFreemiusInitialized) {
+        return;
+    }
+
+    window.gutenverseFreemiusInitialized = true;
+
+    const setup = () => {
+        bindFreemiusUpgradeLinks();
+
+        if (shouldHandleUpgradeRoute()) {
+            openFreemiusPopup(null);
+        }
+
+        const observer = new MutationObserver(() => {
+            bindFreemiusUpgradeLinks();
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+        });
+    };
+
+    if (document.body) {
+        setup();
+        return;
+    }
+
+    document.addEventListener('DOMContentLoaded', setup, { once: true });
+};
+
+initializeFreemiusPopup();
+
 export {
     closeFreemiusPopup,
     getFreemiusSettings,
     getUpgradeProps,
+    initializeFreemiusPopup,
     openFreemiusPopup,
 };

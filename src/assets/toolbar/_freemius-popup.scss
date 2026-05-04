@@ -1,0 +1,320 @@
+body.gutenverse-freemius-modal-open {
+    overflow: hidden;
+}
+
+.gutenverse-freemius-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+
+    &.active {
+        display: flex;
+    }
+
+    .gutenverse-freemius-modal__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(8, 15, 31, 0.7);
+    }
+
+    .gutenverse-freemius-modal__dialog {
+        position: relative;
+        width: min(1280px, calc(100vw - 40px));
+        max-height: min(900px, calc(100vh - 40px));
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 24px 80px rgba(1, 22, 39, 0.24);
+        z-index: 1;
+    }
+
+    .gutenverse-freemius-modal__content {
+        max-height: inherit;
+        overflow: auto;
+        background: #fff;
+    }
+}
+
+.gutenverse-pricing-popup {
+    position: relative;
+    padding: 32px 28px 36px;
+    background:
+        radial-gradient(circle at top left, rgba(241, 233, 255, 0.85), transparent 28%),
+        radial-gradient(circle at top right, rgba(231, 238, 255, 0.85), transparent 26%),
+        linear-gradient(180deg, #fcfbff 0%, #ffffff 100%);
+}
+
+.gutenverse-pricing-popup__close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(67, 92, 255, 0.16);
+    border-radius: 999px;
+    background: #fff;
+    color: #21326b;
+    cursor: pointer;
+    box-shadow: 0 12px 28px rgba(67, 92, 255, 0.12);
+}
+
+.gutenverse-pricing-popup__hero {
+    max-width: 760px;
+    margin: 0 auto 28px;
+    text-align: center;
+}
+
+.gutenverse-pricing-popup__title {
+    margin: 0 0 14px;
+    color: #1f2c69;
+    font-size: clamp(36px, 4.6vw, 58px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+}
+
+.gutenverse-pricing-popup__subtitle {
+    max-width: 620px;
+    margin: 0 auto;
+    color: #73829e;
+    font-size: 18px;
+    line-height: 1.65;
+}
+
+.gutenverse-pricing-popup__badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.gutenverse-pricing-popup__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid rgba(91, 95, 255, 0.28);
+    border-radius: 999px;
+    color: #5b5fff;
+    background: rgba(255, 255, 255, 0.84);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.gutenverse-pricing-popup__badge::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #5b5fff 0%, #7e4dff 100%);
+    box-shadow: inset 0 0 0 3px #fff;
+}
+
+.gutenverse-pricing-popup__cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.gutenverse-pricing-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border: 1px solid rgba(91, 95, 255, 0.4);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 14px 36px rgba(33, 50, 107, 0.08);
+}
+
+.gutenverse-pricing-card.is-featured {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 42px rgba(91, 95, 255, 0.14);
+}
+
+.gutenverse-pricing-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid #e6ebff;
+}
+
+.gutenverse-pricing-card__header h3 {
+    margin: 0;
+    color: #0f2747;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.gutenverse-pricing-card__pill {
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255, 111, 181, 0.16) 0%, rgba(189, 110, 255, 0.16) 100%);
+    color: #d54bff;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.gutenverse-pricing-card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.gutenverse-pricing-card__pricing {
+    position: relative;
+    min-height: 122px;
+}
+
+.gutenverse-pricing-card__old-price {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #ff5b4d;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: line-through;
+}
+
+.gutenverse-pricing-card__sale {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-width: 58px;
+    padding: 12px 8px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 30% 30%, #ffb77a 0%, #ff7b5a 44%, #ff5e57 100%);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    text-transform: uppercase;
+    box-shadow: 0 12px 28px rgba(255, 94, 87, 0.28);
+}
+
+.gutenverse-pricing-card__price-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.gutenverse-pricing-card__price {
+    color: #0f2747;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.gutenverse-pricing-card__period {
+    margin-bottom: 4px;
+    color: #7990b1;
+    font-size: 18px;
+}
+
+.gutenverse-pricing-card__billing,
+.gutenverse-pricing-card__renewal,
+.gutenverse-pricing-card__description {
+    margin: 10px 0 0;
+    color: #7a8ca8;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.gutenverse-pricing-card__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 20px 0 18px;
+    padding: 13px 16px;
+    border: 1px solid #5b5fff;
+    border-radius: 10px;
+    color: #5b5fff;
+    background: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.gutenverse-pricing-card__button:hover {
+    color: #fff;
+    background: #5b5fff;
+}
+
+.gutenverse-pricing-card__features {
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.gutenverse-pricing-card__features li {
+    position: relative;
+    margin-bottom: 12px;
+    padding-left: 24px;
+    color: #70829e;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.gutenverse-pricing-card__features li::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #5b5fff 0%, #6e7cff 100%);
+    box-shadow: inset 0 0 0 3px #fff;
+}
+
+@media (max-width: 1200px) {
+    .gutenverse-pricing-popup__cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 782px) {
+    .gutenverse-freemius-modal {
+        .gutenverse-freemius-modal__dialog {
+            width: calc(100vw - 20px);
+            max-height: calc(100vh - 20px);
+            border-radius: 14px;
+        }
+    }
+
+    .gutenverse-pricing-popup {
+        padding: 24px 16px 22px;
+    }
+
+    .gutenverse-pricing-popup__title {
+        font-size: 34px;
+    }
+
+    .gutenverse-pricing-popup__subtitle {
+        font-size: 16px;
+    }
+
+    .gutenverse-pricing-popup__cards {
+        grid-template-columns: 1fr;
+    }
+
+    .gutenverse-pricing-card.is-featured {
+        transform: none;
+    }
+}

@@ -215,7 +215,6 @@ class Freemius {
 		} else {
 			$context_params['home_url'] = home_url();
 		}
-
 		if ( $fs->is_payments_sandbox() ) {
 			// Add sandbox secure token and full sandbox context parameters.
 			// Some frontend integrations expect the full `s_ctx_*` context
@@ -266,11 +265,8 @@ class Freemius {
 					'unique_affix'            => $fs->get_unique_affix(),
 					'show_annual_in_monthly'  => $fs->apply_filters( 'pricing/show_annual_in_monthly', true ),
 					'license'                 => $fs->has_active_valid_license() ? $fs->_get_license() : null,
-					'plugin_icon'             => $fs->get_local_icon_url(),
 					'disable_single_package'  => $fs->apply_filters( 'pricing/disable_single_package', false ),
-					// Coupon code to pre-fill in checkout. Override via WordPress filter:.
-					// add_filter( 'jeg-elementor-kit/pricing/default_coupon', fn() => 'YOUR_CODE' );.
-						'default_coupon'      => $fs->apply_filters( 'pricing/default_coupon', '' ),
+					'default_coupon'          => $fs->apply_filters( 'pricing/default_coupon', '' ),
 					'client_site'             => home_url(),
 					'client_theme'            => wp_get_theme()->get( 'Name' ),
 					'client_theme_author'     => wp_get_theme()->get( 'Author' ),

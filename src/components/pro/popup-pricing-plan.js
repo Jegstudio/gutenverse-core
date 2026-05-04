@@ -132,6 +132,37 @@ const DEFAULT_PRICING_PLAN = {
     event_expired: '',
 };
 
+/**
+ * Fetches live pricing data from the Freemius AJAX endpoint.
+ *
+ * @param {Object} config - Pricing config from window['JkitDashboardOption'].freemius.pricing.
+ * @return {Promise<Object>} pricingData — { plugin, plans[], install, reviews }.
+ */
+export const fetchPricingData = (config) => {
+    const {
+        request_handler_url,
+        sandbox,
+        s_ctx_type,
+        s_ctx_id,
+        s_ctx_ts,
+        s_ctx_secure,
+    } = config;
+
+    const params = { pricing_action: 'fetch_pricing_data', trial: 'false' };
+    if (sandbox) params.sandbox = sandbox;
+    if (s_ctx_type) params.s_ctx_type = s_ctx_type;
+    if (s_ctx_id) params.s_ctx_id = s_ctx_id;
+    if (s_ctx_ts) params.s_ctx_ts = s_ctx_ts;
+    if (s_ctx_secure) params.s_ctx_secure = s_ctx_secure;
+
+    const url = `${request_handler_url}&${new URLSearchParams(params).toString()}`;
+
+    return fetch(url, { method: 'GET' })
+        .then((res) => res.json())
+        .then((data) => (data.data ? data.data : data));
+};
+
+
 const formatPrice = (value, currency = 'USD') => {
     if (typeof value !== 'number' || Number.isNaN(value)) {
         return null;
@@ -236,47 +267,35 @@ const fetchFreemiusPricingPlan = async (pricingConfig) => {
     if (!pricingConfig?.request_handler_url) {
         return DEFAULT_PRICING_PLAN;
     }
+    const {
+        request_handler_url,
+        sandbox,
+        s_ctx_type,
+        s_ctx_id,
+        s_ctx_ts,
+        s_ctx_secure,
+    } = pricingConfig;
 
-    const params = new URLSearchParams();
-    const passthroughKeys = [
-        'plugin_id',
-        'plugin_public_key',
-        'plugin_version',
-        'bundle_id',
-        'home_url',
-        'billing_cycle',
-        'currency',
-        'discounts_model',
-        'next',
-        'is_network_admin',
-        'sandbox',
-        's_ctx_type',
-        's_ctx_id',
-        's_ctx_ts',
-        's_ctx_secure',
-    ];
+    const params = {
+        pricing_action: 'fetch_pricing_data',
+        trial: 'false',
+    };
 
-    params.set('pricing_action', 'fetch_pricing_data');
+    if (sandbox) params.sandbox = sandbox;
+    if (s_ctx_type) params.s_ctx_type = s_ctx_type;
+    if (s_ctx_id) params.s_ctx_id = s_ctx_id;
+    if (s_ctx_ts) params.s_ctx_ts = s_ctx_ts;
+    if (s_ctx_secure) params.s_ctx_secure = s_ctx_secure;
 
-    passthroughKeys.forEach((key) => {
-        const value = pricingConfig?.[key];
-
-        if (value !== undefined && value !== null && value !== '') {
-            params.set(key, value);
-        }
+    console.log(request_handler_url, params, pricingConfig);
+    
+    const response = await fetch(`${request_handler_url}&${new URLSearchParams(params).toString()}`, {
+        method: 'GET',
     });
-
-    const response = await fetch(pricingConfig.request_handler_url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        },
-        credentials: 'same-origin',
-        body: params.toString(),
-    });
+    console.log(response)
 
     if (!response.ok) {
-        throw new Error(`Freemius pricing request failed with status ${response.status}`);
+        console.error(`Freemius pricing request failed with status ${response.status}`);
     }
 
     const payload = await response.json();
@@ -292,37 +311,6 @@ const fetchFreemiusPricingPlan = async (pricingConfig) => {
         event_expired: '',
     };
 };
-
-// const PLANS = [
-//     {
-//         name: __('Basic', 'gutenverse'),
-//         price: '$5.8',
-//         billed: __('Billed annually. Pay $69/year today', 'gutenverse'),
-//         description: __('Suitable for individual WordPress site users.', 'gutenverse'),
-//     },
-//     {
-//         name: __('Professional', 'gutenverse'),
-//         price: '$6.6',
-//         oldPrice: '$8.3',
-//         billed: __('Billed annually. Pay $79.2/year today', 'gutenverse'),
-//         renewal: __('Renew at regular rate $99/year', 'gutenverse'),
-//         description: __('Ideal for users who own multiple WordPress sites.', 'gutenverse'),
-//         featured: true,
-//         sale: __('SALE 20% Off', 'gutenverse'),
-//     },
-//     {
-//         name: __('Agency', 'gutenverse'),
-//         price: '$16.6',
-//         billed: __('Billed annually. Pay $199/year today', 'gutenverse'),
-//         description: __('Suitable for an agency who works for dozens of clients.', 'gutenverse'),
-//     },
-//     {
-//         name: __('Enterprise', 'gutenverse'),
-//         price: '$29.9',
-//         billed: __('Billed annually. Pay $359/year today', 'gutenverse'),
-//         description: __('Great for enterprises who manage a lot of websites.', 'gutenverse'),
-//     },
-// ];
 
 const PopupPricingPlan = ({ pricingUrl, onClose }) => {
     const runtime = window['GutenverseConfig'] ? window['GutenverseConfig'] : window['GutenverseDashboard'];
@@ -381,7 +369,7 @@ const PopupPricingPlan = ({ pricingUrl, onClose }) => {
             <div className="gutenverse-pricing-popup__hero">
                 <h2 className="gutenverse-pricing-popup__title">{__('Affordable Pricing Plan', 'gutenverse')}</h2>
                 <p className="gutenverse-pricing-popup__subtitle">
-                    {__("Gutenverse helps maximize your WordPress website's potential. Upgrade to PRO for more features.", 'gutenverse')}
+                    {__('Gutenverse helps maximize your WordPress website\'s potential. Upgrade to PRO for more features.', 'gutenverse')}
                 </p>
                 <div className="gutenverse-pricing-popup__badges">
                     {BADGES.map((badge) => (

@@ -3,6 +3,7 @@ const fs = require('fs');
 const rules = require("../rules");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { stats, output, plugins } = require("../config");
+const { externals, coreExternals } = require("../externals");
 
 let reactPlayerStandalone = path.resolve(process.cwd(), "node_modules/react-player/dist/ReactPlayer.standalone.js");
 if (!fs.existsSync(reactPlayerStandalone)) {
@@ -23,8 +24,13 @@ const corefrontend = {
     },
     stats,
     output,
+    externals: {
+        ...externals,
+        ...coreExternals,
+    },
     resolve: {
         alias: {
+            "gutenverse-core": path.resolve(process.cwd(), "src/"),
             "gutenverse-core-frontend": path.resolve(process.cwd(), "src/frontend"),
         },
     },
