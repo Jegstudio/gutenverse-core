@@ -477,10 +477,10 @@ if ( ! function_exists( 'gutenverse_get_pricing_plan' ) ) {
 	 * @return mixed
 	 */
 	function gutenverse_get_pricing_plan() {
-		// $data = get_transient( 'gutenverse_pricing_plan_data' );
-		// if ( $data ) {
-		// return $data;
-		// }
+		$data = get_transient( 'gutenverse_pricing_plan_data' );
+		if ( $data ) {
+			return $data;
+		}
 
 		$response = wp_remote_request(
 			apply_filters(
@@ -500,6 +500,7 @@ if ( ! function_exists( 'gutenverse_get_pricing_plan' ) ) {
 				set_transient( 'gutenverse_pricing_plan_data', $data, 24 * HOUR_IN_SECONDS );
 			}
 		}
+
 
 		return $data;
 	}
