@@ -75,16 +75,11 @@ const openFreemiusPopup = (event = null, url = null) => {
         event.preventDefault();
     }
 
-    const { enabled, pricingUrl } = getFreemiusSettings();
+    const { pricingUrl } = getFreemiusSettings();
     const targetUrl = url || pricingUrl;
 
     if (!targetUrl) {
         return false;
-    }
-
-    if (!enabled) {
-        window.open(targetUrl, '_blank', 'noopener,noreferrer');
-        return true;
     }
 
     const modal = ensureFreemiusPopup();
@@ -92,7 +87,6 @@ const openFreemiusPopup = (event = null, url = null) => {
 
     render(
         <PopupPricingPlan
-            pricingUrl={targetUrl}
             onClose={closeFreemiusPopup}
         />,
         content
@@ -105,10 +99,10 @@ const openFreemiusPopup = (event = null, url = null) => {
 };
 
 const getUpgradeProps = (url = null) => {
-    const { enabled, pricingUrl } = getFreemiusSettings();
+    const { pricingUrl } = getFreemiusSettings();
     const targetUrl = url || pricingUrl || '#';
 
-    if (enabled) {
+    if (targetUrl !== '#') {
         return {
             href: targetUrl,
             onClick: (event) => openFreemiusPopup(event, targetUrl),

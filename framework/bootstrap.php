@@ -33,7 +33,6 @@ defined( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL' ) || define( 'GUTENVERSE_FRAMEWORK_
 
 require_once 'autoload.php';
 require_once 'helper.php';
-require_once GUTENVERSE_FRAMEWORK_DIR . '/lib/vendor/autoload.php';
 
 /**
  * Initialize Framework

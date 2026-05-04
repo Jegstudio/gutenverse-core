@@ -260,7 +260,7 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 			'xlink:href',
 		);
 
-		$xpath = new DOMXPath( $dom );
+		$xpath                    = new DOMXPath( $dom );
 		$allowed_style_properties = array(
 			'fill',
 			'fill-opacity',
@@ -339,7 +339,7 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 				}
 
 				foreach ( $css_rules as $css_rule ) {
-					$selector_block = trim( $css_rule[1] );
+					$selector_block    = trim( $css_rule[1] );
 					$declaration_block = trim( $css_rule[2] );
 
 					if (
@@ -479,7 +479,7 @@ if ( ! function_exists( 'gutenverse_get_pricing_plan' ) ) {
 	function gutenverse_get_pricing_plan() {
 		// $data = get_transient( 'gutenverse_pricing_plan_data' );
 		// if ( $data ) {
-		// 	return $data;
+		// return $data;
 		// }
 
 		$response = wp_remote_request(
@@ -498,60 +498,10 @@ if ( ! function_exists( 'gutenverse_get_pricing_plan' ) ) {
 
 			if ( isset( $data->active_promotion, $data->is_event_sales, $data->event_expired ) ) {
 				set_transient( 'gutenverse_pricing_plan_data', $data, 24 * HOUR_IN_SECONDS );
-				return $data;
 			}
 		}
 
-		$data = \Gutenverse\Framework\Integration\Freemius::get_default_pricing_plan_data();
-
-		set_transient( 'gutenverse_pricing_plan_data', $data, 24 * HOUR_IN_SECONDS );
 		return $data;
-	}
-}
-
-if ( ! function_exists( 'gutenverse_get_freemius_config' ) ) {
-	/**
-	 * Get Freemius config.
-	 *
-	 * @return array
-	 */
-	function gutenverse_get_freemius_config() {
-		return \Gutenverse\Framework\Integration\Freemius::get_config();
-	}
-}
-
-if ( ! function_exists( 'gutenverse_has_freemius_credentials' ) ) {
-	/**
-	 * Check if Freemius credentials exist.
-	 *
-	 * @param array $config Freemius config.
-	 *
-	 * @return boolean
-	 */
-	function gutenverse_has_freemius_credentials( $config = array() ) {
-		return \Gutenverse\Framework\Integration\Freemius::has_credentials( $config );
-	}
-}
-
-if ( ! function_exists( 'gutenverse_freemius' ) ) {
-	/**
-	 * Get Freemius instance.
-	 *
-	 * @return mixed|null
-	 */
-	function gutenverse_freemius() {
-		return \Gutenverse\Framework\Integration\Freemius::get_instance();
-	}
-}
-
-if ( ! function_exists( 'gutenverse_has_freemius' ) ) {
-	/**
-	 * Check if Gutenverse Freemius is enabled.
-	 *
-	 * @return boolean
-	 */
-	function gutenverse_has_freemius() {
-		return \Gutenverse\Framework\Integration\Freemius::is_enabled();
 	}
 }
 
@@ -1110,6 +1060,17 @@ if ( ! function_exists( 'gutenverse_pro_installed' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_upgrade_pro' ) ) {
+	/**
+	 * Get the Gutenverse Pro upgrade URL.
+	 *
+	 * @return string
+	 */
+	function gutenverse_upgrade_pro() {
+		return apply_filters( 'gutenverse_upgrade_pro_url', GUTENVERSE_UPGRADE_URL );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_css_path' ) ) {
 	/**
 	 * Get Gutenverse CSS Path.
@@ -1215,7 +1176,7 @@ if ( ! function_exists( 'gutenverse_get_menu' ) ) {
 				'menu_class'      => 'gutenverse-menu',
 				'container_class' => 'gutenverse-menu-container',
 				'echo'            => false,
-				'walker' => new class extends Walker_Nav_Menu {
+				'walker'          => new class() extends Walker_Nav_Menu {
 					public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
 
 						$classes     = empty( $item->classes ) ? array() : (array) $item->classes;
@@ -1824,27 +1785,6 @@ if ( ! function_exists( 'gutenverse_remove_folder' ) ) {
 		}
 	}
 }
-
-if ( ! function_exists( 'gutenverse_upgrade_pro' ) ) {
-	/**
-	 * Referral URL.
-	 */
-	function gutenverse_upgrade_pro() {
-		return \Gutenverse\Framework\Integration\Freemius::get_upgrade_url();
-	}
-}
-
-if ( ! function_exists( 'gutenverse_get_freemius_data' ) ) {
-	/**
-	 * Get Freemius runtime data for JS.
-	 *
-	 * @return array
-	 */
-	function gutenverse_get_freemius_data() {
-		return \Gutenverse\Framework\Integration\Freemius::get_runtime_data();
-	}
-}
-
 
 /**
  * Check if variable is empty and not contain 0

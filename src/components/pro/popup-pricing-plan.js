@@ -1,6 +1,7 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { IconCloseSVG } from 'gutenverse-core/icons';
-import { useEffect, useState } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
+import { Checkout } from '@freemius/checkout';
 
 const BADGES = [
     __('No Credit Card Required', 'gutenverse'),
@@ -126,42 +127,28 @@ const PLAN_DESCRIPTIONS = {
     enterprise: __('Great for enterprises who manage a lot of websites.', 'gutenverse'),
 };
 
+const FEATURE_GROUP_TITLES = {
+    main: __('', 'gutenverse'),
+    essential_features: __('Essential Features', 'gutenverse'),
+    fse: __('FSE (Full Site Editing)', 'gutenverse'),
+    demo: __('Demo & Library', 'gutenverse'),
+    animation: __('Animation', 'gutenverse'),
+    adv_script_style: __('Advanced Script & Style', 'gutenverse'),
+    data_builder: __('Data & Builder', 'gutenverse'),
+    popup: __('Popup', 'gutenverse'),
+    news: __('News', 'gutenverse'),
+    form: __('Form', 'gutenverse'),
+    performance: __('Performance Optimization', 'gutenverse'),
+    theme_builder: __('Themes Builder', 'gutenverse'),
+};
+
 const DEFAULT_PRICING_PLAN = {
     active_promotion: [],
     is_event_sales: false,
     event_expired: '',
 };
 
-/**
- * Fetches live pricing data from the Freemius AJAX endpoint.
- *
- * @param {Object} config - Pricing config from window['JkitDashboardOption'].freemius.pricing.
- * @return {Promise<Object>} pricingData — { plugin, plans[], install, reviews }.
- */
-export const fetchPricingData = (config) => {
-    const {
-        request_handler_url,
-        sandbox,
-        s_ctx_type,
-        s_ctx_id,
-        s_ctx_ts,
-        s_ctx_secure,
-    } = config;
-
-    const params = { pricing_action: 'fetch_pricing_data', trial: 'false' };
-    if (sandbox) params.sandbox = sandbox;
-    if (s_ctx_type) params.s_ctx_type = s_ctx_type;
-    if (s_ctx_id) params.s_ctx_id = s_ctx_id;
-    if (s_ctx_ts) params.s_ctx_ts = s_ctx_ts;
-    if (s_ctx_secure) params.s_ctx_secure = s_ctx_secure;
-
-    const url = `${request_handler_url}&${new URLSearchParams(params).toString()}`;
-
-    return fetch(url, { method: 'GET' })
-        .then((res) => res.json())
-        .then((data) => (data.data ? data.data : data));
-};
-
+const LIMITED_BADGE_LABEL = __('Limited', 'gutenverse');
 
 const formatPrice = (value, currency = 'USD') => {
     if (typeof value !== 'number' || Number.isNaN(value)) {
@@ -176,66 +163,29 @@ const formatPrice = (value, currency = 'USD') => {
     }).format(value);
 };
 
-const getPrimaryFeatures = (slug) => FEATURES.main
-    .filter(({ include = [] }) => include.includes('all') || include.includes(slug))
-    .map(({ label }) => label);
-
-const getPreferredPricing = (pricing = [], currency = 'usd') => {
-    const normalizedCurrency = String(currency || 'usd').toLowerCase();
-    const visiblePricing = pricing.filter((item) => item && !item.is_hidden);
-    const matchingCurrency = visiblePricing.filter((item) => String(item.currency || '').toLowerCase() === normalizedCurrency);
-    const pricingPool = matchingCurrency.length ? matchingCurrency : visiblePricing;
-    const annualPricing = pricingPool.filter((item) => typeof item.annual_price === 'number' && item.annual_price > 0);
-
-    if (annualPricing.length) {
-        return annualPricing.sort((first, second) => {
-            const firstLicenses = Number.isFinite(first.licenses) ? first.licenses : Number.MAX_SAFE_INTEGER;
-            const secondLicenses = Number.isFinite(second.licenses) ? second.licenses : Number.MAX_SAFE_INTEGER;
-
-            return firstLicenses - secondLicenses;
-        })[0];
-    }
-
-    return pricingPool[0] || null;
-};
-
-const mapFreemiusPlan = (plan, currency = 'usd') => {
-    const pricing = getPreferredPricing(plan?.pricing || [], currency);
-
-    if (!pricing) {
-        return null;
-    }
-
-    return {
-        plan_id: String(plan.id),
-        price_id: String(pricing.id),
-        label: plan.title || plan.name || '',
-        slug: plan.name || '',
-        discount_amount: '',
-        discount_type: 'percentage',
-        coupon_code: '',
-        monthly_price: typeof pricing.monthly_price === 'number' ? pricing.monthly_price : null,
-        annual_price: typeof pricing.annual_price === 'number' ? pricing.annual_price : null,
-        lifetime_price: typeof pricing.lifetime_price === 'number' ? pricing.lifetime_price : null,
-        licenses: Number.isFinite(pricing.licenses) ? pricing.licenses : null,
-        currency: (pricing.currency || currency || 'usd').toUpperCase(),
-        is_featured: Boolean(plan.is_featured),
-    };
-};
+const getPlanFeatureGroups = (slug) => Object.entries(FEATURES)
+    .map(([groupKey, features]) => ({
+        key: groupKey,
+        title: FEATURE_GROUP_TITLES[groupKey],
+        features: features
+            .filter(({ include = [] }) => include.includes('all') || include.includes(slug))
+            .map((feature) => ({
+                ...feature,
+                isLimited: feature?.limited?.includes(slug),
+                isExcept: feature?.except?.includes(slug),
+            })),
+    }))
+    .filter(({ features }) => features.length);
 
 const normalizePlan = (plan) => {
     const slug = plan?.slug || '';
     const currency = plan?.currency || 'USD';
-    const annualPrice = typeof plan?.annual_price === 'number' ? plan.annual_price : null;
-    const monthlyPrice = typeof plan?.monthly_price === 'number' ? plan.monthly_price : null;
-    const lifetimePrice = typeof plan?.lifetime_price === 'number' ? plan.lifetime_price : null;
+    const actualPrice = plan?.actual_price;
     const discountAmount = Number(plan?.discount_amount || 0);
-    const hasDiscount = discountAmount > 0 && annualPrice;
-    const discountedAnnualPrice = hasDiscount ? annualPrice * ((100 - discountAmount) / 100) : annualPrice;
-    const displayedMonthlyPrice = annualPrice
-        ? discountedAnnualPrice / 12
-        : monthlyPrice || lifetimePrice;
-    const regularMonthlyPrice = annualPrice ? annualPrice / 12 : monthlyPrice;
+    const discountedPrice = plan?.discounted_price;
+    const hasDiscount = discountAmount > 0 && actualPrice;
+    const displayedMonthlyPrice = discountedPrice / 12;
+    const regularMonthlyPrice = actualPrice / 12;
 
     return {
         ...plan,
@@ -243,119 +193,61 @@ const normalizePlan = (plan) => {
         featured: Boolean(plan?.is_featured) || slug === 'professional',
         price: formatPrice(displayedMonthlyPrice, currency) || __('Contact Us', 'gutenverse'),
         oldPrice: hasDiscount ? formatPrice(regularMonthlyPrice, currency) : null,
-        billed: annualPrice
-            ? sprintf(
-                __('Billed annually. Pay %s/year today', 'gutenverse'),
-                formatPrice(discountedAnnualPrice, currency)
-            )
-            : monthlyPrice
-                ? __('Billed monthly.', 'gutenverse')
-                : __('One-time payment.', 'gutenverse'),
+        billed: sprintf(
+            __('Billed annually. Pay %s/year today', 'gutenverse'),
+            formatPrice(discountedPrice, currency)
+        ),
         renewal: hasDiscount
             ? sprintf(
                 __('Renew at regular rate %s/year', 'gutenverse'),
-                formatPrice(annualPrice, currency)
+                formatPrice(actualPrice, currency)
             )
             : null,
         description: PLAN_DESCRIPTIONS[slug] || __('Upgrade to unlock more Gutenverse features.', 'gutenverse'),
-        sale: hasDiscount ? sprintf(__('SALE %s%% Off', 'gutenverse'), discountAmount) : null,
-        features: getPrimaryFeatures(slug),
+        sale: hasDiscount ? sprintf(__('Sale %s%%', 'gutenverse'), discountAmount) : null,
     };
 };
 
-const fetchFreemiusPricingPlan = async (pricingConfig) => {
-    if (!pricingConfig?.request_handler_url) {
-        return DEFAULT_PRICING_PLAN;
-    }
-    const {
-        request_handler_url,
-        sandbox,
-        s_ctx_type,
-        s_ctx_id,
-        s_ctx_ts,
-        s_ctx_secure,
-    } = pricingConfig;
 
-    const params = {
-        pricing_action: 'fetch_pricing_data',
-        trial: 'false',
-    };
-
-    if (sandbox) params.sandbox = sandbox;
-    if (s_ctx_type) params.s_ctx_type = s_ctx_type;
-    if (s_ctx_id) params.s_ctx_id = s_ctx_id;
-    if (s_ctx_ts) params.s_ctx_ts = s_ctx_ts;
-    if (s_ctx_secure) params.s_ctx_secure = s_ctx_secure;
-
-    console.log(request_handler_url, params, pricingConfig);
-    
-    const response = await fetch(`${request_handler_url}&${new URLSearchParams(params).toString()}`, {
-        method: 'GET',
-    });
-    console.log(response)
-
-    if (!response.ok) {
-        console.error(`Freemius pricing request failed with status ${response.status}`);
-    }
-
-    const payload = await response.json();
-    const currency = pricingConfig?.currency || 'usd';
-    const activePromotion = (payload?.plans || [])
-        .filter((plan) => plan && !plan.is_hidden && plan.name !== 'free')
-        .map((plan) => mapFreemiusPlan(plan, currency))
-        .filter(Boolean);
-
-    return {
-        active_promotion: activePromotion,
-        is_event_sales: false,
-        event_expired: '',
-    };
-};
-
-const PopupPricingPlan = ({ pricingUrl, onClose }) => {
+const PopupPricingPlan = ({ onClose }) => {
     const runtime = window['GutenverseConfig'] ? window['GutenverseConfig'] : window['GutenverseDashboard'];
-    const { pricingPlan, freemius = {} } = runtime;
-    const [planData, setPlanData] = useState(pricingPlan || DEFAULT_PRICING_PLAN);
-    const [isLoading, setIsLoading] = useState(Boolean(freemius?.pricingConfig?.request_handler_url));
+    const { pricingPlan = DEFAULT_PRICING_PLAN } = runtime;
+    const plans = (pricingPlan.active_promotion || []).map(normalizePlan);
+    const fsCheckoutRef = useRef(null);
 
-    useEffect(() => {
-        let isMounted = true;
+    const handleCheckout = (plan) => {
+        if (!pricingPlan?.public_key || !pricingPlan?.product_id) {
+            return;
+        }
 
-        const loadPricing = async () => {
-            if (!freemius?.pricingConfig?.request_handler_url) {
-                setIsLoading(false);
-                return;
+        if (!fsCheckoutRef.current) {
+            const checkoutOptions = {
+                product_id: pricingPlan?.product_id,
+                public_key: pricingPlan?.public_key,
+            };
+
+            if(pricingPlan?.sandbox){
+                checkoutOptions.sandbox = pricingPlan?.sandbox;
             }
 
-            try {
-                const nextPlanData = await fetchFreemiusPricingPlan(freemius.pricingConfig);
+            fsCheckoutRef.current = new Checkout(checkoutOptions);
+        }
 
-                if (!isMounted) {
-                    return;
-                }
-
-                runtime.pricingPlan = nextPlanData;
-                setPlanData(nextPlanData);
-            } catch (error) {
-                if (isMounted) {
-                    setPlanData(pricingPlan || DEFAULT_PRICING_PLAN);
-                }
-            } finally {
-                if (isMounted) {
-                    setIsLoading(false);
-                }
+        const openOptions = {
+            title: __('Gutenverse Checkout', 'gutenverse-pro'),
+            plan_id: plan.plan_id,
+            pricing_id: plan.pricing_id,
+            billing_cycle: 'annual',
+            currency: 'auto',
+            readonly_user: true,
+            coupon: plan?.coupon_code,
+            success: () => {
+                onClose();
             }
         };
 
-        loadPricing();
-
-        return () => {
-            isMounted = false;
-        };
-    }, []);
-
-    const plans = (planData?.active_promotion || []).map(normalizePlan);
-
+        fsCheckoutRef.current.open(openOptions);
+    };
     return (
         <div className="gutenverse-pricing-popup">
             <button
@@ -378,53 +270,72 @@ const PopupPricingPlan = ({ pricingUrl, onClose }) => {
                 </div>
             </div>
             <div className="gutenverse-pricing-popup__cards">
-                {isLoading && (
-                    <article className="gutenverse-pricing-card">
-                        <div className="gutenverse-pricing-card__body">
-                            <p className="gutenverse-pricing-card__billing">{__('Loading pricing...', 'gutenverse')}</p>
-                        </div>
-                    </article>
-                )}
-                {plans.map((plan) => (
-                    <article
-                        key={plan.name}
-                        className={`gutenverse-pricing-card${plan.featured ? ' is-featured' : ''}`}
-                    >
-                        <div className="gutenverse-pricing-card__header">
-                            <h3>{plan.name}</h3>
-                            {plan.featured && (
-                                <span className="gutenverse-pricing-card__pill">{__('Popular', 'gutenverse')}</span>
-                            )}
-                        </div>
-                        <div className="gutenverse-pricing-card__body">
-                            <div className="gutenverse-pricing-card__pricing">
-                                {plan.oldPrice && <span className="gutenverse-pricing-card__old-price">{plan.oldPrice}</span>}
-                                {plan.sale && <span className="gutenverse-pricing-card__sale">{plan.sale}</span>}
-                                <div className="gutenverse-pricing-card__price-row">
-                                    <span className="gutenverse-pricing-card__price">{plan.price}</span>
-                                    <span className="gutenverse-pricing-card__period">{__('/mo', 'gutenverse')}</span>
-                                </div>
-                                <p className="gutenverse-pricing-card__billing">{plan.billed}</p>
-                                {plan.renewal && <p className="gutenverse-pricing-card__renewal">{plan.renewal}</p>}
+                {plans.map((plan) => {
+                    const planFeatureGroups = getPlanFeatureGroups(plan.slug);
+
+                    return (
+                        <article
+                            key={plan.name}
+                            className={`gutenverse-pricing-card${plan.featured ? ' is-featured' : ''}`}
+                        >
+                            <div className="gutenverse-pricing-card__header">
+                                <h3>{plan.name}</h3>
+                                {plan.featured && (
+                                    <span className="gutenverse-pricing-card__pill">{__('Popular', 'gutenverse')}</span>
+                                )}
                             </div>
-                            <a
-                                href={pricingUrl}
-                                className="gutenverse-pricing-card__button"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <span>{__('Purchase Now', 'gutenverse')}</span>
-                                <span aria-hidden="true">&#8250;</span>
-                            </a>
-                            <p className="gutenverse-pricing-card__description">{plan.description}</p>
-                            <ul className="gutenverse-pricing-card__features">
-                                {plan.features.map((feature) => (
-                                    <li key={`${plan.name}-${feature}`}>{feature}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </article>
-                ))}
+                            <div className="gutenverse-pricing-card__body">
+                                <div className="gutenverse-pricing-card__pricing">
+                                    {plan.oldPrice && <span className="gutenverse-pricing-card__old-price">{plan.oldPrice}</span>}
+                                    {plan.sale && <span className="gutenverse-pricing-card__sale">{plan.sale}</span>}
+                                    <div className="gutenverse-pricing-card__price-row">
+                                        <span className="gutenverse-pricing-card__price">{plan.price}</span>
+                                        <span className="gutenverse-pricing-card__period">{__('/mo', 'gutenverse')}</span>
+                                    </div>
+                                    <p className="gutenverse-pricing-card__billing">{plan.billed}</p>
+                                    {plan.renewal && <p className="gutenverse-pricing-card__renewal">{plan.renewal}</p>}
+                                </div>
+                                <div
+                                    className="gutenverse-pricing-card__button"
+                                    onClick={() => handleCheckout(plan)}
+                                >
+                                    <span>{__('Purchase Now', 'gutenverse')}</span>
+                                    <span aria-hidden="true">&#8250;</span>
+                                </div>
+                                <p className="gutenverse-pricing-card__description">{plan.description}</p>
+                                <div className="gutenverse-pricing-card__feature-groups">
+                                    {planFeatureGroups.map((group) => (
+                                        <div
+                                            key={`${plan.name}-${group.key}`}
+                                            className="gutenverse-pricing-card__feature-group"
+                                        >
+                                            <h4 className="gutenverse-pricing-card__feature-title">{group.title}</h4>
+                                            <ul className="gutenverse-pricing-card__features">
+                                                {group.features.map((feature) => (
+                                                    <li
+                                                        key={`${plan.name}-${group.key}-${feature.label}`}
+                                                        className={feature.isExcept ? 'is-except' : ''}
+                                                    >
+                                                        <i
+                                                            className={feature.isExcept ? 'fas fa-times-circle' : 'fas fa-check-circle'}
+                                                            aria-hidden="true"
+                                                        />
+                                                        <span>{feature.label}</span>
+                                                        {feature.isLimited && (
+                                                            <span className="gutenverse-pricing-card__feature-badge">
+                                                                {LIMITED_BADGE_LABEL}
+                                                            </span>
+                                                        )}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </article>
+                    );
+                })}
             </div>
         </div>
     );

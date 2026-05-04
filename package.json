@@ -67,6 +67,7 @@
 		"webpack-cli": "^5.1.4"
 	},
 	"dependencies": {
+		"@freemius/checkout": "^1.4.1",
 		"@wordpress/api-fetch": "^7.23.0",
 		"@wordpress/base-styles": "^5.23.0",
 		"@wordpress/block-editor": "^12.26.0",

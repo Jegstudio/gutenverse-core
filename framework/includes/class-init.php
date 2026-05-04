@@ -9,8 +9,6 @@
 
 namespace Gutenverse\Framework;
 
-use Gutenverse\Framework\Integration\Freemius;
-
 /**
  * Class Init
  *
@@ -139,13 +137,6 @@ class Init {
 	 * @var HOC_Frontend
 	 */
 	protected $hoc;
-
-	/**
-	 * Freemius Instance.
-	 *
-	 * @var Freemius
-	 */
-	protected $freemius;
 
 	/**
 	 * Singleton page for Init Class
@@ -320,7 +311,6 @@ class Init {
 		$this->frontend_cache     = new Frontend_Cache();
 		$this->frontend_generator = new Frontend_Generator();
 		$this->hoc                = new HOC_Frontend();
-		$this->freemius           = new Freemius();
 		$this->style_cache        = $this->frontend_cache;
 		$this->style_generator    = $this->frontend_generator;
 
