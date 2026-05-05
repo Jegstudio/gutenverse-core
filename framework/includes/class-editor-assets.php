@@ -144,6 +144,7 @@ class Editor_Assets {
 		$config['activeTheme']              = get_option( 'stylesheet' );
 		$config['supportGlobalImport']      = $this->check_theme_support_global();
 		$config['defaultImageLoad']         = $this->get_default_image_load_option();
+		$config['pricingPlan']              = gutenverse_get_pricing_plan();
 		include_once ABSPATH . 'wp-admin/includes/theme.php';
 
 		$theme = wp_get_theme();
