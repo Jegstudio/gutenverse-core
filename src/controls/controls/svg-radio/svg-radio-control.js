@@ -36,7 +36,7 @@ const SVGRadioControl = props => {
 
     const openUpgradeLink = () => {
         if (upgradeProUrl) {
-            openFreemiusPopup(null, upgradeProUrl);
+            openFreemiusPopup(null, upgradeProUrl, { medium: 'blockeditor' });
         }
     };
 

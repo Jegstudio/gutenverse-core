@@ -8,7 +8,7 @@ const ProLock = () => {
     } = window['GutenverseConfig'];
 
     const openLink = () => {
-        openFreemiusPopup(null, upgradeProUrl);
+        openFreemiusPopup(null, upgradeProUrl, { medium: 'blockeditor' });
     };
 
     return <>

@@ -5,6 +5,7 @@ const MODAL_ID = 'gutenverse-freemius-modal';
 const CONTENT_ID = 'gutenverse-freemius-modal-content';
 const BODY_CLASS = 'gutenverse-freemius-modal-open';
 const UPGRADE_ROUTE_PATH = 'upgrade-pro';
+const CLOSE_REQUEST_EVENT = 'gutenverse:pricing-popup-close-request';
 const FREEMIUS_MENU_SELECTOR = [
     'a[href*="page=gutenverse&path=upgrade-pro"]',
     'a[href*="page=gutenverse-dashboard&path=upgrade-pro"]',
@@ -22,6 +23,68 @@ const getFreemiusSettings = () => {
     };
 };
 
+const getFreemiusCampaign = () => {
+    const runtime = getGutenverseRuntime();
+    const { pricingPlan = {}, eventBanner = {} } = runtime;
+    const activePromotion = pricingPlan?.active_promotion?.[0] || {};
+
+    return pricingPlan?.event_name
+        || pricingPlan?.event_title
+        || pricingPlan?.eventTitle
+        || pricingPlan?.campaign
+        || activePromotion?.event_title
+        || activePromotion?.campaign
+        || activePromotion?.label
+        || activePromotion?.name
+        || eventBanner?.title
+        || eventBanner?.event_title
+        || 'freemius-checkout';
+};
+
+const getUpgradeUrlWithUtm = (url = null, options = {}) => {
+    const { pricingUrl } = getFreemiusSettings();
+    const targetUrl = url || pricingUrl;
+
+    if (!targetUrl) {
+        return null;
+    }
+
+    const runtime = getGutenverseRuntime();
+    try {
+        const parsedUrl = new URL(targetUrl);
+
+        if (!parsedUrl.searchParams.get('utm_source')) {
+            parsedUrl.searchParams.set('utm_source', options?.source || 'gutenverse');
+        }
+
+        if (!parsedUrl.searchParams.get('utm_medium') && options?.medium) {
+            parsedUrl.searchParams.set('utm_medium', options.medium);
+        }
+
+        if (!parsedUrl.searchParams.get('utm_campaign')) {
+            parsedUrl.searchParams.set('utm_campaign', options?.campaign || getFreemiusCampaign());
+        }
+
+        if (!parsedUrl.searchParams.get('utm_client_site')) {
+            parsedUrl.searchParams.set(
+                'utm_client_site',
+                options?.clientSite || runtime?.clientUrl || runtime?.url || window?.location?.origin || ''
+            );
+        }
+
+        if (!parsedUrl.searchParams.get('utm_client_theme')) {
+            parsedUrl.searchParams.set(
+                'utm_client_theme',
+                options?.clientTheme || runtime?.activeTheme || ''
+            );
+        }
+
+        return parsedUrl.toString();
+    } catch (error) {
+        return targetUrl;
+    }
+};
+
 const closeFreemiusPopup = () => {
     const modal = document.getElementById(MODAL_ID);
     const content = document.getElementById(CONTENT_ID);
@@ -36,6 +99,17 @@ const closeFreemiusPopup = () => {
     }
 
     document.body.classList.remove(BODY_CLASS);
+};
+
+const requestFreemiusPopupClose = () => {
+    const content = document.getElementById(CONTENT_ID);
+
+    if (content?.hasChildNodes()) {
+        document.dispatchEvent(new CustomEvent(CLOSE_REQUEST_EVENT));
+        return;
+    }
+
+    closeFreemiusPopup();
 };
 
 const ensureFreemiusPopup = () => {
@@ -57,11 +131,11 @@ const ensureFreemiusPopup = () => {
         </div>
     `;
 
-    modal.querySelector('.gutenverse-freemius-modal__backdrop').addEventListener('click', closeFreemiusPopup);
+    modal.querySelector('.gutenverse-freemius-modal__backdrop').addEventListener('click', requestFreemiusPopupClose);
 
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
-            closeFreemiusPopup();
+            requestFreemiusPopupClose();
         }
     });
 
@@ -70,13 +144,13 @@ const ensureFreemiusPopup = () => {
     return modal;
 };
 
-const openFreemiusPopup = (event = null, url = null) => {
+const openFreemiusPopup = (event = null, url = null, options = {}) => {
     if (event?.preventDefault) {
         event.preventDefault();
     }
 
     const { pricingUrl } = getFreemiusSettings();
-    const targetUrl = url || pricingUrl;
+    const targetUrl = getUpgradeUrlWithUtm(url || pricingUrl, options);
 
     if (!targetUrl) {
         return false;
@@ -88,6 +162,7 @@ const openFreemiusPopup = (event = null, url = null) => {
     render(
         <PopupPricingPlan
             onClose={closeFreemiusPopup}
+            pricingUrl={targetUrl}
         />,
         content
     );
@@ -98,14 +173,14 @@ const openFreemiusPopup = (event = null, url = null) => {
     return true;
 };
 
-const getUpgradeProps = (url = null) => {
+const getUpgradeProps = (url = null, options = {}) => {
     const { pricingUrl } = getFreemiusSettings();
-    const targetUrl = url || pricingUrl || '#';
+    const targetUrl = getUpgradeUrlWithUtm(url || pricingUrl, options) || '#';
 
     if (targetUrl !== '#') {
         return {
             href: targetUrl,
-            onClick: (event) => openFreemiusPopup(event, targetUrl),
+            onClick: (event) => openFreemiusPopup(event, targetUrl, options),
         };
     }
 
@@ -136,7 +211,7 @@ const bindFreemiusUpgradeLink = (element) => {
     element.dataset.gutenverseFreemiusBound = 'true';
     element.addEventListener('click', (event) => {
         const { pricingUrl } = getFreemiusSettings();
-        const targetUrl = pricingUrl || element.href;
+        const targetUrl = getUpgradeUrlWithUtm(pricingUrl || element.href);
 
         if (!targetUrl) {
             return;
@@ -165,7 +240,7 @@ const initializeFreemiusPopup = () => {
         bindFreemiusUpgradeLinks();
 
         if (shouldHandleUpgradeRoute()) {
-            openFreemiusPopup(null);
+            openFreemiusPopup(null, null, { medium: 'dashboardnav' });
         }
 
         const observer = new MutationObserver(() => {
@@ -190,7 +265,9 @@ initializeFreemiusPopup();
 
 export {
     closeFreemiusPopup,
+    getFreemiusCampaign,
     getFreemiusSettings,
+    getUpgradeUrlWithUtm,
     getUpgradeProps,
     initializeFreemiusPopup,
     openFreemiusPopup,

@@ -42,7 +42,7 @@ const PopupInsufficientTier = ({
                         <p className="sub-title">{__('UPGRADE REQUIRED', 'gutenverse')}</p>
                         <h3 className="details">{description}</h3>
                         <a
-                            {...getUpgradeProps(upgradeProUrl)}
+                            {...getUpgradeProps(upgradeProUrl, { medium: 'dashboard' })}
                             className="button-upgrade-plan left button-upgrade-plan-banner">
                             <>
                                 {__('Upgrade Plan Now', '--gctd--')}

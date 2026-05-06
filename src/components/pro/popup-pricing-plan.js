@@ -1,7 +1,12 @@
+import apiFetch from '@wordpress/api-fetch';
 import { __, sprintf } from '@wordpress/i18n';
 import { IconCloseSVG } from 'gutenverse-core/icons';
-import { useRef } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { Checkout } from '@freemius/checkout';
+
+const TRACKING_TIMEOUT = 2000;
+const CLOSE_REQUEST_EVENT = 'gutenverse:pricing-popup-close-request';
+const TRACKING_API_PATH = 'gutenverse-client/v1/freemius/checkout-tracking';
 
 const BADGES = [
     __('No Credit Card Required', 'gutenverse'),
@@ -150,6 +155,41 @@ const DEFAULT_PRICING_PLAN = {
 
 const LIMITED_BADGE_LABEL = __('Limited', 'gutenverse');
 
+const FeatureStatusIcon = ({ isExcept }) => (
+    <svg
+        className="gutenverse-pricing-card__feature-icon"
+        width="14"
+        height="14"
+        viewBox="0 0 14 14"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+    >
+        {isExcept ? (
+            <>
+                <circle cx="7" cy="7" r="7" fill="currentColor" opacity="1" />
+                <path
+                    d="M4.375 4.375L9.625 9.625M9.625 4.375L4.375 9.625"
+                    stroke="white"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                />
+            </>
+        ) : (
+            <>
+                <circle cx="7" cy="7" r="7" fill="currentColor" opacity="`" />
+                <path
+                    d="M4.375 7.175L6.125 8.925L9.625 5.425"
+                    stroke="white"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+            </>
+        )}
+    </svg>
+);
+
 const formatPrice = (value, currency = 'USD') => {
     if (typeof value !== 'number' || Number.isNaN(value)) {
         return null;
@@ -177,14 +217,30 @@ const getPlanFeatureGroups = (slug) => Object.entries(FEATURES)
     }))
     .filter(({ features }) => features.length);
 
-const normalizePlan = (plan) => {
+const isEventExpired = (eventExpired) => {
+    if (!eventExpired) {
+        return true;
+    }
+
+    const expiredAt = new Date(eventExpired);
+
+    if (Number.isNaN(expiredAt.getTime())) {
+        return true;
+    }
+
+    return expiredAt.getTime() <= Date.now();
+};
+
+const normalizePlan = (plan, { eventExpired = false } = {}) => {
     const slug = plan?.slug || '';
     const currency = plan?.currency || 'USD';
     const actualPrice = plan?.actual_price;
     const discountAmount = Number(plan?.discount_amount || 0);
     const discountedPrice = plan?.discounted_price;
     const hasDiscount = discountAmount > 0 && actualPrice;
-    const displayedMonthlyPrice = discountedPrice / 12;
+    const showDiscount = hasDiscount && !eventExpired;
+    const billedAnnualPrice = showDiscount ? discountedPrice : actualPrice || discountedPrice;
+    const displayedMonthlyPrice = billedAnnualPrice / 12;
     const regularMonthlyPrice = actualPrice / 12;
 
     return {
@@ -192,28 +248,109 @@ const normalizePlan = (plan) => {
         name: plan?.label || plan?.name || '',
         featured: Boolean(plan?.is_featured) || slug === 'professional',
         price: formatPrice(displayedMonthlyPrice, currency) || __('Contact Us', 'gutenverse'),
-        oldPrice: hasDiscount ? formatPrice(regularMonthlyPrice, currency) : null,
+        oldPrice: showDiscount ? formatPrice(regularMonthlyPrice, currency) : null,
         billed: sprintf(
             __('Billed annually. Pay %s/year today', 'gutenverse'),
-            formatPrice(discountedPrice, currency)
+            formatPrice(billedAnnualPrice, currency)
         ),
-        renewal: hasDiscount
+        renewal: showDiscount
             ? sprintf(
                 __('Renew at regular rate %s/year', 'gutenverse'),
                 formatPrice(actualPrice, currency)
             )
             : null,
         description: PLAN_DESCRIPTIONS[slug] || __('Upgrade to unlock more Gutenverse features.', 'gutenverse'),
-        sale: hasDiscount ? sprintf(__('Sale %s%%', 'gutenverse'), discountAmount) : null,
+        sale: showDiscount ? sprintf(__('Sale %s%%', 'gutenverse'), discountAmount) : null,
     };
 };
 
 
-const PopupPricingPlan = ({ onClose }) => {
+const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     const runtime = window['GutenverseConfig'] ? window['GutenverseConfig'] : window['GutenverseDashboard'];
     const { pricingPlan = DEFAULT_PRICING_PLAN } = runtime;
-    const plans = (pricingPlan.active_promotion || []).map(normalizePlan);
+    const plans = (pricingPlan.active_promotion || []).map((plan) => normalizePlan(plan, {
+        eventExpired: isEventExpired(pricingPlan?.event_expired),
+    }));
     const fsCheckoutRef = useRef(null);
+    const closePromiseRef = useRef(null);
+
+    const getTrackingPayload = ({ action, plan = null, checkoutData = null } = {}) => {
+        let searchParams = null;
+
+        try {
+            searchParams = new URL(pricingUrl || runtime?.upgradeProUrl || '').searchParams;
+        } catch (error) {
+            searchParams = null;
+        }
+
+        return {
+            action,
+            source: searchParams?.get('utm_source') || 'gutenverse',
+            medium: searchParams?.get('utm_medium') || 'pricing-popup',
+            campaign: searchParams?.get('utm_campaign') || pricingPlan?.event_name || 'freemius-checkout',
+            client_site: searchParams?.get('utm_client_site') || runtime?.clientUrl || runtime?.url || window?.location?.origin || '',
+            client_theme: searchParams?.get('utm_client_theme') || runtime?.activeTheme || '',
+            current_url: window?.location?.href || '',
+            pricing_url: pricingUrl || runtime?.upgradeProUrl || '',
+            product_id: pricingPlan?.product_id || null,
+            plan_id: plan?.plan_id || checkoutData?.plan_id || null,
+            pricing_id: plan?.pricing_id || checkoutData?.pricing_id || null,
+            plan_slug: plan?.slug || null,
+            plan_name: plan?.name || null,
+            coupon_code: isEventExpired(pricingPlan?.event_expired) ? '' : plan?.coupon_code,
+            discount_amount: isEventExpired(pricingPlan?.event_expired) ? '' : plan?.discount_amount,
+            external_id: checkoutData?.purchase?.license_id,
+            checkout_data: checkoutData,
+        };
+    };
+
+    const sendTrackingData = async (payload) => {
+        if (!payload?.pricing_url) {
+            return;
+        }
+
+        const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+        const timeoutId = controller ? window.setTimeout(() => controller.abort(), TRACKING_TIMEOUT) : null;
+
+        try {
+            await apiFetch({
+                path: TRACKING_API_PATH,
+                method: 'POST',
+                data: payload,
+                signal: controller?.signal,
+            });
+        } catch (error) {
+            return null;
+        } finally {
+            if (timeoutId) {
+                window.clearTimeout(timeoutId);
+            }
+        }
+    };
+
+    const handleClose = async ({ action = 'close_popup', plan = null, checkoutData = null } = {}) => {
+        if (!closePromiseRef.current) {
+            closePromiseRef.current = sendTrackingData(getTrackingPayload({ action, plan, checkoutData }))
+                .finally(() => {
+                    onClose();
+                    closePromiseRef.current = null;
+                });
+        }
+
+        return closePromiseRef.current;
+    };
+
+    useEffect(() => {
+        const requestClose = () => {
+            handleClose();
+        };
+
+        document.addEventListener(CLOSE_REQUEST_EVENT, requestClose);
+
+        return () => {
+            document.removeEventListener(CLOSE_REQUEST_EVENT, requestClose);
+        };
+    }, [handleClose]);
 
     const handleCheckout = (plan) => {
         if (!pricingPlan?.public_key || !pricingPlan?.product_id) {
@@ -240,10 +377,8 @@ const PopupPricingPlan = ({ onClose }) => {
             billing_cycle: 'annual',
             currency: 'auto',
             readonly_user: true,
-            coupon: plan?.coupon_code,
-            success: () => {
-                onClose();
-            }
+            coupon: isEventExpired(pricingPlan?.event_expired) ? '' : plan?.coupon_code,
+            success: (data) => handleClose({ action: 'checkout_success', plan, checkoutData: data }),
         };
 
         fsCheckoutRef.current.open(openOptions);
@@ -254,7 +389,7 @@ const PopupPricingPlan = ({ onClose }) => {
                 type="button"
                 className="gutenverse-pricing-popup__close"
                 aria-label={__('Close pricing popup', 'gutenverse')}
-                onClick={onClose}
+                onClick={() => onClose()}
             >
                 <IconCloseSVG size={20} />
             </button>
@@ -316,10 +451,7 @@ const PopupPricingPlan = ({ onClose }) => {
                                                         key={`${plan.name}-${group.key}-${feature.label}`}
                                                         className={feature.isExcept ? 'is-except' : ''}
                                                     >
-                                                        <i
-                                                            className={feature.isExcept ? 'fas fa-times-circle' : 'fas fa-check-circle'}
-                                                            aria-hidden="true"
-                                                        />
+                                                        <FeatureStatusIcon isExcept={feature.isExcept} />
                                                         <span>{feature.label}</span>
                                                         {feature.isLimited && (
                                                             <span className="gutenverse-pricing-card__feature-badge">

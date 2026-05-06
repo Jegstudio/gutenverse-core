@@ -25,6 +25,17 @@ const ButtonUpgradePro = ({
     onClick = () => {},
 }) => {
     const { upgradeProUrl, adminUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+    const upgradeOptions = {
+        medium: location === 'dashboard-navigation'
+            ? 'dashboardnav'
+            : location === 'popup' || location === 'themeList' || location === 'ecosystem'
+                ? 'dashboard'
+                : location === 'library' || location === 'card-pro'
+                    ? 'library'
+                    : location === 'form-builder'
+                        ? 'formProNotice'
+                        : 'blockeditor',
+    };
     const buttonClasses = classnames(
         'button-upgrade-pro',
         {
@@ -39,7 +50,7 @@ const ButtonUpgradePro = ({
     const dashboardLink = adminUrl + 'admin.php?page=gutenverse&path=license';
 
     const getNoProButtonProps = (targetUrl) => {
-        const upgradeProps = getUpgradeProps(targetUrl);
+        const upgradeProps = getUpgradeProps(targetUrl, upgradeOptions);
 
         if (!onClick || !upgradeProps?.onClick) {
             return upgradeProps;
@@ -53,7 +64,7 @@ const ButtonUpgradePro = ({
 
                 // Let the parent popup unmount before showing the pricing modal.
                 window.setTimeout(() => {
-                    openFreemiusPopup(null, targetUrl);
+                    openFreemiusPopup(null, targetUrl, upgradeOptions);
                 }, 0);
             },
         };

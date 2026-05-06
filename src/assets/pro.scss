@@ -390,13 +390,14 @@ body.gutenverse-freemius-modal-open {
     line-height: 1.5;
 }
 
-.gutenverse-pricing-card__features li i {
+.gutenverse-pricing-card__feature-icon {
     flex: 0 0 auto;
-    font-size: 14px;
+    width: 14px;
+    height: 14px;
     color: #5b5fff;
 }
 
-.gutenverse-pricing-card__features li.is-except i {
+.gutenverse-pricing-card__features li.is-except .gutenverse-pricing-card__feature-icon {
     color: #ff6b6b;
 }
 

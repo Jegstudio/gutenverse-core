@@ -358,6 +358,16 @@ class Api {
 			)
 		);
 
+		register_rest_route(
+			self::ENDPOINT,
+			'freemius/checkout-tracking',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'freemius_checkout_tracking' ),
+				'permission_callback' => 'gutenverse_permission_check_login',
+			)
+		);
+
 		/** ----------------------------------------------------------------
 		 * Frontend/Global Routes
 		 */
@@ -414,6 +424,78 @@ class Api {
 			);
 		}
 	}
+
+	/**
+	 * Relay Freemius checkout tracking through the site server.
+	 *
+	 * @param object $request Request object.
+	 *
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function freemius_checkout_tracking( $request ) {
+		$params = $request->get_json_params();
+
+		if ( ! is_array( $params ) ) {
+			$params = $request->get_params();
+		}
+
+		$endpoint      = GUTENVERSE_FRAMEWORK_PRO_URL . '/wp-json/gutenverse-pro/v1/freemius-checkout-tracking/';
+		$checkout_data = isset( $params['checkout_data'] ) && is_array( $params['checkout_data'] ) ? $params['checkout_data'] : null;
+		$external_id   = null;
+
+		if ( isset( $checkout_data['purchase']['license_id'] ) ) {
+			$external_id = sanitize_text_field( wp_unslash( $checkout_data['purchase']['license_id'] ) );
+		}
+
+		$payload = array(
+			'action'          => isset( $params['action'] ) ? sanitize_text_field( wp_unslash( $params['action'] ) ) : '',
+			'source'          => isset( $params['source'] ) ? sanitize_text_field( wp_unslash( $params['source'] ) ) : '',
+			'medium'          => isset( $params['medium'] ) ? sanitize_text_field( wp_unslash( $params['medium'] ) ) : '',
+			'campaign'        => isset( $params['campaign'] ) ? sanitize_text_field( wp_unslash( $params['campaign'] ) ) : '',
+			'client_site'     => isset( $params['client_site'] ) ? esc_url_raw( wp_unslash( $params['client_site'] ) ) : '',
+			'client_theme'    => isset( $params['client_theme'] ) ? sanitize_text_field( wp_unslash( $params['client_theme'] ) ) : '',
+			'current_url'     => isset( $params['current_url'] ) ? esc_url_raw( wp_unslash( $params['current_url'] ) ) : '',
+			'product_id'      => isset( $params['product_id'] ) ? sanitize_text_field( wp_unslash( $params['product_id'] ) ) : null,
+			'plan_id'         => isset( $params['plan_id'] ) ? sanitize_text_field( wp_unslash( $params['plan_id'] ) ) : null,
+			'pricing_id'      => isset( $params['pricing_id'] ) ? sanitize_text_field( wp_unslash( $params['pricing_id'] ) ) : null,
+			'plan_slug'       => isset( $params['plan_slug'] ) ? sanitize_title( wp_unslash( $params['plan_slug'] ) ) : null,
+			'plan_name'       => isset( $params['plan_name'] ) ? sanitize_text_field( wp_unslash( $params['plan_name'] ) ) : null,
+			'coupon_code'     => isset( $params['coupon_code'] ) ? sanitize_text_field( wp_unslash( $params['coupon_code'] ) ) : null,
+			'discount_amount' => isset( $params['discount_amount'] ) ? sanitize_text_field( wp_unslash( $params['discount_amount'] ) ) : null,
+			'external_id'     => $external_id,
+			'checkout_data'   => $checkout_data,
+		);
+
+		$response = wp_remote_post(
+			$endpoint,
+			array(
+				'timeout' => 2,
+				'headers' => array(
+					'Content-Type' => 'application/json',
+				),
+				'body'    => wp_json_encode( $payload ),
+			)
+		);
+		gutenverse_rlog( $response );
+
+		if ( is_wp_error( $response ) ) {
+			return new WP_Error(
+				'tracking_request_failed',
+				$response->get_error_message(),
+				array( 'status' => 500 )
+			);
+		}
+
+		$status = (int) wp_remote_retrieve_response_code( $response );
+
+		return new WP_REST_Response(
+			array(
+				'success' => $status >= 200 && $status < 300,
+			),
+			$status > 0 ? $status : 200
+		);
+	}
+
 	/**
 	 * Fetch Data
 	 *

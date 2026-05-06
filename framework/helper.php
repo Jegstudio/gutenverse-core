@@ -501,7 +501,6 @@ if ( ! function_exists( 'gutenverse_get_pricing_plan' ) ) {
 			}
 		}
 
-
 		return $data;
 	}
 }
@@ -1748,6 +1747,25 @@ if ( ! function_exists( 'gutenverse_permission_change_global_variable' ) ) {
 	 */
 	function gutenverse_permission_change_global_variable() {
 		if ( ! current_user_can( 'edit_pages' ) ) {
+			return new WP_Error(
+				'forbidden_permission',
+				esc_html__( 'Forbidden Access', '--gctd--' ),
+				array( 'status' => 403 )
+			);
+		}
+
+		return true;
+	}
+}
+
+if ( ! function_exists( 'gutenverse_permission_check_login' ) ) {
+	/**
+	 * Check login permissions.
+	 *
+	 * @return bool|WP_Error
+	 */
+	function gutenverse_permission_check_login() {
+		if ( ! is_user_logged_in() ) {
 			return new WP_Error(
 				'forbidden_permission',
 				esc_html__( 'Forbidden Access', '--gctd--' ),

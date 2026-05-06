@@ -157,7 +157,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
                 break;
             case 'upgrade-pro':
                 path = 'dashboard';
-                window?.GutenverseDashboard?.upgradeProUrl && openFreemiusPopup(null, window?.GutenverseDashboard?.upgradeProUrl);
+                window?.GutenverseDashboard?.upgradeProUrl && openFreemiusPopup(null, window?.GutenverseDashboard?.upgradeProUrl, { medium: 'dashboardnav' });
                 routePage = <Dashboard {...props} />;
                 break;
             default:

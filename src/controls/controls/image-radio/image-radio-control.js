@@ -32,7 +32,7 @@ const ImageRadioControl = props => {
     } = window['GutenverseConfig'];
 
     const openUpgradeLink = () => {
-        openFreemiusPopup(null, upgradeProUrl);
+        openFreemiusPopup(null, upgradeProUrl, { medium: 'blockeditor' });
     };
 
 
