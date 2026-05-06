@@ -10,6 +10,8 @@ import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
 import { IconAlignItemsCenter, IconAlignItemsEnd, IconAlignItemsStart, IconAlignItemsStretch, IconColumnAlignItemsCenter, IconColumnAlignItemsEnd, IconColumnAlignItemsStart, IconColumnAlignItemsStretch, IconColumnJustifyContentCenter, IconColumnJustifyContentEnd, IconColumnJustifySpaceAround, IconColumnJustifySpaceBetween, IconColumnJustifySpaceEvently, IconColumnJustifyStart, IconJustifyContentCenter, IconJustifyContentEnd, IconJustifyContentSpaceAround, IconJustifyContentSpaceBetween, IconJustifyContentSpaceEvenly, IconJustifyContentStart } from 'gutenverse-core/icons';
 
+export * from './freemius';
+
 export const isEmpty = value => isEmptyLodash(value);
 
 export const isEqual = (item1, item2) => isEqualLodash(item1, item2);
