@@ -368,6 +368,16 @@ class Api {
 			)
 		);
 
+		register_rest_route(
+			self::ENDPOINT,
+			'license/verify-key',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'verify_license_key' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
 		/** ----------------------------------------------------------------
 		 * Frontend/Global Routes
 		 */
@@ -491,6 +501,76 @@ class Api {
 		return new WP_REST_Response(
 			array(
 				'success' => $status >= 200 && $status < 300,
+			),
+			$status > 0 ? $status : 200
+		);
+	}
+
+	/**
+	 * Verify a license key against the Pro server and return the license ID.
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function verify_license_key( ) {
+		gutenverse_rlog('masuk');
+		$pro_site = GUTENVERSE_FRAMEWORK_PRO_URL;
+		$license  = get_option( 'gutenverse-license', '' );
+
+		if ( empty( $pro_site ) || ! wp_http_validate_url( $pro_site ) ) {
+			return new WP_REST_Response(
+				array(
+					'license_id' => '',
+					'message'    => 'Invalid pro_site URL.',
+				),
+				400
+			);
+		}
+
+		if ( empty( $license ) ) {
+			return new WP_REST_Response(
+				array(
+					'license_id' => '',
+					'message'    => 'License key is not registered on this site.',
+				),
+				400
+			);
+		}
+
+		$endpoint = untrailingslashit( $pro_site ) . '/wp-json/gutenverse-pro/v1/license/verify-key';
+		$response = wp_remote_post(
+			$endpoint,
+			array(
+				'headers' => array(
+					'valid-domain' => site_url(),
+					'origin'       => site_url(),
+				),
+				'body'    => array(
+					'key' => $license,
+				),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return new WP_REST_Response(
+				array(
+					'license_id' => '',
+					'message'    => $response->get_error_message(),
+				),
+				500
+			);
+		}
+
+		$status = (int) wp_remote_retrieve_response_code( $response );
+		$body   = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( ! is_array( $body ) ) {
+			$body = array();
+		}
+
+		return new WP_REST_Response(
+			array(
+				'license_id' => isset( $body['license_id'] ) ? sanitize_text_field( wp_unslash( $body['license_id'] ) ) : '',
+				'message'    => isset( $body['message'] ) ? sanitize_text_field( wp_unslash( $body['message'] ) ) : '',
 			),
 			$status > 0 ? $status : 200
 		);

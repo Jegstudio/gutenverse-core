@@ -133,6 +133,7 @@ class Editor_Assets {
 		$config['upgradeProUrl']            = gutenverse_upgrade_pro();
 		$config['documentationUrl']         = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
 		$config['proDemoUrl']               = GUTENVERSE_FRAMEWORK_SERVER_URL;
+		$config['proSiteUrl']            	= GUTENVERSE_FRAMEWORK_PRO_URL;
 		$config['uploadPath']               = $upload_path['baseurl'];
 		$config['updateLicensePage']        = admin_url( 'admin.php?page=gutenverse&path=license' );
 		$config['autoBlockRecovery']        = gutenverse_autoblock_recovery();

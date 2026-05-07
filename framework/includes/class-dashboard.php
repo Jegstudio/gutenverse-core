@@ -215,6 +215,7 @@ class Dashboard {
 		$config['proDemoUrl']               = untrailingslashit( GUTENVERSE_FRAMEWORK_LIBRARY_URL );
 		$config['adminUrl']                 = admin_url();
 		$config['upgradeProUrl']            = gutenverse_upgrade_pro();
+		$config['proSiteUrl']            	= GUTENVERSE_FRAMEWORK_PRO_URL;
 		$config['requireProUpdate']         = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
 		$config['eventBanner']              = gutenverse_get_event_banner();
 		$config['adsBannerThemeTF']         = gutenverse_get_ads_banner_theme_tf();

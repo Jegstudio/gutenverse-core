@@ -273,6 +273,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     }));
     const fsCheckoutRef = useRef(null);
     const closePromiseRef = useRef(null);
+    const hasClosedRef = useRef(false);
     const hasPlans = plans.length > 0;
 
     const getTrackingPayload = ({ action, plan = null, checkoutData = null } = {}) => {
@@ -329,14 +330,17 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
         }
     };
 
-    const handleClose = async ({ action = 'close_popup', plan = null, checkoutData = null } = {}) => {
-        if (!closePromiseRef.current) {
-            closePromiseRef.current = sendTrackingData(getTrackingPayload({ action, plan, checkoutData }))
-                .finally(() => {
-                    onClose();
-                    closePromiseRef.current = null;
-                });
+    const handleClose = ({ action = 'close_popup', plan = null, checkoutData = null } = {}) => {
+        if (hasClosedRef.current) {
+            return closePromiseRef.current;
         }
+
+        hasClosedRef.current = true;
+        onClose();
+        closePromiseRef.current = sendTrackingData(getTrackingPayload({ action, plan, checkoutData }))
+            .finally(() => {
+                closePromiseRef.current = null;
+            });
 
         return closePromiseRef.current;
     };
