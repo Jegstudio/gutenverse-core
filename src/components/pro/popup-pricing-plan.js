@@ -273,6 +273,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     }));
     const fsCheckoutRef = useRef(null);
     const closePromiseRef = useRef(null);
+    const hasPlans = plans.length > 0;
 
     const getTrackingPayload = ({ action, plan = null, checkoutData = null } = {}) => {
         let searchParams = null;
@@ -363,7 +364,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
                 public_key: pricingPlan?.public_key,
             };
 
-            if(pricingPlan?.sandbox){
+            if (pricingPlan?.sandbox) {
                 checkoutOptions.sandbox = pricingPlan?.sandbox;
             }
 
@@ -394,18 +395,24 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
                 <IconCloseSVG size={20} />
             </button>
             <div className="gutenverse-pricing-popup__hero">
-                <h2 className="gutenverse-pricing-popup__title">{__('Affordable Pricing Plan', 'gutenverse')}</h2>
-                <p className="gutenverse-pricing-popup__subtitle">
-                    {__('Gutenverse helps maximize your WordPress website\'s potential. Upgrade to PRO for more features.', 'gutenverse')}
-                </p>
-                <div className="gutenverse-pricing-popup__badges">
-                    {BADGES.map((badge) => (
-                        <span key={badge} className="gutenverse-pricing-popup__badge">{badge}</span>
-                    ))}
-                </div>
+                {hasPlans ? <><h2 className="gutenverse-pricing-popup__title">{__('Affordable Pricing Plan', 'gutenverse')}</h2>
+                    <p className="gutenverse-pricing-popup__subtitle">
+                        {__('Gutenverse helps maximize your WordPress website\'s potential. Upgrade to PRO for more features.', 'gutenverse')}
+                    </p>
+                    <div className="gutenverse-pricing-popup__badges">
+                        {BADGES.map((badge) => (
+                            <span key={badge} className="gutenverse-pricing-popup__badge">{badge}</span>
+                        ))}
+                    </div></> : <>
+                    <div className="gutenverse-pricing-popup__empty-state">
+                        <h2 className="gutenverse-pricing-popup__title">{__('Pricing plans are currently under maintenance.', 'gutenverse')}</h2>
+                        <p className="gutenverse-pricing-popup__subtitle">{__('Please check back soon. New plans will be available soon.', 'gutenverse')}</p>
+                    </div>
+                </>
+                }
             </div>
             <div className="gutenverse-pricing-popup__cards">
-                {plans.map((plan) => {
+                {hasPlans && plans.map((plan) => {
                     const planFeatureGroups = getPlanFeatureGroups(plan.slug);
 
                     return (
@@ -467,7 +474,8 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
                             </div>
                         </article>
                     );
-                })}
+                })
+                }
             </div>
         </div>
     );
