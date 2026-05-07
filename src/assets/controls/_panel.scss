@@ -232,6 +232,14 @@
     .gutenverse-control-hover {
         margin: 20px 0 10px 0;
     }
+
+    .repeater-item {
+        .repeater-body {
+            *::placeholder {
+                color: rgba(153, 162, 169, 1) !important;
+            }
+        }
+    }
 }
 
 .gutenverse-control-wrapper {
