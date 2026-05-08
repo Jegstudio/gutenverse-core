@@ -691,12 +691,11 @@ class Frontend_Generator {
 		}
 
 		// Asumsikan pengecekan ada di element itu sendiri.
-
-		if ( ! empty( $script_handle ) ) {
+		if ( ! empty( $script_handle ) && ! in_array( $script_handle, $this->script_list, true ) ) {
 			$this->script_list[] = $script_handle;
 		}
 
-		if ( ! empty( $style_handle ) ) {
+		if ( ! empty( $style_handle ) && ! in_array( $style_handle, $this->style_list, true ) ) {
 			$this->style_list[] = $style_handle;
 		}
 	}
@@ -793,7 +792,7 @@ class Frontend_Generator {
 		$script_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
 
 		// remove duplicates.
-		$script_handles = array_values( array_unique( $this->script_list ) );
+		$script_handles = array_values( array_unique( $script_handles ) );
 
 		if ( ! empty( $script_handles ) ) {
 			foreach ( $script_handles as $handle ) {

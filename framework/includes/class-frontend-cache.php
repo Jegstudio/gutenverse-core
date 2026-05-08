@@ -503,10 +503,6 @@ class Frontend_Cache {
 		$file_url = gutenverse_css_url( $filename );
 		$includes = array( 'gutenverse-frontend-style' );
 
-		if ( gutenverse_pro_active() ) {
-			$includes[] = 'gutenverse-pro-block';
-		}
-
 		wp_enqueue_style(
 			'gutenverse-generated-' . $type,
 			$file_url,
