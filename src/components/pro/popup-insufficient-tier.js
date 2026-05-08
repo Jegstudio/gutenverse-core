@@ -3,6 +3,7 @@ import { IconCloseSVG } from 'gutenverse-core/icons';
 import { useRef, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { getUpgradeProps } from '../../helper/freemius';
+import apiFetch from '@wordpress/api-fetch';
 
 const PopupInsufficientTier = ({
     active = false,
@@ -23,6 +24,106 @@ const PopupInsufficientTier = ({
 
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [popupRef]);
+
+    const buildUpgradeLoginUrl = (licenseId) => {
+        const {
+            proSiteUrl = '',
+        } = getUpgradeRuntime();
+        const proBaseUrl = normalizeBaseUrl((() => {
+            try {
+                return new URL(proSiteUrl || '').origin;
+            } catch (e) {
+                return '';
+            }
+        })());
+
+        if (!proBaseUrl || !licenseId) {
+            return '';
+        }
+
+        const upgradeUrl = `${proBaseUrl}/account/license/upgrade/${licenseId}`;
+        return `${proBaseUrl}/login?redirect_to=${encodeURIComponent(upgradeUrl)}`;
+    };
+
+    const getUpgradeRuntime = () => window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+
+    const normalizeBaseUrl = (url = '') => `${url}`.replace(/\/+$/, '');
+
+    const fetchUpgradeLicenseId = () => {
+        const { licenseKey, domain } = getLicenseVerifyRequestData();
+
+        if (!licenseKey) {
+            throw new Error(__('Active license key is not available on this site.', 'gutenverse-pro'));
+        }
+
+        return apiFetch({
+            path: 'gutenverse-client/v1/license/verify-key',
+            method: 'GET',
+        }).then((data) => {
+            const licenseId = `${data?.license_id || ''}`.trim();
+
+            if (!licenseId) {
+                throw new Error(data?.message || __('Unable to find the upgrade license for this site.', 'gutenverse-pro'));
+            }
+
+            return licenseId;
+        });
+    };
+
+
+    const getLicenseVerifyRequestData = () => {
+        const {
+            license = '',
+            domainURL = '',
+        } = getUpgradeRuntime();
+
+        return {
+            licenseKey: `${license}`.trim(),
+            domain: `${domainURL}`.trim() || window.location.origin,
+        };
+    };
+
+    const handleUpgradeLicenseClick = (event) => {
+        event?.preventDefault?.();
+
+        const popupWidth = 960;
+        const popupHeight = 720;
+        const popupLeft = 0;
+        const popupTop = 0;
+        const popupFeatures = [
+            `width=${popupWidth}`,
+            `height=${popupHeight}`,
+            `left=${popupLeft}`,
+            `top=${popupTop}`,
+            'resizable=yes',
+            'scrollbars=yes',
+        ].join(',');
+        const upgradeWindow = window.open('', 'gutenverse-upgrade-license', popupFeatures);
+
+        fetchUpgradeLicenseId()
+            .then((licenseId) => {
+                const targetUrl = buildUpgradeLoginUrl(licenseId);
+
+                if (!targetUrl) {
+                    throw new Error(__('Upgrade server URL is not configured.', 'gutenverse-pro'));
+                }
+
+                if (upgradeWindow) {
+                    upgradeWindow.location.href = targetUrl;
+                    upgradeWindow.focus?.();
+                    return;
+                }
+
+                window.open(targetUrl, 'gutenverse-upgrade-license', popupFeatures);
+            })
+            .catch((error) => {
+                if (upgradeWindow && !upgradeWindow.closed) {
+                    upgradeWindow.close();
+                }
+
+                window.alert(error?.message || __('Unable to open the upgrade page.', 'gutenverse-pro'));
+            });
+    };
     return active && (
         <>
             <EscListener execute={() => setActive(false)} />
@@ -42,7 +143,7 @@ const PopupInsufficientTier = ({
                         <p className="sub-title">{__('UPGRADE REQUIRED', 'gutenverse')}</p>
                         <h3 className="details">{description}</h3>
                         <a
-                            {...getUpgradeProps(upgradeProUrl, { medium: 'dashboard' })}
+                            onClick={handleUpgradeLicenseClick}
                             className="button-upgrade-plan left button-upgrade-plan-banner">
                             <>
                                 {__('Upgrade Plan Now', '--gctd--')}
