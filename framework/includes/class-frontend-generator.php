@@ -566,6 +566,7 @@ class Frontend_Generator {
 	 * @param string $block_name block name.
 	 */
 	public function check_attributes( $attrs, $block_name ) {
+
 		if ( empty( $attrs ) ) {
 			return;
 		}
@@ -781,7 +782,7 @@ class Frontend_Generator {
 		$script_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
 
 		// remove duplicates.
-		$script_handles = array_values( array_unique( $this->script_list ) );
+		$script_handles = array_values( array_unique( $script_handles ) );
 
 		if ( ! empty( $script_handles ) ) {
 			foreach ( $script_handles as $handle ) {
@@ -798,8 +799,8 @@ class Frontend_Generator {
 	public function load_conditional_styles() {
 		$style_handles = apply_filters( 'gutenverse_conditional_style_handles', $this->style_list );
 
-		// remove duplicates
-		$style_handles = array_values( array_unique( $this->style_list ) );
+		// remove duplicates.
+		$style_handles = array_values( array_unique( $style_handles ) );
 
 		if ( ! empty( $style_handles ) ) {
 			foreach ( $style_handles as $handle ) {
