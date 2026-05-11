@@ -617,20 +617,6 @@ class Api {
 
 		$body = wp_remote_retrieve_body( $response );
 		$data = json_decode( $body );
-		/** Remove when done */
-		$is_sandbox = true;
-
-		if ( $is_sandbox && isset( $data->product_id ) && isset( $data->public_key ) ) {
-			$secret_key = 'sk_JgtqE{T*D4fbS7=F(]13k+BO08;VJ';
-			$timestamp  = time();
-			$token      = md5( $timestamp . $data->product_id . $secret_key . $data->public_key . 'checkout' );
-
-			$data->sandbox = array(
-				'ctx'   => (string) $timestamp,
-				'token' => $token,
-			);
-		}
-		/** Remove when done */
 
 		return new WP_REST_Response(
 			array(
