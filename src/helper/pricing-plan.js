@@ -7,7 +7,7 @@ const DEFAULT_PRICING_PLAN = {
     event_expired: '',
 };
 
-let pricingPlanPromise = null;
+const PRICING_PLAN_PROMISE_KEY = 'GutenverseTempPricingDataPromise';
 
 const getTempPricingPlanData = () => {
     if (typeof window === 'undefined') {
@@ -15,6 +15,28 @@ const getTempPricingPlanData = () => {
     }
 
     return window.GutenverseTempPricingData || null;
+};
+
+const getPricingPlanPromise = () => {
+    if (typeof window === 'undefined') {
+        return null;
+    }
+
+    return window[PRICING_PLAN_PROMISE_KEY] || null;
+};
+
+const setPricingPlanPromise = (promise) => {
+    if (typeof window === 'undefined') {
+        return promise;
+    }
+
+    if (promise) {
+        window[PRICING_PLAN_PROMISE_KEY] = promise;
+    } else {
+        delete window[PRICING_PLAN_PROMISE_KEY];
+    }
+
+    return promise;
 };
 
 const getRuntimeObjects = () => {
@@ -61,19 +83,19 @@ const getPricingPlanFallback = () => {
 };
 
 const ensurePricingPlanData = ({ force = false } = {}) => {
-    if (!force && pricingPlanPromise) {
-        return pricingPlanPromise;
-    }
-
     const tempPricingPlan = normalizePricingPlan(getTempPricingPlanData());
 
     if (!force && getTempPricingPlanData()) {
         return Promise.resolve(setRuntimePricingPlan(tempPricingPlan));
     }
 
+    if (!force && getPricingPlanPromise()) {
+        return getPricingPlanPromise();
+    }
+
     const fallbackPricingPlan = getPricingPlanFallback();
 
-    pricingPlanPromise = apiFetch({
+    const pricingPlanPromise = apiFetch({
         path: PRICING_PLAN_API_PATH,
         method: 'GET',
     })
@@ -88,10 +110,10 @@ const ensurePricingPlanData = ({ force = false } = {}) => {
         })
         .catch(() => fallbackPricingPlan)
         .finally(() => {
-            pricingPlanPromise = null;
+            setPricingPlanPromise(null);
         });
 
-    return pricingPlanPromise;
+    return setPricingPlanPromise(pricingPlanPromise);
 };
 
 const prefetchPricingPlanData = () => {
