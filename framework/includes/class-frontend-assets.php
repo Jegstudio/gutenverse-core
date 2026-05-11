@@ -24,7 +24,7 @@ class Frontend_Assets {
 	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ), 99 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_inline_style' ), 999 );
+		add_action( 'gutenverse_loop_blocks', array( $this, 'enqueue_frontend_style' ) );
 		add_action( 'gutenverse_enqueue_assets', array( $this, 'enqueue_template_part_assets' ) );
 		add_filter( 'gutenverse_global_css', array( $this, 'global_variable_css' ) );
 		add_filter( 'styles_inline_size_limit', array( $this, 'inline_style_size_limit' ) );
@@ -213,10 +213,14 @@ class Frontend_Assets {
 	}
 
 	/**
-	 * Frontend style
+	 * Queue the base frontend style when Gutenverse blocks exist.
+	 *
+	 * @param array $block Parsed block data.
 	 */
-	public function frontend_inline_style() {
-		wp_enqueue_style( 'gutenverse-frontend-style' );
+	public function enqueue_frontend_style( $block ) {
+		if ( isset( $block['blockName'] ) && 0 === strpos( $block['blockName'], 'gutenverse' ) ) {
+			wp_enqueue_style( 'gutenverse-frontend-style' );
+		}
 	}
 
 	/**
