@@ -1,7 +1,7 @@
 import { Default } from '../blocks/default';
 import u from 'umbrellajs';
 
-export class GutenverseAnimationBasic extends Default {
+class GutenverseAnimationBasic extends Default {
     init() {
         this._elements.map(element => {
             this.playAnimationOnView(element);
