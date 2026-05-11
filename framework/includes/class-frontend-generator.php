@@ -78,8 +78,21 @@ class Frontend_Generator {
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_styles' ), 51 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'block_styles' ) );
 		add_action( 'wp_head', array( $this, 'render_preload_images' ), 5 );
+		add_filter( 'pre_render_block', array( $this, 'pre_render_block' ), 10, 3 );
 	}
 
+	/**
+	 * Check conditional block script on pre render block hooks.
+	 *
+	 * @param string|null   $pre_render Pre render block.
+	 * @param array         $parsed_block Parshed block.
+	 * @param WP_Block|null $parent_block Parent block.
+	 * @return string|null
+	 */
+	public function pre_render_block( $pre_render, $parsed_block, $parent_block ) {
+		$this->check_attributes( $parsed_block['attrs'], $parsed_block['blockName'] );
+		return $pre_render;
+	}
 	/**
 	 * Get render mechanism.
 	 *
