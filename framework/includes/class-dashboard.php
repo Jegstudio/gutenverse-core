@@ -851,6 +851,10 @@ class Dashboard {
 					'plugin_version'    => '3.1.6',
 					'framework_version' => '2.5.3',
 				),
+				array(
+					'plugin_version'    => '3.1.7',
+					'framework_version' => '2.6.3',
+				),
 			),
 			'gutenverse-pro'  => array(
 				array(
