@@ -58,6 +58,8 @@ class Api {
 		if ( did_action( 'rest_api_init' ) ) {
 			$this->register_routes();
 		}
+
+		add_filter( 'rest_pre_serve_request', array( $this, 'serve_checkout_tracking_cors' ), 10, 4 );
 	}
 
 	/**
@@ -364,7 +366,17 @@ class Api {
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'freemius_checkout_tracking' ),
-				'permission_callback' => 'gutenverse_permission_check_login',
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
+			'pricing-plan',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'pricing_plan' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
 			)
 		);
 
@@ -400,6 +412,80 @@ class Api {
 				'permission_callback' => '__return_true',
 			)
 		);
+	}
+
+	/**
+	 * Send route-specific CORS headers for Freemius checkout tracking requests.
+	 *
+	 * @param bool             $served  Whether the request has already been served.
+	 * @param WP_HTTP_Response $result  Result to send to the client.
+	 * @param WP_REST_Request  $request Request used to generate the response.
+	 * @param WP_REST_Server   $server  Server instance.
+	 *
+	 * @return bool
+	 */
+	public function serve_checkout_tracking_cors( $served, $result, $request, $server ) {
+		unset( $result, $server );
+
+		if ( '/' . self::ENDPOINT . '/freemius/checkout-tracking' !== $request->get_route() ) {
+			return $served;
+		}
+
+		$origin = get_http_origin();
+
+		if ( ! $origin || ! $this->is_allowed_checkout_tracking_origin( $origin ) ) {
+			return $served;
+		}
+
+		header( 'Access-Control-Allow-Origin: ' . esc_url_raw( $origin ) );
+		header( 'Access-Control-Allow-Credentials: true' );
+		header( 'Access-Control-Allow-Methods: POST, OPTIONS' );
+		header( 'Access-Control-Allow-Headers: Authorization, Content-Type, X-WP-Nonce' );
+		header( 'Vary: Origin', false );
+
+		return $served;
+	}
+
+	/**
+	 * Check whether the request origin is allowed for checkout tracking relay.
+	 *
+	 * @param string $origin Request origin.
+	 *
+	 * @return bool
+	 */
+	private function is_allowed_checkout_tracking_origin( $origin ) {
+		$allowed_origins = array_filter(
+			array(
+				$this->normalize_origin( GUTENVERSE_FRAMEWORK_PRO_URL ),
+				$this->normalize_origin( home_url() ),
+				$this->normalize_origin( site_url() ),
+			)
+		);
+
+		return in_array( $this->normalize_origin( $origin ), $allowed_origins, true );
+	}
+
+	/**
+	 * Normalize a URL down to its origin.
+	 *
+	 * @param string $url URL to normalize.
+	 *
+	 * @return string
+	 */
+	private function normalize_origin( $url ) {
+		$parts = wp_parse_url( $url );
+
+		if ( empty( $parts['scheme'] ) || empty( $parts['host'] ) ) {
+			return '';
+		}
+
+		$origin = $parts['scheme'] . '://' . $parts['host'];
+
+		if ( ! empty( $parts['port'] ) ) {
+			$origin .= ':' . $parts['port'];
+		}
+
+		return $origin;
 	}
 
 	/**
@@ -486,7 +572,6 @@ class Api {
 				'body'    => wp_json_encode( $payload ),
 			)
 		);
-		gutenverse_rlog( $response );
 
 		if ( is_wp_error( $response ) ) {
 			return new WP_Error(
@@ -507,12 +592,60 @@ class Api {
 	}
 
 	/**
+	 * Return pricing plan data for the Freemius popup.
+	 *
+	 * @return WP_Error|WP_REST_Response
+	 */
+	public function pricing_plan() {
+		$response = wp_remote_request(
+			apply_filters(
+				'gutenverse_pricing_plan_endpoint',
+				GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-tools/v1/pricing-plan-user'
+			),
+			array(
+				'method' => 'GET',
+			)
+		);
+
+		if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {
+			return new WP_Error(
+				'pricing_plan_unavailable',
+				'Pricing plan data is currently unavailable.',
+				array( 'status' => 503 )
+			);
+		}
+
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body );
+		/** Remove when done */
+		$is_sandbox = true;
+
+		if ( $is_sandbox && isset( $data->product_id ) && isset( $data->public_key ) ) {
+			$secret_key = 'sk_JgtqE{T*D4fbS7=F(]13k+BO08;VJ';
+			$timestamp  = time();
+			$token      = md5( $timestamp . $data->product_id . $secret_key . $data->public_key . 'checkout' );
+
+			$data->sandbox = array(
+				'ctx'   => (string) $timestamp,
+				'token' => $token,
+			);
+		}
+		/** Remove when done */
+
+		return new WP_REST_Response(
+			array(
+				'pricingPlan' => $data,
+			),
+			200
+		);
+	}
+
+	/**
 	 * Verify a license key against the Pro server and return the license ID.
 	 *
 	 * @return WP_REST_Response
 	 */
-	public function verify_license_key( ) {
-		gutenverse_rlog('masuk');
+	public function verify_license_key() {
 		$pro_site = GUTENVERSE_FRAMEWORK_PRO_URL;
 		$license  = get_option( 'gutenverse-license', '' );
 

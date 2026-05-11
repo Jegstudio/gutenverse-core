@@ -1,8 +1,9 @@
 import apiFetch from '@wordpress/api-fetch';
 import { __, sprintf } from '@wordpress/i18n';
 import { IconCloseSVG } from 'gutenverse-core/icons';
-import { useEffect, useRef } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { Checkout } from '@freemius/checkout';
+import { ensurePricingPlanData, getPricingPlanFallback } from '../../helper/pricing-plan';
 
 const TRACKING_TIMEOUT = 2000;
 const CLOSE_REQUEST_EVENT = 'gutenverse:pricing-popup-close-request';
@@ -147,12 +148,6 @@ const FEATURE_GROUP_TITLES = {
     theme_builder: __('Themes Builder', 'gutenverse'),
 };
 
-const DEFAULT_PRICING_PLAN = {
-    active_promotion: [],
-    is_event_sales: false,
-    event_expired: '',
-};
-
 const LIMITED_BADGE_LABEL = __('Limited', 'gutenverse');
 
 const FeatureStatusIcon = ({ isExcept }) => (
@@ -267,7 +262,7 @@ const normalizePlan = (plan, { eventExpired = false } = {}) => {
 
 const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     const runtime = window['GutenverseConfig'] ? window['GutenverseConfig'] : window['GutenverseDashboard'];
-    const { pricingPlan = DEFAULT_PRICING_PLAN } = runtime;
+    const [pricingPlan, setPricingPlan] = useState(() => getPricingPlanFallback());
     const plans = (pricingPlan.active_promotion || []).map((plan) => normalizePlan(plan, {
         eventExpired: isEventExpired(pricingPlan?.event_expired),
     }));
@@ -346,6 +341,14 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     };
 
     useEffect(() => {
+        let isMounted = true;
+
+        ensurePricingPlanData().then((nextPricingPlan) => {
+            if (isMounted) {
+                setPricingPlan(nextPricingPlan);
+            }
+        });
+
         const requestClose = () => {
             handleClose();
         };
@@ -353,6 +356,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
         document.addEventListener(CLOSE_REQUEST_EVENT, requestClose);
 
         return () => {
+            isMounted = false;
             document.removeEventListener(CLOSE_REQUEST_EVENT, requestClose);
         };
     }, [handleClose]);

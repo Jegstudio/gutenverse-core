@@ -5,6 +5,7 @@ import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { Link } from 'gutenverse-core/router';
 import { getUpgradeProps, openFreemiusPopup } from '../../helper/freemius';
+import { prefetchPricingPlanData } from '../../helper/pricing-plan';
 
 /**
  * Styling can be imported from the scss file in 'gutenverse-core/src/assets/pro.scss'.
@@ -48,6 +49,10 @@ const ButtonUpgradePro = ({
     );
     const proLink =  link ? link : upgradeProUrl;
     const dashboardLink = adminUrl + 'admin.php?page=gutenverse&path=license';
+    const hoverProps = {
+        onMouseEnter: () => prefetchPricingPlanData(),
+        onFocus: () => prefetchPricingPlanData(),
+    };
 
     const getNoProButtonProps = (targetUrl) => {
         const upgradeProps = getUpgradeProps(targetUrl, upgradeOptions);
@@ -93,6 +98,7 @@ const ButtonUpgradePro = ({
             </Link>)) :
             (<a
                 {...(noPro ? getNoProButtonProps(proLink) : { href: dashboardLink, target: '_blank', rel: 'noreferrer' })}
+                {...(noPro ? hoverProps : {})}
                 className={buttonClasses}
                 style={customStyles}
                 >

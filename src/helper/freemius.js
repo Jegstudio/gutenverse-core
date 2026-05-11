@@ -1,5 +1,6 @@
 import { render } from '@wordpress/element';
 import PopupPricingPlan from '../components/pro/popup-pricing-plan';
+import { ensurePricingPlanData } from './pricing-plan';
 
 const MODAL_ID = 'gutenverse-freemius-modal';
 const CONTENT_ID = 'gutenverse-freemius-modal-content';
@@ -159,6 +160,8 @@ const openFreemiusPopup = (event = null, url = null, options = {}) => {
     const modal = ensureFreemiusPopup();
     const content = modal.querySelector(`#${CONTENT_ID}`);
 
+    ensurePricingPlanData();
+
     render(
         <PopupPricingPlan
             onClose={closeFreemiusPopup}
@@ -209,6 +212,12 @@ const bindFreemiusUpgradeLink = (element) => {
     }
 
     element.dataset.gutenverseFreemiusBound = 'true';
+    element.addEventListener('mouseenter', () => {
+        ensurePricingPlanData();
+    });
+    element.addEventListener('focus', () => {
+        ensurePricingPlanData();
+    });
     element.addEventListener('click', (event) => {
         const { pricingUrl } = getFreemiusSettings();
         const targetUrl = getUpgradeUrlWithUtm(pricingUrl || element.href);
