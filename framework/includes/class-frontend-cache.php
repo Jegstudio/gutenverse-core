@@ -275,8 +275,9 @@ class Frontend_Cache {
 	 * @return string
 	 */
 	public function get_file_js_name( $name ) {
-		$cache_id = $this->get_style_cache_id();
-		return $name . '-' . $cache_id . '-script.json';
+		$cache_id         = $this->get_style_cache_id();
+		$script_file_name = $name . '-script-' . $cache_id . '.json';
+		return $script_file_name;
 	}
 
 	/**
@@ -340,7 +341,7 @@ class Frontend_Cache {
 		$file_delete_mechanism = $frontend['file_delete_mechanism'] ?? '';
 		$file_delete_mechanism = '';
 
-		$custom_schedule       = $frontend['old_render_deletion_schedule'] ?? 'daily';
+		$custom_schedule = $frontend['old_render_deletion_schedule'] ?? 'daily';
 
 		$hook = 'gutenverse_cleanup_cached_style';
 

@@ -133,6 +133,7 @@ class Editor_Assets {
 		$config['upgradeProUrl']            = gutenverse_upgrade_pro();
 		$config['documentationUrl']         = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
 		$config['proDemoUrl']               = GUTENVERSE_FRAMEWORK_SERVER_URL;
+		$config['proSiteUrl']            	= GUTENVERSE_FRAMEWORK_PRO_URL;
 		$config['uploadPath']               = $upload_path['baseurl'];
 		$config['updateLicensePage']        = admin_url( 'admin.php?page=gutenverse&path=license' );
 		$config['autoBlockRecovery']        = gutenverse_autoblock_recovery();
@@ -144,6 +145,7 @@ class Editor_Assets {
 		$config['activeTheme']              = get_option( 'stylesheet' );
 		$config['supportGlobalImport']      = $this->check_theme_support_global();
 		$config['defaultImageLoad']         = $this->get_default_image_load_option();
+		$config['pricingPlan']              = gutenverse_get_pricing_plan();
 		include_once ABSPATH . 'wp-admin/includes/theme.php';
 
 		$theme = wp_get_theme();
@@ -255,7 +257,7 @@ class Editor_Assets {
 
 		wp_enqueue_style(
 			'gutenverse-toolbar',
-			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/toolbar.css',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/toolbar.css',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);

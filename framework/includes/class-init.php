@@ -134,7 +134,7 @@ class Init {
 	/**
 	 * HOC Instance.
 	 *
-	 * @var HOC
+	 * @var HOC_Frontend
 	 */
 	protected $hoc;
 
