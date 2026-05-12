@@ -69,6 +69,22 @@ class Frontend_Cache {
 		add_filter( 'gutenverse_conditional_script_handles', array( $this, 'script_handles' ), null, 2 );
 		add_filter( 'gutenverse_conditional_style_handles', array( $this, 'style_handles' ), null, 2 );
 		add_filter( 'gutenverse_render_generated_style', array( $this, 'render_style' ), null, 4 );
+		add_action( 'gutenverse_cache_preload_image_assets', array( $this, 'cache_preload_assets' ), null, 1 );
+	}
+
+	/**
+	 * Make preload assets cache
+	 * 
+	 * @param string $assets Assets string.
+	 *
+	 * @return void
+	 */
+	public function cache_preload_assets( $assets ) {
+		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
+		if ( 'file' === $mechanism && '' !== $assets ) {
+			$cache_id = $this->get_style_cache_id();
+			set_transient( "{$cache_id}_preload_assets", $assets );
+		}
 	}
 
 	/**
@@ -240,6 +256,20 @@ class Frontend_Cache {
 
 		if ( 'file' === $mechanism && $this->is_file_exist( $filename, 'css' ) ) {
 			$this->inject_to_header( $filename, $type );
+
+			$cache_id       = $this->get_style_cache_id();
+			$preload_assets = get_transient( "{$cache_id}_preload_assets" );
+
+			if ( $preload_assets ) {
+				add_action(
+					'wp_head',
+					function() use( $preload_assets ) {
+						printf( $preload_assets );
+					},
+					5
+				);
+			}
+
 			return true;
 		}
 
@@ -433,8 +463,10 @@ class Frontend_Cache {
 	 * Rolling cache ID.
 	 */
 	public function generate_style_cache_id() {
-		$cache_id = wp_rand( 111111, 999999 );
+		$cache_id   = wp_rand( 111111, 999999 );
+		$old_key_id = $this->get_style_cache_id();
 		update_option( self::$option_name, $cache_id, true );
+		delete_transient( "{$old_key_id}_preload_assets" );
 	}
 
 	/**

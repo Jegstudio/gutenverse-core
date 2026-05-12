@@ -421,6 +421,7 @@ class Frontend_Generator {
 	 */
 	public function render_preload_images() {
 		static $printed_images = array();
+		$assets = array();
 
 		if ( ! empty( $this->preload_images ) ) {
 			$this->preload_images = array_unique( $this->preload_images );
@@ -429,10 +430,14 @@ class Frontend_Generator {
 					continue;
 				}
 
-				printf( '<link rel="preload" fetchpriority="high" as="image" href="%s">', esc_url( $image_url ) );
+				$asset = sprintf( '<link rel="preload" fetchpriority="high" as="image" href="%s">', esc_url( $image_url ) );
+				printf( $asset );
+				$assets[] = $asset;
 				$printed_images[] = $image_url;
 			}
-			$this->preload_images = array();
+			$assets = implode( '', $assets );
+			do_action( 'gutenverse_cache_preload_image_assets', $assets );
+			$this->preload_images       = array();
 		}
 	}
 
