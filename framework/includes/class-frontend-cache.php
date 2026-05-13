@@ -69,21 +69,23 @@ class Frontend_Cache {
 		add_filter( 'gutenverse_conditional_script_handles', array( $this, 'script_handles' ), null, 2 );
 		add_filter( 'gutenverse_conditional_style_handles', array( $this, 'style_handles' ), null, 2 );
 		add_filter( 'gutenverse_render_generated_style', array( $this, 'render_style' ), null, 4 );
-		add_action( 'gutenverse_cache_preload_image_assets', array( $this, 'cache_preload_assets' ), null, 1 );
+		add_action( 'gutenverse_cache_preload_image_assets', array( $this, 'cache_preload_assets' ), null, 2 );
+		add_filter( 'gutenverse_get_cached_preload_images', array( $this, 'load_preload_assets' ), null, 2 );
 	}
 
 	/**
 	 * Make preload assets cache
-	 * 
+	 *
 	 * @param string $assets Assets string.
+	 * @param string $name   Filename.
 	 *
 	 * @return void
 	 */
-	public function cache_preload_assets( $assets ) {
+	public function cache_preload_assets( $assets, $name ) {
 		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
-		if ( 'file' === $mechanism && '' !== $assets ) {
-			$cache_id = $this->get_style_cache_id();
-			set_transient( "{$cache_id}_preload_assets", $assets );
+		if ( 'file' === $mechanism && ! empty( $assets ) && '' !== $name ) {
+			$filename = $this->get_file_name( $name, '.json' );
+			$this->create_cache_file( $filename, wp_json_encode( $assets, true ), 'conditional_css' );
 		}
 	}
 
@@ -256,24 +258,30 @@ class Frontend_Cache {
 
 		if ( 'file' === $mechanism && $this->is_file_exist( $filename, 'css' ) ) {
 			$this->inject_to_header( $filename, $type );
-
-			$cache_id       = $this->get_style_cache_id();
-			$preload_assets = get_transient( "{$cache_id}_preload_assets" );
-
-			if ( $preload_assets ) {
-				add_action(
-					'wp_head',
-					function() use( $preload_assets ) {
-						printf( $preload_assets );
-					},
-					5
-				);
-			}
-
 			return true;
 		}
 
 		return $flag;
+	}
+	/**
+	 * Load preload assets.
+	 *
+	 * @param array  $preloads Preload list.
+	 * @param string $filename Name of file.
+	 *
+	 * @return array
+	 */
+	public function load_preload_assets( $preloads, $filename ) {
+		$mechanism     = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
+		$cache_preload = $this->get_file_name( $filename, '.json' );
+
+		if ( 'file' === $mechanism && $this->is_file_exist( $cache_preload, 'conditional_css' ) ) {
+			$handles  = $this->read_cache_file( $cache_preload, 'conditional_css' );
+			$content  = json_decode( $handles, true );
+			$preloads = array_merge( $preloads, $content );
+		}
+
+		return $preloads;
 	}
 
 	/**
@@ -482,12 +490,13 @@ class Frontend_Cache {
 	 * Get File Name.
 	 *
 	 * @param string $name Name of file.
+	 * @param string $mime Mime of file.
 	 *
 	 * @return string
 	 */
-	public function get_file_name( $name ) {
+	public function get_file_name( $name, $mime = '.css' ) {
 		$cache_id = $this->get_style_cache_id();
-		return $name . '-' . $cache_id . '.css';
+		return $name . '-' . $cache_id . $mime;
 	}
 
 	/**
