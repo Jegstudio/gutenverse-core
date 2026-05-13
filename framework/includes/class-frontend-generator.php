@@ -283,7 +283,7 @@ class Frontend_Generator {
 			$bypass_script = apply_filters( 'gutenverse_bypass_generate_script', false, $name );
 
 			if ( $bypass_style && $bypass_script ) {
-				$preloads             = apply_filters( 'gutenverse_get_cached_preload_images', array(), 'gutenverse-preload-images-' . $post->ID );
+				$preloads             = apply_filters( 'gutenverse_load_cached_preload_assets', array(), 'image', $post->ID );
 				$this->preload_images = array_merge( $this->preload_images, $preloads );
 				return;
 			}
@@ -435,7 +435,7 @@ class Frontend_Generator {
 				printf( '<link rel="preload" fetchpriority="high" as="image" href="%s">', esc_url( $image_url ) );
 				$printed_images[] = $image_url;
 			}
-			do_action( 'gutenverse_cache_preload_image_assets', $this->preload_images, 'gutenverse-preload-images-' . $post->ID );
+			do_action( 'gutenverse_cache_preload_assets', $this->preload_images, 'image', $post->ID );
 			$this->preload_images = array();
 		}
 	}

@@ -1115,6 +1115,29 @@ if ( ! function_exists( 'gutenverse_conditional_path' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_preload_assets_path' ) ) {
+	/**
+	 * Get Gutenverse Preload Path.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param string $file File name.
+	 *
+	 * @return string
+	 */
+	function gutenverse_preload_assets_path( $file = '' ) {
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
+		$custom_dir  = $upload_path . '/gutenverse/preload';
+
+		if ( '' === $file ) {
+			return $custom_dir . $file;
+		} else {
+			return $custom_dir . '/' . $file;
+		}
+	}
+}
+
 if ( ! function_exists( 'gutenverse_remove_protocol' ) ) {
 	/**
 	 * Get Gutenverse CSS Path.
@@ -1884,6 +1907,7 @@ if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
 		$paths    = array(
 			gutenverse_css_path(),
 			gutenverse_conditional_path(),
+			gutenverse_preload_assets_path(),
 		);
 
 		$total_in_bytes = 0;
