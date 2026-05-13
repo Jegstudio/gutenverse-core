@@ -122,6 +122,72 @@
 .gutenverse-control-wrapper.gutenverse-control-integration-repeater {
     position: relative;
 
+    .repeater-wrapper {
+        .repeater-body {
+            overflow: hidden;
+            padding-top: 0 !important;
+
+            .gutenverse-integration-documentation {
+                margin-top: 12px;
+                padding: 12px;
+                border: 1px solid rgb(223, 227, 235);
+                border-radius: 3px;
+                background: rgb(247, 248, 255);
+                color: rgb(69, 84, 104);
+                font-family: "Roboto", sans-serif;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 130%;
+                letter-spacing: -0.1px;
+                margin-left: -5px;
+                margin-right: -5px;
+                vertical-align: middle;
+
+                a {
+                    display: inline-block;
+                    color: rgb(54, 88, 244);
+                    text-decoration: underline;
+                }
+            }
+
+            label {
+                margin-top: 12px !important;
+                display: inline-flex;
+                font-family: "Roboto", sans-serif;
+                font-weight: 400;
+                font-size: 13px;
+                line-height: 22px;
+                letter-spacing: 0%;
+                vertical-align: middle;
+                color: rgba(1, 22, 39, 1);
+            }
+
+            p.description {
+                font-family: "Roboto", sans-serif;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 130%;
+                letter-spacing: 0%;
+                vertical-align: middle;
+                color: rgba(129, 129, 165, 1);
+            }
+
+            .gutenverse-control-wrapper {
+                margin-bottom: 0 !important;
+                .control-title {
+                    margin-left: -5px;
+                    margin-right: -5px;
+                    padding-top: 0 !important;
+                    padding-bottom: 4px !important;
+                }
+
+                .control-text {
+                    display: contents !important;
+                }
+            }
+        }
+    }
+
     .repeater-header {
         align-items: center;
         background-color: rgba(231, 236, 253, 1);
@@ -180,6 +246,18 @@
                 color: #ffffff;
                 background-color: #5e81f4;
                 border-radius: 50%;
+            }
+        }
+    }
+
+    .gutenverse-integration-select__control--is-focused {
+        .gutenverse-integration-select__single-value {
+            color: white !important;
+        }
+
+        .gutenverse-integration-select__indicators {
+            .gutenverse-integration-select__indicator {
+                color: white !important;
             }
         }
     }
@@ -300,13 +378,6 @@
     > * {
         margin-left: -5px;
         margin-right: -5px;
-    }
-
-    .components-base-control {
-        .components-base-control__label {
-            margin-left: 5px;
-            margin-right: 5px;
-        }
     }
 
     .panel-save-button-container {

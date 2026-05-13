@@ -5,7 +5,7 @@ import { useSelect } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 
 const SECRET_MARKER = '__gutenverse_server_secret__';
-const REQUIRED_ASTERISK_STYLE = { color: 'rgba(231, 48, 48, 1)' };
+const REQUIRED_ASTERISK_STYLE = { color: 'rgba(231, 48, 48, 1)', marginLeft: '3px' };
 
 const ServerSecretControl = ({
     item,
