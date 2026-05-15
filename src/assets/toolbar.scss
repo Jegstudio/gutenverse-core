@@ -1,3 +1,5 @@
+@import "./toolbar/freemius-popup";
+
 #wp-admin-bar-gutenverse strong {
     color: #539c3a !important;
 }
@@ -20,8 +22,8 @@
     color: #f2df70 !important;
 }
 
-#wp-admin-bar-first-space>div,
-#wp-admin-bar-second-space>div {
+#wp-admin-bar-first-space > div,
+#wp-admin-bar-second-space > div {
     height: 1px !important;
     margin: 5px 0 !important;
     background: #555;

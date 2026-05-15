@@ -58,6 +58,8 @@ class Api {
 		if ( did_action( 'rest_api_init' ) ) {
 			$this->register_routes();
 		}
+
+		add_filter( 'rest_pre_serve_request', array( $this, 'serve_checkout_tracking_cors' ), 10, 4 );
 	}
 
 	/**
@@ -358,6 +360,36 @@ class Api {
 			)
 		);
 
+		register_rest_route(
+			self::ENDPOINT,
+			'freemius/checkout-tracking',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'freemius_checkout_tracking' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
+			'pricing-plan',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'pricing_plan' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
+			'license/verify-key',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'verify_license_key' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
 		/** ----------------------------------------------------------------
 		 * Frontend/Global Routes
 		 */
@@ -380,6 +412,80 @@ class Api {
 				'permission_callback' => '__return_true',
 			)
 		);
+	}
+
+	/**
+	 * Send route-specific CORS headers for Freemius checkout tracking requests.
+	 *
+	 * @param bool             $served  Whether the request has already been served.
+	 * @param WP_HTTP_Response $result  Result to send to the client.
+	 * @param WP_REST_Request  $request Request used to generate the response.
+	 * @param WP_REST_Server   $server  Server instance.
+	 *
+	 * @return bool
+	 */
+	public function serve_checkout_tracking_cors( $served, $result, $request, $server ) {
+		unset( $result, $server );
+
+		if ( '/' . self::ENDPOINT . '/freemius/checkout-tracking' !== $request->get_route() ) {
+			return $served;
+		}
+
+		$origin = get_http_origin();
+
+		if ( ! $origin || ! $this->is_allowed_checkout_tracking_origin( $origin ) ) {
+			return $served;
+		}
+
+		header( 'Access-Control-Allow-Origin: ' . esc_url_raw( $origin ) );
+		header( 'Access-Control-Allow-Credentials: true' );
+		header( 'Access-Control-Allow-Methods: POST, OPTIONS' );
+		header( 'Access-Control-Allow-Headers: Authorization, Content-Type, X-WP-Nonce' );
+		header( 'Vary: Origin', false );
+
+		return $served;
+	}
+
+	/**
+	 * Check whether the request origin is allowed for checkout tracking relay.
+	 *
+	 * @param string $origin Request origin.
+	 *
+	 * @return bool
+	 */
+	private function is_allowed_checkout_tracking_origin( $origin ) {
+		$allowed_origins = array_filter(
+			array(
+				$this->normalize_origin( GUTENVERSE_FRAMEWORK_PRO_URL ),
+				$this->normalize_origin( home_url() ),
+				$this->normalize_origin( site_url() ),
+			)
+		);
+
+		return in_array( $this->normalize_origin( $origin ), $allowed_origins, true );
+	}
+
+	/**
+	 * Normalize a URL down to its origin.
+	 *
+	 * @param string $url URL to normalize.
+	 *
+	 * @return string
+	 */
+	private function normalize_origin( $url ) {
+		$parts = wp_parse_url( $url );
+
+		if ( empty( $parts['scheme'] ) || empty( $parts['host'] ) ) {
+			return '';
+		}
+
+		$origin = $parts['scheme'] . '://' . $parts['host'];
+
+		if ( ! empty( $parts['port'] ) ) {
+			$origin .= ':' . $parts['port'];
+		}
+
+		return $origin;
 	}
 
 	/**
@@ -414,6 +520,181 @@ class Api {
 			);
 		}
 	}
+
+	/**
+	 * Relay Freemius checkout tracking through the site server.
+	 *
+	 * @param object $request Request object.
+	 *
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function freemius_checkout_tracking( $request ) {
+		$params = $request->get_json_params();
+
+		if ( ! is_array( $params ) ) {
+			$params = $request->get_params();
+		}
+
+		$endpoint      = GUTENVERSE_FRAMEWORK_PRO_URL . '/wp-json/gutenverse-pro/v1/freemius-checkout-tracking/';
+		$checkout_data = isset( $params['checkout_data'] ) && is_array( $params['checkout_data'] ) ? $params['checkout_data'] : null;
+		$external_id   = null;
+
+		if ( isset( $checkout_data['purchase']['license_id'] ) ) {
+			$external_id = sanitize_text_field( wp_unslash( $checkout_data['purchase']['license_id'] ) );
+		}
+
+		$payload = array(
+			'action'          => isset( $params['action'] ) ? sanitize_text_field( wp_unslash( $params['action'] ) ) : '',
+			'source'          => isset( $params['source'] ) ? sanitize_text_field( wp_unslash( $params['source'] ) ) : '',
+			'medium'          => isset( $params['medium'] ) ? sanitize_text_field( wp_unslash( $params['medium'] ) ) : '',
+			'campaign'        => isset( $params['campaign'] ) ? sanitize_text_field( wp_unslash( $params['campaign'] ) ) : '',
+			'client_site'     => isset( $params['client_site'] ) ? esc_url_raw( wp_unslash( $params['client_site'] ) ) : '',
+			'client_theme'    => isset( $params['client_theme'] ) ? sanitize_text_field( wp_unslash( $params['client_theme'] ) ) : '',
+			'current_url'     => isset( $params['current_url'] ) ? esc_url_raw( wp_unslash( $params['current_url'] ) ) : '',
+			'product_id'      => isset( $params['product_id'] ) ? sanitize_text_field( wp_unslash( $params['product_id'] ) ) : null,
+			'plan_id'         => isset( $params['plan_id'] ) ? sanitize_text_field( wp_unslash( $params['plan_id'] ) ) : null,
+			'pricing_id'      => isset( $params['pricing_id'] ) ? sanitize_text_field( wp_unslash( $params['pricing_id'] ) ) : null,
+			'plan_slug'       => isset( $params['plan_slug'] ) ? sanitize_title( wp_unslash( $params['plan_slug'] ) ) : null,
+			'plan_name'       => isset( $params['plan_name'] ) ? sanitize_text_field( wp_unslash( $params['plan_name'] ) ) : null,
+			'coupon_code'     => isset( $params['coupon_code'] ) ? sanitize_text_field( wp_unslash( $params['coupon_code'] ) ) : null,
+			'discount_amount' => isset( $params['discount_amount'] ) ? sanitize_text_field( wp_unslash( $params['discount_amount'] ) ) : null,
+			'external_id'     => $external_id,
+			'checkout_data'   => $checkout_data,
+		);
+
+		$response = wp_remote_post(
+			$endpoint,
+			array(
+				'timeout' => 2,
+				'headers' => array(
+					'Content-Type' => 'application/json',
+				),
+				'body'    => wp_json_encode( $payload ),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return new WP_Error(
+				'tracking_request_failed',
+				$response->get_error_message(),
+				array( 'status' => 500 )
+			);
+		}
+
+		$status = (int) wp_remote_retrieve_response_code( $response );
+
+		return new WP_REST_Response(
+			array(
+				'success' => $status >= 200 && $status < 300,
+			),
+			$status > 0 ? $status : 200
+		);
+	}
+
+	/**
+	 * Return pricing plan data for the Freemius popup.
+	 *
+	 * @return WP_Error|WP_REST_Response
+	 */
+	public function pricing_plan() {
+		$response = wp_remote_request(
+			apply_filters(
+				'gutenverse_pricing_plan_endpoint',
+				GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-tools/v1/pricing-plan-user'
+			),
+			array(
+				'method' => 'GET',
+			)
+		);
+
+		if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {
+			return new WP_Error(
+				'pricing_plan_unavailable',
+				'Pricing plan data is currently unavailable.',
+				array( 'status' => 503 )
+			);
+		}
+
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body );
+
+		return new WP_REST_Response(
+			array(
+				'pricingPlan' => $data,
+			),
+			200
+		);
+	}
+
+	/**
+	 * Verify a license key against the Pro server and return the license ID.
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function verify_license_key() {
+		$pro_site = GUTENVERSE_FRAMEWORK_PRO_URL;
+		$license  = get_option( 'gutenverse-license', '' );
+
+		if ( empty( $pro_site ) || ! wp_http_validate_url( $pro_site ) ) {
+			return new WP_REST_Response(
+				array(
+					'license_id' => '',
+					'message'    => 'Invalid pro_site URL.',
+				),
+				400
+			);
+		}
+
+		if ( empty( $license ) ) {
+			return new WP_REST_Response(
+				array(
+					'license_id' => '',
+					'message'    => 'License key is not registered on this site.',
+				),
+				400
+			);
+		}
+
+		$endpoint = untrailingslashit( $pro_site ) . '/wp-json/gutenverse-pro/v1/license/verify-key';
+		$response = wp_remote_post(
+			$endpoint,
+			array(
+				'headers' => array(
+					'valid-domain' => site_url(),
+					'origin'       => site_url(),
+				),
+				'body'    => array(
+					'key' => $license,
+				),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return new WP_REST_Response(
+				array(
+					'license_id' => '',
+					'message'    => $response->get_error_message(),
+				),
+				500
+			);
+		}
+
+		$status = (int) wp_remote_retrieve_response_code( $response );
+		$body   = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( ! is_array( $body ) ) {
+			$body = array();
+		}
+
+		return new WP_REST_Response(
+			array(
+				'license_id' => isset( $body['license_id'] ) ? sanitize_text_field( wp_unslash( $body['license_id'] ) ) : '',
+				'message'    => isset( $body['message'] ) ? sanitize_text_field( wp_unslash( $body['message'] ) ) : '',
+			),
+			$status > 0 ? $status : 200
+		);
+	}
+
 	/**
 	 * Fetch Data
 	 *

@@ -328,10 +328,9 @@ const Navigation = ({ location }) => {
             isEmpty(window?.gprodata) && {
                 name: <span>{__('Upgrade to PRO', '--gctd--')}<IconCrownBannerSVG /></span>,
                 slug: homeSlug,
-                upgrade: true,
-                link: `https://gutenverse.com/pricing?utm_source=gutenverse&utm_medium=adminmenu&utm_client_site=${url}&utm_client_theme=${activeTheme}`,
+                path: 'upgrade-pro',
                 priority: 9999,
-                external: true,
+                upgrade: true,
             },
         ],
         homeSlug,
@@ -341,20 +340,36 @@ const Navigation = ({ location }) => {
     menus.sort((a, b) => a.priority - b.priority);
 
     useEffect(() => {
-        const submenu = document.querySelector('#toplevel_page_gutenverse > ul');
-        const list = submenu.getElementsByTagName('li');
-        Array.from(list).forEach(item => {
-            item.remove();
+        const submenu = document.querySelector('#toplevel_page_gutenverse .wp-submenu');
+
+        if (!submenu) {
+            return undefined;
+        }
+
+        const removeUnexpectedSubmenuItems = () => {
+            Array.from(submenu.children).forEach((item) => {
+                if (!item.dataset?.gutenverseNav) {
+                    item.remove();
+                }
+            });
+        };
+
+        removeUnexpectedSubmenuItems();
+        setInjectLocation(submenu);
+
+        const observer = new MutationObserver(() => {
+            removeUnexpectedSubmenuItems();
         });
+
+        observer.observe(submenu, { childList: true });
+
+        return () => {
+            observer.disconnect();
+        };
     }, []);
 
-    setTimeout(() => {
-        let injectLocation = document.querySelector('#toplevel_page_gutenverse .wp-submenu');
-        setInjectLocation(injectLocation);
-    }, 1);
-
     const navigationButton = <>
-        <li className="wp-submenu-head" aria-hidden="true">Gutenverse</li>
+        <li className="wp-submenu-head" aria-hidden="true" data-gutenverse-nav="true">Gutenverse</li>
         {menus.map((menu) => {
             if (menu) {
                 let param = `?page=${menu.slug}`;
@@ -367,7 +382,7 @@ const Navigation = ({ location }) => {
                     param += menu.pathDetail;
                 }
 
-                return <li key={menu.path} className={`${menu.path === path ? 'current' : ''}`}>
+                return <li key={menu.path} className={`${menu.path === path ? 'current' : ''}`} data-gutenverse-nav="true">
                     {
                         menu.external ? <a className="button-upgrade-pro-sidebar" href={menu.link} target="_blank" rel="noreferrer">{menu.name}</a> : <Link
                             index={`${menu.path}`}
