@@ -27,6 +27,16 @@ class Frontend_Assets {
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_inline_style' ), 999 );
 		add_action( 'gutenverse_enqueue_assets', array( $this, 'enqueue_template_part_assets' ) );
 		add_filter( 'gutenverse_global_css', array( $this, 'global_variable_css' ) );
+		add_filter( 'styles_inline_size_limit', array( $this, 'inline_style_size_limit' ) );
+	}
+
+	/**
+	 * Increase the CSS size limit so WordPress can inline registered block styles.
+	 *
+	 * @return int Inline style size limit in bytes.
+	 */
+	public function inline_style_size_limit() {
+		return 500000;
 	}
 
 	/**
@@ -185,14 +195,14 @@ class Frontend_Assets {
 		do_action( 'gutenverse_include_frontend' );
 		wp_dequeue_style( 'gutenverse-frontend-style' );
 
-		wp_enqueue_style(
-			'gutenverse-frontend-icon',
-			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/frontend-icon.css',
-			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
-		);
-
 		if ( is_user_logged_in() ) {
+			wp_enqueue_style(
+				'gutenverse-frontend-icon',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/frontend-icon.css',
+				array(),
+				GUTENVERSE_FRAMEWORK_VERSION
+			);
+
 			wp_enqueue_style(
 				'gutenverse-toolbar',
 				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/toolbar.css',

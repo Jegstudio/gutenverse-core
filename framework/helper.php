@@ -928,6 +928,96 @@ if ( ! function_exists( 'gutenverse_secure_iterable' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
+	/**
+	 * Flatten local font family names from WordPress global typography settings.
+	 *
+	 * @param array $settings Font family settings.
+	 *
+	 * @return array
+	 */
+	function gutenverse_flatten_font_family_settings( $settings ) {
+		$families = array();
+
+		if ( ! is_array( $settings ) ) {
+			return $families;
+		}
+
+		if ( ! empty( $settings['fontFamily'] ) && ! empty( $settings['fontFace'] ) ) {
+			foreach ( explode( ',', $settings['fontFamily'] ) as $font_family ) {
+				$font_family = trim( $font_family, " \t\n\r\0\x0B'\"" );
+				if ( '' !== $font_family ) {
+					$families[] = $font_family;
+				}
+			}
+		}
+
+		foreach ( $settings as $setting ) {
+			if ( is_array( $setting ) ) {
+				$families = array_merge( $families, gutenverse_flatten_font_family_settings( $setting ) );
+			}
+		}
+
+		return array_unique( $families );
+	}
+
+	/**
+	 * Check if a font family is installed through the WordPress Font Library.
+	 *
+	 * @param string $family Font family name.
+	 *
+	 * @return bool
+	 */
+	function gutenverse_is_wp_font_family_installed( $family ) {
+		static $installed_families = null;
+
+		if ( null === $installed_families ) {
+			$installed_families = array();
+
+			if ( post_type_exists( 'wp_font_family' ) ) {
+				$font_family_ids = get_posts(
+					array(
+						'post_type'              => 'wp_font_family',
+						'post_status'            => 'any',
+						'posts_per_page'         => -1,
+						'fields'                 => 'ids',
+						'no_found_rows'          => true,
+						'update_post_meta_cache' => false,
+						'update_post_term_cache' => false,
+					)
+				);
+
+				foreach ( $font_family_ids as $font_family_id ) {
+					$settings = json_decode( get_post_field( 'post_content', $font_family_id ), true );
+					$fonts    = array( get_the_title( $font_family_id ) );
+
+					if ( isset( $settings['fontFamily'] ) ) {
+						$fonts = array_merge( $fonts, explode( ',', $settings['fontFamily'] ) );
+					}
+
+					foreach ( $fonts as $font ) {
+						$font = trim( $font, " \t\n\r\0\x0B'\"" );
+						if ( '' !== $font ) {
+							$installed_families[ strtolower( $font ) ] = true;
+						}
+					}
+				}
+			}
+
+			if ( function_exists( 'wp_get_global_settings' ) ) {
+				$font_settings = wp_get_global_settings( array( 'typography', 'fontFamilies' ) );
+
+				foreach ( gutenverse_flatten_font_family_settings( $font_settings ) as $font_family ) {
+					$installed_families[ strtolower( $font_family ) ] = true;
+				}
+			}
+		}
+
+		$font_key     = strtolower( trim( $family, " \t\n\r\0\x0B'\"" ) );
+		return isset( $installed_families[ $font_key ] );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_header_font' ) ) {
 	/**
 	 * Header Font
@@ -946,7 +1036,11 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 			$family = $font['value'];
 			$type   = $font['type'];
 			$id     = ! empty( $font['id'] ) ? $font['id'] : null;
+
 			if ( 'google' === $type ) {
+				if ( gutenverse_is_wp_font_family_installed( $family ) ) {
+					continue;
+				}
 
 				$families[ $family ] = isset( $families[ $family ] ) ? $families[ $family ] : array();
 

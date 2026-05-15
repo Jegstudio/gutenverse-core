@@ -29,7 +29,7 @@ const fetchSvgContent = async (iconName, retries = 5, delay = 50) => {
     try {
         const response = await axios.get(libraryApi + '/get-svg-font', {
             params: {
-                name: iconName.toLowerCase()
+                name: iconName
             }
         });
         const { data } = response;
@@ -72,7 +72,7 @@ const processBlockAttributes = async (block) => {
             const currentSvg = attributes[svgAttrName];
 
             // Only convert if not already svg type or if SVG content is empty
-            if (currentType === 'icon' && !currentSvg) {
+            if (currentType === 'icon') {
                 // Fetch SVG content from server
                 const svgContent = await fetchSvgContent(attrValue);
                 if (svgContent) {
@@ -211,7 +211,7 @@ const convertToSvg = async () => {
                 setTimeout(async () => {
                     await doConvertion();
                     resolve();
-                }, 2500);
+                }, 2000);
             });
         }
     } catch (error) {
