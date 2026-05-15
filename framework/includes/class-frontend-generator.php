@@ -566,6 +566,7 @@ class Frontend_Generator {
 	 * @param string $block_name block name.
 	 */
 	public function check_attributes( $attrs, $block_name ) {
+
 		if ( empty( $attrs ) ) {
 			return;
 		}

@@ -205,7 +205,7 @@ class Frontend_Assets {
 
 			wp_enqueue_style(
 				'gutenverse-toolbar',
-				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/toolbar.css',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/toolbar.css',
 				array(),
 				GUTENVERSE_FRAMEWORK_VERSION
 			);

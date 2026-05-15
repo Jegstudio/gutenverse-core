@@ -470,6 +470,41 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_get_pricing_plan' ) ) {
+	/**
+	 * Get Pricing Plan
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_get_pricing_plan() {
+		$data = get_transient( 'gutenverse_pricing_plan_data' );
+		if ( $data ) {
+			return $data;
+		}
+
+		$response = wp_remote_request(
+			apply_filters(
+				'gutenverse_pricing_plan_endpoint',
+				GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-tools/v1/pricing-plan-user'
+			),
+			array(
+				'method' => 'GET',
+			)
+		);
+
+		if ( ! is_wp_error( $response ) && 200 === $response['response']['code'] ) {
+			$body = wp_remote_retrieve_body( $response );
+			$data = json_decode( $body );
+
+			if ( isset( $data->active_promotion, $data->is_event_sales, $data->event_expired ) ) {
+				set_transient( 'gutenverse_pricing_plan_data', $data, 24 * HOUR_IN_SECONDS );
+			}
+		}
+
+		return $data;
+	}
+}
+
 if ( ! function_exists( 'gutenverse_get_ads_banner_theme_tf' ) ) {
 	/**
 	 * Get Event Banner
@@ -1116,6 +1151,17 @@ if ( ! function_exists( 'gutenverse_pro_installed' ) ) {
 		$installed_plugins = get_plugins();
 
 		return isset( $installed_plugins[ $plugin ] );
+	}
+}
+
+if ( ! function_exists( 'gutenverse_upgrade_pro' ) ) {
+	/**
+	 * Get the Gutenverse Pro upgrade URL.
+	 *
+	 * @return string
+	 */
+	function gutenverse_upgrade_pro() {
+		return apply_filters( 'gutenverse_upgrade_pro_url', GUTENVERSE_UPGRADE_URL );
 	}
 }
 
@@ -1805,6 +1851,25 @@ if ( ! function_exists( 'gutenverse_permission_change_global_variable' ) ) {
 		return true;
 	}
 }
+
+if ( ! function_exists( 'gutenverse_permission_check_login' ) ) {
+	/**
+	 * Check login permissions.
+	 *
+	 * @return bool|WP_Error
+	 */
+	function gutenverse_permission_check_login() {
+		if ( ! is_user_logged_in() ) {
+			return new WP_Error(
+				'forbidden_permission',
+				esc_html__( 'Forbidden Access', '--gctd--' ),
+				array( 'status' => 403 )
+			);
+		}
+
+		return true;
+	}
+}
 if ( ! function_exists( 'gutenverse_remove_folder' ) ) {
 	/**
 	 * Check author permissions.
@@ -1833,22 +1898,6 @@ if ( ! function_exists( 'gutenverse_remove_folder' ) ) {
 		}
 	}
 }
-
-if ( ! function_exists( 'gutenverse_upgrade_pro' ) ) {
-	/**
-	 * Referral URL.
-	 */
-	function gutenverse_upgrade_pro() {
-		$referral = apply_filters( 'gutenverse_theme_referral_code', null );
-
-		if ( ! empty( $referral ) ) {
-			return GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $referral;
-		} else {
-			return GUTENVERSE_UPGRADE_URL;
-		}
-	}
-}
-
 
 /**
  * Check if variable is empty and not contain 0

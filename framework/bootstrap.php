@@ -15,7 +15,7 @@ if ( defined( 'GUTENVERSE_FRAMEWORK_VERSION' ) ) {
 	return;
 }
 
-defined( 'GUTENVERSE_FRAMEWORK_VERSION' ) || define( 'GUTENVERSE_FRAMEWORK_VERSION', '2.6.1' );
+defined( 'GUTENVERSE_FRAMEWORK_VERSION' ) || define( 'GUTENVERSE_FRAMEWORK_VERSION', '2.7.0' );
 defined( 'GUTENVERSE_FRAMEWORK_ASSETS_VERSION' ) || define( 'GUTENVERSE_FRAMEWORK_ASSETS_VERSION', '2.1.0' );
 defined( 'GUTENVERSE_FRAMEWORK_DIR' ) || define( 'GUTENVERSE_FRAMEWORK_DIR', __DIR__ );
 defined( 'GUTENVERSE_FRAMEWORK_CLASS_DIR' ) || define( 'GUTENVERSE_FRAMEWORK_CLASS_DIR', GUTENVERSE_FRAMEWORK_DIR . '/includes' );
@@ -28,6 +28,7 @@ defined( 'GUTENVERSE_FRAMEWORK_THEMES_URL' ) || define( 'GUTENVERSE_FRAMEWORK_TH
 
 // Pro Path.
 defined( 'GUTENVERSE_UPGRADE_URL' ) || define( 'GUTENVERSE_UPGRADE_URL', 'https://gutenverse.com/pricing' );
+defined( 'GUTENVERSE_FRAMEWORK_PRO_URL' ) || define( 'GUTENVERSE_FRAMEWORK_PRO_URL', 'https://pro.gutenverse.com/' );
 defined( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL' ) || define( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL', 'https://pro.gutenverse.com/invite' );
 
 

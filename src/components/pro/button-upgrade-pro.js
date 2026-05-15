@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { Link } from 'gutenverse-core/router';
+import { getUpgradeProps, openFreemiusPopup } from '../../helper/freemius';
+import { prefetchPricingPlanData } from '../../helper/pricing-plan';
 
 /**
  * Styling can be imported from the scss file in 'gutenverse-core/src/assets/pro.scss'.
@@ -21,8 +23,20 @@ const ButtonUpgradePro = ({
     isBanner = false,
     licenseActiveButton = <></>,
     licenseType = null,
+    onClick = () => {},
 }) => {
     const { upgradeProUrl, adminUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+    const upgradeOptions = {
+        medium: location === 'dashboard-navigation'
+            ? 'dashboardnav'
+            : location === 'popup' || location === 'themeList' || location === 'ecosystem'
+                ? 'dashboard'
+                : location === 'library' || location === 'card-pro'
+                    ? 'library'
+                    : location === 'form-builder'
+                        ? 'formProNotice'
+                        : 'blockeditor',
+    };
     const buttonClasses = classnames(
         'button-upgrade-pro',
         {
@@ -35,6 +49,31 @@ const ButtonUpgradePro = ({
     );
     const proLink =  link ? link : upgradeProUrl;
     const dashboardLink = adminUrl + 'admin.php?page=gutenverse&path=license';
+    const hoverProps = {
+        onMouseEnter: () => prefetchPricingPlanData(),
+        onFocus: () => prefetchPricingPlanData(),
+    };
+
+    const getNoProButtonProps = (targetUrl) => {
+        const upgradeProps = getUpgradeProps(targetUrl, upgradeOptions);
+
+        if (!onClick || !upgradeProps?.onClick) {
+            return upgradeProps;
+        }
+
+        return {
+            ...upgradeProps,
+            onClick: (event) => {
+                event?.preventDefault?.();
+                onClick(event);
+
+                // Let the parent popup unmount before showing the pricing modal.
+                window.setTimeout(() => {
+                    openFreemiusPopup(null, targetUrl, upgradeOptions);
+                }, 0);
+            },
+        };
+    };
 
     const button = (text, icon, navigation, noPro) => {
         const isRoute = (location === 'themeList' || location === 'ecosystem' ) && !noPro;
@@ -58,11 +97,11 @@ const ButtonUpgradePro = ({
                     </>}
             </Link>)) :
             (<a
-                href={noPro ? proLink : dashboardLink}
+                {...(noPro ? getNoProButtonProps(proLink) : { href: dashboardLink, target: '_blank', rel: 'noreferrer' })}
+                {...(noPro ? hoverProps : {})}
                 className={buttonClasses}
-                target="_blank"
-                rel="noreferrer"
-                style={customStyles}>
+                style={customStyles}
+                >
                 <>
                     {text}
                     {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}

@@ -215,9 +215,11 @@ class Dashboard {
 		$config['proDemoUrl']               = untrailingslashit( GUTENVERSE_FRAMEWORK_LIBRARY_URL );
 		$config['adminUrl']                 = admin_url();
 		$config['upgradeProUrl']            = gutenverse_upgrade_pro();
+		$config['proSiteUrl']            	= GUTENVERSE_FRAMEWORK_PRO_URL;
 		$config['requireProUpdate']         = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
 		$config['eventBanner']              = gutenverse_get_event_banner();
 		$config['adsBannerThemeTF']         = gutenverse_get_ads_banner_theme_tf();
+		$config['pricingPlan']              = gutenverse_get_pricing_plan();
 		$config['isUsingGutenverseThemeTF'] = apply_filters( 'gutenverse_tp_plus_mechanism', false );
 		$config['activeTheme']              = get_option( 'stylesheet' );
 		$config['activePlugins']            = $this->get_active_plugins();
@@ -615,6 +617,18 @@ class Dashboard {
 					'plugin_version'    => '3.6.1',
 					'framework_version' => '2.6.1',
 				),
+				array(
+					'plugin_version'    => '3.6.2',
+					'framework_version' => '2.6.2',
+				),
+				array(
+					'plugin_version'    => '3.6.3',
+					'framework_version' => '2.6.3',
+				),
+				array(
+					'plugin_version'    => '3.7.0',
+					'framework_version' => '2.7.0',
+				),
 			),
 			'gutenverse-form' => array(
 				array(
@@ -793,6 +807,18 @@ class Dashboard {
 					'plugin_version'    => '2.6.1',
 					'framework_version' => '2.6.1',
 				),
+				array(
+					'plugin_version'    => '2.6.2',
+					'framework_version' => '2.6.2',
+				),
+				array(
+					'plugin_version'    => '2.6.3',
+					'framework_version' => '2.6.3',
+				),
+				array(
+					'plugin_version'    => '2.7.0',
+					'framework_version' => '2.7.0',
+				),
 			),
 			'gutenverse-news' => array(
 				array(
@@ -834,6 +860,14 @@ class Dashboard {
 				array(
 					'plugin_version'    => '3.1.6',
 					'framework_version' => '2.5.3',
+				),
+				array(
+					'plugin_version'    => '3.1.7',
+					'framework_version' => '2.6.3',
+				),
+				array(
+					'plugin_version'    => '3.2.0',
+					'framework_version' => '2.7.0',
 				),
 			),
 			'gutenverse-pro'  => array(
@@ -960,6 +994,18 @@ class Dashboard {
 				array(
 					'plugin_version'    => '2.6.1',
 					'framework_version' => '2.6.1',
+				),
+				array(
+					'plugin_version'    => '2.6.2',
+					'framework_version' => '2.6.2',
+				),
+				array(
+					'plugin_version'    => '2.6.3',
+					'framework_version' => '2.6.3',
+				),
+				array(
+					'plugin_version'    => '2.7.0',
+					'framework_version' => '2.7.0',
 				),
 			),
 		);
@@ -1089,7 +1135,7 @@ class Dashboard {
 				esc_html__( 'Upgrade to PRO', '--gctd--' ),
 				'<span>' . esc_html__( 'Upgrade to PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
 				'manage_options',
-				gutenverse_upgrade_pro() . '/?utm_source=gutenverse&utm_medium=dashboardnav',
+				$path . 'upgrade-pro',
 				null,
 				9999
 			);
