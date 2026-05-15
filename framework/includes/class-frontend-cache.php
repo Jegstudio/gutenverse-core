@@ -503,15 +503,17 @@ class Frontend_Cache {
 		$file_url = gutenverse_css_url( $filename );
 		$includes = array( 'gutenverse-frontend-style' );
 
-		if ( gutenverse_pro_active() ) {
-			$includes[] = 'gutenverse-pro-block';
-		}
-
 		wp_enqueue_style(
 			'gutenverse-generated-' . $type,
 			$file_url,
 			$includes,
 			$cache_id
+		);
+
+		wp_style_add_data(
+			'gutenverse-generated-' . $type,
+			'path',
+			gutenverse_css_path( $filename )
 		);
 	}
 
@@ -567,6 +569,10 @@ class Frontend_Cache {
 
 		if ( ! $wp_filesystem->is_dir( $style_directory ) ) {
 			wp_mkdir_p( $style_directory );
+		}
+
+		if ( 'css' === $type ) {
+			$content = preg_replace( '/\s*[\r\n]+\s*/', '', $content );
 		}
 
 		if ( $wp_filesystem->put_contents( $file_path, $content, FS_CHMOD_FILE ) ) {

@@ -15,8 +15,10 @@ export { default as DimensionControl } from './controls/dimension/dimension-cont
 export { default as DividerControl } from './controls/divider/divider-control';
 export { default as DividerAnimatedControl } from './controls/divider-animated/divider-animated-control';
 export { default as FontControl } from './controls/font/font-control';
-export { default as IconControl, IconLibrary } from './controls/icon/icon-control';
+export { default as IconControl } from './controls/icon/icon-control';
+export { default as IconLibrary } from './controls/icon/icon-library';
 export { default as IconSVGControl } from './controls/icon/icon-svg-control';
+export { convertIconToSvg } from './controls/icon/icon-svg-control';
 export { default as SVGControl } from './controls/icon/svg-control';
 export { default as IconRadioControl } from './controls/icon-radio/icon-radio-control';
 export { default as ImageControl } from './controls/image/image-control';
