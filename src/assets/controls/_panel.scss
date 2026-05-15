@@ -119,6 +119,207 @@
     border-radius: inherit;
 }
 
+.gutenverse-control-wrapper.gutenverse-control-integration-repeater {
+    position: relative;
+
+    .repeater-wrapper {
+        .repeater-body {
+            overflow: hidden;
+            padding-top: 0 !important;
+
+            .gutenverse-integration-documentation {
+                margin-top: 12px;
+                padding: 12px;
+                border: 1px solid rgb(223, 227, 235);
+                border-radius: 3px;
+                background: rgb(247, 248, 255);
+                color: rgb(69, 84, 104);
+                font-family: "Roboto", sans-serif;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 130%;
+                letter-spacing: -0.1px;
+                margin-left: -5px;
+                margin-right: -5px;
+                vertical-align: middle;
+
+                a {
+                    display: inline-block;
+                    color: rgb(54, 88, 244);
+                    text-decoration: underline;
+                }
+            }
+
+            label {
+                margin-top: 12px !important;
+                display: inline-flex;
+                font-family: "Roboto", sans-serif;
+                font-weight: 400;
+                font-size: 13px;
+                line-height: 22px;
+                letter-spacing: 0%;
+                vertical-align: middle;
+                color: rgba(1, 22, 39, 1);
+            }
+
+            p.description {
+                font-family: "Roboto", sans-serif;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 130%;
+                letter-spacing: 0%;
+                vertical-align: middle;
+                color: rgba(129, 129, 165, 1);
+            }
+
+            .gutenverse-control-wrapper {
+                margin-bottom: 0 !important;
+                .control-title {
+                    margin-left: -5px;
+                    margin-right: -5px;
+                    padding-top: 0 !important;
+                    padding-bottom: 4px !important;
+                }
+
+                .control-text {
+                    display: contents !important;
+                }
+            }
+        }
+    }
+
+    .repeater-header {
+        align-items: center;
+        background-color: rgba(231, 236, 253, 1);
+
+        .control-title {
+            display: none;
+        }
+    }
+
+    .repeater-remove {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        margin-left: 10px !important;
+        margin-right: 0px !important;
+
+        svg {
+            stroke: rgba(64, 80, 93, 1);
+        }
+    }
+
+    .repeater-expand {
+        margin-right: 10px;
+    }
+
+    .control-add {
+        position: absolute;
+        top: 8px;
+        right: 0;
+
+        button {
+            padding: 0px 8px;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 10px;
+            color: #1c1d21;
+            background: #f5f7fe;
+            border: 1px solid #dddddd;
+            border-radius: 2px;
+            height: 26px;
+
+            &:hover,
+            &:focus {
+                color: #1c1d21;
+                background: #f5f7fe;
+                border: 1px solid #dddddd;
+                outline: 0;
+                box-shadow: none;
+            }
+
+            svg {
+                width: 10px;
+                height: 10px;
+                padding: 2px;
+                margin-right: 4px;
+                color: #ffffff;
+                background-color: #5e81f4;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .gutenverse-integration-select__control--is-focused {
+        .gutenverse-integration-select__single-value {
+            color: white !important;
+        }
+
+        .gutenverse-integration-select__indicators {
+            .gutenverse-integration-select__indicator {
+                color: white !important;
+            }
+        }
+    }
+
+    .gutenverse-control-select {
+        margin: 0;
+
+        .control-body {
+            margin: 0;
+            position: relative;
+
+            &.has-pro-badge {
+                overflow: hidden;
+                border-radius: 3px;
+
+                .gutenverse-integration-pro-badge {
+                    align-items: center;
+                    background: rgba(227, 45, 100, 1);
+                    border: 1px solid rgba(227, 45, 100, 1);
+                    color: #fff;
+                    display: inline-flex;
+                    font-family: "Roboto", sans-serif;
+                    font-size: 8px;
+                    font-weight: 700;
+                    letter-spacing: .08em;
+                    line-height: 1;
+                    padding: 14px 20px 3px 26px;
+                    pointer-events: none;
+                    position: absolute;
+                    left: -30px;
+                    text-transform: uppercase;
+                    top: -3px;
+                    transform: rotate(-55deg);
+                    width: -moz-fit-content!important;
+                    width: fit-content !important;
+                    z-index: 1;
+                }
+
+                .gutenverse-integration-select__control {
+                    .gutenverse-integration-select__value-container {
+                        .gutenverse-integration-select__single-value {
+                            margin-left: 16px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .gutenverse-control-hover {
+        margin: 20px 0 10px 0;
+    }
+
+    .repeater-item {
+        .repeater-body {
+            *::placeholder {
+                color: rgba(153, 162, 169, 1) !important;
+            }
+        }
+    }
+}
+
 .gutenverse-control-wrapper {
     &.gutenverse-control-preview {
         .control-body {
@@ -170,5 +371,72 @@
             }
 
         }
+    }
+}
+
+.gutenverse-server-secret-control {
+    > * {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+
+    .panel-save-button-container {
+        button, button:disabled {
+            flex-direction: row;
+            width: 100%;
+            justify-content: center;
+            background-color: rgba(59, 87, 247, 1);
+            color: rgba(255, 255, 255, 1);
+            border-radius: 3px;
+            box-shadow: unset !important;
+
+            &:not(:disabled):hover {
+                background-color: #243cc7;
+                color: rgba(255, 255, 255, 1);
+            }
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+        }
+
+        &.saved {
+            .components-button {
+                width: fit-content !important;
+                padding: 10px;
+                transition: all .3s ease;
+
+                &.is-tertiary {
+                    background: rgba(231, 48, 48, 1);
+
+                    &:hover {
+                        background: #d82626;
+                    }
+                }
+            }
+        }
+    }
+
+    .notice-description {
+        padding: 12px;
+        border-radius: 3px;
+        color: rgba(64, 80, 93, 1);
+        margin-top: 12px !important;
+
+        &.green {
+            background: rgba(237, 248, 239, 1);
+            border: 1px solid rgba(181, 223, 188, 1);
+        }
+
+        &.red {
+            background: rgba(254, 243, 242, 1);
+            border: 1px solid rgba(253, 162, 155, 1);
+        }
+    }
+}
+
+.interface-complementary-area {
+    .components-panel__header {
+        z-index: 99999;
     }
 }

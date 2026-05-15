@@ -8,8 +8,9 @@ import { useEffect, useRef } from '@wordpress/element';
  * @param {Object} data.attributes
  * @param {Function} data.setAttributes
  * @param {Array} data.icons
+ * @param {Array} data.repeaterIcons
  */
-export default function useInitializeIconToSvg({ elementId, attributes, setAttributes, icons = [] }) {
+export default function useInitializeIconToSvg({ elementId, attributes, setAttributes, icons = [], repeaterIcons = [] }) {
     const shouldInitialize = useRef(!elementId);
 
     useEffect(() => {
@@ -26,6 +27,32 @@ export default function useInitializeIconToSvg({ elementId, attributes, setAttri
 
             return result;
         }, {});
+
+        repeaterIcons.forEach((icon) => {
+            const repeater = attributes[icon.key];
+
+            if (!Array.isArray(repeater)) {
+                return;
+            }
+
+            let hasUpdate = false;
+            const updatedRepeater = repeater.map((item) => {
+                if (item?.[icon.svg] && item?.[icon.type] !== 'svg') {
+                    hasUpdate = true;
+
+                    return {
+                        ...item,
+                        [icon.type]: 'svg',
+                    };
+                }
+
+                return item;
+            });
+
+            if (hasUpdate) {
+                updatedAttributes[icon.key] = updatedRepeater;
+            }
+        });
 
         if (Object.keys(updatedAttributes).length) {
             setAttributes(updatedAttributes);

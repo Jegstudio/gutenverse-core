@@ -11,7 +11,7 @@ const DefaultLayout = ({
     img,
     isOpen,
     permaLink,
-    useFullUrl = false
+    assetDir,
 }) => {
     const {
         videoDir,
@@ -19,6 +19,8 @@ const DefaultLayout = ({
         documentationUrl,
         proDemoUrl
     } = window['GutenverseConfig'];
+
+    const dir = assetDir ? assetDir : videoDir;
 
     const ButtonPro = applyFilters(
         'gutenverse.pro-panel-button',
@@ -34,7 +36,7 @@ const DefaultLayout = ({
         </div>
         <div>
             {img && <video autoPlay={isOpen} loop={isOpen}>
-                <source src={useFullUrl ? img : `${videoDir}/${img}`} type="video/mp4" />
+                <source src={`${dir}/${img}`} type="video/mp4" />
             </video>}
         </div>
         <div className="more-details">
