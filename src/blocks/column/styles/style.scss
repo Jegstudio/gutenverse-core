@@ -65,6 +65,10 @@
     & > .section-wrapper {
       width: 100%;
     }
+
+    > .entry-content.is-layout-flow {
+        width: 100%;
+    }
   }
 
   &.vertical-top-desktop {
