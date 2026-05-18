@@ -376,6 +376,18 @@ class Frontend_Generator {
 					} elseif ( isset( $image['Desktop']['url'] ) ) {
 						$image_urls[] = $image['Desktop']['url'];
 					}
+
+					if ( isset( $image['Tablet']['image'] ) ) {
+						$image_urls[] = $image['Tablet']['image'];
+					} elseif ( isset( $image['Tablet']['url'] ) ) {
+						$image_urls[] = $image['Tablet']['url'];
+					}
+
+					if ( isset( $image['Mobile']['image'] ) ) {
+						$image_urls[] = $image['Mobile']['image'];
+					} elseif ( isset( $image['Mobile']['url'] ) ) {
+						$image_urls[] = $image['Mobile']['url'];
+					}
 				}
 
 				if ( ! empty( $image_urls ) ) {
@@ -402,6 +414,18 @@ class Frontend_Generator {
 						$image_urls[] = $image['Desktop']['image'];
 					} elseif ( isset( $image['Desktop']['url'] ) ) {
 						$image_urls[] = $image['Desktop']['url'];
+					}
+
+					if ( isset( $image['Tablet']['image'] ) ) {
+						$image_urls[] = $image['Tablet']['image'];
+					} elseif ( isset( $image['Tablet']['url'] ) ) {
+						$image_urls[] = $image['Tablet']['url'];
+					}
+
+					if ( isset( $image['Mobile']['image'] ) ) {
+						$image_urls[] = $image['Mobile']['image'];
+					} elseif ( isset( $image['Mobile']['url'] ) ) {
+						$image_urls[] = $image['Mobile']['url'];
 					}
 
 					if ( ! empty( $image_urls ) ) {
