@@ -2043,6 +2043,22 @@ abstract class Style_Interface {
 				);
 			}
 
+			if ( isset( $background['useFeaturedImage'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							if ( $value ) {
+								return 'background-image: url(#gutenFeaturedImage);';
+							}
+							return '';
+						},
+						'value'          => $background['useFeaturedImage'],
+						'device_control' => true,
+					)
+				);
+			}
+
 			if ( isset( $background['position'] ) ) {
 				$this->inject_style(
 					array(

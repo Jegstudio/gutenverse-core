@@ -659,6 +659,18 @@ class Container extends Block_Abstract {
 		}
 		if ( $using_featured ) {
 			$classes[] = 'guten-using-featured-image';
+
+			if ( $using_featured && empty( $background['useFeaturedImage']['Desktop'] ) ) {
+				$classes[] = 'guten-disable-feature-image-desktop';
+			}
+
+			if ( $using_featured && empty( $background['useFeaturedImage']['Tablet'] ) ) {
+				$classes[] = 'guten-disable-feature-image-tablet';
+			}
+
+			if ( $using_featured && empty( $background['useFeaturedImage']['Mobile'] ) ) {
+				$classes[] = 'guten-disable-feature-image-mobile';
+			}
 		}
 
 		$class_name = trim( implode( ' ', array_filter( $classes ) ) . $animation_class . $display_classes );

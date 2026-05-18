@@ -56,11 +56,11 @@ class Wrapper extends Block_Abstract {
 		$background_animated      = isset( $attributes['backgroundAnimated'] ) ? $attributes['backgroundAnimated'] : array();
 		$background_effect        = isset( $attributes['backgroundEffect'] ) ? $attributes['backgroundEffect'] : array();
 		$background               = isset( $attributes['background'] ) ? $attributes['background'] : array();
-		$is_slideshow         = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
-		$using_featured_image = ! empty( $background['useFeaturedImage'] ) && ( ! empty( $background['useFeaturedImage']['Desktop'] ) || ! empty( $background['useFeaturedImage']['Tablet'] ) || ! empty( $background['useFeaturedImage']['Mobile'] ) );
-		$is_bg_animated       = $this->is_animation_active( $background_animated );
-		$is_background_effect = ! empty( $background_effect ) && isset( $background_effect['type'] ) && 'none' !== $background_effect['type'];
-		$cursor_effect_class  = ! empty( $cursor_effect['show'] ) ? ' guten-cursor-effect' : '';
+		$is_slideshow             = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
+		$using_featured_image     = ! empty( $background['useFeaturedImage'] ) && ( ! empty( $background['useFeaturedImage']['Desktop'] ) || ! empty( $background['useFeaturedImage']['Tablet'] ) || ! empty( $background['useFeaturedImage']['Mobile'] ) );
+		$is_bg_animated           = $this->is_animation_active( $background_animated );
+		$is_background_effect     = ! empty( $background_effect ) && isset( $background_effect['type'] ) && 'none' !== $background_effect['type'];
+		$cursor_effect_class      = ! empty( $cursor_effect['show'] ) ? ' guten-cursor-effect' : '';
 
 		// Build data-id.
 		$data_id  = '';
@@ -96,6 +96,18 @@ class Wrapper extends Block_Abstract {
 		}
 		if ( $using_featured_image ) {
 			$class_name .= ' guten-using-featured-image';
+
+			if ( $using_featured_image && empty( $background['useFeaturedImage']['Desktop'] ) ) {
+				$class_name .= ' guten-disable-feature-image-desktop';
+			}
+
+			if ( $using_featured_image && empty( $background['useFeaturedImage']['Tablet'] ) ) {
+				$class_name .= ' guten-disable-feature-image-tablet';
+			}
+
+			if ( $using_featured_image && empty( $background['useFeaturedImage']['Mobile'] ) ) {
+				$class_name .= ' guten-disable-feature-image-mobile';
+			}
 		}
 
 		// onClick attribute.
