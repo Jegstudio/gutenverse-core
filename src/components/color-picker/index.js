@@ -17,7 +17,7 @@ const safeToIColor = (val) => {
     return ColorService.convert('hex', '#000000');
 };
 
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect, useRef } from '@wordpress/element';
 
 const isSameColor = (a, b) => {
     if (!a || !b) return false;
@@ -29,6 +29,7 @@ const isSameColor = (a, b) => {
 
 const GutenverseColorPicker = ({ color, onChange, onChangeComplete, disableAlpha, classNames }) => {
     const [internalColor, setInternalColor] = useState(safeToIColor(color));
+    const timeoutID = useRef(null);
 
     useEffect(() => {
         const incoming = safeToIColor(color);
@@ -57,12 +58,18 @@ const GutenverseColorPicker = ({ color, onChange, onChangeComplete, disableAlpha
                     if (onChange) {
                         onChange(normalizeColor(newColor));
                     }
-                }}
-                onChangeComplete={(newColor) => {
                     if (onChangeComplete) {
-                        onChangeComplete(normalizeColor(newColor));
+                        clearTimeout(timeoutID.current);
+                        timeoutID.current = setTimeout(() => {
+                            onChangeComplete(normalizeColor(newColor));
+                        }, 100);
                     }
                 }}
+                // onChangeComplete={(newColor) => {
+                //     if (onChangeComplete) {
+                //         onChangeComplete(normalizeColor(newColor));
+                //     }
+                // }}
             />
         </div>
     );
