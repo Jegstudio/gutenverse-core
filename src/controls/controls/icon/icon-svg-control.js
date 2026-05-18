@@ -88,12 +88,11 @@ const IconSVGControl = (props) => {
     };
 
     const onChange = (value, options = {}) => {
-        onValueChange(value);
 
         if (options.convertToSvg) {
             setType('svg', 5, 50, true, false, value);
         } else {
-            setType('icon');
+            setType('icon', 5, 50, true, false, value);
         }
     };
 
@@ -143,7 +142,7 @@ const IconSVGControl = (props) => {
                 setSvgLoading(true);
             }
 
-            updateAttributes({ [typeAttribute]: type });
+            updateAttributes({ [typeAttribute]: type, [id]: iconName });
 
             if (shouldConvertSvg) {
                 const controller = new AbortController();
