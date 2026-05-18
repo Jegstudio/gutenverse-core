@@ -1,3 +1,5 @@
+import './helper/freemius';
+
 export * as config from './config';
 export * as styling from './styling';
 export * as icons from './icons';

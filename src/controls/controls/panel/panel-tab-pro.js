@@ -5,6 +5,7 @@ import { IconCrownBannerSVG, IconKeySVG } from 'gutenverse-core/icons';
 import isEmpty from 'lodash/isEmpty';
 import { ButtonUpgradePro } from 'gutenverse-core/components';
 import { activeTheme, clientUrl } from 'gutenverse-core/config';
+import { getUpgradeProps } from '../../../helper/freemius';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
@@ -16,7 +17,7 @@ const PanelTabPro = ({ activeTab }) => {
     const ButtonProSecond = applyFilters('gutenverse.button.pro.library', () => {
         if (isEmpty(window?.gprodata)) {
             if (location !== 'dashboard-navigation') {
-                return <a href={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /></a>;
+                return <a {...getUpgradeProps(`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`)} className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /></a>;
             }
         } else {
             if (location !== 'dashboard-navigation') {

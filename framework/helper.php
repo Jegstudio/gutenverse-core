@@ -260,7 +260,7 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 			'xlink:href',
 		);
 
-		$xpath = new DOMXPath( $dom );
+		$xpath                    = new DOMXPath( $dom );
 		$allowed_style_properties = array(
 			'fill',
 			'fill-opacity',
@@ -339,7 +339,7 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 				}
 
 				foreach ( $css_rules as $css_rule ) {
-					$selector_block = trim( $css_rule[1] );
+					$selector_block    = trim( $css_rule[1] );
 					$declaration_block = trim( $css_rule[2] );
 
 					if (
@@ -466,6 +466,41 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 			return null;
 		}
 		set_transient( 'gutenverse_banner_cache', $data, 3 * HOUR_IN_SECONDS );
+		return $data;
+	}
+}
+
+if ( ! function_exists( 'gutenverse_get_pricing_plan' ) ) {
+	/**
+	 * Get Pricing Plan
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_get_pricing_plan() {
+		$data = get_transient( 'gutenverse_pricing_plan_data' );
+		if ( $data ) {
+			return $data;
+		}
+
+		$response = wp_remote_request(
+			apply_filters(
+				'gutenverse_pricing_plan_endpoint',
+				GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-tools/v1/pricing-plan-user'
+			),
+			array(
+				'method' => 'GET',
+			)
+		);
+
+		if ( ! is_wp_error( $response ) && 200 === $response['response']['code'] ) {
+			$body = wp_remote_retrieve_body( $response );
+			$data = json_decode( $body );
+
+			if ( isset( $data->active_promotion, $data->is_event_sales, $data->event_expired ) ) {
+				set_transient( 'gutenverse_pricing_plan_data', $data, 24 * HOUR_IN_SECONDS );
+			}
+		}
+
 		return $data;
 	}
 }
@@ -1025,6 +1060,17 @@ if ( ! function_exists( 'gutenverse_pro_installed' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_upgrade_pro' ) ) {
+	/**
+	 * Get the Gutenverse Pro upgrade URL.
+	 *
+	 * @return string
+	 */
+	function gutenverse_upgrade_pro() {
+		return apply_filters( 'gutenverse_upgrade_pro_url', GUTENVERSE_UPGRADE_URL );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_css_path' ) ) {
 	/**
 	 * Get Gutenverse CSS Path.
@@ -1060,6 +1106,29 @@ if ( ! function_exists( 'gutenverse_conditional_path' ) ) {
 		$upload_dir  = wp_upload_dir();
 		$upload_path = $upload_dir['basedir'];
 		$custom_dir  = $upload_path . '/gutenverse/conditional';
+
+		if ( '' === $file ) {
+			return $custom_dir . $file;
+		} else {
+			return $custom_dir . '/' . $file;
+		}
+	}
+}
+
+if ( ! function_exists( 'gutenverse_preload_assets_path' ) ) {
+	/**
+	 * Get Gutenverse Preload Path.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param string $file File name.
+	 *
+	 * @return string
+	 */
+	function gutenverse_preload_assets_path( $file = '' ) {
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
+		$custom_dir  = $upload_path . '/gutenverse/preload';
 
 		if ( '' === $file ) {
 			return $custom_dir . $file;
@@ -1130,7 +1199,7 @@ if ( ! function_exists( 'gutenverse_get_menu' ) ) {
 				'menu_class'      => 'gutenverse-menu',
 				'container_class' => 'gutenverse-menu-container',
 				'echo'            => false,
-				'walker' => new class extends Walker_Nav_Menu {
+				'walker'          => new class() extends Walker_Nav_Menu {
 					public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
 
 						$classes     = empty( $item->classes ) ? array() : (array) $item->classes;
@@ -1711,6 +1780,25 @@ if ( ! function_exists( 'gutenverse_permission_change_global_variable' ) ) {
 		return true;
 	}
 }
+
+if ( ! function_exists( 'gutenverse_permission_check_login' ) ) {
+	/**
+	 * Check login permissions.
+	 *
+	 * @return bool|WP_Error
+	 */
+	function gutenverse_permission_check_login() {
+		if ( ! is_user_logged_in() ) {
+			return new WP_Error(
+				'forbidden_permission',
+				esc_html__( 'Forbidden Access', '--gctd--' ),
+				array( 'status' => 403 )
+			);
+		}
+
+		return true;
+	}
+}
 if ( ! function_exists( 'gutenverse_remove_folder' ) ) {
 	/**
 	 * Check author permissions.
@@ -1739,22 +1827,6 @@ if ( ! function_exists( 'gutenverse_remove_folder' ) ) {
 		}
 	}
 }
-
-if ( ! function_exists( 'gutenverse_upgrade_pro' ) ) {
-	/**
-	 * Referral URL.
-	 */
-	function gutenverse_upgrade_pro() {
-		$referral = apply_filters( 'gutenverse_theme_referral_code', null );
-
-		if ( ! empty( $referral ) ) {
-			return GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $referral;
-		} else {
-			return GUTENVERSE_UPGRADE_URL;
-		}
-	}
-}
-
 
 /**
  * Check if variable is empty and not contain 0
@@ -1835,6 +1907,7 @@ if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
 		$paths    = array(
 			gutenverse_css_path(),
 			gutenverse_conditional_path(),
+			gutenverse_preload_assets_path(),
 		);
 
 		$total_in_bytes = 0;

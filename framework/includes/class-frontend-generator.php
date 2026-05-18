@@ -283,6 +283,8 @@ class Frontend_Generator {
 			$bypass_script = apply_filters( 'gutenverse_bypass_generate_script', false, $name );
 
 			if ( $bypass_style && $bypass_script ) {
+				$preloads             = apply_filters( 'gutenverse_load_cached_preload_assets', array(), 'image', $post->ID );
+				$this->preload_images = array_merge( $this->preload_images, $preloads );
 				return;
 			}
 
@@ -420,6 +422,7 @@ class Frontend_Generator {
 	 * Render Preload Images
 	 */
 	public function render_preload_images() {
+		global $post;
 		static $printed_images = array();
 
 		if ( ! empty( $this->preload_images ) ) {
@@ -432,6 +435,7 @@ class Frontend_Generator {
 				printf( '<link rel="preload" fetchpriority="high" as="image" href="%s">', esc_url( $image_url ) );
 				$printed_images[] = $image_url;
 			}
+			do_action( 'gutenverse_cache_preload_assets', $this->preload_images, 'image', $post->ID );
 			$this->preload_images = array();
 		}
 	}
@@ -566,6 +570,7 @@ class Frontend_Generator {
 	 * @param string $block_name block name.
 	 */
 	public function check_attributes( $attrs, $block_name ) {
+
 		if ( empty( $attrs ) ) {
 			return;
 		}
@@ -781,7 +786,7 @@ class Frontend_Generator {
 		$script_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
 
 		// remove duplicates.
-		$script_handles = array_values( array_unique( $this->script_list ) );
+		$script_handles = array_values( array_unique( $script_handles ) );
 
 		if ( ! empty( $script_handles ) ) {
 			foreach ( $script_handles as $handle ) {
