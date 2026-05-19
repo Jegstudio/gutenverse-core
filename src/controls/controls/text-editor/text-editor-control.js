@@ -1,5 +1,4 @@
 import { useRef } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 import { Editor } from '@tinymce/tinymce-react';
 import { ControlHeadingSimple } from 'gutenverse-core/controls';
 
