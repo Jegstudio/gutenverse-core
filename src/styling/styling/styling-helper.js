@@ -385,12 +385,12 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
 
 
         if (value) {
-            const { withParentOject = false, withParentObject = null } = style;
-            if (withParentOject && withParentObject) {
-                if (!value || typeof value !== 'object' || !(withParentObject in value)) {
+            const { withParentObject = false, parentObject = null } = style;
+            if (withParentObject && parentObject) {
+                if (!value || typeof value !== 'object' || !(parentObject in value)) {
                     continue;
                 }
-                value = value[withParentObject];
+                value = value[parentObject];
             }
             const css = generateCSSString(value, style);
 
