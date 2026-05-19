@@ -20,6 +20,26 @@ class HOC_Frontend {
 	 */
 	public function __construct() {
 		add_filter( 'gutenverse_video_background', array( $this, 'video_background_script' ), 10, 2 );
+		add_filter( 'gutenverse_highlight_text', array( $this, 'highlight_text_frontend' ), 10 );
+	}
+
+	/**
+	 * Highlight Text Frontend
+	 *
+	 * @param string $content Content.
+	 *
+	 * @return string
+	 */
+	public function highlight_text_frontend( $content ) {
+		// remove the style attribute
+		if ( ! $content ) {
+			return $content;
+		}
+		return preg_replace(
+			'/\sdata-guten-highlight-style=(["\']).*?\1/i',
+			'',
+			$content
+		);
 	}
 
 	/**

@@ -17,6 +17,52 @@ export const highlight = (props) => {
     const content = attributes[contentAttribute];
     const [lastChildLength, setLastChildLength] = useState(attributes[textChilds].length);
 
+    const getListOfChildTag = (content) => {
+        const fakeContent = document.createElement(tagName);
+        fakeContent.innerHTML = content;
+        const newElement = u(fakeContent).children().map((child) => {
+            const newChild = u(child).children().map(grandChild => {
+                if (u(grandChild).nodes[0].localName === 'span' && u(grandChild).hasClass('guten-text-highlight')) {
+                    // read data style from child.
+                    const styleDataStr = u(child).data('guten-highlight-style');
+                    let styleData = {};
+                    if (styleDataStr !== '') {
+                        try {
+                            styleData = JSON.parse(styleDataStr);
+                        }catch {
+                            styleData = {};
+                        }
+                    }
+                    let spanId = u(child).attr('id');
+                    let id = u(grandChild).attr('id');
+
+                    return {
+                        color: {},
+                        colorHover: {},
+                        typography: {},
+                        typographyHover: {},
+                        textClip: {},
+                        textClipHover: {},
+                        textStroke: {},
+                        textStrokeHover: {},
+                        background: {},
+                        backgroundHover: {},
+                        padding: {},
+                        paddingHover: {},
+                        margin: {},
+                        marginHover: {},
+                        value: child,
+                        id,
+                        spanId,
+                        ...styleData,
+                    };
+                }
+            });
+            return newChild;
+        });
+        return newElement.nodes;
+    };
+
     useEffect(() => {
         setLastChildLength(attributes[textChilds].length);
     }, [attributes[textChilds]]);
@@ -44,38 +90,6 @@ export const highlight = (props) => {
         }
     }, [content]);
 
-    const getListOfChildTag = (content) => {
-        const fakeContent = document.createElement(tagName);
-        fakeContent.innerHTML = content;
-        const newElement = u(fakeContent).children().map(child => {
-            const newChild = u(child).children().map(grandChild => {
-                if (u(grandChild).nodes[0].localName === 'span' && u(grandChild).hasClass('guten-text-highlight')) {
-                    return {
-                        color: {},
-                        colorHover: {},
-                        typography: {},
-                        typographyHover: {},
-                        textClip: {},
-                        textClipHover: {},
-                        textStroke: {},
-                        textStrokeHover: {},
-                        background: {},
-                        backgroundHover: {},
-                        padding: {},
-                        paddingHover: {},
-                        margin: {},
-                        marginHover: {},
-                        value: child,
-                        id: u(grandChild).attr('id'),
-                        spanId: u(child).attr('id')
-                    };
-                }
-            });
-            return newChild;
-        });
-        return newElement.nodes;
-    };
-
     useEffect(() => {
         const newDiv = document.createElement('div');
         newDiv.innerHTML = content;
@@ -87,6 +101,7 @@ export const highlight = (props) => {
                 contentArray.push(node.outerHTML);
             }
         });
+        const existingIds = [];
         const newValue = contentArray.map(element => {
             const regex = /id="([^"]+)"/;
             const match = element.match(regex);
@@ -132,6 +147,52 @@ export const highlight = (props) => {
                             }
                         );
                     }
+                    // handle duplicated id from copied highlighted text.
+                    if (existingIds.includes(id)) {
+                        const uniqeidChild = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+                        const uniqeidSpan = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+
+                        let count = 0;
+                        child = child.replace(
+                            /id="[^"]*"/g,
+                            function() {
+                                count++;
+
+                                if (count === 1) {
+                                    return `id="${uniqeidSpan}"`;
+                                }
+
+                                if (count === 2) {
+                                    return `id="${uniqeidChild}"`;
+                                }
+
+                                return arguments[0];
+                            }
+                        );
+                    }
+                    // add styling attributes to highlight span.
+                    const style = (attributes?.[textChilds] ? attributes[textChilds] : []).filter((item) => item?.spanId === id);
+                    if (style.length === 1) {
+                        const spanStyle = style[0];
+                        const filteredAttributes = Object.fromEntries(
+                            Object.entries(spanStyle).filter(function(entry) {
+                                return entry[0] !== 'id' && entry[0] !== 'spanId' && entry[0] !== '_key' && entry[0] !== 'value';
+                            })
+                        );
+                        const encoded = JSON.stringify(filteredAttributes);
+                        if (/data-guten-highlight-style=/.test(child)) {
+                            child = child.replace(
+                                /data-guten-highlight-style=["'][^"']*["']/i,
+                                `data-guten-highlight-style='${encoded}'`
+                            );
+                        } else {
+                            child = child.replace(
+                                /(<span\b[^>]*id=["'][^"']*["'])/i,
+                                `$1 data-guten-highlight-style='${encoded}'`
+                            );
+                        }
+                    }
+                    existingIds.push(id);
                 }
                 return child;
             }
