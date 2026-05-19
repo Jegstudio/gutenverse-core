@@ -865,6 +865,14 @@ class Api {
 			$content = $this->get_json_data( $key );
 			if ( 'layout-data' === $key ) {
 				$content = $this->inject_layout_like( $content );
+				if ( is_array( $content ) ) {
+					$content = array_values( array_filter( $content, function ( $item ) {
+						$listed_in = isset( $item['data']['listed_in'] ) ? $item['data']['listed_in'] : array();
+						if ( empty( $listed_in ) || str_contains( $listed_in, 'library' ) ) {
+							return $item;
+						}
+					} ) );
+				}
 			}
 
 			if ( 'section-data' === $key ) {
