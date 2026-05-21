@@ -796,6 +796,10 @@ class Frontend_Generator {
 
 		$script_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
 
+		if ( ! is_array( $script_handles ) ) {
+			return;
+		}
+
 		// remove duplicates.
 		$script_handles = array_values( array_unique( $script_handles ) );
 
@@ -813,6 +817,9 @@ class Frontend_Generator {
 	 */
 	public function load_conditional_styles() {
 		$style_handles = apply_filters( 'gutenverse_conditional_style_handles', $this->style_list );
+		if ( ! is_array( $style_handles ) ) {
+			return;
+		}
 
 		// remove duplicates.
 		$style_handles = array_values( array_unique( $style_handles ) );
