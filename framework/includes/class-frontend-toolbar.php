@@ -382,12 +382,14 @@ class Frontend_Toolbar {
 				);
 
 				foreach ( $parts as $part ) {
+					$template_part_id = isset( $part['attrs']['theme'] ) ? $part['attrs']['theme'] . '//' . $part['attrs']['slug'] : $part['attrs']['slug'];
+
 					$admin_bar->add_menu(
 						array(
 							'id'     => 'edit-template-' . $part['attrs']['slug'],
 							'parent' => 'template-part',
 							'title'  => esc_html__( 'Edit: ', '--gctd--' ) . '<strong>' . $part['attrs']['slug'] . '</strong>',
-							'href'   => $is_wp_above_6_4 ? ( admin_url( 'site-editor.php' ) . '?postId=' . $part['attrs']['theme'] . '//' . $part['attrs']['slug'] . '&postType=wp_template_part&canvas=edit' ) : ( admin_url( 'site-editor.php' ) . '?postType=wp_template_part&postId=' . $part['attrs']['theme'] . '//' . $part['attrs']['slug'] ),
+							'href'   => $is_wp_above_6_4 ? ( admin_url( 'site-editor.php' ) . '?postId=' . $template_part_id . '&postType=wp_template_part&canvas=edit' ) : ( admin_url( 'site-editor.php' ) . '?postType=wp_template_part&postId=' . $template_part_id ),
 							'meta'   => array(
 								'target' => 'blank',
 							),
