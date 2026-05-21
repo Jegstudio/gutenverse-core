@@ -49,6 +49,16 @@ const getRuntimeObjects = () => {
         .filter(Boolean);
 };
 
+const getFallbackRuntimeObjects = () => {
+    if (typeof window === 'undefined') {
+        return [];
+    }
+
+    return ['GutenverseDashboard', 'GutenverseConfig', 'GutenverseData']
+        .map((key) => window[key])
+        .filter(Boolean);
+};
+
 const isValidPricingPlan = (pricingPlan) => Boolean(
     pricingPlan
     && typeof pricingPlan === 'object'
@@ -77,23 +87,29 @@ const setRuntimePricingPlan = (pricingPlan) => {
 };
 
 const getPricingPlanFallback = () => {
-    const runtime = getRuntimeObjects()[0] || {};
+    const runtime = getFallbackRuntimeObjects().find((item) => isValidPricingPlan(item?.pricingPlan)) || {};
 
     return normalizePricingPlan(runtime?.pricingPlan);
 };
 
+const hasRuntimePricingPlanFallback = () => getFallbackRuntimeObjects()
+    .some((item) => isValidPricingPlan(item?.pricingPlan));
+
 const ensurePricingPlanData = ({ force = false } = {}) => {
     const tempPricingPlan = normalizePricingPlan(getTempPricingPlanData());
+    const fallbackPricingPlan = getPricingPlanFallback();
 
     if (!force && getTempPricingPlanData()) {
         return Promise.resolve(setRuntimePricingPlan(tempPricingPlan));
     }
 
+    if (!force && hasRuntimePricingPlanFallback()) {
+        return Promise.resolve(setRuntimePricingPlan(fallbackPricingPlan));
+    }
+
     if (!force && getPricingPlanPromise()) {
         return getPricingPlanPromise();
     }
-
-    const fallbackPricingPlan = getPricingPlanFallback();
 
     const pricingPlanPromise = apiFetch({
         path: PRICING_PLAN_API_PATH,
@@ -103,12 +119,12 @@ const ensurePricingPlanData = ({ force = false } = {}) => {
             const pricingPlan = response?.pricingPlan || response;
 
             if (!isValidPricingPlan(pricingPlan)) {
-                return fallbackPricingPlan;
+                return setRuntimePricingPlan(fallbackPricingPlan);
             }
 
             return setRuntimePricingPlan(normalizePricingPlan(pricingPlan));
         })
-        .catch(() => fallbackPricingPlan)
+        .catch(() => setRuntimePricingPlan(fallbackPricingPlan))
         .finally(() => {
             setPricingPlanPromise(null);
         });

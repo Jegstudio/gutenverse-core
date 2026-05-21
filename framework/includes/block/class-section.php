@@ -953,6 +953,18 @@ class Section extends Block_Abstract {
 		}
 		if ( $using_featured_image ) {
 			$section_classes[] = 'guten-using-featured-image';
+
+			if ( $using_featured_image && empty( $background['useFeaturedImage']['Desktop'] ) ) {
+				$section_classes[] = 'guten-disable-feature-image-desktop';
+			}
+
+			if ( $using_featured_image && empty( $background['useFeaturedImage']['Tablet'] ) ) {
+				$section_classes[] = 'guten-disable-feature-image-tablet';
+			}
+
+			if ( $using_featured_image && empty( $background['useFeaturedImage']['Mobile'] ) ) {
+				$section_classes[] = 'guten-disable-feature-image-mobile';
+			}
 		}
 
 		$class_name = esc_attr( implode( ' ', array_filter( $section_classes ) ) );
