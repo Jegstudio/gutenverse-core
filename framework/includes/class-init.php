@@ -132,6 +132,13 @@ class Init {
 	public $upgrader;
 
 	/**
+	 * Hold instance of pro plugin dependency notices.
+	 *
+	 * @var Pro_Plugin_Dependency
+	 */
+	public $pro_plugin_dependency;
+
+	/**
 	 * HOC Instance.
 	 *
 	 * @var HOC_Frontend
@@ -292,16 +299,17 @@ class Init {
 	 * Initialize Classes
 	 */
 	public function init_class() {
-		$this->assets           = new Assets();
-		$this->dashboard        = new Dashboard();
-		$this->theme_helper     = new Theme_Helper();
-		$this->blocks           = new Blocks();
-		$this->frontend_assets  = new Frontend_Assets();
-		$this->editor_assets    = new Editor_Assets();
-		$this->frontend_toolbar = new Frontend_Toolbar();
-		$this->global_variable  = new Global_Variable();
-		$this->upgrader         = new Upgrader();
-		$this->meta_option      = Meta_Option::instance();
+		$this->assets                = new Assets();
+		$this->dashboard             = new Dashboard();
+		$this->theme_helper          = new Theme_Helper();
+		$this->blocks                = new Blocks();
+		$this->frontend_assets       = new Frontend_Assets();
+		$this->editor_assets         = new Editor_Assets();
+		$this->frontend_toolbar      = new Frontend_Toolbar();
+		$this->global_variable       = new Global_Variable();
+		$this->upgrader              = new Upgrader();
+		$this->pro_plugin_dependency = new Pro_Plugin_Dependency();
+		$this->meta_option           = Meta_Option::instance();
 
 		/**
 		 * Load the renamed variables and add fallback for old variables, in case there is function still using them
