@@ -11,14 +11,14 @@ import { PluginAction } from '../helper';
 import { AlertIcon } from './icons';
 
 const PluginItem = ({ plugin, plugins, ...props }) => {
-    const { slug, name, version, icons, description, incoming, icon, url, host } = plugin;
+    const { slug, name, version, icons, description, incoming, icon, url, host, requiresPlugins = [] } = plugin;
     const [loadingString, setLoadingString] = useState('');
     const [loading, setLoading] = useState(false);
     const [isRetry, setIsRetry] = useState(true);
 
     const installed = plugins[slug];
 
-    const pluginDepsData = getPluginDeps(installed, plugins);
+    const pluginDepsData = getPluginDeps(installed, plugins, requiresPlugins);
 
     const singleClass = classnames('install-action', { loading });
 

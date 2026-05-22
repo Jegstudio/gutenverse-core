@@ -14,8 +14,8 @@ const PRO_PRICING_URL = `${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashb
 
 const pluginLists = window?.GutenverseDashboard?.plugins || [];
 
-export const getPluginDeps = (installed, plugins) => {
-    const requiresPlugins = installed?.requiresPlugins || [];
+export const getPluginDeps = (installed, plugins, requiresPluginData) => {
+    const requiresPlugins = requiresPluginData.length > 1 ? requiresPluginData : installed?.requiresPlugins || [];
 
     // A dependency is "missing" if it doesn't exist in plugins OR exists but is not active
     const missingPlugins = requiresPlugins
