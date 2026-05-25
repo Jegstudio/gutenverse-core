@@ -599,6 +599,12 @@ const BackgroundControl = (props) => {
                 onValueChange={videoImage => onValueChange({ ...value, videoImage })}
                 allowDeviceControl={true}
             />
+            {!isEmpty(value.videoImage) && <CheckboxControl
+                label={__('Fetch Priority High', '--gctd--')}
+                description={__('Signals the browser to prioritize fetching this image. Use this only for the LCP (Largest Contentful Paint) element.', '--gctd--')}
+                value={value.videoImageFetchpriorityHigh}
+                onValueChange={videoImageFetchpriorityHigh => onValueChange({ ...value, videoImageFetchpriorityHigh })}
+            />}
         </>}
 
         {value.type !== undefined && value.type === 'slide' && <>
