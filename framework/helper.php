@@ -20,9 +20,13 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 		// Prevent XXE attacks.
 		$svg = preg_replace( '/<!DOCTYPE.+?>/i', '', $svg );
 
-		$dom = new DOMDocument();
+		if ( ! class_exists( \DOMDocument::class ) || ! class_exists( \DOMXPath::class ) ) {
+			return false;
+		}
 
-		if ( ! $dom->loadXML( $svg, LIBXML_NONET | LIBXML_NOENT | LIBXML_COMPACT ) ) {
+		$dom = new \DOMDocument();
+
+		if ( ! $dom->loadXML( $svg, LIBXML_NONET | LIBXML_COMPACT ) ) {
 			return false;
 		}
 

@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import { handleColor, getUnitPoint, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
+import { isResponsiveObject } from '../styling-utility';
 
 export const handleBackground = (background) => {
     const { type } = background;
@@ -20,10 +21,23 @@ export const handleBackground = (background) => {
         } = background;
 
         if (color) {
-            const result = handleColor(color, 'background-color');
-            normalAppender({
-                style: `${result} background-image: none;`,
-                elementStyle
+            DeviceLoop(device => {
+                let _deviceColor = deviceStyleValue(device, color);
+
+                // Backward compatibility if color is not a responsive object
+                if (!_deviceColor && color && !isResponsiveObject(color)) {
+                    _deviceColor = color;
+                }
+
+                const _color = handleColor(_deviceColor, 'background-color');
+
+                if (_color) {
+                    responsiveAppender({
+                        style: `${_color} background-image: none;`,
+                        device,
+                        elementStyle
+                    });
+                }
             });
         }
 
