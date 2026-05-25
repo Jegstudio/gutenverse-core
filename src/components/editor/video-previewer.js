@@ -109,7 +109,7 @@ const VideoPreviewer = ({ videoSrc, start, end, hideControls, playing, loop, mut
 
     return (
         <div className={classNames} style={styles} ref={videoRef}>
-            <SandBox html={iframeHtml} styles={wrapperStyles} />
+            <SandBox allowSameOrigin html={iframeHtml} styles={wrapperStyles} />
         </div>
     );
 };
