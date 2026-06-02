@@ -6,9 +6,13 @@ class GutenverseFeaturedBg extends Default {
     init() {
         const elements = this._elements;
         if (elements.length > 0) {
-            this.useFeaturedImage(elements);
+            const { settingsData } = window['GutenverseConfig'] || window['GutenverseData'] || {};
+            const { editor_settings } = settingsData || {};
+            const { tablet_breakpoint = 1024, mobile_breakpoint = 767 } = editor_settings || {};
 
-            let currentBreakpoint = null;
+            let currentBreakpoint = this.determineBreakpoint(window.innerWidth, tablet_breakpoint, mobile_breakpoint);
+
+            this.useFeaturedImage(elements, currentBreakpoint);
 
             const handleResize = () => {
                 const width = window.innerWidth;
@@ -16,15 +20,10 @@ class GutenverseFeaturedBg extends Default {
 
                 if (newBreakpoint !== currentBreakpoint) {
                     currentBreakpoint = newBreakpoint;
-                    this.useFeaturedImage(elements);
+                    this.useFeaturedImage(elements, currentBreakpoint);
                 }
             };
 
-            const { settingsData } = window['GutenverseConfig'] || window['GutenverseData'] || {};
-            const { editor_settings } = settingsData || {};
-            const { tablet_breakpoint = 1024, mobile_breakpoint = 767 } = editor_settings || {};
-
-            currentBreakpoint = this.determineBreakpoint(window.innerWidth, tablet_breakpoint, mobile_breakpoint);
             window.addEventListener('resize', handleResize, true);
 
         }
@@ -40,9 +39,8 @@ class GutenverseFeaturedBg extends Default {
         }
     }
 
-    useFeaturedImage(elements) {
+    useFeaturedImage(elements, currentBreakpoint = 'desktop') {
         elements.map(element => {
-
             const isBgAnimated = u(element).hasClass('background-animated');
             let dataId;
             let wrapper;
@@ -75,6 +73,10 @@ class GutenverseFeaturedBg extends Default {
 
             if (existingStyleElement) {
                 existingStyleElement.remove();
+            }
+
+            if (u(element).hasClass(`guten-disable-feature-image-${currentBreakpoint}`)) {
+                return;
             }
 
             const backgroundImage = window.getComputedStyle(newElement).getPropertyValue('background-image');

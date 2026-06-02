@@ -611,7 +611,7 @@ class Container extends Block_Abstract {
 		$is_bg_animated     = $this->is_animation_active( $background_animated );
 		$is_bg_effect       = ! empty( $background_effect ) && isset( $background_effect['type'] ) && 'none' !== $background_effect['type'];
 		$is_sticky          = $this->is_sticky( $sticky );
-		$is_video_bg        = isset( $background['backgroundType'] ) && 'video' === $background['backgroundType'] && ! empty( $background['videoUrl'] );
+		$is_video_bg        = isset( $background['type'] ) && 'video' === $background['type'] && ! empty( $background['videoLink'] );
 		$is_cursor_effect   = ! empty( $cursor_effect['show'] );
 		$is_top_div_anim    = ! empty( $top_divider_animated ) && isset( $top_divider_animated['type'] ) && 'none' !== $top_divider_animated['type'];
 		$is_bottom_div_anim = ! empty( $bottom_divider_animated ) && isset( $bottom_divider_animated['type'] ) && 'none' !== $bottom_divider_animated['type'];
@@ -659,6 +659,18 @@ class Container extends Block_Abstract {
 		}
 		if ( $using_featured ) {
 			$classes[] = 'guten-using-featured-image';
+
+			if ( $using_featured && empty( $background['useFeaturedImage']['Desktop'] ) ) {
+				$classes[] = 'guten-disable-feature-image-desktop';
+			}
+
+			if ( $using_featured && empty( $background['useFeaturedImage']['Tablet'] ) ) {
+				$classes[] = 'guten-disable-feature-image-tablet';
+			}
+
+			if ( $using_featured && empty( $background['useFeaturedImage']['Mobile'] ) ) {
+				$classes[] = 'guten-disable-feature-image-mobile';
+			}
 		}
 
 		$class_name = trim( implode( ' ', array_filter( $classes ) ) . $animation_class . $display_classes );

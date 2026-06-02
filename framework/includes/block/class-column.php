@@ -281,6 +281,18 @@ class Column extends Block_Abstract {
 		}
 		if ( $using_featured_image ) {
 			$column_classes[] = 'guten-using-featured-image';
+
+			if ( $using_featured_image && empty( $background['useFeaturedImage']['Desktop'] ) ) {
+				$column_classes[] = 'guten-disable-feature-image-desktop';
+			}
+
+			if ( $using_featured_image && empty( $background['useFeaturedImage']['Tablet'] ) ) {
+				$column_classes[] = 'guten-disable-feature-image-tablet';
+			}
+
+			if ( $using_featured_image && empty( $background['useFeaturedImage']['Mobile'] ) ) {
+				$column_classes[] = 'guten-disable-feature-image-mobile';
+			}
 		}
 
 		$class_name = esc_attr( implode( ' ', array_filter( $column_classes ) ) );

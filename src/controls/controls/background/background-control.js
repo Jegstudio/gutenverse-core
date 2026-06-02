@@ -12,6 +12,31 @@ import { useSelect, select } from '@wordpress/data';
 import isEmpty from 'lodash/isEmpty';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { determineLocation } from 'gutenverse-core/helper';
+import { isResponsiveObject } from 'gutenverse-core/styling/styling/styling-utility';
+
+const toLegacyCompatibleColor = (color) => {
+    if (!isResponsiveObject(color)) {
+        return color;
+    }
+
+    const fallback = color.Desktop || color.Tablet || color.Mobile;
+
+    if (!fallback || typeof fallback !== 'object') {
+        return color;
+    }
+    const {
+        Desktop: _desktop,
+        Tablet: _tablet,
+        Mobile: _mobile,
+        previousValues: _previousValues,
+        ...legacyColor
+    } = fallback;
+
+    return {
+        ...color,
+        ...legacyColor
+    };
+};
 
 const gradientOption = (props) => {
     const { value = {}, onValueChange } = props;
@@ -245,9 +270,14 @@ const BackgroundControl = (props) => {
         {value.type !== undefined && value.type === 'default' && <>
             <ColorControl
                 label={__('Background Color', '--gctd--')}
-                value={value.color}
-                onValueChange={color => onValueChange({ ...value, color })}
-                onLocalChange={color => onLocalChange({ ...value, color })}
+                value={
+                    value.color && !isResponsiveObject(value.color)
+                        ? { Desktop: value.color, Tablet: value.color, Mobile: value.color }
+                        : value.color
+                }
+                onValueChange={color => onValueChange({ ...value, color: toLegacyCompatibleColor(color) })}
+                onLocalChange={color => onLocalChange({ ...value, color: toLegacyCompatibleColor(color) })}
+                allowDeviceControl={true}
             />
             {isWrapperBlock() && <CheckboxControl
                 label={__('Use Featured Image', '--gctd--')}
@@ -569,6 +599,12 @@ const BackgroundControl = (props) => {
                 onValueChange={videoImage => onValueChange({ ...value, videoImage })}
                 allowDeviceControl={true}
             />
+            {!isEmpty(value.videoImage) && <CheckboxControl
+                label={__('Fetch Priority High', '--gctd--')}
+                description={__('Signals the browser to prioritize fetching this image. Use this only for the LCP (Largest Contentful Paint) element.', '--gctd--')}
+                value={value.videoImageFetchpriorityHigh}
+                onValueChange={videoImageFetchpriorityHigh => onValueChange({ ...value, videoImageFetchpriorityHigh })}
+            />}
         </>}
 
         {value.type !== undefined && value.type === 'slide' && <>

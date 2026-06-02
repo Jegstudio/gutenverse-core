@@ -346,6 +346,37 @@ class Frontend_Generator {
 			}
 
 			// Check for Background Attribute with fetchPriorityHigh.
+			if ( isset( $block['attrs']['background']['type'] ) && 'video' === $block['attrs']['background']['type'] && ! empty( $block['attrs']['background']['videoImageFetchpriorityHigh'] ) ) {
+				$bg         = $block['attrs']['background'];
+				$image_urls = array();
+				$image      = $bg['videoImage'];
+
+				if ( isset( $image['Mobile']['image'] ) ) {
+					$image_urls[] = $image['Mobile']['image'];
+				} elseif ( isset( $image['Mobile']['url'] ) ) {
+					$image_urls[] = $image['Mobile']['url'];
+				} elseif ( isset( $image['Tablet']['image'] ) ) {
+					$image_urls[] = $image['Tablet']['image'];
+				} elseif ( isset( $image['Tablet']['url'] ) ) {
+					$image_urls[] = $image['Tablet']['url'];
+				} elseif ( isset( $image['image'] ) ) {
+					$image_urls[] = $image['image'];
+				} elseif ( isset( $image['url'] ) ) {
+					$image_urls[] = $image['url'];
+				} elseif ( isset( $image['Desktop']['image'] ) ) {
+					$image_urls[] = $image['Desktop']['image'];
+				} elseif ( isset( $image['Desktop']['url'] ) ) {
+					$image_urls[] = $image['Desktop']['url'];
+				}
+
+				if ( ! empty( $image_urls ) ) {
+					foreach ( $image_urls as $url ) {
+						if ( $url ) {
+							$this->preload_images[] = $url;
+						}
+					}
+				}
+			}
 			if ( ! empty( $block['attrs']['background']['fetchPriorityHigh'] ) ) {
 				$bg         = $block['attrs']['background'];
 				$image_urls = array();
@@ -366,8 +397,17 @@ class Frontend_Generator {
 						$image_urls[] = $slide_images[0]['image']['image'];
 					}
 				} elseif ( ! empty( $bg['image'] ) ) {
-					$image = $bg['image'];
-					if ( isset( $image['image'] ) ) {
+					$image    = $bg['image'];
+
+					if ( isset( $image['Mobile']['image'] ) ) {
+						$image_urls[] = $image['Mobile']['image'];
+					} elseif ( isset( $image['Mobile']['url'] ) ) {
+						$image_urls[] = $image['Mobile']['url'];
+					} elseif ( isset( $image['Tablet']['image'] ) ) {
+						$image_urls[] = $image['Tablet']['image'];
+					} elseif ( isset( $image['Tablet']['url'] ) ) {
+						$image_urls[] = $image['Tablet']['url'];
+					} elseif ( isset( $image['image'] ) ) {
 						$image_urls[] = $image['image'];
 					} elseif ( isset( $image['url'] ) ) {
 						$image_urls[] = $image['url'];
@@ -394,7 +434,15 @@ class Frontend_Generator {
 					$image      = $bg_overlay['image'];
 					$image_urls = array();
 
-					if ( isset( $image['image'] ) ) {
+					if ( isset( $image['Mobile']['image'] ) ) {
+						$image_urls[] = $image['Mobile']['image'];
+					} elseif ( isset( $image['Mobile']['url'] ) ) {
+						$image_urls[] = $image['Mobile']['url'];
+					} elseif ( isset( $image['Tablet']['image'] ) ) {
+						$image_urls[] = $image['Tablet']['image'];
+					} elseif ( isset( $image['Tablet']['url'] ) ) {
+						$image_urls[] = $image['Tablet']['url'];
+					} elseif ( isset( $image['image'] ) ) {
 						$image_urls[] = $image['image'];
 					} elseif ( isset( $image['url'] ) ) {
 						$image_urls[] = $image['url'];
