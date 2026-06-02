@@ -47,6 +47,7 @@ import IconToolbarColumnDelete from './icon/icon-toolbar-column-delete.svg';
 import IconFont from './icon/icon-font.svg';
 import IconDownload from './icon/icon-download.svg';
 import IconAddFont from './icon/icon-add-font.svg';
+import IconAddAds from './icon/icon-add-ads.svg';
 import IconFlexibleWrapper from './icon/icon-flexible-wrapper.svg';
 import IconSectionSlider from './icon/icon-section-slider.svg';
 
@@ -255,6 +256,10 @@ export const IconContainerSVG = (props) => {
 
 export const IconAddFontSVG = (props) => {
     return <IconAddFont {...props} />;
+};
+
+export const IconAddAdsSVG = (props) => {
+    return <IconAddAds {...props} />;
 };
 
 export const IconFlexibleWrapperSVG = (props) => {
