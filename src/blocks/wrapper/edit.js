@@ -101,7 +101,7 @@ const FlexibleWrapper = compose(
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
-    const isSlideShow = background?.slideImage?.length > 0;
+    const isSlideShow = background?.slideImage?.length > 0 && background?.type === 'slide';
 
     const blockProps = useBlockProps({
         className: classnames(

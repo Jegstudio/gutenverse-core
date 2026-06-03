@@ -902,7 +902,7 @@ class Section extends Block_Abstract {
 		$_is_bg_animated         = $this->is_animation_active( $background_animated );
 		$_is_top_div_animated    = ! $this->is_empty_value( $top_div_animated ) && ( ! isset( $top_div_animated['type'] ) || 'none' !== $top_div_animated['type'] );
 		$_is_bottom_div_animated = ! $this->is_empty_value( $bottom_div_animated ) && ( ! isset( $bottom_div_animated['type'] ) || 'none' !== $bottom_div_animated['type'] );
-		$is_slideshow            = isset( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
+		$is_slideshow            = isset( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0 && ( isset( $background['type'] ) && $background['type'] === 'slide' );
 		$is_background_effect    = ! empty( $background_effect ) && isset( $background_effect['type'] ) && 'none' !== $background_effect['type'];
 		$using_featured_image    = ! empty( $background['useFeaturedImage'] ) && ( ! empty( $background['useFeaturedImage']['Desktop'] ) || ! empty( $background['useFeaturedImage']['Tablet'] ) || ! empty( $background['useFeaturedImage']['Mobile'] ) );
 		$cursor_effect_show      = ! empty( $cursor_effect['show'] );
