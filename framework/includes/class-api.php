@@ -1007,7 +1007,7 @@ class Api {
 	 */
 	public function inject_plugin_detail( $data ) {
 		foreach ( $data as $key => $value ) {
-			$plugin                      = $this->fetch_plugin_detail( $value->slug );
+			$plugin                      = $this->fetch_plugin_detail( $value->slug, $value->host );
 			$data[ $key ]                = (array) $data[ $key ];
 			$data[ $key ]['icons']       = $this->get_plugin_image( $plugin );
 			$data[ $key ]['description'] = $data[ $key ]['description'] ? $data[ $key ]['description'] : $plugin['description'];
@@ -1023,25 +1023,28 @@ class Api {
 	 *
 	 * @return array
 	 */
-	public function fetch_plugin_detail( $plugin_slug ) {
-		require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-		$result = plugins_api(
-			'plugin_information',
-			array(
-				'slug'   => $plugin_slug,
-				'locale' => 'en_US',
-				'fields' => array(
-					'icons' => true,
-				),
-			)
-		);
+	public function fetch_plugin_detail( $plugin_slug, $host ) {
+		/* only fetch if plugin source from wporg */
+		if ( 'wporg' === $host ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+			$result = plugins_api(
+				'plugin_information',
+				array(
+					'slug'   => $plugin_slug,
+					'locale' => 'en_US',
+					'fields' => array(
+						'icons' => true,
+					),
+				)
+			);
 
-		$description = array(
-			'icons'       => $result->icons,
-			'description' => wp_strip_all_tags( $result->sections['description'] ),
-			'version'     => $result->version,
-			'name'        => $result->name,
-		);
+			$description = array(
+				'icons'       => $result->icons,
+				'description' => wp_strip_all_tags( $result->sections['description'] ),
+				'version'     => $result->version,
+				'name'        => $result->name,
+			);
+		}
 		return $description;
 	}
 
@@ -1294,7 +1297,7 @@ class Api {
 					'filename' => 'section/categories',
 				),
 				array(
-					'version'  => 'v3',
+					'version'  => 'v4',
 					'endpoint' => 'plugin/ecosystem',
 					'filename' => 'plugin/ecosystem',
 				),
@@ -1762,6 +1765,8 @@ class Api {
 	public function modify_settings( $request ) {
 		$data = $request->get_param( 'setting' );
 
+		do_action( 'gutenverse_before_modify_settings', $data );
+
 		if ( array_key_exists( 'gvnews_settings', $data ) ) {
 			update_option( 'gvnews_settings', $data['gvnews_settings'], false );
 		} else {
@@ -1825,6 +1830,8 @@ class Api {
 				update_option( 'gutenverse-settings', $value, true );
 			}
 		}
+
+		do_action( 'gutenverse_after_modify_settings', $data );
 
 		return true;
 	}

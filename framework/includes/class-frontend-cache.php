@@ -397,7 +397,6 @@ class Frontend_Cache {
 
 		$render_mechanism      = $frontend['render_mechanism'] ?? '';
 		$file_delete_mechanism = $frontend['file_delete_mechanism'] ?? '';
-		$file_delete_mechanism = '';
 
 		$custom_schedule = $frontend['old_render_deletion_schedule'] ?? 'daily';
 

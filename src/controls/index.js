@@ -57,7 +57,8 @@ export { default as MaskControl } from './controls/mask/mask-control';
 export { default as DateTimeControl } from './controls/date-time/date-time-control';
 export { default as TextStrokeControl } from './controls/text-stroke/text-stroke-control';
 export { default as PreviewControl } from './controls/preview/preview-control';
-
+export { default as MultiImageControl } from './controls/multi-image/multi-image-control';
+export { default as TextEditorControl } from './controls/text-editor/text-editor-control';
 // Locked Controls
 export { default as LockedControl } from './controls/locked/locked-control';
 export { default as LockedSwitchControl } from './controls/locked/locked-switch-control';
@@ -83,6 +84,8 @@ export { default as LockedProPanel } from './controls/locked/locked-pro-panel';
 export { default as LockedDynamicContentControl } from './controls/locked/locked-dynamic-content-control';
 export { default as LockedHeaderFilterControl } from './controls/locked/locked-header-filter-control';
 export { default as LockedTooltipControl } from './controls/locked/locked-tooltip-control';
+export { default as LockedGalleryPostFormat } from './controls/locked/locked-gallery-post-format';
+export { default as LockedVideoPostFormat } from './controls/locked/locked-video-post-format';
 
 
 export { default as ControlDevices } from './controls/part/control-devices';
@@ -126,3 +129,4 @@ export { tooltipStylePanel } from './panels/panel-tooltip-style';
 
 // Export General Style for block style
 export { backgroundStyle } from './panel-styles/style-backround';
+export { defaultStyle } from './panel-styles/style-default';
