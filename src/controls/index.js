@@ -64,6 +64,7 @@ export { default as LockedSwitchControl } from './controls/locked/locked-switch-
 export { default as LockedProAnimationControl } from './controls/locked/locked-animation-control';
 export { default as LockedTransformControl } from './controls/locked/locked-transform-control';
 export { default as LockedProInputLogicControl } from './controls/locked/locked-input-logic-control';
+export { default as LockedProSiteKeyControl } from './controls/locked/locked-site-key-control';
 export { default as LockedProBackgroundControl } from './controls/locked/locked-background-control';
 export { default as LockedProStickyControl } from './controls/locked/locked-sticky-control';
 export { default as LockedProDividerControl } from './controls/locked/locked-divider-control';
