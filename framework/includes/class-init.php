@@ -72,6 +72,13 @@ class Init {
 	public $meta_option;
 
 	/**
+	 * Hold instance of nonce generator
+	 *
+	 * @var NonceGenerator
+	 */
+	public $nonce_generator;
+
+	/**
 	 * Hold instance of frontend generator
 	 *
 	 * @since 2.3.0: renamed from style_generator to frontend_generator
@@ -302,6 +309,7 @@ class Init {
 		$this->global_variable  = new Global_Variable();
 		$this->upgrader         = new Upgrader();
 		$this->meta_option      = Meta_Option::instance();
+		$this->nonce_generator  = NonceGenerator::instance();
 
 		/**
 		 * Load the renamed variables and add fallback for old variables, in case there is function still using them
