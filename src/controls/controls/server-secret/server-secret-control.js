@@ -52,15 +52,10 @@ const ServerSecretControl = ({
                 editSiteStore?.getCurrentTemplateId?.() ||
                 window?.wp?.data?.select?.('core/editor')?.getCurrentPostId?.() ||
                 0,
-            blockElementId:
-                elementId ||
-                selectedBlock?.attributes?.elementId ||
-                '',
         };
     }, [elementId]);
 
     const formId = editorContext?.formId;
-    const resolvedElementId = editorContext?.blockElementId;
     const [draftValue, setDraftValue] = useState('');
     const [isEditing, setIsEditing] = useState(item?.[fieldKey] !== SECRET_MARKER);
     const [isSaving, setIsSaving] = useState(false);
@@ -75,8 +70,8 @@ const ServerSecretControl = ({
     };
 
     const saveSecret = (nextValue = draftValue) => {
-        if (!formId || !resolvedElementId || !item?._key) {
-            setError(__('This credential needs a saved form and a valid form action context before it can be stored securely.', 'gutenverse-form'));
+        if (!formId || !item?._key) {
+            setError(__('This credential needs a saved form action before it can be stored securely.', 'gutenverse-form'));
             return;
         }
 
@@ -89,7 +84,6 @@ const ServerSecretControl = ({
             method: 'POST',
             data: {
                 postId: formId,
-                elementId: resolvedElementId,
                 actionKey: item._key,
                 fieldKey,
                 service,
