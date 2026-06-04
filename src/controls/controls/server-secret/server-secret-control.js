@@ -7,6 +7,24 @@ import apiFetch from '@wordpress/api-fetch';
 const SECRET_MARKER = '__gutenverse_server_secret__';
 const REQUIRED_ASTERISK_STYLE = { color: 'rgba(231, 48, 48, 1)', marginLeft: '3px' };
 
+const resolveFormId = (blockEditorStore, selectedClientId, selectedBlock) => {
+    if (selectedBlock?.attributes?.formId) {
+        return selectedBlock.attributes.formId;
+    }
+
+    const parentIds = blockEditorStore?.getBlockParents?.(selectedClientId) || [];
+
+    for (const parentId of parentIds) {
+        const parentBlock = blockEditorStore?.getBlock?.(parentId);
+
+        if (parentBlock?.attributes?.formId) {
+            return parentBlock.attributes.formId;
+        }
+    }
+
+    return 0;
+};
+
 const ServerSecretControl = ({
     item,
     fieldKey,
@@ -28,7 +46,8 @@ const ServerSecretControl = ({
         const selectedBlock = selectedClientId ? blockEditorStore?.getBlock?.(selectedClientId) : null;
 
         return {
-            postId:
+            formId:
+                resolveFormId(blockEditorStore, selectedClientId, selectedBlock) ||
                 editorStore?.getCurrentPostId?.() ||
                 editSiteStore?.getCurrentTemplateId?.() ||
                 window?.wp?.data?.select?.('core/editor')?.getCurrentPostId?.() ||
@@ -40,7 +59,7 @@ const ServerSecretControl = ({
         };
     }, [elementId]);
 
-    const postId = editorContext?.postId;
+    const formId = editorContext?.formId;
     const resolvedElementId = editorContext?.blockElementId;
     const [draftValue, setDraftValue] = useState('');
     const [isEditing, setIsEditing] = useState(item?.[fieldKey] !== SECRET_MARKER);
@@ -56,8 +75,8 @@ const ServerSecretControl = ({
     };
 
     const saveSecret = (nextValue = draftValue) => {
-        if (!postId || !resolvedElementId || !item?._key) {
-            setError(__('This credential needs a saved page and a valid form block context before it can be stored securely.', 'gutenverse-form'));
+        if (!formId || !resolvedElementId || !item?._key) {
+            setError(__('This credential needs a saved form and a valid form action context before it can be stored securely.', 'gutenverse-form'));
             return;
         }
 
@@ -69,7 +88,7 @@ const ServerSecretControl = ({
             path: 'gutenverse-form-client/v1/integration/block_secret',
             method: 'POST',
             data: {
-                postId,
+                postId: formId,
                 elementId: resolvedElementId,
                 actionKey: item._key,
                 fieldKey,
