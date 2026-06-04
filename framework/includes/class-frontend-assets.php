@@ -284,6 +284,8 @@ class Frontend_Assets {
 			'Tablet' => $tablet_breakpoint,
 			'Mobile' => $mobile_breakpoint,
 		);
+		$config['nonceActions']  = NonceGenerator::instance()->get_actions();
+		$config['nonceEndpoint'] = admin_url( 'admin-ajax.php?action=gutenverse_generate_nonce' );
 
 		return apply_filters( 'gutenverse_frontend_config', $config );
 	}
