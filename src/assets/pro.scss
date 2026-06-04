@@ -361,6 +361,46 @@ body.gutenverse-freemius-modal-open {
     background: #5b5fff;
 }
 
+.gutenverse-pricing-card__test-button {
+    display: inline-flex;
+    justify-content: center;
+    margin: -6px 0 14px;
+    padding: 9px 12px;
+    border: 1px dashed rgba(91, 95, 255, 0.36);
+    border-radius: 8px;
+    background: #f8faff;
+    color: #5b5fff;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.gutenverse-pricing-card__test-button:disabled {
+    cursor: default;
+    opacity: 0.64;
+}
+
+.gutenverse-pricing-card__test-result {
+    margin: 0 0 14px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: #f8faff;
+    color: #5b5fff;
+    font-size: 11px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.gutenverse-pricing-card__test-result a {
+    color: inherit;
+}
+
+.gutenverse-pricing-card__test-result.is-error {
+    background: #fff5f5;
+    color: #d63638;
+}
+
 .gutenverse-pricing-card__feature-group + .gutenverse-pricing-card__feature-group {
     margin-top: 20px;
 }
