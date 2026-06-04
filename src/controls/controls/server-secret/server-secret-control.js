@@ -7,18 +7,29 @@ import apiFetch from '@wordpress/api-fetch';
 const SECRET_MARKER = '__gutenverse_server_secret__';
 const REQUIRED_ASTERISK_STYLE = { color: 'rgba(231, 48, 48, 1)', marginLeft: '3px' };
 
+const normalizeFormId = (formRef) => {
+    if (formRef && typeof formRef === 'object') {
+        return Number(formRef.value) || 0;
+    }
+
+    return Number(formRef) || 0;
+};
+
 const resolveFormId = (blockEditorStore, selectedClientId, selectedBlock) => {
-    if (selectedBlock?.attributes?.formId) {
-        return selectedBlock.attributes.formId;
+    const selectedFormId = normalizeFormId(selectedBlock?.attributes?.formId);
+
+    if (selectedFormId) {
+        return selectedFormId;
     }
 
     const parentIds = blockEditorStore?.getBlockParents?.(selectedClientId) || [];
 
     for (const parentId of parentIds) {
         const parentBlock = blockEditorStore?.getBlock?.(parentId);
+        const parentFormId = normalizeFormId(parentBlock?.attributes?.formId);
 
-        if (parentBlock?.attributes?.formId) {
-            return parentBlock.attributes.formId;
+        if (parentFormId) {
+            return parentFormId;
         }
     }
 
