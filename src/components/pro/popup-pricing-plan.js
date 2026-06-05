@@ -371,8 +371,10 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     const hasClosedRef = useRef(false);
     const handleCloseRef = useRef(null);
     const lemonSuccessCloseTimeoutRef = useRef(null);
+    const lemonCheckoutRequestRef = useRef(false);
     const hasPlans = plans.length > 0;
     const checkoutProvider = normalizeCheckoutProvider(pricingPlan?.checkout_provider || pricingPlan?.payment_provider);
+    const isPreparingLemonCheckout = 'lemon_squeezy' === checkoutProvider && checkoutRequest.loading;
 
     const getTrackingPayload = ({ action, plan = null, checkoutData = null } = {}) => {
         let searchParams = null;
@@ -469,6 +471,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
 
         return () => {
             isMounted = false;
+            lemonCheckoutRequestRef.current = false;
             if (lemonSuccessCloseTimeoutRef.current) {
                 window.clearTimeout(lemonSuccessCloseTimeoutRef.current);
                 lemonSuccessCloseTimeoutRef.current = null;
@@ -526,6 +529,11 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     };
 
     const handleLemonCheckout = async (plan) => {
+        if (lemonCheckoutRequestRef.current) {
+            return;
+        }
+
+        lemonCheckoutRequestRef.current = true;
         const planKey = getPlanKey(plan);
 
         setCheckoutRequest({ planKey, loading: true, error: '' });
@@ -551,10 +559,12 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
                     }
                 },
             });
+            lemonCheckoutRequestRef.current = false;
             setCheckoutRequest({ planKey: null, loading: false, error: '' });
             onClose();
             lemonCheckout.Url.Open(checkoutUrl);
         } catch (error) {
+            lemonCheckoutRequestRef.current = false;
             setCheckoutRequest({
                 planKey,
                 loading: false,
@@ -642,6 +652,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
                     const planFeatureGroups = getPlanFeatureGroups(plan.slug);
                     const planKey = getPlanKey(plan);
                     const isRequestingCheckout = checkoutRequest.loading && checkoutRequest.planKey === planKey;
+                    const isCheckoutDisabled = isPreparingLemonCheckout;
                     const checkoutError = checkoutRequest.planKey === planKey ? checkoutRequest.error : '';
 
                     return (
@@ -668,9 +679,9 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
                                 </div>
                                 <div
                                     className="gutenverse-pricing-card__button"
-                                    aria-disabled={isRequestingCheckout}
+                                    aria-disabled={isCheckoutDisabled}
                                     onClick={() => {
-                                        if (!isRequestingCheckout) {
+                                        if (!isCheckoutDisabled) {
                                             handleCheckout(plan);
                                         }
                                     }}
