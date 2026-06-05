@@ -11,6 +11,7 @@ const TRACKING_API_PATH = 'gutenverse-client/v1/freemius/checkout-tracking';
 const LEMON_CHECKOUT_URL_API_PATH = 'gutenverse-client/v1/lemon-squeezy/checkout-url';
 const LEMON_JS_URL = 'https://app.lemonsqueezy.com/js/lemon.js';
 const LEMON_SCRIPT_ID = 'gutenverse-lemon-squeezy-js';
+const LEMON_CHECKOUT_SUCCESS_CLOSE_DELAY = 10000;
 const DEFAULT_CHECKOUT_PROVIDER = 'default';
 const CHECKOUT_PROVIDERS = ['freemius', 'lemon_squeezy', 'default'];
 const CHECKOUT_PROVIDER_ALIASES = {
@@ -369,6 +370,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     const closePromiseRef = useRef(null);
     const hasClosedRef = useRef(false);
     const handleCloseRef = useRef(null);
+    const lemonSuccessCloseTimeoutRef = useRef(null);
     const hasPlans = plans.length > 0;
     const checkoutProvider = normalizeCheckoutProvider(pricingPlan?.checkout_provider || pricingPlan?.payment_provider);
 
@@ -429,6 +431,11 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     };
 
     const handleClose = ({ action = 'close_popup', plan = null, checkoutData = null } = {}) => {
+        if (lemonSuccessCloseTimeoutRef.current) {
+            window.clearTimeout(lemonSuccessCloseTimeoutRef.current);
+            lemonSuccessCloseTimeoutRef.current = null;
+        }
+
         if (hasClosedRef.current) {
             return closePromiseRef.current;
         }
@@ -462,6 +469,10 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
 
         return () => {
             isMounted = false;
+            if (lemonSuccessCloseTimeoutRef.current) {
+                window.clearTimeout(lemonSuccessCloseTimeoutRef.current);
+                lemonSuccessCloseTimeoutRef.current = null;
+            }
             document.removeEventListener(CLOSE_REQUEST_EVENT, requestClose);
         };
     }, []);
@@ -498,6 +509,22 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
         };
     };
 
+    const handleLemonCheckoutSuccess = (plan, checkoutData, lemonCheckout) => {
+        if (lemonSuccessCloseTimeoutRef.current) {
+            window.clearTimeout(lemonSuccessCloseTimeoutRef.current);
+        }
+
+        lemonSuccessCloseTimeoutRef.current = window.setTimeout(() => {
+            lemonSuccessCloseTimeoutRef.current = null;
+            lemonCheckout.Url.Close?.();
+            handleClose({
+                action: 'checkout_success',
+                plan,
+                checkoutData,
+            });
+        }, LEMON_CHECKOUT_SUCCESS_CLOSE_DELAY);
+    };
+
     const handleLemonCheckout = async (plan) => {
         const planKey = getPlanKey(plan);
 
@@ -520,12 +547,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
             lemonCheckout.Setup?.({
                 eventHandler: (event) => {
                     if ('Checkout.Success' === event?.event) {
-                        lemonCheckout.Url.Close?.();
-                        handleClose({
-                            action: 'checkout_success',
-                            plan,
-                            checkoutData: event?.data || event,
-                        });
+                        handleLemonCheckoutSuccess(plan, event?.data || event, lemonCheckout);
                     }
                 },
             });
