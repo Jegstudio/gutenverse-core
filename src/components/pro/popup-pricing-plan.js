@@ -9,6 +9,8 @@ const TRACKING_TIMEOUT = 2000;
 const CLOSE_REQUEST_EVENT = 'gutenverse:pricing-popup-close-request';
 const TRACKING_API_PATH = 'gutenverse-client/v1/freemius/checkout-tracking';
 const LEMON_CHECKOUT_URL_API_PATH = 'gutenverse-client/v1/lemon-squeezy/checkout-url';
+const LEMON_JS_URL = 'https://app.lemonsqueezy.com/js/lemon.js';
+const LEMON_SCRIPT_ID = 'gutenverse-lemon-squeezy-js';
 const DEFAULT_CHECKOUT_PROVIDER = 'default';
 const CHECKOUT_PROVIDERS = ['freemius', 'lemon_squeezy', 'default'];
 const CHECKOUT_PROVIDER_ALIASES = {
@@ -273,27 +275,93 @@ const normalizeCheckoutProvider = (provider = DEFAULT_CHECKOUT_PROVIDER) => {
     return CHECKOUT_PROVIDERS.includes(normalizedProvider) ? normalizedProvider : DEFAULT_CHECKOUT_PROVIDER;
 };
 
-const getEmbeddedCheckoutUrl = (url = '') => {
-    if (!url) {
-        return '';
+let lemonScriptPromise = null;
+
+const isLemonSqueezyReady = () => (
+    typeof window !== 'undefined'
+    && window?.LemonSqueezy?.Url
+    && typeof window.LemonSqueezy.Url.Open === 'function'
+);
+
+const initializeLemonSqueezy = () => {
+    if (isLemonSqueezyReady()) {
+        return window.LemonSqueezy;
     }
 
-    try {
-        const nextUrl = new URL(url);
-        nextUrl.searchParams.set('embed', '1');
-        return nextUrl.toString();
-    } catch (error) {
-        return url;
+    if (typeof window !== 'undefined' && typeof window.createLemonSqueezy === 'function') {
+        window.createLemonSqueezy();
     }
+
+    return isLemonSqueezyReady() ? window.LemonSqueezy : null;
+};
+
+const ensureLemonSqueezyLoaded = () => {
+    const lemonSqueezy = initializeLemonSqueezy();
+
+    if (lemonSqueezy) {
+        return Promise.resolve(lemonSqueezy);
+    }
+
+    if (lemonScriptPromise) {
+        return lemonScriptPromise;
+    }
+
+    lemonScriptPromise = new Promise((resolve, reject) => {
+        if (typeof document === 'undefined') {
+            reject(new Error(__('Lemon Squeezy checkout is not available.', 'gutenverse')));
+            return;
+        }
+
+        let attempts = 0;
+        const maxAttempts = 200;
+        const checkReady = () => {
+            const nextLemonSqueezy = initializeLemonSqueezy();
+
+            if (nextLemonSqueezy) {
+                resolve(nextLemonSqueezy);
+                return;
+            }
+
+            if (attempts >= maxAttempts) {
+                reject(new Error(__('Lemon Squeezy checkout script failed to initialize.', 'gutenverse')));
+                return;
+            }
+
+            attempts += 1;
+            window.setTimeout(checkReady, 50);
+        };
+
+        let script = document.getElementById(LEMON_SCRIPT_ID)
+            || document.querySelector('script[src*="app.lemonsqueezy.com/js/lemon.js"]');
+
+        if (!script) {
+            script = document.createElement('script');
+            script.id = LEMON_SCRIPT_ID;
+            script.src = LEMON_JS_URL;
+            script.defer = true;
+            script.async = true;
+            document.head.appendChild(script);
+        }
+
+        script.addEventListener('load', checkReady);
+        script.addEventListener('error', () => {
+            reject(new Error(__('Failed to load Lemon Squeezy checkout script.', 'gutenverse')));
+        }, { once: true });
+
+        checkReady();
+    }).catch((error) => {
+        lemonScriptPromise = null;
+        throw error;
+    });
+
+    return lemonScriptPromise;
 };
 
 
 const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     const runtime = window['GutenverseConfig'] ? window['GutenverseConfig'] : window['GutenverseDashboard'];
     const [pricingPlan, setPricingPlan] = useState(() => getPricingPlanFallback());
-    const [embeddedCheckout, setEmbeddedCheckout] = useState(null);
     const [checkoutRequest, setCheckoutRequest] = useState({ planKey: null, loading: false, error: '' });
-    const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
     const plans = (pricingPlan.active_promotion || []).map((plan) => normalizePlan(plan, {
         eventExpired: isEventExpired(pricingPlan?.event_expired),
     }));
@@ -410,7 +478,6 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
             tier: plan?.tier || plan?.slug || '',
             plan_name: plan?.name || '',
             coupon_code: trackingPayload?.coupon_code || '',
-            redirect_url: window?.location?.href || window?.location?.origin || '',
             source: trackingPayload?.source || '',
             medium: trackingPayload?.medium || '',
             campaign: trackingPayload?.campaign || '',
@@ -435,7 +502,6 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
         const planKey = getPlanKey(plan);
 
         setCheckoutRequest({ planKey, loading: true, error: '' });
-        setEmbeddedCheckout(null);
 
         try {
             const response = await apiFetch({
@@ -445,20 +511,27 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
             });
 
             const checkoutUrl = response?.checkout_url || '';
-            const embedUrl = response?.embed_url || getEmbeddedCheckoutUrl(checkoutUrl);
 
-            if (!checkoutUrl || !embedUrl) {
+            if (!checkoutUrl) {
                 throw new Error(response?.message || __('No checkout URL returned.', 'gutenverse'));
             }
 
-            setEmbeddedCheckout({
-                plan,
-                planName: plan?.name || __('Gutenverse Checkout', 'gutenverse'),
-                checkoutUrl,
-                embedUrl,
+            const lemonCheckout = await ensureLemonSqueezyLoaded();
+            lemonCheckout.Setup?.({
+                eventHandler: (event) => {
+                    if ('Checkout.Success' === event?.event) {
+                        lemonCheckout.Url.Close?.();
+                        handleClose({
+                            action: 'checkout_success',
+                            plan,
+                            checkoutData: event?.data || event,
+                        });
+                    }
+                },
             });
-            setIsCheckoutLoading(true);
             setCheckoutRequest({ planKey: null, loading: false, error: '' });
+            onClose();
+            lemonCheckout.Url.Open(checkoutUrl);
         } catch (error) {
             setCheckoutRequest({
                 planKey,
@@ -514,59 +587,6 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
 
         fsCheckoutRef.current.open(openOptions);
     };
-
-    if (embeddedCheckout?.embedUrl) {
-        return (
-            <div className="gutenverse-pricing-popup gutenverse-pricing-popup--checkout">
-                <button
-                    type="button"
-                    className="gutenverse-pricing-popup__close"
-                    aria-label={__('Close pricing popup', 'gutenverse')}
-                    onClick={() => handleClose({ action: 'close_lemon_checkout', plan: embeddedCheckout.plan })}
-                >
-                    <IconCloseSVG size={20} />
-                </button>
-                <div className="gutenverse-pricing-popup__checkout-header">
-                    <button
-                        type="button"
-                        className="gutenverse-pricing-popup__checkout-back"
-                        onClick={() => {
-                            setEmbeddedCheckout(null);
-                            setIsCheckoutLoading(false);
-                        }}
-                    >
-                        <span aria-hidden="true">&lt;</span>
-                        <span>{__('Plans', 'gutenverse')}</span>
-                    </button>
-                    <div className="gutenverse-pricing-popup__checkout-title">
-                        <span>{embeddedCheckout.planName}</span>
-                    </div>
-                    <a
-                        className="gutenverse-pricing-popup__checkout-link"
-                        href={embeddedCheckout.checkoutUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        {__('Open Checkout', 'gutenverse')}
-                    </a>
-                </div>
-                <div className="gutenverse-pricing-popup__checkout-frame-wrap">
-                    {isCheckoutLoading && (
-                        <div className="gutenverse-pricing-popup__checkout-loading">
-                            {__('Loading checkout...', 'gutenverse')}
-                        </div>
-                    )}
-                    <iframe
-                        className="gutenverse-pricing-popup__checkout-frame"
-                        src={embeddedCheckout.embedUrl}
-                        title={__('Gutenverse Checkout', 'gutenverse')}
-                        allow="payment *; clipboard-write"
-                        onLoad={() => setIsCheckoutLoading(false)}
-                    />
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className="gutenverse-pricing-popup">

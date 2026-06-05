@@ -378,92 +378,6 @@ body.gutenverse-freemius-modal-open {
     overflow-wrap: anywhere;
 }
 
-.gutenverse-pricing-popup--checkout {
-    display: flex;
-    flex-direction: column;
-    height: min(860px, calc(100vh - 40px));
-    min-height: min(720px, calc(100vh - 40px));
-    padding: 0;
-    background: #fff;
-
-    .gutenverse-pricing-popup__close {
-        top: 14px;
-        right: 14px;
-        z-index: 2;
-    }
-}
-
-.gutenverse-pricing-popup__checkout-header {
-    display: grid;
-    grid-template-columns: minmax(120px, 1fr) auto minmax(120px, 1fr);
-    align-items: center;
-    gap: 12px;
-    padding: 18px 72px 16px 20px;
-    border-bottom: 1px solid #e6ebff;
-    background: #fff;
-}
-
-.gutenverse-pricing-popup__checkout-back,
-.gutenverse-pricing-popup__checkout-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: max-content;
-    min-height: 38px;
-    padding: 8px 12px;
-    border: 1px solid rgba(91, 95, 255, 0.22);
-    border-radius: 8px;
-    background: #fff;
-    color: #5b5fff;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.gutenverse-pricing-popup__checkout-link {
-    justify-self: end;
-}
-
-.gutenverse-pricing-popup__checkout-title {
-    min-width: 0;
-    color: #1f2c69;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.3;
-    text-align: center;
-}
-
-.gutenverse-pricing-popup__checkout-frame-wrap {
-    position: relative;
-    flex: 1 1 auto;
-    min-height: 0;
-    background: #f8faff;
-}
-
-.gutenverse-pricing-popup__checkout-frame {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    background: #fff;
-}
-
-.gutenverse-pricing-popup__checkout-loading {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    color: #73829e;
-    font-size: 14px;
-    font-weight: 600;
-}
-
 .gutenverse-pricing-card__feature-group + .gutenverse-pricing-card__feature-group {
     margin-top: 20px;
 }
@@ -535,26 +449,6 @@ body.gutenverse-freemius-modal-open {
 
     .gutenverse-pricing-popup {
         padding: 24px 16px 22px;
-    }
-
-    .gutenverse-pricing-popup--checkout {
-        height: calc(100vh - 20px);
-        min-height: 0;
-        padding: 0;
-    }
-
-    .gutenverse-pricing-popup__checkout-header {
-        grid-template-columns: 1fr;
-        justify-items: start;
-        padding: 14px 62px 12px 14px;
-    }
-
-    .gutenverse-pricing-popup__checkout-title {
-        text-align: left;
-    }
-
-    .gutenverse-pricing-popup__checkout-link {
-        justify-self: start;
     }
 
     .gutenverse-pricing-popup__title {
