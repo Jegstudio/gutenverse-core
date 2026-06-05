@@ -362,6 +362,16 @@ class Api {
 
 		register_rest_route(
 			self::ENDPOINT,
+			'settings/reset-cache-id',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'reset_cache_id' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
 			'freemius/checkout-tracking',
 			array(
 				'methods'             => 'POST',
@@ -500,16 +510,48 @@ class Api {
 			$options = get_option( 'gutenverse-settings' );
 
 			if ( ! isset( $options['frontend_settings']['file_delete_mechanism'] ) || 'manual' === $options['frontend_settings']['file_delete_mechanism'] ) {
+				$removed_size = gutenverse_unused_cache_file_size();
 				Init::instance()->frontend_cache->cleanup_cached_style();
 				return new WP_REST_Response(
 					array(
-						'status' => 'success',
+						'status'       => 'success',
+						'removed_size' => $removed_size,
+						'cache_id'     => Init::instance()->frontend_cache->get_style_cache_id(),
+						'unused_size'  => gutenverse_unused_cache_file_size(),
 					),
 					200
 				);
 			} else {
 				throw new Exception( 'Failed Request: Can Only used if Manual Deletion is Manual', 1 );
 			}
+		} catch ( \Throwable $th ) {
+			return new WP_REST_Response(
+				array(
+					'status'  => 'failed',
+					'message' => $th->getMessage(),
+				),
+				400
+			);
+		}
+	}
+
+	/**
+	 * Reset Frontend Cache ID.
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function reset_cache_id() {
+		try {
+			Init::instance()->frontend_cache->generate_style_cache_id();
+
+			return new WP_REST_Response(
+				array(
+					'status'      => 'success',
+					'cache_id'    => Init::instance()->frontend_cache->get_style_cache_id(),
+					'unused_size' => gutenverse_unused_cache_file_size(),
+				),
+				200
+			);
 		} catch ( \Throwable $th ) {
 			return new WP_REST_Response(
 				array(

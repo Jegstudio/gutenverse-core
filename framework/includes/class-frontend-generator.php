@@ -111,13 +111,12 @@ class Frontend_Generator {
 	 */
 	public function widget_style_generator() {
 		if ( current_theme_supports( 'widgets' ) ) {
-			$widgets       = get_option( 'widget_block' );
-			$style         = null;
-			$name          = 'gutenverse-widget';
-			$bypass_style  = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'widget' );
-			$bypass_script = apply_filters( 'gutenverse_bypass_generate_script', false, $name );
+			$widgets      = get_option( 'widget_block' );
+			$style        = null;
+			$name         = 'gutenverse-widget';
+			$bypass_style = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'widget' );
 
-			if ( $bypass_style && $bypass_script ) {
+			if ( $bypass_style ) {
 				return;
 			}
 
@@ -244,13 +243,12 @@ class Frontend_Generator {
 	public function template_style_generator() {
 		global $_wp_current_template_content, $_wp_current_template_id;
 		if ( $_wp_current_template_id ) {
-			$style         = null;
-			$template      = explode( '//', $_wp_current_template_id );
-			$name          = 'gutenverse-template-' . $template[1];
-			$bypass_style  = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'template' );
-			$bypass_script = apply_filters( 'gutenverse_bypass_generate_script', false, $name );
+			$style        = null;
+			$template     = explode( '//', $_wp_current_template_id );
+			$name         = 'gutenverse-template-' . $template[1];
+			$bypass_style = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'template' );
 
-			if ( $bypass_style && $bypass_script ) {
+			if ( $bypass_style ) {
 				return;
 			}
 
@@ -261,12 +259,9 @@ class Frontend_Generator {
 				if ( $blocks ) {
 					$this->loop_blocks( $blocks, $style );
 				}
-
-				if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-					$this->render_style( $name, $style, 'template' );
-				}
 			}
 
+			$this->render_style( $name, $style, 'template' );
 			do_action( 'gutenverse_after_style_loop_blocks' );
 		}
 	}
@@ -277,12 +272,11 @@ class Frontend_Generator {
 	public function content_style_generator() {
 		global $post;
 		if ( $post ) {
-			$style         = null;
-			$name          = 'gutenverse-content-' . $post->ID;
-			$bypass_style  = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'content' );
-			$bypass_script = apply_filters( 'gutenverse_bypass_generate_script', false, $name );
+			$style        = null;
+			$name         = 'gutenverse-content-' . $post->ID;
+			$bypass_style = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'content' );
 
-			if ( $bypass_style && $bypass_script ) {
+			if ( $bypass_style ) {
 				$preloads             = apply_filters( 'gutenverse_load_cached_preload_assets', array(), 'image', $post->ID );
 				$this->preload_images = array_merge( $this->preload_images, $preloads );
 				return;
@@ -292,12 +286,9 @@ class Frontend_Generator {
 				$blocks = $this->parse_blocks( $post->post_content );
 				$blocks = $this->flatten_blocks( $blocks );
 				$this->loop_blocks( $blocks, $style );
-
-				if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-					$this->render_style( $name, $style, 'content' );
-				}
 			}
 
+			$this->render_style( $name, $style, 'content' );
 			do_action( 'gutenverse_after_style_loop_blocks' );
 		}
 	}
@@ -397,7 +388,7 @@ class Frontend_Generator {
 						$image_urls[] = $slide_images[0]['image']['image'];
 					}
 				} elseif ( ! empty( $bg['image'] ) ) {
-					$image    = $bg['image'];
+					$image = $bg['image'];
 
 					if ( isset( $image['Mobile']['image'] ) ) {
 						$image_urls[] = $image['Mobile']['image'];

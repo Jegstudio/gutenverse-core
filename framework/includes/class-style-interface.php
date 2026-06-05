@@ -86,7 +86,7 @@ abstract class Style_Interface {
 	/**
 	 * Generate style base on attribute.
 	 *
-	 * @return string.
+	 * @return string
 	 */
 	public function generate_style() {
 		// need to reset style.

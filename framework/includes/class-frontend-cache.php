@@ -51,6 +51,7 @@ class Frontend_Cache {
 	 * Init constructor.
 	 */
 	public function __construct() {
+
 		// Perlu Test Schedule.
 		add_action( 'wp_loaded', array( $this, 'schedule_cleanup_cron' ) );
 		add_action( 'gutenverse_cleanup_cached_style', array( $this, 'cleanup_cached_style' ) );
@@ -244,6 +245,18 @@ class Frontend_Cache {
 	}
 
 	/**
+	 * Set conditional asset cache names.
+	 *
+	 * @param string $name Cache name.
+	 *
+	 * @return void
+	 */
+	public function set_cache_name( $name ) {
+		$this->set_conditional_script_cache_name( $name );
+		$this->set_conditional_style_cache_name( $name );
+	}
+
+	/**
 	 * Check if we going to by pass css generation.
 	 *
 	 * @param boolean $flag Flag.
@@ -254,6 +267,7 @@ class Frontend_Cache {
 	 */
 	public function bypass_generate_css( $flag, $name, $type ) {
 		$this->set_font_cache_name( $name, $type );
+		$this->set_cache_name( $name );
 
 		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
 		$filename  = $this->get_file_name( $name );
@@ -313,8 +327,7 @@ class Frontend_Cache {
 	 * @return bool
 	 */
 	public function bypass_script( $flag, $name ) {
-		$this->set_conditional_script_cache_name( $name );
-		$this->set_conditional_style_cache_name( $name );
+		$this->set_cache_name( $name );
 		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
 		$filename  = $this->get_file_js_name( $name );
 

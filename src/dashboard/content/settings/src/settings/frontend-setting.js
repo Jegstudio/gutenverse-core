@@ -4,12 +4,12 @@ import { AlertControl } from 'gutenverse-core/controls';
 import apiFetch from '@wordpress/api-fetch';
 import { useState } from '@wordpress/element';
 
-const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData, setToast, setShowToast }) => {
+const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, saving, saveData, setToast, setShowToast }) => {
     const {
         frontend_settings = {}
     } = settingValues;
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState('');
     const {
         renderSchedule
     } = window['GutenverseSettings'];
@@ -20,40 +20,87 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
         remove_wp_emoji_script = false,
         disable_wp_lazyload = true,
         file_delete_mechanism = 'manual',
-        unused_size = '0 B'
+        unused_size = '0 B',
+        cache_id = 'initial-cache'
     } = frontend_settings;
 
     const updateValue = (id, value) => {
         updateSettingValues('frontend_settings', id, value);
     };
 
+    const updateCacheInfo = ({ cache_id, unused_size }) => {
+        updateValues('frontend_settings', {
+            ...frontend_settings,
+            ...(cache_id ? { cache_id } : {}),
+            ...(unused_size ? { unused_size } : {})
+        });
+    };
+
     const handleDeleteCache = () => {
-        setLoading(true);
+        if (loading) {
+            return;
+        }
+
+        setLoading('delete');
         apiFetch({
             path: 'gutenverse-client/v1/settings/remove-cache',
             method: 'GET',
         })
-            .then(() => {
+            .then((response) => {
+                updateCacheInfo(response);
                 setToast({
                     status: 'success',
-                    message: 'You successfully freed ' + unused_size + ' cache files'
-                })
+                    message: 'You successfully freed ' + (response?.removed_size || unused_size) + ' cache files'
+                });
                 setShowToast(true);
                 setTimeout(() => setShowToast(false), 2000);
             })
-            .catch((e) => {
+            .catch(() => {
                 setToast({
                     status: 'failed',
                     message: 'Failed Removing Cache Files'
-                })
+                });
                 setShowToast(true);
                 setTimeout(() => setShowToast(false), 2000);
             }).finally(() => {
                 setTimeout(() => {
-                    setLoading(false)
+                    setLoading('');
                 }, 1000);
+            });
+    };
+
+    const handleResetCacheId = () => {
+        if (loading) {
+            return;
+        }
+
+        setLoading('reset');
+        apiFetch({
+            path: 'gutenverse-client/v1/settings/reset-cache-id',
+            method: 'POST',
+        })
+            .then((response) => {
+                updateCacheInfo(response);
+                setToast({
+                    status: 'success',
+                    message: 'Cache ID reset successfully'
+                });
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 2000);
             })
-    }
+            .catch(() => {
+                setToast({
+                    status: 'failed',
+                    message: 'Failed Resetting Cache ID'
+                });
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 2000);
+            }).finally(() => {
+                setTimeout(() => {
+                    setLoading('');
+                }, 1000);
+            });
+    };
 
     return <div className="frontend-setting-dashboard">
         <div className="form-tab-body">
@@ -100,6 +147,19 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
                             },
                         ]}
                     />
+                    <div className="manual-button-wrapper" >
+                        <div className="left">
+                            <label>{__('Cache ID', '--gctd--')}</label>
+                            <p>{__('Current frontend cache ID:', '--gctd--')} <b>{cache_id}</b></p>
+                        </div>
+                        <div className="right">
+                            {
+                                loading === 'reset' ? <div className="manual-delete-button loading">
+                                    {__('Loading...', '--gctd--')}
+                                </div> : <div className="manual-delete-button" onClick={handleResetCacheId}>{__('Reset Cache ID', '--gctd--')}</div>
+                            }
+                        </div>
+                    </div>
                     {file_delete_mechanism === 'manual' && (
                         <div className="manual-button-wrapper" >
                             <div className="left">
@@ -108,7 +168,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
                             </div>
                             <div className="right">
                                 {
-                                    loading ? <div className="manual-delete-button loading">
+                                    loading === 'delete' ? <div className="manual-delete-button loading">
                                         {__('Loading...', '--gctd--')}
                                     </div> : <div className="manual-delete-button" onClick={handleDeleteCache}>{__('Delete Cache', '--gctd--')}</div>
                                 }

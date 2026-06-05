@@ -1041,6 +1041,7 @@ class Dashboard {
 
 		$settings_data                                     = apply_filters( 'gutenverse_settings_data', get_option( 'gutenverse-settings', array() ) );
 		$settings_data['frontend_settings']['unused_size'] = gutenverse_unused_cache_file_size();
+		$settings_data['frontend_settings']['cache_id']    = Init::instance()->frontend_cache->get_style_cache_id();
 		$config['settingsData']                            = $settings_data;
 		$config['blockCategories']                         = Init::instance()->blocks->gutenverse_categories();
 		$config['uploadPath']                              = $upload_path['basedir'];
