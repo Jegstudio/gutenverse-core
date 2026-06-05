@@ -94,19 +94,12 @@ const getPricingPlanFallback = () => {
     return normalizePricingPlan(runtime?.pricingPlan);
 };
 
-const hasRuntimePricingPlanFallback = () => getFallbackRuntimeObjects()
-    .some((item) => isValidPricingPlan(item?.pricingPlan));
-
 const ensurePricingPlanData = ({ force = false } = {}) => {
     const tempPricingPlan = normalizePricingPlan(getTempPricingPlanData());
     const fallbackPricingPlan = getPricingPlanFallback();
 
     if (!force && getTempPricingPlanData()) {
         return Promise.resolve(setRuntimePricingPlan(tempPricingPlan));
-    }
-
-    if (!force && hasRuntimePricingPlanFallback()) {
-        return Promise.resolve(setRuntimePricingPlan(fallbackPricingPlan));
     }
 
     if (!force && getPricingPlanPromise()) {
