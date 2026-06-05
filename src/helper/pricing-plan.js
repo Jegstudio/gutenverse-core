@@ -5,6 +5,8 @@ const DEFAULT_PRICING_PLAN = {
     active_promotion: [],
     is_event_sales: false,
     event_expired: '',
+    checkout_provider: 'default',
+    default_checkout_url: '',
 };
 
 const PRICING_PLAN_PROMISE_KEY = 'GutenverseTempPricingDataPromise';

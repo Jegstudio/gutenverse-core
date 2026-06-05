@@ -9,6 +9,13 @@ const TRACKING_TIMEOUT = 2000;
 const CLOSE_REQUEST_EVENT = 'gutenverse:pricing-popup-close-request';
 const TRACKING_API_PATH = 'gutenverse-client/v1/freemius/checkout-tracking';
 const LEMON_CHECKOUT_URL_API_PATH = 'gutenverse-client/v1/lemon-squeezy/checkout-url';
+const DEFAULT_CHECKOUT_PROVIDER = 'default';
+const CHECKOUT_PROVIDERS = ['freemius', 'lemon_squeezy', 'default'];
+const CHECKOUT_PROVIDER_ALIASES = {
+    lemon: 'lemon_squeezy',
+    lemonsqueezy: 'lemon_squeezy',
+    'lemon-squeezy': 'lemon_squeezy',
+};
 
 const BADGES = [
     __('No Credit Card Required', 'gutenverse'),
@@ -260,11 +267,33 @@ const normalizePlan = (plan, { eventExpired = false } = {}) => {
     };
 };
 
+const normalizeCheckoutProvider = (provider = DEFAULT_CHECKOUT_PROVIDER) => {
+    const normalizedProvider = CHECKOUT_PROVIDER_ALIASES[provider] || provider;
+
+    return CHECKOUT_PROVIDERS.includes(normalizedProvider) ? normalizedProvider : DEFAULT_CHECKOUT_PROVIDER;
+};
+
+const getEmbeddedCheckoutUrl = (url = '') => {
+    if (!url) {
+        return '';
+    }
+
+    try {
+        const nextUrl = new URL(url);
+        nextUrl.searchParams.set('embed', '1');
+        return nextUrl.toString();
+    } catch (error) {
+        return url;
+    }
+};
+
 
 const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     const runtime = window['GutenverseConfig'] ? window['GutenverseConfig'] : window['GutenverseDashboard'];
     const [pricingPlan, setPricingPlan] = useState(() => getPricingPlanFallback());
-    const [lemonCheckoutTests, setLemonCheckoutTests] = useState({});
+    const [embeddedCheckout, setEmbeddedCheckout] = useState(null);
+    const [checkoutRequest, setCheckoutRequest] = useState({ planKey: null, loading: false, error: '' });
+    const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
     const plans = (pricingPlan.active_promotion || []).map((plan) => normalizePlan(plan, {
         eventExpired: isEventExpired(pricingPlan?.event_expired),
     }));
@@ -273,6 +302,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     const hasClosedRef = useRef(false);
     const handleCloseRef = useRef(null);
     const hasPlans = plans.length > 0;
+    const checkoutProvider = normalizeCheckoutProvider(pricingPlan?.checkout_provider || pricingPlan?.payment_provider);
 
     const getTrackingPayload = ({ action, plan = null, checkoutData = null } = {}) => {
         let searchParams = null;
@@ -304,7 +334,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
         };
     };
 
-    const getPlanTestKey = (plan) => plan?.slug || plan?.plan_id || plan?.pricing_id || plan?.name;
+    const getPlanKey = (plan) => plan?.slug || plan?.plan_id || plan?.pricing_id || plan?.name;
 
     const sendTrackingData = async (payload) => {
         if (!payload?.pricing_url) {
@@ -368,81 +398,92 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
         };
     }, []);
 
-    const handleLemonCheckoutUrlTest = async (plan) => {
-        const key = getPlanTestKey(plan);
-        const trackingPayload = getTrackingPayload({ action: 'lemon_checkout_url_test', plan });
+    const getLemonCheckoutPayload = (plan) => {
+        const trackingPayload = getTrackingPayload({ action: 'lemon_checkout_open', plan });
         const lemonVariantId = plan?.lemon_variant_id || plan?.variant_id || '';
 
-        setLemonCheckoutTests((current) => ({
-            ...current,
-            [key]: {
-                loading: true,
-                checkoutUrl: '',
-                embedUrl: '',
-                error: '',
+        return {
+            product_id: plan?.product_id || pricingPlan?.product_id || '',
+            variant_id: lemonVariantId,
+            lemon_variant_id: lemonVariantId,
+            plan_slug: plan?.slug || '',
+            tier: plan?.tier || plan?.slug || '',
+            plan_name: plan?.name || '',
+            coupon_code: trackingPayload?.coupon_code || '',
+            redirect_url: window?.location?.href || window?.location?.origin || '',
+            source: trackingPayload?.source || '',
+            medium: trackingPayload?.medium || '',
+            campaign: trackingPayload?.campaign || '',
+            client_site: trackingPayload?.client_site || '',
+            client_theme: trackingPayload?.client_theme || '',
+            current_url: trackingPayload?.current_url || '',
+            pricing_url: trackingPayload?.pricing_url || '',
+            custom: {
+                action: trackingPayload?.action || '',
+                source: trackingPayload?.source || '',
+                medium: trackingPayload?.medium || '',
+                campaign: trackingPayload?.campaign || '',
+                client_site: trackingPayload?.client_site || '',
+                client_theme: trackingPayload?.client_theme || '',
+                current_url: trackingPayload?.current_url || '',
+                pricing_url: trackingPayload?.pricing_url || '',
             },
-        }));
+        };
+    };
+
+    const handleLemonCheckout = async (plan) => {
+        const planKey = getPlanKey(plan);
+
+        setCheckoutRequest({ planKey, loading: true, error: '' });
+        setEmbeddedCheckout(null);
 
         try {
             const response = await apiFetch({
                 path: LEMON_CHECKOUT_URL_API_PATH,
                 method: 'POST',
-                data: {
-                    product_id: plan?.product_id || pricingPlan?.product_id || '',
-                    variant_id: lemonVariantId,
-                    lemon_variant_id: lemonVariantId,
-                    plan_slug: plan?.slug || '',
-                    tier: plan?.tier || plan?.slug || '',
-                    plan_name: plan?.name || '',
-                    coupon_code: trackingPayload?.coupon_code || '',
-                    redirect_url: window?.location?.href || window?.location?.origin || '',
-                    source: trackingPayload?.source || '',
-                    medium: trackingPayload?.medium || '',
-                    campaign: trackingPayload?.campaign || '',
-                    client_site: trackingPayload?.client_site || '',
-                    client_theme: trackingPayload?.client_theme || '',
-                    current_url: trackingPayload?.current_url || '',
-                    pricing_url: trackingPayload?.pricing_url || '',
-                    custom: {
-                        action: trackingPayload?.action || '',
-                        source: trackingPayload?.source || '',
-                        medium: trackingPayload?.medium || '',
-                        campaign: trackingPayload?.campaign || '',
-                        client_site: trackingPayload?.client_site || '',
-                        client_theme: trackingPayload?.client_theme || '',
-                        current_url: trackingPayload?.current_url || '',
-                        pricing_url: trackingPayload?.pricing_url || '',
-                    },
-                },
+                data: getLemonCheckoutPayload(plan),
             });
 
-            window.console?.log?.('Gutenverse Lemon checkout URL response', response);
+            const checkoutUrl = response?.checkout_url || '';
+            const embedUrl = response?.embed_url || getEmbeddedCheckoutUrl(checkoutUrl);
 
-            setLemonCheckoutTests((current) => ({
-                ...current,
-                [key]: {
-                    loading: false,
-                    checkoutUrl: response?.checkout_url || '',
-                    embedUrl: response?.embed_url || '',
-                    error: response?.checkout_url ? '' : __('No checkout URL returned.', 'gutenverse'),
-                },
-            }));
+            if (!checkoutUrl || !embedUrl) {
+                throw new Error(response?.message || __('No checkout URL returned.', 'gutenverse'));
+            }
+
+            setEmbeddedCheckout({
+                plan,
+                planName: plan?.name || __('Gutenverse Checkout', 'gutenverse'),
+                checkoutUrl,
+                embedUrl,
+            });
+            setIsCheckoutLoading(true);
+            setCheckoutRequest({ planKey: null, loading: false, error: '' });
         } catch (error) {
-            window.console?.error?.('Gutenverse Lemon checkout URL request failed', error);
-
-            setLemonCheckoutTests((current) => ({
-                ...current,
-                [key]: {
-                    loading: false,
-                    checkoutUrl: '',
-                    embedUrl: '',
-                    error: error?.message || __('Failed to request Lemon checkout URL.', 'gutenverse'),
-                },
-            }));
+            setCheckoutRequest({
+                planKey,
+                loading: false,
+                error: error?.message || __('Failed to request Lemon checkout URL.', 'gutenverse'),
+            });
         }
     };
 
     const handleCheckout = (plan) => {
+        if ('lemon_squeezy' === checkoutProvider) {
+            handleLemonCheckout(plan);
+            return;
+        }
+
+        if ('default' === checkoutProvider) {
+            const checkoutUrl = pricingPlan?.default_checkout_url || pricingUrl || runtime?.upgradeProUrl || '';
+
+            if (checkoutUrl) {
+                window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+            }
+
+            return;
+        }
+
         if (!pricingPlan?.public_key || !pricingPlan?.product_id) {
             return;
         }
@@ -473,6 +514,60 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
 
         fsCheckoutRef.current.open(openOptions);
     };
+
+    if (embeddedCheckout?.embedUrl) {
+        return (
+            <div className="gutenverse-pricing-popup gutenverse-pricing-popup--checkout">
+                <button
+                    type="button"
+                    className="gutenverse-pricing-popup__close"
+                    aria-label={__('Close pricing popup', 'gutenverse')}
+                    onClick={() => handleClose({ action: 'close_lemon_checkout', plan: embeddedCheckout.plan })}
+                >
+                    <IconCloseSVG size={20} />
+                </button>
+                <div className="gutenverse-pricing-popup__checkout-header">
+                    <button
+                        type="button"
+                        className="gutenverse-pricing-popup__checkout-back"
+                        onClick={() => {
+                            setEmbeddedCheckout(null);
+                            setIsCheckoutLoading(false);
+                        }}
+                    >
+                        <span aria-hidden="true">&lt;</span>
+                        <span>{__('Plans', 'gutenverse')}</span>
+                    </button>
+                    <div className="gutenverse-pricing-popup__checkout-title">
+                        <span>{embeddedCheckout.planName}</span>
+                    </div>
+                    <a
+                        className="gutenverse-pricing-popup__checkout-link"
+                        href={embeddedCheckout.checkoutUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        {__('Open Checkout', 'gutenverse')}
+                    </a>
+                </div>
+                <div className="gutenverse-pricing-popup__checkout-frame-wrap">
+                    {isCheckoutLoading && (
+                        <div className="gutenverse-pricing-popup__checkout-loading">
+                            {__('Loading checkout...', 'gutenverse')}
+                        </div>
+                    )}
+                    <iframe
+                        className="gutenverse-pricing-popup__checkout-frame"
+                        src={embeddedCheckout.embedUrl}
+                        title={__('Gutenverse Checkout', 'gutenverse')}
+                        allow="payment *; clipboard-write"
+                        onLoad={() => setIsCheckoutLoading(false)}
+                    />
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="gutenverse-pricing-popup">
             <button
@@ -503,7 +598,9 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
             <div className="gutenverse-pricing-popup__cards">
                 {hasPlans && plans.map((plan) => {
                     const planFeatureGroups = getPlanFeatureGroups(plan.slug);
-                    const lemonTest = lemonCheckoutTests[getPlanTestKey(plan)] || {};
+                    const planKey = getPlanKey(plan);
+                    const isRequestingCheckout = checkoutRequest.loading && checkoutRequest.planKey === planKey;
+                    const checkoutError = checkoutRequest.planKey === planKey ? checkoutRequest.error : '';
 
                     return (
                         <article
@@ -529,26 +626,19 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
                                 </div>
                                 <div
                                     className="gutenverse-pricing-card__button"
-                                    onClick={() => handleCheckout(plan)}
+                                    aria-disabled={isRequestingCheckout}
+                                    onClick={() => {
+                                        if (!isRequestingCheckout) {
+                                            handleCheckout(plan);
+                                        }
+                                    }}
                                 >
-                                    <span>{__('Purchase Now', 'gutenverse')}</span>
+                                    <span>{isRequestingCheckout ? __('Preparing Checkout...', 'gutenverse') : __('Purchase Now', 'gutenverse')}</span>
                                     <span aria-hidden="true">&#8250;</span>
                                 </div>
-                                <button
-                                    type="button"
-                                    className="gutenverse-pricing-card__test-button"
-                                    disabled={lemonTest.loading}
-                                    onClick={() => handleLemonCheckoutUrlTest(plan)}
-                                >
-                                    {lemonTest.loading ? __('Requesting URL...', 'gutenverse') : __('Test Lemon URL', 'gutenverse')}
-                                </button>
-                                {(lemonTest.checkoutUrl || lemonTest.error) && (
-                                    <div className={`gutenverse-pricing-card__test-result${lemonTest.error ? ' is-error' : ''}`}>
-                                        {lemonTest.checkoutUrl ? (
-                                            <a href={lemonTest.checkoutUrl} target="_blank" rel="noreferrer">
-                                                {lemonTest.checkoutUrl}
-                                            </a>
-                                        ) : lemonTest.error}
+                                {checkoutError && (
+                                    <div className="gutenverse-pricing-card__checkout-error">
+                                        {checkoutError}
                                     </div>
                                 )}
                                 <p className="gutenverse-pricing-card__description">{plan.description}</p>
