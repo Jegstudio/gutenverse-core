@@ -302,9 +302,9 @@ class Frontend_Generator {
 	public function loop_blocks( $blocks, &$style ) {
 		foreach ( $blocks as $block ) {
 			$this->generate_block_style( $block, $style );
-
 			$this->check_attributes( $block['attrs'], $block['blockName'] );
 
+			// Template Part.
 			if ( 'core/template-part' === $block['blockName'] ) {
 				$parts = $this->get_template_part_content( $block['attrs'] );
 				$parts = parse_blocks( $parts );
@@ -315,6 +315,7 @@ class Frontend_Generator {
 				$this->inject_template_part( $block );
 			}
 
+			// Pattern.
 			if ( 'core/pattern' === $block['blockName'] ) {
 				$parts = $this->get_pattern_content( $block['attrs'] );
 				$parts = parse_blocks( $parts );
@@ -324,6 +325,7 @@ class Frontend_Generator {
 				}
 			}
 
+			// Ref Block.
 			if ( 'core/block' === $block['blockName'] && isset( $block['attrs'] ) && isset( $block['attrs']['ref'] ) ) {
 				$reusables = get_post( $block['attrs']['ref'] );
 
@@ -368,6 +370,7 @@ class Frontend_Generator {
 					}
 				}
 			}
+
 			if ( ! empty( $block['attrs']['background']['fetchPriorityHigh'] ) ) {
 				$bg         = $block['attrs']['background'];
 				$image_urls = array();

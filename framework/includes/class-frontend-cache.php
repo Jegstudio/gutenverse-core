@@ -51,7 +51,6 @@ class Frontend_Cache {
 	 * Init constructor.
 	 */
 	public function __construct() {
-
 		// Perlu Test Schedule.
 		add_action( 'wp_loaded', array( $this, 'schedule_cleanup_cron' ) );
 		add_action( 'gutenverse_cleanup_cached_style', array( $this, 'cleanup_cached_style' ) );
