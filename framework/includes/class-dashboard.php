@@ -273,9 +273,12 @@ class Dashboard {
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
-		$active_plugins = get_option( 'active_plugins' );
-		$all_plugins    = get_plugins();
-		$plugin_lists   = array();
+		$active_plugins          = get_option( 'active_plugins', array() );
+		$active_sitewide_plugins = get_site_option( 'active_sitewide_plugins', array() );
+		$active_sitewide_plugins = array_keys( $active_sitewide_plugins );
+		$active_plugins          = array_unique( array_merge( $active_plugins, $active_sitewide_plugins ) );
+		$all_plugins             = get_plugins();
+		$plugin_lists            = array();
 		foreach ( $active_plugins as $plugin ) {
 			if ( isset( $all_plugins[ $plugin ] ) && isset( $all_plugins[ $plugin ]['TextDomain'] ) ) {
 				$plugin_lists[] = $all_plugins[ $plugin ]['TextDomain'];
