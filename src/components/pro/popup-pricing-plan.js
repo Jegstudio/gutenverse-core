@@ -8,6 +8,16 @@ import { ensurePricingPlanData, getPricingPlanFallback } from '../../helper/pric
 const TRACKING_TIMEOUT = 2000;
 const CLOSE_REQUEST_EVENT = 'gutenverse:pricing-popup-close-request';
 const TRACKING_API_PATH = 'gutenverse-client/v1/freemius/checkout-tracking';
+const LEMON_CHECKOUT_URL_API_PATH = 'gutenverse-client/v1/lemon-squeezy/checkout-url';
+const LEMON_JS_URL = 'https://app.lemonsqueezy.com/js/lemon.js';
+const LEMON_SCRIPT_ID = 'gutenverse-lemon-squeezy-js';
+const DEFAULT_CHECKOUT_PROVIDER = 'default';
+const CHECKOUT_PROVIDERS = ['freemius', 'lemon_squeezy', 'default'];
+const CHECKOUT_PROVIDER_ALIASES = {
+    lemon: 'lemon_squeezy',
+    lemonsqueezy: 'lemon_squeezy',
+    'lemon-squeezy': 'lemon_squeezy',
+};
 
 const BADGES = [
     __('No Credit Card Required', 'gutenverse'),
@@ -259,17 +269,110 @@ const normalizePlan = (plan, { eventExpired = false } = {}) => {
     };
 };
 
+const normalizeCheckoutProvider = (provider = DEFAULT_CHECKOUT_PROVIDER) => {
+    const normalizedProvider = CHECKOUT_PROVIDER_ALIASES[provider] || provider;
+
+    return CHECKOUT_PROVIDERS.includes(normalizedProvider) ? normalizedProvider : DEFAULT_CHECKOUT_PROVIDER;
+};
+
+let lemonScriptPromise = null;
+
+const isLemonSqueezyReady = () => (
+    typeof window !== 'undefined'
+    && window?.LemonSqueezy?.Url
+    && typeof window.LemonSqueezy.Url.Open === 'function'
+);
+
+const initializeLemonSqueezy = () => {
+    if (isLemonSqueezyReady()) {
+        return window.LemonSqueezy;
+    }
+
+    if (typeof window !== 'undefined' && typeof window.createLemonSqueezy === 'function') {
+        window.createLemonSqueezy();
+    }
+
+    return isLemonSqueezyReady() ? window.LemonSqueezy : null;
+};
+
+const ensureLemonSqueezyLoaded = () => {
+    const lemonSqueezy = initializeLemonSqueezy();
+
+    if (lemonSqueezy) {
+        return Promise.resolve(lemonSqueezy);
+    }
+
+    if (lemonScriptPromise) {
+        return lemonScriptPromise;
+    }
+
+    lemonScriptPromise = new Promise((resolve, reject) => {
+        if (typeof document === 'undefined') {
+            reject(new Error(__('Lemon Squeezy checkout is not available.', 'gutenverse')));
+            return;
+        }
+
+        let attempts = 0;
+        const maxAttempts = 200;
+        const checkReady = () => {
+            const nextLemonSqueezy = initializeLemonSqueezy();
+
+            if (nextLemonSqueezy) {
+                resolve(nextLemonSqueezy);
+                return;
+            }
+
+            if (attempts >= maxAttempts) {
+                reject(new Error(__('Lemon Squeezy checkout script failed to initialize.', 'gutenverse')));
+                return;
+            }
+
+            attempts += 1;
+            window.setTimeout(checkReady, 50);
+        };
+
+        let script = document.getElementById(LEMON_SCRIPT_ID)
+            || document.querySelector('script[src*="app.lemonsqueezy.com/js/lemon.js"]');
+
+        if (!script) {
+            script = document.createElement('script');
+            script.id = LEMON_SCRIPT_ID;
+            script.src = LEMON_JS_URL;
+            script.defer = true;
+            script.async = true;
+            document.head.appendChild(script);
+        }
+
+        script.addEventListener('load', checkReady);
+        script.addEventListener('error', () => {
+            reject(new Error(__('Failed to load Lemon Squeezy checkout script.', 'gutenverse')));
+        }, { once: true });
+
+        checkReady();
+    }).catch((error) => {
+        lemonScriptPromise = null;
+        throw error;
+    });
+
+    return lemonScriptPromise;
+};
+
 
 const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     const runtime = window['GutenverseConfig'] ? window['GutenverseConfig'] : window['GutenverseDashboard'];
     const [pricingPlan, setPricingPlan] = useState(() => getPricingPlanFallback());
+    const [checkoutRequest, setCheckoutRequest] = useState({ planKey: null, loading: false, error: '' });
     const plans = (pricingPlan.active_promotion || []).map((plan) => normalizePlan(plan, {
         eventExpired: isEventExpired(pricingPlan?.event_expired),
     }));
     const fsCheckoutRef = useRef(null);
     const closePromiseRef = useRef(null);
     const hasClosedRef = useRef(false);
+    const handleCloseRef = useRef(null);
+    const lemonCheckoutRequestRef = useRef(false);
     const hasPlans = plans.length > 0;
+    const checkoutProvider = normalizeCheckoutProvider(pricingPlan?.checkout_provider || pricingPlan?.payment_provider);
+    const isPreparingLemonCheckout = 'lemon_squeezy' === checkoutProvider && checkoutRequest.loading;
 
     const getTrackingPayload = ({ action, plan = null, checkoutData = null } = {}) => {
         let searchParams = null;
@@ -300,6 +403,8 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
             checkout_data: checkoutData,
         };
     };
+
+    const getPlanKey = (plan) => plan?.slug || plan?.plan_id || plan?.pricing_id || plan?.name;
 
     const sendTrackingData = async (payload) => {
         if (!payload?.pricing_url) {
@@ -340,6 +445,8 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
         return closePromiseRef.current;
     };
 
+    handleCloseRef.current = handleClose;
+
     useEffect(() => {
         let isMounted = true;
 
@@ -350,18 +457,119 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
         });
 
         const requestClose = () => {
-            handleClose();
+            handleCloseRef.current?.();
         };
 
         document.addEventListener(CLOSE_REQUEST_EVENT, requestClose);
 
         return () => {
             isMounted = false;
+            lemonCheckoutRequestRef.current = false;
             document.removeEventListener(CLOSE_REQUEST_EVENT, requestClose);
         };
-    }, [handleClose]);
+    }, []);
+
+    const getLemonCheckoutPayload = (plan) => {
+        const trackingPayload = getTrackingPayload({ action: 'lemon_checkout_open', plan });
+        const lemonVariantId = plan?.lemon_variant_id || plan?.variant_id || '';
+
+        return {
+            product_id: plan?.product_id || pricingPlan?.product_id || '',
+            variant_id: lemonVariantId,
+            lemon_variant_id: lemonVariantId,
+            plan_slug: plan?.slug || '',
+            tier: plan?.tier || plan?.slug || '',
+            plan_name: plan?.name || '',
+            coupon_code: trackingPayload?.coupon_code || '',
+            source: trackingPayload?.source || '',
+            medium: trackingPayload?.medium || '',
+            campaign: trackingPayload?.campaign || '',
+            client_site: trackingPayload?.client_site || '',
+            client_theme: trackingPayload?.client_theme || '',
+            current_url: trackingPayload?.current_url || '',
+            pricing_url: trackingPayload?.pricing_url || '',
+            custom: {
+                action: trackingPayload?.action || '',
+                source: trackingPayload?.source || '',
+                medium: trackingPayload?.medium || '',
+                campaign: trackingPayload?.campaign || '',
+                client_site: trackingPayload?.client_site || '',
+                client_theme: trackingPayload?.client_theme || '',
+                current_url: trackingPayload?.current_url || '',
+                pricing_url: trackingPayload?.pricing_url || '',
+            },
+        };
+    };
+
+    const handleLemonCheckoutSuccess = (plan, checkoutData) => {
+        sendTrackingData(getTrackingPayload({
+            action: 'checkout_success',
+            plan,
+            checkoutData,
+        }));
+    };
+
+    const handleLemonCheckout = async (plan) => {
+        if (lemonCheckoutRequestRef.current) {
+            return;
+        }
+
+        lemonCheckoutRequestRef.current = true;
+        const planKey = getPlanKey(plan);
+
+        setCheckoutRequest({ planKey, loading: true, error: '' });
+
+        try {
+            const response = await apiFetch({
+                path: LEMON_CHECKOUT_URL_API_PATH,
+                method: 'POST',
+                data: getLemonCheckoutPayload(plan),
+            });
+
+            const checkoutUrl = response?.checkout_url || '';
+
+            if (!checkoutUrl) {
+                throw new Error(response?.message || __('No checkout URL returned.', 'gutenverse'));
+            }
+
+            const lemonCheckout = await ensureLemonSqueezyLoaded();
+            lemonCheckout.Setup?.({
+                eventHandler: (event) => {
+                    if ('Checkout.Success' === event?.event) {
+                        handleLemonCheckoutSuccess(plan, event?.data || event);
+                    }
+                },
+            });
+            lemonCheckoutRequestRef.current = false;
+            setCheckoutRequest({ planKey: null, loading: false, error: '' });
+            onClose();
+            lemonCheckout.Url.Open(checkoutUrl);
+        } catch (error) {
+            lemonCheckoutRequestRef.current = false;
+            setCheckoutRequest({
+                planKey,
+                loading: false,
+                error: error?.message || __('Failed to request Lemon checkout URL.', 'gutenverse'),
+            });
+        }
+    };
 
     const handleCheckout = (plan) => {
+        if ('lemon_squeezy' === checkoutProvider) {
+            handleLemonCheckout(plan);
+            return;
+        }
+
+        if ('default' === checkoutProvider) {
+            const checkoutUrl = pricingPlan?.default_checkout_url || pricingUrl || runtime?.upgradeProUrl || '';
+
+            if (checkoutUrl) {
+                window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+            }
+
+            return;
+        }
+
         if (!pricingPlan?.public_key || !pricingPlan?.product_id) {
             return;
         }
@@ -392,6 +600,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
 
         fsCheckoutRef.current.open(openOptions);
     };
+
     return (
         <div className="gutenverse-pricing-popup">
             <button
@@ -422,6 +631,10 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
             <div className="gutenverse-pricing-popup__cards">
                 {hasPlans && plans.map((plan) => {
                     const planFeatureGroups = getPlanFeatureGroups(plan.slug);
+                    const planKey = getPlanKey(plan);
+                    const isRequestingCheckout = checkoutRequest.loading && checkoutRequest.planKey === planKey;
+                    const isCheckoutDisabled = isPreparingLemonCheckout;
+                    const checkoutError = checkoutRequest.planKey === planKey ? checkoutRequest.error : '';
 
                     return (
                         <article
@@ -447,11 +660,21 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
                                 </div>
                                 <div
                                     className="gutenverse-pricing-card__button"
-                                    onClick={() => handleCheckout(plan)}
+                                    aria-disabled={isCheckoutDisabled}
+                                    onClick={() => {
+                                        if (!isCheckoutDisabled) {
+                                            handleCheckout(plan);
+                                        }
+                                    }}
                                 >
-                                    <span>{__('Purchase Now', 'gutenverse')}</span>
+                                    <span>{isRequestingCheckout ? __('Preparing Checkout...', 'gutenverse') : __('Purchase Now', 'gutenverse')}</span>
                                     <span aria-hidden="true">&#8250;</span>
                                 </div>
+                                {checkoutError && (
+                                    <div className="gutenverse-pricing-card__checkout-error">
+                                        {checkoutError}
+                                    </div>
+                                )}
                                 <p className="gutenverse-pricing-card__description">{plan.description}</p>
                                 <div className="gutenverse-pricing-card__feature-groups">
                                     {planFeatureGroups.map((group) => (
