@@ -24,7 +24,8 @@ export const backgroundCSS = (attribute) => {
         gradientType = 'linear',
         gradientAngle = 180,
         gradientRadial = 'center center',
-        videoImage = {}
+        videoImage = {},
+        sliderFallbackImage = {},
     } = attribute;
 
     switch (type) {
@@ -170,6 +171,17 @@ export const backgroundCSS = (attribute) => {
             }
             if (videoImage?.Mobile?.image) {
                 background.Mobile.push(`background-image: url(${videoImage.Mobile.image}); background-size: cover; background-position: center;`);
+            }
+            break;
+        case 'slide':
+            if (sliderFallbackImage?.Desktop?.image) {
+                background.Desktop.push(`background-image: url(${sliderFallbackImage.Desktop.image}); background-size: cover; background-position: center;`);
+            }
+            if (sliderFallbackImage?.Tablet?.image) {
+                background.Tablet.push(`background-image: url(${sliderFallbackImage.Tablet.image}); background-size: cover; background-position: center;`);
+            }
+            if (sliderFallbackImage?.Mobile?.image) {
+                background.Mobile.push(`background-image: url(${sliderFallbackImage.Mobile.image}); background-size: cover; background-position: center;`);
             }
             break;
 

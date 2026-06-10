@@ -189,6 +189,24 @@ export const handleBackground = (background) => {
         });
 
         return elementStyle;
+    } else if (type === 'slide') {
+        const {
+            sliderFallbackImage = {}
+        } = background;
+
+        DeviceLoop(device => {
+            const _sliderFallbackImage = deviceStyleValue(device, sliderFallbackImage);
+
+            if (_sliderFallbackImage) {
+                responsiveAppender({
+                    style: `background-image: url(${_sliderFallbackImage.image}); background-size: cover; background-position: center;`,
+                    device,
+                    elementStyle
+                });
+            }
+        });
+
+        return elementStyle;
     } else {
         return elementVar();
     }

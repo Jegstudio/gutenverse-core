@@ -56,7 +56,7 @@ class Wrapper extends Block_Abstract {
 		$background_animated      = isset( $attributes['backgroundAnimated'] ) ? $attributes['backgroundAnimated'] : array();
 		$background_effect        = isset( $attributes['backgroundEffect'] ) ? $attributes['backgroundEffect'] : array();
 		$background               = isset( $attributes['background'] ) ? $attributes['background'] : array();
-		$is_slideshow             = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
+		$is_slideshow             = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0 && ( isset( $background['type'] ) && $background['type'] === 'slide' );
 		$using_featured_image     = ! empty( $background['useFeaturedImage'] ) && ( ! empty( $background['useFeaturedImage']['Desktop'] ) || ! empty( $background['useFeaturedImage']['Tablet'] ) || ! empty( $background['useFeaturedImage']['Mobile'] ) );
 		$is_bg_animated           = $this->is_animation_active( $background_animated );
 		$is_background_effect     = ! empty( $background_effect ) && isset( $background_effect['type'] ) && 'none' !== $background_effect['type'];

@@ -542,6 +542,7 @@ abstract class Style_Interface {
 	 * @return string
 	 */
 	public function handle_gradient( $props, $angle ) {
+		$colors = array();
 		foreach ( $props as $gradient ) {
 			$offset   = $gradient['offset'] * 100;
 			$colors[] = "{$gradient['color']} {$offset}%";
@@ -2264,14 +2265,14 @@ abstract class Style_Interface {
 				);
 			}
 		} elseif ( 'slide' === $background['type'] ) {
-			if ( isset( $background['videoImage'] ) ) {
+			if ( isset( $background['sliderFallbackImage'] ) ) {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
 							return "background-image: url({$value['image']}); background-size: cover; background-position: center;";
 						},
-						'value'          => $background['videoImage'],
+						'value'          => $background['sliderFallbackImage'],
 						'device_control' => true,
 					)
 				);
@@ -2524,7 +2525,7 @@ abstract class Style_Interface {
 	 * Handle Border
 	 *
 	 * @param string $name Value of Box Shadow.
-	 * @param string $selector Value of Box Shadow.
+	 * @param array  $selector Value of Box Shadow.
 	 */
 	protected function handle_border( $name, $selector ) {
 		if ( isset( $this->attrs[ $name ] ) ) {

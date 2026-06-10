@@ -243,12 +243,12 @@ abstract class Block_Abstract {
 			$animation_classes .= "desktop-{$this->attributes['animation']['type']['Desktop']} ";
 		}
 
-		if ( ! empty( $this->attributes['animation']['type']['Tablet'] ) && 'none' !== $this->attributes['animation']['type']['Tablet'] ) {
-			$animation_classes .= "desktop-{$this->attributes['animation']['type']['Tablet']} ";
+		if ( ! empty( $this->attributes ['animation']['type']['Tablet'] ) && 'none' !== $this->attributes ['animation']['type']['Tablet'] ) {
+			$animation_classes .= "tablet-{$this->attributes ['animation']['type']['Tablet']} ";
 		}
 
-		if ( ! empty( $this->attributes['animation']['type']['Mobile'] ) && 'none' !== $this->attributes['animation']['type']['Mobile'] ) {
-			$animation_classes .= "desktop-{$this->attributes['animation']['type']['Mobile']} ";
+		if ( ! empty( $this->attributes ['animation']['type']['Mobile'] ) && 'none' !== $this->attributes ['animation']['type']['Mobile'] ) {
+			$animation_classes .= "mobile-{$this->attributes ['animation']['type']['Mobile']} ";
 		}
 
 		return esc_attr( $animation_classes );

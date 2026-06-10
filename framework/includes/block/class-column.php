@@ -233,7 +233,7 @@ class Column extends Block_Abstract {
 		$is_align_sticky      = $this->is_align_sticky_column( $section_vertical_align );
 		$is_can_sticky        = $_is_sticky && $is_align_sticky;
 		$_is_bg_animated      = $this->is_animation_active( $background_animated );
-		$is_slideshow         = isset( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
+		$is_slideshow         = isset( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0 && ( isset( $background['type'] ) && $background['type'] === 'slide' );
 		$is_background_effect = ! empty( $background_effect ) && isset( $background_effect['type'] ) && 'none' !== $background_effect['type'];
 		$using_featured_image = ! empty( $background['useFeaturedImage'] ) && ( ! empty( $background['useFeaturedImage']['Desktop'] ) || ! empty( $background['useFeaturedImage']['Tablet'] ) || ! empty( $background['useFeaturedImage']['Mobile'] ) );
 		$cursor_effect_show   = ! empty( $cursor_effect['show'] );
