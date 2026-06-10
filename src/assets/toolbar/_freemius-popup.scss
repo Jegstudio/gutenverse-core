@@ -253,6 +253,23 @@ body.gutenverse-freemius-modal-open {
     background: #5b5fff;
 }
 
+.gutenverse-pricing-card__button[aria-disabled="true"] {
+    cursor: default;
+    opacity: 0.64;
+    pointer-events: none;
+}
+
+.gutenverse-pricing-card__checkout-error {
+    margin: -6px 0 14px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: #fff5f5;
+    color: #d63638;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
 .gutenverse-pricing-card__feature-group + .gutenverse-pricing-card__feature-group {
     margin-top: 20px;
 }

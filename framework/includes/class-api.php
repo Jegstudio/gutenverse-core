@@ -372,6 +372,16 @@ class Api {
 
 		register_rest_route(
 			self::ENDPOINT,
+			'lemon-squeezy/checkout-url',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'lemon_squeezy_checkout_url' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
 			'pricing-plan',
 			array(
 				'methods'             => 'GET',
@@ -519,6 +529,89 @@ class Api {
 				400
 			);
 		}
+	}
+
+	/**
+	 * Relay Lemon Squeezy checkout URL creation through the site server.
+	 *
+	 * @param object $request Request object.
+	 *
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function lemon_squeezy_checkout_url( $request ) {
+		$params = $request->get_json_params();
+
+		if ( ! is_array( $params ) ) {
+			$params = $request->get_params();
+		}
+
+		$endpoint = apply_filters(
+			'gutenverse_lemon_checkout_url_endpoint',
+			GUTENVERSE_FRAMEWORK_PRO_URL . '/wp-json/gutenverse-pro/v1/lemon-squeezy/checkout-url/'
+		);
+		$payload  = $this->sanitize_lemon_checkout_payload( is_array( $params ) ? $params : array() );
+
+		$response = wp_remote_post(
+			$endpoint,
+			array(
+				'timeout' => 15,
+				'headers' => array(
+					'Content-Type' => 'application/json',
+				),
+				'body'    => wp_json_encode( $payload ),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return new WP_Error(
+				'lemon_checkout_url_request_failed',
+				$response->get_error_message(),
+				array( 'status' => 500 )
+			);
+		}
+
+		$status = (int) wp_remote_retrieve_response_code( $response );
+		$body   = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		return new WP_REST_Response(
+			is_array( $body ) ? $body : array( 'message' => 'Invalid Lemon checkout URL response.' ),
+			$status > 0 ? $status : 200
+		);
+	}
+
+	/**
+	 * Sanitize Lemon checkout payload recursively.
+	 *
+	 * @param mixed $value Raw payload value.
+	 *
+	 * @return mixed
+	 */
+	private function sanitize_lemon_checkout_payload( $value ) {
+		if ( is_array( $value ) ) {
+			$sanitized = array();
+
+			foreach ( $value as $key => $item ) {
+				$sanitized_key = is_string( $key ) ? sanitize_key( $key ) : $key;
+
+				if ( '' === $sanitized_key ) {
+					continue;
+				}
+
+				$sanitized[ $sanitized_key ] = $this->sanitize_lemon_checkout_payload( $item );
+			}
+
+			return $sanitized;
+		}
+
+		if ( is_bool( $value ) || is_numeric( $value ) ) {
+			return (string) $value;
+		}
+
+		if ( is_scalar( $value ) ) {
+			return sanitize_text_field( (string) $value );
+		}
+
+		return '';
 	}
 
 	/**
