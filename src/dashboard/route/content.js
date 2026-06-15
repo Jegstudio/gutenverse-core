@@ -174,7 +174,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
         );
     }
 
-    return <div className={`content-wrapper ${path ? path : 'dashboard'}`}>
+    return <div className={`content-wrapper ${query?.get('path') ? query.get('path') : 'dashboard'}`}>
         {routePage}
         <div className={`gutenverse-notification-toast ${toast?.status} ${showToast ? 'show' : ''}`}>
             {toast?.status === 'success' ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
