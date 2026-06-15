@@ -346,8 +346,6 @@ const Navigation = ({ location }) => {
 
     menus.sort((a, b) => getMenuPriority(a) - getMenuPriority(b));
 
-    console.log(menus)
-
     useEffect(() => {
         const submenu = document.querySelector('#toplevel_page_gutenverse .wp-submenu');
 
