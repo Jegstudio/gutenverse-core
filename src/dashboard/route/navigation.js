@@ -191,7 +191,7 @@ const VersionCompatibility = ({ content }) => {
 };
 
 const TabContent = (props) => {
-    const {element, showNotifications} = props;
+    const { element, showNotifications } = props;
     const [mode, setMode] = useState(null);
     const { readNotifications, markAsRead, markAllRead } = useNotificationsState();
 
@@ -274,70 +274,79 @@ const Navigation = ({ location }) => {
 
     const iconRef = useRef();
 
+    const baseMenus = [
+        {
+            name: __('Dashboard', '--gctd--'),
+            slug: homeSlug,
+            path: '',
+            priority: 0
+        },
+        {
+            name: __('Ecosystem', '--gctd--'),
+            slug: homeSlug,
+            path: 'ecosystem',
+            priority: 1
+        },
+        {
+            name: __('Blocks', '--gctd--'),
+            slug: homeSlug,
+            path: 'block-list',
+            priority: 2
+        },
+        {
+            name: __('Settings', '--gctd--'),
+            slug: homeSlug,
+            path: 'settings',
+            priority: 4
+        },
+        {
+            name: __('System Status', '--gctd--'),
+            slug: homeSlug,
+            path: 'system',
+            priority: 5
+        },
+    ];
+
+    if (showThemeList) {
+        baseMenus.push({
+            name: __('Theme List', '--gctd--'),
+            slug: homeSlug,
+            path: 'theme-list',
+            priority: 3
+        });
+    }
+
+    if (!isEmpty(pluginVersions)) {
+        baseMenus.push({
+            name: __('Update Notice', '--gctd--'),
+            slug: homeSlug,
+            path: 'update-notice',
+            priority: 5
+        });
+    }
+
+    if (isEmpty(window?.gprodata)) {
+        baseMenus.push({
+            name: <span>{__('Upgrade to PRO', '--gctd--')}<IconCrownBannerSVG /></span>,
+            slug: homeSlug,
+            path: 'upgrade-pro',
+            priority: 9999,
+            upgrade: true,
+        });
+    }
+
     const menus = applyFilters(
         'gutenverse.dashboard.route.navigation',
-        [
-            {
-                name: __('Dashboard', '--gctd--'),
-                slug: homeSlug,
-                path: '',
-                priority: 0
-            },
-            {
-                name: __('Ecosystem', '--gctd--'),
-                slug: homeSlug,
-                path: 'ecosystem',
-                priority: 1
-            },
-            {
-                name: __('Blocks', '--gctd--'),
-                slug: homeSlug,
-                path: 'block-list',
-                priority: 2
-            },
-            // {
-            //     name: __('Themes', '--gctd--'),
-            //     slug: homeSlug,
-            //     path: 'themes',
-            //     priority: 3
-            // },
-            showThemeList && {
-                name: __('Theme List', '--gctd--'),
-                slug: homeSlug,
-                path: 'theme-list',
-                priority: 3
-            },
-            {
-                name: __('Settings', '--gctd--'),
-                slug: homeSlug,
-                path: 'settings',
-                priority: 4
-            },
-            {
-                name: __('System Status', '--gctd--'),
-                slug: homeSlug,
-                path: 'system',
-                priority: 5
-            },
-            !isEmpty(pluginVersions) && {
-                name: __('Update Notice', '--gctd--'),
-                slug: homeSlug,
-                path: 'update-notice',
-                priority: 100
-            },
-            isEmpty(window?.gprodata) && {
-                name: <span>{__('Upgrade to PRO', '--gctd--')}<IconCrownBannerSVG /></span>,
-                slug: homeSlug,
-                path: 'upgrade-pro',
-                priority: 9999,
-                upgrade: true,
-            },
-        ],
+        baseMenus,
         homeSlug,
         companionActive
-    );
+    ).filter(Boolean);
 
-    menus.sort((a, b) => a.priority - b.priority);
+    const getMenuPriority = menu => menu?.priority ?? Number.POSITIVE_INFINITY;
+
+    menus.sort((a, b) => getMenuPriority(a) - getMenuPriority(b));
+
+    console.log(menus)
 
     useEffect(() => {
         const submenu = document.querySelector('#toplevel_page_gutenverse .wp-submenu');
@@ -442,7 +451,7 @@ const Navigation = ({ location }) => {
                     </div>
                 </div>
                 {iconRef.current && <div className={`dashboard-notifications ${showNotifications ? 'show' : ''}`} >
-                    <TabContent element={iconRef.current} showNotifications={showNotifications}/>
+                    <TabContent element={iconRef.current} showNotifications={showNotifications} />
                 </div>}
                 <ButtonUpgradePro location="dashboard-navigation" isBanner={true} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboardnav&utm_client_site=${url}&utm_client_theme=${activeTheme}`} />
             </div>
