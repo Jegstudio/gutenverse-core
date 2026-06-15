@@ -187,6 +187,7 @@ class Init {
 		add_filter( 'wp_handle_upload_prefilter', array( $this, 'verify_svg_upload' ), 10, 1 );
 		add_filter( 'wp_lazy_loading_enabled', array( $this, 'disable_wp_lazyload' ), 10, 1 );
 		add_filter( 'register_block_type_args', array( $this, 'inject_block_context' ), 10, 2 );
+		add_filter( 'wp_get_loading_optimization_attributes', array( $this, 'remove_fetchpriority_high' ), 10, 3 );
 
 		/**
 		 * These functions used to be called inside init hook.
@@ -195,6 +196,27 @@ class Init {
 		 */
 		$this->register_menu_position();
 		$this->import_mechanism();
+	}
+
+	/**
+	 * Remove wp image auto fetchpriority high
+	 *
+	 * @param array  $loading_attrs Loading attributes.
+	 * @param string $tag_name      Tag name.
+	 * @param array  $attr          Attributes.
+	 *
+	 * @return array
+	 */
+	public function remove_fetchpriority_high( $loading_attrs, $tag_name, $attr ) {
+		// Only affect img tags
+        if ( 'img' !== $tag_name ) {
+            return $loading_attrs;
+        }
+		// Only if the fetchpriority not set and wordpress try to set it
+        if ( ! isset( $attr['fetchpriority'] ) && isset( $loading_attrs['fetchpriority'] ) ) {
+            unset( $loading_attrs['fetchpriority'] );
+        }
+		return $loading_attrs;
 	}
 
 	/**
