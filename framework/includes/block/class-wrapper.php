@@ -178,9 +178,11 @@ class Wrapper extends Block_Abstract {
 			$output    .= '<div class="guten-video-background" data-property="' . esc_attr( wp_json_encode( $video_data ) ) . '"></div>';
 		}
 
+		$slide_elements = $is_slideshow ? apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id ) : '';
+
 		// Slideshow elements (when not bg animated).
 		if ( ! $is_bg_animated && $is_slideshow ) {
-			$output .= $this->render_slideshow_elements( $background, $element_id );
+			$output .= $slide_elements;
 		}
 
 		// Background overlay.
@@ -200,7 +202,7 @@ class Wrapper extends Block_Abstract {
 		if ( $is_bg_animated ) {
 			$output .= '<div class="guten-background-animated"><div class="animated-layer animated-' . esc_attr( $short_id ) . '">';
 			if ( $is_slideshow ) {
-				$output .= $this->render_slideshow_elements( $background, $element_id );
+				$output .= $slide_elements;
 			}
 			$output .= '</div></div>';
 		}
@@ -233,48 +235,4 @@ class Wrapper extends Block_Abstract {
 		return isset( $background_animated['actions'] ) && is_array( $background_animated['actions'] ) && count( $background_animated['actions'] ) > 0;
 	}
 
-	/**
-	 * Render slideshow elements.
-	 *
-	 * @param array  $background  Background data.
-	 * @param string $element_id  Element ID.
-	 * @return string
-	 */
-	private function render_slideshow_elements( $background, $element_id ) {
-		$slide_images = isset( $background['slideImage'] ) ? $background['slideImage'] : array();
-
-		if ( empty( $slide_images ) || ! is_array( $slide_images ) ) {
-			return '';
-		}
-
-		$output  = '<div class="bg-slideshow-container">';
-		$output .= '<div class="bg-slideshow-item">';
-
-		foreach ( $slide_images as $index => $image ) {
-			$image_url = '';
-			if ( isset( $image['image']['image'] ) && ! empty( $image['image']['image'] ) ) {
-				$image_url = $image['image']['image'];
-			}
-
-			$slide_class = '';
-			if ( 1 === $index ) {
-				$slide_class = ' current';
-			} elseif ( 0 === $index ) {
-				$slide_class = ' previous';
-			}
-
-			$output .= '<div class="' . esc_attr( $element_id ) . '-child-slideshow slideshow-item-container item-' . esc_attr( $index ) . '">';
-			$output .= '<div class="' . esc_attr( $element_id ) . '-slideshow-image slideshow-image' . $slide_class . '"';
-			if ( ! empty( $image_url ) ) {
-				$output .= ' style="background-image: url(' . esc_url( $image_url ) . ')"';
-			}
-			$output .= '></div>';
-			$output .= '</div>';
-		}
-
-		$output .= '</div>';
-		$output .= '</div>';
-
-		return $output;
-	}
 }

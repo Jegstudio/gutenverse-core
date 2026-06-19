@@ -150,49 +150,6 @@ class Column extends Block_Abstract {
 	}
 
 	/**
-	 * Render slideshow elements.
-	 *
-	 * @return string
-	 */
-	private function render_slide_elements() {
-		$background  = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
-		$slide_image = isset( $background['slideImage'] ) ? $background['slideImage'] : array();
-		$element_id  = $this->get_element_id();
-
-		if ( empty( $slide_image ) || ! is_array( $slide_image ) ) {
-			return '';
-		}
-
-		$output  = '<div class="bg-slideshow-container">';
-		$output .= '<div class="bg-slideshow-item">';
-
-		foreach ( $slide_image as $index => $image ) {
-			$image_url = '';
-			if ( isset( $image['image']['image'] ) && ! empty( $image['image']['image'] ) ) {
-				$image_url = $image['image']['image'];
-			}
-
-			$slide_class = $element_id . '-slideshow-image slideshow-image';
-			if ( 1 === $index ) {
-				$slide_class .= ' current';
-			} elseif ( 0 === $index ) {
-				$slide_class .= ' previous';
-			}
-
-			$style_attr = ! empty( $image_url ) ? ' style="background-image: url(' . esc_url( $image_url ) . ')"' : '';
-
-			$output .= '<div class="' . esc_attr( $element_id . '-child-slideshow slideshow-item-container item-' . $index ) . '">';
-			$output .= '<div class="' . esc_attr( $slide_class ) . '"' . $style_attr . '></div>';
-			$output .= '</div>';
-		}
-
-		$output .= '</div>';
-		$output .= '</div>';
-
-		return $output;
-	}
-
-	/**
 	 * Render view in editor
 	 */
 	public function render_gutenberg() {
@@ -322,7 +279,7 @@ class Column extends Block_Abstract {
 		$output .= $this->render_guten_data( $data_id, $is_can_sticky, $_is_bg_animated, $is_slideshow );
 
 		// Slideshow elements.
-		$slide_elements = $this->render_slide_elements();
+		$slide_elements = $is_slideshow ? apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id ) : '';
 
 		if ( $is_can_sticky ) {
 			// Sticky wrapper layout.

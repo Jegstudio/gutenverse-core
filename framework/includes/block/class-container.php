@@ -737,14 +737,14 @@ class Container extends Block_Abstract {
 		}
 
 		// Background animated layer.
+		$slide_elements = $is_slideshow ? apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id ) : '';
 		if ( $is_bg_animated ) {
-			$slide_elements = $is_slideshow ? apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id ) : '';
 			$output        .= '<div class="guten-background-animated"><div class="animated-layer animated-' . esc_attr( $data_id ) . '">' . $slide_elements . '</div></div>';
 		}
 
 		// Slideshow (without bg animated).
 		if ( ! $is_bg_animated && $is_slideshow ) {
-			$output .= apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id );
+			$output .= $slide_elements;
 		}
 
 		// Background effect.
