@@ -1414,6 +1414,27 @@ if ( ! function_exists( 'gutenverse_responsive_appender' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_sanitize_font_family_css_value' ) ) {
+	/**
+	 * Sanitize a font family string before using it in CSS output.
+	 *
+	 * @param mixed $value Font family value.
+	 *
+	 * @return string
+	 */
+	function gutenverse_sanitize_font_family_css_value( $value ) {
+		if ( ! is_scalar( $value ) ) {
+			return '';
+		}
+
+		$value = sanitize_text_field( (string) $value );
+		$value = preg_replace( '/[\x00-\x1F\x7F<>"\';{}\\\\]/u', '', $value );
+		$value = preg_replace( '/[^\p{L}\p{N} _\-\.,&()]/u', '', $value );
+
+		return trim( $value );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 	/**
 	 * Font Style Generator.
@@ -1436,8 +1457,13 @@ if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 			if ( isset( $font['font'] ) ) {
 				$thefont = $font['font'];
 				if ( $thefont ) {
+					$font_family = isset( $thefont['value'] ) ? gutenverse_sanitize_font_family_css_value( $thefont['value'] ) : '';
+					if ( '' === $font_family ) {
+						continue;
+					}
+
 					gutenverse_normal_appender(
-						gutenverse_variable_font_name( $id, 'family' ) . ':"' . $thefont['value'] . '";',
+						gutenverse_variable_font_name( $id, 'family' ) . ':"' . $font_family . '";',
 						$variable_style
 					);
 				}
