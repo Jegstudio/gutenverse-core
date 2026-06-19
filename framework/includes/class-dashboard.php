@@ -1047,6 +1047,10 @@ class Dashboard {
 					'plugin_version'    => '2.7.1',
 					'framework_version' => '2.7.1',
 				),
+				array(
+					'plugin_version'    => '2.7.2',
+					'framework_version' => '2.8.1',
+				),
 			),
 		);
 
