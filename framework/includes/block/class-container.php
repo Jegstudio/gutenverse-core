@@ -607,7 +607,7 @@ class Container extends Block_Abstract {
 		$html_tag                 = isset( $attributes['htmlTag'] ) ? $attributes['htmlTag'] : 'div';
 		$anchor                   = isset( $attributes['anchor'] ) ? $attributes['anchor'] : '';
 
-		$is_slideshow       = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
+		$is_slideshow       = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0 && ( isset( $background['type'] ) && $background['type'] === 'slide' );
 		$is_bg_animated     = $this->is_animation_active( $background_animated );
 		$is_bg_effect       = ! empty( $background_effect ) && isset( $background_effect['type'] ) && 'none' !== $background_effect['type'];
 		$is_sticky          = $this->is_sticky( $sticky );
