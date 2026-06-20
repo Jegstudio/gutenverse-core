@@ -278,8 +278,6 @@ class Frontend_Assets {
 			$arr_plugin[] = $plugin;
 		}
 		$config['activePlugins'] = $arr_plugin;
-		$post_featured           = get_the_post_thumbnail_url( $config['postId'], 'full' );
-		$config['featuredImage'] = ! empty( $post_featured ) ? $post_featured : GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/img-placeholder.jpg';
 		$config['breakPoints']   = array(
 			'Tablet' => $tablet_breakpoint,
 			'Mobile' => $mobile_breakpoint,

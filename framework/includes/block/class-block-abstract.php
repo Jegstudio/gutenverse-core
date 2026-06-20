@@ -180,6 +180,72 @@ abstract class Block_Abstract {
 	}
 
 	/**
+	 * Resolve the current post ID for dynamic featured-image rendering.
+	 *
+	 * @return int
+	 */
+	protected function get_context_post_id() {
+		if ( ! empty( $this->context['postId'] ) ) {
+			return absint( $this->context['postId'] );
+		}
+
+		$post_id = get_the_ID();
+		return $post_id ? absint( $post_id ) : 0;
+	}
+
+	/**
+	 * Render responsive featured-image background CSS for a block instance.
+	 *
+	 * @param array  $background Background attributes.
+	 * @param string $selector   CSS selector to target.
+	 *
+	 * @return string
+	 */
+	protected function render_featured_image_background_style( $background, $selector ) {
+		if ( empty( $background['useFeaturedImage'] ) || ! is_array( $background['useFeaturedImage'] ) ) {
+			return '';
+		}
+
+		$post_id = $this->get_context_post_id();
+		if ( ! $post_id || ! has_post_thumbnail( $post_id ) ) {
+			return '';
+		}
+
+		$featured_image = get_the_post_thumbnail_url( $post_id, 'full' );
+		if ( empty( $featured_image ) ) {
+			return '';
+		}
+
+		$use_featured = wp_parse_args(
+			$background['useFeaturedImage'],
+			array(
+				'Desktop' => false,
+				'Tablet'  => false,
+				'Mobile'  => false,
+			)
+		);
+
+		$desktop_rule = ! empty( $use_featured['Desktop'] )
+			? "background-image: url('" . esc_url( $featured_image ) . "') !important;"
+			: 'background-image: none !important;';
+		$tablet_rule  = ! empty( $use_featured['Tablet'] )
+			? "background-image: url('" . esc_url( $featured_image ) . "') !important;"
+			: 'background-image: none !important;';
+		$mobile_rule  = ! empty( $use_featured['Mobile'] )
+			? "background-image: url('" . esc_url( $featured_image ) . "') !important;"
+			: 'background-image: none !important;';
+
+		$tablet_breakpoint = absint( gutenverse_breakpoint( 'Tablet' ) );
+		$mobile_breakpoint = absint( gutenverse_breakpoint( 'Mobile' ) );
+
+		$css  = $selector . ' { ' . $desktop_rule . ' }';
+		$css .= '@media only screen and (max-width: ' . $tablet_breakpoint . 'px) { ' . $selector . ' { ' . $tablet_rule . ' } }';
+		$css .= '@media only screen and (max-width: ' . $mobile_breakpoint . 'px) { ' . $selector . ' { ' . $mobile_rule . ' } }';
+
+		return '<style class="guten-featured-image-bg">' . $css . '</style>';
+	}
+
+	/**
 	 * Check truthy value
 	 *
 	 * @param boolean|string $attribute .

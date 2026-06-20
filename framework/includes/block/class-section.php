@@ -990,6 +990,10 @@ class Section extends Block_Abstract {
 		// Build output.
 		$output  = '<div class="' . $wrapper_class . '" data-id="' . esc_attr( $data_id ) . '">';
 		$output .= '<section class="' . $class_name . '"' . $advance_anim_data . $id_attr . '>';
+		$output .= $this->render_featured_image_background_style(
+			$background,
+			".{$element_id}:not(.background-animated), .{$element_id}.background-animated > .guten-background-animated .animated-layer"
+		);
 
 		// FluidCanvasSave - apply filter (returns null by default).
 		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_script', '', $attributes );

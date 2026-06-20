@@ -699,6 +699,10 @@ class Container extends Block_Abstract {
 
 		// Build output.
 		$output = '<' . $html_tag . ' class="' . esc_attr( $class_name ) . '" data-id="' . esc_attr( $data_id ) . '"' . $adv_anim_attr . $id_attr . '>';
+		$output .= $this->render_featured_image_background_style(
+			$background,
+			".guten-flex-container.{$element_id}:not(.background-animated), .guten-flex-container.{$element_id}.background-animated > .guten-background-animated .animated-layer"
+		);
 
 		// Fluid canvas.
 		$output .= apply_filters( 'gutenverse_fluid_canvas_script', '', $attributes );

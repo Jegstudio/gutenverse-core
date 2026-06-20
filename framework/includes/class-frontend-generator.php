@@ -654,19 +654,6 @@ class Frontend_Generator {
 				'attr'     => $attrs['background'],
 				'allow_if' => array(
 					array(
-						'id'       => 'useFeaturedImage',
-						'operator' => '===',
-						'value'    => true,
-						'device'   => true,
-					),
-				),
-				'script'   => 'gutenverse-core-frontend-bg-featured-image-script',
-			);
-
-			$conditions[] = array(
-				'attr'     => $attrs['background'],
-				'allow_if' => array(
-					array(
 						'id'       => 'type',
 						'operator' => '===',
 						'value'    => 'slide',
@@ -825,17 +812,6 @@ class Frontend_Generator {
 		wp_register_script(
 			'gutenverse-core-frontend-animation-basic-script',
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/animation-basic.js',
-			$include,
-			GUTENVERSE_FRAMEWORK_VERSION,
-			array(
-				'in_footer' => true,
-				'strategy'  => 'defer',
-			)
-		);
-
-		wp_register_script(
-			'gutenverse-core-frontend-bg-featured-image-script',
-			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/frontend/bg-featured-image.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			array(

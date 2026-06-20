@@ -311,6 +311,10 @@ class Column extends Block_Abstract {
 
 		// Build output.
 		$output = '<div class="' . $class_name . '"' . $advance_anim_data . $sticky_data_id_attr . $id_attr . '>';
+		$output .= $this->render_featured_image_background_style(
+			$background,
+			".{$element_id}:not(.background-animated) > .sticky-wrapper > .guten-column-wrapper, .{$element_id}.background-animated > .sticky-wrapper > .guten-column-wrapper > .guten-background-animated .animated-layer, .{$element_id}:not(.background-animated) > .guten-column-wrapper, .{$element_id}.background-animated > .guten-column-wrapper > .guten-background-animated .animated-layer"
+		);
 
 		// FluidCanvasSave.
 		$fluid_canvas = apply_filters( 'gutenverse_fluid_canvas_script', '', $attributes );

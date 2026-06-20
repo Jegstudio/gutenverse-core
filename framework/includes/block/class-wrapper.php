@@ -123,6 +123,10 @@ class Wrapper extends Block_Abstract {
 
 		// Build output.
 		$output = '<div class="' . esc_attr( trim( $class_name ) ) . '"' . $advance_animation_attr . $onclick_attr . $id_attr . '>';
+		$output .= $this->render_featured_image_background_style(
+			$background,
+			".{$element_id}:not(.background-animated), .{$element_id}.background-animated > .guten-inner-wrap > .guten-background-animated .animated-layer"
+		);
 
 		// Guten data div (bg animated data + slideshow data).
 		if ( $is_bg_animated || $is_slideshow ) {
