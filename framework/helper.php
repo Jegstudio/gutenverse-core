@@ -537,6 +537,52 @@ if ( ! function_exists( 'gutenverse_get_ads_banner_theme_tf' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_is_wporg_theme' ) ) {
+	/**
+	 * Check if the active theme is listed in WordPress.org using cached update data.
+	 *
+	 * @return boolean
+	 */
+	function gutenverse_is_wporg_theme() {
+		$theme = wp_get_theme();
+
+		if ( ! $theme->exists() ) {
+			return false;
+		}
+
+		$slug          = $theme->get_stylesheet();
+		$update_themes = get_site_transient( 'update_themes' );
+		$is_wporg      = false;
+
+		if ( is_object( $update_themes ) ) {
+			foreach ( array( 'response', 'no_update' ) as $property ) {
+				$themes = isset( $update_themes->{$property} ) ? (array) $update_themes->{$property} : array();
+
+				if ( empty( $themes[ $slug ] ) ) {
+					continue;
+				}
+
+				$theme_update = (array) $themes[ $slug ];
+				$theme_url    = isset( $theme_update['url'] ) ? $theme_update['url'] : '';
+				$package_url  = isset( $theme_update['package'] ) ? $theme_update['package'] : '';
+				$theme_host   = wp_parse_url( $theme_url, PHP_URL_HOST );
+				$theme_path   = wp_parse_url( $theme_url, PHP_URL_PATH );
+				$package_host = wp_parse_url( $package_url, PHP_URL_HOST );
+				$package_path = wp_parse_url( $package_url, PHP_URL_PATH );
+				$is_theme_url = in_array( $theme_host, array( 'wordpress.org', 'www.wordpress.org' ), true ) && 0 === strpos( (string) $theme_path, '/themes/' );
+				$is_package   = 'downloads.wordpress.org' === $package_host && 0 === strpos( (string) $package_path, '/theme/' );
+
+				if ( $is_theme_url || $is_package ) {
+					$is_wporg = true;
+					break;
+				}
+			}
+		}
+
+		return apply_filters( 'gutenverse_is_wporg_theme', $is_wporg, $slug, $theme );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_check_if_script_localized' ) ) {
 	/**
 	 * Check if Script localized

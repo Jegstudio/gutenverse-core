@@ -246,21 +246,7 @@ class Dashboard {
 		} else {
 			$config['companionActive'] = 'false';
 		}
-		include_once ABSPATH . 'wp-admin/includes/theme.php';
-
-		$theme = wp_get_theme();
-		$slug  = $theme->get_stylesheet();
-
-		$api = themes_api(
-			'theme_information',
-			array(
-				'slug' => $slug,
-			)
-		);
-
-		if ( ! is_wp_error( $api ) ) {
-			$config['is_wporg_theme'] = true;
-		}
+		$config['is_wporg_theme'] = gutenverse_is_wporg_theme();
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
