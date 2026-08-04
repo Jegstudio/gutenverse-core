@@ -646,6 +646,10 @@ class Frontend_Cache {
 			wp_mkdir_p( $style_directory );
 		}
 
+		if ( null === $content ) {
+			$content = '';
+		}
+
 		if ( 'css' === $type ) {
 			$content = preg_replace( '/\s*[\r\n]+\s*/', '', $content );
 		}
