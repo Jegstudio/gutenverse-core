@@ -62,8 +62,8 @@
     justify-content: center;
     align-items: center;
     gap: 6px;
-    border-radius: 5px;
-    background: linear-gradient(90deg, #E32D64 0%, #FB398A 100%);
+    border-radius: 6px !important;
+    background: linear-gradient(180deg, #FB398A 0%, #E32D64 100%);
 
     svg {
         transition: all .5s ease;
