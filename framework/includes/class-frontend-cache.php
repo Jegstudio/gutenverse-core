@@ -97,15 +97,7 @@ class Frontend_Cache {
 	 * @return string
 	 */
 	public function render_mechanism() {
-		$options = get_option( 'gutenverse-settings' );
-
-		if ( isset( $options['frontend_settings']['render_mechanism'] ) ) {
-			$render_mechanism = $options['frontend_settings']['render_mechanism'];
-			if ( ! empty( $render_mechanism ) ) {
-				return $render_mechanism;
-			}
-		}
-		return 'file';
+		return 'direct';
 	}
 
 	/**
