@@ -114,11 +114,6 @@ class Frontend_Generator {
 			$widgets      = get_option( 'widget_block' );
 			$style        = null;
 			$name         = 'gutenverse-widget';
-			$bypass_style = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'widget' );
-
-			if ( $bypass_style ) {
-				return;
-			}
 
 			foreach ( $widgets as $widget ) {
 				if ( isset( $widget['content'] ) ) {
@@ -246,11 +241,6 @@ class Frontend_Generator {
 			$style        = null;
 			$template     = explode( '//', $_wp_current_template_id );
 			$name         = 'gutenverse-template-' . $template[1];
-			$bypass_style = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'template' );
-
-			if ( $bypass_style ) {
-				return;
-			}
 
 			if ( ! empty( $_wp_current_template_content ) ) {
 				$blocks = $this->parse_blocks( $_wp_current_template_content );
@@ -274,13 +264,6 @@ class Frontend_Generator {
 		if ( $post ) {
 			$style        = null;
 			$name         = 'gutenverse-content-' . $post->ID;
-			$bypass_style = apply_filters( 'gutenverse_bypass_generate_style', false, $name, 'content' );
-
-			if ( $bypass_style ) {
-				$preloads             = apply_filters( 'gutenverse_load_cached_preload_assets', array(), 'image', $post->ID );
-				$this->preload_images = array_merge( $this->preload_images, $preloads );
-				return;
-			}
 
 			if ( has_blocks( $post ) && isset( $post->post_content ) ) {
 				$blocks = $this->parse_blocks( $post->post_content );
