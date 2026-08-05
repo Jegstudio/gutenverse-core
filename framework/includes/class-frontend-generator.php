@@ -99,10 +99,6 @@ class Frontend_Generator {
 	 * @param string $origin Origination of style.
 	 */
 	public function render_style( $name, $style, $origin ) {
-		if ( apply_filters( 'gutenverse_render_generated_style', false, $name, $style, $origin ) ) {
-			return;
-		}
-
 		wp_add_inline_style( 'gutenverse-frontend-style', $style );
 	}
 
@@ -490,7 +486,6 @@ class Frontend_Generator {
 				printf( '<link rel="preload" fetchpriority="high" as="image" href="%s">' . "\n", esc_url( $image_url ) );
 				$printed_images[] = $image_url;
 			}
-			do_action( 'gutenverse_cache_preload_assets', $this->preload_images, 'image', $post->ID );
 			$this->preload_images = array();
 		}
 	}
@@ -825,7 +820,7 @@ class Frontend_Generator {
 			)
 		);
 
-		$script_handles = apply_filters( 'gutenverse_conditional_script_handles', $this->script_list );
+		$script_handles = $this->script_list;
 
 		if ( ! is_array( $script_handles ) ) {
 			return;
@@ -847,7 +842,7 @@ class Frontend_Generator {
 	 * @since 2.3.0
 	 */
 	public function load_conditional_styles() {
-		$style_handles = apply_filters( 'gutenverse_conditional_style_handles', $this->style_list );
+		$style_handles = $this->style_list;
 		if ( ! is_array( $style_handles ) ) {
 			return;
 		}
