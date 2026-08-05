@@ -496,7 +496,7 @@ class Global_Variable {
 			return '';
 		}
 
-		return sanitize_title( (string) $value );
+		return (string) $value;
 	}
 
 	/**

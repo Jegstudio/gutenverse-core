@@ -19,7 +19,53 @@ class HOC_Frontend {
 	 * Constructor
 	 */
 	public function __construct() {
+		add_filter( 'gutenverse_background_slideshow', array( $this, 'background_slideshow_script' ), 10, 3 );
 		add_filter( 'gutenverse_video_background', array( $this, 'video_background_script' ), 10, 2 );
+	}
+
+	/**
+	 * Background slideshow script.
+	 *
+	 * @param string $output     Output HTML.
+	 * @param array  $attributes Block attributes.
+	 * @param string $element_id Element ID.
+	 * @return string
+	 */
+	public function background_slideshow_script( $output, $attributes, $element_id ) {
+		$background   = isset( $attributes['background'] ) ? $attributes['background'] : array();
+		$slide_images = isset( $background['slideImage'] ) ? $background['slideImage'] : array();
+
+		if ( empty( $slide_images ) || ! is_array( $slide_images ) ) {
+			return $output;
+		}
+
+		$output .= '<div class="bg-slideshow-container">';
+		$output .= '<div class="bg-slideshow-item">';
+
+		foreach ( $slide_images as $index => $image ) {
+			$image_url = '';
+			if ( isset( $image['image']['image'] ) && ! empty( $image['image']['image'] ) ) {
+				$image_url = $image['image']['image'];
+			}
+
+			$slide_class = $element_id . '-slideshow-image slideshow-image';
+			if ( 1 === $index ) {
+				$slide_class .= ' current';
+			} elseif ( 0 === $index ) {
+				$slide_class .= ' previous';
+			}
+
+			$style_attr = ! empty( $image_url ) ? ' style="background-image: url(' . esc_url( $image_url ) . ')"' : '';
+
+			$output .= '<div class="' . esc_attr( $element_id . '-child-slideshow slideshow-item-container item-' . $index ) . '">';
+			$output .= '<div class="' . esc_attr( $slide_class ) . '"' . $style_attr . '></div>';
+			$output .= '</div>';
+		}
+
+		$output .= '</div>';
+		$output .= '</div>';
+
+		return $output;
 	}
 
 	/**
