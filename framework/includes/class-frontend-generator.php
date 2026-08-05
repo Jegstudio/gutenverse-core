@@ -95,10 +95,14 @@ class Frontend_Generator {
 	 * @todo: Jangan akses instance style cache secara langsung.
 	 *
 	 * @param string $name Name of Style.
-	 * @param string $style Style Content.
+	 * @param string|null $style Style Content.
 	 * @param string $origin Origination of style.
 	 */
 	public function render_style( $name, $style, $origin ) {
+		if ( ! is_string( $style ) || '' === trim( $style ) ) {
+			return;
+		}
+
 		wp_add_inline_style( 'gutenverse-frontend-style', $style );
 	}
 
