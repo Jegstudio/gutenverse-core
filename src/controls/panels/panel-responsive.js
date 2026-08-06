@@ -1,8 +1,15 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl } from 'gutenverse-core/controls';
+import { AlertControl, CheckboxControl } from 'gutenverse-core/controls';
 
 export const responsivePanel = () => {
     return [
+        {
+            id: 'responsive-breakpoint-notice',
+            component: AlertControl,
+            children: <>
+                <span>{__('These display options follow the Responsive Breakpoints configured in the Gutenverse settings dashboard.', '--gctd--')}</span>
+            </>
+        },
         {
             id: 'hideDesktop',
             label: __('Hide on Desktop', '--gctd--'),
