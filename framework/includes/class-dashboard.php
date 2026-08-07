@@ -1091,13 +1091,18 @@ class Dashboard {
 			$settings_data['frontend_settings']['file_delete_mechanism'],
 			$settings_data['frontend_settings']['old_render_deletion_schedule'],
 			$settings_data['frontend_settings']['cache_id'],
-			$settings_data['frontend_settings']['unused_size']
+			$settings_data['frontend_settings']['unused_size'],
+			$settings_data['frontend_settings']['payload_cache_size'],
+			$settings_data['frontend_settings']['payload_cache_files']
 		);
 
-		$settings_data['frontend_settings']['legacy_cache_size'] = gutenverse_legacy_cache_file_size();
-		$config['settingsData']                                 = $settings_data;
-		$config['blockCategories']                              = Init::instance()->blocks->gutenverse_categories();
-		$config['uploadPath']                                   = $upload_path['basedir'];
+		$payload_cache_stats                                       = Init::instance()->frontend_cache->get_payload_cache_stats();
+		$settings_data['frontend_settings']['legacy_cache_size']   = gutenverse_legacy_cache_file_size();
+		$settings_data['frontend_settings']['payload_cache_size']  = $payload_cache_stats['size_label'];
+		$settings_data['frontend_settings']['payload_cache_files'] = $payload_cache_stats['files'];
+		$config['settingsData']                                    = $settings_data;
+		$config['blockCategories']                                 = Init::instance()->blocks->gutenverse_categories();
+		$config['uploadPath']                                      = $upload_path['basedir'];
 
 		return $config;
 	}

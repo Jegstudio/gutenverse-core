@@ -362,6 +362,16 @@ class Api {
 
 		register_rest_route(
 			self::ENDPOINT,
+			'settings/clear-payload-cache',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'clear_payload_cache_files' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
 			'freemius/checkout-tracking',
 			array(
 				'methods'             => 'POST',
@@ -517,6 +527,40 @@ class Api {
 					'removed_size'      => $removed_size,
 					'legacy_cache_size' => $legacy_size,
 					'unused_size'       => gutenverse_unused_cache_file_size(),
+				),
+				200
+			);
+		} catch ( \Throwable $th ) {
+			return new WP_REST_Response(
+				array(
+					'status'  => 'failed',
+					'message' => $th->getMessage(),
+				),
+				400
+			);
+		}
+	}
+
+	/**
+	 * Clear internal frontend payload cache files.
+	 *
+	 * @return WP_Rest
+	 */
+	public function clear_payload_cache_files() {
+		try {
+			$cache        = Init::instance()->frontend_cache;
+			$before_stats = $cache->get_payload_cache_stats();
+
+			$cache->clear_payload_cache();
+
+			$after_stats = $cache->get_payload_cache_stats();
+
+			return new WP_REST_Response(
+				array(
+					'status'              => 'success',
+					'removed_size'        => $before_stats['size_label'],
+					'payload_cache_size'  => $after_stats['size_label'],
+					'payload_cache_files' => $after_stats['files'],
 				),
 				200
 			);
@@ -1868,7 +1912,9 @@ class Api {
 			$setting['old_render_deletion_schedule'],
 			$setting['cache_id'],
 			$setting['unused_size'],
-			$setting['legacy_cache_size']
+			$setting['legacy_cache_size'],
+			$setting['payload_cache_size'],
+			$setting['payload_cache_files']
 		);
 
 		return $setting;

@@ -287,7 +287,8 @@
                         }
                     }
 
-                    .legacy-cache-cleanup {
+                    .legacy-cache-cleanup,
+                    .payload-cache-cleanup {
                         border-top: 1px solid #E3E4E6;
                         margin-top: 8px;
                         padding-top: 28px;

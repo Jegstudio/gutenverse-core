@@ -14,9 +14,12 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
         remove_template_part_margin = true,
         remove_wp_emoji_script = false,
         disable_wp_lazyload = true,
-        legacy_cache_size = '0 B'
+        legacy_cache_size = '0 B',
+        payload_cache_size = '0 B',
+        payload_cache_files = 0
     } = frontend_settings;
     const hasLegacyFiles = legacy_cache_size !== '0 B';
+    const hasPayloadFiles = payload_cache_size !== '0 B' || payload_cache_files > 0;
 
     const updateValue = (id, value) => {
         updateSettingValues('frontend_settings', id, value);
@@ -31,12 +34,20 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
         });
     };
 
+    const updatePayloadCacheInfo = (response) => {
+        updateValues('frontend_settings', {
+            ...frontend_settings,
+            payload_cache_size: response?.payload_cache_size || '0 B',
+            payload_cache_files: response?.payload_cache_files || 0
+        });
+    };
+
     const handleDeleteCache = () => {
         if (loading || !hasLegacyFiles) {
             return;
         }
 
-        setLoading('delete');
+        setLoading('legacy');
         apiFetch({
             path: 'gutenverse-client/v1/settings/remove-cache',
             method: 'GET',
@@ -54,6 +65,39 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
                 setToast({
                     status: 'failed',
                     message: 'Failed Removing Legacy Frontend Files'
+                });
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 2000);
+            }).finally(() => {
+                setTimeout(() => {
+                    setLoading('');
+                }, 1000);
+            });
+    };
+
+    const handleClearPayloadCache = () => {
+        if (loading || !hasPayloadFiles) {
+            return;
+        }
+
+        setLoading('payload');
+        apiFetch({
+            path: 'gutenverse-client/v1/settings/clear-payload-cache',
+            method: 'GET',
+        })
+            .then((response) => {
+                updatePayloadCacheInfo(response);
+                setToast({
+                    status: 'success',
+                    message: 'Removed ' + (response?.removed_size || payload_cache_size) + ' internal style cache'
+                });
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 2000);
+            })
+            .catch(() => {
+                setToast({
+                    status: 'failed',
+                    message: 'Failed Removing Internal Style Cache'
                 });
                 setShowToast(true);
                 setTimeout(() => setShowToast(false), 2000);
@@ -104,8 +148,29 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
                 <span>{__('Only clear these files after purging page cache or CDN cache. Cached pages may still reference old generated CSS URLs.', '--gctd--')}</span>
             </AlertControl>
             <div className="legacy-cache-cleanup-actions">
-                <div className={`gutenverse-button legacy-cache-cleanup-button ${loading === 'delete' ? 'loading' : ''} ${!hasLegacyFiles ? 'disabled' : ''}`} onClick={handleDeleteCache}>
-                    {loading === 'delete' ? __('Clearing...', '--gctd--') : hasLegacyFiles ? __('Clear Legacy Files', '--gctd--') : __('No Legacy Files', '--gctd--')}
+                <div className={`gutenverse-button legacy-cache-cleanup-button ${loading === 'legacy' ? 'loading' : ''} ${!hasLegacyFiles ? 'disabled' : ''}`} onClick={handleDeleteCache}>
+                    {loading === 'legacy' ? __('Clearing...', '--gctd--') : hasLegacyFiles ? __('Clear Legacy Files', '--gctd--') : __('No Legacy Files', '--gctd--')}
+                </div>
+            </div>
+        </div>
+        <div className="template-tab-body payload-cache-cleanup">
+            <div className="payload-cache-cleanup-header">
+                <div>
+                    <h2>{__('Internal Inline Style Cache', '--gctd--')}</h2>
+                    <p>{__('Stores generated inline style payloads so large pages do not need to rebuild block CSS on every request.', '--gctd--')}</p>
+                </div>
+                <div className="payload-cache-cleanup-size">
+                    <span>{__('Cache size', '--gctd--')}</span>
+                    <strong>{payload_cache_size}</strong>
+                    <span>{payload_cache_files + ' ' + __('files', '--gctd--')}</span>
+                </div>
+            </div>
+            <AlertControl type="warning">
+                <span>{__('Clearing this cache is safe. The next frontend request will regenerate the needed inline style payloads.', '--gctd--')}</span>
+            </AlertControl>
+            <div className="payload-cache-cleanup-actions">
+                <div className={`gutenverse-button payload-cache-cleanup-button ${loading === 'payload' ? 'loading' : ''} ${!hasPayloadFiles ? 'disabled' : ''}`} onClick={handleClearPayloadCache}>
+                    {loading === 'payload' ? __('Clearing...', '--gctd--') : hasPayloadFiles ? __('Clear Internal Cache', '--gctd--') : __('No Internal Cache', '--gctd--')}
                 </div>
             </div>
         </div>
