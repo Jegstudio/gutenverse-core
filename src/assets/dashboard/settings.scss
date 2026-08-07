@@ -338,6 +338,12 @@
                         }
 
                         &-button {
+                            align-items: center;
+                            box-sizing: border-box;
+                            display: inline-flex;
+                            justify-content: center;
+                            line-height: 1.2;
+                            text-align: center;
                             width: auto;
                             min-width: 160px;
                             padding: 11px 18px;
