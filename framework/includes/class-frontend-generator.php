@@ -81,15 +81,6 @@ class Frontend_Generator {
 	}
 
 	/**
-	 * Get render mechanism.
-	 *
-	 * @return string
-	 */
-	public function get_render_mechanism() {
-		return apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
-	}
-
-	/**
 	 * Render Style on Style.
 	 *
 	 * @todo: Jangan akses instance style cache secara langsung.

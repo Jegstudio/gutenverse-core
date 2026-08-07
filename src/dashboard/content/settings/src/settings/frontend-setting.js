@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ControlSelect, ControlCheckbox } from 'gutenverse-core/backend';
+import { ControlCheckbox } from 'gutenverse-core/backend';
 import { AlertControl } from 'gutenverse-core/controls';
 import apiFetch from '@wordpress/api-fetch';
 import { useState } from '@wordpress/element';
@@ -11,33 +11,28 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
 
     const [loading, setLoading] = useState('');
     const {
-        renderSchedule
-    } = window['GutenverseSettings'];
-    const {
-        render_mechanism = 'file',
-        old_render_deletion_schedule = 'daily',
         remove_template_part_margin = true,
         remove_wp_emoji_script = false,
         disable_wp_lazyload = true,
-        file_delete_mechanism = 'manual',
-        unused_size = '0 B',
-        cache_id = 'initial-cache'
+        legacy_cache_size = '0 B'
     } = frontend_settings;
+    const hasLegacyFiles = legacy_cache_size !== '0 B';
 
     const updateValue = (id, value) => {
         updateSettingValues('frontend_settings', id, value);
     };
 
-    const updateCacheInfo = ({ cache_id, unused_size }) => {
+    const updateLegacyCacheInfo = (response) => {
+        const nextSize = response?.legacy_cache_size || response?.unused_size;
+
         updateValues('frontend_settings', {
             ...frontend_settings,
-            ...(cache_id ? { cache_id } : {}),
-            ...(unused_size ? { unused_size } : {})
+            ...(nextSize ? { legacy_cache_size: nextSize } : {})
         });
     };
 
     const handleDeleteCache = () => {
-        if (loading) {
+        if (loading || !hasLegacyFiles) {
             return;
         }
 
@@ -47,10 +42,10 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
             method: 'GET',
         })
             .then((response) => {
-                updateCacheInfo(response);
+                updateLegacyCacheInfo(response);
                 setToast({
                     status: 'success',
-                    message: 'You successfully freed ' + (response?.removed_size || unused_size) + ' cache files'
+                    message: 'Removed ' + (response?.removed_size || legacy_cache_size) + ' legacy frontend files'
                 });
                 setShowToast(true);
                 setTimeout(() => setShowToast(false), 2000);
@@ -58,40 +53,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
             .catch(() => {
                 setToast({
                     status: 'failed',
-                    message: 'Failed Removing Cache Files'
-                });
-                setShowToast(true);
-                setTimeout(() => setShowToast(false), 2000);
-            }).finally(() => {
-                setTimeout(() => {
-                    setLoading('');
-                }, 1000);
-            });
-    };
-
-    const handleResetCacheId = () => {
-        if (loading) {
-            return;
-        }
-
-        setLoading('reset');
-        apiFetch({
-            path: 'gutenverse-client/v1/settings/reset-cache-id',
-            method: 'POST',
-        })
-            .then((response) => {
-                updateCacheInfo(response);
-                setToast({
-                    status: 'success',
-                    message: 'Cache ID reset successfully'
-                });
-                setShowToast(true);
-                setTimeout(() => setShowToast(false), 2000);
-            })
-            .catch(() => {
-                setToast({
-                    status: 'failed',
-                    message: 'Failed Resetting Cache ID'
+                    message: 'Failed Removing Legacy Frontend Files'
                 });
                 setShowToast(true);
                 setTimeout(() => setShowToast(false), 2000);
@@ -126,6 +88,26 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
                 value={remove_wp_emoji_script}
                 updateValue={updateValue}
             />
+        </div>
+        <div className="template-tab-body legacy-cache-cleanup">
+            <div className="legacy-cache-cleanup-header">
+                <div>
+                    <h2>{__('Legacy Generated Frontend Files', '--gctd--')}</h2>
+                    <p>{__('Remove old generated CSS files after your page cache has been purged.', '--gctd--')}</p>
+                </div>
+                <div className="legacy-cache-cleanup-size">
+                    <span>{__('Legacy size', '--gctd--')}</span>
+                    <strong>{legacy_cache_size}</strong>
+                </div>
+            </div>
+            <AlertControl type="warning">
+                <span>{__('Only clear these files after purging page cache or CDN cache. Cached pages may still reference old generated CSS URLs.', '--gctd--')}</span>
+            </AlertControl>
+            <div className="legacy-cache-cleanup-actions">
+                <div className={`gutenverse-button legacy-cache-cleanup-button ${loading === 'delete' ? 'loading' : ''} ${!hasLegacyFiles ? 'disabled' : ''}`} onClick={handleDeleteCache}>
+                    {loading === 'delete' ? __('Clearing...', '--gctd--') : hasLegacyFiles ? __('Clear Legacy Files', '--gctd--') : __('No Legacy Files', '--gctd--')}
+                </div>
+            </div>
         </div>
         <div className="actions">
             {saving ? <div className="gutenverse-button">

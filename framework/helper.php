@@ -2037,15 +2037,15 @@ if ( ! function_exists( 'gutenverse_home_url_multilang' ) ) {
 	}
 }
 
-if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
+if ( ! function_exists( 'gutenverse_generated_cache_file_size' ) ) {
 	/**
-	 * Method gutenverse_unused_cache_file_size
+	 * Method gutenverse_generated_cache_file_size
 	 *
+	 * @param string|false $cache_id Cache ID to preserve.
 	 * @return string
 	 */
-	function gutenverse_unused_cache_file_size() {
-		$cache_id = get_option( 'gutenverse-style-cache-id', 'initial-cache' );
-		$paths    = array(
+	function gutenverse_generated_cache_file_size( $cache_id = false ) {
+		$paths = array(
 			gutenverse_css_path(),
 			gutenverse_conditional_path(),
 			gutenverse_preload_assets_path(),
@@ -2064,7 +2064,7 @@ if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
 				foreach ( $files as $cf ) {
 					if ( is_file( $cf ) ) {
 						$filename = basename( $cf );
-						if ( false === strpos( $filename, $cache_id ) ) {
+						if ( ! $cache_id || false === strpos( $filename, $cache_id ) ) {
 							$total_in_bytes += filesize( $cf );
 						}
 					}
@@ -2073,5 +2073,29 @@ if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
 		}
 
 		return size_format( $total_in_bytes );
+	}
+}
+
+if ( ! function_exists( 'gutenverse_legacy_cache_file_size' ) ) {
+	/**
+	 * Method gutenverse_legacy_cache_file_size
+	 *
+	 * @return string
+	 */
+	function gutenverse_legacy_cache_file_size() {
+		return gutenverse_generated_cache_file_size();
+	}
+}
+
+if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
+	/**
+	 * Method gutenverse_unused_cache_file_size
+	 *
+	 * @return string
+	 */
+	function gutenverse_unused_cache_file_size() {
+		$cache_id = get_option( 'gutenverse-style-cache-id', 'initial-cache' );
+
+		return gutenverse_generated_cache_file_size( $cache_id );
 	}
 }

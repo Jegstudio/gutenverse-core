@@ -362,16 +362,6 @@ class Api {
 
 		register_rest_route(
 			self::ENDPOINT,
-			'settings/reset-cache-id',
-			array(
-				'methods'             => 'POST',
-				'callback'            => array( $this, 'reset_cache_id' ),
-				'permission_callback' => 'gutenverse_permission_check_admin',
-			)
-		);
-
-		register_rest_route(
-			self::ENDPOINT,
 			'freemius/checkout-tracking',
 			array(
 				'methods'             => 'POST',
@@ -517,48 +507,16 @@ class Api {
 	 */
 	public function remove_cache_files() {
 		try {
-			$options = get_option( 'gutenverse-settings' );
-
-			if ( ! isset( $options['frontend_settings']['file_delete_mechanism'] ) || 'manual' === $options['frontend_settings']['file_delete_mechanism'] ) {
-				$removed_size = gutenverse_unused_cache_file_size();
-				Init::instance()->frontend_cache->cleanup_cached_style();
-				return new WP_REST_Response(
-					array(
-						'status'       => 'success',
-						'removed_size' => $removed_size,
-						'cache_id'     => Init::instance()->frontend_cache->get_style_cache_id(),
-						'unused_size'  => gutenverse_unused_cache_file_size(),
-					),
-					200
-				);
-			} else {
-				throw new Exception( 'Failed Request: Can Only used if Manual Deletion is Manual', 1 );
-			}
-		} catch ( \Throwable $th ) {
-			return new WP_REST_Response(
-				array(
-					'status'  => 'failed',
-					'message' => $th->getMessage(),
-				),
-				400
-			);
-		}
-	}
-
-	/**
-	 * Reset Frontend Cache ID.
-	 *
-	 * @return WP_REST_Response
-	 */
-	public function reset_cache_id() {
-		try {
-			Init::instance()->frontend_cache->generate_style_cache_id();
+			$removed_size = gutenverse_legacy_cache_file_size();
+			Init::instance()->frontend_cache->cleanup_legacy_files();
+			$legacy_size = gutenverse_legacy_cache_file_size();
 
 			return new WP_REST_Response(
 				array(
-					'status'      => 'success',
-					'cache_id'    => Init::instance()->frontend_cache->get_style_cache_id(),
-					'unused_size' => gutenverse_unused_cache_file_size(),
+					'status'            => 'success',
+					'removed_size'      => $removed_size,
+					'legacy_cache_size' => $legacy_size,
+					'unused_size'       => gutenverse_unused_cache_file_size(),
 				),
 				200
 			);
@@ -1893,6 +1851,30 @@ class Api {
 	}
 
 	/**
+	 * Remove legacy frontend file-cache settings.
+	 *
+	 * @param array $setting Frontend settings.
+	 *
+	 * @return array
+	 */
+	private function remove_legacy_frontend_file_cache_settings( $setting ) {
+		if ( ! is_array( $setting ) ) {
+			return $setting;
+		}
+
+		unset(
+			$setting['render_mechanism'],
+			$setting['file_delete_mechanism'],
+			$setting['old_render_deletion_schedule'],
+			$setting['cache_id'],
+			$setting['unused_size'],
+			$setting['legacy_cache_size']
+		);
+
+		return $setting;
+	}
+
+	/**
 	 * Modify Settings
 	 *
 	 * @param object $request .
@@ -1913,6 +1895,11 @@ class Api {
 			$upload_dir  = wp_upload_dir();
 			$upload_path = $upload_dir['basedir'];
 			foreach ( $data as $key => $setting ) {
+				if ( 'frontend_settings' === $key ) {
+					$setting = $this->remove_legacy_frontend_file_cache_settings( $setting );
+					gutenverse_delete_sceduler( 'gutenverse_cleanup_cached_style' );
+				}
+
 				$value[ $key ] = $setting;
 				if ( 'custom_font' === $key ) {
 					foreach ( $data['custom_font']['value'] as $v ) {
@@ -1954,9 +1941,6 @@ class Api {
 						}
 						$wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE );
 					}
-				}
-				if ( 'frontend_settings' === $key ) {
-					gutenverse_delete_sceduler( 'gutenverse_cleanup_cached_style' );
 				}
 			}
 			if ( ! isset( $option ) ) {

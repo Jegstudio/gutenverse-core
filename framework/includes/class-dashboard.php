@@ -1080,13 +1080,24 @@ class Dashboard {
 
 		$config = array();
 
-		$settings_data                                     = apply_filters( 'gutenverse_settings_data', get_option( 'gutenverse-settings', array() ) );
-		$settings_data['frontend_settings']['unused_size'] = gutenverse_unused_cache_file_size();
-		$settings_data['frontend_settings']['cache_id']    = Init::instance()->frontend_cache->get_style_cache_id();
-		$config['settingsData']                            = $settings_data;
-		$config['blockCategories']                         = Init::instance()->blocks->gutenverse_categories();
-		$config['uploadPath']                              = $upload_path['basedir'];
-		$config['renderSchedule']                          = gmdate( 'Y-m-d H:i:s', wp_next_scheduled( 'gutenverse_cleanup_cached_style' ) );
+		$settings_data = apply_filters( 'gutenverse_settings_data', get_option( 'gutenverse-settings', array() ) );
+
+		if ( ! isset( $settings_data['frontend_settings'] ) || ! is_array( $settings_data['frontend_settings'] ) ) {
+			$settings_data['frontend_settings'] = array();
+		}
+
+		unset(
+			$settings_data['frontend_settings']['render_mechanism'],
+			$settings_data['frontend_settings']['file_delete_mechanism'],
+			$settings_data['frontend_settings']['old_render_deletion_schedule'],
+			$settings_data['frontend_settings']['cache_id'],
+			$settings_data['frontend_settings']['unused_size']
+		);
+
+		$settings_data['frontend_settings']['legacy_cache_size'] = gutenverse_legacy_cache_file_size();
+		$config['settingsData']                                 = $settings_data;
+		$config['blockCategories']                              = Init::instance()->blocks->gutenverse_categories();
+		$config['uploadPath']                                   = $upload_path['basedir'];
 
 		return $config;
 	}
