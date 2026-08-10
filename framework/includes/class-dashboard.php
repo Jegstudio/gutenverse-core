@@ -236,6 +236,10 @@ class Dashboard {
 				'plugin_list' => apply_filters( 'gutenverse_companion_plugin_list', array() ),
 				'action_url'  => admin_url( 'plugins.php' ),
 			),
+			'gutenverse-core-render-mechanism-notice-3-0-0' => array(
+				'show'      => version_compare( GUTENVERSE_FRAMEWORK_VERSION, '3.0.0', '>=' ),
+				'actionUrl' => esc_url_raw( admin_url( 'admin.php?page=gutenverse&path=settings&settings=frontend' ) ),
+			),
 		);
 
 		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'gutenverse' === $_GET['page'] ) {

@@ -341,6 +341,37 @@ addFilter(
     'gutenverse/notification/list',
     (list) => {
         const { assetURL, noticeActions } = window['GutenverseDashboard'];
+        const noticeAction = noticeActions['gutenverse-core-render-mechanism-notice-3-0-0'];
+
+        const notice = {
+            id: 'gutenverse-core-render-mechanism-notice-3-0-0',
+            show: noticeAction?.show,
+            content: <div className="gutenverse-notification">
+                <div className="gutenverse-notification-icon">
+                    <img src={`${assetURL}/icon/icon-notice-gutenverse.svg`} />
+                </div>
+                <div className="gutenverse-notification-inner">
+                    <h3>{__('Frontend render mechanism changed', '--gctd--')}</h3>
+                    <p>{__('Gutenverse now stores generated inline style payloads in an internal cache so large pages do not need to rebuild block CSS on every request. To clear the cache, open Frontend Settings.', '--gctd--')}</p>
+                    <div className="gutenverse-notification-action">
+                        <a className="guten-button guten-primary" href={noticeAction?.actionUrl}>{__('Open Frontend Settings', '--gctd--')}</a>
+                    </div>
+                </div>
+            </div>
+        };
+
+        return [
+            ...list,
+            notice
+        ];
+    }
+);
+
+addFilter(
+    'gutenverse.notification.list',
+    'gutenverse/notification/list',
+    (list) => {
+        const { assetURL, noticeActions } = window['GutenverseDashboard'];
 
         const notice = {
             id: 'gutenverse-core-notice-mismatch-version',
