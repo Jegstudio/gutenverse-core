@@ -282,6 +282,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			'qCategory',
 			'qTag',
 			'qAuthor',
+			'currentBlogId',
 		);
 
 		$accepted = apply_filters( 'gutenverse_accept_query_attribute', $accepted, $attr );
@@ -763,6 +764,10 @@ abstract class Post_Abstract extends Block_Abstract {
 
 			$attr['paged'] = 1;
 			$attr['class'] = isset( $this->id ) ? $this->id : null;
+
+			if ( is_multisite() ) {
+				$attr['currentBlogId'] = get_current_blog_id();
+			}
 
 			return htmlspecialchars( wp_json_encode( $attr ), ENT_QUOTES, 'UTF-8' );
 		}
