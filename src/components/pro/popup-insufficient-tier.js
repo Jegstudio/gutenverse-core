@@ -2,7 +2,6 @@ import { EscListener } from 'gutenverse-core/components';
 import { IconCloseSVG } from 'gutenverse-core/icons';
 import { useRef, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { getUpgradeProps } from '../../helper/freemius';
 import apiFetch from '@wordpress/api-fetch';
 
 const PopupInsufficientTier = ({
@@ -10,7 +9,7 @@ const PopupInsufficientTier = ({
     setActive,
     description
 }) => {
-    const { imgDir, upgradeProUrl } = window['GutenverseDashboard'];
+    const { imgDir } = window['GutenverseDashboard'];
     const popupRef = useRef(null);
 
     useEffect(() => {
@@ -50,7 +49,7 @@ const PopupInsufficientTier = ({
     const normalizeBaseUrl = (url = '') => `${url}`.replace(/\/+$/, '');
 
     const fetchUpgradeLicenseId = () => {
-        const { licenseKey, domain } = getLicenseVerifyRequestData();
+        const { licenseKey } = getLicenseVerifyRequestData();
 
         if (!licenseKey) {
             throw new Error(__('Active license key is not available on this site.', 'gutenverse-pro'));
