@@ -13,9 +13,6 @@
 // Animation CSS
 @import "animation";
 
-// Responsive
-@import "./responsive/responsive-frontend";
-
 // Overwrite themes
 @import "themes";
 
@@ -54,22 +51,4 @@
 .guten-element-hide[class^="__desktop-"],
 .guten-element-hide[class*=" __desktop-"] {
 	visibility: hidden;
-}
-
-@media (max-width: 780px) {
-	.guten-element-hide[class^="tablet-"],
-	.guten-element-hide[class*=" tablet-"],
-	.guten-element-hide[class^="__tablet-"],
-	.guten-element-hide[class*=" __tablet-"] {
-		visibility: hidden;
-	}
-}
-
-@media (max-width: 425px) {
-	.guten-element-hide[class^="mobile-"],
-	.guten-element-hide[class*=" mobile-"],
-	.guten-element-hide[class^="__mobile-"],
-	.guten-element-hide[class*=" __mobile-"] {
-		visibility: hidden;
-	}
 }
