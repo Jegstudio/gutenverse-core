@@ -1930,8 +1930,8 @@ class Api {
 
 		do_action( 'gutenverse_before_modify_settings', $data );
 
-		if ( array_key_exists( 'gvnews_settings', $data ) ) {
-			update_option( 'gvnews_settings', $data['gvnews_settings'], false );
+		if ( array_key_exists( 'jnews_blocks_settings', $data ) ) {
+			update_option( 'jnews_blocks_settings', $data['jnews_blocks_settings'], false );
 		} else {
 			global $wp_filesystem;
 			require_once ABSPATH . 'wp-admin/includes/file.php';
