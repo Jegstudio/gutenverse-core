@@ -14,9 +14,10 @@ export const getPluginTabs = (settingValues) => {
             pro: false,
         },
     }, settingValues);
+    const normalizedActivePlugins = activePlugins.map(plugin => plugin === 'jnews-blocks' ? 'gutenverse-news': plugin);
 
     return Object.fromEntries(
-        Object.entries(pluginTabs).filter(([key]) => activePlugins.includes('gutenverse-' + key))
+        Object.entries(pluginTabs).filter(([key]) => normalizedActivePlugins.includes('gutenverse-' + key))
     );
 };
 
