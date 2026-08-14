@@ -37,7 +37,14 @@ class Wrapper extends Block_Abstract {
 	 */
 	public function render_frontend() {
 		if ( ! empty( trim( $this->block_data->inner_html ) ) && apply_filters( 'gutenverse_force_dynamic', false ) ) {
-			return $this->content;
+			$background    = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
+			$block_content = $this->content;
+			$block_content = $this->featured_image_background_fallback(
+				$background,
+				".{$this->get_element_id()}:not(.background-animated), .{$this->get_element_id()}.background-animated > .guten-background-animated .animated-layer",
+				$block_content
+			);
+			return $block_content;
 		}
 
 		// Snapshot attributes before rendering inner blocks, since this class is a singleton

@@ -246,6 +246,33 @@ abstract class Block_Abstract {
 	}
 
 	/**
+	 * Prepend featured-image background CSS when frontend rendering falls back to saved content.
+	 *
+	 * @param array  $background Background attributes.
+	 * @param string $selector   CSS selector to target.
+	 * @param string $content    Saved block content.
+	 *
+	 * @return string
+	 */
+	protected function featured_image_background_fallback( $background, $selector, $content ) {
+		if ( ! is_string( $content ) ) {
+			return $content;
+		}
+
+		if ( '' === trim( $content ) ) {
+			return $content;
+		}
+
+		$featured_bg_style = $this->render_featured_image_background_style( $background, $selector );
+
+		if ( empty( $featured_bg_style ) ) {
+			return $content;
+		}
+
+		return $featured_bg_style . $content;
+	}
+
+	/**
 	 * Check truthy value
 	 *
 	 * @param boolean|string $attribute .
