@@ -171,11 +171,15 @@ class Init {
 	 * Initialize Hook
 	 */
 	public function init_hook() {
-		// actions.
-		add_action( 'admin_enqueue_scripts', array( $this, 'notice_install_plugin_script' ) );
+		// Admin-only actions.
+		if ( is_admin() ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'notice_install_plugin_script' ) );
+			add_action( 'admin_init', array( $this, 'redirect_to_dashboard' ) );
+		}
+
+		// Actions used outside wp-admin.
 		add_action( 'rest_api_init', array( $this, 'init_api' ) );
 		add_action( 'activated_plugin', array( $this, 'flush_rewrite_rules' ) );
-		add_action( 'admin_init', array( $this, 'redirect_to_dashboard' ) );
 		add_action( 'customize_register', '__return_true' );
 		add_action( 'template_redirect', array( $this, 'remove_doing_wp_cron_param' ) );
 		add_action( 'wp_footer', array( $this, 'run_wp_cron_from_footer' ) );
@@ -195,7 +199,10 @@ class Init {
 		 * Now these functions will be called directly.
 		 */
 		$this->register_menu_position();
-		$this->import_mechanism();
+
+		if ( is_admin() ) {
+			$this->import_mechanism();
+		}
 	}
 
 	/**
@@ -208,14 +215,14 @@ class Init {
 	 * @return array
 	 */
 	public function remove_fetchpriority_high( $loading_attrs, $tag_name, $attr ) {
-		// Only affect img tags
-        if ( 'img' !== $tag_name ) {
-            return $loading_attrs;
-        }
-		// Only if the fetchpriority not set and wordpress try to set it
-        if ( ! isset( $attr['fetchpriority'] ) && isset( $loading_attrs['fetchpriority'] ) ) {
-            unset( $loading_attrs['fetchpriority'] );
-        }
+		// Only affect img tags.
+		if ( 'img' !== $tag_name ) {
+			return $loading_attrs;
+		}
+		// Only if the fetchpriority not set and WordPress try to set it.
+		if ( ! isset( $attr['fetchpriority'] ) && isset( $loading_attrs['fetchpriority'] ) ) {
+			unset( $loading_attrs['fetchpriority'] );
+		}
 		return $loading_attrs;
 	}
 
@@ -321,17 +328,24 @@ class Init {
 	 * Initialize Classes
 	 */
 	public function init_class() {
-		$this->assets           = new Assets();
-		$this->dashboard        = new Dashboard();
-		$this->theme_helper     = new Theme_Helper();
-		$this->blocks           = new Blocks();
-		$this->frontend_assets  = new Frontend_Assets();
-		$this->editor_assets    = new Editor_Assets();
-		$this->frontend_toolbar = new Frontend_Toolbar();
-		$this->global_variable  = new Global_Variable();
-		$this->upgrader         = new Upgrader();
-		$this->meta_option      = Meta_Option::instance();
-		$this->nonce_generator  = NonceGenerator::instance();
+		$this->assets          = new Assets();
+		$this->theme_helper    = new Theme_Helper();
+		$this->blocks          = new Blocks();
+		$this->frontend_assets = new Frontend_Assets();
+		$this->global_variable = new Global_Variable();
+		$this->meta_option     = Meta_Option::instance();
+		$this->nonce_generator = NonceGenerator::instance();
+
+		if ( is_user_logged_in() ) {
+			$this->frontend_toolbar = new Frontend_Toolbar();
+		}
+
+		// These classes only register wp-admin hooks and do not need to run on public requests.
+		if ( is_admin() ) {
+			$this->dashboard     = new Dashboard();
+			$this->editor_assets = new Editor_Assets();
+			$this->upgrader      = new Upgrader();
+		}
 
 		/**
 		 * Load the renamed variables and add fallback for old variables, in case there is function still using them
