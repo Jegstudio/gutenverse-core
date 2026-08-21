@@ -4,7 +4,8 @@
 @import "@wordpress/components/src/snackbar/style.scss";
 @import "./controls/variable";
 
-#gutenverse-dashboard {
+#gutenverse-dashboard,
+#jnews-blocks-dashboard {
 	--gutenverse-dashboard-border: #e3e4e6;
 	--gutenverse-dashboard-primary: #3b57f7;
 }
@@ -35,7 +36,8 @@ $border: #eaeaea;
 	overflow: hidden;
 }
 
-#gutenverse-dashboard {
+#gutenverse-dashboard,
+#jnews-blocks-dashboard {
 	margin: 0 auto;
 	max-width: 1180px;
 	padding: 0 20px;
@@ -769,7 +771,8 @@ $border: #eaeaea;
 }
 
 @media only screen and (max-width: 1200px) {
-	#gutenverse-dashboard {
+	#gutenverse-dashboard,
+	#jnews-blocks-dashboard {
 		.navigation-wrapper {
 			flex-wrap: wrap;
 			justify-content: center;
@@ -799,7 +802,8 @@ $border: #eaeaea;
 }
 
 @media only screen and (max-width: 1090px) {
-	#gutenverse-dashboard {
+	#gutenverse-dashboard,
+	#jnews-blocks-dashboard {
 		.navigation-wrapper {
 			column-gap: 0;
 			justify-content: space-between !important;
@@ -834,7 +838,8 @@ $border: #eaeaea;
 }
 
 @media only screen and (max-width: 800px) {
-	#gutenverse-dashboard {
+	#gutenverse-dashboard,
+	#jnews-blocks-dashboard {
 		.navigation-wrapper {
 			column-gap: 0;
 			padding-bottom: 20px;
@@ -872,7 +877,8 @@ $border: #eaeaea;
 }
 
 @media (max-width: 765px) {
-	#gutenverse-dashboard {
+	#gutenverse-dashboard,
+	#jnews-blocks-dashboard {
 		.content-wrapper {
 			.dashboard-content {
 				.content-header {
@@ -890,7 +896,8 @@ $border: #eaeaea;
 }
 
 @media (max-width: 425px) {
-	#gutenverse-dashboard {
+	#gutenverse-dashboard,
+	#jnews-blocks-dashboard {
 		.navigation-wrapper {
 			.dashboard-notifications {
 				width: 360px;

@@ -1136,6 +1136,7 @@ class Dashboard {
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-logo-dashboard.svg',
 			30
 		);
+		do_action( 'gutenverse_parent_menu' );
 	}
 
 	/**
@@ -1230,6 +1231,8 @@ class Dashboard {
 				9999
 			);
 		}
+
+		do_action( 'gutenverse_child_menu' );
 	}
 
 	/**

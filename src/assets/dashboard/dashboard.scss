@@ -1,4 +1,5 @@
-.toplevel_page_gutenverse {
+.toplevel_page_gutenverse,
+.toplevel_page_jnews-blocks {
     #wpcontent {
         padding: 0;
     }
@@ -20,7 +21,8 @@
     }
 }
 
-#gutenverse-dashboard {
+#gutenverse-dashboard,
+#jnews-blocks-dashboard {
     a {
         &:focus {
             box-shadow: none;
@@ -741,7 +743,8 @@
 }
 
 @media (max-width: 1200px) {
-    #gutenverse-dashboard {
+    #gutenverse-dashboard,
+    #jnews-blocks-dashboard {
         .content-wrapper.dashboard {
             .dashboard-content {
                 flex-wrap: wrap;
@@ -774,7 +777,8 @@
 }
 
 @media only screen and (max-width: 1024px) {
-    #gutenverse-dashboard {
+    #gutenverse-dashboard,
+    #jnews-blocks-dashboard {
         .plugin-item {
             gap: 20px;
             justify-content: start;
@@ -862,7 +866,8 @@
 }
 
 @media only screen and (max-width: 767px) {
-    #gutenverse-dashboard {
+    #gutenverse-dashboard,
+    #jnews-blocks-dashboard {
         .plugin-item {
             flex-direction: column;
             margin: 0;
@@ -1023,7 +1028,8 @@
 }
 
 @media (max-width: 765px) {
-    #gutenverse-dashboard {
+    #gutenverse-dashboard,
+    #jnews-blocks-dashboard {
         .panel-wrapper {
             .plugins {
                 .plugin-list {
@@ -1108,11 +1114,13 @@
     }
 }
 
-body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.theme-upgrade-notice) {
+body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.theme-upgrade-notice),
+body.toplevel_page_jnews-blocks .notice:not(.gutenverse-notice):not(.theme-upgrade-notice) {
     display: none;
 }
 
-.notice.notice-info:has(+ #gutenverse-dashboard) {
+.notice.notice-info:has(+ #gutenverse-dashboard),
+.notice.notice-info:has(+ #jnews-blocks-dashboard) {
     margin-bottom: 30px;
 }
 
@@ -1351,7 +1359,8 @@ body.toplevel_page_gutenverse-dashboard .notice:not(.gutenverse-notice):not(.the
     }
 }
 
-.notice~#gutenverse-dashboard .navigation-wrapper {
+.notice~#gutenverse-dashboard .navigation-wrapper,
+.notice~#jnews-blocks-dashboard .navigation-wrapper {
     border-radius: 5px !important;
 }
 

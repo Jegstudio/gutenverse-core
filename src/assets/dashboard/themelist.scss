@@ -1,4 +1,5 @@
-#gutenverse-dashboard {
+#gutenverse-dashboard,
+#jnews-blocks-dashboard {
 
     .sizer-element {
         width: 8.33333%;
@@ -1058,7 +1059,8 @@ body.gutenverse_page_gutenverse-theme-list .notice:not(.gutenverse-notice):not(.
 }
 
 @media only screen and (max-width: 765px) {
-    #gutenverse-dashboard .content-header .search-box {
+    #gutenverse-dashboard .content-header .search-box,
+    #jnews-blocks-dashboard .content-header .search-box {
         width: 100%;
         min-width: 0;
     }

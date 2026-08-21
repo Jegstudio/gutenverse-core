@@ -1,7 +1,8 @@
 @import "settings-control.scss";
 @import "settings/additional-features.scss";
 
-#gutenverse-dashboard {
+#gutenverse-dashboard,
+#jnews-blocks-dashboard {
     .content-wrapper.settings {
         padding: 0;
         background-color: none;
@@ -158,9 +159,10 @@
                 }
 
                 &.general {
-                    padding-bottom: 24px;
-                    border-bottom: 1px solid #E3E4E6;
-
+                    &:not(:last-child) {
+                        padding-bottom: 24px;
+                        border-bottom: 1px solid #E3E4E6;
+                    }
                 }
 
                 .nav-wrapper {
@@ -221,7 +223,7 @@
                     }
                 }
 
-                .pro-label {
+                // .pro-label {
                     // background-color: #e32d64;
                     // color: #fff;
                     // font-size: 9px;
@@ -231,7 +233,7 @@
                     // position: absolute;
                     // top: -1px;
                     // transform: rotate(-40deg) translate(-9px, -13px);
-                }
+                // }
             }
         }
 
@@ -554,8 +556,13 @@
     }
 }
 
-#gutenverse-dashboard .dashboard-content .block_settings .template-tab-body>.control-wrapper.control-select {
+#gutenverse-dashboard .dashboard-content .block_settings .template-tab-body>.control-wrapper.control-select,
+#jnews-blocks-dashboard .dashboard-content .block_settings .template-tab-body>.control-wrapper.control-select {
     padding-top: 0 !important;
+}
+
+#jnews-blocks-dashboard .dashboard-content .block_settings .control-wrapper {
+    padding: 20px 0;
 }
 
 .repeater-body .gutenverse-control-wrapper.gutenverse-control-alert .control-body {
@@ -667,7 +674,8 @@ body.gutenverse_page_gutenverse-settings .notice:not(.gutenverse-notice):not(.th
 }
 
 @media (max-width: 765px) {
-    #gutenverse-dashboard {
+    #gutenverse-dashboard,
+    #jnews-blocks-dashboard {
         .content-wrapper {
             .dashboard-content {
                 .content-body {

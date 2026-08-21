@@ -1,4 +1,5 @@
-#gutenverse-dashboard {
+#gutenverse-dashboard,
+#jnews-blocks-dashboard {
 
     .sizer-element {
         width: 8.33333%;
@@ -701,7 +702,8 @@ body.gutenverse_page_gutenverse-ecosystem-list .notice:not(.gutenverse-notice):n
 
 
 @media only screen and (max-width: 1150px) {
-    #gutenverse-dashboard .plugin-item {
+    #gutenverse-dashboard .plugin-item,
+    #jnews-blocks-dashboard .plugin-item {
         .plugin-description {
             font-size: 12px;
         }
@@ -709,7 +711,8 @@ body.gutenverse_page_gutenverse-ecosystem-list .notice:not(.gutenverse-notice):n
 }
 
 @media only screen and (min-width: 1000px) and (max-width: 1200px) {
-    #gutenverse-dashboard .plugin-item {
+    #gutenverse-dashboard .plugin-item,
+    #jnews-blocks-dashboard .plugin-item {
         flex-wrap: wrap;
 
         .details {
@@ -724,7 +727,8 @@ body.gutenverse_page_gutenverse-ecosystem-list .notice:not(.gutenverse-notice):n
 }
 
 @media only screen and (max-width: 1000px) {
-    #gutenverse-dashboard .plugin-item {
+    #gutenverse-dashboard .plugin-item,
+    #jnews-blocks-dashboard .plugin-item {
         flex: 100%
     }
 }

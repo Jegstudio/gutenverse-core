@@ -1,9 +1,11 @@
-#gutenverse-dashboard .content-wrapper .dashboard-content .additional_features .gutenverse-button {
-    padding: 12px 22px;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
-    text-align: center;
+#gutenverse-dashboard, #jnews-blocks-dashboard {
+    .content-wrapper .dashboard-content .additional_features .gutenverse-button {
+        padding: 12px 22px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        text-align: center;
+    }
 }
 
 .dashboard-content .setting-tabs .settings-tab-body-wrapper .settings-tab-body.additional_features {
