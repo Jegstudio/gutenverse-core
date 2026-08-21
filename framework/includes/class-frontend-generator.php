@@ -109,7 +109,7 @@ class Frontend_Generator {
 			return;
 		}
 
-		wp_add_inline_style( 'gutenverse-frontend-style', $is_minified ? $style : $this->minify_inline_css( $style ) );
+		wp_add_inline_style( 'gutenverse-dynamic-frontend-style', $is_minified ? $style : $this->minify_inline_css( $style ) );
 	}
 
 	/**
