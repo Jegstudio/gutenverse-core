@@ -708,6 +708,35 @@ if ( ! function_exists( 'gutenverse_print_html' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_allowlist_tag' ) ) {
+	/**
+	 * Sanitize a dynamic HTML tag name against an allowlist.
+	 *
+	 * @param string       $tag          Requested tag name.
+	 * @param string       $default_tag  Fallback tag when the requested tag is not allowed.
+	 * @param array|string $allowed_tags Optional explicit allowlist.
+	 *
+	 * @return string
+	 */
+	function gutenverse_allowlist_tag( $tag, $default_tag = 'p', $allowed_tags = array() ) {
+		$default_allowed_tags = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'span' );
+		$allowed_tags         = ! empty( $allowed_tags ) && is_array( $allowed_tags ) ? $allowed_tags : $default_allowed_tags;
+		$normalized_tag       = strtolower( trim( (string) $tag ) );
+		$normalized_default   = strtolower( trim( (string) $default_tag ) );
+		$normalized_allowed   = array_map( 'strtolower', array_map( 'strval', $allowed_tags ) );
+
+		if ( in_array( $normalized_tag, $normalized_allowed, true ) ) {
+			return $normalized_tag;
+		}
+
+		if ( in_array( $normalized_default, $normalized_allowed, true ) ) {
+			return $normalized_default;
+		}
+
+		return reset( $normalized_allowed ) ?: 'div';
+	}
+}
+
 if ( ! function_exists( 'gutenverse_get_post_date' ) ) {
 	/**
 	 * Get the post date

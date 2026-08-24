@@ -699,10 +699,7 @@ class Container extends Block_Abstract {
 		$id_attr = ! empty( $anchor ) ? ' id="' . esc_attr( $anchor ) . '"' : '';
 
 		// Allowed HTML tags.
-		$allowed_tags = array( 'div', 'header', 'footer', 'main', 'article', 'section', 'aside', 'nav' );
-		if ( ! in_array( $html_tag, $allowed_tags, true ) ) {
-			$html_tag = 'div';
-		}
+		$html_tag = gutenverse_allowlist_tag( $html_tag, 'div', array( 'div', 'header', 'footer', 'main', 'article', 'section', 'aside', 'nav' ) );
 
 		// Build output.
 		$output = '<' . $html_tag . ' class="' . esc_attr( $class_name ) . '" data-id="' . esc_attr( $data_id ) . '"' . $adv_anim_attr . $id_attr . '>';
