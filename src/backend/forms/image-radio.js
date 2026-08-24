@@ -28,7 +28,7 @@ const ControlImageRadio = (props) => {
 
     const inputValue = value === undefined ? defaultValue : value;
 
-    return <div className="control-wrapper control-image-radio" style={(perRow ? { '--gvnews-dashboard-img-radio-row': `calc(100% / ${perRow} - 10px)`, '--gvnews-dashboard-img-radio-image-width': '100%' } : {})}>
+    return <div className="control-wrapper control-image-radio" style={(perRow ? { '--jnews-blocks-dashboard-img-radio-row': `calc(100% / ${perRow} - 10px)`, '--jnews-blocks-dashboard-img-radio-image-width': '100%' } : {})}>
         <label className="control-title" htmlFor={`${id}-${uuid}`} style={customLabel}>{title} {isRequired && <span style={{ color: 'red' }}> *</span>}</label>
         <div className={'control-body'}>
             {options.map(item => {
