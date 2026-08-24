@@ -398,13 +398,7 @@ abstract class Block_Abstract {
 	 * @param string $def .
 	 */
 	protected function check_tag( $tag, $def = 'p' ) {
-		$filter = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p' );
-
-		if ( in_array( $tag, $filter, true ) ) {
-			return $tag;
-		}
-
-		return $def;
+		return gutenverse_allowlist_tag( $tag, $def );
 	}
 
 	/**
