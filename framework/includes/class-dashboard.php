@@ -865,7 +865,7 @@ class Dashboard {
 					'framework_version' => '3.0.2',
 				),
 				array(
-					'plugin_version'    => '3.0.3',
+					'plugin_version'    => '3.0.4',
 					'framework_version' => '3.0.3',
 				),
 			),
