@@ -235,6 +235,7 @@ class Frontend_Assets {
 
 		do_action( 'gutenverse_include_frontend' );
 		wp_dequeue_style( 'gutenverse-frontend-style' );
+		wp_dequeue_style( 'gutenverse-dynamic-frontend-style' );
 
 		if ( is_user_logged_in() ) {
 			wp_enqueue_style(
@@ -258,6 +259,7 @@ class Frontend_Assets {
 	 */
 	public function frontend_inline_style() {
 		wp_enqueue_style( 'gutenverse-frontend-style' );
+		wp_enqueue_style( 'gutenverse-dynamic-frontend-style' );
 	}
 
 	/**
