@@ -148,6 +148,13 @@ class Assets {
 			'path',
 			GUTENVERSE_FRAMEWORK_DIR . '/assets/css/frontend.css'
 		);
+
+		wp_register_style(
+			'gutenverse-dynamic-frontend-style',
+			false,
+			array( 'gutenverse-frontend-style' ),
+			GUTENVERSE_FRAMEWORK_VERSION
+		);
 	}
 
 	/**
