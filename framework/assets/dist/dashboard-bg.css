@@ -13,3 +13,9 @@
 #jnews-blocks-dashboard .upgrade-notice-head>div {
     background-image: url('../img/upgrade-notice-hero.webp');
 }
+
+#jnews-blocks-dashboard .feature-panel > div {
+    background-image: url('../img/jnews-dashboard-bg.webp');
+    background-size: cover;
+    background-position: center;
+}
