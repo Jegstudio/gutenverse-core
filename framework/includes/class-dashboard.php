@@ -650,6 +650,10 @@ class Dashboard {
 					'plugin_version'    => '4.0.3',
 					'framework_version' => '3.0.3',
 				),
+				array(
+					'plugin_version'    => '4.0.5',
+					'framework_version' => '3.0.5',
+				),
 			),
 			'gutenverse-form' => array(
 				array(
@@ -867,6 +871,10 @@ class Dashboard {
 				array(
 					'plugin_version'    => '3.0.4',
 					'framework_version' => '3.0.3',
+				),
+				array(
+					'plugin_version'    => '3.0.5',
+					'framework_version' => '3.0.5',
 				),
 			),
 			'gutenverse-news' => array(
