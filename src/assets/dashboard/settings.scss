@@ -1,8 +1,7 @@
 @import "settings-control.scss";
 @import "settings/additional-features.scss";
 
-#gutenverse-dashboard,
-#jnews-blocks-dashboard {
+#gutenverse-dashboard {
     .content-wrapper.settings {
         padding: 0;
         background-color: none;
@@ -556,14 +555,10 @@
     }
 }
 
-#gutenverse-dashboard .dashboard-content .block_settings .template-tab-body>.control-wrapper.control-select,
-#jnews-blocks-dashboard .dashboard-content .block_settings .template-tab-body>.control-wrapper.control-select {
+#gutenverse-dashboard .dashboard-content .block_settings .template-tab-body>.control-wrapper.control-select {
     padding-top: 0 !important;
 }
 
-#jnews-blocks-dashboard .dashboard-content .block_settings .control-wrapper {
-    padding: 20px 0;
-}
 
 .repeater-body .gutenverse-control-wrapper.gutenverse-control-alert .control-body {
     display: flex;
@@ -674,8 +669,7 @@ body.gutenverse_page_gutenverse-settings .notice:not(.gutenverse-notice):not(.th
 }
 
 @media (max-width: 765px) {
-    #gutenverse-dashboard,
-    #jnews-blocks-dashboard {
+    #gutenverse-dashboard {
         .content-wrapper {
             .dashboard-content {
                 .content-body {

@@ -173,7 +173,7 @@
         flex-wrap: wrap;
 
         label {
-          width: var(--jnews-blocks-dashboard-img-radio-row, auto);
+          width: var(--gutenverse-dashboard-img-radio-row, auto);
           border: 2px solid #b3b3b3;
           margin: 2px;
           border-radius: 2px;
@@ -184,7 +184,7 @@
           }
 
           img {
-            width: var(--jnews-blocks-dashboard-img-radio-image-width, unset);
+            width: var(--gutenverse-dashboard-img-radio-image-width, unset);
             height: auto;
           }
         }
