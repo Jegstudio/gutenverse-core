@@ -77,6 +77,14 @@ const SettingsBody = ({ settings, ...props }) => {
                 props
             );
             break;
+        case 'integrations':
+            body = applyFilters(
+                'gutenverse.setting-pro-integrations',
+                body,
+                settings,
+                props
+            );
+            break;
         default:
             break;
     }

@@ -14,7 +14,7 @@ export const getPluginTabs = (settingValues) => {
             pro: false,
         },
     }, settingValues);
-    const normalizedActivePlugins = activePlugins.map(plugin => plugin === 'jnews-blocks' ? 'gutenverse-news': plugin);
+    const normalizedActivePlugins = activePlugins.map(plugin => plugin === 'jnews-blocks' ? 'gutenverse-news' : plugin);
 
     return Object.fromEntries(
         Object.entries(pluginTabs).filter(([key]) => normalizedActivePlugins.includes('gutenverse-' + key))
@@ -50,6 +50,10 @@ export const generalTabs = {
         title: __('Account', '--gctd--'),
         pro: true,
     },
+    ['integrations']: {
+        title: __('Integrations', '--gctd--'),
+        pro: true,
+    },
 };
 
 const setitngTitle = {
@@ -60,7 +64,7 @@ const setitngTitle = {
     'font-icon': __('Font Icon Settings', '--gctd--'),
     'custom-font': __('Custom Font Settings', '--gctd--'),
     form_settings: __('Form Settings', '--gctd--'),
-    form_integrations : __('Form Integrations', '--gctd--'),
+    form_integrations: __('Form Integrations', '--gctd--'),
     block_settings: __('Global Block Settings', '--gctd--'),
     additional_features: __('Gutenverse News Additional Features', '--gctd--'),
     view_counter: __('View Counter Settings', '--gctd--'),
@@ -72,6 +76,7 @@ const setitngTitle = {
     bookmark: __('Bookmark Settings', '--gctd--'),
     post_split: __('Post Split Settings', '--gctd--'),
     ads: __('Ads Settings', '--gctd--'),
+    integrations: __('Integrations Settings', '--gctd--'),
 };
 
 export const getSettingTitle = (key) => {
