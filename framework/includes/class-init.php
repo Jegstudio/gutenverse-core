@@ -387,10 +387,15 @@ class Init {
 	 * Redirect page after plugin is actived
 	 */
 	public function redirect_to_dashboard() {
-		if ( get_transient( 'gutenverse_redirect' ) ) {
+		$redir_transient = get_transient( 'gutenverse_redirect' );
+		if ( $redir_transient ) {
 			global $pagenow;
 			if ( 'plugins.php' === $pagenow || 'plugin-install.php' === $pagenow ) {
-				wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) );
+				$page = 'gutenverse';
+				if ( is_string( $redir_transient ) && '1' !== $redir_transient ) {
+					$page = sanitize_text_field( $redir_transient );
+				}
+				wp_safe_redirect( admin_url( "admin.php?page={$page}" ) );
 				delete_transient( 'gutenverse_redirect' );
 				exit;
 			} else {
