@@ -1,7 +1,7 @@
 @import "settings-control.scss";
 @import "settings/additional-features.scss";
 
-#gutenverse-dashboard {
+#gutenverse-dashboard, #jnews-blocks-dashboard {
     .content-wrapper.settings {
         padding: 0;
         background-color: none;
@@ -555,7 +555,8 @@
     }
 }
 
-#gutenverse-dashboard .dashboard-content .block_settings .template-tab-body>.control-wrapper.control-select {
+#gutenverse-dashboard .dashboard-content .block_settings .template-tab-body>.control-wrapper.control-select,
+#jnews-blocks-dashboard .dashboard-content .block_settings .template-tab-body>.control-wrapper.control-select {
     padding-top: 0 !important;
 }
 
@@ -582,8 +583,8 @@
 
     .custom-font-add-button {
         cursor: pointer;
-        border: 1px solid #3B57F7;
-        color: #3B57F7;
+        border: 1px solid var(--gutenverse-dashboard-primary, #3B57F7);
+        color: var(--gutenverse-dashboard-primary, #3B57F7);
         background-color: white;
         border-radius: 5px;
         height: 34px;
@@ -591,8 +592,8 @@
     }
 
     .custom-font-add-button:hover {
-        background: #3B57F7;
-        border: 1px solid #3B57F7;
+        background: var(--gutenverse-dashboard-primary, #3B57F7);
+        border: 1px solid var(--gutenverse-dashboard-primary, #3B57F7);
         color: white;
     }
 }
@@ -669,7 +670,8 @@ body.gutenverse_page_gutenverse-settings .notice:not(.gutenverse-notice):not(.th
 }
 
 @media (max-width: 765px) {
-    #gutenverse-dashboard {
+    #gutenverse-dashboard,
+    #jnews-blocks-dashboard {
         .content-wrapper {
             .dashboard-content {
                 .content-body {
