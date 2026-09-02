@@ -112,3 +112,47 @@
     box-shadow: none;
     transform: scale(90%);
 }
+
+.gutenverse-global-event-banner {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    box-sizing: border-box;
+    margin: 12px 20px 20px 2px;
+    max-width: 100%;
+    padding: 0!important;
+    position: relative;
+}
+
+.gutenverse-global-event-banner a {
+    display: block;
+}
+
+.gutenverse-global-event-banner img {
+    border: 1px solid transparent;
+    border-radius: 5px;
+    display: block;
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+}
+
+.gutenverse-global-event-banner .notice-dismiss {
+    background: rgba(255, 255, 255, .9);
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 28px;
+    padding: 0;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width: 28px;
+    z-index: 2;
+}
+
+.gutenverse-global-event-banner .notice-dismiss:before {
+    height: 28px;
+    line-height: 28px;
+    width: 28px;
+}

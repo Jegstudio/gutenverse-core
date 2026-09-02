@@ -30,6 +30,13 @@ class Dashboard {
 	public $id;
 
 	/**
+	 * Event banner data.
+	 *
+	 * @var mixed
+	 */
+	private $event_banner = false;
+
+	/**
 	 * Init constructor.
 	 */
 	public function __construct() {
@@ -39,6 +46,8 @@ class Dashboard {
 		add_action( 'admin_menu', array( $this, 'child_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'enqueue_script_in_wizard', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_notices', array( $this, 'load_global_event_banner' ) );
+		add_action( 'wp_ajax_gutenverse_dismiss_global_event_banner', array( $this, 'dismiss_global_event_banner' ) );
 
 		add_filter( 'admin_footer_text', '__return_empty_string', 11 );
 		add_filter( 'update_footer', '__return_empty_string', 11 );
@@ -217,7 +226,7 @@ class Dashboard {
 		$config['upgradeProUrl']            = gutenverse_upgrade_pro();
 		$config['proSiteUrl']               = GUTENVERSE_FRAMEWORK_PRO_URL;
 		$config['requireProUpdate']         = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
-		$config['eventBanner']              = gutenverse_get_event_banner();
+		$config['eventBanner']              = $this->get_event_banner();
 		$config['adsBannerThemeTF']         = gutenverse_get_ads_banner_theme_tf();
 		$config['pricingPlan']              = gutenverse_get_pricing_plan();
 		$config['isUsingGutenverseThemeTF'] = apply_filters( 'gutenverse_tp_plus_mechanism', false );
@@ -254,6 +263,146 @@ class Dashboard {
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
+
+	/**
+	 * Get event banner data.
+	 *
+	 * @return mixed
+	 */
+	public function get_event_banner() {
+		if ( false === $this->event_banner ) {
+			$this->event_banner = gutenverse_get_event_banner();
+		}
+
+		return $this->event_banner;
+	}
+
+	/**
+	 * Get global event banner ID.
+	 *
+	 * @param mixed $event_banner Event banner data.
+	 *
+	 * @return string
+	 */
+	private function get_global_event_banner_id( $event_banner ) {
+		$payload = wp_json_encode(
+			array(
+				'bannerGlobal' => $event_banner->bannerGlobal,
+				'url'          => $event_banner->url,
+				'expired'      => $event_banner->expired,
+			)
+		);
+
+		return wp_hash( false !== $payload ? $payload : '' );
+	}
+
+	/**
+	 * Load global event banner in WordPress admin pages.
+	 */
+	public function load_global_event_banner() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		$event_banner = $this->get_event_banner();
+
+		if ( ! gutenverse_is_event_banner_valid( $event_banner, 'bannerGlobal' ) ) {
+			return;
+		}
+
+		$expired = strtotime( $event_banner->expired );
+
+		if ( ! $expired || current_time( 'timestamp' ) > $expired ) {
+			return;
+		}
+
+		$banner_id = $this->get_global_event_banner_id( $event_banner );
+		$user_id   = get_current_user_id();
+
+		if ( $user_id && hash_equals( (string) get_user_meta( $user_id, 'gutenverse_global_event_banner_dismissed', true ), $banner_id ) ) {
+			return;
+		}
+
+		?>
+		<div id="gutenverse-global-event-banner-<?php echo esc_attr( $banner_id ); ?>" class="notice gutenverse-global-event-banner">
+			<a href="<?php echo esc_url( $event_banner->url ); ?>" target="_blank" rel="noopener noreferrer">
+				<img src="<?php echo esc_url( $event_banner->bannerGlobal ); ?>" alt="<?php esc_attr_e( 'Gutenverse event banner', '--gctd--' ); ?>" />
+			</a>
+			<button type="button" class="notice-dismiss gutenverse-global-event-banner-dismiss" data-banner-id="<?php echo esc_attr( $banner_id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'gutenverse_global_event_banner' ) ); ?>">
+				<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', '--gctd--' ); ?></span>
+			</button>
+		</div>
+		<script>
+			( function() {
+				var banner = document.getElementById( 'gutenverse-global-event-banner-<?php echo esc_js( $banner_id ); ?>' );
+
+				if ( ! banner ) {
+					return;
+				}
+
+				var dismissButton = banner.querySelector( '.gutenverse-global-event-banner-dismiss' );
+
+				if ( ! dismissButton ) {
+					return;
+				}
+
+				dismissButton.addEventListener( 'click', function() {
+					var request = new FormData();
+
+					banner.remove();
+					request.append( 'action', 'gutenverse_dismiss_global_event_banner' );
+					request.append( 'nonce', dismissButton.dataset.nonce );
+					request.append( 'banner_id', dismissButton.dataset.bannerId );
+
+					window.fetch( window.ajaxurl, {
+						method: 'POST',
+						credentials: 'same-origin',
+						body: request
+					} );
+				} );
+			}() );
+		</script>
+		<?php
+	}
+
+	/**
+	 * Dismiss global event banner.
+	 */
+	public function dismiss_global_event_banner() {
+		check_ajax_referer( 'gutenverse_global_event_banner', 'nonce' );
+
+		$user_id = get_current_user_id();
+
+		if ( ! $user_id || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( null, 403 );
+		}
+
+		$banner_id = isset( $_POST['banner_id'] ) ? sanitize_text_field( wp_unslash( $_POST['banner_id'] ) ) : '';
+
+		if ( empty( $banner_id ) ) {
+			wp_send_json_error( null, 400 );
+		}
+
+		$event_banner = $this->get_event_banner();
+
+		if ( ! gutenverse_is_event_banner_valid( $event_banner, 'bannerGlobal' ) ) {
+			wp_send_json_error( null, 404 );
+		}
+
+		$expired = strtotime( $event_banner->expired );
+
+		if ( ! $expired || current_time( 'timestamp' ) > $expired ) {
+			wp_send_json_error( null, 404 );
+		}
+
+		if ( ! hash_equals( $this->get_global_event_banner_id( $event_banner ), $banner_id ) ) {
+			wp_send_json_error( null, 400 );
+		}
+
+		update_user_meta( $user_id, 'gutenverse_global_event_banner_dismissed', $banner_id );
+		wp_send_json_success();
+	}
+
 	/**
 	 * Get active plugin lists.
 	 *

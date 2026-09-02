@@ -16,7 +16,8 @@ const loadGutenverseDashboard = () => {
     const EventBanner = () => {
         return <>
             {
-                (eventData && today <= expired) && <div className="event-banner-wrapper">
+                (eventData?.banner && today <= expired) &&
+                <div className="event-banner-wrapper">
                     <a href={eventData?.url} target="_blank" rel="noreferrer" >
                         <img src={eventData?.banner} alt="event-banner" />
                     </a>
