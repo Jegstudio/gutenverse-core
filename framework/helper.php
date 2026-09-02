@@ -478,6 +478,10 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	 * @return mixed
 	 */
 	function gutenverse_get_event_banner() {
+		if ( defined( 'GUTENVERSE_PRO' ) ) {
+			return null;
+		}
+
 		$data = get_transient( 'gutenverse_banner_cache' );
 		if ( $data ) {
 			return gutenverse_is_event_banner_valid( $data ) ? $data : null;

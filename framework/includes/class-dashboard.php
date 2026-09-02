@@ -285,6 +285,10 @@ class Dashboard {
 	 * @return string
 	 */
 	private function get_global_event_banner_id( $event_banner ) {
+		if ( ! empty( $event_banner->bannerId ) ) {
+			return sanitize_key( $event_banner->bannerId );
+		}
+
 		$payload = wp_json_encode(
 			array(
 				'bannerGlobal' => $event_banner->bannerGlobal,
