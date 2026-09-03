@@ -24,6 +24,8 @@ const ButtonUpgradePro = ({
     licenseActiveButton = <></>,
     licenseType = null,
     onClick = () => {},
+    checkProData = 'gprodata',
+    dashboard = 'gutenverse'
 }) => {
     const { upgradeProUrl, adminUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const upgradeOptions = {
@@ -48,7 +50,7 @@ const ButtonUpgradePro = ({
         isBanner && 'button-upgrade-pro-banner'
     );
     const proLink =  link ? link : upgradeProUrl;
-    const dashboardLink = adminUrl + 'admin.php?page=gutenverse&path=license';
+    const dashboardLink = adminUrl + `admin.php?page=${dashboard}&path=license`;
     const hoverProps = {
         onMouseEnter: () => prefetchPricingPlanData(),
         onFocus: () => prefetchPricingPlanData(),
@@ -110,7 +112,7 @@ const ButtonUpgradePro = ({
     };
 
     const TheButton = applyFilters('gutenverse.button.pro.library', () => {
-        if (isEmpty(window?.gprodata)) {
+        if (isEmpty(window?.[checkProData])) {
             if ( location !== 'dashboard-navigation' ){
                 return button(text, 'crown', false, true);
             } else return button(text, 'crown', true, true);
