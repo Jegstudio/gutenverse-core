@@ -196,6 +196,7 @@ class Column extends Block_Abstract {
 		$_is_sticky           = $this->is_sticky( $sticky );
 		$is_align_sticky      = $this->is_align_sticky_column( $section_vertical_align );
 		$is_can_sticky        = $_is_sticky && $is_align_sticky;
+		$is_follow_sticky     = $is_can_sticky && 'follow-scroll' === $sticky_position;
 		$_is_bg_animated      = $this->is_animation_active( $background_animated );
 		$is_slideshow         = isset( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0 && ( isset( $background['type'] ) && $background['type'] === 'slide' );
 		$is_background_effect = ! empty( $background_effect ) && isset( $background_effect['type'] ) && 'none' !== $background_effect['type'];
@@ -293,8 +294,10 @@ class Column extends Block_Abstract {
 		$slide_elements = $is_slideshow ? apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id ) : '';
 
 		if ( $is_can_sticky ) {
-			// Sticky wrapper layout.
-			$output .= '<div class="sticky-wrapper" data-id="' . esc_attr( $data_id ) . '">';
+			if ( $is_follow_sticky ) {
+				$output .= '<div class="sticky-wrapper" data-id="' . esc_attr( $data_id ) . '">';
+			}
+
 			$output .= '<div class="guten-column-wrapper">';
 
 			if ( $is_slideshow ) {
@@ -312,9 +315,11 @@ class Column extends Block_Abstract {
 
 			$output .= $this->get_inner_blocks_content();
 			$output .= '</div>';
-			$output .= '</div>';
+
+			if ( $is_follow_sticky ) {
+				$output .= '</div>';
+			}
 		} else {
-			// Non-sticky layout.
 			$output .= '<div class="guten-column-wrapper" data-id="' . esc_attr( $data_id ) . '">';
 
 			if ( ! $_is_bg_animated && $is_slideshow ) {
