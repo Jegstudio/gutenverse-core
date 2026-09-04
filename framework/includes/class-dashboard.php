@@ -393,12 +393,6 @@ class Dashboard {
 			wp_send_json_error( null, 404 );
 		}
 
-		$expired = strtotime( $event_banner->expired );
-
-		if ( ! $expired || current_time( 'timestamp' ) > $expired ) {
-			wp_send_json_error( null, 404 );
-		}
-
 		if ( ! hash_equals( $this->get_global_event_banner_id( $event_banner ), $banner_id ) ) {
 			wp_send_json_error( null, 400 );
 		}
@@ -810,6 +804,10 @@ class Dashboard {
 				array(
 					'plugin_version'    => '4.0.6',
 					'framework_version' => '3.0.6',
+				),
+				array(
+					'plugin_version'    => '4.0.7',
+					'framework_version' => '3.0.7',
 				),
 			),
 			'gutenverse-form' => array(
