@@ -143,6 +143,7 @@
     border-radius: 50%;
     cursor: pointer;
     height: 28px;
+    opacity: .2;
     padding: 0;
     position: absolute;
     right: 8px;

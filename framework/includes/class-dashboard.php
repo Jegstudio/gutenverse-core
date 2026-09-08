@@ -308,6 +308,14 @@ class Dashboard {
 			return;
 		}
 
+		global $pagenow;
+
+		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+
+		if ( 'admin.php' === $pagenow && self::TYPE === $page ) {
+			return;
+		}
+
 		$event_banner = $this->get_event_banner();
 
 		if ( ! gutenverse_is_event_banner_valid( $event_banner, 'bannerGlobal' ) ) {
