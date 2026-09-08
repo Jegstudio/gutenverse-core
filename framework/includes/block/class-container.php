@@ -618,6 +618,7 @@ class Container extends Block_Abstract {
 		$is_bg_animated     = $this->is_animation_active( $background_animated );
 		$is_bg_effect       = ! empty( $background_effect ) && isset( $background_effect['type'] ) && 'none' !== $background_effect['type'];
 		$is_sticky          = $this->is_sticky( $sticky );
+		$is_follow_sticky   = $is_sticky && isset( $attributes['stickyPosition'] ) && 'follow-scroll' === $attributes['stickyPosition'];
 		$is_video_bg        = isset( $background['type'] ) && 'video' === $background['type'] && ! empty( $background['videoLink'] );
 		$is_cursor_effect   = ! empty( $cursor_effect['show'] );
 		$is_top_div_anim    = ! empty( $top_divider_animated ) && isset( $top_divider_animated['type'] ) && 'none' !== $top_divider_animated['type'];
@@ -795,6 +796,11 @@ class Container extends Block_Abstract {
 		$output = apply_filters( 'gutenverse_cursor_effect_script', $output, $attributes, $element_id );
 		$output = apply_filters( 'gutenverse_background_effect_script', $output, $attributes, $element_id );
 		$output = apply_filters( 'gutenverse_advance_animation_script', $output, $attributes, $element_id, 'container' );
+
+
+		if ( $is_follow_sticky ) {
+			$output = '<div class="sticky-wrapper" data-id="' . esc_attr( $data_id ) . '">' . $output . '</div>';
+		}
 
 		return $output;
 	}

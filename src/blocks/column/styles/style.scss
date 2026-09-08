@@ -11,6 +11,10 @@
   &.pinned {
     position: sticky !important;
 
+    &.fixed {
+        position: fixed !important;
+    }
+
     &.sticky-top {
         top: 0;
     }
@@ -24,7 +28,17 @@
     padding: inherit;
   }
 
-  &.sticky-bottom.sticky-desktop, &.sticky-top.sticky-desktop {
+  &.sticky-follow-scroll {
+    > .sticky-wrapper {
+      transition: unset !important;
+
+      > .guten-column-wrapper {
+        transition: unset !important;
+      }
+    }
+  }
+
+  &.sticky-bottom.sticky-desktop, &.sticky-top.sticky-desktop, &.sticky-follow-scroll.sticky-desktop {
     height: fit-content;
   }
 

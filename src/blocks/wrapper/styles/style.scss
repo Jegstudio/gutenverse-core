@@ -12,6 +12,21 @@
         transition: all .6s;
         border-radius: inherit;
     }
+
+    &.sticky-follow-scroll {
+        .sticky-wrapper {
+            width: 100%;
+            display: flex;
+            flex-wrap: inherit;
+            align-content: inherit;
+            align-items: inherit;
+            transition: unset !important;
+
+            > * {
+                transition: unset !important;
+            }
+        }
+    }
 }
 
 .guten-background-overlay {
