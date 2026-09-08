@@ -28,8 +28,27 @@ const toLegacyCompatibleColor = (color) => {
         ...legacyColor
     } = fallback;
 
+    if (legacyColor.type !== 'variable') {
+        const responsiveColor = { ...color };
+
+        delete responsiveColor.type;
+        delete responsiveColor.id;
+
+        return {
+            ...responsiveColor,
+            ...legacyColor
+        };
+    }
+
+    const responsiveColor = { ...color };
+
+    delete responsiveColor.r;
+    delete responsiveColor.g;
+    delete responsiveColor.b;
+    delete responsiveColor.a;
+
     return {
-        ...color,
+        ...responsiveColor,
         ...legacyColor
     };
 };
