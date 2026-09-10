@@ -1,16 +1,30 @@
 import { animations } from '../data/animation';
 import { devices } from '../data/devices';
 import isEmpty from 'lodash/isEmpty';
-import { responsiveBreakpoint } from '../helper';
+import { responsiveBreakpoint, reinitMap, addReinitHandler } from '../helper';
 
 export class Default {
-    constructor(elements) {
+    constructor(elements, selector = '') {
         if (!elements) {
             return;
         }
-
+        this.context = '';
         this._elements = elements;
         this.init();
+        selector = !selector ? (reinitMap?.[this.constructor.name] || '') : selector;
+        if (selector) {
+            addReinitHandler([
+                {
+                    name: this.constructor.name,
+                    selector,
+                    handler: (elements, data) => {
+                        this.context = 'reinit';
+                        this._elements = elements;
+                        this.init(data);
+                    }
+                }
+            ]);
+        }
     }
 
     getAnimationClass(elementObj) {
