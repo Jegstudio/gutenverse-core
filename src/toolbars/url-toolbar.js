@@ -6,13 +6,14 @@ import { __ } from '@wordpress/i18n';
 import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
 import { applyFilters } from '@wordpress/hooks';
 import { IconDinamicSVG } from 'gutenverse-core/icons';
+import { getUpdatedLinkRelToken, getUpdatedLinkTargetRel, hasLinkRelToken } from 'gutenverse-core/helper';
 
 export const URLToolbar = ({
     isSelected,
     url,
+    rel,
     setAttributes,
-    opensInNewTab,
-    onToggleOpenInNewTab,
+    opensInNewTab = false,
     anchorRef,
     usingDynamic,
     setPanelState,
@@ -42,21 +43,31 @@ export const URLToolbar = ({
     };
 
     const isPro = applyFilters('gutenverse.toolbar.url-toolbar');
-    const settings = (urlIsSetandSelected && isPro) ? [
+    const relSettings = [
         {
             id: 'opensInNewTab',
-            title: 'Open in new tab',
+            title: __('Open in new tab', '--gctd--'),
         },
         {
-            id: 'isDynamic',
-            title: 'Use dynamic link'
-        }
-    ] : [
+            id: 'nofollow',
+            title: __('Mark as nofollow', '--gctd--'),
+        },
         {
-            id: 'opensInNewTab',
-            title: 'Open in new tab',
-        }
+            id: 'sponsored',
+            title: __('Mark as sponsored / affiliate', '--gctd--'),
+        },
+        {
+            id: 'ugc',
+            title: __('Mark as user-generated content', '--gctd--'),
+        },
     ];
+    const settings = (urlIsSetandSelected && isPro) ? [
+        ...relSettings,
+        {
+            id: 'isDynamic',
+            title: __('Use dynamic link', '--gctd--')
+        }
+    ] : relSettings;
 
     useEffect(() => {
         const style = document.createElement('style');
@@ -101,18 +112,52 @@ export const URLToolbar = ({
         >
             <LinkControl
                 className="wp-block-navigation-link__inline-link-input"
-                value={{ url, opensInNewTab, isDynamic }}
+                value={{
+                    url,
+                    opensInNewTab,
+                    isDynamic,
+                    nofollow: hasLinkRelToken(rel, 'nofollow'),
+                    sponsored: hasLinkRelToken(rel, 'sponsored'),
+                    ugc: hasLinkRelToken(rel, 'ugc'),
+                }}
                 settings={settings}
                 onChange={({
                     url: newURL = '',
                     opensInNewTab: newOpensInNewTab,
                     isDynamic: newIsDynamic,
+                    nofollow: newNofollow,
+                    sponsored: newSponsored,
+                    ugc: newUgc,
                 }) => {
-                    setAttributes({ url: newURL, isDynamic: newIsDynamic });
+                    const updatedAttributes = { url: newURL };
+                    const updatedOpensInNewTab = typeof newOpensInNewTab === 'boolean' ? newOpensInNewTab : opensInNewTab;
+                    let updatedRel = rel;
 
-                    if (opensInNewTab !== newOpensInNewTab) {
-                        onToggleOpenInNewTab(newOpensInNewTab);
+                    if (typeof newIsDynamic === 'boolean') {
+                        updatedAttributes.isDynamic = newIsDynamic;
                     }
+
+                    if (opensInNewTab !== updatedOpensInNewTab) {
+                        const targetRel = getUpdatedLinkTargetRel(updatedOpensInNewTab, updatedRel);
+                        updatedAttributes.linkTarget = targetRel.linkTarget;
+                        updatedRel = targetRel.rel;
+                    }
+
+                    [
+                        ['nofollow', newNofollow],
+                        ['sponsored', newSponsored],
+                        ['ugc', newUgc],
+                    ].forEach(([token, isEnabled]) => {
+                        if (typeof isEnabled === 'boolean' && hasLinkRelToken(updatedRel, token) !== isEnabled) {
+                            updatedRel = getUpdatedLinkRelToken(updatedRel, token, isEnabled);
+                        }
+                    });
+
+                    if (updatedRel !== rel || opensInNewTab !== updatedOpensInNewTab) {
+                        updatedAttributes.rel = updatedRel;
+                    }
+
+                    setAttributes(updatedAttributes);
                 }}
             />
             {usingDynamic && !urlIsSetandSelected && isPro &&<div className="gutenverse-dynamic-pop-over-container">

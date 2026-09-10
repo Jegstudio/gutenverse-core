@@ -13,6 +13,87 @@ import { IconAlignItemsCenter, IconAlignItemsEnd, IconAlignItemsStart, IconAlign
 export * from './freemius';
 export * from './pricing-plan';
 
+export const REL_TOKEN_ORDER = ['noopener', 'noreferrer', 'sponsored', 'ugc', 'nofollow'];
+
+const REL_TOKEN_PATTERN = /^[a-z][a-z0-9._:-]*$/i;
+
+export const normalizeLinkTarget = linkTarget => {
+    if (linkTarget === true || linkTarget === '_blank') {
+        return '_blank';
+    }
+
+    if (!linkTarget) {
+        return undefined;
+    }
+
+    return linkTarget;
+};
+
+export const normalizeLinkRel = (rel = '', additionalTokens = []) => {
+    const values = [
+        ...(typeof rel === 'string' ? rel.split(/[\s,]+/) : []),
+        ...(Array.isArray(additionalTokens) ? additionalTokens : [additionalTokens]),
+    ];
+    const tokens = [];
+
+    values.forEach(value => {
+        const token = `${value || ''}`.trim().toLowerCase();
+
+        if (token && REL_TOKEN_PATTERN.test(token) && !tokens.includes(token)) {
+            tokens.push(token);
+        }
+    });
+
+    const knownTokens = REL_TOKEN_ORDER.filter(token => tokens.includes(token));
+    const customTokens = tokens.filter(token => !REL_TOKEN_ORDER.includes(token));
+    const normalized = [...knownTokens, ...customTokens].join(' ');
+
+    return normalized || undefined;
+};
+
+export const getLinkRel = ({ rel, linkTarget, additionalRel = [] } = {}) => {
+    const generatedRel = normalizeLinkTarget(linkTarget) === '_blank' ? ['noopener'] : [];
+
+    return normalizeLinkRel(rel, [...generatedRel, ...additionalRel]);
+};
+
+export const hasLinkRelToken = (rel, token) => {
+    const tokens = normalizeLinkRel(rel)?.split(' ') || [];
+
+    return tokens.includes(token);
+};
+
+export const getUpdatedLinkRelToken = (rel, token, isEnabled) => {
+    const tokens = normalizeLinkRel(rel)?.split(' ') || [];
+    const filteredTokens = tokens.filter(item => item !== token);
+
+    if (isEnabled) {
+        filteredTokens.push(token);
+    }
+
+    return normalizeLinkRel(filteredTokens.join(' '));
+};
+
+export const getUpdatedLinkTargetRel = (opensInNewTab, rel) => {
+    const linkTarget = opensInNewTab ? '_blank' : undefined;
+
+    if (opensInNewTab) {
+        return {
+            linkTarget,
+            rel: getLinkRel({ rel, linkTarget }),
+        };
+    }
+
+    const tokens = normalizeLinkRel(rel)?.split(' ') || [];
+    const nonSecurityTokens = tokens.filter(token => token !== 'noopener');
+    const onlyLegacyNewTabTokens = tokens.length > 0 && tokens.every(token => ['noopener', 'noreferrer'].includes(token));
+
+    return {
+        linkTarget,
+        rel: onlyLegacyNewTabTokens ? undefined : normalizeLinkRel(nonSecurityTokens.join(' ')),
+    };
+};
+
 export const isEmpty = value => isEmptyLodash(value);
 
 export const isEqual = (item1, item2) => isEqualLodash(item1, item2);
