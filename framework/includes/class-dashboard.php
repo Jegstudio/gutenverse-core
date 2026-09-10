@@ -308,6 +308,14 @@ class Dashboard {
 			return;
 		}
 
+		global $pagenow;
+
+		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+
+		if ( 'admin.php' === $pagenow && self::TYPE === $page ) {
+			return;
+		}
+
 		$event_banner = $this->get_event_banner();
 
 		if ( ! gutenverse_is_event_banner_valid( $event_banner, 'bannerGlobal' ) ) {
@@ -322,6 +330,10 @@ class Dashboard {
 
 		$banner_id = $this->get_global_event_banner_id( $event_banner );
 		$user_id   = get_current_user_id();
+
+		if ( empty( $banner_id ) ) {
+			return;
+		}
 
 		if ( $user_id && hash_equals( (string) get_user_meta( $user_id, 'gutenverse_global_event_banner_dismissed', true ), $banner_id ) ) {
 			return;
@@ -381,7 +393,7 @@ class Dashboard {
 			wp_send_json_error( null, 403 );
 		}
 
-		$banner_id = isset( $_POST['banner_id'] ) ? sanitize_text_field( wp_unslash( $_POST['banner_id'] ) ) : '';
+		$banner_id = isset( $_POST['banner_id'] ) ? sanitize_key( wp_unslash( $_POST['banner_id'] ) ) : '';
 
 		if ( empty( $banner_id ) ) {
 			wp_send_json_error( null, 400 );
@@ -393,7 +405,9 @@ class Dashboard {
 			wp_send_json_error( null, 404 );
 		}
 
-		if ( ! hash_equals( $this->get_global_event_banner_id( $event_banner ), $banner_id ) ) {
+		$expected_banner_id = $this->get_global_event_banner_id( $event_banner );
+
+		if ( empty( $expected_banner_id ) || ! hash_equals( $expected_banner_id, $banner_id ) ) {
 			wp_send_json_error( null, 400 );
 		}
 
