@@ -15,8 +15,10 @@ export { default as DimensionControl } from './controls/dimension/dimension-cont
 export { default as DividerControl } from './controls/divider/divider-control';
 export { default as DividerAnimatedControl } from './controls/divider-animated/divider-animated-control';
 export { default as FontControl } from './controls/font/font-control';
-export { default as IconControl, IconLibrary } from './controls/icon/icon-control';
+export { default as IconControl } from './controls/icon/icon-control';
+export { default as IconLibrary } from './controls/icon/icon-library';
 export { default as IconSVGControl } from './controls/icon/icon-svg-control';
+export { convertIconToSvg } from './controls/icon/icon-svg-control';
 export { default as SVGControl } from './controls/icon/svg-control';
 export { default as IconRadioControl } from './controls/icon-radio/icon-radio-control';
 export { default as ImageControl } from './controls/image/image-control';
@@ -33,6 +35,7 @@ export { default as CompositeControl } from './controls/composite/composite-cont
 export { default as SelectControl } from './controls/select/select-control';
 export { default as SelectSearchControl } from './controls/select-search/select-search-control';
 export { default as SelectSortableControl } from './controls/select-sortable/select-sortable-control';
+export { default as ServerSecretControl } from './controls/server-secret/server-secret-control';
 export { default as SizeControl } from './controls/size/size-control';
 export { default as SizeDoubleControl } from './controls/size-double/size-double-control';
 export { default as ElementSelectorControl } from './controls/element-selector/element-selector-control';
@@ -54,13 +57,15 @@ export { default as MaskControl } from './controls/mask/mask-control';
 export { default as DateTimeControl } from './controls/date-time/date-time-control';
 export { default as TextStrokeControl } from './controls/text-stroke/text-stroke-control';
 export { default as PreviewControl } from './controls/preview/preview-control';
-
+export { default as MultiImageControl } from './controls/multi-image/multi-image-control';
+export { default as TextEditorControl } from './controls/text-editor/text-editor-control';
 // Locked Controls
 export { default as LockedControl } from './controls/locked/locked-control';
 export { default as LockedSwitchControl } from './controls/locked/locked-switch-control';
 export { default as LockedProAnimationControl } from './controls/locked/locked-animation-control';
 export { default as LockedTransformControl } from './controls/locked/locked-transform-control';
 export { default as LockedProInputLogicControl } from './controls/locked/locked-input-logic-control';
+export { default as LockedProSiteKeyControl } from './controls/locked/locked-site-key-control';
 export { default as LockedProBackgroundControl } from './controls/locked/locked-background-control';
 export { default as LockedProStickyControl } from './controls/locked/locked-sticky-control';
 export { default as LockedProDividerControl } from './controls/locked/locked-divider-control';
@@ -79,6 +84,8 @@ export { default as LockedProPanel } from './controls/locked/locked-pro-panel';
 export { default as LockedDynamicContentControl } from './controls/locked/locked-dynamic-content-control';
 export { default as LockedHeaderFilterControl } from './controls/locked/locked-header-filter-control';
 export { default as LockedTooltipControl } from './controls/locked/locked-tooltip-control';
+export { default as LockedGalleryPostFormat } from './controls/locked/locked-gallery-post-format';
+export { default as LockedVideoPostFormat } from './controls/locked/locked-video-post-format';
 
 
 export { default as ControlDevices } from './controls/part/control-devices';
@@ -122,3 +129,4 @@ export { tooltipStylePanel } from './panels/panel-tooltip-style';
 
 // Export General Style for block style
 export { backgroundStyle } from './panel-styles/style-backround';
+export { defaultStyle } from './panel-styles/style-default';

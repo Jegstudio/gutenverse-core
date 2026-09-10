@@ -551,7 +551,7 @@ export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {
 
     blocks.forEach(block => {
         if (!(elementId === undefined && block.attributes.elementId === undefined)) {
-            if (elementId === block.attributes.elementId && clientId !== block.clientId) {
+            if ((elementId === block.attributes.elementId && clientId !== block.clientId)) {
                 count += 1;
             }
         }

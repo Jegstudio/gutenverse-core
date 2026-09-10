@@ -282,6 +282,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			'qCategory',
 			'qTag',
 			'qAuthor',
+			'currentBlogId',
 		);
 
 		$accepted = apply_filters( 'gutenverse_accept_query_attribute', $accepted, $attr );
@@ -344,6 +345,54 @@ abstract class Post_Abstract extends Block_Abstract {
 	}
 
 	/**
+	 * Check whether inherit query is enabled.
+	 *
+	 * @param array $attr Attribute.
+	 *
+	 * @return boolean
+	 */
+	private static function is_inherit_query( $attr ) {
+		return isset( $attr['inheritQuery'] ) && ( true === $attr['inheritQuery'] || 'true' === $attr['inheritQuery'] );
+	}
+
+	/**
+	 * Check whether current render is in a WordPress query template context.
+	 *
+	 * @param array $attr Attribute.
+	 *
+	 * @return boolean
+	 */
+	private static function is_query_template_context( $attr ) {
+		return ! empty( $attr['qApi'] ) || is_home() || is_archive() || is_search();
+	}
+
+	/**
+	 * Use the current WordPress main query as the post result.
+	 *
+	 * @return array|null
+	 */
+	private static function main_query_result() {
+		global $wp_query;
+
+		if ( ! ( $wp_query instanceof \WP_Query ) ) {
+			return null;
+		}
+
+		$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : get_query_var( 'page' );
+		$paged = $paged ? $paged : 1;
+		$paged = max( 1, intval( $paged ) );
+		$total = max( 1, intval( $wp_query->max_num_pages ) );
+
+		return array(
+			'result'     => $wp_query->posts,
+			'next'       => $paged < $total,
+			'prev'       => self::has_prev_page( $paged ),
+			'page'       => $paged,
+			'total_page' => $total,
+		);
+	}
+
+	/**
 	 * Build Query of WordPress Default
 	 *
 	 * @param array   $attr Attribute.
@@ -356,6 +405,17 @@ abstract class Post_Abstract extends Block_Abstract {
 		$exclude_category = array();
 		$result           = array();
 		$args             = array();
+
+		$inherit_query          = self::is_inherit_query( $attr );
+		$inherit_template_query = $inherit_query && self::is_query_template_context( $attr );
+
+		if ( $inherit_template_query && empty( $attr['qApi'] ) ) {
+			$main_query = self::main_query_result();
+
+			if ( null !== $main_query ) {
+				return $main_query;
+			}
+		}
 
 		$args['post_type']   = $attr['postType'];
 		$args['post_status'] = 'publish';
@@ -373,21 +433,23 @@ abstract class Post_Abstract extends Block_Abstract {
 		}
 		$args['paged'] = $paged;
 
+		$post_offset = $inherit_template_query ? 0 : (int) $attr['postOffset'];
+
 		// Calculate offset based on pagination mode.
 		if ( $is_normal_mode ) {
 			// Native pagination: simple offset calculation.
 			// offset = (page - 1) * posts_per_page + initial_offset.
-			$args['offset']         = ( ( $paged - 1 ) * $attr['numberPost'] ) + (int) $attr['postOffset'];
+			$args['offset']         = ( ( $paged - 1 ) * $attr['numberPost'] ) + $post_offset;
 			$args['posts_per_page'] = $attr['numberPost'];
 		} else {
 			// AJAX pagination: complex offset for different post counts per page.
-			$args['offset']         = self::calculate_offset( $args['paged'], $attr['postOffset'], $attr['numberPost'], $attr['paginationNumberPost'] );
+			$args['offset']         = self::calculate_offset( $args['paged'], $post_offset, $attr['numberPost'], $attr['paginationNumberPost'] );
 			$args['posts_per_page'] = ( $args['paged'] > 1 ) ? $attr['paginationNumberPost'] : $attr['numberPost'];
 		}
 		$args['no_found_rows']       = ! isset( $attr['paginationMode'] ) || 'disable' === $attr['paginationMode'];
 		$args['ignore_sticky_posts'] = 1;
 
-		if ( true === $attr['inheritQuery'] || 'true' === $attr['inheritQuery'] ) {
+		if ( $inherit_query ) {
 			if ( ! empty( $attr['qApi'] ) ) {
 				$args['s']             = ! empty( $attr['qSearch'] ) ? esc_attr( $attr['qSearch'] ) : null;
 				$args['category_name'] = ! empty( $attr['qCategory'] ) ? esc_attr( $attr['qCategory'] ) : null;
@@ -418,122 +480,124 @@ abstract class Post_Abstract extends Block_Abstract {
 			}
 		}
 
-		if ( ! empty( $attr['includePost'] ) ) {
-			$args['post__in'] = self::filter_array( $attr['includePost'] );
-		}
-
-		if ( ! empty( $attr['excludePost'] ) ) {
-			$args['post__not_in'] = self::filter_array( $attr['excludePost'] );
-		}
-		if ( ! empty( $attr['excludeCurrentPost'] ) && $exclude_current ) {
-			$current_post_id = get_the_ID();
-			if ( isset( $args['post__not_in'] ) ) {
-				$post_not_in = $args['post__not_in'];
-				if ( ! in_array( $current_post_id, $post_not_in ) ) {
-					$args['post__not_in'][] = $current_post_id;
-				}
-			} else {
-				$args['post__not_in'] = array( $current_post_id );
+		if ( ! $inherit_template_query ) {
+			if ( ! empty( $attr['includePost'] ) ) {
+				$args['post__in'] = self::filter_array( $attr['includePost'] );
 			}
-		}
 
-		if ( ! empty( $attr['includeCategory'] ) ) {
-			$categories = self::filter_array( $attr['includeCategory'] );
-			self::recursive_category( $categories, $include_category );
-			$args['category__in'] = $include_category;
-		}
+			if ( ! empty( $attr['excludePost'] ) ) {
+				$args['post__not_in'] = self::filter_array( $attr['excludePost'] );
+			}
+			if ( ! empty( $attr['excludeCurrentPost'] ) && $exclude_current ) {
+				$current_post_id = get_the_ID();
+				if ( isset( $args['post__not_in'] ) ) {
+					$post_not_in = $args['post__not_in'];
+					if ( ! in_array( $current_post_id, $post_not_in ) ) {
+						$args['post__not_in'][] = $current_post_id;
+					}
+				} else {
+					$args['post__not_in'] = array( $current_post_id );
+				}
+			}
 
-		if ( ! empty( $attr['excludeCategory'] ) ) {
-			$categories = self::filter_array( $attr['excludeCategory'] );
-			self::recursive_category( $categories, $exclude_category );
-			$args['category__not_in'] = $exclude_category;
-		}
+			if ( ! empty( $attr['includeCategory'] ) ) {
+				$categories = self::filter_array( $attr['includeCategory'] );
+				self::recursive_category( $categories, $include_category );
+				$args['category__in'] = $include_category;
+			}
 
-		if ( ! empty( $attr['includeAuthor'] ) ) {
-			$args['author__in'] = self::filter_array( $attr['includeAuthor'] );
-		}
+			if ( ! empty( $attr['excludeCategory'] ) ) {
+				$categories = self::filter_array( $attr['excludeCategory'] );
+				self::recursive_category( $categories, $exclude_category );
+				$args['category__not_in'] = $exclude_category;
+			}
 
-		if ( ! empty( $attr['includeTag'] ) ) {
-			$args['tag__in'] = self::filter_array( $attr['includeTag'] );
-		}
+			if ( ! empty( $attr['includeAuthor'] ) ) {
+				$args['author__in'] = self::filter_array( $attr['includeAuthor'] );
+			}
 
-		if ( ! empty( $attr['excludeTag'] ) ) {
-			$args['tag__not_in'] = self::filter_array( $attr['excludeTag'] );
-		}
+			if ( ! empty( $attr['includeTag'] ) ) {
+				$args['tag__in'] = self::filter_array( $attr['includeTag'] );
+			}
 
-		// order.
-		if ( 'latest' === $attr['sortBy'] ) {
-			$args['orderby'] = 'date';
-			$args['order']   = 'DESC';
-		}
+			if ( ! empty( $attr['excludeTag'] ) ) {
+				$args['tag__not_in'] = self::filter_array( $attr['excludeTag'] );
+			}
 
-		if ( 'oldest' === $attr['sortBy'] ) {
-			$args['orderby'] = 'date';
-			$args['order']   = 'ASC';
-		}
+			// order.
+			if ( 'latest' === $attr['sortBy'] ) {
+				$args['orderby'] = 'date';
+				$args['order']   = 'DESC';
+			}
 
-		if ( 'alphabet_asc' === $attr['sortBy'] ) {
-			$args['orderby'] = 'title';
-			$args['order']   = 'ASC';
-		}
+			if ( 'oldest' === $attr['sortBy'] ) {
+				$args['orderby'] = 'date';
+				$args['order']   = 'ASC';
+			}
 
-		if ( 'alphabet_desc' === $attr['sortBy'] ) {
-			$args['orderby'] = 'title';
-			$args['order']   = 'DESC';
-		}
+			if ( 'alphabet_asc' === $attr['sortBy'] ) {
+				$args['orderby'] = 'title';
+				$args['order']   = 'ASC';
+			}
 
-		if ( 'random' === $attr['sortBy'] ) {
-			$args['orderby'] = 'rand';
-		}
+			if ( 'alphabet_desc' === $attr['sortBy'] ) {
+				$args['orderby'] = 'title';
+				$args['order']   = 'DESC';
+			}
 
-		if ( 'random_week' === $attr['sortBy'] ) {
-			$args['orderby']    = 'rand';
-			$args['date_query'] = array(
-				array(
-					'after' => '1 week ago',
-				),
-			);
-		}
+			if ( 'random' === $attr['sortBy'] ) {
+				$args['orderby'] = 'rand';
+			}
 
-		if ( 'random_month' === $attr['sortBy'] ) {
-			$args['orderby']    = 'rand';
-			$args['date_query'] = array(
-				array(
-					'after' => '1 year ago',
-				),
-			);
-		}
-
-		if ( 'most_comment' === $attr['sortBy'] ) {
-			$args['orderby'] = 'comment_count';
-			$args['order']   = 'DESC';
-		}
-
-		if ( isset( $attr['videoOnly'] ) && true === $attr['videoOnly'] ) {
-			$args['tax_query'] = array(
-				array(
-					'taxonomy' => 'post_format',
-					'field'    => 'slug',
-					'terms'    => array(
-						'post-format-video',
+			if ( 'random_week' === $attr['sortBy'] ) {
+				$args['orderby']    = 'rand';
+				$args['date_query'] = array(
+					array(
+						'after' => '1 week ago',
 					),
-					'operator' => 'IN',
-				),
-			);
-		}
+				);
+			}
 
-		// date.
-		if ( isset( $attr['dateQuery'] ) ) {
-			$args['date_query'] = $attr['dateQuery'];
-		}
-		if ( isset( $attr['year'] ) ) {
-			$args['year'] = $attr['year'];
-		}
-		if ( isset( $attr['day'] ) ) {
-			$args['day'] = $attr['day'];
-		}
-		if ( isset( $attr['monthnum'] ) ) {
-			$args['monthnum'] = $attr['monthnum'];
+			if ( 'random_month' === $attr['sortBy'] ) {
+				$args['orderby']    = 'rand';
+				$args['date_query'] = array(
+					array(
+						'after' => '1 year ago',
+					),
+				);
+			}
+
+			if ( 'most_comment' === $attr['sortBy'] ) {
+				$args['orderby'] = 'comment_count';
+				$args['order']   = 'DESC';
+			}
+
+			if ( isset( $attr['videoOnly'] ) && true === $attr['videoOnly'] ) {
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'post_format',
+						'field'    => 'slug',
+						'terms'    => array(
+							'post-format-video',
+						),
+						'operator' => 'IN',
+					),
+				);
+			}
+
+			// date.
+			if ( isset( $attr['dateQuery'] ) ) {
+				$args['date_query'] = $attr['dateQuery'];
+			}
+			if ( isset( $attr['year'] ) ) {
+				$args['year'] = $attr['year'];
+			}
+			if ( isset( $attr['day'] ) ) {
+				$args['day'] = $attr['day'];
+			}
+			if ( isset( $attr['monthnum'] ) ) {
+				$args['monthnum'] = $attr['monthnum'];
+			}
 		}
 
 		$args = apply_filters( 'gutenverse_default_query_args', $args, $attr );
@@ -700,6 +764,10 @@ abstract class Post_Abstract extends Block_Abstract {
 
 			$attr['paged'] = 1;
 			$attr['class'] = isset( $this->id ) ? $this->id : null;
+
+			if ( is_multisite() ) {
+				$attr['currentBlogId'] = get_current_blog_id();
+			}
 
 			return htmlspecialchars( wp_json_encode( $attr ), ENT_QUOTES, 'UTF-8' );
 		}

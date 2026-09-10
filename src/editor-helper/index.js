@@ -339,6 +339,44 @@ export const getDeviceType = () => {
     return deviceType.charAt(0).toUpperCase() + deviceType.slice(1);
 };
 
+/**
+ * Get Responsive Value
+ *
+ * @param {*} values
+ *
+ * @return {*}
+ */
+export const getResponsiveValue = (values) => {
+    const device = getDeviceType();
+
+    if (!values || typeof values !== 'object') {
+        return undefined;
+    }
+
+    // Prefer exact value for current device even if it's falsy (0, false, '').
+    if (Object.prototype.hasOwnProperty.call(values, device) && values[device] !== null && values[device] !== undefined) {
+        return values[device];
+    }
+
+    // Devices priority (largest to smallest). Build fallback from current device up to Desktop.
+    const priority = devices; // ['Desktop','Tablet','Mobile']
+    const idx = priority.indexOf(device);
+
+    if (idx === -1) {
+        return undefined;
+    }
+
+    const fallbackDevices = priority.slice(0, idx + 1).reverse();
+
+    for (const d of fallbackDevices) {
+        if (Object.prototype.hasOwnProperty.call(values, d) && values[d] !== null && values[d] !== undefined) {
+            return values[d];
+        }
+    }
+
+    return undefined;
+};
+
 export const getEditorWidth = () => {
     const width = document.querySelector('.edit-post-visual-editor iframe')?.clientWidth || document.querySelector('.editor-styles-wrapper')?.clientWidth;
     return width;

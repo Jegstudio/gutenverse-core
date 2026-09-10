@@ -1,50 +1,104 @@
-import { ButtonUpgradePro, EscListener } from 'gutenverse-core/components';
-import { IconCloseSVG } from 'gutenverse-core/icons';
-import { useRef, useEffect } from '@wordpress/element';
-import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
+import { EscListener } from 'gutenverse-core/components';
+import { useRef, useEffect, useState } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
+import { compose } from '@wordpress/compose';
+import { withSelect } from '@wordpress/data';
+import { applyFilters } from '@wordpress/hooks';
+import { InstallContent, LicenseExpired, UpgradePro, UpgradeTier } from './essential-install/popup-content';
 
 const PopupInstallPlugin = ({
-    active = false,
-    setActive,
-    description
+    installPopup,
+    setInstallPopup,
+    plugins,
 }) => {
-    const { imgDir } = window['GutenverseDashboard'];
+    const { url = '', active } = installPopup;
     const popupRef = useRef(null);
+    const [loading, setLoading] = useState(false);
+    const isInstalled = plugins?.installedPlugin?.['gutenverse-news-essential'] || false;
+    const [buttonText, setButtonText] = useState(isInstalled ? 'Activate Plugin' : 'Get Plugin');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState(false);
+
+    useEffect(() => {
+        setButtonText(isInstalled ? 'Activate Plugin' : 'Get Plugin');
+    }, [isInstalled]);
+
+    const setInactive = () => setInstallPopup({ active: false, url: '' });
+
+    const actionButton = () => {
+        if (!isInstalled) {
+            window.open(url, '_blank');
+            return;
+        }
+
+        setLoading(true);
+
+        apiFetch({
+            path: `wp/v2/plugins/plugin?plugin=${isInstalled?.path}`,
+            method: 'POST',
+            data: { status: 'active' },
+        }).then(() => {
+            setSuccess(true);
+            setTimeout(() => window.location.reload(), 1000);
+        }).catch((err) => {
+            setButtonText('Try Again');
+            setError(err.message || 'Activate plugin failed');
+        }).finally(() => {
+            setLoading(false);
+        });
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (popupRef.current && !popupRef.current.contains(event.target)) {
-                setActive(false);
+                setInactive();
             }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
-
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [popupRef]);
+    }, []);
+
     return active && (
         <>
-            <EscListener execute={() => setActive(false)} />
-            <div className="popup-pro">
-                <div className="popup-content" ref={popupRef}>
-                    <img className="image popup-image-background" src={`${imgDir}/pop-up-bg-popup-banner.png`} />
-                    <img className="image popup-image-mockup" src={`${imgDir}/pop-up-mockup-pro.png`} />
-                    <img className="image popup-image-cube" src={`${imgDir}/pop-up-3d-cube-2.png`} />
-                    <img className="image popup-image-element1" src={`${imgDir}/pop-up-icon-element.png`} />
-                    <img className="image popup-image-element2" src={`${imgDir}/pop-up-icon-element-2.png`} />
-                    <img className="image popup-image-element3" src={`${imgDir}/pop-up-icon-element-3.png`} />
-                    <img className="image popup-image-arrow" src={`${imgDir}/banner-arrow-blue.png`} />
-                    <div className="close" onClick={() => setActive(false)}>
-                        <IconCloseSVG size={20} />
-                    </div>
-                    <div className="content">
-                        <h3 className="details">{description}</h3>
-                        <ButtonUpgradePro location="popup" isBanner={true} link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} customStyles={{ height: '16px', padding: '12px 25px 12px 30px' }} />
-                    </div>
-                </div>
+            <EscListener execute={setInactive} />
+            <div className="popup-pro install-plugin">
+                <PopupContent
+                    loading={loading}
+                    actionButton={actionButton}
+                    success={success}
+                    buttonText={buttonText}
+                    error={error}
+                    popupRef={popupRef}
+                    setInactive={setInactive}
+                />
             </div>
         </>
     );
 };
 
-export default PopupInstallPlugin;
+export const PopupContent = ({ loading, actionButton, success, buttonText, error, setInactive, popupRef }) => {
+    return applyFilters(
+        'gvnews.banner.installEssential',
+        <UpgradePro setInactive={setInactive} popupRef={popupRef} />,
+        <LicenseExpired setInactive={setInactive} popupRef={popupRef} />,
+        <InstallContent
+            loading={loading}
+            actionButton={actionButton}
+            success={success}
+            buttonText={buttonText}
+            error={error}
+            popupRef={popupRef}
+            setInactive={setInactive}
+        />,
+        <UpgradeTier setInactive={setInactive} popupRef={popupRef} />,
+        ['professional', 'agency', 'enterprise'],
+        { setInactive, popupRef }
+    );
+};
+
+export default compose(
+    withSelect(select => ({
+        plugins: select('gutenverse/library').getPluginData(),
+    })),
+)(PopupInstallPlugin);

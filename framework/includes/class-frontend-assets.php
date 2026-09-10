@@ -27,6 +27,16 @@ class Frontend_Assets {
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_inline_style' ), 999 );
 		add_action( 'gutenverse_enqueue_assets', array( $this, 'enqueue_template_part_assets' ) );
 		add_filter( 'gutenverse_global_css', array( $this, 'global_variable_css' ) );
+		add_filter( 'styles_inline_size_limit', array( $this, 'inline_style_size_limit' ) );
+	}
+
+	/**
+	 * Increase the CSS size limit so WordPress can inline registered block styles.
+	 *
+	 * @return int Inline style size limit in bytes.
+	 */
+	public function inline_style_size_limit() {
+		return 500000;
 	}
 
 	/**
@@ -90,18 +100,20 @@ class Frontend_Assets {
 	 * @return string
 	 */
 	public function global_variable_css( $result = '' ) {
-		$csss = array();
+		$css = array();
 
 		// RENDER DEVICE WIDTH.
 		$tablet_breakpoint = gutenverse_breakpoint( 'Tablet' );
 		$mobile_breakpoint = gutenverse_breakpoint( 'Mobile' );
 
-		$csss['breakpoint'] = ':root {
+		$css['breakpoint'] = ':root {
             --guten-screen-xs-max: ' . $mobile_breakpoint . 'px;
             --guten-screen-sm-min: ' . ( $mobile_breakpoint + 1 ) . 'px;
             --guten-screen-sm-max: ' . ( $tablet_breakpoint ) . 'px;
             --guten-screen-md-min: ' . ( $tablet_breakpoint + 1 ) . 'px; 
         }';
+
+		$css['responsive_visibility'] = $this->responsive_visibility_css();
 
 		// RENDER GLOBAL COLORS.
 		$global_colors = array();
@@ -114,20 +126,59 @@ class Frontend_Assets {
 		}
 
 		if ( ! empty( $global_colors ) ) {
-			$csss['global_color'] = gutenverse_global_color_style_generator( $global_colors );
+			$css['global_color'] = gutenverse_global_color_style_generator( $global_colors );
 		}
 
 		// RENDER GLOBAL FONTS.
 		$global_fonts = Init::instance()->global_variable->get_global_variable( 'font' );
 
 		if ( ! empty( $global_fonts ) ) {
-			$csss['global_font'] = gutenverse_global_font_style_generator( $global_fonts );
+			$css['global_font'] = gutenverse_global_font_style_generator( $global_fonts );
 		}
 
-		$csss['section_inherit'] = $this->section_inherit();
-		$csss['result']          = $result;
+		$css['section_inherit'] = $this->section_inherit();
+		$css['result']          = $result;
 
-		return implode( ' ', $csss );
+		return implode( ' ', $css );
+	}
+
+	/**
+	 * Responsive visibility CSS.
+	 *
+	 * @return string
+	 */
+	private function responsive_visibility_css() {
+		$tablet_breakpoint = absint( gutenverse_breakpoint( 'Tablet' ) );
+		$mobile_breakpoint = absint( gutenverse_breakpoint( 'Mobile' ) );
+		$desktop_min_width = $tablet_breakpoint + 1;
+		$tablet_min_width  = $mobile_breakpoint + 1;
+
+		return '
+			@media only screen and (min-width: ' . $desktop_min_width . 'px) {
+				.hide-desktop { display: none !important; }
+			}
+			@media only screen and (max-width: ' . $tablet_breakpoint . 'px) and (min-width: ' . $tablet_min_width . 'px) {
+				.hide-tablet { display: none !important; }
+			}
+			@media only screen and (max-width: ' . $mobile_breakpoint . 'px) {
+				.hide-mobile { display: none !important; }
+			}
+			@media only screen and (max-width: ' . $tablet_breakpoint . 'px) {
+				.guten-element-hide[class^="tablet-"],
+				.guten-element-hide[class*=" tablet-"],
+				.guten-element-hide[class^="__tablet-"],
+				.guten-element-hide[class*=" __tablet-"] {
+					visibility: hidden;
+				}
+			}
+			@media only screen and (max-width: ' . $mobile_breakpoint . 'px) {
+				.guten-element-hide[class^="mobile-"],
+				.guten-element-hide[class*=" mobile-"],
+				.guten-element-hide[class^="__mobile-"],
+				.guten-element-hide[class*=" __mobile-"] {
+					visibility: hidden;
+				}
+			}';
 	}
 
 	/**
@@ -184,15 +235,16 @@ class Frontend_Assets {
 
 		do_action( 'gutenverse_include_frontend' );
 		wp_dequeue_style( 'gutenverse-frontend-style' );
-
-		wp_enqueue_style(
-			'gutenverse-frontend-icon',
-			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/frontend-icon.css',
-			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
-		);
+		wp_dequeue_style( 'gutenverse-dynamic-frontend-style' );
 
 		if ( is_user_logged_in() ) {
+			wp_enqueue_style(
+				'gutenverse-frontend-icon',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/frontend-icon.css',
+				array(),
+				GUTENVERSE_FRAMEWORK_VERSION
+			);
+
 			wp_enqueue_style(
 				'gutenverse-toolbar',
 				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/toolbar.css',
@@ -207,6 +259,7 @@ class Frontend_Assets {
 	 */
 	public function frontend_inline_style() {
 		wp_enqueue_style( 'gutenverse-frontend-style' );
+		wp_enqueue_style( 'gutenverse-dynamic-frontend-style' );
 	}
 
 	/**
@@ -268,12 +321,12 @@ class Frontend_Assets {
 			$arr_plugin[] = $plugin;
 		}
 		$config['activePlugins'] = $arr_plugin;
-		$post_featured           = get_the_post_thumbnail_url( $config['postId'], 'full' );
-		$config['featuredImage'] = ! empty( $post_featured ) ? $post_featured : GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/img-placeholder.jpg';
 		$config['breakPoints']   = array(
 			'Tablet' => $tablet_breakpoint,
 			'Mobile' => $mobile_breakpoint,
 		);
+		$config['nonceActions']  = NonceGenerator::instance()->get_actions();
+		$config['nonceEndpoint'] = admin_url( 'admin-ajax.php?action=gutenverse_generate_nonce' );
 
 		return apply_filters( 'gutenverse_frontend_config', $config );
 	}

@@ -1,160 +1,115 @@
 import { __ } from '@wordpress/i18n';
-import { ControlSelect, ControlCheckbox } from 'gutenverse-core/backend';
+import { ControlCheckbox } from 'gutenverse-core/backend';
 import { AlertControl } from 'gutenverse-core/controls';
 import apiFetch from '@wordpress/api-fetch';
 import { useState } from '@wordpress/element';
 
-const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData, setToast, setShowToast }) => {
+const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, saving, saveData, setToast, setShowToast }) => {
     const {
         frontend_settings = {}
     } = settingValues;
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState('');
     const {
-        renderSchedule
-    } = window['GutenverseSettings'];
-    const {
-        render_mechanism = 'file',
-        old_render_deletion_schedule = 'daily',
         remove_template_part_margin = true,
         remove_wp_emoji_script = false,
         disable_wp_lazyload = true,
-        file_delete_mechanism = 'manual',
-        unused_size = '0 B'
+        legacy_cache_size = '0 B',
+        payload_cache_size = '0 B',
+        payload_cache_files = 0
     } = frontend_settings;
+    const hasLegacyFiles = legacy_cache_size !== '0 B';
+    const hasPayloadFiles = payload_cache_size !== '0 B' || payload_cache_files > 0;
 
     const updateValue = (id, value) => {
         updateSettingValues('frontend_settings', id, value);
     };
 
+    const updateLegacyCacheInfo = (response) => {
+        const nextSize = response?.legacy_cache_size || response?.unused_size;
+
+        updateValues('frontend_settings', {
+            ...frontend_settings,
+            ...(nextSize ? { legacy_cache_size: nextSize } : {})
+        });
+    };
+
+    const updatePayloadCacheInfo = (response) => {
+        updateValues('frontend_settings', {
+            ...frontend_settings,
+            payload_cache_size: response?.payload_cache_size || '0 B',
+            payload_cache_files: response?.payload_cache_files || 0
+        });
+    };
+
     const handleDeleteCache = () => {
-        setLoading(true);
+        if (loading || !hasLegacyFiles) {
+            return;
+        }
+
+        setLoading('legacy');
         apiFetch({
             path: 'gutenverse-client/v1/settings/remove-cache',
             method: 'GET',
         })
-            .then(() => {
+            .then((response) => {
+                updateLegacyCacheInfo(response);
                 setToast({
                     status: 'success',
-                    message: 'You successfully freed ' + unused_size + ' cache files'
-                })
+                    message: 'Removed ' + (response?.removed_size || legacy_cache_size) + ' legacy frontend files'
+                });
                 setShowToast(true);
                 setTimeout(() => setShowToast(false), 2000);
             })
-            .catch((e) => {
+            .catch(() => {
                 setToast({
                     status: 'failed',
-                    message: 'Failed Removing Cache Files'
-                })
+                    message: 'Failed Removing Legacy Frontend Files'
+                });
                 setShowToast(true);
                 setTimeout(() => setShowToast(false), 2000);
             }).finally(() => {
                 setTimeout(() => {
-                    setLoading(false)
+                    setLoading('');
                 }, 1000);
+            });
+    };
+
+    const handleClearPayloadCache = () => {
+        if (loading || !hasPayloadFiles) {
+            return;
+        }
+
+        setLoading('payload');
+        apiFetch({
+            path: 'gutenverse-client/v1/settings/clear-payload-cache',
+            method: 'GET',
+        })
+            .then((response) => {
+                updatePayloadCacheInfo(response);
+                setToast({
+                    status: 'success',
+                    message: 'Removed ' + (response?.removed_size || payload_cache_size) + ' internal style cache'
+                });
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 2000);
             })
-    }
+            .catch(() => {
+                setToast({
+                    status: 'failed',
+                    message: 'Failed Removing Internal Style Cache'
+                });
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 2000);
+            }).finally(() => {
+                setTimeout(() => {
+                    setLoading('');
+                }, 1000);
+            });
+    };
 
     return <div className="frontend-setting-dashboard">
-        <div className="form-tab-body">
-            <h2>{__('Frontend Render Settings', '--gctd--')}</h2>
-            <AlertControl>
-                <span>{__('Please Refresh the Page After Saving Your Settings', '--gctd--')}</span>
-            </AlertControl>
-            <ControlSelect
-                id={'render_mechanism'}
-                title={__('Render Mechanism', '--gctd--')}
-                description={__('Pick Render Mechanism the System should implement when rendering frontend assets', '--gctd--')}
-                value={render_mechanism}
-                updateValue={updateValue}
-                options={[
-                    {
-                        label: __('File', '--gctd--'),
-                        value: 'file'
-                    },
-                    {
-                        label: __('Inline', '--gctd--'),
-                        value: 'direct'
-                    },
-                ]}
-            />
-            {render_mechanism === 'file' && <>
-                <div className="file-delete-mechanism-wrapper">
-                    <AlertControl>
-                        <span>{__('Use manual delete cache clean process instead of automatic if you are using other cache plugin', '--gctd--')}</span>
-                    </AlertControl>
-                    <ControlSelect
-                        id={'file_delete_mechanism'}
-                        title={__('Manual Deletion', '--gctd--')}
-                        description={__('Use Manual File Delete if you are using other cache plugin. ', '--gctd--')}
-                        value={file_delete_mechanism}
-                        updateValue={updateValue}
-                        options={[
-                            {
-                                label: __('Manual', '--gctd--'),
-                                value: 'manual',
-                            },
-                            {
-                                label: __('Auto', '--gctd--'),
-                                value: 'auto'
-                            },
-                        ]}
-                    />
-                    {file_delete_mechanism === 'manual' && (
-                        <div className="manual-button-wrapper" >
-                            <div className="left">
-                                <label>{__('Cache Clean Up', '--gctd--')}</label>
-                                <p>Free up to <b>{unused_size}</b> by removing temporary cache files</p>
-                            </div>
-                            <div className="right">
-                                {
-                                    loading ? <div className="manual-delete-button loading">
-                                        {__('Loading...', '--gctd--')}
-                                    </div> : <div className="manual-delete-button" onClick={handleDeleteCache}>{__('Delete Cache', '--gctd--')}</div>
-                                }
-                            </div>
-                        </div>
-                    )}
-                    {
-                        file_delete_mechanism === 'auto' && <ControlSelect
-                            id={'old_render_deletion_schedule'}
-                            title={__('Old File Deletion Schedule', '--gctd--')}
-                            description={__(`Set how long should the system store old css file for frontend style. This process need wp cron to be working. Next Schedule : ${renderSchedule}`, '--gctd--')}
-                            value={old_render_deletion_schedule}
-                            updateValue={updateValue}
-                            options={[
-                                {
-                                    label: __('Every 5 Minutes', '--gctd--'),
-                                    value: 'every_five_minutes',
-                                },
-                                {
-                                    label: __('Daily', '--gctd--'),
-                                    value: 'daily'
-                                },
-                                {
-                                    label: __('Every 2 days', '--gctd--'),
-                                    value: 'every_two_days'
-                                },
-                                {
-                                    label: __('Weekly', '--gctd--'),
-                                    value: 'weekly'
-                                },
-                                {
-                                    label: __('Monthly', '--gctd--'),
-                                    value: 'monthly'
-                                },
-                                {
-                                    label: __('Yearly', '--gctd--'),
-                                    value: 'yearly'
-                                },
-                            ]}
-                        />
-                    }
-                </div>
-            </>
-            }
-        </div>
-        <div className="template-tab-body" style={{ paddingTop: '30px' }}>
+        <div className="template-tab-body">
             <h2>{__('Fix Default Browser/WordPress Styles & Scripts', '--gctd--')}</h2>
             <ControlCheckbox
                 id={'remove_template_part_margin'}
@@ -177,6 +132,47 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData,
                 value={remove_wp_emoji_script}
                 updateValue={updateValue}
             />
+        </div>
+        <div className="template-tab-body legacy-cache-cleanup">
+            <div className="legacy-cache-cleanup-header">
+                <div>
+                    <h2>{__('Legacy Generated Frontend Files', '--gctd--')}</h2>
+                    <p>{__('Remove old generated CSS files after your page cache has been purged.', '--gctd--')}</p>
+                </div>
+                <div className="legacy-cache-cleanup-size">
+                    <span>{__('Legacy size', '--gctd--')}</span>
+                    <strong>{legacy_cache_size}</strong>
+                </div>
+            </div>
+            <AlertControl type="warning">
+                <span>{__('Only clear these files after purging page cache or CDN cache. Cached pages may still reference old generated CSS URLs.', '--gctd--')}</span>
+            </AlertControl>
+            <div className="legacy-cache-cleanup-actions">
+                <div className={`gutenverse-button legacy-cache-cleanup-button ${loading === 'legacy' ? 'loading' : ''} ${!hasLegacyFiles ? 'disabled' : ''}`} onClick={handleDeleteCache}>
+                    {loading === 'legacy' ? __('Clearing...', '--gctd--') : hasLegacyFiles ? __('Clear Legacy Files', '--gctd--') : __('No Legacy Files', '--gctd--')}
+                </div>
+            </div>
+        </div>
+        <div className="template-tab-body payload-cache-cleanup">
+            <div className="payload-cache-cleanup-header">
+                <div>
+                    <h2>{__('Internal Inline Style Cache', '--gctd--')}</h2>
+                    <p>{__('Stores generated inline style payloads so large pages do not need to rebuild block CSS on every request.', '--gctd--')}</p>
+                </div>
+                <div className="payload-cache-cleanup-size">
+                    <span>{__('Cache size', '--gctd--')}</span>
+                    <strong>{payload_cache_size}</strong>
+                    <span>{payload_cache_files + ' ' + __('files', '--gctd--')}</span>
+                </div>
+            </div>
+            <AlertControl type="warning">
+                <span>{__('Clearing this cache is safe. The next frontend request will regenerate the needed inline style payloads.', '--gctd--')}</span>
+            </AlertControl>
+            <div className="payload-cache-cleanup-actions">
+                <div className={`gutenverse-button payload-cache-cleanup-button ${loading === 'payload' ? 'loading' : ''} ${!hasPayloadFiles ? 'disabled' : ''}`} onClick={handleClearPayloadCache}>
+                    {loading === 'payload' ? __('Clearing...', '--gctd--') : hasPayloadFiles ? __('Clear Internal Cache', '--gctd--') : __('No Internal Cache', '--gctd--')}
+                </div>
+            </div>
         </div>
         <div className="actions">
             {saving ? <div className="gutenverse-button">

@@ -30,6 +30,13 @@ class Dashboard {
 	public $id;
 
 	/**
+	 * Event banner data.
+	 *
+	 * @var mixed
+	 */
+	private $event_banner = false;
+
+	/**
 	 * Init constructor.
 	 */
 	public function __construct() {
@@ -39,6 +46,8 @@ class Dashboard {
 		add_action( 'admin_menu', array( $this, 'child_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'enqueue_script_in_wizard', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_notices', array( $this, 'load_global_event_banner' ) );
+		add_action( 'wp_ajax_gutenverse_dismiss_global_event_banner', array( $this, 'dismiss_global_event_banner' ) );
 
 		add_filter( 'admin_footer_text', '__return_empty_string', 11 );
 		add_filter( 'update_footer', '__return_empty_string', 11 );
@@ -208,16 +217,16 @@ class Dashboard {
 		$config['showThemeList']            = apply_filters( 'gutenverse_show_theme_list_dashboard', false );
 		$config['themelist']                = admin_url( 'admin.php?page=gutenverse&path=theme-list' );
 		$config['homeSlug']                 = 'gutenverse';
-		$config['plugins']                  = Editor_Assets::list_plugin();
+		$config['plugins']                  = Editor_Assets::list_plugin( true );
 		$config['pluginVersions']           = array();
 		$config['fontIconExists']           = Init::instance()->assets->is_font_icon_exists();
 		$config['themesUrl']                = GUTENVERSE_FRAMEWORK_THEMES_URL;
 		$config['proDemoUrl']               = untrailingslashit( GUTENVERSE_FRAMEWORK_LIBRARY_URL );
 		$config['adminUrl']                 = admin_url();
 		$config['upgradeProUrl']            = gutenverse_upgrade_pro();
-		$config['proSiteUrl']            	= GUTENVERSE_FRAMEWORK_PRO_URL;
+		$config['proSiteUrl']               = GUTENVERSE_FRAMEWORK_PRO_URL;
 		$config['requireProUpdate']         = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
-		$config['eventBanner']              = gutenverse_get_event_banner();
+		$config['eventBanner']              = $this->get_event_banner();
 		$config['adsBannerThemeTF']         = gutenverse_get_ads_banner_theme_tf();
 		$config['pricingPlan']              = gutenverse_get_pricing_plan();
 		$config['isUsingGutenverseThemeTF'] = apply_filters( 'gutenverse_tp_plus_mechanism', false );
@@ -236,6 +245,10 @@ class Dashboard {
 				'plugin_list' => apply_filters( 'gutenverse_companion_plugin_list', array() ),
 				'action_url'  => admin_url( 'plugins.php' ),
 			),
+			'gutenverse-core-render-mechanism-notice-3-0-0' => array(
+				'show'      => version_compare( GUTENVERSE_FRAMEWORK_VERSION, '3.0.0', '>=' ),
+				'actionUrl' => esc_url_raw( admin_url( 'admin.php?page=gutenverse&path=settings&settings=frontend' ) ),
+			),
 		);
 
 		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'gutenverse' === $_GET['page'] ) {
@@ -246,24 +259,162 @@ class Dashboard {
 		} else {
 			$config['companionActive'] = 'false';
 		}
-		include_once ABSPATH . 'wp-admin/includes/theme.php';
-
-		$theme = wp_get_theme();
-		$slug  = $theme->get_stylesheet();
-
-		$api = themes_api(
-			'theme_information',
-			array(
-				'slug' => $slug,
-			)
-		);
-
-		if ( ! is_wp_error( $api ) ) {
-			$config['is_wporg_theme'] = true;
-		}
+		$config['is_wporg_theme'] = gutenverse_is_wporg_theme();
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
+
+	/**
+	 * Get event banner data.
+	 *
+	 * @return mixed
+	 */
+	public function get_event_banner() {
+		if ( false === $this->event_banner ) {
+			$this->event_banner = gutenverse_get_event_banner();
+		}
+
+		return $this->event_banner;
+	}
+
+	/**
+	 * Get global event banner ID.
+	 *
+	 * @param mixed $event_banner Event banner data.
+	 *
+	 * @return string
+	 */
+	private function get_global_event_banner_id( $event_banner ) {
+		if ( ! empty( $event_banner->bannerId ) ) {
+			return sanitize_key( $event_banner->bannerId );
+		}
+
+		$payload = wp_json_encode(
+			array(
+				'bannerGlobal' => $event_banner->bannerGlobal,
+				'url'          => $event_banner->url,
+				'expired'      => $event_banner->expired,
+			)
+		);
+
+		return wp_hash( false !== $payload ? $payload : '' );
+	}
+
+	/**
+	 * Load global event banner in WordPress admin pages.
+	 */
+	public function load_global_event_banner() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		global $pagenow;
+
+		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+
+		if ( 'admin.php' === $pagenow && self::TYPE === $page ) {
+			return;
+		}
+
+		$event_banner = $this->get_event_banner();
+
+		if ( ! gutenverse_is_event_banner_valid( $event_banner, 'bannerGlobal' ) ) {
+			return;
+		}
+
+		$expired = strtotime( $event_banner->expired );
+
+		if ( ! $expired || current_time( 'timestamp' ) > $expired ) {
+			return;
+		}
+
+		$banner_id = $this->get_global_event_banner_id( $event_banner );
+		$user_id   = get_current_user_id();
+
+		if ( empty( $banner_id ) ) {
+			return;
+		}
+
+		if ( $user_id && hash_equals( (string) get_user_meta( $user_id, 'gutenverse_global_event_banner_dismissed', true ), $banner_id ) ) {
+			return;
+		}
+
+		?>
+		<div id="gutenverse-global-event-banner-<?php echo esc_attr( $banner_id ); ?>" class="notice gutenverse-global-event-banner">
+			<a href="<?php echo esc_url( $event_banner->url ); ?>" target="_blank" rel="noopener noreferrer">
+				<img src="<?php echo esc_url( $event_banner->bannerGlobal ); ?>" alt="<?php esc_attr_e( 'Gutenverse event banner', '--gctd--' ); ?>" />
+			</a>
+			<button type="button" class="notice-dismiss gutenverse-global-event-banner-dismiss" data-banner-id="<?php echo esc_attr( $banner_id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'gutenverse_global_event_banner' ) ); ?>">
+				<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', '--gctd--' ); ?></span>
+			</button>
+		</div>
+		<script>
+			( function() {
+				var banner = document.getElementById( 'gutenverse-global-event-banner-<?php echo esc_js( $banner_id ); ?>' );
+
+				if ( ! banner ) {
+					return;
+				}
+
+				var dismissButton = banner.querySelector( '.gutenverse-global-event-banner-dismiss' );
+
+				if ( ! dismissButton ) {
+					return;
+				}
+
+				dismissButton.addEventListener( 'click', function() {
+					var request = new FormData();
+
+					banner.remove();
+					request.append( 'action', 'gutenverse_dismiss_global_event_banner' );
+					request.append( 'nonce', dismissButton.dataset.nonce );
+					request.append( 'banner_id', dismissButton.dataset.bannerId );
+
+					window.fetch( window.ajaxurl, {
+						method: 'POST',
+						credentials: 'same-origin',
+						body: request
+					} );
+				} );
+			}() );
+		</script>
+		<?php
+	}
+
+	/**
+	 * Dismiss global event banner.
+	 */
+	public function dismiss_global_event_banner() {
+		check_ajax_referer( 'gutenverse_global_event_banner', 'nonce' );
+
+		$user_id = get_current_user_id();
+
+		if ( ! $user_id || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( null, 403 );
+		}
+
+		$banner_id = isset( $_POST['banner_id'] ) ? sanitize_key( wp_unslash( $_POST['banner_id'] ) ) : '';
+
+		if ( empty( $banner_id ) ) {
+			wp_send_json_error( null, 400 );
+		}
+
+		$event_banner = $this->get_event_banner();
+
+		if ( ! gutenverse_is_event_banner_valid( $event_banner, 'bannerGlobal' ) ) {
+			wp_send_json_error( null, 404 );
+		}
+
+		$expected_banner_id = $this->get_global_event_banner_id( $event_banner );
+
+		if ( empty( $expected_banner_id ) || ! hash_equals( $expected_banner_id, $banner_id ) ) {
+			wp_send_json_error( null, 400 );
+		}
+
+		update_user_meta( $user_id, 'gutenverse_global_event_banner_dismissed', $banner_id );
+		wp_send_json_success();
+	}
+
 	/**
 	 * Get active plugin lists.
 	 *
@@ -273,9 +424,12 @@ class Dashboard {
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
-		$active_plugins = get_option( 'active_plugins' );
-		$all_plugins    = get_plugins();
-		$plugin_lists   = array();
+		$active_plugins          = get_option( 'active_plugins', array() );
+		$active_sitewide_plugins = get_site_option( 'active_sitewide_plugins', array() );
+		$active_sitewide_plugins = array_keys( $active_sitewide_plugins );
+		$active_plugins          = array_unique( array_merge( $active_plugins, $active_sitewide_plugins ) );
+		$all_plugins             = get_plugins();
+		$plugin_lists            = array();
 		foreach ( $active_plugins as $plugin ) {
 			if ( isset( $all_plugins[ $plugin ] ) && isset( $all_plugins[ $plugin ]['TextDomain'] ) ) {
 				$plugin_lists[] = $all_plugins[ $plugin ]['TextDomain'];
@@ -633,6 +787,42 @@ class Dashboard {
 					'plugin_version'    => '3.7.1',
 					'framework_version' => '2.7.1',
 				),
+				array(
+					'plugin_version'    => '3.8.0',
+					'framework_version' => '2.8.0',
+				),
+				array(
+					'plugin_version'    => '3.8.1',
+					'framework_version' => '2.8.1',
+				),
+				array(
+					'plugin_version'    => '3.8.2',
+					'framework_version' => '2.8.2',
+				),
+				array(
+					'plugin_version'    => '4.0.0',
+					'framework_version' => '3.0.0',
+				),
+				array(
+					'plugin_version'    => '4.0.2',
+					'framework_version' => '3.0.2',
+				),
+				array(
+					'plugin_version'    => '4.0.3',
+					'framework_version' => '3.0.3',
+				),
+				array(
+					'plugin_version'    => '4.0.5',
+					'framework_version' => '3.0.5',
+				),
+				array(
+					'plugin_version'    => '4.0.6',
+					'framework_version' => '3.0.6',
+				),
+				array(
+					'plugin_version'    => '4.0.7',
+					'framework_version' => '3.0.7',
+				),
 			),
 			'gutenverse-form' => array(
 				array(
@@ -827,6 +1017,34 @@ class Dashboard {
 					'plugin_version'    => '2.7.1',
 					'framework_version' => '2.7.1',
 				),
+				array(
+					'plugin_version'    => '2.8.0',
+					'framework_version' => '2.8.0',
+				),
+				array(
+					'plugin_version'    => '2.8.1',
+					'framework_version' => '2.8.1',
+				),
+				array(
+					'plugin_version'    => '2.8.2',
+					'framework_version' => '2.8.2',
+				),
+				array(
+					'plugin_version'    => '3.0.0',
+					'framework_version' => '3.0.0',
+				),
+				array(
+					'plugin_version'    => '3.0.2',
+					'framework_version' => '3.0.2',
+				),
+				array(
+					'plugin_version'    => '3.0.4',
+					'framework_version' => '3.0.3',
+				),
+				array(
+					'plugin_version'    => '3.0.5',
+					'framework_version' => '3.0.5',
+				),
 			),
 			'gutenverse-news' => array(
 				array(
@@ -880,6 +1098,18 @@ class Dashboard {
 				array(
 					'plugin_version'    => '3.2.1',
 					'framework_version' => '2.7.1',
+				),
+				array(
+					'plugin_version'    => '3.3.0',
+					'framework_version' => '2.8.0',
+				),
+				array(
+					'plugin_version'    => '3.3.1',
+					'framework_version' => '2.8.1',
+				),
+				array(
+					'plugin_version'    => '3.3.2',
+					'framework_version' => '2.8.2',
 				),
 			),
 			'gutenverse-pro'  => array(
@@ -1023,6 +1253,18 @@ class Dashboard {
 					'plugin_version'    => '2.7.1',
 					'framework_version' => '2.7.1',
 				),
+				array(
+					'plugin_version'    => '2.7.2',
+					'framework_version' => '2.8.1',
+				),
+				array(
+					'plugin_version'    => '3.0.0',
+					'framework_version' => '3.0.0',
+				),
+				array(
+					'plugin_version'    => '3.0.2',
+					'framework_version' => '3.0.2',
+				),
 			),
 		);
 
@@ -1039,12 +1281,29 @@ class Dashboard {
 
 		$config = array();
 
-		$settings_data                                     = apply_filters( 'gutenverse_settings_data', get_option( 'gutenverse-settings', array() ) );
-		$settings_data['frontend_settings']['unused_size'] = gutenverse_unused_cache_file_size();
-		$config['settingsData']                            = $settings_data;
-		$config['blockCategories']                         = Init::instance()->blocks->gutenverse_categories();
-		$config['uploadPath']                              = $upload_path['basedir'];
-		$config['renderSchedule']                          = gmdate( 'Y-m-d H:i:s', wp_next_scheduled( 'gutenverse_cleanup_cached_style' ) );
+		$settings_data = apply_filters( 'gutenverse_settings_data', get_option( 'gutenverse-settings', array() ) );
+
+		if ( ! isset( $settings_data['frontend_settings'] ) || ! is_array( $settings_data['frontend_settings'] ) ) {
+			$settings_data['frontend_settings'] = array();
+		}
+
+		unset(
+			$settings_data['frontend_settings']['render_mechanism'],
+			$settings_data['frontend_settings']['file_delete_mechanism'],
+			$settings_data['frontend_settings']['old_render_deletion_schedule'],
+			$settings_data['frontend_settings']['cache_id'],
+			$settings_data['frontend_settings']['unused_size'],
+			$settings_data['frontend_settings']['payload_cache_size'],
+			$settings_data['frontend_settings']['payload_cache_files']
+		);
+
+		$payload_cache_stats                                       = Init::instance()->frontend_cache->get_payload_cache_stats();
+		$settings_data['frontend_settings']['legacy_cache_size']   = gutenverse_legacy_cache_file_size();
+		$settings_data['frontend_settings']['payload_cache_size']  = $payload_cache_stats['size_label'];
+		$settings_data['frontend_settings']['payload_cache_files'] = $payload_cache_stats['files'];
+		$config['settingsData']                                    = $settings_data;
+		$config['blockCategories']                                 = Init::instance()->blocks->gutenverse_categories();
+		$config['uploadPath']                                      = $upload_path['basedir'];
 
 		return $config;
 	}

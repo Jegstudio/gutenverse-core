@@ -9,6 +9,21 @@
         "plugin:react/recommended"
     ],
     "parser": "@babel/eslint-parser",
+    "parserOptions": {
+        "requireConfigFile": false,
+        "babelOptions": {
+            "babelrc": false,
+            "configFile": false,
+            "presets": [
+                "@babel/preset-env",
+                "@babel/preset-react",
+                "@wordpress/babel-preset-default"
+            ],
+            "plugins": [
+                "@babel/plugin-transform-runtime"
+            ]
+        }
+    },
     "plugins": [
         "react"
     ],

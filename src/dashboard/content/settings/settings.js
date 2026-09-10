@@ -13,6 +13,8 @@ import { getSettingsIcon } from 'gutenverse-core/icons';
 import { PopupInstallPlugin, PopupPro } from 'gutenverse-core/components';
 
 const SettingsBody = ({ settings, ...props }) => {
+
+    const { subSettings } = props;
     let body = '';
     switch (settings) {
         case 'editor':
@@ -67,16 +69,24 @@ const SettingsBody = ({ settings, ...props }) => {
                 props
             );
             break;
+        case 'account':
+            body = applyFilters(
+                'gutenverse.setting-pro-account',
+                body,
+                settings,
+                props
+            );
+            break;
         default:
             break;
     }
     return <div className="settings-tab-body-wrapper">
-        <div className="tab-header">
+        <div className={`tab-header ${settings}`}>
             <h2>
                 {getSettingTitle(props.subSettings ? props.subSettings : settings)}
             </h2>
         </div>
-        <div className="settings-tab-body">
+        <div className={`settings-tab-body ${subSettings !== undefined ? subSettings : ''}`}>
             {body}
         </div>
     </div>;
@@ -84,7 +94,7 @@ const SettingsBody = ({ settings, ...props }) => {
 
 const Settings = (props) => {
     const [popupActive, setPopupActive] = useState(false);
-    const [installPopup, setInstallPopup] = useState(false);
+    const [installPopup, setInstallPopup] = useState({ active: false, code: '' });
 
     const { location } = props;
     const { pathname, search } = location;
@@ -103,9 +113,8 @@ const Settings = (props) => {
             description={<>{__('Upgrade ', '--gctd--')}<span>{__(' Gutenverse PRO ', '--gctd--')}</span>{__(' version to ', '--gctd--')}<br />{__(' unlock these premium features', '--gctd--')}</>}
         />
         <PopupInstallPlugin
-            active={installPopup}
-            setActive={setInstallPopup}
-            description={<>{__('Please Install Gutenverse News Add\'s On Plugin', '--gctd--')}</>}
+            installPopup={installPopup}
+            setInstallPopup={setInstallPopup}
         />
         <DashboardBody>
             <div className="setting-tabs">

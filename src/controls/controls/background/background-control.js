@@ -25,10 +25,6 @@ const toLegacyCompatibleColor = (color) => {
         return color;
     }
     const {
-        Desktop: _desktop,
-        Tablet: _tablet,
-        Mobile: _mobile,
-        previousValues: _previousValues,
         ...legacyColor
     } = fallback;
 
@@ -599,6 +595,12 @@ const BackgroundControl = (props) => {
                 onValueChange={videoImage => onValueChange({ ...value, videoImage })}
                 allowDeviceControl={true}
             />
+            {!isEmpty(value.videoImage) && <CheckboxControl
+                label={__('Fetch Priority High', '--gctd--')}
+                description={__('Signals the browser to prioritize fetching this image. Use this only for the LCP (Largest Contentful Paint) element.', '--gctd--')}
+                value={value.videoImageFetchpriorityHigh}
+                onValueChange={videoImageFetchpriorityHigh => onValueChange({ ...value, videoImageFetchpriorityHigh })}
+            />}
         </>}
 
         {value.type !== undefined && value.type === 'slide' && <>
@@ -800,6 +802,18 @@ const BackgroundControl = (props) => {
                 value={value.lazyLoad}
                 onValueChange={lazyLoad => onValueChange({ ...value, lazyLoad })}
             /> */}
+            <ImageControl
+                label={__('Background Fallback', '--gctd--')}
+                value={value.sliderFallbackImage}
+                onValueChange={sliderFallbackImage => onValueChange({ ...value, sliderFallbackImage })}
+                allowDeviceControl={true}
+            />
+            {!isEmpty(value.sliderFallbackImage) && <CheckboxControl
+                label={__('Fetch Priority High', '--gctd--')}
+                description={__('Signals the browser to prioritize fetching this image. Use this only for the LCP (Largest Contentful Paint) element.', '--gctd--')}
+                value={value.sliderFallbackImageFetchpriorityHigh}
+                onValueChange={sliderFallbackImageFetchpriorityHigh => onValueChange({ ...value, sliderFallbackImageFetchpriorityHigh })}
+            />}
         </>}
 
         {value.type !== undefined && value.type === 'fluid' && applyFilters(

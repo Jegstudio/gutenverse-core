@@ -37,7 +37,14 @@ class Wrapper extends Block_Abstract {
 	 */
 	public function render_frontend() {
 		if ( ! empty( trim( $this->block_data->inner_html ) ) && apply_filters( 'gutenverse_force_dynamic', false ) ) {
-			return $this->content;
+			$background    = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
+			$block_content = $this->content;
+			$block_content = $this->featured_image_background_fallback(
+				$background,
+				".{$this->get_element_id()}:not(.background-animated), .{$this->get_element_id()}.background-animated > .guten-background-animated .animated-layer",
+				$block_content
+			);
+			return $block_content;
 		}
 
 		// Snapshot attributes before rendering inner blocks, since this class is a singleton
@@ -56,7 +63,7 @@ class Wrapper extends Block_Abstract {
 		$background_animated      = isset( $attributes['backgroundAnimated'] ) ? $attributes['backgroundAnimated'] : array();
 		$background_effect        = isset( $attributes['backgroundEffect'] ) ? $attributes['backgroundEffect'] : array();
 		$background               = isset( $attributes['background'] ) ? $attributes['background'] : array();
-		$is_slideshow             = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
+		$is_slideshow             = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0 && ( isset( $background['type'] ) && $background['type'] === 'slide' );
 		$using_featured_image     = ! empty( $background['useFeaturedImage'] ) && ( ! empty( $background['useFeaturedImage']['Desktop'] ) || ! empty( $background['useFeaturedImage']['Tablet'] ) || ! empty( $background['useFeaturedImage']['Mobile'] ) );
 		$is_bg_animated           = $this->is_animation_active( $background_animated );
 		$is_background_effect     = ! empty( $background_effect ) && isset( $background_effect['type'] ) && 'none' !== $background_effect['type'];
@@ -123,6 +130,10 @@ class Wrapper extends Block_Abstract {
 
 		// Build output.
 		$output = '<div class="' . esc_attr( trim( $class_name ) ) . '"' . $advance_animation_attr . $onclick_attr . $id_attr . '>';
+		$output .= $this->render_featured_image_background_style(
+			$background,
+			".{$element_id}:not(.background-animated), .{$element_id}.background-animated > .guten-inner-wrap > .guten-background-animated .animated-layer"
+		);
 
 		// Guten data div (bg animated data + slideshow data).
 		if ( $is_bg_animated || $is_slideshow ) {
@@ -178,9 +189,11 @@ class Wrapper extends Block_Abstract {
 			$output    .= '<div class="guten-video-background" data-property="' . esc_attr( wp_json_encode( $video_data ) ) . '"></div>';
 		}
 
+		$slide_elements = $is_slideshow ? apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id ) : '';
+
 		// Slideshow elements (when not bg animated).
 		if ( ! $is_bg_animated && $is_slideshow ) {
-			$output .= $this->render_slideshow_elements( $background, $element_id );
+			$output .= $slide_elements;
 		}
 
 		// Background overlay.
@@ -200,7 +213,7 @@ class Wrapper extends Block_Abstract {
 		if ( $is_bg_animated ) {
 			$output .= '<div class="guten-background-animated"><div class="animated-layer animated-' . esc_attr( $short_id ) . '">';
 			if ( $is_slideshow ) {
-				$output .= $this->render_slideshow_elements( $background, $element_id );
+				$output .= $slide_elements;
 			}
 			$output .= '</div></div>';
 		}
@@ -233,48 +246,4 @@ class Wrapper extends Block_Abstract {
 		return isset( $background_animated['actions'] ) && is_array( $background_animated['actions'] ) && count( $background_animated['actions'] ) > 0;
 	}
 
-	/**
-	 * Render slideshow elements.
-	 *
-	 * @param array  $background  Background data.
-	 * @param string $element_id  Element ID.
-	 * @return string
-	 */
-	private function render_slideshow_elements( $background, $element_id ) {
-		$slide_images = isset( $background['slideImage'] ) ? $background['slideImage'] : array();
-
-		if ( empty( $slide_images ) || ! is_array( $slide_images ) ) {
-			return '';
-		}
-
-		$output  = '<div class="bg-slideshow-container">';
-		$output .= '<div class="bg-slideshow-item">';
-
-		foreach ( $slide_images as $index => $image ) {
-			$image_url = '';
-			if ( isset( $image['image']['image'] ) && ! empty( $image['image']['image'] ) ) {
-				$image_url = $image['image']['image'];
-			}
-
-			$slide_class = '';
-			if ( 1 === $index ) {
-				$slide_class = ' current';
-			} elseif ( 0 === $index ) {
-				$slide_class = ' previous';
-			}
-
-			$output .= '<div class="' . esc_attr( $element_id ) . '-child-slideshow slideshow-item-container item-' . esc_attr( $index ) . '">';
-			$output .= '<div class="' . esc_attr( $element_id ) . '-slideshow-image slideshow-image' . $slide_class . '"';
-			if ( ! empty( $image_url ) ) {
-				$output .= ' style="background-image: url(' . esc_url( $image_url ) . ')"';
-			}
-			$output .= '></div>';
-			$output .= '</div>';
-		}
-
-		$output .= '</div>';
-		$output .= '</div>';
-
-		return $output;
-	}
 }

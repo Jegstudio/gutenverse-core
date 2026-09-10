@@ -9,6 +9,43 @@ export const responsiveBreakpoint = () => {
     };
 };
 
+const nonceCache = {};
+let nonceRequest = null;
+
+export const getNonce = (actionName) => {
+    const config = window.GutenverseData || {};
+    const nonceActions = config.nonceActions || {};
+    const allowedActions = Array.isArray(nonceActions) ? nonceActions : Object.keys(nonceActions);
+
+    if (!config.nonceEndpoint || !allowedActions.includes(actionName)) {
+        return Promise.resolve('');
+    }
+
+    if (nonceCache[actionName]) {
+        return Promise.resolve(nonceCache[actionName]);
+    }
+
+    if (!nonceRequest) {
+        nonceRequest = fetch(config.nonceEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        })
+            .then(response => response.json())
+            .then(response => {
+                if (response.success && response.data && response.data.nonceActions) {
+                    Object.assign(nonceCache, response.data.nonceActions);
+                }
+
+                return nonceCache;
+            })
+            .catch(() => nonceCache);
+    }
+
+    return nonceRequest
+        .then(nonces => nonces[actionName] || '')
+        .catch(() => '');
+};
+
 /**
  * Render Icon
  *

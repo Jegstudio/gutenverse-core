@@ -101,7 +101,7 @@ const ButtonUpgradePro = ({
                 {...(noPro ? hoverProps : {})}
                 className={buttonClasses}
                 style={customStyles}
-                >
+            >
                 <>
                     {text}
                     {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}

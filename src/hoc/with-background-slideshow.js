@@ -28,7 +28,7 @@ export const withBackgroundSlideshow = (BlockControl) => {
         </div>;
 
         useEffect(() => {
-            if (isEmpty(slideImage)) return;
+            if (isEmpty(slideImage) || background?.type !== 'slide') return;
             clearInterval(intervalToggle);
             slideshowContainerRefs.current = slideshowContainerRefs.current.filter((el) => el !== null);
             slideshowImageRefs.current = slideshowImageRefs.current.filter((el) => el !== null);
@@ -67,7 +67,7 @@ export const withBackgroundSlideshow = (BlockControl) => {
             transition,
             prevClass = 'previous',
             currentClass = 'current',
-            parentClass = 'hasToggledClass'
+            parentClass = 'hasToggledClass',
         ) => {
             if (!blockRef) return;
             let currentIndex = 1;
@@ -139,7 +139,7 @@ export const withBackgroundSlideshow = (BlockControl) => {
             if (duration <= 0) {
                 clearInterval(intervalToggle);
             }
-        }
+        };
 
         const slideElement = <div className="bg-slideshow-container">
             {elements}

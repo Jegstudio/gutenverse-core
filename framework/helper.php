@@ -440,6 +440,37 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_is_event_banner_valid' ) ) {
+	/**
+	 * Check if event banner has required data.
+	 *
+	 * @param mixed  $event_banner Event banner data.
+	 * @param string $required_banner Required banner image field.
+	 *
+	 * @return bool
+	 */
+	function gutenverse_is_event_banner_valid( $event_banner, $required_banner = '' ) {
+		if ( empty( $event_banner ) || ( ! is_object( $event_banner ) && ! is_array( $event_banner ) ) ) {
+			return false;
+		}
+
+		$data          = is_array( $event_banner ) ? $event_banner : get_object_vars( $event_banner );
+		$banner_fields = ! empty( $required_banner ) ? array( $required_banner ) : array( 'banner', 'bannerGlobal', 'bannerLibrary', 'bannerSidePanel' );
+		$has_image     = false;
+
+		foreach ( $banner_fields as $field ) {
+			if ( ! empty( $data[ $field ] ) ) {
+				$has_image = true;
+				break;
+			}
+		}
+
+		return $has_image &&
+			! empty( $data['url'] ) &&
+			! empty( $data['expired'] );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	/**
 	 * Get Event Banner
@@ -447,13 +478,15 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	 * @return mixed
 	 */
 	function gutenverse_get_event_banner() {
+		if ( defined( 'GUTENVERSE_PRO' ) ) {
+			return null;
+		}
+
 		$data = get_transient( 'gutenverse_banner_cache' );
 		if ( $data ) {
-			if ( ! $data->banner || ! $data->bannerLibrary || ! $data->url || ! $data->expired ) {
-				return null;
-			}
-			return $data;
+			return gutenverse_is_event_banner_valid( $data ) ? $data : null;
 		}
+
 		$response = wp_remote_request(
 			GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-banner/v1/bannerdata',
 			array(
@@ -466,9 +499,10 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 		$body = wp_remote_retrieve_body( $response );
 		$data = json_decode( $body );
 
-		if ( ! $data->banner || ! $data->bannerLibrary || ! $data->url || ! $data->expired ) {
+		if ( ! gutenverse_is_event_banner_valid( $data ) ) {
 			return null;
 		}
+
 		set_transient( 'gutenverse_banner_cache', $data, 3 * HOUR_IN_SECONDS );
 		return $data;
 	}
@@ -534,6 +568,23 @@ if ( ! function_exists( 'gutenverse_get_ads_banner_theme_tf' ) ) {
 
 		set_transient( 'gutenverse_ads_theme_tf_cache', $data->data, 24 * HOUR_IN_SECONDS );
 		return $data->data;
+	}
+}
+
+if ( ! function_exists( 'gutenverse_is_wporg_theme' ) ) {
+	/**
+	 * Check if the active theme is listed in WordPress.org using cached update data.
+	 *
+	 * @return boolean
+	 */
+	function gutenverse_is_wporg_theme() {
+		$slug          = get_stylesheet();
+		$update_themes = get_site_transient( 'update_themes' );
+		$response      = is_object( $update_themes ) && isset( $update_themes->response ) ? (array) $update_themes->response : array();
+		$no_update     = is_object( $update_themes ) && isset( $update_themes->no_update ) ? (array) $update_themes->no_update : array();
+		$is_wporg      = isset( $response[ $slug ] ) || isset( $no_update[ $slug ] );
+
+		return apply_filters( 'gutenverse_is_wporg_theme', $is_wporg, $slug );
 	}
 }
 
@@ -688,6 +739,35 @@ if ( ! function_exists( 'gutenverse_print_html' ) ) {
 	 */
 	function gutenverse_print_html( $html, $condition = null ) {
 		echo wp_kses( $html, wp_kses_allowed_html( $condition ) );
+	}
+}
+
+if ( ! function_exists( 'gutenverse_allowlist_tag' ) ) {
+	/**
+	 * Sanitize a dynamic HTML tag name against an allowlist.
+	 *
+	 * @param string       $tag          Requested tag name.
+	 * @param string       $default_tag  Fallback tag when the requested tag is not allowed.
+	 * @param array|string $allowed_tags Optional explicit allowlist.
+	 *
+	 * @return string
+	 */
+	function gutenverse_allowlist_tag( $tag, $default_tag = 'p', $allowed_tags = array() ) {
+		$default_allowed_tags = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'span' );
+		$allowed_tags         = ! empty( $allowed_tags ) && is_array( $allowed_tags ) ? $allowed_tags : $default_allowed_tags;
+		$normalized_tag       = strtolower( trim( (string) $tag ) );
+		$normalized_default   = strtolower( trim( (string) $default_tag ) );
+		$normalized_allowed   = array_map( 'strtolower', array_map( 'strval', $allowed_tags ) );
+
+		if ( in_array( $normalized_tag, $normalized_allowed, true ) ) {
+			return $normalized_tag;
+		}
+
+		if ( in_array( $normalized_default, $normalized_allowed, true ) ) {
+			return $normalized_default;
+		}
+
+		return reset( $normalized_allowed ) ?: 'div';
 	}
 }
 
@@ -932,6 +1012,96 @@ if ( ! function_exists( 'gutenverse_secure_iterable' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
+	/**
+	 * Flatten local font family names from WordPress global typography settings.
+	 *
+	 * @param array $settings Font family settings.
+	 *
+	 * @return array
+	 */
+	function gutenverse_flatten_font_family_settings( $settings ) {
+		$families = array();
+
+		if ( ! is_array( $settings ) ) {
+			return $families;
+		}
+
+		if ( ! empty( $settings['fontFamily'] ) && ! empty( $settings['fontFace'] ) ) {
+			foreach ( explode( ',', $settings['fontFamily'] ) as $font_family ) {
+				$font_family = trim( $font_family, " \t\n\r\0\x0B'\"" );
+				if ( '' !== $font_family ) {
+					$families[] = $font_family;
+				}
+			}
+		}
+
+		foreach ( $settings as $setting ) {
+			if ( is_array( $setting ) ) {
+				$families = array_merge( $families, gutenverse_flatten_font_family_settings( $setting ) );
+			}
+		}
+
+		return array_unique( $families );
+	}
+
+	/**
+	 * Check if a font family is installed through the WordPress Font Library.
+	 *
+	 * @param string $family Font family name.
+	 *
+	 * @return bool
+	 */
+	function gutenverse_is_wp_font_family_installed( $family ) {
+		static $installed_families = null;
+
+		if ( null === $installed_families ) {
+			$installed_families = array();
+
+			if ( post_type_exists( 'wp_font_family' ) ) {
+				$font_family_ids = get_posts(
+					array(
+						'post_type'              => 'wp_font_family',
+						'post_status'            => 'any',
+						'posts_per_page'         => -1,
+						'fields'                 => 'ids',
+						'no_found_rows'          => true,
+						'update_post_meta_cache' => false,
+						'update_post_term_cache' => false,
+					)
+				);
+
+				foreach ( $font_family_ids as $font_family_id ) {
+					$settings = json_decode( get_post_field( 'post_content', $font_family_id ), true );
+					$fonts    = array( get_the_title( $font_family_id ) );
+
+					if ( isset( $settings['fontFamily'] ) ) {
+						$fonts = array_merge( $fonts, explode( ',', $settings['fontFamily'] ) );
+					}
+
+					foreach ( $fonts as $font ) {
+						$font = trim( $font, " \t\n\r\0\x0B'\"" );
+						if ( '' !== $font ) {
+							$installed_families[ strtolower( $font ) ] = true;
+						}
+					}
+				}
+			}
+
+			if ( function_exists( 'wp_get_global_settings' ) ) {
+				$font_settings = wp_get_global_settings( array( 'typography', 'fontFamilies' ) );
+
+				foreach ( gutenverse_flatten_font_family_settings( $font_settings ) as $font_family ) {
+					$installed_families[ strtolower( $font_family ) ] = true;
+				}
+			}
+		}
+
+		$font_key     = strtolower( trim( $family, " \t\n\r\0\x0B'\"" ) );
+		return isset( $installed_families[ $font_key ] );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_header_font' ) ) {
 	/**
 	 * Header Font
@@ -950,7 +1120,11 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 			$family = $font['value'];
 			$type   = $font['type'];
 			$id     = ! empty( $font['id'] ) ? $font['id'] : null;
+
 			if ( 'google' === $type ) {
+				if ( gutenverse_is_wp_font_family_installed( $family ) ) {
+					continue;
+				}
 
 				$families[ $family ] = isset( $families[ $family ] ) ? $families[ $family ] : array();
 
@@ -1414,6 +1588,27 @@ if ( ! function_exists( 'gutenverse_responsive_appender' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_sanitize_font_family_css_value' ) ) {
+	/**
+	 * Sanitize a font family string before using it in CSS output.
+	 *
+	 * @param mixed $value Font family value.
+	 *
+	 * @return string
+	 */
+	function gutenverse_sanitize_font_family_css_value( $value ) {
+		if ( ! is_scalar( $value ) ) {
+			return '';
+		}
+
+		$value = sanitize_text_field( (string) $value );
+		$value = preg_replace( '/[\x00-\x1F\x7F<>"\';{}\\\\]/u', '', $value );
+		$value = preg_replace( '/[^\p{L}\p{N} _\-\.,&()]/u', '', $value );
+
+		return trim( $value );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 	/**
 	 * Font Style Generator.
@@ -1436,8 +1631,13 @@ if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 			if ( isset( $font['font'] ) ) {
 				$thefont = $font['font'];
 				if ( $thefont ) {
+					$font_family = isset( $thefont['value'] ) ? gutenverse_sanitize_font_family_css_value( $thefont['value'] ) : '';
+					if ( '' === $font_family ) {
+						continue;
+					}
+
 					gutenverse_normal_appender(
-						gutenverse_variable_font_name( $id, 'family' ) . ':"' . $thefont['value'] . '";',
+						gutenverse_variable_font_name( $id, 'family' ) . ':"' . $font_family . '";',
 						$variable_style
 					);
 				}
@@ -1900,15 +2100,15 @@ if ( ! function_exists( 'gutenverse_home_url_multilang' ) ) {
 	}
 }
 
-if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
+if ( ! function_exists( 'gutenverse_generated_cache_file_size' ) ) {
 	/**
-	 * Method gutenverse_unused_cache_file_size
+	 * Method gutenverse_generated_cache_file_size
 	 *
+	 * @param string|false $cache_id Cache ID to preserve.
 	 * @return string
 	 */
-	function gutenverse_unused_cache_file_size() {
-		$cache_id = get_option( 'gutenverse-style-cache-id', 'initial-cache' );
-		$paths    = array(
+	function gutenverse_generated_cache_file_size( $cache_id = false ) {
+		$paths = array(
 			gutenverse_css_path(),
 			gutenverse_conditional_path(),
 			gutenverse_preload_assets_path(),
@@ -1927,7 +2127,7 @@ if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
 				foreach ( $files as $cf ) {
 					if ( is_file( $cf ) ) {
 						$filename = basename( $cf );
-						if ( false === strpos( $filename, $cache_id ) ) {
+						if ( ! $cache_id || false === strpos( $filename, $cache_id ) ) {
 							$total_in_bytes += filesize( $cf );
 						}
 					}
@@ -1936,5 +2136,29 @@ if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
 		}
 
 		return size_format( $total_in_bytes );
+	}
+}
+
+if ( ! function_exists( 'gutenverse_legacy_cache_file_size' ) ) {
+	/**
+	 * Method gutenverse_legacy_cache_file_size
+	 *
+	 * @return string
+	 */
+	function gutenverse_legacy_cache_file_size() {
+		return gutenverse_generated_cache_file_size();
+	}
+}
+
+if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
+	/**
+	 * Method gutenverse_unused_cache_file_size
+	 *
+	 * @return string
+	 */
+	function gutenverse_unused_cache_file_size() {
+		$cache_id = get_option( 'gutenverse-style-cache-id', 'initial-cache' );
+
+		return gutenverse_generated_cache_file_size( $cache_id );
 	}
 }

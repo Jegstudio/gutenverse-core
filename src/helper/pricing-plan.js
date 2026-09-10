@@ -5,6 +5,8 @@ const DEFAULT_PRICING_PLAN = {
     active_promotion: [],
     is_event_sales: false,
     event_expired: '',
+    checkout_provider: 'default',
+    default_checkout_url: '',
 };
 
 const PRICING_PLAN_PROMISE_KEY = 'GutenverseTempPricingDataPromise';
@@ -92,19 +94,12 @@ const getPricingPlanFallback = () => {
     return normalizePricingPlan(runtime?.pricingPlan);
 };
 
-const hasRuntimePricingPlanFallback = () => getFallbackRuntimeObjects()
-    .some((item) => isValidPricingPlan(item?.pricingPlan));
-
 const ensurePricingPlanData = ({ force = false } = {}) => {
     const tempPricingPlan = normalizePricingPlan(getTempPricingPlanData());
     const fallbackPricingPlan = getPricingPlanFallback();
 
     if (!force && getTempPricingPlanData()) {
         return Promise.resolve(setRuntimePricingPlan(tempPricingPlan));
-    }
-
-    if (!force && hasRuntimePricingPlanFallback()) {
-        return Promise.resolve(setRuntimePricingPlan(fallbackPricingPlan));
     }
 
     if (!force && getPricingPlanPromise()) {

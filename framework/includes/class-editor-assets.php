@@ -146,21 +146,7 @@ class Editor_Assets {
 		$config['supportGlobalImport']      = $this->check_theme_support_global();
 		$config['defaultImageLoad']         = $this->get_default_image_load_option();
 		$config['pricingPlan']              = gutenverse_get_pricing_plan();
-		include_once ABSPATH . 'wp-admin/includes/theme.php';
-
-		$theme = wp_get_theme();
-		$slug  = $theme->get_stylesheet();
-
-		$api = themes_api(
-			'theme_information',
-			array(
-				'slug' => $slug,
-			)
-		);
-
-		if ( ! is_wp_error( $api ) ) {
-			$config['is_wporg_theme'] = true;
-		}
+		$config['is_wporg_theme']           = gutenverse_is_wporg_theme();
 
 		if ( defined( 'GUTENVERSE' ) ) {
 			$config['oldImagePlaceholder'] = plugins_url( GUTENVERSE ) . '/assets/img/img-placeholder.jpg';
@@ -188,7 +174,7 @@ class Editor_Assets {
 	 *
 	 * @return array
 	 */
-	public static function list_plugin() {
+	public static function list_plugin( $with_deps = false ) {
 		$plugins = array();
 		$active  = array();
 
@@ -202,12 +188,22 @@ class Editor_Assets {
 		}
 
 		foreach ( get_plugins() as $key => $plugin ) {
-			$slug             = explode( '/', $key )[0];
-			$data             = array();
-			$data['active']   = in_array( $slug, $active, true );
-			$data['version']  = $plugin['Version'];
-			$data['name']     = $plugin['Name'];
-			$data['path']     = str_replace( '.php', '', $key );
+			$slug            = explode( '/', $key )[0];
+			$data            = array();
+			$data['active']  = in_array( $slug, $active, true );
+			$data['version'] = $plugin['Version'];
+			$data['name']    = $plugin['Name'];
+			$data['path']    = str_replace( '.php', '', $key );
+
+			if ( $with_deps ) {
+				$requires_plugins = isset( $plugin['RequiresPlugins'] ) ? $plugin['RequiresPlugins'] : '';
+				if ( ! empty( $requires_plugins ) ) {
+					$requires_plugins = array_map( 'trim', explode( ',', $requires_plugins ) );
+				} else {
+					$requires_plugins = array();
+				}
+				$data['requiresPlugins'] = $requires_plugins;
+			}
 			$plugins[ $slug ] = $data;
 		}
 

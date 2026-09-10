@@ -310,9 +310,9 @@ class Theme_Helper {
 			if ( $area_definition && isset( $area_definition['area_tag'] ) ) {
 				$area_tag = $area_definition['area_tag'];
 			}
-			$html_tag = $area_tag;
+			$html_tag = gutenverse_allowlist_tag( $area_tag, 'div', array( 'div', 'header', 'footer', 'main', 'article', 'section', 'aside', 'nav' ) );
 		} else {
-			$html_tag = esc_attr( $attributes['tagName'] );
+			$html_tag = gutenverse_allowlist_tag( $attributes['tagName'], 'div', array( 'div', 'header', 'footer', 'main', 'article', 'section', 'aside', 'nav' ) );
 		}
 		$wrapper_attributes = get_block_wrapper_attributes();
 

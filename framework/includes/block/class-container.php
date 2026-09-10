@@ -574,7 +574,14 @@ class Container extends Block_Abstract {
 	 */
 	public function render_frontend() {
 		if ( ! empty( trim( $this->block_data->inner_html ) ) && apply_filters( 'gutenverse_force_dynamic', false ) ) {
-			return $this->content;
+			$background    = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
+			$block_content = $this->content;
+			$block_content = $this->featured_image_background_fallback(
+				$background,
+				".guten-flex-container.{$this->get_element_id()}:not(.background-animated), .guten-flex-container.{$this->get_element_id()}.background-animated > .guten-background-animated .animated-layer",
+				$block_content
+			);
+			return $block_content;
 		}
 
 		// Snapshot attributes before rendering inner blocks, since this class is a singleton
@@ -607,7 +614,7 @@ class Container extends Block_Abstract {
 		$html_tag                 = isset( $attributes['htmlTag'] ) ? $attributes['htmlTag'] : 'div';
 		$anchor                   = isset( $attributes['anchor'] ) ? $attributes['anchor'] : '';
 
-		$is_slideshow       = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0;
+		$is_slideshow       = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0 && ( isset( $background['type'] ) && $background['type'] === 'slide' );
 		$is_bg_animated     = $this->is_animation_active( $background_animated );
 		$is_bg_effect       = ! empty( $background_effect ) && isset( $background_effect['type'] ) && 'none' !== $background_effect['type'];
 		$is_sticky          = $this->is_sticky( $sticky );
@@ -692,13 +699,14 @@ class Container extends Block_Abstract {
 		$id_attr = ! empty( $anchor ) ? ' id="' . esc_attr( $anchor ) . '"' : '';
 
 		// Allowed HTML tags.
-		$allowed_tags = array( 'div', 'header', 'footer', 'main', 'article', 'section', 'aside', 'nav' );
-		if ( ! in_array( $html_tag, $allowed_tags, true ) ) {
-			$html_tag = 'div';
-		}
+		$html_tag = gutenverse_allowlist_tag( $html_tag, 'div', array( 'div', 'header', 'footer', 'main', 'article', 'section', 'aside', 'nav' ) );
 
 		// Build output.
 		$output = '<' . $html_tag . ' class="' . esc_attr( $class_name ) . '" data-id="' . esc_attr( $data_id ) . '"' . $adv_anim_attr . $id_attr . '>';
+		$output .= $this->render_featured_image_background_style(
+			$background,
+			".guten-flex-container.{$element_id}:not(.background-animated), .guten-flex-container.{$element_id}.background-animated > .guten-background-animated .animated-layer"
+		);
 
 		// Fluid canvas.
 		$output .= apply_filters( 'gutenverse_fluid_canvas_script', '', $attributes );
@@ -737,14 +745,14 @@ class Container extends Block_Abstract {
 		}
 
 		// Background animated layer.
+		$slide_elements = $is_slideshow ? apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id ) : '';
 		if ( $is_bg_animated ) {
-			$slide_elements = $is_slideshow ? apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id ) : '';
 			$output        .= '<div class="guten-background-animated"><div class="animated-layer animated-' . esc_attr( $data_id ) . '">' . $slide_elements . '</div></div>';
 		}
 
 		// Slideshow (without bg animated).
 		if ( ! $is_bg_animated && $is_slideshow ) {
-			$output .= apply_filters( 'gutenverse_background_slideshow', '', $attributes, $element_id );
+			$output .= $slide_elements;
 		}
 
 		// Background effect.
