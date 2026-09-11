@@ -125,8 +125,7 @@
 }
 
 .gutenverse-global-event-banner a {
-    display: flex;
-    justify-content: center;
+    display: block;
 }
 
 .gutenverse-global-event-banner img {

@@ -348,6 +348,7 @@ class Dashboard {
 		$max_width        = ! empty( $event_banner->bannerGlobalMaxWidth ) ? trim( (string) $event_banner->bannerGlobalMaxWidth ) : '';
 		$max_height       = ! empty( $event_banner->bannerGlobalMaxHeight ) ? trim( (string) $event_banner->bannerGlobalMaxHeight ) : '';
 		$background_color = ! empty( $event_banner->bannerGlobalBackgroundColor ) ? sanitize_hex_color( $event_banner->bannerGlobalBackgroundColor ) : '';
+		$alignment        = ! empty( $event_banner->bannerAlignment ) ? sanitize_key( $event_banner->bannerAlignment ) : 'left';
 
 		if ( is_numeric( $max_width ) ) {
 			$max_width .= 'px';
@@ -367,6 +368,11 @@ class Dashboard {
 
 		if ( ! empty( $background_color ) ) {
 			$banner_styles[] = 'background-color: ' . $background_color;
+		}
+
+		if ( 'center' === $alignment ) {
+			$banner_img_style[] = 'margin-left: auto';
+			$banner_img_style[] = 'margin-right: auto';
 		}
 
 		?>
