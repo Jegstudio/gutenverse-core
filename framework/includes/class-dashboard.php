@@ -343,10 +343,36 @@ class Dashboard {
 			return;
 		}
 
+		$banner_styles    = array();
+		$banner_img_style = array();
+		$max_width        = ! empty( $event_banner->bannerGlobalMaxWidth ) ? trim( (string) $event_banner->bannerGlobalMaxWidth ) : '';
+		$max_height       = ! empty( $event_banner->bannerGlobalMaxHeight ) ? trim( (string) $event_banner->bannerGlobalMaxHeight ) : '';
+		$background_color = ! empty( $event_banner->bannerGlobalBackgroundColor ) ? sanitize_hex_color( $event_banner->bannerGlobalBackgroundColor ) : '';
+
+		if ( is_numeric( $max_width ) ) {
+			$max_width .= 'px';
+		}
+
+		if ( is_numeric( $max_height ) ) {
+			$max_height .= 'px';
+		}
+
+		if ( preg_match( '/^\d+(?:\.\d+)?(?:px|%|rem|em|vw|vh)$/', $max_width ) ) {
+			$banner_styles[] = 'max-width: ' . $max_width;
+		}
+
+		if ( preg_match( '/^\d+(?:\.\d+)?(?:px|%|rem|em|vw|vh)$/', $max_height ) ) {
+			$banner_img_style[] = 'max-height: ' . $max_height;
+		}
+
+		if ( ! empty( $background_color ) ) {
+			$banner_styles[] = 'background-color: ' . $background_color;
+		}
+
 		?>
-		<div id="gutenverse-global-event-banner-<?php echo esc_attr( $banner_id ); ?>" class="notice gutenverse-global-event-banner">
+		<div id="gutenverse-global-event-banner-<?php echo esc_attr( $banner_id ); ?>" class="notice gutenverse-global-event-banner" style="<?php echo esc_attr( implode( '; ', $banner_styles ) ); ?>">
 			<a href="<?php echo esc_url( $event_banner->url ); ?>" target="_blank" rel="noopener noreferrer">
-				<img src="<?php echo esc_url( $event_banner->bannerGlobal ); ?>" alt="<?php esc_attr_e( 'Gutenverse event banner', '--gctd--' ); ?>" />
+				<img src="<?php echo esc_url( $event_banner->bannerGlobal ); ?>" alt="<?php esc_attr_e( 'Gutenverse event banner', '--gctd--' ); ?>" style="<?php echo esc_attr( implode( '; ', $banner_img_style ) ); ?>" />
 			</a>
 			<button type="button" class="notice-dismiss gutenverse-global-event-banner-dismiss" data-banner-id="<?php echo esc_attr( $banner_id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'gutenverse_global_event_banner' ) ); ?>">
 				<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', '--gctd--' ); ?></span>
@@ -613,9 +639,9 @@ class Dashboard {
 	private function get_remote_plugin_version_list_config() {
 		$cached = get_transient( self::PLUGIN_VERSION_LIST_CACHE );
 
-		// if ( is_array( $cached ) && array_key_exists( 'data', $cached ) ) {
-		// 	return is_array( $cached['data'] ) ? $cached['data'] : null;
-		// }
+		if ( is_array( $cached ) && array_key_exists( 'data', $cached ) ) {
+			return is_array( $cached['data'] ) ? $cached['data'] : null;
+		}
 
 		$remote = $this->fetch_remote_plugin_version_list();
 

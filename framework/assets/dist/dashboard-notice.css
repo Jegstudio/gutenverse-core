@@ -125,7 +125,8 @@
 }
 
 .gutenverse-global-event-banner a {
-    display: block;
+    display: flex;
+    justify-content: center;
 }
 
 .gutenverse-global-event-banner img {
@@ -134,7 +135,6 @@
     display: block;
     height: auto;
     max-width: 100%;
-    width: 100%;
 }
 
 .gutenverse-global-event-banner .notice-dismiss {
@@ -150,6 +150,10 @@
     top: 8px;
     width: 28px;
     z-index: 2;
+}
+
+.gutenverse-global-event-banner:hover .notice-dismiss {
+    opacity: .3;
 }
 
 .gutenverse-global-event-banner .notice-dismiss:before {
