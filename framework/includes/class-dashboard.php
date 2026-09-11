@@ -640,18 +640,24 @@ class Dashboard {
 		$cached = get_transient( self::PLUGIN_VERSION_LIST_CACHE );
 
 		if ( is_array( $cached ) && array_key_exists( 'data', $cached ) ) {
-			return is_array( $cached['data'] ) ? $cached['data'] : null;
+			if ( is_array( $cached['data'] ) ) {
+				return $cached['data'];
+			}
+
+			delete_transient( self::PLUGIN_VERSION_LIST_CACHE );
 		}
 
 		$remote = $this->fetch_remote_plugin_version_list();
 
-		set_transient(
-			self::PLUGIN_VERSION_LIST_CACHE,
-			array(
-				'data' => $remote,
-			),
-			DAY_IN_SECONDS
-		);
+		if ( is_array( $remote ) ) {
+			set_transient(
+				self::PLUGIN_VERSION_LIST_CACHE,
+				array(
+					'data' => $remote,
+				),
+				DAY_IN_SECONDS
+			);
+		}
 
 		return $remote;
 	}
