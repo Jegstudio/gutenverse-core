@@ -440,6 +440,37 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_is_event_banner_valid' ) ) {
+	/**
+	 * Check if event banner has required data.
+	 *
+	 * @param mixed  $event_banner Event banner data.
+	 * @param string $required_banner Required banner image field.
+	 *
+	 * @return bool
+	 */
+	function gutenverse_is_event_banner_valid( $event_banner, $required_banner = '' ) {
+		if ( empty( $event_banner ) || ( ! is_object( $event_banner ) && ! is_array( $event_banner ) ) ) {
+			return false;
+		}
+
+		$data          = is_array( $event_banner ) ? $event_banner : get_object_vars( $event_banner );
+		$banner_fields = ! empty( $required_banner ) ? array( $required_banner ) : array( 'banner', 'bannerGlobal', 'bannerLibrary', 'bannerSidePanel' );
+		$has_image     = false;
+
+		foreach ( $banner_fields as $field ) {
+			if ( ! empty( $data[ $field ] ) ) {
+				$has_image = true;
+				break;
+			}
+		}
+
+		return $has_image &&
+			! empty( $data['url'] ) &&
+			! empty( $data['expired'] );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	/**
 	 * Get Event Banner
@@ -447,13 +478,15 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	 * @return mixed
 	 */
 	function gutenverse_get_event_banner() {
+		if ( defined( 'GUTENVERSE_PRO' ) ) {
+			return null;
+		}
+
 		$data = get_transient( 'gutenverse_banner_cache' );
 		if ( $data ) {
-			if ( ! $data->banner || ! $data->bannerLibrary || ! $data->url || ! $data->expired ) {
-				return null;
-			}
-			return $data;
+			return gutenverse_is_event_banner_valid( $data ) ? $data : null;
 		}
+
 		$response = wp_remote_request(
 			GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-banner/v1/bannerdata',
 			array(
@@ -466,9 +499,10 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 		$body = wp_remote_retrieve_body( $response );
 		$data = json_decode( $body );
 
-		if ( ! $data->banner || ! $data->bannerLibrary || ! $data->url || ! $data->expired ) {
+		if ( ! gutenverse_is_event_banner_valid( $data ) ) {
 			return null;
 		}
+
 		set_transient( 'gutenverse_banner_cache', $data, 3 * HOUR_IN_SECONDS );
 		return $data;
 	}
