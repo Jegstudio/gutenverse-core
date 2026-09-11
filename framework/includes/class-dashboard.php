@@ -613,9 +613,9 @@ class Dashboard {
 	private function get_remote_plugin_version_list_config() {
 		$cached = get_transient( self::PLUGIN_VERSION_LIST_CACHE );
 
-		if ( is_array( $cached ) && array_key_exists( 'data', $cached ) ) {
-			return is_array( $cached['data'] ) ? $cached['data'] : null;
-		}
+		// if ( is_array( $cached ) && array_key_exists( 'data', $cached ) ) {
+		// 	return is_array( $cached['data'] ) ? $cached['data'] : null;
+		// }
 
 		$remote = $this->fetch_remote_plugin_version_list();
 
@@ -717,7 +717,9 @@ class Dashboard {
 				usort(
 					$normalized[ $slug ],
 					function ( $a, $b ) {
-						return version_compare( $a['framework_version'], $b['framework_version'] );
+						$framework_compare = version_compare( $a['framework_version'], $b['framework_version'] );
+
+						return 0 !== $framework_compare ? $framework_compare : version_compare( $a['plugin_version'], $b['plugin_version'] );
 					}
 				);
 			}

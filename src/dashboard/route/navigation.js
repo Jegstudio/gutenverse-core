@@ -9,30 +9,82 @@ import { ButtonUpgradePro, CheckSquare } from 'gutenverse-core/components';
 import { versionCompare, useNotificationsState } from '../../helper';
 
 // @since v3.2.0
-const getRequiredPluginVersion = (history, currentFrameworkVersion) => {
-    let requiredVersion = null;
+const getVersionCompatibilityData = (history, currentFrameworkVersion, pluginVersion) => {
+    const fallback = {
+        pluginFrameworkVersion: null,
+        requiredVersion: null,
+        requiredFrameworkVersion: null,
+        requiresCoreUpdate: false
+    };
 
-    if (!history || !history.length) return null;
+    if (!history || !history.length) return fallback;
 
-    for (const entry of history) {
-        if (versionCompare(entry.framework_version, currentFrameworkVersion, '<=')) {
-            requiredVersion = entry.plugin_version;
-        } else {
-            break;
+    const latestKnown = history.reduce((currentLatest, entry) => {
+        if (!entry?.framework_version || !entry?.plugin_version) {
+            return currentLatest;
         }
-    }
-    return requiredVersion;
+
+        if (!currentLatest || versionCompare(entry.plugin_version, currentLatest.plugin_version, '>')) {
+            return entry;
+        }
+
+        if (versionCompare(entry.plugin_version, currentLatest.plugin_version, '==') && versionCompare(entry.framework_version, currentLatest.framework_version, '>')) {
+            return entry;
+        }
+
+        return currentLatest;
+    }, null);
+
+    const pluginFramework = history.reduce((currentFramework, entry) => {
+        if (!entry?.framework_version || !entry?.plugin_version || versionCompare(entry.plugin_version, pluginVersion, '>')) {
+            return currentFramework;
+        }
+
+        if (!currentFramework || versionCompare(entry.plugin_version, currentFramework.plugin_version, '>')) {
+            return entry;
+        }
+
+        if (versionCompare(entry.plugin_version, currentFramework.plugin_version, '==') && versionCompare(entry.framework_version, currentFramework.framework_version, '>')) {
+            return entry;
+        }
+
+        return currentFramework;
+    }, null);
+
+    const target = latestKnown && versionCompare(pluginVersion, latestKnown.plugin_version, '<') ? latestKnown : null;
+
+    return {
+        pluginFrameworkVersion: pluginFramework?.framework_version || null,
+        requiredVersion: target?.plugin_version || null,
+        requiredFrameworkVersion: target?.framework_version || null,
+        requiresCoreUpdate: target?.framework_version ? versionCompare(target.framework_version, currentFrameworkVersion, '>') : false
+    };
 };
 
-const getPluginFrameworkVersion = (history, pluginVersion) => {
+const getRequiredPluginVersion = (history, currentFrameworkVersion) => {
     if (!history || !history.length) return null;
 
-    for (const entry of history) {
-        if (entry.plugin_version === pluginVersion) {
-            return entry.framework_version;
+    const required = history.reduce((currentRequired, entry) => {
+        if (!entry?.framework_version || !entry?.plugin_version || !versionCompare(entry.framework_version, currentFrameworkVersion, '<=')) {
+            return currentRequired;
         }
-    }
-    return null;
+
+        if (!currentRequired) {
+            return entry;
+        }
+
+        if (versionCompare(entry.framework_version, currentRequired.framework_version, '>')) {
+            return entry;
+        }
+
+        if (versionCompare(entry.framework_version, currentRequired.framework_version, '==') && versionCompare(entry.plugin_version, currentRequired.plugin_version, '>')) {
+            return entry;
+        }
+
+        return currentRequired;
+    }, null);
+
+    return required?.plugin_version || null;
 };
 
 const useVersionCompatibilityData = (readNotifications, markAsRead) => {
@@ -60,12 +112,13 @@ const useVersionCompatibilityData = (readNotifications, markAsRead) => {
             const v1 = pluginVersions[installedSlug]['version'];
 
             let needsUpdate = false;
-            let v_core_history = getPluginFrameworkVersion(history, v1) || 'N/A';
+            const compatibility = getVersionCompatibilityData(history, version, v1);
+            let v_core_history = compatibility.pluginFrameworkVersion || 'N/A';
             let v2 = null;
             let message = '';
 
             if (history) {
-                v2 = getRequiredPluginVersion(history, version);
+                v2 = compatibility.requiredVersion || getRequiredPluginVersion(history, version);
 
                 if (v2) {
                     needsUpdate = versionCompare(v1, v2, '<');
@@ -75,7 +128,9 @@ const useVersionCompatibilityData = (readNotifications, markAsRead) => {
                 }
 
                 message = needsUpdate
-                    ? __('Hi! Currently you are using an older version of this plugin. Please update to the compatible version: ' + v2 + '.', '--gctd--')
+                    ? compatibility.requiresCoreUpdate && compatibility.requiredFrameworkVersion
+                        ? __('Hi! A newer version is available. Please update Gutenverse Core to version ' + compatibility.requiredFrameworkVersion + ' and update this plugin to version: ' + v2 + '.', '--gctd--')
+                        : __('Hi! Currently you are using an older version of this plugin. Please update to the compatible version: ' + v2 + '.', '--gctd--')
                     : __('Your plugin version is compatible with the current Gutenverse Core.', '--gctd--');
 
             } else {
