@@ -37,7 +37,7 @@ const getPluginFrameworkVersion = (history, pluginVersion) => {
 
 const useVersionCompatibilityData = (readNotifications, markAsRead) => {
     const { adminUrl, pluginVersions } = window['GutenverseDashboard'];
-    const { pluginCheck } = window['GutenversePluginList'];
+    const { pluginCheck } = window['GutenversePluginVersionList'];
     const { version } = window['gutenverseLoadedFramework'];
 
     const data = useMemo(() => {
