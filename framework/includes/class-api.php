@@ -1486,6 +1486,9 @@ class Api {
 		if ( $wp_filesystem->exists( $directory . '/' . self::DATA_FOLDER . '/' . $name . '.json' ) ) {
 			$file = $wp_filesystem->get_contents( $directory . '/' . self::DATA_FOLDER . '/' . $name . '.json' );
 			$json = json_decode( $file, true );
+		} elseif ( $wp_filesystem->exists( GUTENVERSE_FRAMEWORK_DIR . '/data/library/' . $name . '.json' ) ) {
+			$file = $wp_filesystem->get_contents( GUTENVERSE_FRAMEWORK_DIR . '/data/library/' . $name . '.json' );
+			$json = json_decode( $file, true );
 		} elseif ( $wp_filesystem->exists( GUTENVERSE_FRAMEWORK_DIR . '/data/' . $name . '.json' ) ) {
 			$file = $wp_filesystem->get_contents( GUTENVERSE_FRAMEWORK_DIR . '/data/' . $name . '.json' );
 			$json = json_decode( $file, true );
