@@ -115,13 +115,14 @@
 
 .gutenverse-global-event-banner {
     background: transparent;
-    border: 0;
     box-shadow: none;
     box-sizing: border-box;
     margin: 12px 20px 20px 2px;
     max-width: 1440px;
     padding: 0!important;
     position: relative;
+    border: 1px solid #c3c4c7;
+    border-left-width: 4px;
 }
 
 .gutenverse-global-event-banner a {
@@ -129,8 +130,6 @@
 }
 
 .gutenverse-global-event-banner img {
-    border: 1px solid transparent;
-    border-radius: 5px;
     display: block;
     height: auto;
     max-width: 100%;
@@ -159,4 +158,10 @@
     height: 28px;
     line-height: 28px;
     width: 28px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .gutenverse-global-event-banner {
+        border-left-width: 2px;
+    }
 }
