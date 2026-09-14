@@ -2020,6 +2020,17 @@ if ( ! function_exists( 'gutenverse_pro_active' ) ) {
 	}
 }
 
+if ( ! function_exists( 'jnews_blocks_pro_active' ) ) {
+	/**
+	 * Check if Gutenverse Pro plugin is Active.
+	 *
+	 * @return boolean
+	 */
+	function jnews_blocks_pro_active() {
+		return defined( 'JNEWS_BLOCKS_PRO_VERSION' );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_get_current_url' ) ) {
 	/**
 	 * Get current url with parameter
