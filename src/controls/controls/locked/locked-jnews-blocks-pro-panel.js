@@ -1,45 +1,29 @@
-import { IconCrownBannerSVG } from 'gutenverse-core/icons';
+import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { applyFilters } from '@wordpress/hooks';
-import isEmpty from 'lodash/isEmpty';
-import { activeTheme, clientUrl } from 'gutenverse-core/config';
-import { getUpgradeProps } from '../../../helper/freemius';
+import { IconKeySVG } from 'gutenverse-core/icons';
 
-const DefaultLayout = (props) => {
-    const {
-        title,
-        description,
-        img,
-        isOpen,
-        permaLink,
-        assetDir,
-    } = props;
-    const {
-        videoDir,
-        upgradeProUrl,
-        documentationUrl,
-        proDemoUrl
-    } = window['GutenverseConfig'];
+const { adminUrl = '' } = window?.GutenverseConfig || window.GutenverseDashboard || { adminUrl: null };
+export const licenseUrl = adminUrl + 'admin.php?page=jnews-blocks&path=license';
 
-    const dir = assetDir ? assetDir : videoDir;
+const LockedJNewsBlocksProPanel = () => {
+    const id = useInstanceId(LockedJNewsBlocksProPanel, 'inspector-locked-pro-notice-control');
+    const proDemoUrl = 'https://jnews.io/jnews-demo/';
+    const documentationUrl = 'https://jnews.io/features/';
 
-    const ButtonPro = applyFilters(
-        'gutenverse.pro-panel-button',
-        () => isEmpty(window?.gprodata) && <a className="gutenverse-button-available-pro" {...getUpgradeProps(`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`)}> {__('Upgrade To Pro', '--gctd--')} <IconCrownBannerSVG /> </a>,
-        props
-    );
-    return <>
-        <h2 className="title">{title}</h2>
+    return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked gutenverse-control-locked-layout'}>
+        <h2 className="title" style={{ fontSize: '15px' }}>
+            {__('Pro License not yet active', 'gutenverse-pro')}
+        </h2>
         <div>
-            <span className="description">{description}</span>
+            <div className="gutenverse-button activate" onClick={() => window.open(licenseUrl)}>
+                <IconKeySVG fill={'white'}/>
+                {__('Activate License', 'jnews-blocks-pro')}
+            </div>
         </div>
         <div>
-            <ButtonPro />
-        </div>
-        <div>
-            {img && <video autoPlay={isOpen} loop={isOpen}>
-                <source src={`${dir}/${img}`} type="video/mp4" />
-            </video>}
+            <span className="description" style={{ marginBottom: 0 }}>
+                {__('Activate your license now to unlock advanced features, receive regular updates, and access premium resources.', 'gutenverse-pro')}
+            </span>
         </div>
         <div className="more-details">
             <div className="more-detail">
@@ -47,7 +31,7 @@ const DefaultLayout = (props) => {
                     <circle cx="8" cy="8" r="7.75" stroke="#3B57F7" strokeWidth="0.5" />
                     <path d="M6.21875 11.1128V4.89062L11.1076 8.00174L6.21875 11.1128Z" fill="#3B57F7" />
                 </svg>
-                <a href={`${proDemoUrl}/${permaLink ? permaLink : ''}`} target="_blank" rel="noreferrer">{__('Learn More', '--gctd--')}</a>
+                <a href={proDemoUrl} target="_blank" rel="noreferrer">{__('View Demo', '--gctd--')}</a>
             </div>
             <div className="more-detail">
                 <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +42,7 @@ const DefaultLayout = (props) => {
                 <a href={documentationUrl} target="_blank" rel="noreferrer">{__('Documentation', '--gctd--')}</a>
             </div>
         </div>
-    </>;
+    </div>;
 };
 
-export default DefaultLayout;
+export default LockedJNewsBlocksProPanel;
