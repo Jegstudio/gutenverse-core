@@ -10,6 +10,7 @@ const LockedGalleryPostFormat = ({ isOpen }) => {
             title={__('Gallery Post Format', '--gctd--')}
             description={__('Displaying a gallery as the featured image of your post.', '--gctd--')}
             isOpen={isOpen}
+            isJNewsBlocks={true}
         />
     </div>;
 };
