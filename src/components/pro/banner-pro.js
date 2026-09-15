@@ -19,6 +19,8 @@ const  BannerPro = ({
     const eventData = eventBanner;
     const today = new Date();
     const expired = new Date(eventData?.expired);
+    const eventBannerImage = container === 'library' ? eventData?.bannerLibrary : eventData?.banner;
+    const showEventBanner = eventBannerImage && eventData?.url && !Number.isNaN(expired.getTime()) && today <= expired && container === 'library';
     const banner = <div className="banner-pro" style={customStyles}>
         {imgDir && (
             <>
@@ -45,11 +47,15 @@ const  BannerPro = ({
     const EventBanner = () => {
         return <>
             {
-                ( eventData && today <= expired && container === 'library') ? <div className="event-banner-wrapper">
-                    <a href={eventData?.url} target="_blank" rel="noreferrer" >
-                        <img src={container === 'library' ? eventData?.bannerLibrary : eventData?.banner} alt="event-banner"/>
+                showEventBanner ? <div className="event-banner-wrapper">
+                    <a href={eventData?.url} target="_blank" rel="noreferrer" aria-label="Gutenverse event banner">
+                        <img
+                            src={eventBannerImage}
+                            alt=""
+                            onError={(event) => event.currentTarget.closest('.event-banner-wrapper')?.remove()}
+                        />
                     </a>
-                </div> : (!eventData || today > expired) && bannerPro
+                </div> : bannerPro
             }
         </>
     }
