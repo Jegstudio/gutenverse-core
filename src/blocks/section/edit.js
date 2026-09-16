@@ -201,6 +201,7 @@ const SectionBlock = compose(
     const sectionWrapper = useRef();
     const containerRef = useRef();
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
+    const isFollowScroll = isSticky(sticky) && stickyPosition === 'follow-scroll';
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -242,7 +243,19 @@ const SectionBlock = compose(
         <SectionBlockControl {...props} clientId={clientId} />
         <SectionInspection {...props} elementRef={elementRef} />
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
-            <section {...blockProps} id={attributes.anchor}>
+            {isFollowScroll ? <div className="sticky-wrapper" data-id={dataId}>
+                <section {...blockProps} id={attributes.anchor}>
+                    {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
+                    {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
+                    <FluidCanvas attributes={attributes} />
+                    {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}>
+                        {background?.slideImage?.length > 0 && slideElement}
+                    </div></div>}
+                    <SectionVideoContainer {...props} />
+                    {!isEmpty(backgroundOverlay) && <div className="guten-background-overlay" />}
+                    <Component {...componentProps} />
+                </section>
+            </div> : <section {...blockProps} id={attributes.anchor}>
                 {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 <FluidCanvas attributes={attributes} />
@@ -252,7 +265,7 @@ const SectionBlock = compose(
                 <SectionVideoContainer {...props} />
                 {!isEmpty(backgroundOverlay) && <div className="guten-background-overlay" />}
                 <Component {...componentProps} />
-            </section>
+            </section>}
         </div>
     </>;
 });

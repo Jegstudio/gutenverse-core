@@ -194,7 +194,7 @@ const ContainerResizeWrapper = (props) => {
         backgroundAnimated,
         background,
         elementId,
-        backgroundOverlay
+        backgroundOverlay,
     } = attributes;
 
     const { containerLayout } = attributes;
@@ -390,6 +390,9 @@ const Container = (props) => {
     } = props;
 
     const { replaceInnerBlocks } = dispatch('core/block-editor');
+    const { elementId, sticky = {}, stickyPosition } = attributes;
+    const dataId = elementId ? elementId.split('-')[1] : '';
+    const isFollowScroll = isSticky(sticky) && stickyPosition === 'follow-scroll';
 
     const handleVariation = useCallback(({ content, attributes }) => {
         if (content) {
@@ -399,25 +402,29 @@ const Container = (props) => {
         setAttributes(attributes);
     }, [clientId]);
 
-    return (
-        <ContainerResizeWrapper
-            isSelected={isSelected}
-            attributes={attributes}
-            setAttributes={setAttributes}
-            innerBlocksProps={innerBlocksProps}
-            slideElement={slideElement}
-            mode={mode}
-            handleVariation={handleVariation}
-            clientId={clientId}
-            hasChildBlocks={hasChildBlocks}
-        >
-            <div className={'guten-inner-container-editor'}>
-                {hasChildBlocks ? innerChildren : <InnerBlocks
-                    renderAppender={InnerBlocks.ButtonBlockAppender}
-                />}
-            </div>
-        </ContainerResizeWrapper>
-    );
+    const resizeWrapper = <ContainerResizeWrapper
+        isSelected={isSelected}
+        attributes={attributes}
+        setAttributes={setAttributes}
+        innerBlocksProps={innerBlocksProps}
+        slideElement={slideElement}
+        mode={mode}
+        handleVariation={handleVariation}
+        clientId={clientId}
+        hasChildBlocks={hasChildBlocks}
+    >
+        <div className={'guten-inner-container-editor'}>
+            {hasChildBlocks ? innerChildren : <InnerBlocks
+                renderAppender={InnerBlocks.ButtonBlockAppender}
+            />}
+        </div>
+    </ContainerResizeWrapper>;
+
+    return isFollowScroll ? (
+        <div className="sticky-wrapper" data-id={dataId}>
+            {resizeWrapper}
+        </div>
+    ) : resizeWrapper;
 };
 
 const ContainerBlock = compose(
@@ -489,6 +496,7 @@ const ContainerBlock = compose(
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
+    const isFollowScroll = isSticky(sticky) && stickyPosition === 'follow-scroll';
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -506,6 +514,7 @@ const ContainerBlock = compose(
                 'guten-background-slideshow': background?.type === 'slide' && background?.slideImage?.length > 0,
                 'guten-cursor-effect': cursorEffect?.show,
                 'guten-background-effect-active': isBackgroundEffect,
+                'guten-flex-container': isFollowScroll,
                 ['guten-sticky']: isSticky(sticky),
                 [`sticky-${stickyPosition}`]: isSticky(sticky),
             }
