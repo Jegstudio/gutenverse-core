@@ -252,6 +252,17 @@ class Frontend_Assets {
 				GUTENVERSE_FRAMEWORK_VERSION
 			);
 		}
+
+		wp_register_script(
+			'gutenverse-core-frontend-event-script',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/event.js',
+			array(),
+			GUTENVERSE_FRAMEWORK_VERSION,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
 	}
 
 	/**
@@ -260,6 +271,20 @@ class Frontend_Assets {
 	public function frontend_inline_style() {
 		wp_enqueue_style( 'gutenverse-frontend-style' );
 		wp_enqueue_style( 'gutenverse-dynamic-frontend-style' );
+		if ( wp_script_is( 'gutenverse-core-frontend-event-script', 'enqueued' ) ) {
+			wp_register_script(
+				'gutenverse-core-frontend-load-event-script',
+				false,
+				array(),
+				null, //phpcs:ignore
+				true
+			);
+			wp_enqueue_script( 'gutenverse-core-frontend-load-event-script' );
+			wp_add_inline_script(
+				'gutenverse-core-frontend-load-event-script',
+				'setTimeout(() => window.dispatchEvent(new Event("GutenverseEventReady")), 1000);'
+			);
+		}
 	}
 
 	/**

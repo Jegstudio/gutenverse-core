@@ -21,6 +21,9 @@ const corefrontend = {
                 type: "window",
             },
         },
+        event: {
+            import: path.resolve(process.cwd(), "src/frontend/event/index.js"),
+        },
     },
     stats,
     output,
@@ -45,12 +48,17 @@ const corefrontend = {
                 onStart: {
                     delete: [
                         "./framework/assets/js/corefrontend.js*",
+                        "./framework/assets/js/event.js*",
                     ]
                 },
                 onEnd: {
                     copy: [
                         {
                             source: process.env.NODE_ENV === 'development' ? "./build/corefrontend.js*" : "./build/corefrontend.js",
+                            destination: "./framework/assets/js/",
+                        },
+                        {
+                            source: process.env.NODE_ENV === 'development' ? "./build/event.js*" : "./build/event.js",
                             destination: "./framework/assets/js/",
                         },
                         {
