@@ -83,8 +83,7 @@ export const buildGlobalStyle = (variable) => {
                 DeviceLoop(device => {
                     const _lineHeight = pointCheck(device, lineHeight);
 
-
-                    if (_lineHeight && _lineHeight.point) {
+                    if (_lineHeight && (_lineHeight?.point != null && _lineHeight.point !== '' && _lineHeight.point !== undefined)) {
 
                         const unit = _lineHeight.unit ? _lineHeight.unit : 'px';
                         responsiveAppender({
