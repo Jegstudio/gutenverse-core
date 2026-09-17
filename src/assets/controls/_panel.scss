@@ -112,9 +112,23 @@
                 }
             }
         }
+
+        &.jnews-blocks-pro {
+            >h2 {
+                >button {
+                    &:after {
+                        background: #F4F2FE;
+                        border: 0.3px solid #5E23FF;
+                        color: #5E23FF;
+                    }
+                }
+            }
+        }
     }
+
 }
-.hover-child-style{
+
+.hover-child-style {
     background-color: #E6EAEF !important;
     border-radius: inherit;
 }
