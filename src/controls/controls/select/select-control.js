@@ -41,9 +41,12 @@ const SelectControl = (props) => {
 
     const id = useInstanceId(SelectControl, 'inspector-select-control');
 
-    const formatOptionLabel = ({ label, pro, description }) => {
+    const formatOptionLabel = ({ label, pro, description, additionalClass = '' }) => {
+        if ('jnews-blocks-pro' === additionalClass) {
+            console.log(`select-option${pro && ` ${additionalClass} pro`}`);
+        }
         return (
-            <div className={`select-option${pro && ' pro'}`}>
+            <div className={`select-option${pro && ` ${additionalClass} pro`}`}>
                 <div>{label}</div>
                 {pro && <ProLock
                     title={label}

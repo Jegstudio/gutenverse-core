@@ -962,6 +962,16 @@
             }
           }
         }
+
+        &.jnews-blocks-pro {
+          .control-locked {
+            cursor: pointer;
+            background: #F4F2FE;
+            border: 0.3px solid #5E23FF;
+            border-radius: 2px;
+            color: #5E23FF;
+          }
+        }
       }
     }
 
