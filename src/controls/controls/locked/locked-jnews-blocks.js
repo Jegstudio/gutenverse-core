@@ -14,6 +14,7 @@ const LockedJNewsBlocks = ({
     isOpen,
     permaLink,
     assetDir,
+    withNotice = false,
 }) => {
     const {
         videoDir,
@@ -31,13 +32,13 @@ const LockedJNewsBlocks = ({
         <div>
             <span className="description">{description}</span>
         </div>
-        <UpgradeNotice />
+        {withNotice && <UpgradeNotice />}
         <div>
             <ButtonPro />
         </div>
-        <div className="locked-panel-jnews-banner">
+        {!img && <div className="locked-panel-jnews-banner">
             <img src={`${imgDir}/jnews/panel-upgrade-banner.png`} alt="JNews Blocks Banner" />
-        </div>
+        </div>}
         <div className="locked-panel-jnews-video">
             {img && <video autoPlay={isOpen} loop={isOpen}>
                 <source src={`${dir}/${img}`} type="video/mp4" />
