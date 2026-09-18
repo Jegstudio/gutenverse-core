@@ -47,6 +47,7 @@ export { default as PopupInstallPlugin } from './pro/popup-install-plugin';
 export { default as PopupInsufficientTier } from './pro/popup-insufficient-tier';
 export { default as PopupPricingPlan } from './pro/popup-pricing-plan';
 export { default as DefaultLayout } from '../controls/controls/locked/default-layout';
+export { default as LockedJNewsBlocks } from '../controls/controls/locked/locked-jnews-blocks';
 
 /**Editor Component */
 export { default as VideoPreviewer } from './editor/video-previewer';

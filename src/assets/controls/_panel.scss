@@ -188,6 +188,7 @@
 
             .gutenverse-control-wrapper {
                 margin-bottom: 0 !important;
+
                 .control-title {
                     margin-left: -5px;
                     margin-right: -5px;
@@ -305,7 +306,7 @@
                     text-transform: uppercase;
                     top: -3px;
                     transform: rotate(-55deg);
-                    width: -moz-fit-content!important;
+                    width: -moz-fit-content !important;
                     width: fit-content !important;
                     z-index: 1;
                 }
@@ -389,13 +390,15 @@
 }
 
 .gutenverse-server-secret-control {
-    > * {
+    >* {
         margin-left: -5px;
         margin-right: -5px;
     }
 
     .panel-save-button-container {
-        button, button:disabled {
+
+        button,
+        button:disabled {
             flex-direction: row;
             width: 100%;
             justify-content: center;
@@ -452,5 +455,65 @@
 .interface-complementary-area {
     .components-panel__header {
         z-index: 99999;
+    }
+}
+
+.gutenverse-panel.jnews-blocks-pro {
+    .gutenverse-control-wrapper {
+
+        .description {
+            margin: 10px 0 !important;
+        }
+
+        .locked-panel-jnews-notice {
+            align-items: flex-start;
+            background: #0116270D;
+            padding: 8px 10px;
+            border-radius: 5px;
+            color: #40505D;
+            display: flex;
+            flex-direction: row;
+            font-family: "Roboto", serif;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
+            gap: 6px;
+            line-height: 1.5;
+
+            svg {
+                flex: 0 0 auto;
+                margin-top: 4px;
+            }
+
+            a {
+                color: #5E23FF;
+                text-decoration: underline;
+            }
+        }
+
+        .gutenverse-button-available-pro {
+            margin: 24px 0;
+            background: #5E23FF;
+            color: #FFFFFF;
+
+            &:hover {
+                background: #3A00D7;
+                color: #FFFFFF;
+
+                svg {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .locked-panel-jnews-banner {
+            display: block;
+            margin: 0;
+
+            img {
+                width: 100%;
+                border-radius: 10px;
+            }
+        }
     }
 }
