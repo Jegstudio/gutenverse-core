@@ -1,229 +1,266 @@
 import { select, dispatch } from '@wordpress/data';
+import { getBlockType } from '@wordpress/blocks';
 import { libraryApi } from 'gutenverse-core/config';
 import { store as editorStore } from '@wordpress/editor';
 import axios from 'axios';
 
-/**
- * Prefixes that indicate an icon attribute
- */
-const ICON_PREFIXES = ['fas ', 'far ', 'fab ', 'gtn '];
+const ICON_FAMILY_PATTERN = /^(?:gtn|fa[bsrldt]?|fa-(?:solid|regular|brands|light|duotone|thin))$/i;
+const ICON_GLYPH_PATTERN = /^(?:gtn|fa)-[\w-]+$/i;
 
-/**
- * Check if a value is an icon (starts with one of the icon prefixes)
- * @param {*} value - The value to check
- * @returns {boolean}
- */
-const isIconValue = (value) => {
-    if (typeof value !== 'string') return false;
-    return ICON_PREFIXES.some(prefix => value.startsWith(prefix));
+const normalizeIconValue = value => {
+    if (typeof value !== 'string') return '';
+    const tokens = value.trim().split(/\s+/).filter(Boolean);
+    if (!tokens.some(token => ICON_FAMILY_PATTERN.test(token))) return '';
+    if (!tokens.some(token => ICON_GLYPH_PATTERN.test(token))) return '';
+    return tokens.join(' ');
 };
 
-/**
- * Fetch SVG content from server for a given icon name with retry functionality
- * @param {string} iconName - The icon name (e.g., "fas fa-star")
- * @param {number} retries - Number of retry attempts (default: 2)
- * @param {number} delay - Delay in ms between retries (default: 50)
- * @returns {Promise<string|null>} - Base64 encoded SVG or null if failed
- */
 const fetchSvgContent = async (iconName, retries = 5, delay = 50) => {
     try {
-        const response = await axios.get(libraryApi + '/get-svg-font', {
-            params: {
-                name: iconName
-            }
+        const response = await axios.get(`${libraryApi}/get-svg-font`, {
+            params: { name: iconName.toLowerCase() }
         });
-        const { data } = response;
-        if (data.data !== false) {
-            return btoa(data.data);
+        const svg = response?.data?.data;
+        if (typeof svg === 'string' && svg.trim()) {
+            return { content: btoa(svg), reason: '' };
         }
-        return null;
+        return { content: null, reason: 'icon_not_found' };
     } catch (error) {
         if (retries > 0) {
-            // Wait for delay then retry
             await new Promise(resolve => setTimeout(resolve, delay));
             return fetchSvgContent(iconName, retries - 1, delay);
         }
-        return null;
+        return {
+            content: null,
+            reason: error?.response?.status ? `request_failed_${error.response.status}` : 'request_failed'
+        };
     }
 };
 
-/**
- * Process a single block's attributes and convert icons to SVG
- * @param {Object} block - The block to process
- * @returns {Promise<Object|null>} - Updated attributes or null if no changes
- */
-const processBlockAttributes = async (block) => {
-    const { attributes, clientId } = block;
-    if (!attributes) return null;
+const getCompanionKeys = ({ container, key, rootSchema = null, isRoot = false }) => {
+    const conventionalType = `${key}Type`;
+    const conventionalSvg = `${key}SVG`;
+    const schemaHasConventionalPair = Boolean(
+        rootSchema?.[conventionalType] || rootSchema?.[conventionalSvg]
+    );
 
-    const updatedAttributes = {};
-    let hasChanges = false;
+    if (
+        Object.prototype.hasOwnProperty.call(container, conventionalType) ||
+        Object.prototype.hasOwnProperty.call(container, conventionalSvg) ||
+        (isRoot && schemaHasConventionalPair)
+    ) {
+        return { typeKey: conventionalType, svgKey: conventionalSvg };
+    }
 
-    // Loop through all attributes
-    for (const [attrName, attrValue] of Object.entries(attributes)) {
-        // Check if the attribute value is an icon
-        if (isIconValue(attrValue)) {
-            const typeAttrName = `${attrName}Type`;
-            const svgAttrName = `${attrName}SVG`;
+    // Repeater controls may store IconSVGControl's companion values alongside
+    // the icon as `type` and `svg` instead of `${attribute}Type`/`SVG`.
+    if (
+        !isRoot &&
+        (key === 'icon' || /icon$/i.test(key)) &&
+        (
+            Object.prototype.hasOwnProperty.call(container, 'type') ||
+            Object.prototype.hasOwnProperty.call(container, 'svg')
+        )
+    ) {
+        return { typeKey: 'type', svgKey: 'svg' };
+    }
 
-            // Check if corresponding Type and SVG attributes exist in the block
-            // We'll update them regardless of whether they're defined in the schema
-            const currentType = attributes[typeAttrName];
-            const currentSvg = attributes[svgAttrName];
+    return null;
+};
 
-            // Only convert if not already svg type or if SVG content is empty
-            if (currentType === 'icon') {
-                // Fetch SVG content from server
-                const svgContent = await fetchSvgContent(attrValue);
-                if (svgContent) {
-                    updatedAttributes[typeAttrName] = 'svg';
-                    updatedAttributes[svgAttrName] = svgContent;
-                    hasChanges = true;
-                    const styles = {
-                        reset: 'color: inherit',
-                        green: 'color: #4caf50; font-weight: bold',
-                        cyan: 'color: #00bcd4; font-weight: bold',
-                        yellow: 'color: #ff9800; font-weight: bold',
-                        dim: 'color: #9e9e9e',
-                        red: 'color: #f44336; font-weight: bold',
-                    };
+const convertIconsInValue = async ({ value, block, path = [], rootSchema = null, isRoot = false }) => {
+    if (Array.isArray(value)) {
+        let changed = false;
+        const stats = { detectedCount: 0, convertedCount: 0, skippedCount: 0, failures: [] };
+        const next = [];
 
-                    // eslint-disable-next-line no-console
-                    console.log(
-                        `%c[Success]%c ${attrName} (${attrValue})\n%c         └─ from: %c${block.name} (${clientId})\n`,
-                        styles.green,
-                        styles.cyan,
-                        styles.dim,
-                        styles.yellow
-                    );
-                } else {
-                    const styles = {
-                        reset: 'color: inherit',
-                        green: 'color: #4caf50; font-weight: bold',
-                        cyan: 'color: #00bcd4; font-weight: bold',
-                        yellow: 'color: #ff9800; font-weight: bold',
-                        dim: 'color: #9e9e9e',
-                        red: 'color: #f44336; font-weight: bold',
-                    };
-
-                    // eslint-disable-next-line no-console
-                    console.log(
-                        `%c[Failed]%c ${attrName} (${attrValue})\n%c         └─ from: %c${block.name} (${clientId})\n`,
-                        styles.red,
-                        styles.cyan,
-                        styles.dim,
-                        styles.yellow
-                    );
-                }
-            }
+        for (let index = 0; index < value.length; index++) {
+            const converted = await convertIconsInValue({
+                value: value[index],
+                block,
+                path: [...path, index],
+                rootSchema,
+                isRoot: false,
+            });
+            next.push(converted.value);
+            changed = changed || converted.changed;
+            stats.detectedCount += converted.detectedCount;
+            stats.convertedCount += converted.convertedCount;
+            stats.skippedCount += converted.skippedCount;
+            stats.failures.push(...converted.failures);
         }
+
+        return { value: changed ? next : value, changed, ...stats };
     }
 
-    return hasChanges ? { clientId, updatedAttributes } : null;
+    if (!value || typeof value !== 'object') {
+        return { value, changed: false, detectedCount: 0, convertedCount: 0, skippedCount: 0, failures: [] };
+    }
+
+    let next = value;
+    let changed = false;
+    const handled = new Set();
+    const stats = { detectedCount: 0, convertedCount: 0, skippedCount: 0, failures: [] };
+
+    for (const [key, rawIcon] of Object.entries(value)) {
+        const iconName = normalizeIconValue(rawIcon);
+        if (!iconName) continue;
+
+        const companion = getCompanionKeys({ container: value, key, rootSchema, isRoot });
+        if (!companion) continue;
+
+        handled.add(key);
+        stats.detectedCount++;
+        const currentType = value[companion.typeKey];
+        const currentSvg = value[companion.svgKey];
+
+        if (currentType && !['icon', 'svg'].includes(currentType)) {
+            stats.skippedCount++;
+            stats.failures.push({
+                blockName: block.name,
+                clientId: block.clientId,
+                attributePath: [...path, key].join('.'),
+                iconName,
+                reason: 'unsupported_icon_type',
+            });
+            continue;
+        }
+        if (currentType === 'svg' && typeof currentSvg === 'string' && currentSvg) {
+            stats.skippedCount++;
+            continue;
+        }
+
+        const fetched = await fetchSvgContent(iconName);
+        if (!fetched.content) {
+            stats.failures.push({
+                blockName: block.name,
+                clientId: block.clientId,
+                attributePath: [...path, key].join('.'),
+                iconName,
+                reason: fetched.reason,
+            });
+            continue;
+        }
+
+        if (!changed) next = { ...value };
+        next[companion.typeKey] = 'svg';
+        next[companion.svgKey] = fetched.content;
+        changed = true;
+        stats.convertedCount++;
+    }
+
+    for (const [key, child] of Object.entries(value)) {
+        if (handled.has(key) || child === null || typeof child !== 'object') continue;
+        const converted = await convertIconsInValue({
+            value: child,
+            block,
+            path: [...path, key],
+            rootSchema,
+            isRoot: false,
+        });
+        if (converted.changed) {
+            if (!changed) next = { ...value };
+            next[key] = converted.value;
+            changed = true;
+        }
+        stats.detectedCount += converted.detectedCount;
+        stats.convertedCount += converted.convertedCount;
+        stats.skippedCount += converted.skippedCount;
+        stats.failures.push(...converted.failures);
+    }
+
+    return { value: next, changed, ...stats };
 };
 
-/**
- * Recursively process all blocks (including inner blocks)
- * @param {Array} blocks - Array of blocks to process
- * @returns {Promise<Array>} - Array of updates to apply
- */
-const processBlocksRecursively = async (blocks) => {
-    const updates = [];
+const processBlockAttributes = async block => {
+    if (!block.attributes) return null;
+    const rootSchema = getBlockType(block.name)?.attributes || {};
+    const converted = await convertIconsInValue({
+        value: block.attributes,
+        block,
+        rootSchema,
+        isRoot: true,
+    });
 
+    return {
+        clientId: block.clientId,
+        updatedAttributes: converted.changed ? converted.value : null,
+        detectedCount: converted.detectedCount,
+        convertedCount: converted.convertedCount,
+        skippedCount: converted.skippedCount,
+        failures: converted.failures,
+    };
+};
+
+const processBlocksRecursively = async blocks => {
+    const results = [];
     for (const block of blocks) {
-        // Process current block
-        const update = await processBlockAttributes(block);
-        if (update) {
-            updates.push(update);
-        }
-
-        // Process inner blocks recursively
-        if (block.innerBlocks && block.innerBlocks.length > 0) {
-            const innerUpdates = await processBlocksRecursively(block.innerBlocks);
-            updates.push(...innerUpdates);
+        const current = await processBlockAttributes(block);
+        if (current) results.push(current);
+        if (block.innerBlocks?.length) {
+            results.push(...await processBlocksRecursively(block.innerBlocks));
         }
     }
-
-    return updates;
+    return results;
 };
 
-/**
- * Convert all icon attributes to SVG in the current editor
- * This function loops through all blocks in the editor, finds attributes
- * with icon prefixes (fas, far, fab, gtn), and converts them to SVG format.
- *
- * @returns {Promise<{success: boolean, convertedCount: number, errors: Array}>}
- */
 const convertToSvg = async () => {
     const result = {
         success: false,
+        detectedCount: 0,
         convertedCount: 0,
-        errors: []
+        skippedCount: 0,
+        failedCount: 0,
+        errors: [],
     };
 
-    const doConvertion = async () => {
-        // Get all blocks from the editor
+    const doConversion = async () => {
         const blocks = select('core/block-editor').getBlocks();
-
-        if (!blocks || blocks.length === 0) {
-            // eslint-disable-next-line no-console
-            console.log('[ConvertToSVG] No blocks found in the editor');
-            result.success = true;
-            return result;
+        if (!Array.isArray(blocks)) {
+            result.errors.push({ reason: 'blocks_unavailable' });
+            return;
         }
 
-        // eslint-disable-next-line no-console
-        console.log(`[ConvertToSVG] Starting conversion... Found ${blocks.length} top-level blocks`);
-
-        // Process all blocks recursively
         const updates = await processBlocksRecursively(blocks);
-
-        // Apply all updates
         const { updateBlockAttributes } = dispatch('core/block-editor');
-
         for (const update of updates) {
+            result.detectedCount += update.detectedCount;
+            result.skippedCount += update.skippedCount;
+            result.errors.push(...update.failures);
+            if (!update.updatedAttributes) continue;
+
             try {
                 updateBlockAttributes(update.clientId, update.updatedAttributes);
-                result.convertedCount++;
+                result.convertedCount += update.convertedCount;
             } catch (error) {
                 result.errors.push({
                     clientId: update.clientId,
-                    error: error.message
+                    reason: 'attribute_update_failed',
+                    error: error.message,
                 });
             }
         }
-
+        result.failedCount = result.errors.length;
         result.success = true;
-        // eslint-disable-next-line no-console
-        console.log(`[ConvertToSVG] Conversion complete. Converted ${result.convertedCount} icon(s) to SVG.`);
     };
 
     try {
         const renderingMode = select(editorStore).getRenderingMode();
-        // Set rendering mode to 'post-only' to ensure we can get all content blocks
         const { setRenderingMode } = dispatch('core/editor');
         setRenderingMode('post-only');
 
-        if ('post-only' === renderingMode) {
-            await doConvertion();
-        } else {
-            await new Promise(resolve => {
-                setTimeout(async () => {
-                    await doConvertion();
-                    resolve();
-                }, 2000);
-            });
+        if (renderingMode !== 'post-only') {
+            await new Promise(resolve => setTimeout(resolve, 2000));
         }
+        await doConversion();
     } catch (error) {
-        result.errors.push({
-            error: error.message
-        });
+        result.errors.push({ reason: 'conversion_failed', error: error.message });
+        result.failedCount = result.errors.length;
     }
 
     return result;
 };
 
-// Expose to window for console execution
 window.gutenverseConvertToSvg = convertToSvg;
 
 export default convertToSvg;
