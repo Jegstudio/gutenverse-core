@@ -517,3 +517,51 @@
         }
     }
 }
+
+.gutenverse-control-wrapper.jnews-no-license {
+
+    .locked-panel-jnews-banner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            width: 210px;
+        }
+
+        margin-bottom: 20px;
+    }
+
+    .no-license-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        gap: 0;
+
+        .description {
+            margin: 6px 0 20px !important;
+        }
+
+        .gutenverse-button,
+        h2 {
+            margin: 0 !important;
+        }
+
+        .gutenverse-button {
+            background: #5E23FF;
+            color: #FFFFFF;
+
+            &:hover {
+                background: #3A00D7;
+                color: #FFFFFF;
+
+                svg {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+}
