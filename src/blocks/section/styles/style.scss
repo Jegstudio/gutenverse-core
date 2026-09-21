@@ -38,6 +38,16 @@
       bottom: 0;
     }
   }
+
+  &.sticky-follow-scroll {
+    > .sticky-wrapper {
+      transition: unset !important;
+
+      > .guten-section {
+        transition: unset !important;
+      }
+    }
+  }
 }
 
 section.guten-section {

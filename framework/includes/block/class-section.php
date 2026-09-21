@@ -863,6 +863,7 @@ class Section extends Block_Abstract {
 
 		// Computed flags.
 		$_is_sticky              = $this->is_sticky( $sticky );
+		$is_follow_sticky        = $_is_sticky && isset( $attributes['stickyPosition'] ) && 'follow-scroll' === $attributes['stickyPosition'];
 		$_is_bg_animated         = $this->is_animation_active( $background_animated );
 		$_is_top_div_animated    = ! $this->is_empty_value( $top_div_animated ) && ( ! isset( $top_div_animated['type'] ) || 'none' !== $top_div_animated['type'] );
 		$_is_bottom_div_animated = ! $this->is_empty_value( $bottom_div_animated ) && ( ! isset( $bottom_div_animated['type'] ) || 'none' !== $bottom_div_animated['type'] );
@@ -953,6 +954,9 @@ class Section extends Block_Abstract {
 
 		// Build output.
 		$output  = '<div class="' . $wrapper_class . '" data-id="' . esc_attr( $data_id ) . '">';
+		if ( $is_follow_sticky ) {
+			$output .= '<div class="sticky-wrapper" data-id="' . esc_attr( $data_id ) . '">';
+		}
 		$output .= '<section class="' . $class_name . '"' . $advance_anim_data . $id_attr . '>';
 		$output .= $this->render_featured_image_background_style(
 			$background,
@@ -1018,6 +1022,11 @@ class Section extends Block_Abstract {
 		$output .= '</div>';
 
 		$output .= '</section>';
+
+		if ( $is_follow_sticky ) {
+			$output .= '</div>';
+		}
+
 		$output .= '</div>';
 
 		// Apply filter hooks (matching the HOC composition).
