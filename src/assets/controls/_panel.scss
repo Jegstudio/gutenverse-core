@@ -516,52 +516,73 @@
             }
         }
     }
-}
 
-.gutenverse-control-wrapper.jnews-no-license {
+    .gutenverse-control-wrapper.jnews-no-license {
 
-    .locked-panel-jnews-banner {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        .locked-panel-jnews-banner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
-        img {
-            width: 210px;
+            img {
+                width: 210px;
+            }
+
+            &.expired {
+                img {
+                    width: 154px !important;
+                }
+            }
+
+            margin-bottom: 20px;
         }
 
-        margin-bottom: 20px;
-    }
+        .no-license-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+            text-align: center;
+            gap: 0;
 
-    .no-license-content-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        align-content: center;
-        text-align: center;
-        gap: 0;
+            .description {
+                margin: 6px 0 20px !important;
+                color: #40505D
+            }
 
-        .description {
-            margin: 6px 0 20px !important;
-        }
+            .gutenverse-button,
+            .no-license-title {
+                margin: 0 !important;
+            }
 
-        .gutenverse-button,
-        h2 {
-            margin: 0 !important;
-        }
+            .no-license-title {
+                display: block;
+                font-family: 'Roboto', 'Sans-serif';
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 1.2;
+                text-align: center;
+                color: #011627;
 
-        .gutenverse-button {
-            background: #5E23FF;
-            color: #FFFFFF;
+                span {
+                    color: #F73B3B;
+                }
+            }
 
-            &:hover {
-                background: #3A00D7;
+            .gutenverse-button {
+                background: #5E23FF;
                 color: #FFFFFF;
 
-                svg {
-                    opacity: 1;
+                &:hover {
+                    background: #3A00D7;
+                    color: #FFFFFF;
+
+                    svg {
+                        opacity: 1;
+                    }
                 }
             }
         }
-    }
 
+    }
 }
