@@ -189,7 +189,8 @@ const PanelController = ({ ...props }) => {
                             return tabPanel[0].id === active;
                         }
                     }).map((panel, index) => {
-                        const panelBody = classnames('gutenverse-panel', {
+                        const additionalClass = panel.additionalClass ? panel.additionalClass : '';
+                        const panelBody = classnames('gutenverse-panel', additionalClass, {
                             [`panel-${panel.id}`]: undefined !== panel.id,
                             pro: panel.pro,
                             deprecated: panel.deprecated
