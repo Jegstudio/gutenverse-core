@@ -35,6 +35,7 @@ const ControlSelect = (props) => {
                 value={objValue}
                 options={options}
                 onChange={inputChange}
+                classNamePrefix={'select-inner'}
             />
         </div>;
     } else {
@@ -46,11 +47,12 @@ const ControlSelect = (props) => {
                 value={objValue}
                 options={options}
                 onChange={inputChange}
+                classNamePrefix={'select-inner'}
             />
             {description !== '' && <span className="control-description">
                 {description}
             </span>}
-        </div>
+        </div>;
     }
 };
 
