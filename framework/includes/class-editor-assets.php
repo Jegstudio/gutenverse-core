@@ -16,12 +16,77 @@ namespace Gutenverse\Framework;
  */
 class Editor_Assets {
 	/**
+	 * Admin runtimes initialized during the current request.
+	 *
+	 * @var array<string, bool>
+	 */
+	private $bootstrapped_admin_runtimes = array();
+
+	/**
 	 * Init constructor.
 	 */
 	public function __construct() {
 		add_action( 'admin_footer', array( $this, 'register_root' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'register_script' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_media_runtime' ), 5 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_backend' ) );
+	}
+
+	/**
+	 * Bootstrap the Core runtime on supported Media Library screens.
+	 *
+	 * @param string $hook_suffix Current admin page hook.
+	 * @return void
+	 */
+	public function enqueue_media_runtime( $hook_suffix ) {
+		if ( ! in_array( $hook_suffix, array( 'upload.php', 'media-new.php' ), true ) ) {
+			return;
+		}
+
+		$this->bootstrap_admin_runtime( 'media' );
+	}
+
+	/**
+	 * Bootstrap a supported Gutenverse admin runtime.
+	 *
+	 * Core owns the complete GutenverseConfig assignment. Extensions may add
+	 * values through gutenverse_admin_runtime_config before it is localized.
+	 *
+	 * @param string $runtime Runtime identifier.
+	 * @return bool Whether the runtime is available for this request.
+	 */
+	public function bootstrap_admin_runtime( $runtime ) {
+		$runtime = sanitize_key( $runtime );
+
+		if ( ! is_admin() || 'media' !== $runtime ) {
+			return false;
+		}
+
+		if ( isset( $this->bootstrapped_admin_runtimes[ $runtime ] ) ) {
+			return true;
+		}
+
+		$script_handle = apply_filters( 'gutenverse_admin_runtime_script_handle', 'gutenverse-core-event', $runtime );
+
+		if ( ! wp_script_is( $script_handle, 'registered' ) ) {
+			return false;
+		}
+
+		$config = $this->gutenverse_config( $runtime );
+
+		wp_enqueue_script( $script_handle );
+		wp_localize_script( $script_handle, 'GutenverseConfig', $config );
+
+		$this->bootstrapped_admin_runtimes[ $runtime ] = true;
+
+		/**
+		 * Fires after a supported Gutenverse admin runtime has Core configuration.
+		 *
+		 * @param string $runtime Runtime identifier.
+		 */
+		do_action( 'gutenverse_include_admin_runtime', $runtime );
+
+		return true;
 	}
 
 	/**
@@ -104,9 +169,11 @@ class Editor_Assets {
 	 *
 	 * @return array
 	 */
-	public function gutenverse_config() {
+	public function gutenverse_config( $admin_runtime = 'editor' ) {
+		$admin_runtime  = sanitize_key( $admin_runtime );
 		$template       = get_user_meta( get_current_user_id(), 'gutense_templates_viewed', true );
 		$global_setting = get_option( 'gutenverse-global-setting' );
+		$settings_data  = get_option( 'gutenverse-settings', array() );
 		$upload_path    = wp_upload_dir();
 
 		$config                             = array();
@@ -122,7 +189,7 @@ class Editor_Assets {
 		$config['globalSetting']            = ! empty( $global_setting ) ? $global_setting : array();
 		$config['userId']                   = get_current_user_id();
 		$config['isTools']                  = (bool) defined( 'GUTENVERSE_TOOLS' );
-		$config['settingsData']             = get_option( 'gutenverse-settings', array() );
+		$config['settingsData']             = is_array( $settings_data ) ? $settings_data : array();
 		$config['globalVariable']           = Init::instance()->global_variable->get_global_variable();
 		$config['adminUrl']                 = admin_url();
 		$config['themeListUrl']             = admin_url( 'admin.php?page=gutenverse&path=theme-list' );
@@ -147,12 +214,22 @@ class Editor_Assets {
 		$config['defaultImageLoad']         = $this->get_default_image_load_option();
 		$config['pricingPlan']              = gutenverse_get_pricing_plan();
 		$config['is_wporg_theme']           = gutenverse_is_wporg_theme();
+		$config['adminRuntime']             = $admin_runtime;
 
 		if ( defined( 'GUTENVERSE' ) ) {
 			$config['oldImagePlaceholder'] = plugins_url( GUTENVERSE ) . '/assets/img/img-placeholder.jpg';
 		}
 
-		return apply_filters( 'gutenverse_block_config', $config );
+		if ( 'media' === $admin_runtime ) {
+			$config = apply_filters( 'gutenverse_admin_runtime_config', $config, $admin_runtime );
+		} else {
+			$config = apply_filters( 'gutenverse_block_config', $config );
+		}
+
+		// The runtime is selected by Core and must not be overridden by an extension.
+		$config['adminRuntime'] = $admin_runtime;
+
+		return $config;
 	}
 
 	/**
