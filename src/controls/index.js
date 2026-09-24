@@ -81,7 +81,6 @@ export { default as LockedAdvanceButtonControl } from './controls/locked/locked-
 export { default as LockedFluidBackground } from './controls/locked/locked-fluid-background';
 export { default as LockedConditionControl } from './controls/locked/locked-condition-control';
 export { default as LockedProPanel } from './controls/locked/locked-pro-panel';
-export { default as LockedJNewsBlocksProPanel } from './controls/locked/locked-jnews-blocks-pro-panel';
 export { default as LockedDynamicContentControl } from './controls/locked/locked-dynamic-content-control';
 export { default as LockedHeaderFilterControl } from './controls/locked/locked-header-filter-control';
 export { default as LockedTooltipControl } from './controls/locked/locked-tooltip-control';
