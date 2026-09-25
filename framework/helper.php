@@ -1186,10 +1186,11 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 	 * Check if a font family is installed through the WordPress Font Library.
 	 *
 	 * @param string $family Font family name.
+	 * @param array  $weights Requested font weights.
 	 *
 	 * @return bool
 	 */
-	function gutenverse_is_wp_font_family_installed( $family ) {
+	function gutenverse_is_wp_font_family_installed( $family, $weights = array() ) {
 		static $installed_families = null;
 
 		if ( null === $installed_families ) {
@@ -1211,6 +1212,27 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 				foreach ( $font_family_ids as $font_family_id ) {
 					$settings = json_decode( get_post_field( 'post_content', $font_family_id ), true );
 					$fonts    = array( get_the_title( $font_family_id ) );
+					$installed_weights = array();
+
+					$font_face_ids = get_posts(
+						array(
+							'post_type'              => 'wp_font_face',
+							'post_parent'            => $font_family_id,
+							'post_status'            => 'any',
+							'posts_per_page'         => -1,
+							'fields'                 => 'ids',
+							'no_found_rows'          => true,
+							'update_post_meta_cache' => false,
+							'update_post_term_cache' => false,
+						)
+					);
+
+					foreach ( $font_face_ids as $font_face_id ) {
+						$font_face = json_decode( get_post_field( 'post_content', $font_face_id ), true );
+						if ( isset( $font_face['fontWeight'] ) ) {
+							$installed_weights[] = $font_face['fontWeight'];
+						}
+					}
 
 					if ( isset( $settings['fontFamily'] ) ) {
 						$fonts = array_merge( $fonts, explode( ',', $settings['fontFamily'] ) );
@@ -1219,7 +1241,7 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 					foreach ( $fonts as $font ) {
 						$font = trim( $font, " \t\n\r\0\x0B'\"" );
 						if ( '' !== $font ) {
-							$installed_families[ strtolower( $font ) ] = true;
+							$installed_families[ strtolower( $font ) ] = array_values( array_unique( $installed_weights ) );
 						}
 					}
 				}
@@ -1229,13 +1251,26 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 				$font_settings = wp_get_global_settings( array( 'typography', 'fontFamilies' ) );
 
 				foreach ( gutenverse_flatten_font_family_settings( $font_settings ) as $font_family ) {
-					$installed_families[ strtolower( $font_family ) ] = true;
+					if ( ! isset( $installed_families[ strtolower( $font_family ) ] ) ) {
+						$installed_families[ strtolower( $font_family ) ] = array();
+					}
 				}
 			}
 		}
 
-		$font_key     = strtolower( trim( $family, " \t\n\r\0\x0B'\"" ) );
-		return isset( $installed_families[ $font_key ] );
+		$font_key          = strtolower( trim( $family, " \t\n\r\0\x0B'\"" ) );
+		$requested_weights = array_filter( array_unique( array_map( 'strval', (array) $weights ) ) );
+
+		if ( ! isset( $installed_families[ $font_key ] ) ) {
+			return false;
+		}
+
+		if ( empty( $requested_weights ) ) {
+			return true;
+		}
+
+		$installed_weights = array_map( 'strval', $installed_families[ $font_key ] );
+		return empty( array_diff( $requested_weights, $installed_weights ) );
 	}
 }
 
@@ -1259,15 +1294,18 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 			$id     = ! empty( $font['id'] ) ? $font['id'] : null;
 
 			if ( 'google' === $type ) {
-				if ( gutenverse_is_wp_font_family_installed( $family ) ) {
+				$weights = ! empty( $font['weights'] ) ? (array) $font['weights'] : array();
+				if ( ! empty( $font['weight'] ) ) {
+					$weights[] = $font['weight'];
+				}
+
+				if ( gutenverse_is_wp_font_family_installed( $family, $weights ) ) {
 					continue;
 				}
 
 				$families[ $family ] = isset( $families[ $family ] ) ? $families[ $family ] : array();
 
-				if ( 'google' === $type && ! empty( $font['weight'] ) ) {
-					array_push( $families[ $family ], $font['weight'] );
-				}
+				$families[ $family ] = array_merge( $families[ $family ], $weights );
 			} elseif ( 'custom_font_pro' === $type ) {
 				array_push( $custom_family, $family );
 			}
