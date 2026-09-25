@@ -15,6 +15,7 @@ import { compose } from '@wordpress/compose';
 import { fetchLibraryData } from 'gutenverse-core/requests';
 import Ecosystem from '../content/ecosystem/ecosystem';
 import Themelist from '../content/themelist/themelist';
+import OptimizerPromo from '../content/optimizer/optimizer-promo';
 
 const Content = ({ initialLibraryData, initialPluginData, location }) => {
     const { createInfoNotice, createErrorNotice } = useDispatch(noticesStore);
@@ -155,6 +156,9 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
                 break;
             case 'ecosystem':
                 routePage = <Ecosystem {...props} />;
+                break;
+            case 'optimizer':
+                routePage = <OptimizerPromo {...props} />;
                 break;
             case 'upgrade-pro':
                 path = 'dashboard';

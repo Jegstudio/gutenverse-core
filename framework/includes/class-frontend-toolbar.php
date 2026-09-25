@@ -277,6 +277,15 @@ class Frontend_Toolbar {
 
 		$admin_bar->add_menu(
 			array(
+				'id'     => 'gutenverse-optimizer',
+				'parent' => 'gutenverse',
+				'title'  => esc_html__( 'Optimizer', '--gctd--' ),
+				'href'   => admin_url( 'admin.php?page=gutenverse&path=optimizer' ),
+			)
+		);
+
+		$admin_bar->add_menu(
+			array(
 				'id'     => 'rate',
 				'parent' => 'gutenverse',
 				'title'  => esc_html__( 'Rate Us ', '--gctd--' ) . '<span>★★★★★</span>',
