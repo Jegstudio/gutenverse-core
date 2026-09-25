@@ -14,6 +14,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
         remove_template_part_margin = true,
         remove_wp_emoji_script = false,
         disable_wp_lazyload = true,
+        load_static_css_as_files = false,
         legacy_cache_size = '0 B',
         payload_cache_size = '0 B',
         payload_cache_files = 0
@@ -130,6 +131,16 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
                 title={__('Disable WordPress default Twemoji script', '--gctd--')}
                 description={__('This will disable WordPress default script for handling emojis, do this if you want faster speed and want to show the native device emoji instead. (Warning: some emoji might be rendered as text in some OS like Windows)', '--gctd--')}
                 value={remove_wp_emoji_script}
+                updateValue={updateValue}
+            />
+        </div>
+        <div className="template-tab-body">
+            <h2>{__('Frontend CSS Loading', '--gctd--')}</h2>
+            <ControlCheckbox
+                id={'load_static_css_as_files'}
+                title={__('Load Static CSS as Files', '--gctd--')}
+                description={__('Load static CSS files separately instead of embedding them in the page. Generated Gutenverse CSS will remain inline.', '--gctd--')}
+                value={load_static_css_as_files}
                 updateValue={updateValue}
             />
         </div>

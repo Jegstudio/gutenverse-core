@@ -31,11 +31,22 @@ class Frontend_Assets {
 	}
 
 	/**
-	 * Increase the CSS size limit so WordPress can inline registered block styles.
+	 * Set the size limit WordPress uses when inlining file-backed stylesheets.
 	 *
-	 * @return int Inline style size limit in bytes.
+	 * @return int Inline style size limit in bytes. Zero keeps file-backed stylesheets external.
 	 */
 	public function inline_style_size_limit() {
+		$settings          = get_option( 'gutenverse-settings', array() );
+		$frontend_settings = array();
+
+		if ( is_array( $settings ) && isset( $settings['frontend_settings'] ) && is_array( $settings['frontend_settings'] ) ) {
+			$frontend_settings = $settings['frontend_settings'];
+		}
+
+		if ( ! empty( $frontend_settings['load_static_css_as_files'] ) ) {
+			return 0;
+		}
+
 		return 500000;
 	}
 
