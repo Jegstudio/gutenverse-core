@@ -691,6 +691,12 @@
                 "plugin_version": "3.0.2",
                 "framework_version": "3.0.2"
             }
+        ],
+        "jnews-blocks": [
+            {
+                "plugin_version": "1.0.0",
+                "framework_version": "3.1.0"
+            }
         ]
     }
 }
