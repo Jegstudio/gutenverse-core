@@ -71,6 +71,13 @@ class Frontend_Generator {
 	protected $template_parts = array();
 
 	/**
+	 * Virtual generated stylesheet URLs to enqueue after conditional frontend styles.
+	 *
+	 * @var array
+	 */
+	protected $virtual_style_urls = array();
+
+	/**
 	 * Payload dependency stack.
 	 *
 	 * @var array
@@ -91,6 +98,7 @@ class Frontend_Generator {
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_scripts' ), 51 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_styles' ), 51 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'block_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_virtual_stylesheets' ), 998 );
 		add_action( 'wp_head', array( $this, 'render_preload_images' ), 5 );
 	}
 
@@ -103,13 +111,54 @@ class Frontend_Generator {
 	 * @param string|null $style Style Content.
 	 * @param string $origin Origination of style.
 	 * @param bool   $is_minified Whether style is already minified.
+	 * @param array  $source Source descriptor used by the payload cache.
 	 */
-	public function render_style( $name, $style, $origin, $is_minified = false ) {
+	public function render_style( $name, $style, $origin, $is_minified = false, $source = array() ) {
 		if ( ! is_string( $style ) || '' === trim( $style ) ) {
 			return;
 		}
 
-		wp_add_inline_style( 'gutenverse-dynamic-frontend-style', $is_minified ? $style : $this->minify_inline_css( $style ) );
+		$style = $is_minified ? $style : $this->minify_inline_css( $style );
+		$settings          = get_option( 'gutenverse-settings', array() );
+		$frontend_settings = array();
+
+		if ( is_array( $settings ) && isset( $settings['frontend_settings'] ) && is_array( $settings['frontend_settings'] ) ) {
+			$frontend_settings = $settings['frontend_settings'];
+		}
+
+		$load_generated_css_as_virtual_url = array_key_exists( 'load_generated_css_as_virtual_url', $frontend_settings )
+			&& ! empty( $frontend_settings['load_generated_css_as_virtual_url'] );
+
+		$is_public_view = ! is_preview() && ! is_customize_preview();
+
+		if ( $is_public_view && is_user_logged_in() && is_singular() ) {
+			$queried_object = get_queried_object();
+			$is_public_view  = is_object( $queried_object ) && isset( $queried_object->ID ) && 'publish' === get_post_status( $queried_object->ID );
+		}
+
+		if ( $load_generated_css_as_virtual_url && $is_public_view ) {
+			$cache = $this->get_payload_cache();
+			$url   = $cache ? $cache->get_or_create_dynamic_css_url( $style, $source ) : '';
+
+			if ( is_string( $url ) && '' !== $url ) {
+				$handle = 'gutenverse-dynamic-' . substr( md5( $url ), 0, 16 );
+				$this->virtual_style_urls[ $handle ] = $url;
+				return;
+			}
+		}
+
+		wp_add_inline_style( 'gutenverse-dynamic-frontend-style', $style );
+	}
+
+	/**
+	 * Enqueue virtual generated stylesheets after the conditional block stylesheets.
+	 */
+	public function enqueue_virtual_stylesheets() {
+		foreach ( $this->virtual_style_urls as $handle => $url ) {
+			wp_enqueue_style( $handle, $url, array( 'gutenverse-dynamic-frontend-style' ), null );
+		}
+
+		$this->virtual_style_urls = array();
 	}
 
 	/**
@@ -210,7 +259,7 @@ class Frontend_Generator {
 
 			do_action( 'gutenverse_after_style_loop_blocks' );
 
-			$this->render_style( $name, $style, 'widget', true );
+			$this->render_style( $name, $style, 'widget', true, $source );
 		}
 	}
 
@@ -228,7 +277,7 @@ class Frontend_Generator {
 		);
 
 		if ( ! empty( trim( $variable ) ) ) {
-			$this->render_style( $name, $variable, 'global', true );
+			$this->render_style( $name, $variable, 'global', true, $source );
 		}
 	}
 
@@ -349,7 +398,7 @@ class Frontend_Generator {
 				}
 			);
 
-			$this->render_style( $name, $style, 'template', true );
+			$this->render_style( $name, $style, 'template', true, $source );
 			do_action( 'gutenverse_after_style_loop_blocks' );
 		}
 	}
@@ -377,7 +426,7 @@ class Frontend_Generator {
 				}
 			);
 
-			$this->render_style( $name, $style, 'content', true );
+			$this->render_style( $name, $style, 'content', true, $source );
 			do_action( 'gutenverse_after_style_loop_blocks' );
 		}
 	}

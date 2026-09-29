@@ -15,6 +15,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
         remove_wp_emoji_script = false,
         disable_wp_lazyload = true,
         load_static_css_as_files = false,
+        load_generated_css_as_virtual_url = false,
         legacy_cache_size = '0 B',
         payload_cache_size = '0 B',
         payload_cache_files = 0
@@ -90,7 +91,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
                 updatePayloadCacheInfo(response);
                 setToast({
                     status: 'success',
-                    message: 'Removed ' + (response?.removed_size || payload_cache_size) + ' internal style cache'
+                    message: 'Cleared the internal CSS cache and ' + (response?.legacy_css_cache_removed || 0) + ' legacy CSS cache entries'
                 });
                 setShowToast(true);
                 setTimeout(() => setShowToast(false), 2000);
@@ -134,29 +135,36 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
                 updateValue={updateValue}
             />
         </div>
-        <div className="template-tab-body">
+        <div className="template-tab-body frontend-css-loading">
             <h2>{__('Frontend CSS Loading', '--gctd--')}</h2>
             <ControlCheckbox
                 id={'load_static_css_as_files'}
                 title={__('Load Static CSS as Files', '--gctd--')}
-                description={__('Load static CSS files separately instead of embedding them in the page. Generated Gutenverse CSS will remain inline.', '--gctd--')}
+                description={__('Load static CSS files separately instead of embedding them in the page.', '--gctd--')}
                 value={load_static_css_as_files}
+                updateValue={updateValue}
+            />
+            <ControlCheckbox
+                id={'load_generated_css_as_virtual_url'}
+                title={__('Load Generated CSS Separately', '--gctd--')}
+                description={__('Load generated CSS separately from the page HTML. This does not create CSS files.', '--gctd--')}
+                value={load_generated_css_as_virtual_url}
                 updateValue={updateValue}
             />
         </div>
         <div className="template-tab-body legacy-cache-cleanup">
             <div className="legacy-cache-cleanup-header">
                 <div>
-                    <h2>{__('Legacy Generated Frontend Files', '--gctd--')}</h2>
-                    <p>{__('Remove old generated CSS files after your page cache has been purged.', '--gctd--')}</p>
+                    <h2>{__('Legacy Generated Frontend CSS Files', '--gctd--')}</h2>
+                    <p>{__('Remove CSS files left by older versions. The current generated CSS loading option does not create CSS files.', '--gctd--')}</p>
                 </div>
                 <div className="legacy-cache-cleanup-size">
-                    <span>{__('Legacy size', '--gctd--')}</span>
+                    <span>{__('File size', '--gctd--')}</span>
                     <strong>{legacy_cache_size}</strong>
                 </div>
             </div>
             <AlertControl type="warning">
-                <span>{__('Only clear these files after purging page cache or CDN cache. Cached pages may still reference old generated CSS URLs.', '--gctd--')}</span>
+                <span>{__('Only clear these legacy files after purging page cache or CDN cache. Cached pages may still reference them.', '--gctd--')}</span>
             </AlertControl>
             <div className="legacy-cache-cleanup-actions">
                 <div className={`gutenverse-button legacy-cache-cleanup-button ${loading === 'legacy' ? 'loading' : ''} ${!hasLegacyFiles ? 'disabled' : ''}`} onClick={handleDeleteCache}>
@@ -167,17 +175,17 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, updateValues, sav
         <div className="template-tab-body payload-cache-cleanup">
             <div className="payload-cache-cleanup-header">
                 <div>
-                    <h2>{__('Internal Inline Style Cache', '--gctd--')}</h2>
-                    <p>{__('Stores generated inline style payloads so large pages do not need to rebuild block CSS on every request.', '--gctd--')}</p>
+                    <h2>{__('Internal Generated CSS Cache', '--gctd--')}</h2>
+                    <p>{__('Stores generated CSS with its source data. Separate stylesheet links read CSS from this cache.', '--gctd--')}</p>
                 </div>
                 <div className="payload-cache-cleanup-size">
-                    <span>{__('Cache size', '--gctd--')}</span>
+                    <span>{__('Payload cache', '--gctd--')}</span>
                     <strong>{payload_cache_size}</strong>
                     <span>{payload_cache_files + ' ' + __('files', '--gctd--')}</span>
                 </div>
             </div>
             <AlertControl type="warning">
-                <span>{__('Clearing this cache is safe. The next frontend request will regenerate the needed inline style payloads.', '--gctd--')}</span>
+                <span>{__('Purge page or CDN cache before clearing. Cached pages may still request CSS stored here.', '--gctd--')}</span>
             </AlertControl>
             <div className="payload-cache-cleanup-actions">
                 <div className={`gutenverse-button payload-cache-cleanup-button ${loading === 'payload' ? 'loading' : ''} ${!hasPayloadFiles ? 'disabled' : ''}`} onClick={handleClearPayloadCache}>

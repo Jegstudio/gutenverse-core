@@ -12,8 +12,8 @@ namespace Gutenverse\Framework;
 /**
  * Class Frontend Cache.
  *
- * Keeps compatibility for legacy generated frontend files and stores private
- * JSON payload cache for inline frontend styles.
+ * Keeps compatibility for legacy generated frontend files and stores source
+ * payload JSON used by inline styles and virtual CSS responses.
  *
  * @package gutenverse-framework
  */
@@ -23,7 +23,21 @@ class Frontend_Cache {
 	 *
 	 * @var int
 	 */
-	const PAYLOAD_SCHEMA_VERSION = 3;
+	const PAYLOAD_SCHEMA_VERSION = 5;
+
+	/**
+	 * Filename prefix for response files left by the legacy virtual CSS implementation.
+	 *
+	 * @var string
+	 */
+	const LEGACY_DYNAMIC_CSS_CACHE_PREFIX = 'gutenverse-dynamic-css-';
+
+	/**
+	 * Option prefix used only to remove virtual CSS entries left by older versions.
+	 *
+	 * @var string
+	 */
+	const LEGACY_DYNAMIC_CSS_OPTION_PREFIX = 'gutenverse_dynamic_css_';
 
 	/**
 	 * Option Name.
@@ -43,6 +57,9 @@ class Frontend_Cache {
 	 * Init constructor.
 	 */
 	public function __construct() {
+		add_filter( 'query_vars', array( $this, 'register_dynamic_css_query_var' ) );
+		add_action( 'parse_request', array( $this, 'parse_dynamic_css_request' ) );
+		add_action( 'template_redirect', array( $this, 'serve_dynamic_css' ), 0 );
 		add_action( 'wp_loaded', array( $this, 'clear_cleanup_cron' ) );
 		add_action( 'wp_loaded', array( $this, 'maybe_cleanup_payload_cache' ) );
 		add_action( 'gutenverse_cleanup_cached_style', array( $this, 'cleanup_cached_style' ) );
@@ -219,6 +236,251 @@ class Frontend_Cache {
 	}
 
 	/**
+	 * Build a virtual URL for CSS stored in its source payload JSON.
+	 *
+	 * @param string $css Generated CSS.
+	 * @param array  $source Source descriptor.
+	 *
+	 * @return string Stylesheet URL, or an empty string when the source payload is unavailable.
+	 */
+	public function get_or_create_dynamic_css_url( $css, $source ) {
+		if ( ! is_string( $css ) || '' === trim( $css ) || ! is_array( $source ) ) {
+			return '';
+		}
+
+		$cache_key  = isset( $source['cache_key'] ) ? $this->sanitize_payload_cache_key( $source['cache_key'] ) : '';
+		$payload    = $this->read_payload( $source );
+		$stored_css = is_array( $payload ) && isset( $payload['css'] ) && is_string( $payload['css'] ) ? $payload['css'] : '';
+
+		if ( '' === $cache_key || $css !== $stored_css ) {
+			return '';
+		}
+
+		$hash     = hash( 'sha256', $css );
+		$filename = 'gutenverse-dynamic-' . $cache_key . '.css';
+
+		$permalink_structure = (string) get_option( 'permalink_structure', '' );
+
+		if ( '' !== $permalink_structure && false === strpos( $permalink_structure, 'index.php' ) ) {
+			$url = trailingslashit( home_url( '/' ) ) . $filename;
+		} else {
+			$url = add_query_arg( 'gutenverse_dynamic_css', $filename, home_url( '/' ) );
+		}
+
+		return esc_url_raw( add_query_arg( 'ver', $hash, $url ) );
+	}
+
+	/**
+	 * Read CSS directly from a source payload using the source key in the virtual URL.
+	 *
+	 * @param string $cache_key Source payload cache key.
+	 * @param string $hash CSS SHA-256 hash.
+	 *
+	 * @return string
+	 */
+	protected function read_payload_css_by_hash( $cache_key, $hash ) {
+		if ( ! is_string( $cache_key ) || '' === $cache_key || ! is_string( $hash ) || ! preg_match( '/\\A[a-f0-9]{64}\\z/', $hash ) ) {
+			return '';
+		}
+
+		$sanitized_cache_key = $this->sanitize_payload_cache_key( $cache_key );
+
+		if ( $cache_key !== $sanitized_cache_key ) {
+			return '';
+		}
+
+		$cache_key = $sanitized_cache_key;
+		$path      = trailingslashit( $this->get_payload_cache_directory() ) . $cache_key . '.json';
+
+		if ( ! is_readable( $path ) ) {
+			return '';
+		}
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$payload = json_decode( file_get_contents( $path ), true );
+		$css     = is_array( $payload ) && isset( $payload['css'] ) && is_string( $payload['css'] ) ? $payload['css'] : '';
+
+		if (
+			! is_array( $payload )
+			|| self::PAYLOAD_SCHEMA_VERSION !== (int) ( isset( $payload['schema_version'] ) ? $payload['schema_version'] : 0 )
+			|| '' === trim( $css )
+			|| ! hash_equals( $hash, hash( 'sha256', $css ) )
+		) {
+			return '';
+		}
+
+		if ( is_writable( $path ) ) {
+			touch( $path );
+		}
+
+		return $css;
+	}
+
+	/**
+	 * Read a response file left by the previous virtual CSS implementation.
+	 *
+	 * @param string $hash CSS SHA-256 hash.
+	 *
+	 * @return string
+	 */
+	protected function read_legacy_dynamic_css_cache( $hash ) {
+		if ( ! is_string( $hash ) || ! preg_match( '/\\A[a-f0-9]{64}\\z/', $hash ) ) {
+			return '';
+		}
+
+		$path = trailingslashit( $this->get_payload_cache_directory() ) . self::LEGACY_DYNAMIC_CSS_CACHE_PREFIX . $hash . '.json';
+
+		if ( ! is_readable( $path ) ) {
+			return '';
+		}
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$payload = json_decode( file_get_contents( $path ), true );
+		$css     = is_array( $payload ) && isset( $payload['css'] ) && is_string( $payload['css'] ) ? $payload['css'] : '';
+
+		return '' !== trim( $css ) && hash_equals( $hash, hash( 'sha256', $css ) ) ? $css : '';
+	}
+
+	/**
+	 * Register the virtual CSS endpoint query variable.
+	 *
+	 * @param array $query_vars Public query variables.
+	 *
+	 * @return array
+	 */
+	public function register_dynamic_css_query_var( $query_vars ) {
+		if ( ! in_array( 'gutenverse_dynamic_css', $query_vars, true ) ) {
+			$query_vars[] = 'gutenverse_dynamic_css';
+		}
+
+		return $query_vars;
+	}
+
+	/**
+	 * Resolve a CSS-named path when WordPress pretty permalinks are enabled.
+	 *
+	 * @param WP $wp WordPress request object.
+	 */
+	public function parse_dynamic_css_request( $wp ) {
+		if ( ! is_object( $wp ) || ! isset( $wp->request ) ) {
+			return;
+		}
+
+		if ( preg_match( '/\\Agutenverse-dynamic-[a-z0-9._-]+(?:-[a-f0-9]{64})?\\.css\\z/', trim( $wp->request, '/' ), $matches ) ) {
+			if ( ! isset( $wp->query_vars ) || ! is_array( $wp->query_vars ) ) {
+				$wp->query_vars = array();
+			}
+
+			$wp->query_vars['gutenverse_dynamic_css'] = $matches[0];
+		}
+	}
+
+	/**
+	 * Serve CSS from a source payload or a legacy response file.
+	 */
+	public function serve_dynamic_css() {
+		$filename = get_query_var( 'gutenverse_dynamic_css', '' );
+
+		if ( '' === $filename ) {
+			return;
+		}
+
+		if ( ! is_string( $filename ) ) {
+			status_header( 404 );
+			header( 'Content-Type: text/plain; charset=UTF-8' );
+			nocache_headers();
+			exit;
+		}
+
+		$version = isset( $_GET['ver'] ) && is_string( $_GET['ver'] ) ? sanitize_text_field( wp_unslash( $_GET['ver'] ) ) : '';
+
+		if ( preg_match( '/\\Agutenverse-dynamic-([a-z0-9._-]+)\\.css\\z/', $filename, $matches ) && preg_match( '/\\A[a-f0-9]{64}\\z/', $version ) ) {
+			$cache_key = $matches[1];
+			$hash      = $version;
+			$css       = $this->read_payload_css_by_hash( $cache_key, $hash );
+		} elseif ( preg_match( '/\\Agutenverse-dynamic-([a-z0-9._-]+)-([a-f0-9]{64})\\.css\\z/', $filename, $matches ) ) {
+			// Serve path-style links emitted by the previous version while cached HTML expires.
+			$cache_key = $matches[1];
+			$hash      = $matches[2];
+			$css       = $this->read_payload_css_by_hash( $cache_key, $hash );
+		} elseif ( preg_match( '/\\A[a-f0-9]{64}\\z/', $filename ) ) {
+			// Serve links emitted by the previous version while cached HTML expires.
+			$hash = $filename;
+			$css  = $this->read_legacy_dynamic_css_cache( $hash );
+		} else {
+			$hash = '';
+			$css  = '';
+		}
+
+		if ( '' === $hash || ! is_string( $css ) || '' === trim( $css ) || ! hash_equals( $hash, hash( 'sha256', $css ) ) ) {
+			status_header( 404 );
+			header( 'Content-Type: text/plain; charset=UTF-8' );
+			nocache_headers();
+			exit;
+		}
+
+		$etag = '"' . $hash . '"';
+		status_header( 200 );
+		header( 'Content-Type: text/css; charset=UTF-8' );
+		header( 'Cache-Control: public, max-age=' . YEAR_IN_SECONDS . ', immutable' );
+		header( 'ETag: ' . $etag );
+		header( 'X-Content-Type-Options: nosniff' );
+
+		if ( isset( $_SERVER['HTTP_IF_NONE_MATCH'] ) ) {
+			$client_etags = array_map( 'trim', explode( ',', wp_unslash( $_SERVER['HTTP_IF_NONE_MATCH'] ) ) );
+
+			if ( in_array( $etag, $client_etags, true ) || in_array( 'W/' . $etag, $client_etags, true ) || in_array( '*', $client_etags, true ) ) {
+				status_header( 304 );
+				exit;
+			}
+		}
+
+		echo $css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		exit;
+	}
+
+	/**
+	 * Delete response files and options left by earlier virtual CSS versions.
+	 *
+	 * @return int Number of removed legacy cache entries.
+	 */
+	public function clear_dynamic_css_cache() {
+		global $wpdb;
+
+		$removed   = 0;
+		$directory = $this->get_payload_cache_directory();
+
+		if ( is_dir( $directory ) ) {
+			foreach ( list_files( $directory ) as $file ) {
+				if ( is_file( $file ) && preg_match( '/\\Agutenverse-dynamic-css-[a-f0-9]{64}\\.json\\z/', basename( $file ) ) ) {
+					wp_delete_file( $file );
+
+					if ( ! file_exists( $file ) ) {
+						$removed++;
+					}
+				}
+			}
+		}
+
+		$option_names = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+				$wpdb->esc_like( self::LEGACY_DYNAMIC_CSS_OPTION_PREFIX ) . '%'
+			)
+		);
+
+		if ( is_array( $option_names ) ) {
+			foreach ( $option_names as $option_name ) {
+				if ( delete_option( $option_name ) ) {
+					$removed++;
+				}
+			}
+		}
+
+		return $removed;
+	}
+
+	/**
 	 * Ensure payload cache directory exists.
 	 *
 	 * @return bool
@@ -309,14 +571,15 @@ class Frontend_Cache {
 	/**
 	 * Check if payload matches source.
 	 *
-	 * @param array $payload Payload.
-	 * @param array $source Source descriptor.
+	 * @param array  $payload Payload.
+	 * @param array  $source Source descriptor.
 	 *
 	 * @return bool
 	 */
 	public function is_payload_fresh( $payload, $source ) {
-		return isset( $payload['schema_version'], $payload['source_type'], $payload['source_id'], $payload['source_hash'] )
+		return isset( $payload['schema_version'], $payload['source_type'], $payload['source_id'], $payload['source_hash'], $payload['css'] )
 			&& self::PAYLOAD_SCHEMA_VERSION === (int) $payload['schema_version']
+			&& is_string( $payload['css'] )
 			&& isset( $source['type'], $source['id'], $source['hash'] )
 			&& $payload['source_type'] === $source['type']
 			&& $payload['source_id'] === $source['id']
@@ -610,6 +873,10 @@ class Frontend_Cache {
 				continue;
 			}
 
+			if ( preg_match( '/\Agutenverse-dynamic-css-[a-f0-9]{64}\.json\z/', basename( $file ) ) ) {
+				continue;
+			}
+
 			if ( $prefix && 0 !== strpos( basename( $file ), $prefix ) ) {
 				continue;
 			}
@@ -638,7 +905,7 @@ class Frontend_Cache {
 		}
 
 		foreach ( list_files( $directory ) as $file ) {
-			if ( ! is_file( $file ) || ! preg_match( '/\.json$/', $file ) ) {
+			if ( ! is_file( $file ) || ! preg_match( '/\.json$/', $file ) || preg_match( '/\Agutenverse-dynamic-css-[a-f0-9]{64}\.json\z/', basename( $file ) ) ) {
 				continue;
 			}
 
@@ -667,8 +934,9 @@ class Frontend_Cache {
 			return;
 		}
 
-		$files   = list_files( $directory );
-		$max_age = (int) apply_filters( 'gutenverse_frontend_payload_cache_max_post_age', 30 * DAY_IN_SECONDS );
+		$files       = list_files( $directory );
+		$max_age     = (int) apply_filters( 'gutenverse_frontend_payload_cache_max_post_age', 30 * DAY_IN_SECONDS );
+		$css_max_age = (int) apply_filters( 'gutenverse_dynamic_css_cache_max_age', YEAR_IN_SECONDS );
 
 		foreach ( $files as $file ) {
 			if ( ! is_file( $file ) ) {
@@ -684,6 +952,11 @@ class Frontend_Cache {
 			}
 
 			if ( preg_match( '/\.css$/', $file ) ) {
+				wp_delete_file( $file );
+				continue;
+			}
+
+			if ( $css_max_age > 0 && preg_match( '/\Agutenverse-dynamic-css-[a-f0-9]{64}\.json\z/', basename( $file ) ) && filemtime( $file ) < time() - $css_max_age ) {
 				wp_delete_file( $file );
 				continue;
 			}

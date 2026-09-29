@@ -542,25 +542,27 @@ class Api {
 	}
 
 	/**
-	 * Clear internal frontend payload cache files.
+	 * Clear internal frontend cache files.
 	 *
 	 * @return WP_Rest
 	 */
 	public function clear_payload_cache_files() {
 		try {
-			$cache        = Init::instance()->frontend_cache;
-			$before_stats = $cache->get_payload_cache_stats();
+			$cache               = Init::instance()->frontend_cache;
+			$before_stats        = $cache->get_payload_cache_stats();
 
+			$removed_css_entries = $cache->clear_dynamic_css_cache();
 			$cache->clear_payload_cache();
 
 			$after_stats = $cache->get_payload_cache_stats();
 
 			return new WP_REST_Response(
 				array(
-					'status'              => 'success',
-					'removed_size'        => $before_stats['size_label'],
-					'payload_cache_size'  => $after_stats['size_label'],
-					'payload_cache_files' => $after_stats['files'],
+					'status'                    => 'success',
+					'removed_size'              => $before_stats['size_label'],
+					'payload_cache_size'        => $after_stats['size_label'],
+					'payload_cache_files'       => $after_stats['files'],
+					'legacy_css_cache_removed' => $removed_css_entries,
 				),
 				200
 			);
