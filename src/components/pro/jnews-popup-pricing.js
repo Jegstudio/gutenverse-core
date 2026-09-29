@@ -7,8 +7,8 @@ import { ensurePricingPlanData, getPricingPlanFallback } from '../../helper/jnew
 
 const JNEWS_TRACKING_TIMEOUT = 2000;
 const JNEWS_CLOSE_REQUEST_EVENT = 'jnews-blocks:pricing-popup-close-request';
-const JNEWS_TRACKING_API_PATH = 'jnews-client/v1/freemius/checkout-tracking';
-const JNEWS_LEMON_CHECKOUT_URL_API_PATH = 'jnews-client/v1/lemon-squeezy/checkoutUrl';
+const JNEWS_TRACKING_API_PATH = 'gutenverse-client/v1/freemius/checkout-tracking';
+const JNEWS_LEMON_CHECKOUT_URL_API_PATH = 'gutenverse-client/v1/lemon-squeezy/jnews-checkout-url';
 const JNEWS_LEMON_JS_URL = 'https://app.lemonsqueezy.com/js/lemon.js';
 const JNEWS_LEMON_SCRIPT_ID = 'gutenverse-lemon-squeezy-js';
 const JNEWS_DEFAULT_CHECKOUT_PROVIDER = 'default';

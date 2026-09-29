@@ -432,6 +432,112 @@ class Api {
 				'permission_callback' => '__return_true',
 			)
 		);
+
+		/** ----------------------------------------------------------------
+		 * JNews Routes
+		 */
+		register_rest_route(
+			self::ENDPOINT,
+			'jnews-pricing-plan',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'jnews_pricing_plan' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+
+		register_rest_route(
+			self::ENDPOINT,
+			'lemon-squeezy/jnews-checkout-url',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'jnews_lemon_squeezy_checkout_url' ),
+				'permission_callback' => 'gutenverse_permission_check_admin',
+			)
+		);
+	}
+
+	/**
+	 * Return pricing plan data for the Freemius popup.
+	 *
+	 * @return \WP_Error|\WP_REST_Response
+	 */
+	public function jnews_pricing_plan() {
+		$response = wp_remote_request(
+			apply_filters(
+				'jnews_blocks_pricing_plan_endpoint',
+				GUTENVERSE_JNEWS_BLOCK_LIBRARY_URL . '/wp-json/jnews-tools/v1/pricing-plan-user'
+			),
+			array(
+				'method' => 'GET',
+			)
+		);
+
+		if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {
+			return new \WP_Error(
+				'pricing_plan_unavailable',
+				'Pricing plan data is currently unavailable.',
+				array( 'status' => 503 )
+			);
+		}
+
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body );
+
+		return new \WP_REST_Response(
+			array(
+				'pricingPlan' => $data,
+			),
+			200
+		);
+	}
+
+	/**
+	 * Relay Lemon Squeezy checkout URL creation through the site server.
+	 *
+	 * @param object $request Request object.
+	 *
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function jnews_lemon_squeezy_checkout_url( $request ) {
+		$params = $request->get_json_params();
+
+		if ( ! is_array( $params ) ) {
+			$params = $request->get_params();
+		}
+
+		$endpoint = apply_filters(
+			'jnews_blocks_lemon_checkout_url_endpoint',
+			GUTENVERSE_JNEWS_BLOCK_PRO_SERVER_URL . '/wp-json/jnews-license/v1/lemon-squeezy/checkout-url/'
+		);
+		$payload  = $this->sanitize_lemon_checkout_payload( is_array( $params ) ? $params : array() );
+
+		$response = wp_remote_post(
+			$endpoint,
+			array(
+				'timeout' => 15,
+				'headers' => array(
+					'Content-Type' => 'application/json',
+				),
+				'body'    => wp_json_encode( $payload ),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return new \WP_Error(
+				'lemon_checkout_url_request_failed',
+				$response->get_error_message(),
+				array( 'status' => 500 )
+			);
+		}
+
+		$status = (int) wp_remote_retrieve_response_code( $response );
+		$body   = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		return new \WP_REST_Response(
+			is_array( $body ) ? $body : array( 'message' => 'Invalid Lemon checkout URL response.' ),
+			$status > 0 ? $status : 200
+		);
 	}
 
 	/**
@@ -1003,12 +1109,17 @@ class Api {
 			if ( 'layout-data' === $key ) {
 				$content = $this->inject_layout_like( $content );
 				if ( is_array( $content ) ) {
-					$content = array_values( array_filter( $content, function ( $item ) {
-						$listed_in = isset( $item['data']['listed_in'] ) ? $item['data']['listed_in'] : '';
-						if ( empty( $listed_in ) || str_contains( $listed_in, 'library' ) ) {
-							return $item;
-						}
-					} ) );
+					$content = array_values(
+						array_filter(
+							$content,
+							function ( $item ) {
+								$listed_in = isset( $item['data']['listed_in'] ) ? $item['data']['listed_in'] : '';
+								if ( empty( $listed_in ) || str_contains( $listed_in, 'library' ) ) {
+									return $item;
+								}
+							}
+						)
+					);
 				}
 			}
 

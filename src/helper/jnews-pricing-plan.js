@@ -1,6 +1,6 @@
 import apiFetch from '@wordpress/api-fetch';
 
-const JNEWS_PRICING_PLAN_API_PATH = 'jnews-client/v1/pricingPlan';
+const JNEWS_PRICING_PLAN_API_PATH = 'gutenverse-client/v1/jnews-pricing-plan';
 const JNEWS_DEFAULT_PRICING_PLAN = {
     active_promotion: [],
     is_event_sales: false,
@@ -89,9 +89,9 @@ const setRuntimePricingPlan = (pricingPlan) => {
 };
 
 const getPricingPlanFallback = () => {
-    const runtime = getFallbackRuntimeObjects().find((item) => isValidPricingPlan(item?.pricingPlan)) || {};
+    const runtime = getFallbackRuntimeObjects().find((item) => isValidPricingPlan(item?.jnewsBlocksPricingPlan)) || {};
 
-    return normalizePricingPlan(runtime?.pricingPlan);
+    return normalizePricingPlan(runtime?.jnewsBlocksPricingPlan);
 };
 
 const ensurePricingPlanData = ({ force = false } = {}) => {

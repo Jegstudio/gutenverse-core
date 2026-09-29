@@ -254,6 +254,8 @@ class Dashboard {
 				'actionUrl' => esc_url_raw( admin_url( 'admin.php?page=gutenverse&path=settings&settings=frontend' ) ),
 			),
 		);
+		$config['jnewsBlocksUpgradeUrl']    = GUTENVERSE_JNEWS_BLOCK_UPGRADE_URL;
+		$config['jnewsBlocksPricingPlan']   = gutenverse_jnews_get_pricing_plan();
 
 		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'gutenverse' === $_GET['page'] ) {
 			$config['system'] = $this->system_status();
