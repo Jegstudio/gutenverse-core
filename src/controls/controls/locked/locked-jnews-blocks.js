@@ -2,7 +2,8 @@ import { IconCrownBannerSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import { activeTheme, clientUrl } from 'gutenverse-core/config';
-import { getUpgradeProps } from '../../../helper/freemius';
+import { getUpgradeProps } from '../../../helper/jnews-freemius';
+import { prefetchPricingPlanData } from '../../../helper/jnews-pricing-plan';
 
 const proDemoUrl = 'https://jnews.io/';
 const documentationUrl = 'https://support.jegtheme.com/theme/jnews/';
@@ -23,9 +24,14 @@ const LockedJNewsBlocks = ({
 
     const dir = assetDir ? assetDir : videoDir;
 
+    const hoverProps = {
+        onMouseEnter: () => prefetchPricingPlanData(),
+        onFocus: () => prefetchPricingPlanData(),
+    };
+
     const ButtonPro = applyFilters(
         'jnews-blocks.pro-panel-button',
-        () => <a className="gutenverse-button-available-pro" {...getUpgradeProps(`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`)}> {__('Upgrade To Pro', '--gctd--')} <IconCrownBannerSVG /> </a>
+        () => <a className="gutenverse-button-available-pro" {...hoverProps} {...getUpgradeProps(`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`)}> {__('Upgrade To Pro', '--gctd--')} <IconCrownBannerSVG /> </a>
     );
     return <>
         <h2 className="title">{title}</h2>
