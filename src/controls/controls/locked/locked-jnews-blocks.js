@@ -31,7 +31,7 @@ const LockedJNewsBlocks = ({
 
     const ButtonPro = applyFilters(
         'jnews-blocks.pro-panel-button',
-        () => <a className="gutenverse-button-available-pro" {...hoverProps} {...getUpgradeProps(`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`)}> {__('Upgrade To Pro', '--gctd--')} <IconCrownBannerSVG /> </a>
+        () => <a className="gutenverse-button-available-pro" {...hoverProps} {...getUpgradeProps(`${upgradeProUrl}?utm_source=jnews-blocks&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`)}> {__('Upgrade To Pro', '--gctd--')} <IconCrownBannerSVG /> </a>
     );
     return <>
         <h2 className="title">{title}</h2>
