@@ -23,7 +23,6 @@ const JNewsButtonUpgradePro = ({
     isBanner = false,
     licenseActiveButton = <></>,
     onClick = () => {},
-    checkProData = 'JNewsBlocksProConfig',
     dashboard = 'jnews-blocks',
     className = '',
 }) => {
@@ -113,19 +112,19 @@ const JNewsButtonUpgradePro = ({
     };
 
     const TheButton = applyFilters('jnews-blocks.button.pro.library', () => {
-        if (isEmpty(window?.[checkProData])) {
-            if ( location !== 'dashboard-navigation' ){
-                return button(text, 'crown', false, true);
-            } else {
-                return button(text, 'crown', true, true);
-            }
-        } else {
+        if (window?.['JNewsBlocksProConfig'] || window?.['JnewsThemeConfig']) {
             if ( location !== 'dashboard-navigation' ){
                 return applyFilters('jnews.blocks.button.pro',
                     button(__('Activate License', '--gctd--'), 'key', false, false, '_self'),
                     button(__('Renew License', '--gctd--'), 'key', false, false, '_self'),
                     licenseActiveButton,
                 );
+            }
+        } else {
+            if ( location !== 'dashboard-navigation' ){
+                return button(text, 'crown', false, true);
+            } else {
+                return button(text, 'crown', true, true);
             }
         }
     }, {location,isBanner});
