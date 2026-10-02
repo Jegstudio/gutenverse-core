@@ -10,6 +10,7 @@ import { getBlockType } from '@wordpress/blocks';
 import cryptoRandomString from 'crypto-random-string';
 import { getAllGutenverseBlock, getCopyableAttributes } from './copy-style-plugin';
 import { GradientIconPasteSVG } from 'gutenverse-core/icons';
+import { applyFilters } from '@wordpress/hooks';
 
 const BlockSettingMenuPaste = () => {
     const { createInfoNotice } = useDispatch(noticesStore);
@@ -67,7 +68,7 @@ const BlockSettingMenuPaste = () => {
                                     refreshStyleId: 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' })
                                 });
 
-                                showNotice(__('Gutenverse Style Pasted', '--gctd--'));
+                                showNotice(__(applyFilters('gutenverse-core-paste-style-notice', 'Gutenverse Style Pasted', name), '--gctd--'));
                             } else {
                                 showNotice(__('Failed! Please paste style to the same block type or compatible style group', '--gctd--'));
                             }
