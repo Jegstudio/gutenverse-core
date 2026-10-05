@@ -7,6 +7,9 @@
 	"description": "Draggable column, to make your experience flawless when resize it.",
 	"category": "gutenverse-structure",
 	"allowCopyStyle": true,
+	"providesContext": {
+		"gutenverse/width": "width"
+	},
 	"attributes": {
 		"width": {
 			"type": "object",
