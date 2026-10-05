@@ -9,7 +9,6 @@ import { store as noticesStore } from '@wordpress/notices';
 import { useDispatch } from '@wordpress/data';
 import { sprintf, __ } from '@wordpress/i18n';
 import { GradientIconCopySVG } from 'gutenverse-core/icons';
-import { applyFilters } from '@wordpress/hooks';
 
 export const getAllGutenverseBlock = () => {
     const {
@@ -22,7 +21,7 @@ export const getAllGutenverseBlock = () => {
     let registeredGutenverse = [];
     getBlockTypes().map(block => {
         const { name, allowCopyStyle } = block;
-        if (applyFilters('gutenverse-core-add-copy-paste-toolbar', name.startsWith('gutenverse') && allowCopyStyle === true, name, allowCopyStyle)) {
+        if ((name.startsWith('gutenverse') || name.startsWith('jnews-blocks')) && allowCopyStyle === true) {
             registeredGutenverse = [
                 ...registeredGutenverse,
                 name
@@ -80,7 +79,8 @@ const BlockSettingMenuCopy = () => {
             };
 
             copy(JSON.stringify(copiedStyle)).then(() => {
-                createInfoNotice(applyFilters('gutenverse-core-copy-style-notice', sprintf(__('Gutenverse "%s" Style Copied', '--gctd--'), title), name), {
+                const pluginName = name.startsWith('jnews-blocks') ? 'JNews Blocks' : 'Gutenverse';
+                createInfoNotice(sprintf(__('%s "%s" Style Copied', '--gctd--'), pluginName, title), {
                     type: 'snackbar',
                     isDismissible: true,
                 });
