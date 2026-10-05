@@ -440,6 +440,174 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_normalize_link_rel' ) ) {
+	/**
+	 * Normalize anchor rel tokens.
+	 *
+	 * @param string       $rel               Existing rel value.
+	 * @param array|string $additional_tokens Additional rel tokens to merge.
+	 * @return string
+	 */
+	function gutenverse_normalize_link_rel( $rel = '', $additional_tokens = array() ) {
+		$known_order = array( 'noopener', 'noreferrer', 'sponsored', 'ugc', 'nofollow' );
+		$values      = array();
+
+		if ( is_string( $rel ) && '' !== $rel ) {
+			$values = preg_split( '/[\s,]+/', $rel );
+		}
+
+		if ( ! is_array( $additional_tokens ) ) {
+			$additional_tokens = array( $additional_tokens );
+		}
+
+		$values = array_merge( $values, $additional_tokens );
+		$tokens = array();
+
+		foreach ( $values as $value ) {
+			$token = strtolower( trim( (string) $value ) );
+
+			if ( '' !== $token && preg_match( '/^[a-z][a-z0-9._:-]*$/i', $token ) && ! in_array( $token, $tokens, true ) ) {
+				$tokens[] = $token;
+			}
+		}
+
+		$known_tokens  = array();
+		$custom_tokens = array();
+
+		foreach ( $known_order as $token ) {
+			if ( in_array( $token, $tokens, true ) ) {
+				$known_tokens[] = $token;
+			}
+		}
+
+		foreach ( $tokens as $token ) {
+			if ( ! in_array( $token, $known_order, true ) ) {
+				$custom_tokens[] = $token;
+			}
+		}
+
+		return implode( ' ', array_merge( $known_tokens, $custom_tokens ) );
+	}
+}
+
+if ( ! function_exists( 'gutenverse_normalize_link_target' ) ) {
+	/**
+	 * Normalize legacy and current link target values.
+	 *
+	 * @param mixed $link_target Link target value.
+	 * @return string
+	 */
+	function gutenverse_normalize_link_target( $link_target = '' ) {
+		if ( true === $link_target || '_blank' === $link_target ) {
+			return '_blank';
+		}
+
+		if ( empty( $link_target ) ) {
+			return '';
+		}
+
+		return (string) $link_target;
+	}
+}
+
+if ( ! function_exists( 'gutenverse_get_link_rel' ) ) {
+	/**
+	 * Get rel value for a link target.
+	 *
+	 * @param string       $rel               Existing rel value.
+	 * @param string       $link_target       Link target value.
+	 * @param array|string $additional_tokens Additional rel tokens to merge.
+	 * @return string
+	 */
+	function gutenverse_get_link_rel( $rel = '', $link_target = '', $additional_tokens = array() ) {
+		if ( ! is_array( $additional_tokens ) ) {
+			$additional_tokens = array( $additional_tokens );
+		}
+
+		if ( '_blank' === gutenverse_normalize_link_target( $link_target ) ) {
+			$additional_tokens[] = 'noopener';
+		}
+
+		return gutenverse_normalize_link_rel( $rel, $additional_tokens );
+	}
+}
+
+if ( ! function_exists( 'gutenverse_get_link_attributes' ) ) {
+	/**
+	 * Build escaped anchor attributes with normalized rel behavior.
+	 *
+	 * @param array $attributes Link attributes.
+	 * @return string
+	 */
+	function gutenverse_get_link_attributes( $attributes ) {
+		$attributes = is_array( $attributes ) ? $attributes : array();
+
+		if ( isset( $attributes['url'] ) && ! isset( $attributes['href'] ) ) {
+			$attributes['href'] = $attributes['url'];
+		}
+
+		if ( isset( $attributes['linkTarget'] ) && ! isset( $attributes['target'] ) ) {
+			$attributes['target'] = $attributes['linkTarget'];
+		}
+
+		$additional_rel       = isset( $attributes['additionalRel'] ) ? $attributes['additionalRel'] : array();
+		$link_target          = isset( $attributes['target'] ) ? gutenverse_normalize_link_target( $attributes['target'] ) : '';
+		$attributes['target'] = $link_target;
+		$rel                  = isset( $attributes['rel'] ) ? $attributes['rel'] : '';
+		$attributes['rel']    = gutenverse_get_link_rel( $rel, $link_target, $additional_rel );
+
+		unset( $attributes['url'], $attributes['linkTarget'], $attributes['additionalRel'] );
+
+		$output = '';
+
+		foreach ( $attributes as $name => $value ) {
+			if ( null === $value || false === $value || '' === $value ) {
+				continue;
+			}
+
+			if ( ! preg_match( '/^[a-zA-Z][a-zA-Z0-9:_-]*$/', (string) $name ) ) {
+				continue;
+			}
+
+			$escaped_value = 'href' === $name ? esc_url( $value ) : esc_attr( $value );
+			$output       .= ' ' . esc_attr( $name ) . '="' . $escaped_value . '"';
+		}
+
+		return $output;
+	}
+}
+
+if ( ! function_exists( 'gutenverse_is_event_banner_valid' ) ) {
+	/**
+	 * Check if event banner has required data.
+	 *
+	 * @param mixed  $event_banner Event banner data.
+	 * @param string $required_banner Required banner image field.
+	 *
+	 * @return bool
+	 */
+	function gutenverse_is_event_banner_valid( $event_banner, $required_banner = '' ) {
+		if ( empty( $event_banner ) || ( ! is_object( $event_banner ) && ! is_array( $event_banner ) ) ) {
+			return false;
+		}
+
+		$data          = is_array( $event_banner ) ? $event_banner : get_object_vars( $event_banner );
+		$banner_fields = ! empty( $required_banner ) ? array( $required_banner ) : array( 'banner', 'bannerGlobal', 'bannerLibrary', 'bannerSidePanel' );
+		$has_image     = false;
+
+		foreach ( $banner_fields as $field ) {
+			if ( ! empty( $data[ $field ] ) ) {
+				$has_image = true;
+				break;
+			}
+		}
+
+		return $has_image &&
+			! empty( $data['url'] ) &&
+			! empty( $data['expired'] );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	/**
 	 * Get Event Banner
@@ -447,13 +615,15 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 	 * @return mixed
 	 */
 	function gutenverse_get_event_banner() {
+		if ( defined( 'GUTENVERSE_PRO' ) ) {
+			return null;
+		}
+
 		$data = get_transient( 'gutenverse_banner_cache' );
 		if ( $data ) {
-			if ( ! $data->banner || ! $data->bannerLibrary || ! $data->url || ! $data->expired ) {
-				return null;
-			}
-			return $data;
+			return gutenverse_is_event_banner_valid( $data ) ? $data : null;
 		}
+
 		$response = wp_remote_request(
 			GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-banner/v1/bannerdata',
 			array(
@@ -466,9 +636,10 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 		$body = wp_remote_retrieve_body( $response );
 		$data = json_decode( $body );
 
-		if ( ! $data->banner || ! $data->bannerLibrary || ! $data->url || ! $data->expired ) {
+		if ( ! gutenverse_is_event_banner_valid( $data ) ) {
 			return null;
 		}
+
 		set_transient( 'gutenverse_banner_cache', $data, 3 * HOUR_IN_SECONDS );
 		return $data;
 	}
@@ -1015,10 +1186,11 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 	 * Check if a font family is installed through the WordPress Font Library.
 	 *
 	 * @param string $family Font family name.
+	 * @param array  $weights Requested font weights.
 	 *
 	 * @return bool
 	 */
-	function gutenverse_is_wp_font_family_installed( $family ) {
+	function gutenverse_is_wp_font_family_installed( $family, $weights = array() ) {
 		static $installed_families = null;
 
 		if ( null === $installed_families ) {
@@ -1040,6 +1212,27 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 				foreach ( $font_family_ids as $font_family_id ) {
 					$settings = json_decode( get_post_field( 'post_content', $font_family_id ), true );
 					$fonts    = array( get_the_title( $font_family_id ) );
+					$installed_weights = array();
+
+					$font_face_ids = get_posts(
+						array(
+							'post_type'              => 'wp_font_face',
+							'post_parent'            => $font_family_id,
+							'post_status'            => 'any',
+							'posts_per_page'         => -1,
+							'fields'                 => 'ids',
+							'no_found_rows'          => true,
+							'update_post_meta_cache' => false,
+							'update_post_term_cache' => false,
+						)
+					);
+
+					foreach ( $font_face_ids as $font_face_id ) {
+						$font_face = json_decode( get_post_field( 'post_content', $font_face_id ), true );
+						if ( isset( $font_face['fontWeight'] ) ) {
+							$installed_weights[] = $font_face['fontWeight'];
+						}
+					}
 
 					if ( isset( $settings['fontFamily'] ) ) {
 						$fonts = array_merge( $fonts, explode( ',', $settings['fontFamily'] ) );
@@ -1048,7 +1241,7 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 					foreach ( $fonts as $font ) {
 						$font = trim( $font, " \t\n\r\0\x0B'\"" );
 						if ( '' !== $font ) {
-							$installed_families[ strtolower( $font ) ] = true;
+							$installed_families[ strtolower( $font ) ] = array_values( array_unique( $installed_weights ) );
 						}
 					}
 				}
@@ -1058,13 +1251,26 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 				$font_settings = wp_get_global_settings( array( 'typography', 'fontFamilies' ) );
 
 				foreach ( gutenverse_flatten_font_family_settings( $font_settings ) as $font_family ) {
-					$installed_families[ strtolower( $font_family ) ] = true;
+					if ( ! isset( $installed_families[ strtolower( $font_family ) ] ) ) {
+						$installed_families[ strtolower( $font_family ) ] = array();
+					}
 				}
 			}
 		}
 
-		$font_key     = strtolower( trim( $family, " \t\n\r\0\x0B'\"" ) );
-		return isset( $installed_families[ $font_key ] );
+		$font_key          = strtolower( trim( $family, " \t\n\r\0\x0B'\"" ) );
+		$requested_weights = array_filter( array_unique( array_map( 'strval', (array) $weights ) ) );
+
+		if ( ! isset( $installed_families[ $font_key ] ) ) {
+			return false;
+		}
+
+		if ( empty( $requested_weights ) ) {
+			return true;
+		}
+
+		$installed_weights = array_map( 'strval', $installed_families[ $font_key ] );
+		return empty( array_diff( $requested_weights, $installed_weights ) );
 	}
 }
 
@@ -1088,15 +1294,18 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 			$id     = ! empty( $font['id'] ) ? $font['id'] : null;
 
 			if ( 'google' === $type ) {
-				if ( gutenverse_is_wp_font_family_installed( $family ) ) {
+				$weights = ! empty( $font['weights'] ) ? (array) $font['weights'] : array();
+				if ( ! empty( $font['weight'] ) ) {
+					$weights[] = $font['weight'];
+				}
+
+				if ( gutenverse_is_wp_font_family_installed( $family, $weights ) ) {
 					continue;
 				}
 
 				$families[ $family ] = isset( $families[ $family ] ) ? $families[ $family ] : array();
 
-				if ( 'google' === $type && ! empty( $font['weight'] ) ) {
-					array_push( $families[ $family ], $font['weight'] );
-				}
+				$families[ $family ] = array_merge( $families[ $family ], $weights );
 			} elseif ( 'custom_font_pro' === $type ) {
 				array_push( $custom_family, $family );
 			}

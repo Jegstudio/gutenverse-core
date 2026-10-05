@@ -12,6 +12,13 @@
     margin: 0 auto;
 }
 
+.sticky-wrapper:has(> .sticky-follow-scroll) {
+    transition: unset !important;
+    > .sticky-follow-scroll.guten-flex-container  {
+        transition: unset !important;
+    }
+}
+
 .guten-flex-container {
     margin-block-start: 0;
     margin-block-end: 0;

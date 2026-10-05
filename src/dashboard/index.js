@@ -13,16 +13,17 @@ const loadGutenverseDashboard = () => {
     const eventData = eventBanner;
     const today = new Date();
     const expired = new Date(eventData?.expired);
+    const showEventBanner = eventData?.banner && eventData?.url && !Number.isNaN(expired.getTime()) && today <= expired;
     const EventBanner = () => {
-        return <>
-            {
-                (eventData && today <= expired) && <div className="event-banner-wrapper">
-                    <a href={eventData?.url} target="_blank" rel="noreferrer" >
-                        <img src={eventData?.banner} alt="event-banner" />
-                    </a>
-                </div>
-            }
-        </>;
+        return showEventBanner && <div className="event-banner-wrapper">
+            <a href={eventData?.url} target="_blank" rel="noreferrer" aria-label="Gutenverse event banner">
+                <img
+                    src={eventData?.banner}
+                    alt=""
+                    onError={(event) => event.currentTarget.closest('.event-banner-wrapper')?.remove()}
+                />
+            </a>
+        </div>;
     };
 
     if (dashboardDiv) {
