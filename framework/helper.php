@@ -15,6 +15,10 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 	 * @return bool True if the SVG contains only allowlisted elements and attributes.
 	 */
 	function gutenverse_is_svg_safe( $svg ) {
+		if ( ! is_string( $svg ) || '' === trim( $svg ) ) {
+			return false;
+		}
+
 		libxml_use_internal_errors( true );
 
 		// Prevent XXE attacks.
@@ -26,7 +30,7 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 
 		$dom = new \DOMDocument();
 
-		if ( ! $dom->loadXML( $svg, LIBXML_NONET | LIBXML_COMPACT ) ) {
+		if ( '' === trim( $svg ) || ! $dom->loadXML( $svg, LIBXML_NONET | LIBXML_COMPACT ) ) {
 			return false;
 		}
 
