@@ -8,7 +8,7 @@
 	"category": "gutenverse-structure",
 	"allowCopyStyle": true,
 	"providesContext": {
-		"gutenverse/width": "width"
+		"gutenverse/wrapperWidth": "width"
 	},
 	"attributes": {
 		"width": {

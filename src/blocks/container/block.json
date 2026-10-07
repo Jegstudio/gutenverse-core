@@ -454,6 +454,6 @@
 	"style": ["gutenverse-core-frontend-container-style"],
 	"providesContext": {
 		"gutenverse/flexDirection": "flexDirection",
-		"gutenverse/width": "containerWidth"
+		"gutenverse/wrapperWidth": "containerWidth"
 	}
 }
