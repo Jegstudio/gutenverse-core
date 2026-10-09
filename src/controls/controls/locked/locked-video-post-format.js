@@ -10,6 +10,8 @@ const LockedVideoPostFormat = ({ isOpen }) => {
             title={__('Video Post Format', '--gctd--')}
             description={__('Displaying a video as the featured image of your post when using video type format post.', '--gctd--')}
             isOpen={isOpen}
+            isJNewsBlocks={true}
+            withNotice={true}
         />
     </div>;
 };

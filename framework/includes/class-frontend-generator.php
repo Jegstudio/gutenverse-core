@@ -99,10 +99,10 @@ class Frontend_Generator {
 	 *
 	 * @todo: Jangan akses instance style cache secara langsung.
 	 *
-	 * @param string $name Name of Style.
+	 * @param string      $name Name of Style.
 	 * @param string|null $style Style Content.
-	 * @param string $origin Origination of style.
-	 * @param bool   $is_minified Whether style is already minified.
+	 * @param string      $origin Origination of style.
+	 * @param bool        $is_minified Whether style is already minified.
 	 */
 	public function render_style( $name, $style, $origin, $is_minified = false ) {
 		if ( ! is_string( $style ) || '' === trim( $style ) ) {
@@ -147,7 +147,7 @@ class Frontend_Generator {
 		$css     = preg_replace_callback(
 			'/"(?:\\\\.|[^"\\\\])*"|\'(?:\\\\.|[^\'\\\\])*\'/',
 			function ( $matches ) use ( &$strings ) {
-				$key              = '___GUTENVERSE_CSS_STRING_' . count( $strings ) . '___';
+				$key             = '___GUTENVERSE_CSS_STRING_' . count( $strings ) . '___';
 				$strings[ $key ] = $matches[0];
 				return $key;
 			},
@@ -1002,11 +1002,11 @@ class Frontend_Generator {
 		}
 
 		if ( isset( $source['cacheable'] ) && ! $source['cacheable'] ) {
-			$before = $this->snapshot_payload_state();
+			$before                           = $this->snapshot_payload_state();
 			$this->payload_dependency_stack[] = array();
-			$style        = $this->minify_inline_css( (string) call_user_func( $generator ) );
-			$dependencies = array_pop( $this->payload_dependency_stack );
-			$payload      = $this->create_payload( $source, $style, $before, $dependencies );
+			$style                            = $this->minify_inline_css( (string) call_user_func( $generator ) );
+			$dependencies                     = array_pop( $this->payload_dependency_stack );
+			$payload                          = $this->create_payload( $source, $style, $before, $dependencies );
 
 			$this->register_payload_dependency( $source, $payload, false );
 
@@ -1056,12 +1056,12 @@ class Frontend_Generator {
 			return ! empty( $payload['css_minified'] ) ? $style : $this->minify_inline_css( $style );
 		}
 
-		$before = $this->snapshot_payload_state();
+		$before                           = $this->snapshot_payload_state();
 		$this->payload_dependency_stack[] = array();
-		$style        = $this->minify_inline_css( (string) call_user_func( $generator ) );
-		$dependencies = array_pop( $this->payload_dependency_stack );
-		$payload      = $this->create_payload( $source, $style, $before, $dependencies );
-		$stored       = false;
+		$style                            = $this->minify_inline_css( (string) call_user_func( $generator ) );
+		$dependencies                     = array_pop( $this->payload_dependency_stack );
+		$payload                          = $this->create_payload( $source, $style, $before, $dependencies );
+		$stored                           = false;
 
 		if ( $cache->should_write_payload( $source, $payload ) ) {
 			$stored = $cache->write_payload( $source, $payload, $lock );

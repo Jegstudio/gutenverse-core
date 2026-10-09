@@ -14,23 +14,22 @@ export const getPluginTabs = (settingValues) => {
             pro: false,
         },
     }, settingValues);
-    const normalizedActivePlugins = activePlugins.map(plugin => plugin === 'jnews-blocks' ? 'gutenverse-news' : plugin);
 
     return Object.fromEntries(
-        Object.entries(pluginTabs).filter(([key]) => normalizedActivePlugins.includes('gutenverse-' + key))
+        Object.entries(pluginTabs).filter(([key]) => activePlugins.includes('gutenverse-' + key))
     );
 };
 
 export const generalTabs = {
-    editor: {
+    ['editor']: {
         title: __('Editor', '--gctd--'),
         pro: false,
     },
-    frontend: {
+    ['frontend']: {
         title: __('Frontend', '--gctd--'),
         pro: false,
     },
-    template: {
+    ['template']: {
         title: __('Template', '--gctd--'),
         pro: false,
     },
@@ -57,26 +56,17 @@ export const generalTabs = {
 };
 
 const setitngTitle = {
-    editor: __('Editor Settings', '--gctd--'),
-    frontend: __('Frontend Settings', '--gctd--'),
-    template: __('Template Settings', '--gctd--'),
-    'gtb-setting-tab': __('Theme Builder Settings', '--gctd--'),
-    'font-icon': __('Font Icon Settings', '--gctd--'),
-    'custom-font': __('Custom Font Settings', '--gctd--'),
-    form_settings: __('Form Settings', '--gctd--'),
-    form_integrations: __('Form Integrations', '--gctd--'),
-    block_settings: __('Global Block Settings', '--gctd--'),
-    additional_features: __('Gutenverse News Additional Features', '--gctd--'),
-    view_counter: __('View Counter Settings', '--gctd--'),
-    post_review: __('Post Review Settings', '--gctd--'),
-    paywall: __('Paywall Settings', '--gctd--'),
-    like_dislike_button: __('Like & Dislike Settings', '--gctd--'),
-    performance: __('Performance Settings', '--gctd--'),
-    account: __('Account Settings', '--gctd--'),
-    bookmark: __('Bookmark Settings', '--gctd--'),
-    post_split: __('Post Split Settings', '--gctd--'),
-    ads: __('Ads Settings', '--gctd--'),
-    integrations: __('Integrations Settings', '--gctd--'),
+    ['editor']: __('Editor Settings', '--gctd--'),
+    ['frontend']: __('Frontend Settings', '--gctd--'),
+    ['template']: __('Template Settings', '--gctd--'),
+    ['gtb-setting-tab']: __('Theme Builder Settings', '--gctd--'),
+    ['font-icon']: __('Font Icon Settings', '--gctd--'),
+    ['custom-font']: __('Custom Font Settings', '--gctd--'),
+    ['form_settings']: __('Form Settings', '--gctd--'),
+    ['form_integrations ']: __('Form Integrations', '--gctd--'),
+    ['performance']: __('Performance Settings', '--gctd--'),
+    ['account']: __('Account Settings', '--gctd--'),
+    ['integrations']: __('Integration Settings', '--gctd--'),
 };
 
 export const getSettingTitle = (key) => {

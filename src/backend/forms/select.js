@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Select from 'react-select';
 
 const ControlSelect = (props) => {
-    const { id, title, description = '', value, options, customLabel, defaultValue = '', updateValue, isRequired = false, isMulti = false } = props;
+    const { id, title, description = '', value, options, customLabel, defaultValue = '', updateValue, isRequired = false, isMulti = false, separateControl = false } = props;
     let uuid = uuidv4();
     const inputValue = value === undefined ? defaultValue : value;
     const objValue = isMulti ? options.filter(el => {
@@ -22,10 +22,10 @@ const ControlSelect = (props) => {
         }
     };
     if (isMulti) {
-        return <div className="control-wrapper control-select multiple">
+        return <div className={`control-wrapper control-select multiple${separateControl ? ' separate-control' : ''}`}>
             <div className="label-wrapper">
                 <label className="control-title" htmlFor={`${id}-${uuid}`} style={customLabel}>{title} {isRequired && <span style={{ color: 'red' }}> *</span>}</label>
-                {description !== '' && <span className="control-description">
+                {description !== '' && !separateControl && <span className="control-description">
                     {description}
                 </span>}
             </div>
@@ -35,7 +35,12 @@ const ControlSelect = (props) => {
                 value={objValue}
                 options={options}
                 onChange={inputChange}
+                classNamePrefix={'select-inner'}
             />
+
+            {description !== '' && separateControl && <span className="control-description">
+                {description}
+            </span>}
         </div>;
     } else {
         return <div className="control-wrapper control-select">
@@ -46,11 +51,12 @@ const ControlSelect = (props) => {
                 value={objValue}
                 options={options}
                 onChange={inputChange}
+                classNamePrefix={'select-inner'}
             />
             {description !== '' && <span className="control-description">
                 {description}
             </span>}
-        </div>
+        </div>;
     }
 };
 

@@ -14,6 +14,7 @@ const PanelTabPro = ({ activeTab }) => {
     const eventData = eventBanner;
     const today = new Date();
     const expired = new Date(eventData?.expired);
+    const showEventBanner = eventData?.bannerSidePanel && eventData?.url && !Number.isNaN(expired.getTime()) && today <= expired;
     const ButtonProSecond = applyFilters('gutenverse.button.pro.library', () => {
         if (isEmpty(window?.gprodata)) {
             if (location !== 'dashboard-navigation') {
@@ -39,9 +40,13 @@ const PanelTabPro = ({ activeTab }) => {
                     <>
                         <div className="guten-pro-themes-wrapper">
                             {
-                                (eventData && today <= expired) && <div className="event-banner-wrapper guten-card-pro-wrapper">
-                                    <a href={eventData?.url} target="_blank" rel="noreferrer" >
-                                        <img src={eventData?.bannerSidePanel} alt="event-banner" />
+                                showEventBanner && <div className="event-banner-wrapper guten-card-pro-wrapper">
+                                    <a href={eventData?.url} target="_blank" rel="noreferrer" aria-label="Gutenverse event banner">
+                                        <img
+                                            src={eventData?.bannerSidePanel}
+                                            alt=""
+                                            onError={(event) => event.currentTarget.closest('.event-banner-wrapper')?.remove()}
+                                        />
                                     </a>
                                 </div>
                             }

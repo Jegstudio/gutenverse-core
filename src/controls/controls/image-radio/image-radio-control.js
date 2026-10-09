@@ -5,7 +5,6 @@ import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import { IconWarningDeprecatedSVG } from 'gutenverse-core/icons';
-import { applyFilters } from "@wordpress/hooks";
 import { openFreemiusPopup } from '../../../helper/freemius';
 
 const ImageRadioControl = props => {
@@ -64,11 +63,12 @@ const ImageRadioControl = props => {
                         );
                     }
                     if (item.pro) {
+                        const additionalClass = item.jnewsBlocks ? ' jnews-blocks-pro' : '';
                         return (
-                            applyFilters('gutenverse.radio-control', <label key={item.value} className={`${value === item.value ? 'active locked' : 'locked'}`}>
+                            <label key={item.value} className={`${value === item.value ? 'active locked' : 'locked'}` + `${additionalClass}`}>
                                 <input
                                     id={`${id}-radio-image`}
-                                    onClick={() => openUpgradeLink()}
+                                    onClick={() => openUpgradeLink()} /* todo: change popup when using jnewsBlocks */
                                     type={'radio'}
                                     value={item.value}
                                 />
@@ -78,7 +78,7 @@ const ImageRadioControl = props => {
                                         PRO
                                     </div>
                                 </div>
-                            </label>, { id: id, item: item, onChange: onChange, value: value })
+                            </label>
                         );
                     }
                     return (

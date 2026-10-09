@@ -31,6 +31,10 @@ defined( 'GUTENVERSE_UPGRADE_URL' ) || define( 'GUTENVERSE_UPGRADE_URL', 'https:
 defined( 'GUTENVERSE_FRAMEWORK_PRO_URL' ) || define( 'GUTENVERSE_FRAMEWORK_PRO_URL', 'https://pro.gutenverse.com/' );
 defined( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL' ) || define( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL', 'https://pro.gutenverse.com/invite' );
 
+// jnews path.
+defined( 'GUTENVERSE_JNEWS_BLOCK_LIBRARY_URL' ) || define( 'GUTENVERSE_JNEWS_BLOCK_LIBRARY_URL', 'https://staging.jnews.io/' );
+defined( 'GUTENVERSE_JNEWS_BLOCK_PRO_SERVER_URL' ) || define( 'GUTENVERSE_JNEWS_BLOCK_PRO_SERVER_URL', 'https://staging-pro-jnews.jegstudio.com/' );
+defined( 'GUTENVERSE_JNEWS_BLOCK_UPGRADE_URL' ) || define( 'GUTENVERSE_JNEWS_BLOCK_UPGRADE_URL', 'https://jnews.io/pricing' );
 
 require_once 'autoload.php';
 require_once 'helper.php';

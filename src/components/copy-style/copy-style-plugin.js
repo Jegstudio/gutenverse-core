@@ -21,7 +21,7 @@ export const getAllGutenverseBlock = () => {
     let registeredGutenverse = [];
     getBlockTypes().map(block => {
         const { name, allowCopyStyle } = block;
-        if (name.startsWith('gutenverse') && allowCopyStyle === true) {
+        if ((name.startsWith('gutenverse') || name.startsWith('jnews-blocks')) && allowCopyStyle === true) {
             registeredGutenverse = [
                 ...registeredGutenverse,
                 name
@@ -79,7 +79,8 @@ const BlockSettingMenuCopy = () => {
             };
 
             copy(JSON.stringify(copiedStyle)).then(() => {
-                createInfoNotice(sprintf(__('Gutenverse "%s" Style Copied', '--gctd--'), title), {
+                const pluginName = name.startsWith('jnews-blocks') ? 'JNews Blocks' : 'Gutenverse';
+                createInfoNotice(sprintf(__('%s "%s" Style Copied', '--gctd--'), pluginName, title), {
                     type: 'snackbar',
                     isDismissible: true,
                 });
