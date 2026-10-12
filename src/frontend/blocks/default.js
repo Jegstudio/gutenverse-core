@@ -13,17 +13,19 @@ export class Default {
         this.init();
         selector = !selector ? (reinitMap?.[this.constructor.name] || '') : selector;
         if (selector) {
-            addReinitHandler([
-                {
-                    name: this.constructor.name,
-                    selector,
-                    handler: (elements, data) => {
-                        this.context = 'reinit';
-                        this._elements = elements;
-                        this.init(data);
+            setTimeout(() => {
+                addReinitHandler([
+                    {
+                        name: this.constructor.name,
+                        selector,
+                        handler: (elements, data) => {
+                            this.context = 'reinit';
+                            this._elements = elements;
+                            this.init(data);
+                        }
                     }
-                }
-            ]);
+                ]);
+            }, 100);
         }
     }
 
