@@ -83,6 +83,7 @@ class Frontend_Generator {
 	 * to fix font not loaded in frontend for section that imported from libary.
 	 */
 	public function __construct() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_legacy_form_validation' ), 100000 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'global_style_generator' ), 30 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'template_style_generator' ), 30 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 31 );
@@ -682,6 +683,92 @@ class Frontend_Generator {
 		$init = Init::instance();
 
 		return isset( $init->frontend_cache ) ? $init->frontend_cache : null;
+	}
+
+	/**
+	 * Whether Form requires the legacy validation collection path.
+	 *
+	 * @return bool
+	 */
+	protected function has_legacy_form_validation() {
+		return defined( 'GUTENVERSE_FORM_VERSION' ) &&
+			version_compare( GUTENVERSE_FORM_VERSION, '2.8.2', '<=' );
+	}
+
+	/**
+	 * Collect legacy Form validation independently of cached CSS generation.
+	 */
+	public function enqueue_legacy_form_validation() {
+		if ( ! $this->has_legacy_form_validation() ||
+			! wp_script_is( 'gutenverse-frontend-event', 'registered' ) ||
+			! class_exists( '\\Gutenverse_Form\\Init' ) ) {
+			return;
+		}
+
+		global $post, $_wp_current_template_content;
+		$form_ids = array();
+		$visited  = array();
+		$content  = $post instanceof \WP_Post ? $post->post_content : '';
+		$this->collect_legacy_form_ids( parse_blocks( $content ), $form_ids, $visited );
+		if ( ! empty( $_wp_current_template_content ) ) {
+			$this->collect_legacy_form_ids( parse_blocks( $_wp_current_template_content ), $form_ids, $visited );
+		}
+		if ( current_theme_supports( 'widgets' ) ) {
+			foreach ( gutenverse_secure_iterable( get_option( 'widget_block' ) ) as $widget ) {
+				if ( ! empty( $widget['content'] ) ) {
+					$this->collect_legacy_form_ids( parse_blocks( $widget['content'] ), $form_ids, $visited );
+				}
+			}
+		}
+
+		// Reuse the old plugin's payload schema and replace its earlier localization.
+		$form = \Gutenverse_Form\Init::instance();
+		if ( isset( $form->form_validation ) && is_callable( array( $form->form_validation, 'localize_validation_data' ) ) ) {
+			$form->form_validation->localize_validation_data( array_values( $form_ids ) );
+		}
+	}
+
+	/**
+	 * Find forms in nested blocks and referenced sources, avoiding reference cycles.
+	 *
+	 * @param array $blocks Parsed blocks.
+	 * @param array $form_ids Collected IDs.
+	 * @param array $visited Referenced sources already visited.
+	 */
+	protected function collect_legacy_form_ids( $blocks, &$form_ids, &$visited ) {
+		foreach ( $blocks as $block ) {
+			$name  = isset( $block['blockName'] ) ? $block['blockName'] : '';
+			$attrs = isset( $block['attrs'] ) ? $block['attrs'] : array();
+			if ( 'gutenverse/form-builder' === $name && isset( $attrs['formId'] ) ) {
+				$value = $attrs['formId'];
+				$id    = absint( is_array( $value ) ? ( isset( $value['value'] ) ? $value['value'] : 0 ) : $value );
+				if ( $id && 'gutenverse-form' === get_post_type( $id ) ) {
+					$form_ids[ $id ] = $id;
+				}
+			}
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$this->collect_legacy_form_ids( $block['innerBlocks'], $form_ids, $visited );
+			}
+			if ( ! in_array( $name, array( 'core/template-part', 'core/pattern', 'core/block' ), true ) ) {
+				continue;
+			}
+			$key = $name . ':' . wp_json_encode( $attrs );
+			if ( isset( $visited[ $key ] ) ) {
+				continue;
+			}
+			$visited[ $key ] = true;
+			$content         = '';
+			if ( 'core/template-part' === $name ) {
+				$content = $this->get_template_part_content( $attrs );
+			} elseif ( 'core/pattern' === $name ) {
+				$content = $this->get_pattern_content( $attrs );
+			} elseif ( ! empty( $attrs['ref'] ) ) {
+				$content = get_post_field( 'post_content', absint( $attrs['ref'] ) );
+			}
+			if ( is_string( $content ) && '' !== $content ) {
+				$this->collect_legacy_form_ids( parse_blocks( $content ), $form_ids, $visited );
+			}
+		}
 	}
 
 	/**
