@@ -16,7 +16,7 @@ const TextEditorControl = (props) => {
     const handleFullscreenChange = (event) => {
         const headerElement = document.querySelector('.interface-interface-skeleton__sidebar .interface-complementary-area-header');
         const bodyElement = document.querySelector('.interface-interface-skeleton__body');
-        const wrapperElement = document.querySelector('.gutenverse-control-wrapper.gvnews-text-editor-control');
+        const wrapperElement = document.querySelector('.gutenverse-control-wrapper.jnews-blocks-text-editor-control');
 
         if (event.state) {
             if (headerElement) headerElement.style.position = 'static';
@@ -36,7 +36,7 @@ const TextEditorControl = (props) => {
     };
 
     return (
-        <div className={'gutenverse-control-wrapper gvnews-text-editor-control'}>
+        <div className={'gutenverse-control-wrapper jnews-blocks-text-editor-control'}>
             <ControlHeadingSimple
                 id={`${id}-text-editor`}
                 label={label}

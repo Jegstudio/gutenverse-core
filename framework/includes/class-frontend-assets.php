@@ -31,11 +31,22 @@ class Frontend_Assets {
 	}
 
 	/**
-	 * Increase the CSS size limit so WordPress can inline registered block styles.
+	 * Set the size limit WordPress uses when inlining file-backed stylesheets.
 	 *
-	 * @return int Inline style size limit in bytes.
+	 * @return int Inline style size limit in bytes. Zero keeps file-backed stylesheets external.
 	 */
 	public function inline_style_size_limit() {
+		$settings          = get_option( 'gutenverse-settings', array() );
+		$frontend_settings = array();
+
+		if ( is_array( $settings ) && isset( $settings['frontend_settings'] ) && is_array( $settings['frontend_settings'] ) ) {
+			$frontend_settings = $settings['frontend_settings'];
+		}
+
+		if ( ! empty( $frontend_settings['load_static_css_as_files'] ) ) {
+			return 0;
+		}
+
 		return 500000;
 	}
 
@@ -252,6 +263,17 @@ class Frontend_Assets {
 				GUTENVERSE_FRAMEWORK_VERSION
 			);
 		}
+
+		wp_register_script(
+			'gutenverse-core-frontend-event-script',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/event.js',
+			array(),
+			GUTENVERSE_FRAMEWORK_VERSION,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
 	}
 
 	/**
@@ -260,6 +282,20 @@ class Frontend_Assets {
 	public function frontend_inline_style() {
 		wp_enqueue_style( 'gutenverse-frontend-style' );
 		wp_enqueue_style( 'gutenverse-dynamic-frontend-style' );
+		if ( wp_script_is( 'gutenverse-core-frontend-event-script', 'enqueued' ) ) {
+			wp_register_script(
+				'gutenverse-core-frontend-load-event-script',
+				false,
+				array(),
+				null, //phpcs:ignore
+				true
+			);
+			wp_enqueue_script( 'gutenverse-core-frontend-load-event-script' );
+			wp_add_inline_script(
+				'gutenverse-core-frontend-load-event-script',
+				'setTimeout(() => window.dispatchEvent(new Event("GutenverseEventReady")), 1000);'
+			);
+		}
 	}
 
 	/**

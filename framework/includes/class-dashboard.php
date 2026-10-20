@@ -256,6 +256,8 @@ class Dashboard {
 				'actionUrl' => esc_url_raw( admin_url( 'admin.php?page=gutenverse&path=settings&settings=frontend' ) ),
 			),
 		);
+		$config['jnewsBlocksUpgradeUrl']    = GUTENVERSE_JNEWS_BLOCK_UPGRADE_URL;
+		$config['jnewsBlocksPricingPlan']   = gutenverse_jnews_get_pricing_plan();
 
 		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'gutenverse' === $_GET['page'] ) {
 			$config['system'] = $this->system_status();
@@ -824,6 +826,7 @@ class Dashboard {
 			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-logo-dashboard.svg',
 			30
 		);
+		do_action( 'gutenverse_parent_menu' );
 	}
 
 	/**
@@ -928,6 +931,8 @@ class Dashboard {
 				9999
 			);
 		}
+
+		do_action( 'gutenverse_child_menu' );
 	}
 
 	/**

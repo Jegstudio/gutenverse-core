@@ -71,6 +71,13 @@ class Frontend_Generator {
 	protected $template_parts = array();
 
 	/**
+	 * Virtual generated stylesheet URLs to enqueue after conditional frontend styles.
+	 *
+	 * @var array
+	 */
+	protected $virtual_style_urls = array();
+
+	/**
 	 * Payload dependency stack.
 	 *
 	 * @var array
@@ -83,6 +90,7 @@ class Frontend_Generator {
 	 * to fix font not loaded in frontend for section that imported from libary.
 	 */
 	public function __construct() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_legacy_form_validation' ), 100000 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'global_style_generator' ), 30 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'template_style_generator' ), 30 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 31 );
@@ -91,6 +99,7 @@ class Frontend_Generator {
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_scripts' ), 51 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'load_conditional_styles' ), 51 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'block_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_virtual_stylesheets' ), 998 );
 		add_action( 'wp_head', array( $this, 'render_preload_images' ), 5 );
 	}
 
@@ -99,17 +108,58 @@ class Frontend_Generator {
 	 *
 	 * @todo: Jangan akses instance style cache secara langsung.
 	 *
-	 * @param string $name Name of Style.
+	 * @param string      $name Name of Style.
 	 * @param string|null $style Style Content.
 	 * @param string $origin Origination of style.
 	 * @param bool   $is_minified Whether style is already minified.
+	 * @param array  $source Source descriptor used by the payload cache.
 	 */
-	public function render_style( $name, $style, $origin, $is_minified = false ) {
+	public function render_style( $name, $style, $origin, $is_minified = false, $source = array() ) {
 		if ( ! is_string( $style ) || '' === trim( $style ) ) {
 			return;
 		}
 
-		wp_add_inline_style( 'gutenverse-dynamic-frontend-style', $is_minified ? $style : $this->minify_inline_css( $style ) );
+		$style = $is_minified ? $style : $this->minify_inline_css( $style );
+		$settings          = get_option( 'gutenverse-settings', array() );
+		$frontend_settings = array();
+
+		if ( is_array( $settings ) && isset( $settings['frontend_settings'] ) && is_array( $settings['frontend_settings'] ) ) {
+			$frontend_settings = $settings['frontend_settings'];
+		}
+
+		$load_generated_css_as_virtual_url = array_key_exists( 'load_generated_css_as_virtual_url', $frontend_settings )
+			&& ! empty( $frontend_settings['load_generated_css_as_virtual_url'] );
+
+		$is_public_view = ! is_preview() && ! is_customize_preview();
+
+		if ( $is_public_view && is_user_logged_in() && is_singular() ) {
+			$queried_object = get_queried_object();
+			$is_public_view  = is_object( $queried_object ) && isset( $queried_object->ID ) && 'publish' === get_post_status( $queried_object->ID );
+		}
+
+		if ( $load_generated_css_as_virtual_url && $is_public_view ) {
+			$cache = $this->get_payload_cache();
+			$url   = $cache ? $cache->get_or_create_dynamic_css_url( $style, $source ) : '';
+
+			if ( is_string( $url ) && '' !== $url ) {
+				$handle = 'gutenverse-dynamic-' . substr( md5( $url ), 0, 16 );
+				$this->virtual_style_urls[ $handle ] = $url;
+				return;
+			}
+		}
+
+		wp_add_inline_style( 'gutenverse-dynamic-frontend-style', $style );
+	}
+
+	/**
+	 * Enqueue virtual generated stylesheets after the conditional block stylesheets.
+	 */
+	public function enqueue_virtual_stylesheets() {
+		foreach ( $this->virtual_style_urls as $handle => $url ) {
+			wp_enqueue_style( $handle, $url, array( 'gutenverse-dynamic-frontend-style' ), null );
+		}
+
+		$this->virtual_style_urls = array();
 	}
 
 	/**
@@ -147,7 +197,7 @@ class Frontend_Generator {
 		$css     = preg_replace_callback(
 			'/"(?:\\\\.|[^"\\\\])*"|\'(?:\\\\.|[^\'\\\\])*\'/',
 			function ( $matches ) use ( &$strings ) {
-				$key              = '___GUTENVERSE_CSS_STRING_' . count( $strings ) . '___';
+				$key             = '___GUTENVERSE_CSS_STRING_' . count( $strings ) . '___';
 				$strings[ $key ] = $matches[0];
 				return $key;
 			},
@@ -210,7 +260,7 @@ class Frontend_Generator {
 
 			do_action( 'gutenverse_after_style_loop_blocks' );
 
-			$this->render_style( $name, $style, 'widget', true );
+			$this->render_style( $name, $style, 'widget', true, $source );
 		}
 	}
 
@@ -228,7 +278,7 @@ class Frontend_Generator {
 		);
 
 		if ( ! empty( trim( $variable ) ) ) {
-			$this->render_style( $name, $variable, 'global', true );
+			$this->render_style( $name, $variable, 'global', true, $source );
 		}
 	}
 
@@ -349,7 +399,7 @@ class Frontend_Generator {
 				}
 			);
 
-			$this->render_style( $name, $style, 'template', true );
+			$this->render_style( $name, $style, 'template', true, $source );
 			do_action( 'gutenverse_after_style_loop_blocks' );
 		}
 	}
@@ -377,7 +427,7 @@ class Frontend_Generator {
 				}
 			);
 
-			$this->render_style( $name, $style, 'content', true );
+			$this->render_style( $name, $style, 'content', true, $source );
 			do_action( 'gutenverse_after_style_loop_blocks' );
 		}
 	}
@@ -682,6 +732,92 @@ class Frontend_Generator {
 		$init = Init::instance();
 
 		return isset( $init->frontend_cache ) ? $init->frontend_cache : null;
+	}
+
+	/**
+	 * Whether Form requires the legacy validation collection path.
+	 *
+	 * @return bool
+	 */
+	protected function has_legacy_form_validation() {
+		return defined( 'GUTENVERSE_FORM_VERSION' ) &&
+			version_compare( GUTENVERSE_FORM_VERSION, '2.8.2', '<=' );
+	}
+
+	/**
+	 * Collect legacy Form validation independently of cached CSS generation.
+	 */
+	public function enqueue_legacy_form_validation() {
+		if ( ! $this->has_legacy_form_validation() ||
+			! wp_script_is( 'gutenverse-frontend-event', 'registered' ) ||
+			! class_exists( '\\Gutenverse_Form\\Init' ) ) {
+			return;
+		}
+
+		global $post, $_wp_current_template_content;
+		$form_ids = array();
+		$visited  = array();
+		$content  = $post instanceof \WP_Post ? $post->post_content : '';
+		$this->collect_legacy_form_ids( parse_blocks( $content ), $form_ids, $visited );
+		if ( ! empty( $_wp_current_template_content ) ) {
+			$this->collect_legacy_form_ids( parse_blocks( $_wp_current_template_content ), $form_ids, $visited );
+		}
+		if ( current_theme_supports( 'widgets' ) ) {
+			foreach ( gutenverse_secure_iterable( get_option( 'widget_block' ) ) as $widget ) {
+				if ( ! empty( $widget['content'] ) ) {
+					$this->collect_legacy_form_ids( parse_blocks( $widget['content'] ), $form_ids, $visited );
+				}
+			}
+		}
+
+		// Reuse the old plugin's payload schema and replace its earlier localization.
+		$form = \Gutenverse_Form\Init::instance();
+		if ( isset( $form->form_validation ) && is_callable( array( $form->form_validation, 'localize_validation_data' ) ) ) {
+			$form->form_validation->localize_validation_data( array_values( $form_ids ) );
+		}
+	}
+
+	/**
+	 * Find forms in nested blocks and referenced sources, avoiding reference cycles.
+	 *
+	 * @param array $blocks Parsed blocks.
+	 * @param array $form_ids Collected IDs.
+	 * @param array $visited Referenced sources already visited.
+	 */
+	protected function collect_legacy_form_ids( $blocks, &$form_ids, &$visited ) {
+		foreach ( $blocks as $block ) {
+			$name  = isset( $block['blockName'] ) ? $block['blockName'] : '';
+			$attrs = isset( $block['attrs'] ) ? $block['attrs'] : array();
+			if ( 'gutenverse/form-builder' === $name && isset( $attrs['formId'] ) ) {
+				$value = $attrs['formId'];
+				$id    = absint( is_array( $value ) ? ( isset( $value['value'] ) ? $value['value'] : 0 ) : $value );
+				if ( $id && 'gutenverse-form' === get_post_type( $id ) ) {
+					$form_ids[ $id ] = $id;
+				}
+			}
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$this->collect_legacy_form_ids( $block['innerBlocks'], $form_ids, $visited );
+			}
+			if ( ! in_array( $name, array( 'core/template-part', 'core/pattern', 'core/block' ), true ) ) {
+				continue;
+			}
+			$key = $name . ':' . wp_json_encode( $attrs );
+			if ( isset( $visited[ $key ] ) ) {
+				continue;
+			}
+			$visited[ $key ] = true;
+			$content         = '';
+			if ( 'core/template-part' === $name ) {
+				$content = $this->get_template_part_content( $attrs );
+			} elseif ( 'core/pattern' === $name ) {
+				$content = $this->get_pattern_content( $attrs );
+			} elseif ( ! empty( $attrs['ref'] ) ) {
+				$content = get_post_field( 'post_content', absint( $attrs['ref'] ) );
+			}
+			if ( is_string( $content ) && '' !== $content ) {
+				$this->collect_legacy_form_ids( parse_blocks( $content ), $form_ids, $visited );
+			}
+		}
 	}
 
 	/**
@@ -1002,11 +1138,11 @@ class Frontend_Generator {
 		}
 
 		if ( isset( $source['cacheable'] ) && ! $source['cacheable'] ) {
-			$before = $this->snapshot_payload_state();
+			$before                           = $this->snapshot_payload_state();
 			$this->payload_dependency_stack[] = array();
-			$style        = $this->minify_inline_css( (string) call_user_func( $generator ) );
-			$dependencies = array_pop( $this->payload_dependency_stack );
-			$payload      = $this->create_payload( $source, $style, $before, $dependencies );
+			$style                            = $this->minify_inline_css( (string) call_user_func( $generator ) );
+			$dependencies                     = array_pop( $this->payload_dependency_stack );
+			$payload                          = $this->create_payload( $source, $style, $before, $dependencies );
 
 			$this->register_payload_dependency( $source, $payload, false );
 
@@ -1056,12 +1192,12 @@ class Frontend_Generator {
 			return ! empty( $payload['css_minified'] ) ? $style : $this->minify_inline_css( $style );
 		}
 
-		$before = $this->snapshot_payload_state();
+		$before                           = $this->snapshot_payload_state();
 		$this->payload_dependency_stack[] = array();
-		$style        = $this->minify_inline_css( (string) call_user_func( $generator ) );
-		$dependencies = array_pop( $this->payload_dependency_stack );
-		$payload      = $this->create_payload( $source, $style, $before, $dependencies );
-		$stored       = false;
+		$style                            = $this->minify_inline_css( (string) call_user_func( $generator ) );
+		$dependencies                     = array_pop( $this->payload_dependency_stack );
+		$payload                          = $this->create_payload( $source, $style, $before, $dependencies );
+		$stored                           = false;
 
 		if ( $cache->should_write_payload( $source, $payload ) ) {
 			$stored = $cache->write_payload( $source, $payload, $lock );

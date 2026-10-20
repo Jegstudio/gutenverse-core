@@ -22,6 +22,10 @@
     background: linear-gradient(180deg, #3B57F7 0%, #5CD0DA 100%);
     border-radius: 3px;
 
+    &.jnews-blocks-metabox-icon {
+      background: #5E23FF;
+    }
+
     .logo-white {
       display: flex;
     }

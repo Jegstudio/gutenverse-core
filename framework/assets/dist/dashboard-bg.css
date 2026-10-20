@@ -1,12 +1,15 @@
-#gutenverse-dashboard .themelist-panel {
+#gutenverse-dashboard .themelist-panel,
+#jnews-blocks-dashboard .themelist-panel {
     background-image: url('../img/asset_bg_2.webp');
     background-position-y: center;
 }
 
-#gutenverse-dashboard .rating-panel {
+#gutenverse-dashboard .rating-panel,
+#jnews-blocks-dashboard .rating-panel {
     background-image: url('../img/dashboard-landing-bg.webp');
 }
 
-#gutenverse-dashboard .upgrade-notice-head>div {
+#gutenverse-dashboard .upgrade-notice-head>div,
+#jnews-blocks-dashboard .upgrade-notice-head>div {
     background-image: url('../img/upgrade-notice-hero.webp');
 }

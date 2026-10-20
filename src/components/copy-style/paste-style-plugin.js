@@ -67,7 +67,9 @@ const BlockSettingMenuPaste = () => {
                                     refreshStyleId: 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' })
                                 });
 
-                                showNotice(__('Gutenverse Style Pasted', '--gctd--'));
+                                const plugin = name.startsWith('jnews-blocks') ? 'JNews Blocks' : 'Gutenverse';
+
+                                showNotice(__(`${plugin} Style Pasted`, '--gctd--'));
                             } else {
                                 showNotice(__('Failed! Please paste style to the same block type or compatible style group', '--gctd--'));
                             }

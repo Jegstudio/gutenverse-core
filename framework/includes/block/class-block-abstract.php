@@ -291,6 +291,10 @@ abstract class Block_Abstract {
 	protected function set_display_classes() {
 		$display_classes = ' ';
 
+		if ( ! empty( $this->attributes['className'] ) ) {
+			$display_classes .= trim( $this->attributes['className'] ) . ' ';
+		}
+
 		if ( isset( $this->attributes['hideDesktop'] ) && ( true === $this->attributes['hideDesktop'] || 'true' === $this->attributes['hideDesktop'] ) ) {
 			$display_classes .= 'hide-desktop ';
 		}

@@ -20,6 +20,7 @@
     }
 }
 
+
 #gutenverse-dashboard {
     a {
         &:focus {
@@ -736,6 +737,45 @@
 
         .doc-details {
             margin-bottom: 30px;
+        }
+    }
+
+    .jnews-upgrade-to-pro-button {
+        background: linear-gradient(93.65deg, #F05760 0.48%, #F33870 98.3%);
+        border-radius: 5px;
+        padding-top: 10px;
+        padding-right: 15px;
+        padding-bottom: 12px;
+        padding-left: 15px;
+        color: #FFFFFF;
+        font-weight: 600;
+        font-size: 12px;
+        text-align: center;
+        text-decoration: none;
+        width: calc(50% - 6px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        position: relative;
+        overflow: hidden;
+        z-index: 0;
+        isolation: isolate;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(93.65deg, #c63f48 0.48%, #cb2f5e 98.3%);
+            opacity: 0;
+            transition: opacity .3s linear;
+            z-index: -1;
+        }
+
+        &:hover{
+            &::before {
+                opacity: 1;
+            }
         }
     }
 }

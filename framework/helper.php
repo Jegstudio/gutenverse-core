@@ -15,6 +15,10 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 	 * @return bool True if the SVG contains only allowlisted elements and attributes.
 	 */
 	function gutenverse_is_svg_safe( $svg ) {
+		if ( ! is_string( $svg ) || '' === trim( $svg ) ) {
+			return false;
+		}
+
 		libxml_use_internal_errors( true );
 
 		// Prevent XXE attacks.
@@ -26,7 +30,7 @@ if ( ! function_exists( 'gutenverse_is_svg_safe' ) ) {
 
 		$dom = new \DOMDocument();
 
-		if ( ! $dom->loadXML( $svg, LIBXML_NONET | LIBXML_COMPACT ) ) {
+		if ( '' === trim( $svg ) || ! $dom->loadXML( $svg, LIBXML_NONET | LIBXML_COMPACT ) ) {
 			return false;
 		}
 
@@ -1186,10 +1190,11 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 	 * Check if a font family is installed through the WordPress Font Library.
 	 *
 	 * @param string $family Font family name.
+	 * @param array  $weights Requested font weights.
 	 *
 	 * @return bool
 	 */
-	function gutenverse_is_wp_font_family_installed( $family ) {
+	function gutenverse_is_wp_font_family_installed( $family, $weights = array() ) {
 		static $installed_families = null;
 
 		if ( null === $installed_families ) {
@@ -1211,6 +1216,27 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 				foreach ( $font_family_ids as $font_family_id ) {
 					$settings = json_decode( get_post_field( 'post_content', $font_family_id ), true );
 					$fonts    = array( get_the_title( $font_family_id ) );
+					$installed_weights = array();
+
+					$font_face_ids = get_posts(
+						array(
+							'post_type'              => 'wp_font_face',
+							'post_parent'            => $font_family_id,
+							'post_status'            => 'any',
+							'posts_per_page'         => -1,
+							'fields'                 => 'ids',
+							'no_found_rows'          => true,
+							'update_post_meta_cache' => false,
+							'update_post_term_cache' => false,
+						)
+					);
+
+					foreach ( $font_face_ids as $font_face_id ) {
+						$font_face = json_decode( get_post_field( 'post_content', $font_face_id ), true );
+						if ( isset( $font_face['fontWeight'] ) ) {
+							$installed_weights[] = $font_face['fontWeight'];
+						}
+					}
 
 					if ( isset( $settings['fontFamily'] ) ) {
 						$fonts = array_merge( $fonts, explode( ',', $settings['fontFamily'] ) );
@@ -1219,7 +1245,7 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 					foreach ( $fonts as $font ) {
 						$font = trim( $font, " \t\n\r\0\x0B'\"" );
 						if ( '' !== $font ) {
-							$installed_families[ strtolower( $font ) ] = true;
+							$installed_families[ strtolower( $font ) ] = array_values( array_unique( $installed_weights ) );
 						}
 					}
 				}
@@ -1229,13 +1255,26 @@ if ( ! function_exists( 'gutenverse_is_wp_font_family_installed' ) ) {
 				$font_settings = wp_get_global_settings( array( 'typography', 'fontFamilies' ) );
 
 				foreach ( gutenverse_flatten_font_family_settings( $font_settings ) as $font_family ) {
-					$installed_families[ strtolower( $font_family ) ] = true;
+					if ( ! isset( $installed_families[ strtolower( $font_family ) ] ) ) {
+						$installed_families[ strtolower( $font_family ) ] = array();
+					}
 				}
 			}
 		}
 
-		$font_key     = strtolower( trim( $family, " \t\n\r\0\x0B'\"" ) );
-		return isset( $installed_families[ $font_key ] );
+		$font_key          = strtolower( trim( $family, " \t\n\r\0\x0B'\"" ) );
+		$requested_weights = array_filter( array_unique( array_map( 'strval', (array) $weights ) ) );
+
+		if ( ! isset( $installed_families[ $font_key ] ) ) {
+			return false;
+		}
+
+		if ( empty( $requested_weights ) ) {
+			return true;
+		}
+
+		$installed_weights = array_map( 'strval', $installed_families[ $font_key ] );
+		return empty( array_diff( $requested_weights, $installed_weights ) );
 	}
 }
 
@@ -1259,15 +1298,18 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 			$id     = ! empty( $font['id'] ) ? $font['id'] : null;
 
 			if ( 'google' === $type ) {
-				if ( gutenverse_is_wp_font_family_installed( $family ) ) {
+				$weights = ! empty( $font['weights'] ) ? (array) $font['weights'] : array();
+				if ( ! empty( $font['weight'] ) ) {
+					$weights[] = $font['weight'];
+				}
+
+				if ( gutenverse_is_wp_font_family_installed( $family, $weights ) ) {
 					continue;
 				}
 
 				$families[ $family ] = isset( $families[ $family ] ) ? $families[ $family ] : array();
 
-				if ( 'google' === $type && ! empty( $font['weight'] ) ) {
-					array_push( $families[ $family ], $font['weight'] );
-				}
+				$families[ $family ] = array_merge( $families[ $family ], $weights );
 			} elseif ( 'custom_font_pro' === $type ) {
 				array_push( $custom_family, $family );
 			}
@@ -2191,6 +2233,17 @@ if ( ! function_exists( 'gutenverse_pro_active' ) ) {
 	}
 }
 
+if ( ! function_exists( 'jnews_blocks_pro_active' ) ) {
+	/**
+	 * Check if Gutenverse Pro plugin is Active.
+	 *
+	 * @return boolean
+	 */
+	function jnews_blocks_pro_active() {
+		return defined( 'JNEWS_BLOCKS_PRO_VERSION' );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_get_current_url' ) ) {
 	/**
 	 * Get current url with parameter
@@ -2297,5 +2350,40 @@ if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
 		$cache_id = get_option( 'gutenverse-style-cache-id', 'initial-cache' );
 
 		return gutenverse_generated_cache_file_size( $cache_id );
+	}
+}
+
+if ( ! function_exists( 'gutenverse_jnews_get_pricing_plan' ) ) {
+	/**
+	 * Get Pricing Plan
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_jnews_get_pricing_plan() {
+		$data = get_transient( 'jnews_pricing_plan_data' );
+		if ( $data ) {
+			return $data;
+		}
+
+		$response = wp_remote_request(
+			apply_filters(
+				'jnews_pricing_plan_endpoint',
+				GUTENVERSE_JNEWS_BLOCK_LIBRARY_URL . 'wp-json/jnews-tools/v1/pricing-plan-user'
+			),
+			array(
+				'method' => 'GET',
+			)
+		);
+
+		if ( ! is_wp_error( $response ) && 200 === $response['response']['code'] ) {
+			$body = wp_remote_retrieve_body( $response );
+			$data = json_decode( $body );
+
+			if ( isset( $data->active_promotion, $data->is_event_sales, $data->event_expired ) ) {
+				set_transient( 'jnews_pricing_plan_data', $data, 24 * HOUR_IN_SECONDS );
+			}
+		}
+
+		return $data;
 	}
 }
