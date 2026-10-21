@@ -28,9 +28,8 @@ const urlData = () => {
     return urlString;
 };
 
-const InstallationPopup = ({ onClose, onConfirm, title, isInstalling, popupAction }) => {
+const InstallationPopup = ({ onClose, onConfirm, title, isInstalling }) => {
     const [isChecked, setIsChecked] = useState(false);
-
     return (
         <div className="gutenverse-popup-overlay installation-popup">
             <div className="gutenverse-popup-content">
@@ -45,7 +44,7 @@ const InstallationPopup = ({ onClose, onConfirm, title, isInstalling, popupActio
                         <div className="icon"><InfoIcon /></div>
                         <p>{__('This action will replace your active theme. Please read the information below and strongly recommended back up your site first.', '--gtb-theme-namespace--')}</p>
                     </div>
-                    <p className="list-intro">{__('Here\'s what happens when you ' + popupAction + ' the theme:', '--gtb-theme-namespace--')}</p>
+                    <p className="list-intro">{__('Here\'s what happens when you activate the theme:', '--gtb-theme-namespace--')}</p>
                     <ul className="info-list">
                         <li>
                             <div className="icon"><InfoIcon /></div>
@@ -58,7 +57,7 @@ const InstallationPopup = ({ onClose, onConfirm, title, isInstalling, popupActio
                             <div className="icon"><InfoIcon /></div>
                             <div className="text">
                                 <h4>{__('Templates or Template Part will be replaced', '--gtb-theme-namespace--')}</h4>
-                                <p>{__('All templates or template parts will be replaced during theme ' + popupAction === 'install' ? 'installation' : 'activation' + '.', '--gtb-theme-namespace--')}</p>
+                                <p>{__('All templates or template parts will be replaced during theme activation.', '--gtb-theme-namespace--')}</p>
                             </div>
                         </li>
                         <li>
@@ -82,7 +81,7 @@ const InstallationPopup = ({ onClose, onConfirm, title, isInstalling, popupActio
                         onClick={onConfirm}
                         disabled={!isChecked || isInstalling}
                     >
-                        {popupAction === 'install' ? isInstalling ? __('Installing...', '--gtb-theme-namespace--') : __('Install Theme', '--gtb-theme-namespace--') : isInstalling ? __('Activating...', '--gtb-theme-namespace--') : __('Activate Theme', '--gtb-theme-namespace--')}
+                        {isInstalling ? __('Activating...', '--gtb-theme-namespace--') : __('Activate Theme', '--gtb-theme-namespace--')}
                     </button>
                 </div>
             </div>
@@ -102,7 +101,9 @@ const ThemeItem = (props) => {
         initialAction,
         setInitialAction,
         themeSlug,
+        plugins,
         setCurrentItem,
+        setPluginInstallMode,
         setShowInstallationPopup,
         setConfirmCallback,
         setIsInstalling
@@ -118,12 +119,13 @@ const ThemeItem = (props) => {
             }
 
             if ('activate' === initialAction) {
-                activateTheme(slug);
+                handleOpenPopup(activateTheme);
             }
         }
     }, [initialAction]);
 
     const activateTheme = () => {
+        setIsInstalling(true);
         setStatus(slug);
 
         apiFetch({
@@ -228,6 +230,19 @@ const ThemeItem = (props) => {
 
     const handleOpenPopup = (callback = () => { }) => {
         setCurrentItem(theme);
+        const requirements = getPluginRequirementStatus({
+            plugins: plugins.installedPlugin,
+            requirements: theme.requirements || [],
+            compatibleVersion: theme.compatibleVersion
+        });
+
+        if (!isEmpty(requirements)) {
+            setShowInstallationPopup(false);
+            setPluginInstallMode(true);
+            setInitialAction('');
+            return;
+        }
+
         setConfirmCallback(() => callback);
         setShowInstallationPopup(true);
     };
@@ -251,7 +266,7 @@ const ThemeItem = (props) => {
         }
 
         return (
-            <span className="install theme-button" onClick={() => handleOpenPopup(installTheme)}>
+            <span className="install theme-button" onClick={installTheme}>
                 {__('Install Now', '--gctd--')}
             </span>
         );
@@ -259,7 +274,7 @@ const ThemeItem = (props) => {
 
     const actionButton = () => {
         const buttonPro = <ButtonUpgradePro licenseType={licenseType} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} licenseActiveButton={loadButton(exist)} isBanner={true} location="themeList" customStyles={{ marginRight: '10px' }} />;
-        return pro ? buttonPro : loadButton();
+        return pro ? buttonPro : loadButton(exist);
     };
 
     const dev = '--dev_mode--';
@@ -307,7 +322,7 @@ const ThemeItem = (props) => {
 const PluginInstallThemeList = props => {
     const { plugins, data, setPluginInstallMode } = props;
     const { installedPlugin } = plugins;
-    const { requirements, compatibleVersion } = data;
+    const { requirements = [], compatibleVersion } = data;
     const [installCounter, setInstallCounter] = useState(0);
 
     const increaseCounter = () => {
@@ -341,7 +356,7 @@ const PluginInstallThemeList = props => {
                         <span>{__('Please refresh this page after install or update plugin', '--gctd--')}</span>
                     </div>
                 </div>
-                <PluginInstallItem
+                {!requirements.some(requirement => requirement.slug === 'gutenverse') && <PluginInstallItem
                     plugin={{
                         installed: true,
                         name: 'Gutenverse',
@@ -353,7 +368,7 @@ const PluginInstallThemeList = props => {
                     activatePlugin={props.activatePlugin}
                     updatePlugin={props.updatePlugin}
                     increaseCounter={increaseCounter}
-                />
+                />}
                 {requirements.map(requirement => {
                     const { slug } = requirement;
                     return <PluginInstallItem
@@ -388,8 +403,7 @@ const ThemesData = (props) => {
         setPluginInstallMode,
         setShowInstallationPopup,
         setConfirmCallback,
-        setIsInstalling,
-        setPopupAction
+        setIsInstalling
     } = props;
     if (loading) {
         return (
@@ -441,7 +455,6 @@ const ThemesData = (props) => {
                     setShowInstallationPopup={setShowInstallationPopup}
                     setConfirmCallback={setConfirmCallback}
                     setIsInstalling={setIsInstalling}
-                    setPopupAction={setPopupAction}
                 /> : <></>;
             });
         }
@@ -469,7 +482,6 @@ const ThemeListPage = (props) => {
     const [showInstallationPopup, setShowInstallationPopup] = useState(false);
     const [confimCallBack, setConfirmCallback] = useState(() => { });
     const [isInstalling, setIsInstalling] = useState(false);
-    const [popupAction, setPopupAction] = useState('install');
     const [filter, setFilter] = useState({
         proFilter: '',
         categoryFilter: ''
@@ -610,8 +622,7 @@ const ThemeListPage = (props) => {
         setPluginInstallMode,
         setShowInstallationPopup,
         setConfirmCallback,
-        setIsInstalling,
-        setPopupAction
+        setIsInstalling
     };
 
     const handleOpened = (type) => {
@@ -635,7 +646,7 @@ const ThemeListPage = (props) => {
             updatePlugin={updatePlugin}
         />}
         {
-            showInstallationPopup && <InstallationPopup onClose={() => setShowInstallationPopup(false)} onConfirm={confimCallBack} title={currentItem?.title} isInstalling={isInstalling} popupAction={popupAction} />
+            showInstallationPopup && <InstallationPopup onClose={() => { setShowInstallationPopup(false); setInitialAction(''); }} onConfirm={confimCallBack} title={currentItem?.title} isInstalling={isInstalling} />
         }
         <DashboardContent>
             <DashboardHeader>

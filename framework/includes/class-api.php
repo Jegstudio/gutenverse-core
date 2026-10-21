@@ -1005,12 +1005,17 @@ class Api {
 			if ( 'layout-data' === $key ) {
 				$content = $this->inject_layout_like( $content );
 				if ( is_array( $content ) ) {
-					$content = array_values( array_filter( $content, function ( $item ) {
-						$listed_in = isset( $item['data']['listed_in'] ) ? $item['data']['listed_in'] : '';
-						if ( empty( $listed_in ) || str_contains( $listed_in, 'library' ) ) {
-							return $item;
-						}
-					} ) );
+					$content = array_values(
+						array_filter(
+							$content,
+							function ( $item ) {
+								$listed_in = isset( $item['data']['listed_in'] ) ? $item['data']['listed_in'] : '';
+								if ( empty( $listed_in ) || str_contains( $listed_in, 'library' ) ) {
+									return $item;
+								}
+							}
+						)
+					);
 				}
 			}
 
@@ -1441,7 +1446,6 @@ class Api {
 					'filename' => 'plugin/ecosystem',
 				),
 			);
-
 			$apipath   = GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-server/';
 			$basedir   = wp_upload_dir()['basedir'];
 			$directory = $basedir . '/gutenverse/' . self::DATA_FOLDER . '/';
@@ -2240,10 +2244,21 @@ class Api {
 	 */
 	public function import_images( $request ) {
 		$image = esc_url_raw( $request->get_param( 'imageUrl' ) );
+		if ( empty( $image ) ) {
+			return new WP_Error( 'invalid_image_url', __( 'An image URL is required.', 'gutenverse' ), array( 'status' => 400 ) );
+		}
 
 		$data = $this->check_image_exist( $image );
 		if ( ! $data ) {
 			$data = $this->handle_file( $image );
+		}
+
+		if ( ! $data ) {
+			return new WP_Error(
+				'image_import_failed',
+				__( 'Failed to import image.', 'gutenverse' ),
+				array( 'status' => 500 )
+			);
 		}
 
 		return $data;
@@ -2287,16 +2302,18 @@ class Api {
 	 *
 	 * @param string $url URL of file.
 	 *
-	 * @return int|null
+	 * @return array|WP_Error
 	 */
 	public function handle_file( $url ) {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
-		WP_Filesystem();
+		if ( ! WP_Filesystem() ) {
+			return new WP_Error( 'image_filesystem_failed', __( 'Could not initialize the filesystem for image import.', 'gutenverse' ), array( 'status' => 500 ) );
+		}
 		global $wp_filesystem;
 
 		$upload_dir = wp_upload_dir();
 		if ( ! empty( $upload_dir['error'] ) ) {
-			return null;
+			return new WP_Error( 'image_upload_directory_failed', $upload_dir['error'], array( 'status' => 500 ) );
 		}
 
 		$dir       = $upload_dir['path'];
@@ -2305,15 +2322,16 @@ class Api {
 		$tmp_path  = $dir . '/' . $safe_name;
 		$tmp_url   = $base_url . '/' . $safe_name;
 
-		if ( ! $this->fetch_file( $url, $tmp_path ) ) {
+		$download = $this->fetch_file( $url, $tmp_path, '', true );
+		if ( is_wp_error( $download ) ) {
 			if ( $wp_filesystem->exists( $tmp_path ) ) {
 				$wp_filesystem->delete( $tmp_path );
 			}
-			return null;
+			return $download;
 		}
 
 		if ( ! $wp_filesystem->exists( $tmp_path ) ) {
-			return null;
+			return new WP_Error( 'image_download_missing', __( 'The downloaded image file could not be found.', 'gutenverse' ), array( 'status' => 500 ) );
 		}
 
 		$file_loc = $tmp_path;
@@ -2323,7 +2341,7 @@ class Api {
 		$allowed_mimes = array( 'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml' );
 		if ( ! in_array( $mime_type, $allowed_mimes, true ) ) {
 			$wp_filesystem->delete( $file_loc );
-			return null;
+			return new WP_Error( 'image_mime_not_allowed', __( 'The downloaded file has an unsupported image type.', 'gutenverse' ), array( 'status' => 400, 'mime_type' => $mime_type ) );
 		}
 
 		// For SVG, extra safety.
@@ -2332,7 +2350,7 @@ class Api {
 			$svg_content = file_get_contents( $file_loc );
 			if ( ! gutenverse_is_svg_safe( $svg_content ) ) {
 				$wp_filesystem->delete( $file_loc );
-				return null;
+				return new WP_Error( 'image_svg_unsafe', __( 'The SVG image failed safety validation.', 'gutenverse' ), array( 'status' => 400 ) );
 			}
 		}
 
@@ -2348,7 +2366,10 @@ class Api {
 		$final_name = wp_generate_uuid4() . '.' . $ext;
 		$final_path = $dir . '/' . $final_name;
 		$final_url  = $base_url . '/' . $final_name;
-		$wp_filesystem->move( $file_loc, $final_path );
+		if ( ! $wp_filesystem->move( $file_loc, $final_path ) ) {
+			$wp_filesystem->delete( $file_loc );
+			return new WP_Error( 'image_move_failed', __( 'Could not move the downloaded image to its final location.', 'gutenverse' ), array( 'status' => 500 ) );
+		}
 
 		$attachment = array(
 			'post_mime_type' => $mime_type,
@@ -2358,7 +2379,11 @@ class Api {
 		);
 
 		include_once ABSPATH . 'wp-admin/includes/image.php';
-		$attach_id = wp_insert_attachment( $attachment, $final_path );
+		$attach_id = wp_insert_attachment( $attachment, $final_path, 0, true );
+		if ( is_wp_error( $attach_id ) || ! $attach_id ) {
+			$wp_filesystem->delete( $final_path );
+			return new WP_Error( 'image_attachment_failed', is_wp_error( $attach_id ) ? $attach_id->get_error_message() : __( 'Could not create the image attachment.', 'gutenverse' ), array( 'status' => 500 ) );
+		}
 		update_post_meta( $attach_id, '_import_source', $url );
 
 		try {
@@ -2391,15 +2416,16 @@ class Api {
 	 * @param string $url File URL.
 	 * @param string $file_path file path.
 	 * @param string $endpoint Endpoint.
+	 * @param bool   $return_errors Return detailed download errors.
 	 *
-	 * @return array|bool
+	 * @return array|bool|WP_Error
 	 */
-	public function fetch_file( $url, $file_path, $endpoint = '' ) {
-		if ( ! wp_http_validate_url( $url ) ) {
-			return false;
-		}
+	public function fetch_file( $url, $file_path, $endpoint = '', $return_errors = false ) {
+		// if ( ! wp_http_validate_url( $url ) ) {
+		// return false;
+		// }
 
-		$response = wp_safe_remote_get(
+		$response = wp_remote_get(
 			add_query_arg(
 				array( 'framework_version' => GUTENVERSE_FRAMEWORK_VERSION ),
 				$url
@@ -2408,7 +2434,12 @@ class Api {
 		);
 
 		if ( is_wp_error( $response ) ) {
-			return false;
+			return $return_errors ? new WP_Error( 'image_download_failed', $response->get_error_message(), array( 'status' => 502 ) ) : false;
+		}
+
+		$status = wp_remote_retrieve_response_code( $response );
+		if ( $return_errors && ( $status < 200 || $status >= 300 ) ) {
+			return new WP_Error( 'image_download_http_error', __( 'The image server returned an unsuccessful HTTP response.', 'gutenverse' ), array( 'status' => 502, 'remote_status' => $status ) );
 		}
 
 		$headers             = wp_remote_retrieve_headers( $response );
@@ -2427,9 +2458,14 @@ class Api {
 
 		// GET request - write it to the supplied filename.
 		require_once ABSPATH . 'wp-admin/includes/file.php';
-		WP_Filesystem();
+		if ( ! WP_Filesystem() && $return_errors ) {
+			return new WP_Error( 'image_filesystem_failed', __( 'Could not initialize the filesystem for image import.', 'gutenverse' ), array( 'status' => 500 ) );
+		}
 		global $wp_filesystem;
-		$wp_filesystem->put_contents( $file_path, $body, FS_CHMOD_FILE );
+		$written = $wp_filesystem->put_contents( $file_path, $body, FS_CHMOD_FILE );
+		if ( ! $written && $return_errors ) {
+			return new WP_Error( 'image_write_failed', __( 'Could not write the downloaded image to the uploads directory.', 'gutenverse' ), array( 'status' => 500 ) );
+		}
 
 		return $headers;
 	}

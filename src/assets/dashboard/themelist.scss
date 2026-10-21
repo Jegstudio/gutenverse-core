@@ -176,15 +176,18 @@
         font-family: "Roboto", serif;
 
         &>.themelist-wrapper {
-            align-items: flex-start;
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -15px;
+            align-items: start;
+            align-content: start;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 30px;
             min-height: 720px;
-            width: calc(100% + 30px);
-            justify-content: space-between;
-            // display: grid;
-            // grid-template-columns: repeat(auto-fit, minmax(345px, 1fr));
+            width: 100%;
+            margin-bottom: 40px;
+
+            >.not-found {
+                grid-column: 1 / -1;
+            }
         }
     }
 
@@ -192,9 +195,9 @@
         background: #f9f9ff;
         border-radius: 5px;
         border: 1px solid #e6e6ef;
-        margin: 0 10px 30px;
+        margin: 0;
         position: relative;
-        width: calc(33.33333% - 32px);
+        min-width: 0;
         transition: border .5s ease;
 
         &.fetching {
@@ -656,15 +659,9 @@
         }
     }
 
-    @media only screen and (max-width: 1280px) {
-        .theme-data {
-            width: calc(33.33333% - 32px);
-        }
-    }
-
     @media only screen and (max-width: 1024px) {
-        .theme-data {
-            width: calc(50% - 32px);
+        .content-body>.themelist-wrapper {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 
@@ -683,8 +680,8 @@
             }
         }
 
-        .theme-data {
-            width: calc(100% - 32px);
+        .content-body>.themelist-wrapper {
+            grid-template-columns: minmax(0, 1fr);
         }
     }
 
