@@ -80,7 +80,8 @@ const InstallOptimizerAction = ({ ecosystemUrl }) => (
 
 const ActivateOptimizerAction = ({ canActivatePlugins, optimizerPlugin }) => {
     const [status, setStatus] = useState('idle');
-    const canActivate = true === canActivatePlugins
+    // wp_localize_script serializes top-level true as the string '1'.
+    const canActivate = [true, 1, '1'].includes(canActivatePlugins)
         && false === optimizerPlugin?.active
         && Boolean(optimizerPlugin?.path);
     const isActivating = 'activating' === status;
