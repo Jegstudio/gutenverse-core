@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
-import { useState } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
+import { ActivateOptimizerAction, InstallOptimizerAction } from '../../../components/optimizer-plugin-action';
 import { DashboardContent } from '../../components';
 import { getUpgradeProps } from '../../../helper/freemius';
 import {
@@ -68,63 +67,6 @@ const UpgradePlanAction = ({ upgradeProUrl }) => (
         {__('Upgrade Plan Now', '--gctd--')}
     </a>
 );
-
-const InstallOptimizerAction = ({ ecosystemUrl }) => (
-    <a
-        className="gutenverse-core-optimizer-promo__action gutenverse-core-optimizer-promo__action--install"
-        href={ecosystemUrl}
-    >
-        {__('Install Optimizer', '--gctd--')}
-    </a>
-);
-
-const ActivateOptimizerAction = ({ canActivatePlugins, optimizerPlugin }) => {
-    const [status, setStatus] = useState('idle');
-    // wp_localize_script serializes top-level true as the string '1'.
-    const canActivate = [true, 1, '1'].includes(canActivatePlugins)
-        && false === optimizerPlugin?.active
-        && Boolean(optimizerPlugin?.path);
-    const isActivating = 'activating' === status;
-    const hasFailed = 'failed' === status;
-
-    const activateOptimizer = async () => {
-        if (!canActivate || isActivating) {
-            return;
-        }
-
-        setStatus('activating');
-
-        try {
-            await apiFetch({
-                path: `wp/v2/plugins/plugin?plugin=${encodeURIComponent(optimizerPlugin.path)}`,
-                method: 'POST',
-                data: { status: 'active' },
-            });
-
-            window.location.reload();
-        } catch (error) {
-            // The REST response can include permission and server internals.
-            // Keep the dashboard message generic and translatable.
-            setStatus('failed');
-        }
-    };
-
-    return <>
-        <button
-            className="gutenverse-core-optimizer-promo__action gutenverse-core-optimizer-promo__action--activate-optimizer"
-            type="button"
-            disabled={!canActivate || isActivating}
-            onClick={activateOptimizer}
-        >
-            {isActivating
-                ? __('Activating Optimizer', '--gctd--')
-                : __('Activate Optimizer', '--gctd--')}
-        </button>
-        {hasFailed && <p className="gutenverse-core-optimizer-promo__action-error" role="status">
-            {__('Unable to activate Optimizer. Please try again.', '--gctd--')}
-        </p>}
-    </>;
-};
 
 const getFilteredProAction = ({
     adminUrl,

@@ -194,6 +194,8 @@ class Editor_Assets {
 		$config['adminUrl']                 = admin_url();
 		$config['themeListUrl']             = admin_url( 'admin.php?page=gutenverse&path=theme-list' );
 		$config['plugins']                  = self::list_plugin();
+		$config['canActivatePlugins']       = current_user_can( 'activate_plugins' );
+		$config['ecosystemUrl']             = admin_url( 'admin.php?page=gutenverse&path=ecosystem' );
 		$config['gtniconURL']               = Init::instance()->assets->get_gtnicon_url();
 		$config['fontawesomeURL']           = Init::instance()->assets->get_fontawesome_url();
 		$config['themesUrl']                = GUTENVERSE_FRAMEWORK_THEMES_URL;

@@ -190,6 +190,7 @@ class Assets {
 		);
 
 		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/components.asset.php' )['dependencies'];
+		$include[] = 'gutenverse-core-event';
 
 		wp_register_script(
 			'gutenverse-components-event',
