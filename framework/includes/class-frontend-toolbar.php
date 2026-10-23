@@ -34,6 +34,7 @@ class Frontend_Toolbar {
 	 */
 	public function __construct() {
 		add_action( 'admin_bar_menu', array( $this, 'add_toolbar' ), 100 );
+		add_action( 'admin_bar_menu', array( $this, 'add_optimizer_toolbar' ), 101 );
 		add_filter( 'template_include', array( $this, 'get_loaded_template' ), 1000 );
 
 		$hierarchies = array(
@@ -180,6 +181,26 @@ class Frontend_Toolbar {
 
 		$this->setting_toolbar( $admin_bar, 'backend' );
 		$this->pro_toolbar( $admin_bar );
+	}
+
+	/**
+	 * Link admin and frontend toolbars to the Optimizer dashboard.
+	 *
+	 * @param \WP_Admin_Bar $admin_bar Admin bar instance.
+	 */
+	public function add_optimizer_toolbar( $admin_bar ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		$icon = '<span class="ab-icon" aria-hidden="true"><img class="gutenverse-optimizer-adminbar-icon" src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-optimizer.svg' ) . '" alt="" width="16" height="15" /></span>';
+		$admin_bar->add_node(
+			array(
+				'id'    => 'gutenverse-optimizer-shortcut',
+				'title' => $icon . '<span class="ab-label">' . esc_html__( 'Optimizer', '--gctd--' ) . '</span>',
+				'href'  => admin_url( 'admin.php?page=gutenverse&path=optimizer' ),
+			)
+		);
 	}
 
 	/**
