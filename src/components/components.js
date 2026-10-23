@@ -18,3 +18,6 @@ export { default as gutenverseAutoRecovery } from './auto-recovery/auto-recovery
 
 // Missing Block Warn
 export { default as gutenverseWarnMissing } from './missing-block-warn/missing-block-wran-plugin';
+
+// The Optimizer promotion is available even when Optimizer is inactive.
+import './optimizer-editor-promo/sidebar';
