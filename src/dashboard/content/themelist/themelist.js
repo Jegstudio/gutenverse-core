@@ -551,7 +551,7 @@ const ThemeListPage = (props) => {
             setFilter(prev => {
                 return {
                     ...prev,
-                    categoryFilter: plan
+                    categoryFilter: category
                 };
             });
         }
@@ -574,17 +574,24 @@ const ThemeListPage = (props) => {
     };
 
     useEffect(() => {
-        const { themeData, themeCategories } = library;
+        const { themeCategories } = library;
         if (themeCategories) {
             const result = themeCategories.find(el => el.slug === 'category');
-            const themeServerCategories = result?.childs.map(el => {
+            const themeServerCategories = (result?.childs || []).map(el => {
                 return {
                     slug: el.slug,
                     name: el.name
                 };
             });
-            setCategories(prev => [...prev, ...themeServerCategories]);
+            setCategories([
+                { name: 'All Categories', slug: '' },
+                ...themeServerCategories
+            ]);
         }
+    }, [library]);
+
+    useEffect(() => {
+        const { themeData } = library;
         if (themeData && null !== installed) {
             const result = filterTheme(themeData, {
                 keyword,
@@ -674,7 +681,7 @@ const ThemeListPage = (props) => {
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.5 6.999C2.36739 6.999 2.24021 6.94632 2.14645 6.85255C2.05268 6.75879 2 6.63161 2 6.499V2.5C2 2.36739 2.05268 2.24021 2.14645 2.14645C2.24021 2.05268 2.36739 2 2.5 2H6.5C6.63261 2 6.75979 2.05268 6.85355 2.14645C6.94732 2.24021 7 2.36739 7 2.5V6.499C7 6.63161 6.94732 6.75879 6.85355 6.85255C6.75979 6.94632 6.63261 6.999 6.5 6.999H2.5ZM9.5 6.999C9.36739 6.999 9.24021 6.94632 9.14645 6.85255C9.05268 6.75879 9 6.63161 9 6.499V2.5C9 2.36739 9.05268 2.24021 9.14645 2.14645C9.24021 2.05268 9.36739 2 9.5 2H13.499C13.6316 2 13.7588 2.05268 13.8526 2.14645C13.9463 2.24021 13.999 2.36739 13.999 2.5V6.499C13.999 6.63161 13.9463 6.75879 13.8526 6.85255C13.7588 6.94632 13.6316 6.999 13.499 6.999H9.5ZM2.5 13.999C2.36739 13.999 2.24021 13.9463 2.14645 13.8526C2.05268 13.7588 2 13.6316 2 13.499V9.499C2 9.36639 2.05268 9.23921 2.14645 9.14545C2.24021 9.05168 2.36739 8.999 2.5 8.999H6.5C6.63261 8.999 6.75979 9.05168 6.85355 9.14545C6.94732 9.23921 7 9.36639 7 9.499V13.499C7 13.6316 6.94732 13.7588 6.85355 13.8526C6.75979 13.9463 6.63261 13.999 6.5 13.999H2.5ZM9.5 13.999C9.36739 13.999 9.24021 13.9463 9.14645 13.8526C9.05268 13.7588 9 13.6316 9 13.499V9.499C9 9.36639 9.05268 9.23921 9.14645 9.14545C9.24021 9.05168 9.36739 8.999 9.5 8.999H13.499C13.6316 8.999 13.7588 9.05168 13.8526 9.14545C13.9463 9.23921 13.999 9.36639 13.999 9.499V13.499C13.999 13.6316 13.9463 13.7588 13.8526 13.8526C13.7588 13.9463 13.6316 13.999 13.499 13.999H9.5Z" fill={`${selectedFilter === 'category' || filter.categoryFilter !== '' ? '#3B57F7' : '#00223D'}`} />
                         </svg>
-                        {categories.find(el => el.slug === filter.categoryFilter).name}
+                        {(categories.find(el => el.slug === filter.categoryFilter) || categories[0]).name}
                         <div className="dropdown-wrapper">
                             {
                                 categories.map(el => <div key={el.slug} className="dropdown-item" onClick={() => setFilter({ ...filter, categoryFilter: el.slug })}>{el.name}</div>)

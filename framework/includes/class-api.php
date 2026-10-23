@@ -910,6 +910,7 @@ class Api {
 		$upload_base_path = $upload_dir['basedir'];
 
 		$directory_to_check = $upload_base_path . '/gutenverse/' . self::DATA_FOLDER;
+
 		if ( ! is_dir( $directory_to_check ) ) {
 			$this->update_library_data();
 		}
@@ -1411,12 +1412,12 @@ class Api {
 		if ( ! apply_filters( 'gutenverse_server_mode', false ) ) {
 			$endpoints = array(
 				array(
-					'version'  => 'v5',
+					'version'  => 'v6',
 					'endpoint' => 'layout/data',
 					'filename' => 'layout/data',
 				),
 				array(
-					'version'  => 'v4',
+					'version'  => 'v5',
 					'endpoint' => 'library/layout/categories',
 					'filename' => 'layout/categories',
 				),
@@ -1426,7 +1427,7 @@ class Api {
 					'filename' => 'theme/data',
 				),
 				array(
-					'version'  => 'v4',
+					'version'  => 'v5',
 					'endpoint' => 'library/theme/categories',
 					'filename' => 'theme/categories',
 				),
