@@ -604,6 +604,11 @@ const BackgroundControl = (props) => {
         </>}
 
         {value.type !== undefined && value.type === 'slide' && <>
+            <CheckboxControl
+                label={__('Enable Slideshow on Mobile', '--gctd--')}
+                value={value.mobileSlideshowEnabled || false}
+                onValueChange={mobileSlideshowEnabled => onValueChange({ ...value, mobileSlideshowEnabled })}
+            />
             <RepeaterControl
                 label={__('Image', '--gctd--')}
                 titleFormat="<strong><%= value.title%></strong>"

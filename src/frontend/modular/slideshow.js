@@ -5,9 +5,20 @@ import u from 'umbrellajs';
 class GutenverseSlideshow extends Default {
     init() {
         const { mobileBreakpoint } = responsiveBreakpoint();
-        this.isSlideshowEnabled = window.innerWidth > mobileBreakpoint;
+        const isMobile = window.innerWidth <= mobileBreakpoint;
 
         this._elements.map(element => {
+            const dataId = u(element).hasClass('guten-wrap-helper')
+                ? u(element).find('.guten-inner-wrap').data('id')
+                : u(element).hasClass('guten-column')
+                    ? u(element).find('.guten-column-wrapper').data('id')
+                    : u(element).hasClass('guten-flex-container')
+                        ? u(element).data('id')
+                        : u(element).parent().data('id');
+            const background = u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value');
+            const mobileSlideshowEnabled = background ? JSON.parse(background).mobileSlideshowEnabled === true : false;
+
+            this.isSlideshowEnabled = !isMobile || mobileSlideshowEnabled;
             this.startSlideshow(element);
         });
     }
