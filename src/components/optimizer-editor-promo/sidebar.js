@@ -11,7 +11,7 @@ import { STORE_NAME } from './store';
 import OptimizerEditorPromo from './index';
 
 const OptimizerIcon = () => (
-    <OptimizerLogo width="16" height="16" aria-hidden="true" focusable="false" />
+    <OptimizerLogo viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" />
 );
 
 const usePanelToggle = () => {
@@ -137,6 +137,7 @@ const ToolbarToggleButton = () => {
                 label={showLeftPanel ? __('Close Optimizer', '--gctd--') : __('Open Optimizer', '--gctd--')}
                 showTooltip={true}
                 icon={<OptimizerIcon />}
+                iconSize={16}
             >
                 {__('Optimizer', '--gctd--')}
             </Button>
