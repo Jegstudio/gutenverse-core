@@ -1,3 +1,4 @@
+import OptimizerLogo from '../../../framework/assets/icon/icon-optimizer.svg';
 import { createPortal, useEffect, useRef, useState } from '@wordpress/element';
 import { registerPlugin } from '@wordpress/plugins';
 import { PluginMoreMenuItem } from '@wordpress/edit-post';
@@ -10,16 +11,7 @@ import { STORE_NAME } from './store';
 import OptimizerEditorPromo from './index';
 
 const OptimizerIcon = () => (
-    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-        <path d="M2.50425 8.3095C2.56084 9.54193 3.05535 10.6583 3.83377 11.5052L2.06543 13.2945C0.834276 11.9889 0.0604923 10.2401 0.00162931 8.3095H2.50425Z" fill="currentColor" />
-        <path d="M14.9984 8.3095C14.9397 10.2335 14.1704 11.9766 12.9465 13.2808L11.1776 11.4915C11.9489 10.6463 12.4384 9.53531 12.4947 8.3095H14.9984Z" fill="currentColor" />
-        <path d="M3.81422 4.65808C3.03827 5.51171 2.5504 6.63581 2.50317 7.87411H0C0.0492636 5.9378 0.818332 4.18225 2.04696 2.86994L3.81422 4.65808Z" fill="currentColor" />
-        <path d="M12.965 2.88365C14.1863 4.1945 14.9509 5.94438 15 7.87411H12.4957C12.4488 6.64256 11.9659 5.52424 11.1972 4.67234L12.965 2.88365Z" fill="currentColor" />
-        <path d="M7.72837 0.501097C9.63787 0.558782 11.3679 1.33695 12.6614 2.57548L10.893 4.36362C10.0536 3.58006 8.94813 3.08284 7.72837 3.02731V0.501097Z" fill="currentColor" />
-        <path d="M7.29769 3.02676C6.07374 3.07582 4.96287 3.56837 4.1189 4.35046L2.3511 2.56232C3.64909 1.32548 5.38429 0.551115 7.29769 0.5V3.02676Z" fill="currentColor" />
-        <path d="M8.04083 10.7735C7.86716 10.7314 7.68581 10.7088 7.49935 10.7088C7.31303 10.7088 7.13197 10.7315 6.95842 10.7735L7.34131 4.72912H7.65794L8.04083 10.7735Z" fill="currentColor" />
-        <path d="M8.94381 13.0418C8.94381 13.8471 8.29717 14.5 7.49951 14.5C6.70185 14.5 6.05522 13.8471 6.05522 13.0418C6.05522 12.2364 6.70185 11.5836 7.49951 11.5836C8.29717 11.5836 8.94381 12.2364 8.94381 13.0418Z" fill="currentColor" />
-    </svg>
+    <OptimizerLogo width="16" height="16" aria-hidden="true" focusable="false" />
 );
 
 const usePanelToggle = () => {
