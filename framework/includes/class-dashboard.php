@@ -49,6 +49,8 @@ class Dashboard {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'enqueue_script_in_wizard', array( $this, 'enqueue_scripts' ) );
 		add_action( 'admin_notices', array( $this, 'load_global_event_banner' ) );
+		add_action( 'admin_notices', array( $this, 'load_optimizer_notice' ) );
+		add_action( 'wp_ajax_gutenverse_dismiss_optimizer_notice', array( $this, 'dismiss_optimizer_notice' ) );
 		add_action( 'wp_ajax_gutenverse_dismiss_global_event_banner', array( $this, 'dismiss_global_event_banner' ) );
 
 		add_filter( 'admin_footer_text', '__return_empty_string', 11 );
@@ -306,6 +308,81 @@ class Dashboard {
 		);
 
 		return wp_hash( false !== $payload ? $payload : '' );
+	}
+
+	/**
+	 * Introduce Optimizer across free administrator screens.
+	 */
+	public function load_optimizer_notice() {
+		$screen = get_current_screen();
+		if ( ! current_user_can( 'manage_options' ) || defined( 'GUTENVERSE_PRO' ) || get_user_meta( get_current_user_id(), 'gutenverse_optimizer_notice_dismissed', true ) || ! $screen || $screen->is_block_editor() ) {
+			return;
+		}
+		$images = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/';
+		$upgrade_url = add_query_arg(
+			array( 'utm_source' => 'gutenverse', 'utm_medium' => 'optimizer-dashboard-notice' ),
+			GUTENVERSE_UPGRADE_URL
+		);
+		?>
+		<div id="gutenverse-optimizer-speed-notice" class="notice gutenverse-optimizer-speed-notice">
+			<button type="button" class="notice-dismiss" data-nonce="<?php echo esc_attr( wp_create_nonce( 'gutenverse_optimizer_notice' ) ); ?>">
+				<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice permanently.', '--gctd--' ); ?></span>
+			</button>
+			<div class="gutenverse-optimizer-speed-notice__copy">
+				<h2><?php esc_html_e( 'Introducing Gutenverse Optimizer', '--gctd--' ); ?></h2>
+				<p><?php esc_html_e( 'Unlock powerful optimization tools to identify and fix issues that can affect your website’s speed, performance, and user experience.', '--gctd--' ); ?></p>
+				<a class="gutenverse-optimizer-speed-notice__action" href="<?php echo esc_url( $upgrade_url ); ?>" target="_blank" rel="noopener noreferrer">
+					<?php esc_html_e( 'Upgrade To Gutenverse PRO', '--gctd--' ); ?>
+					<img src="<?php echo esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ); ?>" width="16" height="16" alt="" />
+				</a>
+			</div>
+			<img class="gutenverse-optimizer-speed-notice__mockup" src="<?php echo esc_url( $images . 'optimizer-mockup-banner-speed.png' ); ?>" alt="" aria-hidden="true" />
+		</div>
+		<script>
+		(function () {
+			const notice = document.getElementById('gutenverse-optimizer-speed-notice');
+			const button = notice.querySelector('.notice-dismiss');
+			button.addEventListener('click', async function () {
+				button.disabled = true;
+				const request = new FormData();
+				request.append('action', 'gutenverse_dismiss_optimizer_notice');
+				request.append('nonce', button.dataset.nonce);
+				try {
+					const response = await window.fetch(window.ajaxurl, {
+						method: 'POST', credentials: 'same-origin', body: request
+					});
+					const result = await response.json();
+					if (!response.ok || !result.success) { throw new Error('dismiss_failed'); }
+					notice.remove();
+				} catch (error) {
+					button.disabled = false;
+					if (!notice.querySelector('[role="status"]')) {
+						const message = document.createElement('p');
+						message.setAttribute('role', 'status');
+						message.textContent = <?php echo wp_json_encode( __( 'Unable to dismiss this notice. Please try again.', '--gctd--' ) ); ?>;
+						notice.querySelector('.gutenverse-optimizer-speed-notice__copy').appendChild(message);
+					}
+				}
+			});
+		}());
+		</script>
+		<?php
+	}
+
+	/**
+	 * Permanently dismiss the Optimizer notice for the current administrator.
+	 */
+	public function dismiss_optimizer_notice() {
+		check_ajax_referer( 'gutenverse_optimizer_notice', 'nonce' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( null, 403 );
+		}
+		$user_id = get_current_user_id();
+		update_user_meta( $user_id, 'gutenverse_optimizer_notice_dismissed', 1 );
+		if ( ! get_user_meta( $user_id, 'gutenverse_optimizer_notice_dismissed', true ) ) {
+			wp_send_json_error( null, 500 );
+		}
+		wp_send_json_success();
 	}
 
 	/**
