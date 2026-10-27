@@ -617,6 +617,7 @@ class Frontend_Generator {
 	public function render_preload_images() {
 		global $post;
 		static $printed_images = array();
+		$this->preload_images  = apply_filters( 'gutenverse_preload_images', $this->preload_images );
 
 		if ( ! empty( $this->preload_images ) ) {
 			$this->preload_images = array_unique( $this->preload_images );
