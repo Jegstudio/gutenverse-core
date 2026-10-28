@@ -195,6 +195,7 @@ class Frontend_Toolbar {
 
 		$is_free = ! defined( 'GUTENVERSE_PRO' );
 		$href = admin_url( 'admin.php?page=gutenverse&path=optimizer' );
+		$label = is_admin() ? __( 'Optimizer', '--gctd--' ) : __( 'Open Optimizer', '--gctd--' );
 
 		if (
 			defined( 'GUTENVERSE_OPTIMIZER' ) &&
@@ -211,6 +212,7 @@ class Frontend_Toolbar {
 				in_array( $post_type, array( 'page', 'post' ), true ) &&
 				current_user_can( 'edit_post', $post_id )
 			) {
+				$label = __( 'Optimize This Page', '--gctd--' );
 				$can_deep_link = (bool) apply_filters(
 					'gutenverse_optimizer_optimize_this_page_deep_link_enabled',
 					! $is_free,
@@ -233,7 +235,6 @@ class Frontend_Toolbar {
 		}
 
 		$icon_file = $is_free ? 'icon-crown.svg' : 'icon-optimizer.svg';
-		$label = is_admin() ? __( 'Optimizer', '--gctd--' ) : __( 'Optimize This Page', '--gctd--' );
 		$icon = '<span class="ab-icon" aria-hidden="true"><img class="gutenverse-optimizer-adminbar-icon" src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/' . $icon_file ) . '" alt="" width="16" height="15" /></span>';
 		$admin_bar->add_node(
 			array(
