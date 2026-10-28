@@ -194,6 +194,44 @@ class Frontend_Toolbar {
 		}
 
 		$is_free = ! defined( 'GUTENVERSE_PRO' );
+		$href = admin_url( 'admin.php?page=gutenverse&path=optimizer' );
+
+		if (
+			defined( 'GUTENVERSE_OPTIMIZER' ) &&
+			! is_admin() &&
+			is_singular( array( 'page', 'post' ) ) &&
+			current_user_can( 'edit_theme_options' )
+		) {
+			$post_id   = absint( get_queried_object_id() );
+			$post_type = get_post_type( $post_id );
+
+			if (
+				$post_id &&
+				'publish' === get_post_status( $post_id ) &&
+				in_array( $post_type, array( 'page', 'post' ), true ) &&
+				current_user_can( 'edit_post', $post_id )
+			) {
+				$can_deep_link = (bool) apply_filters(
+					'gutenverse_optimizer_optimize_this_page_deep_link_enabled',
+					! $is_free,
+					$post_id,
+					$post_type
+				);
+				$href = $can_deep_link
+					? add_query_arg(
+						array(
+							'page'        => 'gutenverse',
+							'path'        => 'optimizer',
+							'subpath'     => 'current-page',
+							'target_id'   => $post_id,
+							'target_type' => $post_type,
+						),
+						admin_url( 'admin.php' )
+					)
+					: admin_url( 'admin.php?page=gutenverse&path=license' );
+			}
+		}
+
 		$icon_file = $is_free ? 'icon-crown.svg' : 'icon-optimizer.svg';
 		$label = is_admin() ? __( 'Optimizer', '--gctd--' ) : __( 'Optimize This Page', '--gctd--' );
 		$icon = '<span class="ab-icon" aria-hidden="true"><img class="gutenverse-optimizer-adminbar-icon" src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/' . $icon_file ) . '" alt="" width="16" height="15" /></span>';
@@ -201,7 +239,7 @@ class Frontend_Toolbar {
 			array(
 				'id'    => 'gutenverse-optimizer-shortcut',
 				'title' => $icon . '<span class="ab-label">' . esc_html( $label ) . '</span>',
-				'href'  => admin_url( 'admin.php?page=gutenverse&path=optimizer' ),
+				'href'  => esc_url( $href ),
 				'meta'  => array( 'class' => $is_free ? 'gutenverse-optimizer-shortcut--free' : '' ),
 			)
 		);
