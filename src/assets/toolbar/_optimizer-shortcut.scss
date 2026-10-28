@@ -1,0 +1,15 @@
+#wpadminbar #wp-admin-bar-gutenverse-optimizer-shortcut .gutenverse-optimizer-adminbar-icon {
+    display: block;
+    width: 16px;
+    height: 15px;
+    margin-top: 4px;
+}
+
+#wpadminbar #wp-admin-bar-gutenverse-optimizer-shortcut.gutenverse-optimizer-shortcut--free {
+    > .ab-item,
+    &:hover > .ab-item,
+    > .ab-item:focus {
+        background: #4054ff;
+        color: #fff;
+    }
+}

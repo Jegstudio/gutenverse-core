@@ -781,7 +781,7 @@ export const responsiveBreakpoint = () => {
 
 export const isBlockActive = (name) => {
     const { settingsData } = window['GutenverseConfig'] || window['GutenverseSettings'] || {};
-    const { active_blocks = {} } = settingsData;
+    const { active_blocks = {} } = settingsData || {};
     return name in active_blocks ? active_blocks[name] : true;
 };
 

@@ -1,4 +1,4 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import classnames from 'classnames';
@@ -15,6 +15,18 @@ const PluginItem = ({ plugin, plugins, ...props }) => {
     const [loadingString, setLoadingString] = useState('');
     const [loading, setLoading] = useState(false);
     const [isRetry, setIsRetry] = useState(true);
+
+    const tierLabels = {
+        basic: __('Basic', '--gctd--'),
+        standard: __('Standard', '--gctd--'),
+        personal: __('Personal', '--gctd--'),
+        professional: __('Professional', '--gctd--'),
+        agency: __('Agency', '--gctd--'),
+        enterprise: __('Enterprise', '--gctd--'),
+        ultimate: __('Ultimate', '--gctd--'),
+    };
+    const minimumTier = plugin.minTier || 'basic';
+    const minimumTierLabel = tierLabels[minimumTier] || minimumTier;
 
     const installed = plugins[slug];
 
@@ -180,6 +192,9 @@ const PluginItem = ({ plugin, plugins, ...props }) => {
                         ? <p className="plugin-version">{__('Version ', '--gctd--')}{version}</p>
                         : <p className="plugin-version">{__('Coming Soon', '--gctd--')}</p>
                     }
+                    {host === 'server-pro' && <p className="plugin-license-tier">
+                        {sprintf(__('Requires %s plan or higher', '--gctd--'), minimumTierLabel)}
+                    </p>}
                     {description && <p className="plugin-description">{description.substring(0, 80) + '...'}</p>}
                 </div>
                 <div className="plugin-actions">

@@ -68,3 +68,9 @@ export * from '@wordpress/block-editor';
 export * from '@wordpress/components';
 export * from 'react-datepicker';
 export { default as AsyncSelect } from 'react-select/async';
+
+
+// Shared locked Optimizer editor promotion.
+export { default as OptimizerEditorPromo } from './optimizer-editor-promo';
+
+export { default as OptimizerDashboardPromo } from './optimizer-dashboard-promo';

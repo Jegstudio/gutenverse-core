@@ -318,7 +318,7 @@ const Navigation = ({ location }) => {
         activeTheme,
         url,
         companionActive,
-        showThemeList = false,
+        showThemeList = true,
     } = window['GutenverseDashboard'];
 
     const [injectLocation, setInjectLocation] = useState(null);
@@ -355,13 +355,18 @@ const Navigation = ({ location }) => {
             priority: 4
         },
         {
+            name: __('Optimizer', '--gctd--'),
+            slug: homeSlug,
+            path: 'optimizer',
+            priority: 4.5
+        },
+        {
             name: __('System Status', '--gctd--'),
             slug: homeSlug,
             path: 'system',
             priority: 5
         },
     ];
-
     if (showThemeList) {
         baseMenus.push({
             name: __('Theme List', '--gctd--'),

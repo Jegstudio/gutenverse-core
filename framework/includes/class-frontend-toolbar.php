@@ -34,6 +34,7 @@ class Frontend_Toolbar {
 	 */
 	public function __construct() {
 		add_action( 'admin_bar_menu', array( $this, 'add_toolbar' ), 100 );
+		add_action( 'admin_bar_menu', array( $this, 'add_optimizer_toolbar' ), 101 );
 		add_filter( 'template_include', array( $this, 'get_loaded_template' ), 1000 );
 
 		$hierarchies = array(
@@ -183,6 +184,69 @@ class Frontend_Toolbar {
 	}
 
 	/**
+	 * Link admin and frontend toolbars to the Optimizer dashboard.
+	 *
+	 * @param \WP_Admin_Bar $admin_bar Admin bar instance.
+	 */
+	public function add_optimizer_toolbar( $admin_bar ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		$is_free = ! defined( 'GUTENVERSE_PRO' );
+		$href = admin_url( 'admin.php?page=gutenverse&path=optimizer' );
+		$label = is_admin() ? __( 'Optimizer', '--gctd--' ) : __( 'Open Optimizer', '--gctd--' );
+
+		if (
+			defined( 'GUTENVERSE_OPTIMIZER' ) &&
+			! is_admin() &&
+			is_singular( array( 'page', 'post' ) ) &&
+			current_user_can( 'edit_theme_options' )
+		) {
+			$post_id   = absint( get_queried_object_id() );
+			$post_type = get_post_type( $post_id );
+
+			if (
+				$post_id &&
+				'publish' === get_post_status( $post_id ) &&
+				in_array( $post_type, array( 'page', 'post' ), true ) &&
+				current_user_can( 'edit_post', $post_id )
+			) {
+				$label = __( 'Optimize This Page', '--gctd--' );
+				$can_deep_link = (bool) apply_filters(
+					'gutenverse_optimizer_optimize_this_page_deep_link_enabled',
+					! $is_free,
+					$post_id,
+					$post_type
+				);
+				$href = $can_deep_link
+					? add_query_arg(
+						array(
+							'page'        => 'gutenverse',
+							'path'        => 'optimizer',
+							'subpath'     => 'current-page',
+							'target_id'   => $post_id,
+							'target_type' => $post_type,
+						),
+						admin_url( 'admin.php' )
+					)
+					: admin_url( 'admin.php?page=gutenverse&path=license' );
+			}
+		}
+
+		$icon_file = $is_free ? 'icon-crown.svg' : 'icon-optimizer.svg';
+		$icon = '<span class="ab-icon" aria-hidden="true"><img class="gutenverse-optimizer-adminbar-icon" src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/' . $icon_file ) . '" alt="" width="16" height="15" /></span>';
+		$admin_bar->add_node(
+			array(
+				'id'    => 'gutenverse-optimizer-shortcut',
+				'title' => $icon . '<span class="ab-label">' . esc_html( $label ) . '</span>',
+				'href'  => esc_url( $href ),
+				'meta'  => array( 'class' => $is_free ? 'gutenverse-optimizer-shortcut--free' : '' ),
+			)
+		);
+	}
+
+	/**
 	 * Pro Toolbar
 	 *
 	 * @param \WP_Admin_Bar $admin_bar Admin Bar Instance.
@@ -272,6 +336,15 @@ class Frontend_Toolbar {
 				'id'     => 'second-space',
 				'parent' => 'gutenverse',
 				'title'  => '',
+			)
+		);
+
+		$admin_bar->add_menu(
+			array(
+				'id'     => 'gutenverse-optimizer',
+				'parent' => 'gutenverse',
+				'title'  => esc_html__( 'Optimizer', '--gctd--' ),
+				'href'   => admin_url( 'admin.php?page=gutenverse&path=optimizer' ),
 			)
 		);
 
