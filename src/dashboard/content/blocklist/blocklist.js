@@ -12,9 +12,12 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
     const [insufficientTierDesc, setInsufficientTierDesc] = useState('');
     const { imgDir } = window['GutenverseDashboard'];
     const { active_blocks = {} } = settingValues;
-    const { blockCategories } = window['GutenverseSettings'];
+    let { blockCategories } = window['GutenverseSettings'];
     const controlRef = useRef();
-    const blocks = select('gutenverse/blocklist').getList();
+    let blocks = select('gutenverse/blocklist').getList();
+    blocks = blocks.filter((block) => !block?.name?.startsWith('jnews-blocks/')); //exclude jnews blocks
+    blockCategories = blockCategories.filter((category) => !category?.slug?.startsWith('jnews')); //exclude jnews category
+
     const blocksHasChild = [];
 
     blocks.map((block) => {
