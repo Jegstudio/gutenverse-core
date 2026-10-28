@@ -1394,3 +1394,20 @@ export const flexJustifyContent = (direction) => {
             ];
     }
 };
+
+export {
+    closeFreemiusPopup,
+    getFreemiusCampaign,
+    getFreemiusSettings,
+    getUpgradeUrlWithUtm,
+    getUpgradeProps,
+    initializeFreemiusPopup,
+    openFreemiusPopup,
+} from './jnews-freemius';
+
+export {
+    JNEWS_DEFAULT_PRICING_PLAN,
+    ensurePricingPlanData,
+    getPricingPlanFallback,
+    prefetchPricingPlanData,
+} from './jnews-pricing-plan';

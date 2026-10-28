@@ -355,6 +355,12 @@ const Navigation = ({ location }) => {
             priority: 4
         },
         {
+            name: __('Optimizer', '--gctd--'),
+            slug: homeSlug,
+            path: 'optimizer',
+            priority: 4.5
+        },
+        {
             name: __('System Status', '--gctd--'),
             slug: homeSlug,
             path: 'system',

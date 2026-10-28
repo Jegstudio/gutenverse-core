@@ -47,6 +47,9 @@ export { default as PopupInstallPlugin } from './pro/popup-install-plugin';
 export { default as PopupInsufficientTier } from './pro/popup-insufficient-tier';
 export { default as PopupPricingPlan } from './pro/popup-pricing-plan';
 export { default as DefaultLayout } from '../controls/controls/locked/default-layout';
+export { default as LockedJNewsBlocks } from '../controls/controls/locked/locked-jnews-blocks';
+export { default as JNewsButtonUpgradePro } from './pro/jnews-button-upgrade-pro';
+export { default as JNewsPopupPricingPlan } from './pro/jnews-popup-pricing';
 
 /**Editor Component */
 export { default as VideoPreviewer } from './editor/video-previewer';
@@ -65,3 +68,9 @@ export * from '@wordpress/block-editor';
 export * from '@wordpress/components';
 export * from 'react-datepicker';
 export { default as AsyncSelect } from 'react-select/async';
+
+
+// Shared locked Optimizer editor promotion.
+export { default as OptimizerEditorPromo } from './optimizer-editor-promo';
+
+export { default as OptimizerDashboardPromo } from './optimizer-dashboard-promo';

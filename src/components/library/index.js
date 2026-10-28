@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import LibraryModal from './library-modal';
 import { dispatch } from '@wordpress/data';
 import { fetchLibraryData } from 'gutenverse-core/requests';
-import { getEditSiteHeader, signal } from 'gutenverse-core/editor-helper';
+import { signal } from 'gutenverse-core/editor-helper';
 import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
 import EditorModePlugin from '../editor-mode/editor-mode';
@@ -96,9 +96,15 @@ const Library = (props) => {
     </>;
 
     useEffect(() => {
-        getEditSiteHeader().then(result => {
-            setInjectLocation(result);
-        });
+        // The editor can replace its toolbar after startup or a layout change.
+        const findHeader = () => {
+            const header = document.querySelector('.edit-post-header-toolbar, .edit-site-header_start, .edit-site-header-edit-mode__start, .edit-site-header-edit-mode__center, .edit-site-header-edit-mode__end');
+            setInjectLocation(header);
+        };
+        findHeader();
+        const observer = new MutationObserver(findHeader);
+        observer.observe(document.body, { childList: true, subtree: true });
+        return () => observer.disconnect();
     }, [uuid]);
 
     // Init store.

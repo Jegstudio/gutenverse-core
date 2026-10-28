@@ -72,9 +72,9 @@ const MultiImageControl = (props) => {
     const PreviewImages = () => {
         return Array.isArray(value) && value.length ? value.map((imgId) => {
             const url = imageUrls[imgId];
-            return <div key={imgId} className="gvnews-with-image" style={{ backgroundImage: url ? `url(${url})` : 'none' }}>
-                <div className="gvnews-image-control">
-                    <div className="gvnews-remove-image" onClick={() => removeImage(imgId)}>
+            return <div key={imgId} className="jnews-blocks-with-image" style={{ backgroundImage: url ? `url(${url})` : 'none' }}>
+                <div className="jnews-blocks-image-control">
+                    <div className="jnews-blocks-remove-image" onClick={() => removeImage(imgId)}>
                         <TrashSvg />
                     </div>
                 </div>
@@ -82,14 +82,14 @@ const MultiImageControl = (props) => {
         }) : '';
     };
 
-    return <div className={'gutenverse-control-wrapper gvnews-multi-image-control'}>
+    return <div className={'gutenverse-control-wrapper jnews-blocks-multi-image-control'}>
         <ControlHeadingSimple
             id={`${id}-text`}
             label={label}
             description={description}
             allowDeviceControl={false}
         />
-        {Array.isArray(value) && value.length ? <div className="gvnews-image-control-preview-wrapper"><PreviewImages /></div> : ''}
+        {Array.isArray(value) && value.length ? <div className="jnews-blocks-image-control-preview-wrapper"><PreviewImages /></div> : ''}
         <MediaUploadCheck>
             <MediaUpload
                 onSelect={onSelectImages}

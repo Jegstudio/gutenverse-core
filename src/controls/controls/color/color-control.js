@@ -18,7 +18,7 @@ import set from 'lodash/set';
 import cloneDeep from 'lodash/cloneDeep';
 import { get } from 'lodash';
 import { Plus } from 'react-feather';
-import { CloseIcon, IconInfoSVG } from 'gutenverse-core/icons';
+import { IconInfoSVG } from 'gutenverse-core/icons';
 import AlertControl from '../alert/alert-control';
 
 const VariableColorItem = (props) => {
@@ -45,6 +45,20 @@ const EmptyCustomColor = ({ onClick }) => {
     </div>;
 };
 
+const normalizeCustomColor = (color = {}) => {
+    const customColor = { ...color };
+
+    delete customColor.type;
+    delete customColor.id;
+
+    return customColor;
+};
+
+const normalizeVariableColor = (id) => ({
+    type: 'variable',
+    id
+});
+
 const ColorControl = (props) => {
     const {
         label,
@@ -52,7 +66,7 @@ const ColorControl = (props) => {
         value = allowDeviceControl ? {} : '',
         alpha = true,
         onValueChange,
-        onLocalChange,
+        onLocalChange = () => {},
         description = '',
     } = props;
 
@@ -359,11 +373,9 @@ const ColorControl = (props) => {
 
         // Update local state AFTER (no stale usage)
         setCustomPalette(prev => [...prev, newColor]);
-        const newValue = {
-            type: 'variable',
-            id: key
-        };
+        const newValue = normalizeVariableColor(key);
         setLocalColor(newValue);
+        onLocalChange(newValue);
         onValueChange(newValue);
 
         setGlobalWarning(false);
@@ -409,11 +421,9 @@ const ColorControl = (props) => {
                         const props = {
                             ...color,
                             setActive: () => {
-                                const value = {
-                                    type: 'variable',
-                                    id: id
-                                };
+                                const value = normalizeVariableColor(id);
                                 setLocalColor(value);
+                                onLocalChange(value);
                                 onValueChange(value);
                             },
                             active: localColor.id === id
@@ -430,11 +440,9 @@ const ColorControl = (props) => {
                             const props = {
                                 ...color,
                                 setActive: () => {
-                                    const value = {
-                                        type: 'variable',
-                                        id
-                                    };
+                                    const value = normalizeVariableColor(id);
                                     setLocalColor(value);
+                                    onLocalChange(value);
                                     onValueChange(value);
                                 },
                                 active: localColor.id === id
@@ -452,11 +460,9 @@ const ColorControl = (props) => {
                             const props = {
                                 ...color,
                                 setActive: () => {
-                                    const value = {
-                                        type: 'variable',
-                                        id
-                                    };
+                                    const value = normalizeVariableColor(id);
                                     setLocalColor(value);
+                                    onLocalChange(value);
                                     onValueChange(value);
                                 },
                                 active: localColor.id === id
@@ -566,10 +572,10 @@ const ColorControl = (props) => {
                 classNames={`${openAddColor ? 'additional-margin' : ''}`}
                 color={getColorValue(localColor)}
                 onChange={color => {
-                    setLocalColor(color.rgb);
+                    setLocalColor(normalizeCustomColor(color.rgb));
                 }}
                 onChangeComplete={(color) => {
-                    onValueChange(color.rgb);
+                    onValueChange(normalizeCustomColor(color.rgb));
                 }}
             />
         </div> : null}

@@ -28,8 +28,27 @@ const toLegacyCompatibleColor = (color) => {
         ...legacyColor
     } = fallback;
 
+    if (legacyColor.type !== 'variable') {
+        const responsiveColor = { ...color };
+
+        delete responsiveColor.type;
+        delete responsiveColor.id;
+
+        return {
+            ...responsiveColor,
+            ...legacyColor
+        };
+    }
+
+    const responsiveColor = { ...color };
+
+    delete responsiveColor.r;
+    delete responsiveColor.g;
+    delete responsiveColor.b;
+    delete responsiveColor.a;
+
     return {
-        ...color,
+        ...responsiveColor,
         ...legacyColor
     };
 };
@@ -604,6 +623,11 @@ const BackgroundControl = (props) => {
         </>}
 
         {value.type !== undefined && value.type === 'slide' && <>
+            <CheckboxControl
+                label={__('Enable Slideshow on Mobile', '--gctd--')}
+                value={value.mobileSlideshowEnabled || false}
+                onValueChange={mobileSlideshowEnabled => onValueChange({ ...value, mobileSlideshowEnabled })}
+            />
             <RepeaterControl
                 label={__('Image', '--gctd--')}
                 titleFormat="<strong><%= value.title%></strong>"

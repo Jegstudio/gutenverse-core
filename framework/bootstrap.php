@@ -15,7 +15,7 @@ if ( defined( 'GUTENVERSE_FRAMEWORK_VERSION' ) ) {
 	return;
 }
 
-defined( 'GUTENVERSE_FRAMEWORK_VERSION' ) || define( 'GUTENVERSE_FRAMEWORK_VERSION', '3.1.0' );
+defined( 'GUTENVERSE_FRAMEWORK_VERSION' ) || define( 'GUTENVERSE_FRAMEWORK_VERSION', '3.2.0' );
 defined( 'GUTENVERSE_FRAMEWORK_ASSETS_VERSION' ) || define( 'GUTENVERSE_FRAMEWORK_ASSETS_VERSION', '2.1.0' );
 defined( 'GUTENVERSE_FRAMEWORK_DIR' ) || define( 'GUTENVERSE_FRAMEWORK_DIR', __DIR__ );
 defined( 'GUTENVERSE_FRAMEWORK_CLASS_DIR' ) || define( 'GUTENVERSE_FRAMEWORK_CLASS_DIR', GUTENVERSE_FRAMEWORK_DIR . '/includes' );
@@ -31,6 +31,10 @@ defined( 'GUTENVERSE_UPGRADE_URL' ) || define( 'GUTENVERSE_UPGRADE_URL', 'https:
 defined( 'GUTENVERSE_FRAMEWORK_PRO_URL' ) || define( 'GUTENVERSE_FRAMEWORK_PRO_URL', 'https://pro.gutenverse.com/' );
 defined( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL' ) || define( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL', 'https://pro.gutenverse.com/invite' );
 
+// jnews path.
+defined( 'GUTENVERSE_JNEWS_BLOCK_LIBRARY_URL' ) || define( 'GUTENVERSE_JNEWS_BLOCK_LIBRARY_URL', 'https://jnews.io/' );
+defined( 'GUTENVERSE_JNEWS_BLOCK_PRO_SERVER_URL' ) || define( 'GUTENVERSE_JNEWS_BLOCK_PRO_SERVER_URL', 'https://pro.jnews.io/' );
+defined( 'GUTENVERSE_JNEWS_BLOCK_UPGRADE_URL' ) || define( 'GUTENVERSE_JNEWS_BLOCK_UPGRADE_URL', 'https://jnews.io/pricing' );
 
 require_once 'autoload.php';
 require_once 'helper.php';

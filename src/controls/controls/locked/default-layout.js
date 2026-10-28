@@ -5,14 +5,15 @@ import isEmpty from 'lodash/isEmpty';
 import { activeTheme, clientUrl } from 'gutenverse-core/config';
 import { getUpgradeProps } from '../../../helper/freemius';
 
-const DefaultLayout = ({
-    title,
-    description,
-    img,
-    isOpen,
-    permaLink,
-    assetDir,
-}) => {
+const DefaultLayout = (props) => {
+    const {
+        title,
+        description,
+        img,
+        isOpen,
+        permaLink,
+        assetDir,
+    } = props;
     const {
         videoDir,
         upgradeProUrl,
@@ -24,7 +25,8 @@ const DefaultLayout = ({
 
     const ButtonPro = applyFilters(
         'gutenverse.pro-panel-button',
-        () => isEmpty(window?.gprodata) && <a className="gutenverse-button-available-pro" {...getUpgradeProps(`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`)}> {__('Upgrade To Pro', '--gctd--')} <IconCrownBannerSVG /> </a>
+        () => isEmpty(window?.gprodata) && <a className="gutenverse-button-available-pro" {...getUpgradeProps(`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`)}> {__('Upgrade To Pro', '--gctd--')} <IconCrownBannerSVG /> </a>,
+        props
     );
     return <>
         <h2 className="title">{title}</h2>

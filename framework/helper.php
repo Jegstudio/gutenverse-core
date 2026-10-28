@@ -2233,6 +2233,17 @@ if ( ! function_exists( 'gutenverse_pro_active' ) ) {
 	}
 }
 
+if ( ! function_exists( 'jnews_blocks_pro_active' ) ) {
+	/**
+	 * Check if Gutenverse Pro plugin is Active.
+	 *
+	 * @return boolean
+	 */
+	function jnews_blocks_pro_active() {
+		return defined( 'JNEWS_BLOCKS_PRO_VERSION' );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_get_current_url' ) ) {
 	/**
 	 * Get current url with parameter
@@ -2339,5 +2350,40 @@ if ( ! function_exists( 'gutenverse_unused_cache_file_size' ) ) {
 		$cache_id = get_option( 'gutenverse-style-cache-id', 'initial-cache' );
 
 		return gutenverse_generated_cache_file_size( $cache_id );
+	}
+}
+
+if ( ! function_exists( 'gutenverse_jnews_get_pricing_plan' ) ) {
+	/**
+	 * Get Pricing Plan
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_jnews_get_pricing_plan() {
+		$data = get_transient( 'jnews_pricing_plan_data' );
+		if ( $data ) {
+			return $data;
+		}
+
+		$response = wp_remote_request(
+			apply_filters(
+				'jnews_pricing_plan_endpoint',
+				GUTENVERSE_JNEWS_BLOCK_LIBRARY_URL . 'wp-json/jnews-tools/v1/pricing-plan-user'
+			),
+			array(
+				'method' => 'GET',
+			)
+		);
+
+		if ( ! is_wp_error( $response ) && 200 === $response['response']['code'] ) {
+			$body = wp_remote_retrieve_body( $response );
+			$data = json_decode( $body );
+
+			if ( isset( $data->active_promotion, $data->is_event_sales, $data->event_expired ) ) {
+				set_transient( 'jnews_pricing_plan_data', $data, 24 * HOUR_IN_SECONDS );
+			}
+		}
+
+		return $data;
 	}
 }

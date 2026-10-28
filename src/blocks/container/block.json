@@ -453,6 +453,7 @@
 	"keywords": ["container", "flexbox", "layout", "structure"],
 	"style": ["gutenverse-core-frontend-container-style"],
 	"providesContext": {
-		"gutenverse/flexDirection": "flexDirection"
+		"gutenverse/flexDirection": "flexDirection",
+		"gutenverse/wrapperWidth": "containerWidth"
 	}
 }

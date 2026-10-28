@@ -49,6 +49,10 @@ export const generalTabs = {
         title: __('Account', '--gctd--'),
         pro: true,
     },
+    ['integrations']: {
+        title: __('Integrations', '--gctd--'),
+        pro: true,
+    },
 };
 
 const setitngTitle = {
@@ -60,17 +64,9 @@ const setitngTitle = {
     ['custom-font']: __('Custom Font Settings', '--gctd--'),
     ['form_settings']: __('Form Settings', '--gctd--'),
     ['form_integrations ']: __('Form Integrations', '--gctd--'),
-    ['block_settings']: __('Global Block Settings', '--gctd--'),
-    ['additional_features']: __('Gutenverse News Additional Features', '--gctd--'),
-    ['view_counter']: __('View Counter Settings', '--gctd--'),
-    ['post_review']: __('Post Review Settings', '--gctd--'),
-    ['paywall']: __('Paywall Settings', '--gctd--'),
-    ['like_dislike_button']: __('Like & Dislike Settings', '--gctd--'),
     ['performance']: __('Performance Settings', '--gctd--'),
     ['account']: __('Account Settings', '--gctd--'),
-    ['bookmark']: __('Bookmark Settings', '--gctd--'),
-    ['post_split']: __('Post Split Settings', '--gctd--'),
-    ['ads']: __('Ads Settings', '--gctd--'),
+    ['integrations']: __('Integration Settings', '--gctd--'),
 };
 
 export const getSettingTitle = (key) => {
