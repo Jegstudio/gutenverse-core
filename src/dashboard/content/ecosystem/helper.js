@@ -3,7 +3,7 @@ import { applyFilters } from '@wordpress/hooks';
 import { Crown } from './components/icons';
 import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
 
-const blockTier = ['basic', 'personal', 'professional', 'agency', 'enterprise'];
+const blockTier = ['basic', 'personal', 'jnews', 'professional', 'agency', 'enterprise'];
 
 const getAvailableTier = (tier) => {
     const index = blockTier.indexOf(tier);
