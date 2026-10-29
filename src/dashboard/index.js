@@ -1,3 +1,4 @@
+import '../components/convert-to-svg/scoped-icon-encoder';
 import Navigation from './route/navigation';
 import Content from './route/content';
 import { render } from '@wordpress/element';

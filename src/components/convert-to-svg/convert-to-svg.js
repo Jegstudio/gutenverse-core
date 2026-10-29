@@ -1,41 +1,7 @@
 import { select, dispatch } from '@wordpress/data';
 import { getBlockType } from '@wordpress/blocks';
-import { libraryApi } from 'gutenverse-core/config';
 import { store as editorStore } from '@wordpress/editor';
-import axios from 'axios';
-
-const ICON_FAMILY_PATTERN = /^(?:gtn|fa[bsrldt]?|fa-(?:solid|regular|brands|light|duotone|thin))$/i;
-const ICON_GLYPH_PATTERN = /^(?:gtn|fa)-[\w-]+$/i;
-
-const normalizeIconValue = value => {
-    if (typeof value !== 'string') return '';
-    const tokens = value.trim().split(/\s+/).filter(Boolean);
-    if (!tokens.some(token => ICON_FAMILY_PATTERN.test(token))) return '';
-    if (!tokens.some(token => ICON_GLYPH_PATTERN.test(token))) return '';
-    return tokens.join(' ');
-};
-
-const fetchSvgContent = async (iconName, retries = 5, delay = 50) => {
-    try {
-        const response = await axios.get(`${libraryApi}/get-svg-font`, {
-            params: { name: iconName.toLowerCase() }
-        });
-        const svg = response?.data?.data;
-        if (typeof svg === 'string' && svg.trim()) {
-            return { content: btoa(svg), reason: '' };
-        }
-        return { content: null, reason: 'icon_not_found' };
-    } catch (error) {
-        if (retries > 0) {
-            await new Promise(resolve => setTimeout(resolve, delay));
-            return fetchSvgContent(iconName, retries - 1, delay);
-        }
-        return {
-            content: null,
-            reason: error?.response?.status ? `request_failed_${error.response.status}` : 'request_failed'
-        };
-    }
-};
+import { normalizeIconValue, fetchSvgContent, encodePreparedIconScope } from './scoped-icon-encoder';
 
 const getCompanionKeys = ({ container, key, rootSchema = null, isRoot = false }) => {
     const conventionalType = `${key}Type`;
@@ -113,6 +79,14 @@ const convertIconsInValue = async ({ value, block, path = [], rootSchema = null,
         stats.detectedCount++;
         const currentType = value[companion.typeKey];
         const currentSvg = value[companion.svgKey];
+
+        // Image-mode controls retain a default font name that is not rendered.
+        // Preserve the selected image instead of reporting its dormant icon as
+        // an unresolved conversion.
+        if (currentType === 'image') {
+            stats.skippedCount++;
+            continue;
+        }
 
         if (currentType && !['icon', 'svg'].includes(currentType)) {
             stats.skippedCount++;
@@ -204,7 +178,42 @@ const processBlocksRecursively = async blocks => {
     return results;
 };
 
-const convertToSvg = async () => {
+const convertScopedIcons = async scope => {
+    if (!Array.isArray(scope?.fields) || !scope.fields.length || scope.fields.length > 100) throw new Error('icon_scope_invalid');
+    const editor = select('core/editor');
+    const type = ['post', 'page'].includes(editor.getCurrentPostType()) ? 'post' : editor.getCurrentPostType();
+    if (![String(scope.sourceId), String(scope.editorEntityId)].includes(String(editor.getCurrentPostId())) || type !== scope.sourceType) throw new Error('icon_source_context_mismatch');
+    if (editor.getRenderingMode() !== 'post-only') {
+        dispatch('core/editor').setRenderingMode('post-only');
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    const blocks = [];
+    const visit = (values, depth = 0) => values.forEach(block => {
+        if (depth > 32 || blocks.length >= 2000) throw new Error('icon_scope_tree_incomplete');
+        blocks.push(block);
+        if (!['core/block', 'core/template-part', 'core/pattern', 'gutenverse-themes-builder/pattern-wrapper'].includes(block.name)) visit(block.innerBlocks || [], depth + 1);
+    });
+    visit(select('core/block-editor').getBlocks());
+    const patches = [];
+    for (const field of scope.fields) {
+        const matches = blocks.filter(block => block.name === field.blockName && block.attributes?.elementId === field.elementId);
+        if (matches.length !== 1) throw new Error('icon_scope_block_unresolved');
+        const block = matches[0];
+        let container = block.attributes;
+        const path = [...field.fieldPath]; const key = path.pop();
+        for (const part of path) container = container?.[part];
+        const raw = container?.[key] ?? (!path.length ? getBlockType(block.name)?.attributes?.[key]?.default : '');
+        const mode = container?.[field.typeKey] || 'icon';
+        if (normalizeIconValue(raw) !== normalizeIconValue(field.iconClass) || mode !== 'icon') throw new Error('icon_scope_field_changed');
+        const fetched = await fetchSvgContent(field.iconClass);
+        if (!fetched.content) throw new Error(fetched.reason || 'icon_conversion_failed');
+        patches.push({ occurrenceId: field.occurrenceId, svg: fetched.content });
+    }
+    return { success: true, convertedCount: patches.length, patches, failedCount: 0 };
+};
+
+const convertToSvg = async (options = {}) => {
+    if (options.scope) return convertScopedIcons(options.scope);
     const result = {
         success: false,
         detectedCount: 0,
@@ -262,5 +271,6 @@ const convertToSvg = async () => {
 };
 
 window.gutenverseConvertToSvg = convertToSvg;
+window.gutenverseEncodeScopedIcons = encodePreparedIconScope;
 
 export default convertToSvg;
