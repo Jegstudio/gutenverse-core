@@ -192,9 +192,6 @@ const PluginItem = ({ plugin, plugins, ...props }) => {
                         ? <p className="plugin-version">{__('Version ', '--gctd--')}{version}</p>
                         : <p className="plugin-version">{__('Coming Soon', '--gctd--')}</p>
                     }
-                    {host === 'server-pro' && <p className="plugin-license-tier">
-                        {sprintf(__('Requires %s plan or higher', '--gctd--'), minimumTierLabel)}
-                    </p>}
                     {description && <p className="plugin-description">{description.substring(0, 80) + '...'}</p>}
                 </div>
                 <div className="plugin-actions">
