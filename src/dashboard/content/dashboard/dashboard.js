@@ -173,6 +173,11 @@ const DefaultDashboard = () => {
                     <div className="plugin-list">
                         {Object.keys(pluginVersions).map(key => {
                             const pluginData = pluginVersions[key];
+                            const skipDashboardRating = pluginData?.skipDashboardRating ? pluginData.skipDashboardRating : false;
+
+                            if (skipDashboardRating) {
+                                return null;
+                            }
                             const supportUrl = pluginData?.supportUrl ? pluginData.supportUrl : `https://wordpress.org/support/plugin/${key}/#new-topic-0`;
 
                             return <div key={key} className="plugin">
