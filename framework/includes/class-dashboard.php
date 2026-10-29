@@ -74,7 +74,7 @@ class Dashboard {
 			$page = sanitize_text_field( wp_unslash( $_GET['page'] ) );
 
 			if ( 'gutenverse' === $page && isset( $_GET['path'] ) && 'theme-list' === sanitize_text_field( wp_unslash( $_GET['path'] ) ) ) {
-				if ( ! apply_filters( 'gutenverse_show_theme_list_dashboard', false ) ) {
+				if ( ! apply_filters( 'gutenverse_show_theme_list_dashboard', true ) ) {
 					wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) );
 					exit;
 				}
