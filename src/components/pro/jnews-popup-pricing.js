@@ -27,7 +27,9 @@ const JNEWS_BADGES = [
 
 const JNEWS_FEATURES = {
     main: [
-        { label: __('1 Sites Licenses', 'jnews-blocks'), include: ['all'] },
+        { label: __('1 Sites Licenses', 'jnews-blocks'), include: ['personal'] },
+        { label: __('10 Sites Licenses', 'jnews-blocks'), include: ['professional'] },
+        { label: __('100 Sites Licenses', 'jnews-blocks'), include: ['agency'] },
         { label: __('78+ Demos', 'jnews-blocks'), include: ['all'] },
         { label: __('1 year priority support', 'jnews-blocks'), include: ['all'] },
         { label: __('Priority updates & new features', 'jnews-blocks'), include: ['all'] },
