@@ -574,20 +574,21 @@ const ThemeListPage = (props) => {
     };
 
     useEffect(() => {
-        const { themeCategories } = library;
-        if (themeCategories) {
-            const result = themeCategories.find(el => el.slug === 'category');
-            const themeServerCategories = (result?.childs || []).map(el => {
-                return {
-                    slug: el.slug,
-                    name: el.name
-                };
-            });
-            setCategories([
-                { name: 'All Categories', slug: '' },
-                ...themeServerCategories
-            ]);
-        }
+        const { themeCategories } = library || {};
+        const result = Array.isArray(themeCategories)
+            ? themeCategories.find(el => el?.slug === 'category')
+            : null;
+        const themeServerCategories = Array.isArray(result?.childs)
+            ? result.childs.filter(el => el?.slug && el?.name).map(el => ({
+                slug: el.slug,
+                name: el.name
+            }))
+            : [];
+
+        setCategories([
+            { name: 'All Categories', slug: '' },
+            ...themeServerCategories
+        ]);
     }, [library]);
 
     useEffect(() => {
