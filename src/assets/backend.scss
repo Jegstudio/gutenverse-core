@@ -311,6 +311,10 @@ $border: #eaeaea;
 			padding-right: 20px;
 			overflow-x: auto;
 
+			&:has(.submenu) {
+				overflow-x: visible;
+			}
+
 			.navigation-item {
 				border-bottom: 2px solid transparent;
 				color: #011627;
@@ -322,6 +326,44 @@ $border: #eaeaea;
 				font-weight: 500;
 				padding: 28px 4px;
 				text-decoration: none;
+
+				&.submenu {
+					display: flex;
+					gap: 6px;
+					justify-content: center;
+					align-items: center;
+					position: relative;
+
+					&:hover {
+						.navigation-submenu-items {
+							display: block;
+						}
+					}
+
+					.navigation-submenu-items {
+						display: none;
+						position: absolute;
+						left: 0;
+						top: calc(100% + 2px);
+						background: #FFFFFF;
+						box-shadow: 0px 5px 30px 0px #0101011A;
+						width: fit-content;
+						min-width: 140px;
+						border-bottom-right-radius: 5px;
+						border-bottom-left-radius: 5px;
+						z-index: 3;
+						transition: .3s all ease;
+
+						.navigation-item {
+							padding: 14px;
+							font-size: 13px;
+
+							&.active {
+								border-bottom: unset !important;
+							}
+						}
+					}
+				}
 
 				&:focus {
 					box-shadow: none;
@@ -850,6 +892,12 @@ $border: #eaeaea;
 
 				.navigation-item {
 					padding: 7px 4px 7px 4px !important;
+				}
+
+				.navigation-submenu-items {
+					.navigation-item {
+						padding: 14px !important;
+					}
 				}
 			}
 			.header-right {

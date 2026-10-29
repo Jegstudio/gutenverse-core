@@ -328,6 +328,13 @@ const Navigation = ({ location }) => {
     const path = query.get('path') ? query.get('path') : '';
 
     const iconRef = useRef();
+    const more = {
+        name: __('More', '--gctd--'),
+        slug: homeSlug,
+        submenu: true,
+        childs: [],
+        priority: 55,
+    };
 
     const baseMenus = [
         {
@@ -360,12 +367,6 @@ const Navigation = ({ location }) => {
             path: 'optimizer',
             priority: 4.5
         },
-        {
-            name: __('System Status', '--gctd--'),
-            slug: homeSlug,
-            path: 'system',
-            priority: 5
-        },
     ];
     if (showThemeList) {
         baseMenus.push({
@@ -377,10 +378,23 @@ const Navigation = ({ location }) => {
     }
 
     if (!isEmpty(pluginVersions)) {
-        baseMenus.push({
+        more.childs.push({
+            name: __('System Status', '--gctd--'),
+            slug: homeSlug,
+            path: 'system',
+            priority: 5
+        });
+        more.childs.push({
             name: __('Update Notice', '--gctd--'),
             slug: homeSlug,
             path: 'update-notice',
+            priority: 5
+        });
+    } else {
+        baseMenus.push({
+            name: __('System Status', '--gctd--'),
+            slug: homeSlug,
+            path: 'system',
             priority: 5
         });
     }
@@ -394,6 +408,8 @@ const Navigation = ({ location }) => {
             upgrade: true,
         });
     }
+
+    baseMenus.push(more);
 
     const menus = applyFilters(
         'gutenverse.dashboard.route.navigation',
@@ -435,36 +451,91 @@ const Navigation = ({ location }) => {
         };
     }, []);
 
-    const navigationButton = <>
-        <li className="wp-submenu-head" aria-hidden="true" data-gutenverse-nav="true">Gutenverse</li>
-        {menus.map((menu) => {
-            if (menu) {
-                let param = `?page=${menu.slug}`;
+    const renderSubMenu = (menu) => {
+        const { childs = [] } = menu;
+        const id = Date.now().toString(36);
 
-                if ('' !== menu.path) {
-                    param += `&path=${menu.path}`;
-                }
+        return <div key={id} className="navigation-item submenu">
+            {menu.name}
+            <div className="gutenverse-icon-svg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                    <path d="M5.49945 4.94645L10.3148 0L11 0.701608L5.83985 6H5.15684L0 0.701608L0.684115 0L5.49945 4.94645Z" fillRule="evenodd" clipRule="evenodd" fill="#99A2A9"/>
+                    <mask id="stroke0_4134_2183" fill="white">
+                        <path d="M5.49945 4.94645L10.3148 0L11 0.701608L5.83985 6H5.15684L0 0.701608L0.684115 0L5.49945 4.94645Z" fillRule="evenodd" clipRule="evenodd"/>
+                    </mask>
+                    <path d="M5.49945 4.94645L10.3148 0L11 0.701608L5.83985 6H5.15684L0 0.701608L0.684115 0L5.49945 4.94645Z" strokeWidth="2" stroke="currentColor" mask="url(#stroke0_4134_2183)"/>
+                </svg>
+            </div>
+            <div className="navigation-submenu-items">
+                {childs.map((menu) => {
+                    if (menu && !menu?.upgrade) {
+                        let param = `?page=${menu.slug}`;
 
-                if (menu.pathDetail) {
-                    param += menu.pathDetail;
-                }
+                        if ('' !== menu.path) {
+                            param += `&path=${menu.path}`;
+                        }
 
-                return <li key={menu.path} className={`${menu.path === path ? 'current' : ''}`} data-gutenverse-nav="true">
-                    {
-                        menu.external ? <a className="button-upgrade-pro-sidebar" href={menu.link} target="_blank" rel="noreferrer">{menu.name}</a> : <Link
-                            index={`${menu.path}`}
+                        if (menu.pathDetail) {
+                            param += menu.pathDetail;
+                        }
+
+                        return <Link
+                            index={menu.path}
+                            key={menu.path}
                             to={{
                                 pathname: pathname,
                                 search: param,
                             }}
+                            className={`navigation-item ${menu.path === path ? 'active' : ''}`}
                         >
                             {menu.name}
-                        </Link>
+                        </Link>;
                     }
-                </li>;
+
+                    return null;
+                })}
+            </div>
+        </div>;
+    };
+
+    const renderSidebarNavButton = (menu) => {
+        if (menu) {
+            let param = `?page=${menu.slug}`;
+
+            if ('' !== menu.path) {
+                param += `&path=${menu.path}`;
             }
 
-            return null;
+            if (menu.pathDetail) {
+                param += menu.pathDetail;
+            }
+
+            return <li key={menu.path} className={`${menu.path === path ? 'current' : ''}`} data-gutenverse-nav="true">
+                {
+                    menu.external ? <a className="button-upgrade-pro-sidebar" href={menu.link} target="_blank" rel="noreferrer">{menu.name}</a> : <Link
+                        index={`${menu.path}`}
+                        to={{
+                            pathname: pathname,
+                            search: param,
+                        }}
+                    >
+                        {menu.name}
+                    </Link>
+                }
+            </li>;
+        }
+
+        return null;
+    };
+
+    const navigationButton = <>
+        <li className="wp-submenu-head" aria-hidden="true" data-gutenverse-nav="true">Gutenverse</li>
+        {menus.map((menu) => {
+            const { submenu = false, childs = [] } = menu;
+            if (submenu) {
+                return childs.map((child) => renderSidebarNavButton(child));
+            }
+            return renderSidebarNavButton(menu);
         })}
     </>;
 
@@ -475,6 +546,9 @@ const Navigation = ({ location }) => {
             </div>
             <div className="navigation-items">
                 {menus.map((menu) => {
+                    if (menu?.submenu) {
+                        return renderSubMenu(menu);
+                    }
                     if (menu && !menu?.upgrade) {
                         let param = `?page=${menu.slug}`;
 
