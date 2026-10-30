@@ -124,6 +124,16 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"useFeaturedFakkback": {
+			"type": "boolean",
+			"default": false,
+			"copyStyle": true
+		},
+		"featuredImageFallback": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
 		"backgroundHover": {
 			"type": "object",
 			"default": {},
@@ -452,6 +462,7 @@
 	},
 	"keywords": ["container", "flexbox", "layout", "structure"],
 	"style": ["gutenverse-core-frontend-container-style"],
+	"usesContext": ["postId", "postType"],
 	"providesContext": {
 		"gutenverse/flexDirection": "flexDirection",
 		"gutenverse/wrapperWidth": "containerWidth"

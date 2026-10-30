@@ -18,6 +18,7 @@ import { SectionDividerBottom, SectionDividerTop } from '../section/components/s
 import { SectionDividerAnimatedBottom, SectionDividerAnimatedTop } from '../section/components/section-divider-animated';
 import SectionVideoContainer from '../section/components/section-video-container';
 import ContainerVariation from './components/container-variation';
+import FeaturedImageBackground from './components/featured-image-background';
 import { panelList } from './panels/panel-list';
 import getBlockStyle from './styles/block-style';
 
@@ -535,6 +536,7 @@ const ContainerBlock = compose(
     const [transientState, setTransientState] = useState({});
 
     return <>
+        <FeaturedImageBackground attributes={attributes} context={props.context} />
         {!isMultiSelected && <CopyElementToolbar {...props} />}
         {!isMultiSelected && <BlockPanelController props={{ ...props, transientState, setTransientState }} panelList={panelList} elementRef={elementRef} />}
         <Container

@@ -198,6 +198,7 @@ const BackgroundControl = (props) => {
         type = '',
         blockType = '',
         onLocalChange,
+        setAttributes,
     } = props;
 
     const availableOptions = [
@@ -257,6 +258,7 @@ const BackgroundControl = (props) => {
     };
 
     const deviceType = getDeviceType();
+    const featuredImageFallback = isWrapperBlock() ? values?.featuredImageFallback : undefined;
     const featuredImage = getFeaturedImage(useFeaturedImage);
 
     const id = useInstanceId(BackgroundControl, 'inspector-background-control');
@@ -318,6 +320,19 @@ const BackgroundControl = (props) => {
                     onValueChange={image => onValueChange({ ...value, image })}
                     allowDeviceControl={true}
                 />}
+            {isWrapperBlock() && useFeaturedImage?.[deviceType] && <CheckboxControl
+                label={__('Use Featured Image Fallback', '--gctd--')}
+                value={values?.useFeaturedFakkback}
+                onValueChange={useFeaturedFakkback => setAttributes({ useFeaturedFakkback })}
+                allowDeviceControl={false}
+            />}
+            {isWrapperBlock() && useFeaturedImage?.[deviceType] && values?.useFeaturedFakkback && <ImageControl
+                label={__('Featured Image Fallback', '--gctd--')}
+                description={__('Used when the post has no featured image.', '--gctd--')}
+                value={featuredImageFallback}
+                onValueChange={featuredImageFallback => setAttributes({ featuredImageFallback })}
+                allowDeviceControl={true}
+            />}
             {( value.image || !isEmpty(value.useFeaturedImage) ) &&
                 <CheckboxControl
                     label={__('Fetch Priority High', '--gctd--')}

@@ -574,7 +574,9 @@ class Container extends Block_Abstract {
 	 */
 	public function render_frontend() {
 		if ( ! empty( trim( $this->block_data->inner_html ) ) && apply_filters( 'gutenverse_force_dynamic', false ) ) {
-			$background    = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
+			$background                         = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
+			$background['featuredImageFallback'] = ! empty( $this->attributes['useFeaturedFakkback'] ) && isset( $this->attributes['featuredImageFallback'] ) ? $this->attributes['featuredImageFallback'] : array();
+
 			$block_content = $this->content;
 			$block_content = $this->featured_image_background_fallback(
 				$background,
@@ -613,6 +615,8 @@ class Container extends Block_Abstract {
 		$bottom_divider_animated  = isset( $attributes['bottomDividerAnimated'] ) ? $attributes['bottomDividerAnimated'] : array();
 		$html_tag                 = isset( $attributes['htmlTag'] ) ? $attributes['htmlTag'] : 'div';
 		$anchor                   = isset( $attributes['anchor'] ) ? $attributes['anchor'] : '';
+
+		$background['featuredImageFallback'] = ! empty( $attributes['useFeaturedFakkback'] ) && isset( $attributes['featuredImageFallback'] ) ? $attributes['featuredImageFallback'] : array();
 
 		$is_slideshow       = ! empty( $background['slideImage'] ) && is_array( $background['slideImage'] ) && count( $background['slideImage'] ) > 0 && ( isset( $background['type'] ) && $background['type'] === 'slide' );
 		$is_bg_animated     = $this->is_animation_active( $background_animated );

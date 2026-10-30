@@ -206,13 +206,10 @@ abstract class Block_Abstract {
 			return '';
 		}
 
-		$post_id = $this->get_context_post_id();
-		if ( ! $post_id || ! has_post_thumbnail( $post_id ) ) {
-			return '';
-		}
-
-		$featured_image = get_the_post_thumbnail_url( $post_id, 'full' );
-		if ( empty( $featured_image ) ) {
+		$post_id        = $this->get_context_post_id();
+		$featured_image = $post_id && has_post_thumbnail( $post_id ) ? get_the_post_thumbnail_url( $post_id, 'full' ) : '';
+		$fallback       = isset( $background['featuredImageFallback'] ) && is_array( $background['featuredImageFallback'] ) ? $background['featuredImageFallback'] : array();
+		if ( empty( $featured_image ) && empty( $fallback ) ) {
 			return '';
 		}
 
@@ -225,15 +222,20 @@ abstract class Block_Abstract {
 			)
 		);
 
-		$desktop_rule = ! empty( $use_featured['Desktop'] )
-			? "background-image: url('" . esc_url( $featured_image ) . "') !important;"
-			: 'background-image: none !important;';
-		$tablet_rule  = ! empty( $use_featured['Tablet'] )
-			? "background-image: url('" . esc_url( $featured_image ) . "') !important;"
-			: 'background-image: none !important;';
-		$mobile_rule  = ! empty( $use_featured['Mobile'] )
-			? "background-image: url('" . esc_url( $featured_image ) . "') !important;"
-			: 'background-image: none !important;';
+		$rules          = array();
+		$fallback_image = '';
+		foreach ( array( 'Desktop', 'Tablet', 'Mobile' ) as $device ) {
+			if ( ! empty( $fallback[ $device ]['image'] ) ) {
+				$fallback_image = $fallback[ $device ]['image'];
+			}
+			$image           = $featured_image ? $featured_image : $fallback_image;
+			$rules[ $device ] = ! empty( $use_featured[ $device ] ) && ! empty( $image )
+				? "background-image: url('" . esc_url( $image ) . "') !important;"
+				: 'background-image: none !important;';
+		}
+		$desktop_rule = $rules['Desktop'];
+		$tablet_rule  = $rules['Tablet'];
+		$mobile_rule  = $rules['Mobile'];
 
 		$tablet_breakpoint = absint( gutenverse_breakpoint( 'Tablet' ) );
 		$mobile_breakpoint = absint( gutenverse_breakpoint( 'Mobile' ) );
