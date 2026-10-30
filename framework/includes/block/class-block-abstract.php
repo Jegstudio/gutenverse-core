@@ -205,6 +205,9 @@ abstract class Block_Abstract {
 		if ( empty( $background['useFeaturedImage'] ) || ! is_array( $background['useFeaturedImage'] ) ) {
 			return '';
 		}
+		if ( empty( $background['useFeaturedImage']['Desktop'] ) && empty( $background['useFeaturedImage']['Tablet'] ) && empty( $background['useFeaturedImage']['Mobile'] ) ) {
+			return '';
+		}
 
 		$post_id        = $this->get_context_post_id();
 		$featured_image = $post_id && has_post_thumbnail( $post_id ) ? get_the_post_thumbnail_url( $post_id, 'full' ) : '';
@@ -224,12 +227,16 @@ abstract class Block_Abstract {
 
 		$rules          = array();
 		$fallback_image = '';
+		$normal_image   = '';
 		foreach ( array( 'Desktop', 'Tablet', 'Mobile' ) as $device ) {
 			if ( ! empty( $fallback[ $device ]['image'] ) ) {
 				$fallback_image = $fallback[ $device ]['image'];
 			}
-			$image           = $featured_image ? $featured_image : $fallback_image;
-			$rules[ $device ] = ! empty( $use_featured[ $device ] ) && ! empty( $image )
+			if ( ! empty( $background['image'][ $device ]['image'] ) ) {
+				$normal_image = $background['image'][ $device ]['image'];
+			}
+			$image           = ! empty( $use_featured[ $device ] ) ? ( $featured_image ? $featured_image : $fallback_image ) : $normal_image;
+			$rules[ $device ] = ! empty( $image )
 				? "background-image: url('" . esc_url( $image ) . "') !important;"
 				: 'background-image: none !important;';
 		}
