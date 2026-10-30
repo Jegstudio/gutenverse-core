@@ -31,8 +31,6 @@ const FeaturedImageBackgroundStyle = ({ attributes, context = {}, deviceType }) 
 
     const selector = `.${elementId}:not(.background-animated), .${elementId}.background-animated > .guten-background-animated .animated-layer, .${elementId}.empty-container`;
 
-    console.log('RENDER ULANG');
-
     return <style>{`${selector} { background-image: url(${JSON.stringify(image)}) !important; }`}</style>;
 };
 
@@ -51,8 +49,6 @@ const FeaturedImageBackground = (props) => {
 const areFeaturedImageBackgroundPropsEqual = (previous, next) => {
     const previousAttributes = previous.attributes;
     const nextAttributes = next.attributes;
-
-    console.log('areFeaturedImageBackgroundPropsEqual-=');
 
     return previous.deviceType === next.deviceType &&
         previous.renderingMode === next.renderingMode &&
