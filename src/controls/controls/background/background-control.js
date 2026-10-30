@@ -322,11 +322,11 @@ const BackgroundControl = (props) => {
                 />}
             {isWrapperBlock() && useFeaturedImage?.[deviceType] && <CheckboxControl
                 label={__('Use Featured Image Fallback', '--gctd--')}
-                value={values?.useFeaturedFakkback}
-                onValueChange={useFeaturedFakkback => setAttributes({ useFeaturedFakkback })}
+                value={values?.useFeaturedFallback}
+                onValueChange={useFeaturedFallback => setAttributes({ useFeaturedFallback })}
                 allowDeviceControl={false}
             />}
-            {isWrapperBlock() && useFeaturedImage?.[deviceType] && values?.useFeaturedFakkback && <ImageControl
+            {isWrapperBlock() && useFeaturedImage?.[deviceType] && values?.useFeaturedFallback && <ImageControl
                 label={__('Featured Image Fallback', '--gctd--')}
                 description={__('Used when the post has no featured image.', '--gctd--')}
                 value={featuredImageFallback}

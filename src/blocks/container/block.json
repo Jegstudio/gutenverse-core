@@ -124,7 +124,7 @@
 			"default": {},
 			"copyStyle": true
 		},
-		"useFeaturedFakkback": {
+		"useFeaturedFallback": {
 			"type": "boolean",
 			"default": false,
 			"copyStyle": true
