@@ -5,7 +5,7 @@ import { compose, debounce } from '@wordpress/compose';
 import { withCursorEffect, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPassRef, withAnimationStickyV2, withAnimationAdvanceV2, withAnimationBackgroundV2 } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
-import { removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { FeaturedImageBackground, removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -777,7 +777,10 @@ const ColumnBlock = compose(
         backgroundEffect
     } = attributes;
 
-    const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
+    const { deviceType, renderingMode } = useSelect((select) => ({
+        deviceType: theDeviceType(determineLocation()),
+        renderingMode: select('core/editor').getRenderingMode?.(),
+    }), []);
     const [delayedDeviceType, setDelayedDeviceType] = useState(deviceType);
     const updateDelayedDeviceType = debounce((newDeviceType) => {
         setDelayedDeviceType(newDeviceType);
@@ -996,6 +999,13 @@ const ColumnBlock = compose(
     return <>
         <CopyElementToolbar {...props}/>
         {isSelected && <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />}
+        <FeaturedImageBackground
+            attributes={attributes}
+            context={props.context}
+            deviceType={deviceType}
+            renderingMode={renderingMode}
+            blockType="column"
+        />
         <ColumnInspection {...props} setAttributes={setAttributes} elementRef={elementRef} />
         <Component {...theProps} />
     </>;

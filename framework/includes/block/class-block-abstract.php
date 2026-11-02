@@ -235,7 +235,7 @@ abstract class Block_Abstract {
 			if ( ! empty( $background['image'][ $device ]['image'] ) ) {
 				$normal_image = $background['image'][ $device ]['image'];
 			}
-			$image           = ! empty( $use_featured[ $device ] ) ? ( $featured_image ? $featured_image : $fallback_image ) : $normal_image;
+			$image            = ! empty( $use_featured[ $device ] ) ? ( $featured_image ? $featured_image : $fallback_image ) : $normal_image;
 			$rules[ $device ] = ! empty( $image )
 				? "background-image: url('" . esc_url( $image ) . "') !important;"
 				: 'background-image: none !important;';
@@ -516,5 +516,17 @@ abstract class Block_Abstract {
 		return '<linearGradient id="' . esc_attr( $id ) . '" x1="' . $x1 . '" y1="' . $y1 . '" x2="' . $x2 . '" y2="' . $y2 . '">
 					' . $stops . '
 				</linearGradient>';
+	}
+
+	/**
+	 * Resolve shared background and featured-image fallback attributes.
+	 *
+	 * @param array $attributes Block attributes captured before rendering children.
+	 * @return array
+	 */
+	protected function get_featured_image_background( $attributes ) {
+		$background                          = isset( $attributes['background'] ) ? $attributes['background'] : array();
+		$background['featuredImageFallback'] = ! empty( $attributes['useFeaturedFallback'] ) && isset( $attributes['featuredImageFallback'] ) ? $attributes['featuredImageFallback'] : array();
+		return $background;
 	}
 }

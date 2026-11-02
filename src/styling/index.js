@@ -52,3 +52,4 @@ export { borderGenerator } from './styling/generator/generator-border';
 export { borderResponsiveGenerator } from './styling/generator/generator-border-responsive';
 
 export { shapeDividerLoader } from './data/shape-divider';
+export { default as FeaturedImageBackground } from './styling/generator/generator-featured-image-background';

@@ -130,6 +130,16 @@
 		"childTotal": {
 			"type": "integer"
 		},
+		"useFeaturedFallback": {
+			"type": "boolean",
+			"default": false,
+			"copyStyle": true
+		},
+		"featuredImageFallback": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},
@@ -355,6 +365,7 @@
 		}
 	},
 	"keywords": ["container", "section", "wrapper", "structure"],
+	"usesContext": ["postId", "postType"],
 	"supports": {
 		"anchor": true
 	},

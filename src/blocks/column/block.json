@@ -96,6 +96,16 @@
 			},
 			"type": "object"
 		},
+		"useFeaturedFallback": {
+			"type": "boolean",
+			"default": false,
+			"copyStyle": true
+		},
+		"featuredImageFallback": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},
@@ -262,6 +272,7 @@
 			"default": {}
 		}
 	},
+	"usesContext": ["postId", "postType"],
 	"supports": {
 		"anchor": true,
 		"reusable": false,

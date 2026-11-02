@@ -9,11 +9,11 @@ import classnames from 'classnames';
 import { CopyElementToolbar, FluidCanvas } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
-import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
+import { determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
 import { withAnimationAdvanceV2, withAnimationBackgroundV2, withAnimationStickyV2, withBackgroundEffect, withBackgroundSlideshow, withCursorEffect, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { IconToolbarColumnAddSVG } from 'gutenverse-core/icons';
-import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { FeaturedImageBackground, useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import isEmpty from 'lodash/isEmpty';
 import { roundToDown } from 'round-to';
 import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
@@ -198,6 +198,10 @@ const SectionBlock = compose(
     const displayClass = useDisplayEditor(attributes);
     const innerBlocks = getBlocks(clientId);
     const innerBlocksLength = innerBlocks.length;
+    const { deviceType, renderingMode } = useSelect((select) => ({
+        deviceType: theDeviceType(determineLocation()),
+        renderingMode: select('core/editor').getRenderingMode?.(),
+    }), []);
     const sectionWrapper = useRef();
     const containerRef = useRef();
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
@@ -241,6 +245,13 @@ const SectionBlock = compose(
     return <>
         <CopyElementToolbar {...props} />
         <SectionBlockControl {...props} clientId={clientId} />
+        <FeaturedImageBackground
+            attributes={attributes}
+            context={props.context}
+            deviceType={deviceType}
+            renderingMode={renderingMode}
+            blockType="section"
+        />
         <SectionInspection {...props} elementRef={elementRef} />
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
             {isFollowScroll ? <div className="sticky-wrapper" data-id={dataId}>

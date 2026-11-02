@@ -1,9 +1,9 @@
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { memo } from '@wordpress/element';
-import { deviceStyleValue } from 'gutenverse-core/styling';
+import { deviceStyleValue } from '../styling-utility';
 
-const FeaturedImageBackgroundStyle = ({ attributes, context = {}, deviceType }) => {
+const FeaturedImageBackgroundStyle = ({ attributes, context = {}, deviceType, blockType = 'container' }) => {
     const { elementId, featuredImageFallback = {} } = attributes;
     const { postId, postType } = context;
     const { featuredImage, isResolving } = useSelect((select) => {
@@ -29,7 +29,15 @@ const FeaturedImageBackgroundStyle = ({ attributes, context = {}, deviceType }) 
         return null;
     }
 
-    const selector = `.${elementId}:not(.background-animated), .${elementId}.background-animated > .guten-background-animated .animated-layer, .${elementId}.empty-container`;
+    let selector = `.${elementId}:not(.background-animated), .${elementId}.background-animated > .guten-background-animated .animated-layer`;
+
+    if (blockType === 'container') {
+        selector += `, .${elementId}.empty-container`;
+    } else if (blockType === 'column') {
+        selector = `.${elementId}:not(.background-animated) > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper, .${elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .guten-background-animated .animated-layer`;
+    } else if (blockType === 'wrapper') {
+        selector = `.${elementId}:not(.background-animated), .${elementId}.background-animated > .guten-inner-wrap > .guten-background-animated .animated-layer`;
+    }
 
     return <style>{`${selector} { background-image: url(${JSON.stringify(image)}) !important; }`}</style>;
 };
@@ -51,6 +59,7 @@ const areFeaturedImageBackgroundPropsEqual = (previous, next) => {
     const nextAttributes = next.attributes;
 
     return previous.deviceType === next.deviceType &&
+        previous.blockType === next.blockType &&
         previous.renderingMode === next.renderingMode &&
         previous.context?.postId === next.context?.postId &&
         previous.context?.postType === next.context?.postType &&

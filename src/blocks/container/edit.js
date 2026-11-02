@@ -11,14 +11,13 @@ import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { checkIsParent, determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
 import { withAnimationAdvanceV2, withAnimationBackgroundV2, withAnimationStickyV2, withBackgroundEffect, withBackgroundSlideshow, withCursorEffect, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-import { removeLiveStyle, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { FeaturedImageBackground, removeLiveStyle, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import isEmpty from 'lodash/isEmpty';
 import { useEffect } from 'react';
 import { SectionDividerBottom, SectionDividerTop } from '../section/components/section-divider';
 import { SectionDividerAnimatedBottom, SectionDividerAnimatedTop } from '../section/components/section-divider-animated';
 import SectionVideoContainer from '../section/components/section-video-container';
 import ContainerVariation from './components/container-variation';
-import FeaturedImageBackground from './components/featured-image-background';
 import { panelList } from './panels/panel-list';
 import getBlockStyle from './styles/block-style';
 
