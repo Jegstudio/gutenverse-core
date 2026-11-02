@@ -243,5 +243,5 @@ class GutenverseSlideshow extends Default {
 const selected = u('.guten-background-slideshow');
 
 if (selected) {
-    new GutenverseSlideshow(selected);
+    new GutenverseSlideshow(selected, '.guten-background-slideshow');
 }

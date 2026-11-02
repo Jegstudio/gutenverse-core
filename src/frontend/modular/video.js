@@ -149,5 +149,5 @@ class GutenverseVideo extends Default {
 const selected = u('.guten-video-background');
 
 if (selected) {
-    new GutenverseVideo(selected);
+    new GutenverseVideo(selected, '.guten-video-background');
 }
