@@ -1,7 +1,7 @@
 import { animations } from '../data/animation';
 import { devices } from '../data/devices';
 import isEmpty from 'lodash/isEmpty';
-import { responsiveBreakpoint, reinitMap, addReinitHandler } from '../helper';
+import { responsiveBreakpoint, addReinitHandler } from '../helper';
 
 export class Default {
     constructor(elements, selector = '') {
@@ -11,7 +11,6 @@ export class Default {
         this.context = '';
         this._elements = elements;
         this.init();
-        selector = !selector ? (reinitMap?.[this.constructor.name] || '') : selector;
         if (selector) {
             setTimeout(() => {
                 addReinitHandler([
