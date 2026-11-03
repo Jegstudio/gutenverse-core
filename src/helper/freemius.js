@@ -166,6 +166,7 @@ const openFreemiusPopup = (event = null, url = null, options = {}) => {
         <PopupPricingPlan
             onClose={closeFreemiusPopup}
             pricingUrl={targetUrl}
+            hideStandardPlan={options?.medium === 'upgrade-tier'}
         />,
         content
     );

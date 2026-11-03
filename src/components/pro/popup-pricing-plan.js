@@ -358,13 +358,15 @@ const ensureLemonSqueezyLoaded = () => {
 };
 
 
-const PopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
+const PopupPricingPlan = ({ onClose, pricingUrl = '', hideStandardPlan = false }) => {
     const runtime = window['GutenverseConfig'] ? window['GutenverseConfig'] : window['GutenverseDashboard'];
     const [pricingPlan, setPricingPlan] = useState(() => getPricingPlanFallback());
     const [checkoutRequest, setCheckoutRequest] = useState({ planKey: null, loading: false, error: '' });
-    const plans = (pricingPlan.active_promotion || []).map((plan) => normalizePlan(plan, {
-        eventExpired: isEventExpired(pricingPlan?.event_expired),
-    }));
+    const plans = (pricingPlan.active_promotion || [])
+        .filter((plan) => !hideStandardPlan || plan?.slug !== 'standard')
+        .map((plan) => normalizePlan(plan, {
+            eventExpired: isEventExpired(pricingPlan?.event_expired),
+        }));
     const fsCheckoutRef = useRef(null);
     const closePromiseRef = useRef(null);
     const hasClosedRef = useRef(false);

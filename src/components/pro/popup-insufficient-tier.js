@@ -3,6 +3,7 @@ import { IconCloseSVG } from 'gutenverse-core/icons';
 import { useRef, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
+import { openFreemiusPopup } from '../../helper/freemius';
 
 const PopupInsufficientTier = ({
     active = false,
@@ -85,6 +86,17 @@ const PopupInsufficientTier = ({
     const handleUpgradeLicenseClick = (event) => {
         event?.preventDefault?.();
 
+        // JNews provides bundled access only when no native Gutenverse license is saved.
+        if (getUpgradeRuntime().licenseType === 'jnews_block') {
+            setActive(false);
+
+            // Let this popup unmount before showing the new-purchase pricing modal.
+            window.setTimeout(() => {
+                openFreemiusPopup(null, null, { medium: 'upgrade-tier' });
+            }, 0);
+            return;
+        }
+
         const popupWidth = 960;
         const popupHeight = 720;
         const popupLeft = 0;
@@ -99,7 +111,8 @@ const PopupInsufficientTier = ({
         ].join(',');
         const upgradeWindow = window.open('', 'gutenverse-upgrade-license', popupFeatures);
 
-        fetchUpgradeLicenseId()
+        Promise.resolve()
+            .then(() => fetchUpgradeLicenseId())
             .then((licenseId) => {
                 const targetUrl = buildUpgradeLoginUrl(licenseId);
 

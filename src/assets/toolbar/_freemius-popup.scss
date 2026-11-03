@@ -121,7 +121,7 @@ body.gutenverse-freemius-modal-open {
 
 .gutenverse-pricing-popup__cards {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 229px), 1fr));
     gap: 16px;
 }
 
@@ -329,12 +329,6 @@ body.gutenverse-freemius-modal-open {
     text-transform: uppercase;
 }
 
-@media (max-width: 1200px) {
-    .gutenverse-pricing-popup__cards {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
 @media (max-width: 782px) {
     .gutenverse-freemius-modal {
         .gutenverse-freemius-modal__dialog {
@@ -354,10 +348,6 @@ body.gutenverse-freemius-modal-open {
 
     .gutenverse-pricing-popup__subtitle {
         font-size: 16px;
-    }
-
-    .gutenverse-pricing-popup__cards {
-        grid-template-columns: 1fr;
     }
 
     .gutenverse-pricing-card.is-featured {
