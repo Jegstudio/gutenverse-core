@@ -7,10 +7,10 @@ import { panelList } from './panels/panel-list';
 import { useEffect, useRef } from '@wordpress/element';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
-import { isAnimationActive } from 'gutenverse-core/helper';
+import { determineLocation, isAnimationActive, theDeviceType } from 'gutenverse-core/helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { FeaturedImageBackground, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
@@ -100,6 +100,10 @@ const FlexibleWrapper = compose(
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
+    const { deviceType, renderingMode } = useSelect((select) => ({
+        deviceType: theDeviceType(determineLocation()),
+        renderingMode: select('core/editor').getRenderingMode?.(),
+    }), []);
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
     const isSlideShow = background?.slideImage?.length > 0 && background?.type === 'slide';
 
@@ -130,6 +134,13 @@ const FlexibleWrapper = compose(
     }, [elementRef]);
     return <>
         <CopyElementToolbar {...props}/>
+        <FeaturedImageBackground
+            attributes={attributes}
+            context={props.context}
+            deviceType={deviceType}
+            renderingMode={renderingMode}
+            blockType="wrapper"
+        />
         <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} setPanelIsClicked={setPanelIsClicked}/>
         <Component blockProps={blockProps} attributes={attributes} slideElement={slideElement} clientId={clientId} />
     </>;

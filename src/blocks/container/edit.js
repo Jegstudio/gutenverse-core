@@ -11,7 +11,7 @@ import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { checkIsParent, determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
 import { withAnimationAdvanceV2, withAnimationBackgroundV2, withAnimationStickyV2, withBackgroundEffect, withBackgroundSlideshow, withCursorEffect, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-import { removeLiveStyle, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { FeaturedImageBackground, removeLiveStyle, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import isEmpty from 'lodash/isEmpty';
 import { useEffect } from 'react';
 import { SectionDividerBottom, SectionDividerTop } from '../section/components/section-divider';
@@ -494,7 +494,10 @@ const ContainerBlock = compose(
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
-    const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
+    const { deviceType, renderingMode } = useSelect((select) => ({
+        deviceType: theDeviceType(determineLocation()),
+        renderingMode: select('core/editor').getRenderingMode?.(),
+    }), []);
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
     const isFollowScroll = isSticky(sticky) && stickyPosition === 'follow-scroll';
 
@@ -535,6 +538,12 @@ const ContainerBlock = compose(
     const [transientState, setTransientState] = useState({});
 
     return <>
+        <FeaturedImageBackground
+            attributes={attributes}
+            context={props.context}
+            deviceType={deviceType}
+            renderingMode={renderingMode}
+        />
         {!isMultiSelected && <CopyElementToolbar {...props} />}
         {!isMultiSelected && <BlockPanelController props={{ ...props, transientState, setTransientState }} panelList={panelList} elementRef={elementRef} />}
         <Container

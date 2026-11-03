@@ -823,7 +823,7 @@ class Section extends Block_Abstract {
 	 */
 	public function render_frontend() {
 		if ( ! empty( trim( $this->block_data->inner_html ) ) && apply_filters( 'gutenverse_force_dynamic', false ) ) {
-			$background    = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
+			$background    = $this->get_featured_image_background( $this->attributes );
 			$block_content = $this->content;
 			$block_content = $this->featured_image_background_fallback(
 				$background,
@@ -855,7 +855,7 @@ class Section extends Block_Abstract {
 		$background_effect    = isset( $attributes['backgroundEffect'] ) ? $attributes['backgroundEffect'] : array();
 		$background_overlay   = isset( $attributes['backgroundOverlay'] ) ? $attributes['backgroundOverlay'] : array();
 		$background_overlay_h = isset( $attributes['backgroundOverlayHover'] ) ? $attributes['backgroundOverlayHover'] : array();
-		$background           = isset( $attributes['background'] ) ? $attributes['background'] : array();
+		$background           = $this->get_featured_image_background( $attributes );
 		$top_divider          = isset( $attributes['topDivider'] ) ? $attributes['topDivider'] : array();
 		$bottom_divider       = isset( $attributes['bottomDivider'] ) ? $attributes['bottomDivider'] : array();
 		$top_div_animated     = isset( $attributes['topDividerAnimated'] ) ? $attributes['topDividerAnimated'] : array();

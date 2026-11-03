@@ -86,6 +86,16 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"useFeaturedFallback": {
+			"type": "boolean",
+			"default": false,
+			"copyStyle": true
+		},
+		"featuredImageFallback": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},
@@ -228,6 +238,7 @@
 			}
 		}
 	},
+	"usesContext": ["postId", "postType"],
 	"supports": {
 		"className": false,
 		"anchor": true

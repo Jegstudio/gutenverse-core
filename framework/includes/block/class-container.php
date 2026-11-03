@@ -574,7 +574,8 @@ class Container extends Block_Abstract {
 	 */
 	public function render_frontend() {
 		if ( ! empty( trim( $this->block_data->inner_html ) ) && apply_filters( 'gutenverse_force_dynamic', false ) ) {
-			$background    = isset( $this->attributes['background'] ) ? $this->attributes['background'] : array();
+			$background = $this->get_featured_image_background( $this->attributes );
+
 			$block_content = $this->content;
 			$block_content = $this->featured_image_background_fallback(
 				$background,
@@ -594,7 +595,7 @@ class Container extends Block_Abstract {
 		$custom_classes  = $this->get_custom_classes();
 
 		$container_layout         = isset( $attributes['containerLayout'] ) ? $attributes['containerLayout'] : 'full-width';
-		$background               = isset( $attributes['background'] ) ? $attributes['background'] : array();
+		$background               = $this->get_featured_image_background( $attributes );
 		$background_overlay       = isset( $attributes['backgroundOverlay'] ) ? $attributes['backgroundOverlay'] : array();
 		$background_overlay_hover = isset( $attributes['backgroundOverlayHover'] ) ? $attributes['backgroundOverlayHover'] : array();
 		$background_animated      = isset( $attributes['backgroundAnimated'] ) ? $attributes['backgroundAnimated'] : array();

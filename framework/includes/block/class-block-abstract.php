@@ -205,14 +205,14 @@ abstract class Block_Abstract {
 		if ( empty( $background['useFeaturedImage'] ) || ! is_array( $background['useFeaturedImage'] ) ) {
 			return '';
 		}
-
-		$post_id = $this->get_context_post_id();
-		if ( ! $post_id || ! has_post_thumbnail( $post_id ) ) {
+		if ( empty( $background['useFeaturedImage']['Desktop'] ) && empty( $background['useFeaturedImage']['Tablet'] ) && empty( $background['useFeaturedImage']['Mobile'] ) ) {
 			return '';
 		}
 
-		$featured_image = get_the_post_thumbnail_url( $post_id, 'full' );
-		if ( empty( $featured_image ) ) {
+		$post_id        = $this->get_context_post_id();
+		$featured_image = $post_id && has_post_thumbnail( $post_id ) ? get_the_post_thumbnail_url( $post_id, 'full' ) : '';
+		$fallback       = isset( $background['featuredImageFallback'] ) && is_array( $background['featuredImageFallback'] ) ? $background['featuredImageFallback'] : array();
+		if ( empty( $featured_image ) && empty( $fallback ) ) {
 			return '';
 		}
 
@@ -225,15 +225,24 @@ abstract class Block_Abstract {
 			)
 		);
 
-		$desktop_rule = ! empty( $use_featured['Desktop'] )
-			? "background-image: url('" . esc_url( $featured_image ) . "') !important;"
-			: 'background-image: none !important;';
-		$tablet_rule  = ! empty( $use_featured['Tablet'] )
-			? "background-image: url('" . esc_url( $featured_image ) . "') !important;"
-			: 'background-image: none !important;';
-		$mobile_rule  = ! empty( $use_featured['Mobile'] )
-			? "background-image: url('" . esc_url( $featured_image ) . "') !important;"
-			: 'background-image: none !important;';
+		$rules          = array();
+		$fallback_image = '';
+		$normal_image   = '';
+		foreach ( array( 'Desktop', 'Tablet', 'Mobile' ) as $device ) {
+			if ( ! empty( $fallback[ $device ]['image'] ) ) {
+				$fallback_image = $fallback[ $device ]['image'];
+			}
+			if ( ! empty( $background['image'][ $device ]['image'] ) ) {
+				$normal_image = $background['image'][ $device ]['image'];
+			}
+			$image            = ! empty( $use_featured[ $device ] ) ? ( $featured_image ? $featured_image : $fallback_image ) : $normal_image;
+			$rules[ $device ] = ! empty( $image )
+				? "background-image: url('" . esc_url( $image ) . "') !important;"
+				: 'background-image: none !important;';
+		}
+		$desktop_rule = $rules['Desktop'];
+		$tablet_rule  = $rules['Tablet'];
+		$mobile_rule  = $rules['Mobile'];
 
 		$tablet_breakpoint = absint( gutenverse_breakpoint( 'Tablet' ) );
 		$mobile_breakpoint = absint( gutenverse_breakpoint( 'Mobile' ) );
@@ -507,5 +516,17 @@ abstract class Block_Abstract {
 		return '<linearGradient id="' . esc_attr( $id ) . '" x1="' . $x1 . '" y1="' . $y1 . '" x2="' . $x2 . '" y2="' . $y2 . '">
 					' . $stops . '
 				</linearGradient>';
+	}
+
+	/**
+	 * Resolve shared background and featured-image fallback attributes.
+	 *
+	 * @param array $attributes Block attributes captured before rendering children.
+	 * @return array
+	 */
+	protected function get_featured_image_background( $attributes ) {
+		$background                          = isset( $attributes['background'] ) ? $attributes['background'] : array();
+		$background['featuredImageFallback'] = ! empty( $attributes['useFeaturedFallback'] ) && isset( $attributes['featuredImageFallback'] ) ? $attributes['featuredImageFallback'] : array();
+		return $background;
 	}
 }
