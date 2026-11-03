@@ -1396,18 +1396,18 @@ export const flexJustifyContent = (direction) => {
 };
 
 export {
-    closeFreemiusPopup,
-    getFreemiusCampaign,
-    getFreemiusSettings,
-    getUpgradeUrlWithUtm,
-    getUpgradeProps,
-    initializeFreemiusPopup,
-    openFreemiusPopup,
+    closeJNewsFreemiusPopup,
+    getJNewsFreemiusCampaign,
+    getJNewsFreemiusSettings,
+    getJNewsUpgradeUrlWithUtm,
+    getJNewsUpgradeProps,
+    initializeJNewsFreemiusPopup,
+    openJNewsFreemiusPopup,
 } from './jnews-freemius';
 
 export {
     JNEWS_DEFAULT_PRICING_PLAN,
-    ensurePricingPlanData,
-    getPricingPlanFallback,
-    prefetchPricingPlanData,
+    ensureJNewsPricingPlanData,
+    getJNewsPricingPlanFallback,
+    prefetchJNewsPricingPlanData,
 } from './jnews-pricing-plan';

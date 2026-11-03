@@ -1,6 +1,6 @@
 import { render } from '@wordpress/element';
 import { JNewsPopupPricingPlan } from '../components';
-import { ensurePricingPlanData } from './jnews-pricing-plan';
+import { ensureJNewsPricingPlanData } from './jnews-pricing-plan';
 
 const JNEWS_MODAL_ID = 'jnews-blocks-freemius-modal';
 const JNEWS_CONTENT_ID = 'jnews-blocks-freemius-modal-content';
@@ -13,7 +13,7 @@ const JNEWS_FREEMIUS_MENU_SELECTOR = [
 
 const getGutenverseRuntime = () => window['GutenverseConfig'] || window['GutenverseDashboard'] || window['GutenverseData'] || {};
 
-const getFreemiusSettings = () => {
+const getJNewsFreemiusSettings = () => {
     const { freemius = {}, upgradeProUrl } = getGutenverseRuntime();
 
     return {
@@ -22,7 +22,7 @@ const getFreemiusSettings = () => {
     };
 };
 
-const getFreemiusCampaign = () => {
+const getJNewsFreemiusCampaign = () => {
     const runtime = getGutenverseRuntime();
     const { jnewsBlocksPricingPlan: pricingPlan = {}, jnewsBlocksEventBanner: eventBanner = {} } = runtime;
     const activePromotion = pricingPlan?.active_promotion?.[0] || {};
@@ -40,8 +40,8 @@ const getFreemiusCampaign = () => {
         || 'freemius-checkout';
 };
 
-const getUpgradeUrlWithUtm = (url = null, options = {}) => {
-    const { pricingUrl } = getFreemiusSettings();
+const getJNewsUpgradeUrlWithUtm = (url = null, options = {}) => {
+    const { pricingUrl } = getJNewsFreemiusSettings();
     const targetUrl = url || pricingUrl;
 
     if (!targetUrl) {
@@ -62,7 +62,7 @@ const getUpgradeUrlWithUtm = (url = null, options = {}) => {
         }
 
         if (!parsedUrl.searchParams.get('utm_campaign')) {
-            parsedUrl.searchParams.set('utm_campaign', options?.campaign || getFreemiusCampaign());
+            parsedUrl.searchParams.set('utm_campaign', options?.campaign || getJNewsFreemiusCampaign());
         }
 
         if (!parsedUrl.searchParams.get('utm_client_site')) {
@@ -85,7 +85,7 @@ const getUpgradeUrlWithUtm = (url = null, options = {}) => {
     }
 };
 
-const closeFreemiusPopup = () => {
+const closeJNewsFreemiusPopup = () => {
     const modal = document.getElementById(JNEWS_MODAL_ID);
     const content = document.getElementById(JNEWS_CONTENT_ID);
 
@@ -109,7 +109,7 @@ const requestFreemiusPopupClose = () => {
         return;
     }
 
-    closeFreemiusPopup();
+    closeJNewsFreemiusPopup();
 };
 
 const ensureFreemiusPopup = () => {
@@ -143,13 +143,13 @@ const ensureFreemiusPopup = () => {
     return modal;
 };
 
-const openFreemiusPopup = (event = null, url = null, options = {}) => {
+const openJNewsFreemiusPopup = (event = null, url = null, options = {}) => {
     if (event?.preventDefault) {
         event.preventDefault();
     }
 
-    const { pricingUrl } = getFreemiusSettings();
-    const targetUrl = getUpgradeUrlWithUtm(url || pricingUrl, options);
+    const { pricingUrl } = getJNewsFreemiusSettings();
+    const targetUrl = getJNewsUpgradeUrlWithUtm(url || pricingUrl, options);
 
     if (!targetUrl) {
         return false;
@@ -158,11 +158,11 @@ const openFreemiusPopup = (event = null, url = null, options = {}) => {
     const modal = ensureFreemiusPopup();
     const content = modal.querySelector(`#${JNEWS_CONTENT_ID}`);
 
-    ensurePricingPlanData();
+    ensureJNewsPricingPlanData();
 
     render(
         <JNewsPopupPricingPlan
-            onClose={closeFreemiusPopup}
+            onClose={closeJNewsFreemiusPopup}
             pricingUrl={targetUrl}
         />,
         content
@@ -174,14 +174,14 @@ const openFreemiusPopup = (event = null, url = null, options = {}) => {
     return true;
 };
 
-const getUpgradeProps = (url = null, options = {}) => {
-    const { pricingUrl } = getFreemiusSettings();
-    const targetUrl = getUpgradeUrlWithUtm(url || pricingUrl, options) || '#';
+const getJNewsUpgradeProps = (url = null, options = {}) => {
+    const { pricingUrl } = getJNewsFreemiusSettings();
+    const targetUrl = getJNewsUpgradeUrlWithUtm(url || pricingUrl, options) || '#';
 
     if (targetUrl !== '#') {
         return {
             href: targetUrl,
-            onClick: (event) => openFreemiusPopup(event, targetUrl, options),
+            onClick: (event) => openJNewsFreemiusPopup(event, targetUrl, options),
         };
     }
 
@@ -210,17 +210,17 @@ const bindFreemiusUpgradeLink = (element) => {
     }
 
     element.dataset.jnewsBlocksFreemiusBound = 'true';
-    element.addEventListener('mouseenter', () => ensurePricingPlanData());
-    element.addEventListener('focus', () => ensurePricingPlanData());
+    element.addEventListener('mouseenter', () => ensureJNewsPricingPlanData());
+    element.addEventListener('focus', () => ensureJNewsPricingPlanData());
     element.addEventListener('click', (event) => {
-        const { pricingUrl } = getFreemiusSettings();
-        const targetUrl = getUpgradeUrlWithUtm(pricingUrl || element.href);
+        const { pricingUrl } = getJNewsFreemiusSettings();
+        const targetUrl = getJNewsUpgradeUrlWithUtm(pricingUrl || element.href);
 
         if (!targetUrl) {
             return;
         }
 
-        openFreemiusPopup(event, targetUrl);
+        openJNewsFreemiusPopup(event, targetUrl);
     });
 };
 
@@ -232,7 +232,7 @@ const bindFreemiusUpgradeLinks = (root = document) => {
     root.querySelectorAll(JNEWS_FREEMIUS_MENU_SELECTOR).forEach(bindFreemiusUpgradeLink);
 };
 
-const initializeFreemiusPopup = () => {
+const initializeJNewsFreemiusPopup = () => {
     if (typeof window === 'undefined' || typeof document === 'undefined' || window.jnewsBlocksFreemiusInitialized) {
         return;
     }
@@ -243,7 +243,7 @@ const initializeFreemiusPopup = () => {
         bindFreemiusUpgradeLinks();
 
         if (shouldHandleUpgradeRoute()) {
-            openFreemiusPopup(null, null, { medium: 'dashboardnav' });
+            openJNewsFreemiusPopup(null, null, { medium: 'dashboardnav' });
         }
 
         const observer = new MutationObserver(() => bindFreemiusUpgradeLinks());
@@ -258,14 +258,14 @@ const initializeFreemiusPopup = () => {
     document.addEventListener('DOMContentLoaded', setup, { once: true });
 };
 
-initializeFreemiusPopup();
+initializeJNewsFreemiusPopup();
 
 export {
-    closeFreemiusPopup,
-    getFreemiusCampaign,
-    getFreemiusSettings,
-    getUpgradeUrlWithUtm,
-    getUpgradeProps,
-    initializeFreemiusPopup,
-    openFreemiusPopup,
+    closeJNewsFreemiusPopup,
+    getJNewsFreemiusCampaign,
+    getJNewsFreemiusSettings,
+    getJNewsUpgradeUrlWithUtm,
+    getJNewsUpgradeProps,
+    initializeJNewsFreemiusPopup,
+    openJNewsFreemiusPopup,
 };

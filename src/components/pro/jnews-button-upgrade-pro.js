@@ -4,8 +4,8 @@ import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import { isEmpty } from 'gutenverse-core/helper';
 import { Link } from 'gutenverse-core/router';
-import { getUpgradeProps, openFreemiusPopup } from '../../helper/jnews-freemius';
-import { prefetchPricingPlanData } from '../../helper/jnews-pricing-plan';
+import { getJNewsUpgradeProps, openJNewsFreemiusPopup } from '../../helper/jnews-freemius';
+import { prefetchJNewsPricingPlanData } from '../../helper/jnews-pricing-plan';
 
 /**
  * Styling can be imported from the scss file in 'gutenverse-core/src/assets/pro.scss'.
@@ -52,12 +52,12 @@ const JNewsButtonUpgradePro = ({
     const proLink =  link ? link : jnewsBlocksUpgradeUrl;
     const dashboardLink = adminUrl + `admin.php?page=${dashboard}&path=license`;
     const hoverProps = {
-        onMouseEnter: () => prefetchPricingPlanData(),
-        onFocus: () => prefetchPricingPlanData(),
+        onMouseEnter: () => prefetchJNewsPricingPlanData(),
+        onFocus: () => prefetchJNewsPricingPlanData(),
     };
 
     const getNoProButtonProps = (targetUrl) => {
-        const upgradeProps = getUpgradeProps(targetUrl, upgradeOptions);
+        const upgradeProps = getJNewsUpgradeProps(targetUrl, upgradeOptions);
 
         if (!onClick || !upgradeProps?.onClick) {
             return upgradeProps;
@@ -71,7 +71,7 @@ const JNewsButtonUpgradePro = ({
 
                 // Let the parent popup unmount before showing the pricing modal.
                 window.setTimeout(() => {
-                    openFreemiusPopup(null, targetUrl, upgradeOptions);
+                    openJNewsFreemiusPopup(null, targetUrl, upgradeOptions);
                 }, 0);
             },
         };

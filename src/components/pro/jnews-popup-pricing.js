@@ -3,7 +3,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { IconCloseSVG } from 'gutenverse-core/icons';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { Checkout } from '@freemius/checkout';
-import { ensurePricingPlanData, getPricingPlanFallback } from '../../helper/jnews-pricing-plan';
+import { ensureJNewsPricingPlanData, getJNewsPricingPlanFallback } from '../../helper/jnews-pricing-plan';
 
 const JNEWS_TRACKING_TIMEOUT = 2000;
 const JNEWS_CLOSE_REQUEST_EVENT = 'jnews-blocks:pricing-popup-close-request';
@@ -220,7 +220,7 @@ const ensureLemonSqueezyLoaded = () => {
 
 const JNewsPopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     const runtime = window['GutenverseConfig'] ? window['GutenverseConfig'] : window['GutenverseDashboard'];
-    const [pricingPlan, setPricingPlan] = useState(() => getPricingPlanFallback());
+    const [pricingPlan, setPricingPlan] = useState(() => getJNewsPricingPlanFallback());
     const [checkoutRequest, setCheckoutRequest] = useState({ planKey: null, loading: false, error: '' });
     const plans = (pricingPlan.active_promotion || []).map((plan) => normalizePlan(plan, {
         eventExpired: isEventExpired(pricingPlan?.event_expired),
@@ -310,7 +310,7 @@ const JNewsPopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     useEffect(() => {
         let isMounted = true;
 
-        ensurePricingPlanData().then((nextPricingPlan) => {
+        ensureJNewsPricingPlanData().then((nextPricingPlan) => {
             if (isMounted) {
                 setPricingPlan(nextPricingPlan);
             }

@@ -88,15 +88,15 @@ const setRuntimePricingPlan = (pricingPlan) => {
     return pricingPlan;
 };
 
-const getPricingPlanFallback = () => {
+const getJNewsPricingPlanFallback = () => {
     const runtime = getFallbackRuntimeObjects().find((item) => isValidPricingPlan(item?.jnewsBlocksPricingPlan)) || {};
 
     return normalizePricingPlan(runtime?.jnewsBlocksPricingPlan);
 };
 
-const ensurePricingPlanData = ({ force = false } = {}) => {
+const ensureJNewsPricingPlanData = ({ force = false } = {}) => {
     const tempPricingPlan = normalizePricingPlan(getTempPricingPlanData());
-    const fallbackPricingPlan = getPricingPlanFallback();
+    const fallbackPricingPlan = getJNewsPricingPlanFallback();
 
     if (!force && getTempPricingPlanData()) {
         return Promise.resolve(setRuntimePricingPlan(tempPricingPlan));
@@ -127,13 +127,13 @@ const ensurePricingPlanData = ({ force = false } = {}) => {
     return setPricingPlanPromise(pricingPlanPromise);
 };
 
-const prefetchPricingPlanData = () => {
-    ensurePricingPlanData();
+const prefetchJNewsPricingPlanData = () => {
+    ensureJNewsPricingPlanData();
 };
 
 export {
     JNEWS_DEFAULT_PRICING_PLAN,
-    ensurePricingPlanData,
-    getPricingPlanFallback,
-    prefetchPricingPlanData,
+    ensureJNewsPricingPlanData,
+    getJNewsPricingPlanFallback,
+    prefetchJNewsPricingPlanData,
 };
