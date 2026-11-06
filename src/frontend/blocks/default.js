@@ -15,7 +15,7 @@ export class Default {
             setTimeout(() => {
                 addReinitHandler([
                     {
-                        name: this.constructor.name,
+                        name: Math.random().toString(36).substring(2, 12),
                         selector,
                         handler: (elements, data) => {
                             this.context = 'reinit';
