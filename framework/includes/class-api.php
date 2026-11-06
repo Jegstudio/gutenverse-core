@@ -430,6 +430,12 @@ class Api {
 				'methods'             => 'GET',
 				'callback'            => array( $this, 'menu_render' ),
 				'permission_callback' => '__return_true',
+				'args'                => array(
+					'container' => array(
+						'type'    => 'boolean',
+						'default' => true,
+					),
+				),
 			)
 		);
 
@@ -2643,7 +2649,9 @@ class Api {
 	public function menu_render( $request ) {
 		$menu_id = $request->get_param( 'menu' );
 
-		return gutenverse_get_menu( $menu_id );
+		$container = $request->get_param( 'container' );
+
+		return gutenverse_get_menu( $menu_id, null === $container ? true : rest_sanitize_boolean( $container ) );
 	}
 
 	/**

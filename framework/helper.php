@@ -1548,11 +1548,13 @@ if ( ! function_exists( 'gutenverse_get_menu' ) ) {
 	 * Get menu.
 	 *
 	 * @param int|string $menu_id Menu ID.
+	 * @param bool       $with_container Whether to include the menu container.
 	 */
-	function gutenverse_get_menu( $menu_id ) {
+	function gutenverse_get_menu( $menu_id, $with_container = true ) {
 		return wp_nav_menu(
 			array(
 				'menu'            => esc_attr( $menu_id ),
+				'container'       => $with_container ? 'div' : false,
 				'menu_class'      => 'gutenverse-menu',
 				'container_class' => 'gutenverse-menu-container',
 				'echo'            => false,
