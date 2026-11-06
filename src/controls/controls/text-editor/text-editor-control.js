@@ -43,10 +43,10 @@ const TextEditorControl = (props) => {
                 description={description}
                 allowDeviceControl={false}
             />
-            <div className="gvnews-text-editor-wrapper">
+            <div className="jnews-blocks-text-editor-wrapper">
                 <div className="editor-header">
                     <h3>{label}</h3>
-                    <button className="gvnews-exit-fullscreen" onClick={exitFullScreen}>
+                    <button className="jnews-blocks-exit-fullscreen" onClick={exitFullScreen}>
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.33341 1.6665L1.66675 8.33317M1.66675 1.6665L8.33341 8.33317" stroke="#98A2B3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
