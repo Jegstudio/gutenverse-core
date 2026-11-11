@@ -294,7 +294,7 @@ abstract class Post_Abstract extends Block_Abstract {
 		}
 
 		if ( isset( $attr['paginationNumberPost'] ) ) {
-			$attr['paginationNumberPost'] = intval( $attr['paginationNumberPost'] );
+			$attr['paginationNumberPost'] = max( 1, intval( $attr['paginationNumberPost'] ) );
 		}
 
 		if ( isset( $attr['paged'] ) ) {
@@ -302,7 +302,7 @@ abstract class Post_Abstract extends Block_Abstract {
 		}
 
 		if ( isset( $attr['numberPost'] ) ) {
-			$attr['numberPost'] = intval( $attr['numberPost'] );
+			$attr['numberPost'] = max( 1, intval( $attr['numberPost'] ) );
 		}
 
 		if ( ! isset( $attr['paginationNumberPost'] ) || ( isset( $attr['paginationMode'] ) && ( 'number' === $attr['paginationMode'] || 'prevnext' === $attr['paginationMode'] ) ) ) {
@@ -1146,16 +1146,15 @@ abstract class Post_Abstract extends Block_Abstract {
 	 * @return int
 	 */
 	private static function count_total_page( $pagination_mode, $total, $curpage = 1, $offset = 0, $perpage = 2, $perpage_ajax = 2 ) {
+		$perpage = max( 1, (int) $perpage );
+
 		if ( ! in_array( $pagination_mode, array( 'loadmore', 'scrollload' ), true ) ) {
 			$perpage_ajax = $perpage;
 		}
 
-		$remain = (int) $total - ( (int) $offset + (int) $perpage );
-		while ( $remain > 0 ) {
-			$remain -= $perpage_ajax;
-			++$curpage;
-		}
+		$perpage_ajax = max( 1, (int) $perpage_ajax );
+		$remain       = max( 0, (int) $total - ( (int) $offset + $perpage ) );
 
-		return $curpage;
+		return (int) $curpage + (int) ceil( $remain / $perpage_ajax );
 	}
 }
