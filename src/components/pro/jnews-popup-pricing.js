@@ -4,6 +4,8 @@ import { IconCloseSVG } from 'gutenverse-core/icons';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { Checkout } from '@freemius/checkout';
 import { ensureJNewsPricingPlanData, getJNewsPricingPlanFallback } from '../../helper/jnews-pricing-plan';
+import { resolveCheckoutProvider, getFreemiusCheckoutConfig } from '../../helper/checkout-provider';
+import { isPricingPromotionExpired } from '../../helper/pricing-promotion';
 
 const JNEWS_TRACKING_TIMEOUT = 2000;
 const JNEWS_CLOSE_REQUEST_EVENT = 'jnews-blocks:pricing-popup-close-request';
@@ -11,14 +13,6 @@ const JNEWS_TRACKING_API_PATH = 'gutenverse-client/v1/freemius/checkout-tracking
 const JNEWS_LEMON_CHECKOUT_URL_API_PATH = 'gutenverse-client/v1/lemon-squeezy/jnews-checkout-url';
 const JNEWS_LEMON_JS_URL = 'https://app.lemonsqueezy.com/js/lemon.js';
 const JNEWS_LEMON_SCRIPT_ID = 'gutenverse-lemon-squeezy-js';
-const JNEWS_DEFAULT_CHECKOUT_PROVIDER = 'default';
-const JNEWS_CHECKOUT_PROVIDERS = ['freemius', 'lemon_squeezy', 'default'];
-const JNEWS_CHECKOUT_PROVIDER_ALIASES = {
-    lemon: 'lemon_squeezy',
-    lemonsqueezy: 'lemon_squeezy',
-    'lemon-squeezy': 'lemon_squeezy',
-};
-
 const JNEWS_BADGES = [
     __('All Features Included', 'jnews-blocks'),
     __('Dedicated Support', 'jnews-blocks'),
@@ -82,20 +76,6 @@ const getPlanFeatureGroups = (slug) => Object.entries(JNEWS_FEATURES)
     }))
     .filter(({ features }) => features.length);
 
-const isEventExpired = (eventExpired) => {
-    if (!eventExpired) {
-        return true;
-    }
-
-    const expiredAt = new Date(eventExpired);
-
-    if (Number.isNaN(expiredAt.getTime())) {
-        return true;
-    }
-
-    return expiredAt.getTime() <= Date.now();
-};
-
 const normalizePlan = (plan, { eventExpired = false } = {}) => {
     const slug = plan?.slug || '';
     const currency = plan?.currency || 'USD';
@@ -129,11 +109,6 @@ const normalizePlan = (plan, { eventExpired = false } = {}) => {
     };
 };
 
-const normalizeCheckoutProvider = (provider = JNEWS_DEFAULT_CHECKOUT_PROVIDER) => {
-    const normalizedProvider = JNEWS_CHECKOUT_PROVIDER_ALIASES[provider] || provider;
-
-    return JNEWS_CHECKOUT_PROVIDERS.includes(normalizedProvider) ? normalizedProvider : JNEWS_DEFAULT_CHECKOUT_PROVIDER;
-};
 
 let lemonScriptPromise = null;
 
@@ -223,7 +198,7 @@ const JNewsPopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     const [pricingPlan, setPricingPlan] = useState(() => getJNewsPricingPlanFallback());
     const [checkoutRequest, setCheckoutRequest] = useState({ planKey: null, loading: false, error: '' });
     const plans = (pricingPlan.active_promotion || []).map((plan) => normalizePlan(plan, {
-        eventExpired: isEventExpired(pricingPlan?.event_expired),
+        eventExpired: isPricingPromotionExpired(pricingPlan),
     }));
     const fsCheckoutRef = useRef(null);
     const closePromiseRef = useRef(null);
@@ -231,7 +206,7 @@ const JNewsPopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
     const handleCloseRef = useRef(null);
     const lemonCheckoutRequestRef = useRef(false);
     const hasPlans = plans.length > 0;
-    const checkoutProvider = normalizeCheckoutProvider(pricingPlan?.checkout_provider || pricingPlan?.payment_provider);
+    const checkoutProvider = resolveCheckoutProvider(pricingPlan);
     const isPreparingLemonCheckout = 'lemon_squeezy' === checkoutProvider && checkoutRequest.loading;
 
     const getTrackingPayload = ({ action, plan = null, checkoutData = null } = {}) => {
@@ -257,8 +232,8 @@ const JNewsPopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
             pricing_id: plan?.pricing_id || checkoutData?.pricing_id || null,
             plan_slug: plan?.slug || null,
             plan_name: plan?.name || null,
-            coupon_code: isEventExpired(pricingPlan?.event_expired) ? '' : plan?.coupon_code,
-            discount_amount: isEventExpired(pricingPlan?.event_expired) ? '' : plan?.discount_amount,
+            coupon_code: isPricingPromotionExpired(pricingPlan) ? '' : plan?.coupon_code,
+            discount_amount: isPricingPromotionExpired(pricingPlan) ? '' : plan?.discount_amount,
             external_id: checkoutData?.purchase?.license_id,
             checkout_data: checkoutData,
         };
@@ -430,22 +405,19 @@ const JNewsPopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
             return;
         }
 
-        if (!pricingPlan?.public_key || !pricingPlan?.product_id) {
+        const checkoutOptions = getFreemiusCheckoutConfig(pricingPlan);
+        const planKey = getPlanKey(plan);
+        // TEMPORARY LOCAL SANDBOX TESTING — DO NOT COMMIT / DO NOT PUSH TO GITHUB.
+        // Block cached live configuration as well as failed sandbox-token requests.
+        if (!checkoutOptions.sandbox?.ctx || !checkoutOptions.sandbox?.token) {
+            setCheckoutRequest({ planKey, loading: false, error: __('Sandbox checkout is not ready. Reload after configuring the local license server.', 'jnews-blocks') });
+            return;
+        }
+        if (!checkoutOptions.public_key || !checkoutOptions.product_id || !plan?.plan_id || !plan?.pricing_id) {
+            setCheckoutRequest({ planKey, loading: false, error: __('Checkout is currently unavailable. Please try again later.', 'jnews-blocks') });
             return;
         }
 
-        if (!fsCheckoutRef.current) {
-            const checkoutOptions = {
-                product_id: pricingPlan?.product_id,
-                public_key: pricingPlan?.public_key,
-            };
-
-            if (pricingPlan?.sandbox) {
-                checkoutOptions.sandbox = pricingPlan?.sandbox;
-            }
-
-            fsCheckoutRef.current = new Checkout(checkoutOptions);
-        }
 
         const openOptions = {
             title: __('JNews Blocks Checkout', 'jnews-blocks'),
@@ -453,12 +425,20 @@ const JNewsPopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
             pricing_id: plan.pricing_id,
             billing_cycle: 'annual',
             currency: 'auto',
-            readonly_user: true,
-            coupon: isEventExpired(pricingPlan?.event_expired) ? '' : plan?.coupon_code,
+            coupon: isPricingPromotionExpired(pricingPlan) ? '' : plan?.coupon_code,
             success: (data) => handleClose({ action: 'checkout_success', plan, checkoutData: data }),
         };
 
-        fsCheckoutRef.current.open(openOptions);
+        try {
+            if (!fsCheckoutRef.current) {
+                fsCheckoutRef.current = new Checkout(checkoutOptions);
+            }
+            setCheckoutRequest({ planKey: null, loading: false, error: '' });
+            fsCheckoutRef.current.open(openOptions);
+        } catch (error) {
+            fsCheckoutRef.current = null;
+            setCheckoutRequest({ planKey, loading: false, error: __('Unable to open checkout. Please try again.', 'jnews-blocks') });
+        }
     };
 
     return (

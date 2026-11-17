@@ -4,6 +4,8 @@ import { IconCloseSVG } from 'gutenverse-core/icons';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { Checkout } from '@freemius/checkout';
 import { ensurePricingPlanData, getPricingPlanFallback } from '../../helper/pricing-plan';
+import { resolveCheckoutProvider, getFreemiusCheckoutConfig } from '../../helper/checkout-provider';
+import { isPricingPromotionExpired } from '../../helper/pricing-promotion';
 
 const TRACKING_TIMEOUT = 2000;
 const CLOSE_REQUEST_EVENT = 'gutenverse:pricing-popup-close-request';
@@ -11,14 +13,6 @@ const TRACKING_API_PATH = 'gutenverse-client/v1/freemius/checkout-tracking';
 const LEMON_CHECKOUT_URL_API_PATH = 'gutenverse-client/v1/lemon-squeezy/checkout-url';
 const LEMON_JS_URL = 'https://app.lemonsqueezy.com/js/lemon.js';
 const LEMON_SCRIPT_ID = 'gutenverse-lemon-squeezy-js';
-const DEFAULT_CHECKOUT_PROVIDER = 'default';
-const CHECKOUT_PROVIDERS = ['freemius', 'lemon_squeezy', 'default'];
-const CHECKOUT_PROVIDER_ALIASES = {
-    lemon: 'lemon_squeezy',
-    lemonsqueezy: 'lemon_squeezy',
-    'lemon-squeezy': 'lemon_squeezy',
-};
-
 const BADGES = [
     __('No Credit Card Required', 'gutenverse'),
     __('Lifetime Support', 'gutenverse'),
@@ -222,20 +216,6 @@ const getPlanFeatureGroups = (slug) => Object.entries(FEATURES)
     }))
     .filter(({ features }) => features.length);
 
-const isEventExpired = (eventExpired) => {
-    if (!eventExpired) {
-        return true;
-    }
-
-    const expiredAt = new Date(eventExpired);
-
-    if (Number.isNaN(expiredAt.getTime())) {
-        return true;
-    }
-
-    return expiredAt.getTime() <= Date.now();
-};
-
 const normalizePlan = (plan, { eventExpired = false } = {}) => {
     const slug = plan?.slug || '';
     const currency = plan?.currency || 'USD';
@@ -269,11 +249,6 @@ const normalizePlan = (plan, { eventExpired = false } = {}) => {
     };
 };
 
-const normalizeCheckoutProvider = (provider = DEFAULT_CHECKOUT_PROVIDER) => {
-    const normalizedProvider = CHECKOUT_PROVIDER_ALIASES[provider] || provider;
-
-    return CHECKOUT_PROVIDERS.includes(normalizedProvider) ? normalizedProvider : DEFAULT_CHECKOUT_PROVIDER;
-};
 
 let lemonScriptPromise = null;
 
@@ -365,7 +340,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '', hideStandardPlan = false }
     const plans = (pricingPlan.active_promotion || [])
         .filter((plan) => !hideStandardPlan || plan?.slug !== 'standard')
         .map((plan) => normalizePlan(plan, {
-            eventExpired: isEventExpired(pricingPlan?.event_expired),
+            eventExpired: isPricingPromotionExpired(pricingPlan),
         }));
     const fsCheckoutRef = useRef(null);
     const closePromiseRef = useRef(null);
@@ -373,7 +348,7 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '', hideStandardPlan = false }
     const handleCloseRef = useRef(null);
     const lemonCheckoutRequestRef = useRef(false);
     const hasPlans = plans.length > 0;
-    const checkoutProvider = normalizeCheckoutProvider(pricingPlan?.checkout_provider || pricingPlan?.payment_provider);
+    const checkoutProvider = resolveCheckoutProvider(pricingPlan);
     const isPreparingLemonCheckout = 'lemon_squeezy' === checkoutProvider && checkoutRequest.loading;
 
     const getTrackingPayload = ({ action, plan = null, checkoutData = null } = {}) => {
@@ -399,8 +374,8 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '', hideStandardPlan = false }
             pricing_id: plan?.pricing_id || checkoutData?.pricing_id || null,
             plan_slug: plan?.slug || null,
             plan_name: plan?.name || null,
-            coupon_code: isEventExpired(pricingPlan?.event_expired) ? '' : plan?.coupon_code,
-            discount_amount: isEventExpired(pricingPlan?.event_expired) ? '' : plan?.discount_amount,
+            coupon_code: isPricingPromotionExpired(pricingPlan) ? '' : plan?.coupon_code,
+            discount_amount: isPricingPromotionExpired(pricingPlan) ? '' : plan?.discount_amount,
             external_id: checkoutData?.purchase?.license_id,
             checkout_data: checkoutData,
         };
@@ -572,22 +547,13 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '', hideStandardPlan = false }
             return;
         }
 
-        if (!pricingPlan?.public_key || !pricingPlan?.product_id) {
+        const checkoutOptions = getFreemiusCheckoutConfig(pricingPlan);
+        const planKey = getPlanKey(plan);
+        if (!checkoutOptions.public_key || !checkoutOptions.product_id || !plan?.plan_id || !plan?.pricing_id) {
+            setCheckoutRequest({ planKey, loading: false, error: __('Checkout is currently unavailable. Please try again later.', 'gutenverse') });
             return;
         }
 
-        if (!fsCheckoutRef.current) {
-            const checkoutOptions = {
-                product_id: pricingPlan?.product_id,
-                public_key: pricingPlan?.public_key,
-            };
-
-            if (pricingPlan?.sandbox) {
-                checkoutOptions.sandbox = pricingPlan?.sandbox;
-            }
-
-            fsCheckoutRef.current = new Checkout(checkoutOptions);
-        }
 
         const openOptions = {
             title: __('Gutenverse Checkout', 'gutenverse-pro'),
@@ -595,12 +561,20 @@ const PopupPricingPlan = ({ onClose, pricingUrl = '', hideStandardPlan = false }
             pricing_id: plan.pricing_id,
             billing_cycle: 'annual',
             currency: 'auto',
-            readonly_user: true,
-            coupon: isEventExpired(pricingPlan?.event_expired) ? '' : plan?.coupon_code,
+            coupon: isPricingPromotionExpired(pricingPlan) ? '' : plan?.coupon_code,
             success: (data) => handleClose({ action: 'checkout_success', plan, checkoutData: data }),
         };
 
-        fsCheckoutRef.current.open(openOptions);
+        try {
+            if (!fsCheckoutRef.current) {
+                fsCheckoutRef.current = new Checkout(checkoutOptions);
+            }
+            setCheckoutRequest({ planKey: null, loading: false, error: '' });
+            fsCheckoutRef.current.open(openOptions);
+        } catch (error) {
+            fsCheckoutRef.current = null;
+            setCheckoutRequest({ planKey, loading: false, error: __('Unable to open checkout. Please try again.', 'gutenverse') });
+        }
     };
 
     return (

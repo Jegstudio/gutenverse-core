@@ -1,4 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
+import { resolveCheckoutProvider } from './checkout-provider';
 
 const PRICING_PLAN_API_PATH = 'gutenverse-client/v1/pricing-plan';
 const DEFAULT_PRICING_PLAN = {
@@ -72,6 +73,7 @@ const isValidPricingPlan = (pricingPlan) => Boolean(
 const normalizePricingPlan = (pricingPlan = null) => ({
     ...DEFAULT_PRICING_PLAN,
     ...(isValidPricingPlan(pricingPlan) ? pricingPlan : {}),
+    checkout_provider: resolveCheckoutProvider(isValidPricingPlan(pricingPlan) ? pricingPlan : {}),
 });
 
 const setRuntimePricingPlan = (pricingPlan) => {

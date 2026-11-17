@@ -1,4 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
+import { resolveCheckoutProvider } from './checkout-provider';
 
 const JNEWS_PRICING_PLAN_API_PATH = 'gutenverse-client/v1/jnews-pricing-plan';
 const JNEWS_DEFAULT_PRICING_PLAN = {
@@ -72,6 +73,7 @@ const isValidPricingPlan = (pricingPlan) => Boolean(
 const normalizePricingPlan = (pricingPlan = null) => ({
     ...JNEWS_DEFAULT_PRICING_PLAN,
     ...(isValidPricingPlan(pricingPlan) ? pricingPlan : {}),
+    checkout_provider: resolveCheckoutProvider(isValidPricingPlan(pricingPlan) ? pricingPlan : {}),
 });
 
 const setRuntimePricingPlan = (pricingPlan) => {
@@ -82,7 +84,7 @@ const setRuntimePricingPlan = (pricingPlan) => {
     window.JnewsBlocksTempPricingData = pricingPlan;
 
     getRuntimeObjects().forEach((runtime) => {
-        runtime.pricingPlan = pricingPlan;
+        runtime.jnewsBlocksPricingPlan = pricingPlan;
     });
 
     return pricingPlan;
