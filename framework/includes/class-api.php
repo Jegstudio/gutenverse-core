@@ -490,21 +490,6 @@ class Api {
 		$body = wp_remote_retrieve_body( $response );
 		$data = json_decode( $body );
 
-		// TEMPORARY LOCAL SANDBOX TESTING — DO NOT COMMIT / DO NOT PUSH TO GITHUB.
-		// Never fall back to live checkout when the local sandbox token is unavailable.
-		if ( defined( 'JNEWS_BLOCKS_LOCAL_SANDBOX_CHECKOUT' ) && JNEWS_BLOCKS_LOCAL_SANDBOX_CHECKOUT && isset( $data->checkout_provider ) && 'freemius' === $data->checkout_provider ) {
-			$sandbox_response = wp_remote_request(
-				rtrim( GUTENVERSE_JNEWS_BLOCK_PRO_SERVER_URL, '/' ) . '/wp-json/jnews-license/v1/freemius/local-sandbox-config',
-				array( 'method' => 'GET', 'timeout' => 10, 'headers' => array( 'Cache-Control' => 'no-cache' ) )
-			);
-			$sandbox_config = ! is_wp_error( $sandbox_response ) ? json_decode( wp_remote_retrieve_body( $sandbox_response ), true ) : null;
-			if ( is_wp_error( $sandbox_response ) || 200 !== (int) wp_remote_retrieve_response_code( $sandbox_response ) || empty( $sandbox_config['sandbox']['ctx'] ) || empty( $sandbox_config['sandbox']['token'] ) || (string) $data->product_id !== (string) $sandbox_config['product_id'] ) {
-				return new \WP_Error( 'local_sandbox_unavailable', 'Local Freemius sandbox configuration is unavailable or the product IDs do not match. Live checkout is disabled for this test.', array( 'status' => 503 ) );
-			}
-			$data->public_key = $sandbox_config['public_key'];
-			$data->sandbox = $sandbox_config['sandbox'];
-		}
-
 		return new \WP_REST_Response(
 			array(
 				'pricingPlan' => $data,

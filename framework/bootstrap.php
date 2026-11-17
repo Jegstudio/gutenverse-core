@@ -31,13 +31,9 @@ defined( 'GUTENVERSE_UPGRADE_URL' ) || define( 'GUTENVERSE_UPGRADE_URL', 'https:
 defined( 'GUTENVERSE_FRAMEWORK_PRO_URL' ) || define( 'GUTENVERSE_FRAMEWORK_PRO_URL', 'https://pro.gutenverse.com/' );
 defined( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL' ) || define( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL', 'https://pro.gutenverse.com/invite' );
 
-// TEMPORARY LOCAL SANDBOX TESTING — DO NOT COMMIT / DO NOT PUSH TO GITHUB.
-// Remove this override and the matching local-sandbox-config blocks after testing.
-defined( 'JNEWS_BLOCKS_LOCAL_SANDBOX_CHECKOUT' ) || define( 'JNEWS_BLOCKS_LOCAL_SANDBOX_CHECKOUT', true );
-
 // jnews path.
-defined( 'GUTENVERSE_JNEWS_BLOCK_LIBRARY_URL' ) || define( 'GUTENVERSE_JNEWS_BLOCK_LIBRARY_URL', 'http://jnews-landing.local/' );
-defined( 'GUTENVERSE_JNEWS_BLOCK_PRO_SERVER_URL' ) || define( 'GUTENVERSE_JNEWS_BLOCK_PRO_SERVER_URL', 'http://jnews-license.local/' );
+defined( 'GUTENVERSE_JNEWS_BLOCK_LIBRARY_URL' ) || define( 'GUTENVERSE_JNEWS_BLOCK_LIBRARY_URL', 'https://jnews.io/' );
+defined( 'GUTENVERSE_JNEWS_BLOCK_PRO_SERVER_URL' ) || define( 'GUTENVERSE_JNEWS_BLOCK_PRO_SERVER_URL', 'https://pro.jnews.io/' );
 defined( 'GUTENVERSE_JNEWS_BLOCK_UPGRADE_URL' ) || define( 'GUTENVERSE_JNEWS_BLOCK_UPGRADE_URL', 'https://jnews.io/pricing' );
 
 require_once 'autoload.php';

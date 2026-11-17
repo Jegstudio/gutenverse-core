@@ -407,12 +407,6 @@ const JNewsPopupPricingPlan = ({ onClose, pricingUrl = '' }) => {
 
         const checkoutOptions = getFreemiusCheckoutConfig(pricingPlan);
         const planKey = getPlanKey(plan);
-        // TEMPORARY LOCAL SANDBOX TESTING — DO NOT COMMIT / DO NOT PUSH TO GITHUB.
-        // Block cached live configuration as well as failed sandbox-token requests.
-        if (!checkoutOptions.sandbox?.ctx || !checkoutOptions.sandbox?.token) {
-            setCheckoutRequest({ planKey, loading: false, error: __('Sandbox checkout is not ready. Reload after configuring the local license server.', 'jnews-blocks') });
-            return;
-        }
         if (!checkoutOptions.public_key || !checkoutOptions.product_id || !plan?.plan_id || !plan?.pricing_id) {
             setCheckoutRequest({ planKey, loading: false, error: __('Checkout is currently unavailable. Please try again later.', 'jnews-blocks') });
             return;
