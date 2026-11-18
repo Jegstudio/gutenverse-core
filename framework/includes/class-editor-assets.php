@@ -215,6 +215,7 @@ class Editor_Assets {
 		$config['supportGlobalImport']      = $this->check_theme_support_global();
 		$config['defaultImageLoad']         = $this->get_default_image_load_option();
 		$config['pricingPlan']              = gutenverse_get_pricing_plan();
+		$config['jnewsBlocksPricingPlan']   = gutenverse_jnews_get_pricing_plan();
 		$config['is_wporg_theme']           = gutenverse_is_wporg_theme();
 		$config['adminRuntime']             = $admin_runtime;
 
